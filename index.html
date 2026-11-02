@@ -80,14 +80,14 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 .prisrække b { color: var(--text-1); }
 .prisrække small { color: var(--text-3); text-align: right; }
 .prisrække.bedst b, .prisrække.bedst small { color: var(--emerald); }
-.top5 { display: block; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
-.top5-vare { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: center; padding: 4px 0; }
-.top5-vare img, .top5-ingen { width: 34px; height: 34px; object-fit: contain; background: #fff; border-radius: 6px; display: block; }
-.top5-tekst { min-width: 0; line-height: 1.25; }
-.top5-navn { display: block; color: var(--text-1); font-size: 13px; }
-.top5-tekst small { display: block; color: var(--text-3); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.top5-enhed { color: var(--emerald); }
-.top5-vare b { color: var(--amber); font-size: 13px; white-space: nowrap; }
+.top3 { display: block; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.top3-vare { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: center; padding: 4px 0; }
+.top3-vare img, .top3-ingen { width: 34px; height: 34px; object-fit: contain; background: #fff; border-radius: 6px; display: block; }
+.top3-tekst { min-width: 0; line-height: 1.25; }
+.top3-navn { display: block; color: var(--text-1); font-size: 13px; }
+.top3-tekst small { display: block; color: var(--text-3); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.top3-enhed { color: var(--emerald); }
+.top3-vare b { color: var(--amber); font-size: 13px; white-space: nowrap; }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -352,11 +352,11 @@ function renderButikker() {
             <small>${bedst ? 'billigst' : forskel > 0 ? `+${kr(forskel)}` : ''}</small>
           </span>`;
         }).join('')}</span>
-        ${(b.top5 || []).length ? `<span class="top5"><small class="prisoverskrift">🔥 Værd at køre efter</small>${b.top5.map(t => `
-          <span class="top5-vare" title="${esc(t.navn)}">
-            ${t.billede ? `<img src="${esc(t.billede)}" alt="" loading="lazy">` : '<span class="top5-ingen"></span>'}
-            <span class="top5-tekst"><span class="top5-navn">${esc(t.hvorfor)}</span>
-              <small>${t.enhedspris ? `<span class="top5-enhed">${esc(t.enhedspris)}</span> · ` : ''}${esc(kortNavn(t.navn))}</small></span>
+        ${(b.top || []).length ? `<span class="top3"><small class="prisoverskrift">🔥 Værd at køre efter</small>${b.top.slice(0, 3).map(t => `
+          <span class="top3-vare" title="${esc(t.navn)}">
+            ${t.billede ? `<img src="${esc(t.billede)}" alt="" loading="lazy">` : '<span class="top3-ingen"></span>'}
+            <span class="top3-tekst"><span class="top3-navn">${esc(t.hvorfor)}</span>
+              <small>${t.enhedspris ? `<span class="top3-enhed">${esc(t.enhedspris)}</span> · ` : ''}${esc(kortNavn(t.navn))}</small></span>
             <b>${kr(t.pris)}</b>
           </span>`).join('')}</span>` : ''}
       </button>`).join('')}

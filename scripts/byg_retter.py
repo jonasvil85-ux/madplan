@@ -184,16 +184,16 @@ def main():
             retter.append({**r, 'id': f'{butik}-{nr}', 'ingredienser': ingredienser,
                            'pris_tilbud': round(pris, 2), 'pris_oevrigt': round(oevrigt, 2),
                            'pris_i_alt': round(pris + oevrigt, 2), 'andel_tilbud': round(andel, 2)})
-        # Ugens 5 bedste tilbud ("værd at køre efter") – vælges i hånden i butikkens fil
-        top5 = []
-        for t in kilder[butik].get('top5', []):
+        # Ugens 3 bedste tilbud ("værd at køre efter") – vælges i hånden i butikkens fil
+        top = []
+        for t in kilder[butik].get('top', []):
             o = alle.get(t['id'])
             if not o or not t['id'].startswith(b['prefix']):
-                fejl.append(f"{butik}: top5 bruger ugyldigt tilbuds-id {t['id']}")
+                fejl.append(f"{butik}: top bruger ugyldigt tilbuds-id {t['id']}")
                 continue
-            top5.append({'navn': o['navn'], 'pris': o['pris'], 'maengde': o['maengde'], 'enhed': o['enhed'],
+            top.append({'navn': o['navn'], 'pris': o['pris'], 'maengde': o['maengde'], 'enhed': o['enhed'],
                          'billede': o['billede'], 'enhedspris': t.get('enhedspris', enhedspris(o)), 'hvorfor': t['hvorfor']})
-        ud[butik] = {**info, 'top5': top5, 'retter': retter, 'tilbud': brugte}
+        ud[butik] = {**info, 'top': top, 'retter': retter, 'tilbud': brugte}
 
         print(f"\n{info['navn']}: {len(retter)} retter, {len(brugte)} forskellige tilbudsvarer, "
               f"gns. {round(sum(r['andel_tilbud'] for r in retter) / max(1, len(retter)) * 100)}% tilbud")
