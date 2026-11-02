@@ -6,7 +6,7 @@ Ugentlig rutine:
   3. python -I scripts/byg_retter.py              (validerer og skriver retter.json)
   4. git commit + push  -> Vercel deployer automatisk
 """
-import json, math, os, sys
+import json, math, os, re, sys
 from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -15,6 +15,10 @@ from tilbud import BUTIKKER, SNAPSHOT  # noqa: E402
 ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FELTER = ['navn', 'maengde', 'enhed', 'basisvare', 'tilbud']
 NIVEAUER = {'student', 'familie', 'weekend'}
+# Retterne skal være hjemmelavede: ingen færdigretter, færdigtilbehør eller færdige saucer/deje
+FORARBEJDET = re.compile(r'flødekartofler|herregårds|kødboller|melboller|panering|eriks sauce|færdigret|middagsret|'
+                         r'dinner kit|pizzadej|pesto|pastasauce|kopsuppe|snackpot|ristorante|rustica|surdejspizza|'
+                         r'italiensk pizza|æbleskiver|kyllingemarked|kebab|confit|smørrebrød|menu|mortensaften', re.I)
 OMREGN = {'g': ('g', 1), 'kg': ('g', 1000), 'ml': ('ml', 1), 'cl': ('ml', 10), 'l': ('ml', 1000), 'stk': ('stk', 1)}
 
 
@@ -62,6 +66,9 @@ def main():
                     if not tid.startswith(b['prefix']) or tid not in alle:
                         fejl.append(f"{butik}: '{r['navn']}' bruger ugyldigt tilbuds-id {tid}")
                 d['tilbud'] = [t for t in d['tilbud'] if t.startswith(b['prefix']) and t in alle]
+                for t in d['tilbud']:
+                    if FORARBEJDET.search(alle[t]['navn']):
+                        fejl.append(f"{butik}: '{r['navn']}' bruger færdigvare {t} ({alle[t]['navn'][:40]})")
                 if d['tilbud']:
                     t = d['tilbud'][0]
                     brugte[t] = alle[t]

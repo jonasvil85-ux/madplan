@@ -1,5 +1,5 @@
 {
- "genereret": "2026-11-02T14:58:32+00:00",
+ "genereret": "2026-11-02T15:14:33+00:00",
  "butikker": {
   "netto": {
    "navn": "Netto",
@@ -302,8 +302,8 @@
      "andel_tilbud": 1.0
     },
     {
-     "navn": "Fettuccine med bacon, porrer og pesto",
-     "beskrivelse": "15-minutters pasta med sprød bacon, bløde porrer og cremet pesto.",
+     "navn": "Fettuccine med bacon, porrer og flødeostsauce",
+     "beskrivelse": "20-minutters pasta med sprød bacon, bløde porrer og en cremet sauce rørt af flødeost.",
      "niveau": "student",
      "kategori": "svin",
      "tid_minutter": 20,
@@ -337,13 +337,20 @@
        ]
       },
       {
-       "navn": "creamy basilikumpesto",
-       "maengde": 190,
+       "navn": "flødeost",
+       "maengde": 200,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "N135"
+        "N36"
        ]
+      },
+      {
+       "navn": "hvidløg",
+       "maengde": 1,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
       },
       {
        "navn": "sort peber",
@@ -354,32 +361,37 @@
       }
      ],
      "fremgangsmaade": [
-      "Kog pastaen.",
+      "Kog pastaen, og gem en kop af kogevandet.",
       "Steg bacon sprødt på en pande.",
-      "Skær porrerne i tynde ringe, og svits dem i baconfedtet til de er bløde.",
-      "Vend pasta, pesto og en skvæt pastavand i panden.",
-      "Server med friskkværnet peber."
+      "Skær porrerne i tynde ringe, og svits dem med hakket hvidløg i baconfedtet til de er bløde.",
+      "Rør flødeost og lidt pastavand i til en cremet sauce.",
+      "Vend pastaen i, og server med friskkværnet peber."
      ],
      "id": "netto-4",
-     "pris_tilbud": 54.62,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 55,
+     "andel_tilbud": 0.8
     },
     {
      "navn": "Hjemmelavet pizza med bacon og mozzarella",
-     "beskrivelse": "To pizzaer på færdig dej – billigere og bedre end takeaway.",
+     "beskrivelse": "To pizzaer på hjemmelavet dej – billigere og bedre end takeaway.",
      "niveau": "student",
      "kategori": "svin",
-     "tid_minutter": 30,
+     "tid_minutter": 90,
      "spis_tidligt": false,
      "ingredienser": [
       {
-       "navn": "pizzadej",
-       "maengde": 2,
-       "enhed": "pakke",
+       "navn": "hvedemel",
+       "maengde": 500,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "gær",
+       "maengde": 25,
+       "enhed": "g",
        "basisvare": false,
-       "tilbud": [
-        "N90"
-       ]
+       "tilbud": []
       },
       {
        "navn": "hakkede tomater",
@@ -434,6 +446,13 @@
        "tilbud": []
       },
       {
+       "navn": "olie",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
        "navn": "salt",
        "maengde": 0,
        "enhed": "efter smag",
@@ -442,15 +461,15 @@
       }
      ],
      "fremgangsmaade": [
-      "Tænd ovnen på 250 °C.",
-      "Rør tomater, tomatpuré, oregano og salt sammen til sauce.",
-      "Rul dejen ud på bagepapir, og fordel saucen.",
+      "Opløs gæren i 3 dl lunkent vand, og ælt det sammen med mel, olie og 1 tsk salt til en smidig dej. Lad den hæve tildækket i 1 time.",
+      "Tænd ovnen på 250 °C. Rør tomater, tomatpuré, oregano og salt sammen til sauce.",
+      "Del dejen i to, rul den tyndt ud på bagepapir, og fordel saucen.",
       "Top med mozzarella, bacon og tynde løgringe.",
       "Bag pizzaerne 10-12 minutter."
      ],
      "id": "netto-5",
-     "pris_tilbud": 86,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 66,
+     "andel_tilbud": 0.83
     },
     {
      "navn": "Æggekage med bacon, kartofler og porre",
@@ -1332,21 +1351,28 @@
      "andel_tilbud": 1.0
     },
     {
-     "navn": "Oksekebab i madbrød med hvidløgsdressing",
-     "beskrivelse": "Streetfood hjemme: stegt oksekebab i madbrød med rødkål, gulerod og skyrdressing.",
+     "navn": "Hjemmelavet kebab i madbrød med hvidløgsdressing",
+     "beskrivelse": "Streetfood hjemme: oksekød i tynde strimler med egen kebabkrydring, rødkål, gulerod og skyrdressing.",
      "niveau": "familie",
      "kategori": "okse",
-     "tid_minutter": 25,
+     "tid_minutter": 40,
      "spis_tidligt": false,
      "ingredienser": [
       {
-       "navn": "oksekebab",
+       "navn": "oksekød i tern",
        "maengde": 800,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "N48"
+        "N50"
        ]
+      },
+      {
+       "navn": "spidskommen, paprika og oregano",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
       },
       {
        "navn": "madbrød",
@@ -1416,14 +1442,15 @@
       }
      ],
      "fremgangsmaade": [
+      "Skær kødet i meget tynde strimler, og vend dem i olie, krydderier og salt. Lad det trække 20 minutter.",
       "Rør skyr med revet hvidløg og salt til dressing.",
       "Snit rødkålen fint, riv gulerødderne og skær løget i tynde ringe.",
-      "Steg kebabkødet sprødt på en varm pande.",
+      "Steg kødet sprødt i små portioner på en meget varm pande.",
       "Varm madbrødene i ovnen eller på panden.",
       "Fyld brødene med kød, grønt og dressing."
      ],
      "id": "netto-15",
-     "pris_tilbud": 135,
+     "pris_tilbud": 185,
      "andel_tilbud": 0.86
     },
     {
@@ -1666,10 +1693,10 @@
     },
     {
      "navn": "Sprøde andelår med flødekartofler og rødkål",
-     "beskrivelse": "Mortensaften på den nemme måde: ovnstegte andelår med flødekartofler, rødkål og æbler.",
+     "beskrivelse": "Mortensaften på den nemme måde: ovnstegte andelår med hjemmelavede flødekartofler og rødkål med æble.",
      "niveau": "weekend",
      "kategori": "and",
-     "tid_minutter": 90,
+     "tid_minutter": 100,
      "spis_tidligt": false,
      "ingredienser": [
       {
@@ -1682,31 +1709,79 @@
        ]
       },
       {
-       "navn": "flødekartofler",
-       "maengde": 1200,
+       "navn": "kartofler",
+       "maengde": 1000,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "N41"
+        "N87"
        ]
       },
       {
-       "navn": "rødkål (glas)",
+       "navn": "flødeost",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N36"
+       ]
+      },
+      {
+       "navn": "mælk",
+       "maengde": 300,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "N11"
+       ]
+      },
+      {
+       "navn": "rødkål (frisk)",
        "maengde": 1,
        "enhed": "stk",
        "basisvare": false,
        "tilbud": [
-        "N56"
+        "N94"
        ]
       },
       {
        "navn": "æbler",
-       "maengde": 2,
+       "maengde": 3,
        "enhed": "stk",
        "basisvare": false,
        "tilbud": [
         "N97"
        ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N125"
+       ]
+      },
+      {
+       "navn": "hvidløg",
+       "maengde": 2,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "eddike",
+       "maengde": 1,
+       "enhed": "dl",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "sukker",
+       "maengde": 75,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
       },
       {
        "navn": "tørret timian",
@@ -1724,19 +1799,19 @@
       }
      ],
      "fremgangsmaade": [
-      "Tænd ovnen på 175 °C. Gnid andelårene med salt, peber og timian.",
-      "Steg lårene på en rist over et fad i ca. 75 minutter. Skru op til 220 °C de sidste 10 minutter for sprødt skind.",
-      "Bag flødekartoflerne i ovnen efter anvisningen.",
-      "Varm rødkålen med æbletern.",
-      "Server lårene med flødekartofler og rødkål."
+      "Tænd ovnen på 175 °C. Gnid andelårene med salt, peber og timian, og steg dem på en rist over et fad i ca. 75 minutter.",
+      "Rødkål: Snit rødkålen fint, og kog den under låg med løg, 2 æbler i tern, eddike, sukker, 1 dl vand og salt i ca. 1 time. Smag til med sukker og eddike.",
+      "Flødekartofler: Skær kartoflerne i tynde skiver. Varm mælk, flødeost og knust hvidløg sammen, og smag til med salt og peber.",
+      "Læg kartoflerne i et fad, hæld flødeblandingen over og bag dem med lårene i ca. 50 minutter.",
+      "Skru op til 220 °C de sidste 10 minutter for sprødt skind, og server med rødkål og frisk æble i tern."
      ],
      "id": "netto-19",
-     "pris_tilbud": 190,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 181,
+     "andel_tilbud": 0.88
     },
     {
      "navn": "Ribbensteg med rødkål og brunede kartofler",
-     "beskrivelse": "Sprød svær, rødkål med æble og brunede kartofler – julestemning før tid.",
+     "beskrivelse": "Sprød svær, hjemmelavet rødkål med æble og brunede kartofler – julestemning før tid.",
      "niveau": "weekend",
      "kategori": "svin",
      "tid_minutter": 120,
@@ -1752,12 +1827,12 @@
        ]
       },
       {
-       "navn": "rødkål (glas)",
+       "navn": "rødkål (frisk)",
        "maengde": 1,
        "enhed": "stk",
        "basisvare": false,
        "tilbud": [
-        "N56"
+        "N94"
        ]
       },
       {
@@ -1777,6 +1852,22 @@
        "tilbud": [
         "N97"
        ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N125"
+       ]
+      },
+      {
+       "navn": "eddike",
+       "maengde": 1,
+       "enhed": "dl",
+       "basisvare": true,
+       "tilbud": []
       },
       {
        "navn": "laurbærblade",
@@ -1810,12 +1901,975 @@
      "fremgangsmaade": [
       "Tænd ovnen på 200 °C. Gnid sværen med groft salt, og stik laurbærblade i ridserne.",
       "Steg stegen på en rist over en bradepande med vand i ca. 1½ time. Skru op til 250 °C til sidst for sprød svær.",
-      "Kog kartoflerne. Smelt sukker til karamel, tilsæt smør og vend kartoflerne i.",
-      "Varm rødkålen med æbletern.",
+      "Rødkål: Snit rødkålen fint, og kog den under låg med løg, æbler i tern, eddike, 50 g af sukkeret, 1 dl vand og salt i ca. 1 time.",
+      "Kog kartoflerne. Smelt resten af sukkeret til karamel, tilsæt smør og vend kartoflerne i.",
       "Lav sovs af skyen fra bradepanden, og server."
      ],
      "id": "netto-20",
-     "pris_tilbud": 120.85,
+     "pris_tilbud": 133.85,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Grillost-wraps med bønner og avocado",
+     "beskrivelse": "Vegetariske wraps med stegt grillost, krydrede bønner, avocado og skyrdressing.",
+     "niveau": "student",
+     "kategori": "vegetar",
+     "tid_minutter": 25,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "økologisk grillost",
+       "maengde": 400,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N113"
+       ]
+      },
+      {
+       "navn": "tortilla wraps",
+       "maengde": 1,
+       "enhed": "pakke",
+       "basisvare": false,
+       "tilbud": [
+        "N103"
+       ]
+      },
+      {
+       "navn": "kidneybønner",
+       "maengde": 1,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "N44"
+       ]
+      },
+      {
+       "navn": "hakkede tomater",
+       "maengde": 1,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "N66"
+       ]
+      },
+      {
+       "navn": "avocado",
+       "maengde": 3,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N23"
+       ]
+      },
+      {
+       "navn": "skyr",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N13"
+       ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N125"
+       ]
+      },
+      {
+       "navn": "taco-krydderi",
+       "maengde": 1,
+       "enhed": "pakke",
+       "basisvare": false,
+       "tilbud": [
+        "N55"
+       ]
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Svits hakket løg i olie, tilsæt bønner, tomater og krydderi, og lad det simre 10 minutter.",
+      "Skær grillosten i skiver, og steg dem gyldne på en tør pande.",
+      "Skær avocadoerne i skiver.",
+      "Varm wraps, og fyld dem med bønner, grillost, avocado og skyr."
+     ],
+     "id": "netto-21",
+     "pris_tilbud": 128,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Kikærtebøffer i pitabrød med hvidløgsskyr",
+     "beskrivelse": "Sprøde bøffer af kikærter og gulerod i lune pitabrød – billigt og mættende.",
+     "niveau": "student",
+     "kategori": "vegetar",
+     "tid_minutter": 35,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "kikærter",
+       "maengde": 2,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "N44"
+       ]
+      },
+      {
+       "navn": "æg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N1"
+       ]
+      },
+      {
+       "navn": "gulerødder",
+       "maengde": 3,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N134"
+       ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N125"
+       ]
+      },
+      {
+       "navn": "pitabrød",
+       "maengde": 1,
+       "enhed": "pakke",
+       "basisvare": false,
+       "tilbud": [
+        "N115"
+       ]
+      },
+      {
+       "navn": "skyr",
+       "maengde": 250,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N13"
+       ]
+      },
+      {
+       "navn": "rødkål (frisk)",
+       "maengde": 0.25,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N94"
+       ]
+      },
+      {
+       "navn": "hvidløg",
+       "maengde": 2,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvedemel",
+       "maengde": 4,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "spidskommen",
+       "maengde": 1,
+       "enhed": "tsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Mos de afdryppede kikærter groft, og rør dem med æg, 1 revet gulerod, revet løg, mel, spidskommen, salt og peber.",
+      "Form 8 bøffer, og steg dem sprøde i olie 4 minutter på hver side.",
+      "Rør skyr med revet hvidløg og salt.",
+      "Snit rødkålen og riv resten af gulerødderne.",
+      "Varm pitabrødene, og fyld dem med bøffer, grønt og hvidløgsskyr."
+     ],
+     "id": "netto-22",
+     "pris_tilbud": 115,
+     "andel_tilbud": 0.88
+    },
+    {
+     "navn": "Kartoffel-porresuppe med sprød bacon",
+     "beskrivelse": "Cremet suppe af kartofler og porrer, toppet med bacon og serveret med brød.",
+     "niveau": "student",
+     "kategori": "svin",
+     "tid_minutter": 35,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "kartofler",
+       "maengde": 1000,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N87"
+       ]
+      },
+      {
+       "navn": "porrer",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N89"
+       ]
+      },
+      {
+       "navn": "bacon",
+       "maengde": 300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N20"
+       ]
+      },
+      {
+       "navn": "mælk",
+       "maengde": 500,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "N11"
+       ]
+      },
+      {
+       "navn": "Schulstad Det Gode brød",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N2"
+       ]
+      },
+      {
+       "navn": "bouillonterning",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "smør",
+       "maengde": 20,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Skræl kartoflerne og skær dem i tern. Skær porrerne i ringe, og gem lidt af det grønne.",
+      "Svits porrer i smør, tilsæt kartofler, 1 liter vand og bouillon, og kog 20 minutter.",
+      "Blend suppen, rør mælken i og smag til.",
+      "Steg bacon sprødt.",
+      "Server suppen med bacon, porreringe og brød."
+     ],
+     "id": "netto-23",
+     "pris_tilbud": 73,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Kylling i sød-sur med ananas og ris",
+     "beskrivelse": "Hjemmelavet sød-sur sauce med frisk ananas, kylling og grøntsager.",
+     "niveau": "familie",
+     "kategori": "kylling",
+     "tid_minutter": 35,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "kyllingebrystfilet",
+       "maengde": 600,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N3"
+       ]
+      },
+      {
+       "navn": "ananas",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N147"
+       ]
+      },
+      {
+       "navn": "gulerødder",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N134"
+       ]
+      },
+      {
+       "navn": "porre",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N89"
+       ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N125"
+       ]
+      },
+      {
+       "navn": "tomatpuré",
+       "maengde": 140,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N84"
+       ]
+      },
+      {
+       "navn": "jasminris",
+       "maengde": 300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N107"
+       ]
+      },
+      {
+       "navn": "eddike",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "sukker",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "sojasauce",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "hvedemel eller maizena",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 2,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Kog risene. Skær ananas, gulerødder, porre og løg i mundrette stykker.",
+      "Skær kyllingen i tern, vend den i mel og steg den gylden i olie. Tag den op.",
+      "Steg grøntsagerne 3-4 minutter på høj varme.",
+      "Rør tomatpuré, eddike, sukker, soja og 2 dl vand sammen, og hæld på panden. Lad det koge op og tykne.",
+      "Vend kylling og ananas i, varm igennem og server med ris."
+     ],
+     "id": "netto-24",
+     "pris_tilbud": 149,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Spareribs med ovnkartofler og coleslaw",
+     "beskrivelse": "Møre ribs fra ovnen med sprøde kartofler og frisk coleslaw af rødkål og gulerod.",
+     "niveau": "familie",
+     "kategori": "svin",
+     "tid_minutter": 75,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "Jensens spareribs",
+       "maengde": 1500,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N46"
+       ]
+      },
+      {
+       "navn": "friske kartofler",
+       "maengde": 900,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N100"
+       ]
+      },
+      {
+       "navn": "rødkål (frisk)",
+       "maengde": 0.25,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N94"
+       ]
+      },
+      {
+       "navn": "gulerødder",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N134"
+       ]
+      },
+      {
+       "navn": "skyr",
+       "maengde": 150,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N13"
+       ]
+      },
+      {
+       "navn": "ketchup",
+       "maengde": 4,
+       "enhed": "spsk",
+       "basisvare": false,
+       "tilbud": [
+        "N160"
+       ]
+      },
+      {
+       "navn": "olie",
+       "maengde": 2,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 175 °C. Læg ribbene i et fad, dæk med folie og bag 40 minutter.",
+      "Skær kartoflerne i både, vend dem i olie og salt, og sæt dem i ovnen.",
+      "Fjern folien, pensl ribbene med ketchup, skru op til 220 °C og bag 20 minutter mere.",
+      "Snit rødkålen fint og riv gulerødderne. Vend med skyr, salt og peber.",
+      "Server ribs med kartofler og coleslaw."
+     ],
+     "id": "netto-25",
+     "pris_tilbud": 199,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Koteletter i fad med porrer og flødeost",
+     "beskrivelse": "Nem ovnret: brunede koteletter bagt i cremet porresauce, med kogte kartofler.",
+     "niveau": "familie",
+     "kategori": "svin",
+     "tid_minutter": 45,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "svinekoteletter",
+       "maengde": 800,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N30"
+       ]
+      },
+      {
+       "navn": "porrer",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N89"
+       ]
+      },
+      {
+       "navn": "flødeost",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N36"
+       ]
+      },
+      {
+       "navn": "mælk",
+       "maengde": 200,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "N11"
+       ]
+      },
+      {
+       "navn": "kartofler",
+       "maengde": 1000,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N87"
+       ]
+      },
+      {
+       "navn": "paprika",
+       "maengde": 1,
+       "enhed": "tsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 200 °C, og sæt kartoflerne over.",
+      "Krydr koteletterne med salt, peber og paprika, og brun dem hurtigt i olie. Læg dem i et fad.",
+      "Svits porrer i ringe på panden, og rør flødeost og mælk i.",
+      "Hæld saucen over koteletterne, og bag 20 minutter.",
+      "Server med kartoflerne."
+     ],
+     "id": "netto-26",
+     "pris_tilbud": 98,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Pasta med rejer og hvidløgsflødeost",
+     "beskrivelse": "Hurtig rejepasta i cremet hvidløgssauce med porre og Grana Padano.",
+     "niveau": "familie",
+     "kategori": "fisk",
+     "tid_minutter": 20,
+     "spis_tidligt": true,
+     "ingredienser": [
+      {
+       "navn": "rejer",
+       "maengde": 300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N67"
+       ]
+      },
+      {
+       "navn": "fettuccine",
+       "maengde": 500,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N109"
+       ]
+      },
+      {
+       "navn": "flødeost",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N36"
+       ]
+      },
+      {
+       "navn": "Grana Padano",
+       "maengde": 50,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N62"
+       ]
+      },
+      {
+       "navn": "porre",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N89"
+       ]
+      },
+      {
+       "navn": "hvidløg",
+       "maengde": 2,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "citron",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Kog pastaen, og gem en kop kogevand.",
+      "Svits porre i tynde ringe og hakket hvidløg i olie.",
+      "Rør flødeost, citronskal og lidt pastavand i til en cremet sauce.",
+      "Vend pasta og rejer i, og varm kort igennem.",
+      "Top med revet Grana Padano og citronsaft."
+     ],
+     "id": "netto-27",
+     "pris_tilbud": 108,
+     "andel_tilbud": 0.71
+    },
+    {
+     "navn": "Andebryst med druesauce og ovnbagte rodfrugter",
+     "beskrivelse": "Sprødstegt andebryst med blank druesauce, ovnkartofler, gulerødder og æbler.",
+     "niveau": "weekend",
+     "kategori": "and",
+     "tid_minutter": 60,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "ferske andebryst",
+       "maengde": 800,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N95"
+       ]
+      },
+      {
+       "navn": "røde druer",
+       "maengde": 250,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N25"
+       ]
+      },
+      {
+       "navn": "kartofler",
+       "maengde": 1000,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N87"
+       ]
+      },
+      {
+       "navn": "gulerødder",
+       "maengde": 4,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N134"
+       ]
+      },
+      {
+       "navn": "æbler",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N97"
+       ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N125"
+       ]
+      },
+      {
+       "navn": "bouillonterning",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "smør",
+       "maengde": 20,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "tørret timian",
+       "maengde": 1,
+       "enhed": "tsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 200 °C. Skær kartofler, gulerødder, æbler og løg i stykker, vend med salt og timian og bag i 40 minutter.",
+      "Rids skindet på andebrysterne, krydr og læg dem med skindet nedad i en kold pande. Steg ved middel varme 8-10 minutter.",
+      "Vend brysterne, og læg dem i ovnen i 6-8 minutter. Lad dem hvile.",
+      "Hæld det meste af fedtet fra, og kog druer, 2 dl vand og bouillon ind på panden. Rør smør i til sidst.",
+      "Skær brysterne i skiver, og server med druesauce og rodfrugter."
+     ],
+     "id": "netto-28",
+     "pris_tilbud": 214,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Varmrøget laks med lun kartoffelsalat og æg",
+     "beskrivelse": "Let weekendmad: varmrøget laks, lun kartoffelsalat med porre og skyrdressing, kogte æg og ristede kerner.",
+     "niveau": "weekend",
+     "kategori": "fisk",
+     "tid_minutter": 30,
+     "spis_tidligt": true,
+     "ingredienser": [
+      {
+       "navn": "varmrøget laks",
+       "maengde": 400,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N57"
+       ]
+      },
+      {
+       "navn": "friske kartofler",
+       "maengde": 900,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N100"
+       ]
+      },
+      {
+       "navn": "æg",
+       "maengde": 4,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N1"
+       ]
+      },
+      {
+       "navn": "skyr",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N13"
+       ]
+      },
+      {
+       "navn": "porre",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "N89"
+       ]
+      },
+      {
+       "navn": "frø og kerner",
+       "maengde": 1,
+       "enhed": "pakke",
+       "basisvare": false,
+       "tilbud": [
+        "N47"
+       ]
+      },
+      {
+       "navn": "citron",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Kog kartoflerne, og skær dem i halve. Kog æggene i 8 minutter.",
+      "Rist kernerne på en tør pande.",
+      "Rør skyr med citronsaft, salt og peber, og vend de lune kartofler og fint snittet porre i.",
+      "Del laksen i flager og æggene i både.",
+      "Anret kartoffelsalaten med laks og æg, og drys med kerner."
+     ],
+     "id": "netto-29",
+     "pris_tilbud": 198,
+     "andel_tilbud": 0.86
+    },
+    {
+     "navn": "Svinemørbrad i bacon med hasselbackkartofler",
+     "beskrivelse": "Helstegt mørbrad svøbt i bacon med sprøde hasselbackkartofler og flødeostsauce.",
+     "niveau": "weekend",
+     "kategori": "svin",
+     "tid_minutter": 60,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "svinemørbrad",
+       "maengde": 800,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N15"
+       ]
+      },
+      {
+       "navn": "bacon i skiver",
+       "maengde": 300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N20"
+       ]
+      },
+      {
+       "navn": "kartofler",
+       "maengde": 1000,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N87"
+       ]
+      },
+      {
+       "navn": "flødeost",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "N36"
+       ]
+      },
+      {
+       "navn": "mælk",
+       "maengde": 200,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "N11"
+       ]
+      },
+      {
+       "navn": "smør",
+       "maengde": 40,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "bouillonterning",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 200 °C. Skær tætte snit i kartoflerne (ikke helt igennem), pensl med smeltet smør og drys med salt. Bag i ca. 50 minutter.",
+      "Krydr mørbraden med salt og peber, og svøb den i bacon.",
+      "Brun mørbraden på panden, og steg den i ovnen i 20-25 minutter (kernetemperatur 65 °C).",
+      "Rør flødeost, mælk og bouillon sammen i panden til en cremet sauce.",
+      "Lad kødet hvile 5 minutter, skær i skiver og server med kartofler og sauce."
+     ],
+     "id": "netto-30",
+     "pris_tilbud": 162,
      "andel_tilbud": 1.0
     }
    ],
@@ -2072,33 +3126,19 @@
      "gyldigTil": "2026-11-06T22:59:59+0000",
      "kort": "N89"
     },
-    "N135": {
-     "id": "0IJ4n9yGFZuWWdViwWw7L",
-     "side": 3,
+    "N36": {
+     "id": "vyaZfBXV05XM7NZdzkZDK",
+     "side": 19,
      "butik": "netto",
-     "navn": "La Campagna basilikum creamy pesto",
-     "beskrivelse": "190 g.\nPr. kg 50,63\nNormalpris 19,25\nMax. 6 stk. pr. kunde pr. dag til 9,62",
-     "pris": 9.62,
-     "forPris": 19.25,
-     "maengde": "190",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-3.webp&w=300&x1r=0.02&x2r=0.46&y1r=0.55&y2r=0.97&s=6969205193c707afe32c97d50e066651",
-     "gyldigTil": "2026-11-06T22:59:59+0000",
-     "kort": "N135"
-    },
-    "N90": {
-     "id": "Praxy_Wkeu8VlN8KMPCT-",
-     "side": 7,
-     "butik": "netto",
-     "navn": "ØGO økologisk pizzadej",
-     "beskrivelse": "280 g.\nPr. kg 35,71",
+     "navn": "Buko flødeost",
+     "beskrivelse": "200 g.\nPr. kg 50,00",
      "pris": 10,
      "forPris": null,
-     "maengde": "280",
+     "maengde": "200",
      "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-7.webp&w=300&x1r=0.73&x2r=0.98&y1r=0.015&y2r=0.4&s=6a832c511044858c3fe12e503bb329e5",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-19.webp&w=300&x1r=0.66&x2r=0.98&y1r=0.45&y2r=0.68&s=adad31ad505cfdfc044fc5fe68efa0d9",
      "gyldigTil": "2026-11-06T22:59:59+0000",
-     "kort": "N90"
+     "kort": "N36"
     },
     "N140": {
      "id": "OlcHx1hLOJZbOs4M03nGy",
@@ -2380,19 +3420,19 @@
      "gyldigTil": "2026-11-06T22:59:59+0000",
      "kort": "N97"
     },
-    "N48": {
-     "id": "LYm9RNdIv2vXt7IX3gfmk",
-     "side": 21,
+    "N50": {
+     "id": "lZHDLCq4AK0bL_yRQH8vb",
+     "side": 15,
      "butik": "netto",
-     "navn": "Oksekebab",
-     "beskrivelse": "400 g.\nPr. kg 75,00",
-     "pris": 30,
+     "navn": "Oksekød i tern",
+     "beskrivelse": "SPOT\n400 g.\nPr. kg 137,50",
+     "pris": 55,
      "forPris": null,
      "maengde": "400",
      "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-21.webp&w=300&x1r=0.01&x2r=0.31&y1r=0.71&y2r=0.97&s=b8614ae5a16e5b3030209e1d751db358",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-15.webp&w=300&x1r=0.37&x2r=0.98&y1r=0.52&y2r=0.74&s=182eddcf5858bbfb4c20641ed40d564f",
      "gyldigTil": "2026-11-06T22:59:59+0000",
-     "kort": "N48"
+     "kort": "N50"
     },
     "N112": {
      "id": "ubOaJYEiu_fILF47JPN8P",
@@ -2421,20 +3461,6 @@
      "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-13.webp&w=300&x1r=0.25&x2r=0.58&y1r=0.42&y2r=0.68&s=228b301b0ad62b2bc7db96450995714c",
      "gyldigTil": "2026-11-06T22:59:59+0000",
      "kort": "N15"
-    },
-    "N36": {
-     "id": "vyaZfBXV05XM7NZdzkZDK",
-     "side": 19,
-     "butik": "netto",
-     "navn": "Buko flødeost",
-     "beskrivelse": "200 g.\nPr. kg 50,00",
-     "pris": 10,
-     "forPris": null,
-     "maengde": "200",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-19.webp&w=300&x1r=0.66&x2r=0.98&y1r=0.45&y2r=0.68&s=adad31ad505cfdfc044fc5fe68efa0d9",
-     "gyldigTil": "2026-11-06T22:59:59+0000",
-     "kort": "N36"
     },
     "N71": {
      "id": "HE_YbYnLyB_jKY5QOY2Bx",
@@ -2478,34 +3504,6 @@
      "gyldigTil": "2026-11-06T22:59:59+0000",
      "kort": "N117"
     },
-    "N41": {
-     "id": "U-fRa_AdOcqCwGr8xvcRD",
-     "side": 21,
-     "butik": "netto",
-     "navn": "Peka flødekartofler",
-     "beskrivelse": "500-700 g.\nPr. kg max. 40,00",
-     "pris": 20,
-     "forPris": null,
-     "maengde": "500-700",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-21.webp&w=300&x1r=0.33&x2r=0.65&y1r=0.09&y2r=0.4&s=4f5b5278defb3277aa1f3bdaebdffcea",
-     "gyldigTil": "2026-11-06T22:59:59+0000",
-     "kort": "N41"
-    },
-    "N56": {
-     "id": "blHH1gSOK7n5UFC_Q5ODg",
-     "side": 17,
-     "butik": "netto",
-     "navn": "Beauvais herregårds rødkål",
-     "beskrivelse": "720 g.\nPr. kg 16,67",
-     "pris": 12,
-     "forPris": null,
-     "maengde": "720",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-17.webp&w=300&x1r=0.37&x2r=0.67&y1r=0.01&y2r=0.29&s=ae13fa82b12a29386d90e0985f4c1e5b",
-     "gyldigTil": "2026-11-06T22:59:59+0000",
-     "kort": "N56"
-    },
     "N33": {
      "id": "kK1doB0c6PEiU8-V_RIyb",
      "side": 13,
@@ -2519,6 +3517,160 @@
      "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-13.webp&w=300&x1r=0.58&x2r=0.98&y1r=0.02&y2r=0.29&s=acdbe0c765648e28a2c0681826ab9a3f",
      "gyldigTil": "2026-11-06T22:59:59+0000",
      "kort": "N33"
+    },
+    "N113": {
+     "id": "1SLpS8O751AudzuEMjlWL",
+     "side": 7,
+     "butik": "netto",
+     "navn": "ØGO økologisk grillost",
+     "beskrivelse": "200 g.\nPr. kg 100,00",
+     "pris": 20,
+     "forPris": null,
+     "maengde": "200",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-7.webp&w=300&x1r=0.66&x2r=0.98&y1r=0.42&y2r=0.74&s=e0347cde86fa6201e725ad0099badd1e",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N113"
+    },
+    "N115": {
+     "id": "PU9CmsYx-icR-Dx69kC6N",
+     "side": 27,
+     "butik": "netto",
+     "navn": "Protein Lab pitabrød",
+     "beskrivelse": "420 g.\nPr. kg 59,52",
+     "pris": 25,
+     "forPris": null,
+     "maengde": "420",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-27.webp&w=300&x1r=0.66&x2r=0.97&y1r=0.28&y2r=0.54&s=9a602c3a1948240bed5ef6990cd92c56",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N115"
+    },
+    "N2": {
+     "id": "t9yBNLvuXRcHmg8J4nNlf",
+     "side": 2,
+     "butik": "netto",
+     "navn": "Schulstad Det Gode brød",
+     "beskrivelse": "480-950 g.\nPr. kg max. 20,83",
+     "pris": 10,
+     "forPris": null,
+     "maengde": "480-950",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-2.webp&w=300&x1r=0.02&x2r=0.47&y1r=0.655&y2r=0.957&s=f0991ba7b59967fd67d1b9d1802e8562",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N2"
+    },
+    "N147": {
+     "id": "7sZrB9G8J8teKeZpf0mrp",
+     "side": 12,
+     "butik": "netto",
+     "navn": "Salling Princip ananas",
+     "beskrivelse": "Pr. stk. Udenlandsk.\nSalling Princip er ny i Netto\nVores nye serie med fokus på kvalitet og smag til en pris, der er til at forstå.\n+ PRIS 18:-\nGælder kun med Netto+ appen",
+     "pris": 20,
+     "forPris": null,
+     "maengde": "1",
+     "enhed": "stk",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-12.webp&w=300&x1r=0.01&x2r=0.49&y1r=0.44&y2r=0.83&s=791d180bc9f7ef2b2cd466a45764ab62",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N147"
+    },
+    "N46": {
+     "id": "xGItPFELgctXLmNKitLh4",
+     "side": 21,
+     "butik": "netto",
+     "navn": "Jensens spareribs",
+     "beskrivelse": "500 g.\nPr. kg 78,00",
+     "pris": 39,
+     "forPris": null,
+     "maengde": "500",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-21.webp&w=300&x1r=0.31&x2r=0.98&y1r=0.71&y2r=0.83&s=34b8f3af8802a85934268fc1915debef",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N46"
+    },
+    "N30": {
+     "id": "zu7DTDAf-9bDtGSMP-dDH",
+     "side": 13,
+     "butik": "netto",
+     "navn": "Netto dansk flæsk i skiver eller koteletter",
+     "beskrivelse": "400 g.\nPr. kg 62,50",
+     "pris": 25,
+     "forPris": null,
+     "maengde": "400",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-13.webp&w=300&x1r=0.59&x2r=0.98&y1r=0.32&y2r=0.68&s=a0131fa5fdd680f59e2e083931adfb2e",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N30"
+    },
+    "N67": {
+     "id": "BFitJSQ4HZxxxZWUKXx0R",
+     "side": 20,
+     "butik": "netto",
+     "navn": "Rejer",
+     "beskrivelse": "80-100 g. Pr. kg max. 150,00",
+     "pris": 12,
+     "forPris": null,
+     "maengde": "80-100",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-20.webp&w=300&x1r=0.02&x2r=0.335&y1r=0.41&y2r=0.68&s=15db6f96a72301e22aa1a1b09944ea52",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N67"
+    },
+    "N95": {
+     "id": "A5nPBSQD3AVyADVccZ6qx",
+     "side": 16,
+     "butik": "netto",
+     "navn": "Premieur fersk andebryst",
+     "beskrivelse": "200-280 g. Pr. kg max. 175,00",
+     "pris": 35,
+     "forPris": null,
+     "maengde": "200-280",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-16.webp&w=300&x1r=0.375&x2r=0.665&y1r=0.67&y2r=0.978&s=98be83bc2a9f242487fcbcefb5dbff59",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N95"
+    },
+    "N25": {
+     "id": "-XfcLWnmippS76I9eCPCP",
+     "side": 12,
+     "butik": "netto",
+     "navn": "ØGO økologiske stenfrie røde druer",
+     "beskrivelse": "500 g. Udenlandske.\nPr. kg 30,00",
+     "pris": 15,
+     "forPris": null,
+     "maengde": "500",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-12.webp&w=300&x1r=0.45&x2r=0.99&y1r=0.05&y2r=0.45&s=7a4d141bb183a518428a7686ee722e38",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N25"
+    },
+    "N57": {
+     "id": "NGAwp2rsYT93NlsiAEb1G",
+     "side": 20,
+     "butik": "netto",
+     "navn": "Salling Princip varmrøget laks",
+     "beskrivelse": "Salling Princip er ny i Netto Vores nye serie med fokus på kvalitet og smag til en pris, der er til at forstå. salling Princip 200 g. Pr. kg 295,00",
+     "pris": 59,
+     "forPris": null,
+     "maengde": "200",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-20.webp&w=300&x1r=0.635&x2r=0.985&y1r=0.68&y2r=0.97&s=ff307e272d6b213c084d481f499e5322",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N57"
+    },
+    "N47": {
+     "id": "3B0I7UZJi2ROvBKnPHknU",
+     "side": 22,
+     "butik": "netto",
+     "navn": "Mamone frø eller kerner",
+     "beskrivelse": "150-400 g.\nPr. kg max. 80,00\n+ PRIS 10:-\nPr. kg max. 66,67\nGælder kun med Netto+ appen",
+     "pris": 12,
+     "forPris": null,
+     "maengde": "150-400",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FxozUXXk1%2Fp-22.webp&w=300&x1r=0.02&x2r=0.33&y1r=0.178&y2r=0.445&s=b5666686e4e99eb6795721a79cecdb2a",
+     "gyldigTil": "2026-11-06T22:59:59+0000",
+     "kort": "N47"
     }
    }
   },
@@ -2627,56 +3779,56 @@
      "andel_tilbud": 0.83
     },
     {
-     "navn": "Kødboller i karry med ris",
-     "beskrivelse": "Den gode gamle klassiker – kødboller i mild karrysauce med æble.",
+     "navn": "Hjemmerullede kødboller i tomatsauce med pasta",
+     "beskrivelse": "Saftige kødboller af hakket oksekød i tomatsauce – drys med Grana Padano.",
      "niveau": "student",
-     "kategori": "svin",
-     "tid_minutter": 35,
+     "kategori": "okse",
+     "tid_minutter": 40,
      "spis_tidligt": false,
      "ingredienser": [
       {
-       "navn": "MOU kødboller",
-       "maengde": 700,
+       "navn": "hakket oksekød 14-18 %",
+       "maengde": 600,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "M11"
+        "M107"
        ]
       },
       {
-       "navn": "Ben's Original ris",
-       "maengde": 1,
-       "enhed": "pakke",
-       "basisvare": false,
-       "tilbud": [
-        "M81"
-       ]
-      },
-      {
-       "navn": "madlavningsfløde",
-       "maengde": 200,
-       "enhed": "ml",
-       "basisvare": false,
-       "tilbud": [
-        "M142"
-       ]
-      },
-      {
-       "navn": "bouillonterning",
+       "navn": "økologiske æg",
        "maengde": 1,
        "enhed": "stk",
        "basisvare": false,
        "tilbud": [
-        "M68"
+        "M19"
        ]
       },
       {
-       "navn": "æble",
-       "maengde": 1,
-       "enhed": "stk",
+       "navn": "økologisk pasta",
+       "maengde": 500,
+       "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "M132"
+        "M92"
+       ]
+      },
+      {
+       "navn": "økologiske hakkede tomater",
+       "maengde": 2,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "M153"
+       ]
+      },
+      {
+       "navn": "Grana Padano",
+       "maengde": 50,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M96"
        ]
       },
       {
@@ -2687,44 +3839,58 @@
        "tilbud": []
       },
       {
-       "navn": "karry",
+       "navn": "hvidløg",
+       "maengde": 2,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvedemel eller rasp",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "tørret oregano",
+       "maengde": 1,
+       "enhed": "tsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
        "maengde": 2,
        "enhed": "spsk",
        "basisvare": true,
        "tilbud": []
       },
       {
-       "navn": "smør",
-       "maengde": 30,
-       "enhed": "g",
-       "basisvare": true,
-       "tilbud": []
-      },
-      {
-       "navn": "hvedemel",
-       "maengde": 30,
-       "enhed": "g",
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
        "basisvare": true,
        "tilbud": []
       }
      ],
      "fremgangsmaade": [
-      "Kog risene.",
-      "Svits hakket løg og karry i smør, og rør melet i.",
-      "Spæd med 5 dl vand og bouillon under omrøring, og tilsæt fløde.",
-      "Kom kødbollerne i, og lad det simre 10 minutter.",
-      "Rør æbletern i til sidst, og server med ris."
+      "Rør kødet med æg, mel, halvdelen af det hakkede løg, salt og peber. Rul ca. 24 kødboller med våde hænder.",
+      "Brun kødbollerne i olie i en gryde, og tag dem op.",
+      "Svits resten af løget og hvidløget, tilsæt tomater og oregano, og læg kødbollerne i saucen.",
+      "Lad det simre under låg i 15 minutter. Kog pastaen imens.",
+      "Server med pasta og revet Grana Padano."
      ],
      "id": "meny-2",
-     "pris_tilbud": 109,
-     "andel_tilbud": 0.83
+     "pris_tilbud": 148.95,
+     "andel_tilbud": 0.71
     },
     {
      "navn": "Hjemmelavede hotdogs med røget medister",
-     "beskrivelse": "Røget medister i brioche-hotdogbrød med sennep, rødkål og agurkesalat.",
+     "beskrivelse": "Røget medister i brioche-hotdogbrød med sennep, hjemmesyltede agurker og sprøde løg.",
      "niveau": "student",
      "kategori": "svin",
-     "tid_minutter": 20,
+     "tid_minutter": 25,
      "spis_tidligt": false,
      "ingredienser": [
       {
@@ -2755,15 +3921,6 @@
        ]
       },
       {
-       "navn": "rødkål (glas)",
-       "maengde": 1,
-       "enhed": "stk",
-       "basisvare": false,
-       "tilbud": [
-        "M15"
-       ]
-      },
-      {
        "navn": "agurk",
        "maengde": 1,
        "enhed": "stk",
@@ -2771,6 +3928,27 @@
        "tilbud": [
         "M141"
        ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvedemel",
+       "maengde": 2,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "dl",
+       "basisvare": true,
+       "tilbud": []
       },
       {
        "navn": "eddike",
@@ -2789,13 +3967,14 @@
      ],
      "fremgangsmaade": [
       "Skær agurken i tynde skiver, og rør med eddike, sukker og lidt salt.",
+      "Skær løgene i tynde ringe, vend dem i mel og steg dem sprøde i olie. Lad dem dryppe af på køkkenrulle.",
       "Skær medisteren i passende stykker, og steg den gylden på en pande.",
       "Varm brødene i ovnen et par minutter.",
-      "Fyld brødene med medister, sennep, rødkål og agurkesalat."
+      "Fyld brødene med medister, sennep, agurker og sprøde løg."
      ],
      "id": "meny-3",
-     "pris_tilbud": 111.95,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 102,
+     "andel_tilbud": 0.8
     },
     {
      "navn": "Stegt flæsk med persillesovs",
@@ -2873,34 +4052,61 @@
      "andel_tilbud": 0.75
     },
     {
-     "navn": "Panerede rødspætter med persillesmør",
-     "beskrivelse": "Sprøde ovnpanerede rødspætter med kartofler og hjemmerørt persillesmør.",
+     "navn": "Æg i karry med ris",
+     "beskrivelse": "Billig mormor-klassiker: kogte æg i cremet karrysauce med æble og ris.",
      "niveau": "student",
-     "kategori": "fisk",
+     "kategori": "vegetar",
      "tid_minutter": 30,
      "spis_tidligt": false,
      "ingredienser": [
       {
-       "navn": "panerede rødspættefileter",
-       "maengde": 800,
-       "enhed": "g",
+       "navn": "økologiske æg",
+       "maengde": 8,
+       "enhed": "stk",
        "basisvare": false,
        "tilbud": [
-        "M36"
+        "M19"
        ]
       },
       {
-       "navn": "økologiske kartofler",
-       "maengde": 1300,
-       "enhed": "g",
+       "navn": "Ben's Original ris",
+       "maengde": 1,
+       "enhed": "pakke",
        "basisvare": false,
        "tilbud": [
-        "M115"
+        "M81"
+       ]
+      },
+      {
+       "navn": "madlavningsfløde",
+       "maengde": 330,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "M142"
+       ]
+      },
+      {
+       "navn": "grøntsagsbouillon",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M68"
+       ]
+      },
+      {
+       "navn": "danske æbler",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M132"
        ]
       },
       {
        "navn": "økologisk smør",
-       "maengde": 100,
+       "maengde": 30,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
@@ -2917,10 +4123,24 @@
        ]
       },
       {
-       "navn": "citron",
+       "navn": "løg",
        "maengde": 1,
        "enhed": "stk",
        "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "karry",
+       "maengde": 2,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "hvedemel",
+       "maengde": 30,
+       "enhed": "g",
+       "basisvare": true,
        "tilbud": []
       },
       {
@@ -2932,14 +4152,15 @@
       }
      ],
      "fremgangsmaade": [
-      "Kog kartoflerne.",
-      "Bag rødspætterne i ovnen efter anvisningen på pakken.",
-      "Rør blødt smør med hakket persille, citronsaft og salt.",
-      "Server fisken med kartofler, persillesmør og citronbåde."
+      "Kog risene. Kog æggene i 8 minutter, køl dem af og pil dem.",
+      "Svits hakket løg og karry i smør, og rør melet i.",
+      "Spæd med 3 dl vand, bouillon og fløde under omrøring, og lad saucen koge et par minutter.",
+      "Rør æbletern i, og smag til med salt.",
+      "Halver æggene, læg dem i saucen, og drys med persille. Server med ris."
      ],
      "id": "meny-5",
-     "pris_tilbud": 127.9,
-     "andel_tilbud": 0.8
+     "pris_tilbud": 132,
+     "andel_tilbud": 0.88
     },
     {
      "navn": "Kartoffel-sellerisuppe med sprød bacon",
@@ -3045,12 +4266,12 @@
      "spis_tidligt": true,
      "ingredienser": [
       {
-       "navn": "store grønlandske rejer",
-       "maengde": 250,
+       "navn": "OMHU håndpillede rejer",
+       "maengde": 280,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "M32"
+        "M38"
        ]
       },
       {
@@ -3126,7 +4347,7 @@
       "Top med persille og revet Grana Padano."
      ],
      "id": "meny-7",
-     "pris_tilbud": 125.9,
+     "pris_tilbud": 176,
      "andel_tilbud": 0.71
     },
     {
@@ -3231,10 +4452,10 @@
     },
     {
      "navn": "Kyllingebryst med flødekartofler og grønne bønner",
-     "beskrivelse": "Saftigt stegt kyllingebryst med Peka flødekartofler og sprøde bønner.",
+     "beskrivelse": "Saftigt stegt kyllingebryst med hjemmelavede flødekartofler og sprøde bønner.",
      "niveau": "familie",
      "kategori": "kylling",
-     "tid_minutter": 45,
+     "tid_minutter": 70,
      "spis_tidligt": false,
      "ingredienser": [
       {
@@ -3247,12 +4468,21 @@
        ]
       },
       {
-       "navn": "Peka flødekartofler",
-       "maengde": 1500,
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "M49"
+        "M115"
+       ]
+      },
+      {
+       "navn": "madlavningsfløde",
+       "maengde": 330,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "M142"
        ]
       },
       {
@@ -3274,6 +4504,13 @@
        ]
       },
       {
+       "navn": "hvidløg",
+       "maengde": 2,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
        "navn": "smør",
        "maengde": 20,
        "enhed": "g",
@@ -3289,15 +4526,15 @@
       }
      ],
      "fremgangsmaade": [
-      "Bag flødekartoflerne i ovnen efter anvisningen.",
+      "Flødekartofler: Skær kartoflerne i tynde skiver, læg dem i et fad, hæld fløde med knust hvidløg, salt og peber over og bag ved 200 °C i ca. 50 minutter.",
       "Krydr kyllingen med salt og peber, og brun den i smør.",
       "Færdiggør kyllingen i ovnen ved 180 °C i 15 minutter.",
       "Kog bønnerne 4 minutter, og lav en sauce på stegefedtet med fond.",
       "Server kyllingen i skiver med flødekartofler, bønner og sauce."
      ],
      "id": "meny-9",
-     "pris_tilbud": 236.9,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 233.95,
+     "andel_tilbud": 0.83
     },
     {
      "navn": "Kylling satay med peanutsauce og agurkesalat",
@@ -3387,7 +4624,7 @@
     },
     {
      "navn": "Kyllingesuppe med selleri og melboller",
-     "beskrivelse": "Hjemmelavet suppe på hel Himmerland-kylling med kød- og melboller.",
+     "beskrivelse": "Hjemmelavet suppe på hel Himmerland-kylling med hjemmelavede melboller.",
      "niveau": "familie",
      "kategori": "kylling",
      "tid_minutter": 120,
@@ -3403,13 +4640,29 @@
        ]
       },
       {
-       "navn": "MOU kød- og melboller",
-       "maengde": 700,
+       "navn": "økologiske æg",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M19"
+       ]
+      },
+      {
+       "navn": "økologisk smør",
+       "maengde": 50,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "M11"
+        "M87"
        ]
+      },
+      {
+       "navn": "hvedemel",
+       "maengde": 75,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
       },
       {
        "navn": "knoldselleri med top",
@@ -3463,13 +4716,14 @@
      "fremgangsmaade": [
       "Kom kyllingen i en stor gryde med 2,5 liter vand, bouillon og grove stykker selleri. Kog under låg i ca. 1 time.",
       "Tag kyllingen op, pil kødet af og si suppen.",
+      "Melboller: Kog smør og 1,25 dl vand op, rør melet i til dejen slipper gryden. Køl lidt af, og rør æggene i et ad gangen.",
       "Kom gulerødder, porre og sellerytern i suppen, og kog 10 minutter.",
-      "Tilsæt kød- og melboller samt kyllingekød, og varm igennem.",
+      "Sæt melboller i suppen med to teskeer, og lad dem trække 5 minutter. Tilsæt kyllingekødet.",
       "Smag til, og drys med persille."
      ],
      "id": "meny-11",
-     "pris_tilbud": 183.95,
-     "andel_tilbud": 0.71
+     "pris_tilbud": 192.95,
+     "andel_tilbud": 0.75
     },
     {
      "navn": "Gullasch med kartoffelmos",
@@ -3668,10 +4922,10 @@
     },
     {
      "navn": "Julemedister med rødkål og kartofler",
-     "beskrivelse": "Saftig julemedister af frilandsgris med rødkål og brun sovs.",
+     "beskrivelse": "Saftig julemedister af frilandsgris med hjemmelavet rødkål og brun sovs.",
      "niveau": "familie",
      "kategori": "svin",
-     "tid_minutter": 40,
+     "tid_minutter": 75,
      "spis_tidligt": false,
      "ingredienser": [
       {
@@ -3681,15 +4935,6 @@
        "basisvare": false,
        "tilbud": [
         "M99"
-       ]
-      },
-      {
-       "navn": "herregårds-rødkål",
-       "maengde": 1,
-       "enhed": "stk",
-       "basisvare": false,
-       "tilbud": [
-        "M15"
        ]
       },
       {
@@ -3711,6 +4956,36 @@
        ]
       },
       {
+       "navn": "danske æbler",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M132"
+       ]
+      },
+      {
+       "navn": "rødkål (frisk)",
+       "maengde": 0.5,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "eddike",
+       "maengde": 1,
+       "enhed": "dl",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "sukker",
+       "maengde": 50,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
        "navn": "smør",
        "maengde": 20,
        "enhed": "g",
@@ -3726,15 +5001,15 @@
       }
      ],
      "fremgangsmaade": [
+      "Rødkål: Snit rødkålen fint, og kog den under låg med æbler i tern, eddike, sukker, 1 dl vand og salt i ca. 1 time.",
       "Kog kartoflerne.",
       "Steg medisteren ved middel varme i smør i ca. 20 minutter, og vend den jævnligt.",
-      "Varm rødkålen.",
       "Kog panden af med vand og fond til en brun sovs.",
       "Server medister med kartofler, sovs og rødkål."
      ],
      "id": "meny-14",
-     "pris_tilbud": 111.9,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 119.95,
+     "andel_tilbud": 0.8
     },
     {
      "navn": "Laks med sellerimos og dildcreme",
@@ -3826,10 +5101,10 @@
     },
     {
      "navn": "Entrecote med bearnaise og ovnkartofler",
-     "beskrivelse": "Lørdagsbøffen: Freygaard entrecote med bearnaise, ovnkartofler og agurkesalat.",
+     "beskrivelse": "Lørdagsbøffen: Freygaard entrecote med hjemmepisket bearnaise, ovnkartofler og agurkesalat.",
      "niveau": "weekend",
      "kategori": "okse",
-     "tid_minutter": 45,
+     "tid_minutter": 50,
      "spis_tidligt": false,
      "ingredienser": [
       {
@@ -3839,15 +5114,6 @@
        "basisvare": false,
        "tilbud": [
         "M175"
-       ]
-      },
-      {
-       "navn": "Eriks bearnaisesauce",
-       "maengde": 1,
-       "enhed": "stk",
-       "basisvare": false,
-       "tilbud": [
-        "M30"
        ]
       },
       {
@@ -3870,12 +5136,44 @@
       },
       {
        "navn": "økologisk smør",
-       "maengde": 30,
+       "maengde": 230,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
         "M87"
        ]
+      },
+      {
+       "navn": "økologiske æg (blommer)",
+       "maengde": 3,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M19"
+       ]
+      },
+      {
+       "navn": "frisk estragon",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "skalotteløg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvidvinseddike",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
       },
       {
        "navn": "eddike",
@@ -3910,16 +5208,17 @@
       "Tænd ovnen på 220 °C. Skær kartoflerne i både, vend med olie og salt, og bag 35 minutter.",
       "Rør agurkeskiver med eddike, sukker og salt.",
       "Tag kødet ud 30 minutter før, og krydr med salt og peber.",
-      "Steg entrecoterne på en meget varm pande 3-4 minutter på hver side, og arroser med smør til sidst.",
+      "Bearnaise: Kog hakket skalotteløg, estragonstilke og hvidvinseddike ind til ca. 1 spsk, og si. Pisk æggeblommerne med reduktionen over et vandbad, og pisk 200 g smeltet smør i i en tynd stråle. Smag til med hakket estragon og salt.",
+      "Steg entrecoterne på en meget varm pande 3-4 minutter på hver side, og arroser med resten af smørret til sidst.",
       "Lad kødet hvile 5 minutter, og server med bearnaise, kartofler og agurkesalat."
      ],
      "id": "meny-16",
-     "pris_tilbud": 439.9,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 489.9,
+     "andel_tilbud": 0.86
     },
     {
      "navn": "Økologisk flæskesteg med rødkål og brunede kartofler",
-     "beskrivelse": "Flæskesteg af dansk frilandsgris med sprød svær, rødkål og brunede kartofler.",
+     "beskrivelse": "Flæskesteg af dansk frilandsgris med sprød svær, hjemmelavet rødkål og brunede kartofler.",
      "niveau": "weekend",
      "kategori": "svin",
      "tid_minutter": 120,
@@ -3932,15 +5231,6 @@
        "basisvare": false,
        "tilbud": [
         "M16"
-       ]
-      },
-      {
-       "navn": "herregårds-rødkål",
-       "maengde": 1,
-       "enhed": "stk",
-       "basisvare": false,
-       "tilbud": [
-        "M15"
        ]
       },
       {
@@ -3980,6 +5270,13 @@
        ]
       },
       {
+       "navn": "rødkål (frisk)",
+       "maengde": 0.5,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
        "navn": "laurbærblade",
        "maengde": 3,
        "enhed": "stk",
@@ -3987,8 +5284,15 @@
        "tilbud": []
       },
       {
+       "navn": "eddike",
+       "maengde": 1,
+       "enhed": "dl",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
        "navn": "sukker",
-       "maengde": 75,
+       "maengde": 125,
        "enhed": "g",
        "basisvare": true,
        "tilbud": []
@@ -4004,20 +5308,20 @@
      "fremgangsmaade": [
       "Tænd ovnen på 200 °C. Gnid sværen med groft salt, og stik laurbærblade i ridserne.",
       "Steg stegen på en rist over en bradepande med vand i ca. 1½ time. Skru op til 250 °C til sidst for sprød svær.",
-      "Kog kartoflerne. Smelt sukker til karamel, tilsæt smør og vend kartoflerne i.",
-      "Varm rødkålen med æbletern.",
+      "Rødkål: Snit rødkålen fint, og kog den under låg med æbler i tern, eddike, 50 g sukker, 1 dl vand og salt i ca. 1 time.",
+      "Kog kartoflerne. Smelt resten af sukkeret til karamel, tilsæt smør og vend kartoflerne i.",
       "Jævn skyen til sovs med fond, og server."
      ],
      "id": "meny-17",
-     "pris_tilbud": 273.8,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 263.85,
+     "andel_tilbud": 0.83
     },
     {
      "navn": "Kalvemedaljoner med flødekartofler og bønner",
-     "beskrivelse": "Møre medaljoner af dansk kalv med flødekartofler, grønne bønner og skysauce.",
+     "beskrivelse": "Møre medaljoner af dansk kalv med hjemmelavede flødekartofler, grønne bønner og skysauce.",
      "niveau": "weekend",
      "kategori": "okse",
-     "tid_minutter": 50,
+     "tid_minutter": 70,
      "spis_tidligt": false,
      "ingredienser": [
       {
@@ -4030,12 +5334,21 @@
        ]
       },
       {
-       "navn": "Peka flødekartofler",
-       "maengde": 1500,
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "M49"
+        "M115"
+       ]
+      },
+      {
+       "navn": "madlavningsfløde",
+       "maengde": 330,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "M142"
        ]
       },
       {
@@ -4066,6 +5379,13 @@
        ]
       },
       {
+       "navn": "hvidløg",
+       "maengde": 2,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
        "navn": "salt og peber",
        "maengde": 0,
        "enhed": "efter smag",
@@ -4074,19 +5394,19 @@
       }
      ],
      "fremgangsmaade": [
-      "Bag flødekartoflerne i ovnen efter anvisningen.",
+      "Flødekartofler: Skær kartoflerne i tynde skiver, læg dem i et fad, hæld fløde med knust hvidløg, salt og peber over og bag ved 200 °C i ca. 50 minutter.",
       "Tag kødet ud 30 minutter før, og krydr med salt og peber.",
       "Steg medaljonerne i smør 3-4 minutter på hver side, og lad dem hvile.",
       "Kog bønnerne 4 minutter i letsaltet vand.",
       "Kog panden af med vand og fond til en sauce, og server."
      ],
      "id": "meny-18",
-     "pris_tilbud": 240.85,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 237.9,
+     "andel_tilbud": 0.86
     },
     {
      "navn": "Andebryststeg med æbler og rødkål",
-     "beskrivelse": "Mortensaften: helstegt andebryst med æbler, rødkål, flødekartofler og andesovs.",
+     "beskrivelse": "Mortensaften: helstegt andebryst med æbler, hjemmelavet rødkål, brunede kartofler og andesovs.",
      "niveau": "weekend",
      "kategori": "and",
      "tid_minutter": 90,
@@ -4102,17 +5422,8 @@
        ]
       },
       {
-       "navn": "herregårds-rødkål",
-       "maengde": 1,
-       "enhed": "stk",
-       "basisvare": false,
-       "tilbud": [
-        "M15"
-       ]
-      },
-      {
        "navn": "danske æbler",
-       "maengde": 4,
+       "maengde": 6,
        "enhed": "stk",
        "basisvare": false,
        "tilbud": [
@@ -4120,12 +5431,21 @@
        ]
       },
       {
-       "navn": "Peka flødekartofler",
-       "maengde": 1500,
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
        "enhed": "g",
        "basisvare": false,
        "tilbud": [
-        "M49"
+        "M115"
+       ]
+      },
+      {
+       "navn": "økologisk smør",
+       "maengde": 30,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M87"
        ]
       },
       {
@@ -4138,6 +5458,36 @@
        ]
       },
       {
+       "navn": "madlavningsfløde",
+       "maengde": 200,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "M142"
+       ]
+      },
+      {
+       "navn": "rødkål (frisk)",
+       "maengde": 0.5,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "eddike",
+       "maengde": 1,
+       "enhed": "dl",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "sukker",
+       "maengde": 125,
+       "enhed": "g",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
        "navn": "salt og peber",
        "maengde": 0,
        "enhed": "efter smag",
@@ -4146,15 +5496,15 @@
       }
      ],
      "fremgangsmaade": [
-      "Tø stegen op i køleskabet dagen før. Tænd ovnen på 175 °C.",
-      "Rids skindet, krydr med salt og peber, og brun stegen på skindsiden.",
-      "Steg i ovnen med halve æbler omkring i ca. 50-60 minutter (kernetemperatur 58 °C).",
-      "Bag flødekartoflerne, og varm rødkålen.",
-      "Lad stegen hvile, og lav sovs af stegeskyen og fond."
+      "Tø stegen op i køleskabet dagen før. Rødkål: Snit rødkålen fint, og kog den under låg med 2 æbler i tern, eddike, 50 g sukker, 1 dl vand og salt i ca. 1 time.",
+      "Tænd ovnen på 175 °C. Rids skindet, krydr med salt og peber, og brun stegen på skindsiden.",
+      "Steg i ovnen med 4 halve æbler omkring i ca. 50-60 minutter (kernetemperatur 58 °C).",
+      "Kog kartoflerne. Smelt resten af sukkeret til karamel, tilsæt smør og vend kartoflerne i.",
+      "Lad stegen hvile, og lav sovs af stegeskyen, fond og fløde."
      ],
      "id": "meny-19",
-     "pris_tilbud": 204.8,
-     "andel_tilbud": 1.0
+     "pris_tilbud": 215.9,
+     "andel_tilbud": 0.86
     },
     {
      "navn": "Steaks af okseinderlår med blåskimmelsauce",
@@ -4236,6 +5586,907 @@
      "id": "meny-20",
      "pris_tilbud": 229.9,
      "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Spaghetti bolognese",
+     "beskrivelse": "Langtidssimret kødsauce af dansk kødkvæg – laver gerne rester til næste dag.",
+     "niveau": "student",
+     "kategori": "okse",
+     "tid_minutter": 50,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "hakket oksekød 14-18 %",
+       "maengde": 600,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M107"
+       ]
+      },
+      {
+       "navn": "økologisk pasta",
+       "maengde": 500,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M92"
+       ]
+      },
+      {
+       "navn": "økologiske hakkede tomater",
+       "maengde": 2,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "M153"
+       ]
+      },
+      {
+       "navn": "oksebouillon",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M68"
+       ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "gulerødder",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvidløg",
+       "maengde": 2,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "tørret oregano",
+       "maengde": 1,
+       "enhed": "tsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Hak løg og hvidløg, og riv gulerødderne.",
+      "Brun kødet i olie, og tilsæt grøntsagerne.",
+      "Tilsæt tomater, bouillon, oregano og 1 dl vand, og lad saucen simre 30 minutter.",
+      "Kog pastaen.",
+      "Smag saucen til, og server med pastaen."
+     ],
+     "id": "meny-21",
+     "pris_tilbud": 100.95,
+     "andel_tilbud": 0.57
+    },
+    {
+     "navn": "Spansk kartoffeltortilla med agurkesalat",
+     "beskrivelse": "Tyk, saftig omelet med kartofler og løg – billig, mættende og vegetarisk.",
+     "niveau": "student",
+     "kategori": "vegetar",
+     "tid_minutter": 40,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "økologiske æg",
+       "maengde": 8,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M19"
+       ]
+      },
+      {
+       "navn": "økologiske kartofler",
+       "maengde": 650,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M115"
+       ]
+      },
+      {
+       "navn": "agurk",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M141"
+       ]
+      },
+      {
+       "navn": "frisk persille",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "dl",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "eddike",
+       "maengde": 2,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Skær kartoflerne i tynde skiver og løgene i strimler. Steg dem bløde i olie ved lav varme i ca. 20 minutter.",
+      "Pisk æggene med salt og peber, og vend kartofler og løg i.",
+      "Hæld blandingen tilbage på panden, og lad den stivne ved lav varme under låg.",
+      "Vend tortillaen ved hjælp af en tallerken, og steg 3 minutter mere.",
+      "Server med agurk i eddike og hakket persille."
+     ],
+     "id": "meny-22",
+     "pris_tilbud": 67,
+     "andel_tilbud": 0.8
+    },
+    {
+     "navn": "Pasta med tun, tomat og persille",
+     "beskrivelse": "Skabsmad på 20 minutter med tun, tomatsauce og frisk persille.",
+     "niveau": "student",
+     "kategori": "fisk",
+     "tid_minutter": 20,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "Glyngøre tun",
+       "maengde": 2,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "M14"
+       ]
+      },
+      {
+       "navn": "økologisk pasta",
+       "maengde": 500,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M92"
+       ]
+      },
+      {
+       "navn": "økologiske hakkede tomater",
+       "maengde": 2,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "M153"
+       ]
+      },
+      {
+       "navn": "frisk persille",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "løg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvidløg",
+       "maengde": 1,
+       "enhed": "fed",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Kog pastaen.",
+      "Svits hakket løg og hvidløg i olie.",
+      "Tilsæt tomaterne, og lad det simre 10 minutter.",
+      "Vend tun og hakket persille i, og smag til.",
+      "Bland med pastaen og server."
+     ],
+     "id": "meny-23",
+     "pris_tilbud": 68,
+     "andel_tilbud": 0.67
+    },
+    {
+     "navn": "Bagte kartofler med bacon og flødeost",
+     "beskrivelse": "Store ovnbagte kartofler fyldt med sprød bacon, Philadelphia og creme fraiche.",
+     "niveau": "student",
+     "kategori": "svin",
+     "tid_minutter": 70,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "økologiske kartofler (store)",
+       "maengde": 1300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M115"
+       ]
+      },
+      {
+       "navn": "bacon i tern",
+       "maengde": 250,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M64"
+       ]
+      },
+      {
+       "navn": "Philadelphia",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M65"
+       ]
+      },
+      {
+       "navn": "creme fraiche",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M71"
+       ]
+      },
+      {
+       "navn": "agurk",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M141"
+       ]
+      },
+      {
+       "navn": "purløg eller persille",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 200 °C. Prik kartoflerne, gnid dem med olie og salt, og bag i ca. 60 minutter.",
+      "Steg bacon sprødt.",
+      "Rør Philadelphia og creme fraiche sammen med salt og peber.",
+      "Skær et kryds i kartoflerne, og tryk dem op.",
+      "Fyld med flødeost, bacon og krydderurter, og server med agurk."
+     ],
+     "id": "meny-24",
+     "pris_tilbud": 124,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Citronkylling i fad med kartofler og timian",
+     "beskrivelse": "Hel kylling skåret ud og bagt med kartofler, citron, hvidløg og timian i ét fad.",
+     "niveau": "familie",
+     "kategori": "kylling",
+     "tid_minutter": 75,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "Rose hel kylling",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M99"
+       ]
+      },
+      {
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M115"
+       ]
+      },
+      {
+       "navn": "frisk timian",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "økologisk smør",
+       "maengde": 30,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M87"
+       ]
+      },
+      {
+       "navn": "citron",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvidløg",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 2,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 200 °C. Skær kyllingen i 8 stykker.",
+      "Skær kartoflerne i både, og læg dem i et stort fad med citronskiver, hele fed hvidløg og timian.",
+      "Læg kyllingestykkerne ovenpå, gnid med olie, salt og peber, og fordel smørklatter.",
+      "Bag i ca. 55 minutter, til kyllingen er gylden og gennemstegt.",
+      "Pres de bagte citroner over, og server direkte fra fadet."
+     ],
+     "id": "meny-25",
+     "pris_tilbud": 127.95,
+     "andel_tilbud": 0.67
+    },
+    {
+     "navn": "Hjemmelavede laksefrikadeller med dildkartofler",
+     "beskrivelse": "Saftige frikadeller af frisk laks med dildkartofler og citron-creme fraiche.",
+     "niveau": "familie",
+     "kategori": "fisk",
+     "tid_minutter": 40,
+     "spis_tidligt": true,
+     "ingredienser": [
+      {
+       "navn": "laksefilet",
+       "maengde": 600,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M21"
+       ]
+      },
+      {
+       "navn": "økologiske æg",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M19"
+       ]
+      },
+      {
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M115"
+       ]
+      },
+      {
+       "navn": "creme fraiche",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M71"
+       ]
+      },
+      {
+       "navn": "frisk dild",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "økologisk smør",
+       "maengde": 40,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M87"
+       ]
+      },
+      {
+       "navn": "citron",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "hvedemel",
+       "maengde": 3,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Fjern skindet, og hak laksen fint med en kniv (eller kør den kort i blender).",
+      "Rør laks med æg, mel, halvdelen af dilden, revet citronskal, salt og peber. Stil farsen koldt 15 minutter.",
+      "Kog kartoflerne, og vend dem i lidt smør og hakket dild.",
+      "Form frikadeller, og steg dem i smør 3-4 minutter på hver side.",
+      "Server med kartofler og creme fraiche rørt med citronsaft."
+     ],
+     "id": "meny-26",
+     "pris_tilbud": 199.95,
+     "andel_tilbud": 0.86
+    },
+    {
+     "navn": "Chili con carne med ris og creme fraiche",
+     "beskrivelse": "Krydret gryde med dansk oksekød og tomat, toppet med creme fraiche.",
+     "niveau": "familie",
+     "kategori": "okse",
+     "tid_minutter": 45,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "hakket oksekød 14-18 %",
+       "maengde": 600,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M107"
+       ]
+      },
+      {
+       "navn": "økologiske hakkede tomater",
+       "maengde": 2,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": [
+        "M153"
+       ]
+      },
+      {
+       "navn": "Ben's Original ris",
+       "maengde": 1,
+       "enhed": "pakke",
+       "basisvare": false,
+       "tilbud": [
+        "M81"
+       ]
+      },
+      {
+       "navn": "creme fraiche",
+       "maengde": 200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M71"
+       ]
+      },
+      {
+       "navn": "Santa Maria chili-krydderi",
+       "maengde": 1,
+       "enhed": "pakke",
+       "basisvare": false,
+       "tilbud": [
+        "M58"
+       ]
+      },
+      {
+       "navn": "kidneybønner",
+       "maengde": 1,
+       "enhed": "dåse",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "løg",
+       "maengde": 2,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "olie",
+       "maengde": 1,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Brun kødet i olie med hakket løg.",
+      "Tilsæt krydderi, tomater og afdryppede bønner, og lad det simre 25 minutter.",
+      "Kog risene.",
+      "Smag til med salt.",
+      "Server med ris og en klat creme fraiche."
+     ],
+     "id": "meny-27",
+     "pris_tilbud": 127.95,
+     "andel_tilbud": 0.71
+    },
+    {
+     "navn": "Kalveculotte med selleri og rødvinssauce",
+     "beskrivelse": "Dansk kalveculotte stegt rosa med ovnbagt selleri, kartofler og rødvinssauce.",
+     "niveau": "weekend",
+     "kategori": "okse",
+     "tid_minutter": 90,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "culotte af dansk kalv",
+       "maengde": 1000,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M46"
+       ]
+      },
+      {
+       "navn": "knoldselleri med top",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M134"
+       ]
+      },
+      {
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M115"
+       ]
+      },
+      {
+       "navn": "Côtes du Rhône (rødvin)",
+       "maengde": 200,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "M119"
+       ]
+      },
+      {
+       "navn": "Fond du Chef",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M68"
+       ]
+      },
+      {
+       "navn": "økologisk smør",
+       "maengde": 50,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M87"
+       ]
+      },
+      {
+       "navn": "frisk timian",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "olie",
+       "maengde": 2,
+       "enhed": "spsk",
+       "basisvare": true,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 200 °C. Skær selleri og kartofler i tern, vend med olie, salt og timian, og bag 45 minutter.",
+      "Krydr culotten, og brun den på alle sider. Steg den i ovnen ved 160 °C til kernetemperatur 56 °C (ca. 30-40 minutter).",
+      "Lad kødet hvile 10 minutter under folie.",
+      "Kog rødvin, fond og 1 dl vand ind til det halve på stegepanden, og pisk koldt smør i.",
+      "Skær kødet i tynde skiver, og server med grøntsager og sauce."
+     ],
+     "id": "meny-28",
+     "pris_tilbud": 317.9,
+     "andel_tilbud": 1.0
+    },
+    {
+     "navn": "Oksetyndstegsfilet med svampesauce og hasselbackkartofler",
+     "beskrivelse": "Helstegt tyndstegsfilet med cremet svampesauce og sprøde hasselbackkartofler.",
+     "niveau": "weekend",
+     "kategori": "okse",
+     "tid_minutter": 75,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "Freygaard oksetyndstegsfilet",
+       "maengde": 1000,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M80"
+       ]
+      },
+      {
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M115"
+       ]
+      },
+      {
+       "navn": "madlavningsfløde",
+       "maengde": 330,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "M142"
+       ]
+      },
+      {
+       "navn": "økologisk smør",
+       "maengde": 60,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M87"
+       ]
+      },
+      {
+       "navn": "Fond du Chef",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M68"
+       ]
+      },
+      {
+       "navn": "frisk timian",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "champignon",
+       "maengde": 250,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": []
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tænd ovnen på 200 °C. Skær tætte snit i kartoflerne, pensl med smeltet smør og salt, og bag ca. 50 minutter.",
+      "Krydr filetten, og brun den godt på alle sider i smør med timian.",
+      "Steg den i ovnen ved 160 °C til kernetemperatur 55 °C (ca. 25 minutter), og lad den hvile.",
+      "Steg champignon i skiver på panden, tilsæt fløde og fond, og lad saucen koge ind.",
+      "Skær kødet i skiver, og server med svampesauce og hasselbackkartofler."
+     ],
+     "id": "meny-29",
+     "pris_tilbud": 311.9,
+     "andel_tilbud": 0.86
+    },
+    {
+     "navn": "Langtidsstegte andelår med bagte æbler og kartoffelmos",
+     "beskrivelse": "Møre andelår med sprødt skind, bagte æbler, cremet kartoffelmos og andesovs.",
+     "niveau": "weekend",
+     "kategori": "and",
+     "tid_minutter": 150,
+     "spis_tidligt": false,
+     "ingredienser": [
+      {
+       "navn": "Canard Martín andelår",
+       "maengde": 1200,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M144"
+       ]
+      },
+      {
+       "navn": "danske æbler",
+       "maengde": 4,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M132"
+       ]
+      },
+      {
+       "navn": "økologiske kartofler",
+       "maengde": 1300,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M115"
+       ]
+      },
+      {
+       "navn": "økologisk smør",
+       "maengde": 50,
+       "enhed": "g",
+       "basisvare": false,
+       "tilbud": [
+        "M87"
+       ]
+      },
+      {
+       "navn": "madlavningsfløde",
+       "maengde": 200,
+       "enhed": "ml",
+       "basisvare": false,
+       "tilbud": [
+        "M142"
+       ]
+      },
+      {
+       "navn": "fond / sovsejævner",
+       "maengde": 1,
+       "enhed": "stk",
+       "basisvare": false,
+       "tilbud": [
+        "M68"
+       ]
+      },
+      {
+       "navn": "frisk timian",
+       "maengde": 1,
+       "enhed": "bundt",
+       "basisvare": false,
+       "tilbud": [
+        "M122"
+       ]
+      },
+      {
+       "navn": "salt og peber",
+       "maengde": 0,
+       "enhed": "efter smag",
+       "basisvare": true,
+       "tilbud": []
+      }
+     ],
+     "fremgangsmaade": [
+      "Tø lårene op dagen før. Tænd ovnen på 150 °C.",
+      "Gnid lårene med salt, peber og timian, og steg dem i et fad i ca. 2 timer. Læg halve æbler i fadet den sidste halve time.",
+      "Skru op til 220 °C de sidste 10 minutter for sprødt skind.",
+      "Kog kartoflerne, og mos dem med smør, en skvæt fløde og salt.",
+      "Hæld fedtet fra, kog skyen op med fond og resten af fløden til sovs, og server."
+     ],
+     "id": "meny-30",
+     "pris_tilbud": 229.8,
+     "andel_tilbud": 1.0
     }
    ],
    "tilbud": {
@@ -4309,47 +6560,47 @@
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M68"
     },
-    "M11": {
-     "id": "HQ83do_Iwq9zzyuyZANCb",
-     "side": 3,
+    "M107": {
+     "id": "Lqq3oybmm2rmerIUtpXCE",
+     "side": 19,
      "butik": "meny",
-     "navn": "MOU KØD- OG MELBOLLER, KØDBOLLER ELLER MELBOLLER",
-     "beskrivelse": "700-1000 g. Max. kg pris 64,29. Frost Max. kg pris 50,00 Max. 4 Stk. pr. kunde",
-     "pris": 45,
+     "navn": "HAKKET OKSEKØD 14-18 % AF DANSK KØDKVÆG",
+     "beskrivelse": "SKARP PRIS\nKg pris 108,25.\nOplev dansk kødkvæg, som vokser op i løsdriftsstalde på danske gårde\nDANSK KØDKVÆG GARANTI FOR MØRHED",
+     "pris": 64.95,
      "forPris": null,
-     "maengde": "700-1000",
+     "maengde": "600",
      "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-3.webp&w=300&x1r=0.51&x2r=0.96&y1r=0.22&y2r=0.58&s=44b60cdbb20c985e836598ec8a4fc5fc",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-19.webp&w=300&x1r=0.04&x2r=0.66&y1r=0.35&y2r=0.68&s=aa6624ec59a0b9cf7d368bbcc03aad67",
      "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M11"
+     "kort": "M107"
     },
-    "M81": {
-     "id": "U3zF6etF7hyWPq-vgVi7U",
-     "side": 22,
+    "M19": {
+     "id": "uJ4fR9PuLEZ1GiPg6FLLN",
+     "side": 27,
      "butik": "meny",
-     "navn": "DOLMIO SAUCE ELLER BEN’S ORIGINAL RIS I KOGEPOSE ELLER SAUCE",
-     "beskrivelse": "Flere varianter. 390-500 g. Max. kg pris 56,41.",
-     "pris": 22,
+     "navn": "GRØN BALANCE DANSKE ØKOLOGISKE ÆG",
+     "beskrivelse": "Str. M/L. 10 stk. Stk. pris 3,00.",
+     "pris": 30,
      "forPris": null,
-     "maengde": "390-500",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-22.webp&w=300&x1r=0.665&x2r=0.963&y1r=0.392&y2r=0.668&s=30de1803415c8a5416e2be4ae8f20f08",
-     "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M81"
-    },
-    "M132": {
-     "id": "E7t8R7liQKuT_13oMkYXg",
-     "side": 12,
-     "butik": "meny",
-     "navn": "GESTUS DANSKE ÆBLER FRA ØRSKOV",
-     "beskrivelse": "8 STK. I BAKKE SKARP PRIS\nStk. pris 2,25.\nSæt tænderne i knasende sprøde danske æbler fra Gestus, der er udvalgt som Dansk Madskat for deres fokus på lokale råvarer og god kvalitet",
-     "pris": 18,
-     "forPris": null,
-     "maengde": "8",
+     "maengde": "10",
      "enhed": "stk",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-12.webp&w=300&x1r=0.38&x2r=0.98&y1r=0.19&y2r=0.99&s=adddfead67eeeeee3b8ff6410b88795e",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-27.webp&w=300&x1r=0.51&x2r=0.965&y1r=0.725&y2r=0.98&s=0c883156e3ca66e0f656bb7d4214d85e",
      "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M132"
+     "kort": "M19"
+    },
+    "M96": {
+     "id": "WMZ5xnIv9ooIO46kDeZuG",
+     "side": 7,
+     "butik": "meny",
+     "navn": "SAINT AGUR BLÅSKIMMEL, SAINT ALBRAY ELLER GRANA PADANO RISERVA",
+     "beskrivelse": "115-180 g. Max. kg pris 260,87.",
+     "pris": 30,
+     "forPris": null,
+     "maengde": "115-180",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-7.webp&w=300&x1r=0.623&x2r=0.959&y1r=0.725&y2r=0.976&s=016588c78acfa142bff57fe138945198",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M96"
     },
     "M157": {
      "id": "tKsU_ST5wgjqpsbNzdv4O",
@@ -4392,20 +6643,6 @@
      "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-3.webp&w=300&x1r=0.03&x2r=0.48&y1r=0.22&y2r=0.58&s=911090905c7fb7a95c933af1c07dd568",
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M9"
-    },
-    "M15": {
-     "id": "qGTwTo7npQhibrIsnI1yO",
-     "side": 1,
-     "butik": "meny",
-     "navn": "BEAUVAIS HERREGÅRDS-RØDKÅL",
-     "beskrivelse": "720 G\nKg pris 13,82. Max. 4 stk. pr. kunde pr. dag. Herefter er prisen 26,95 pr. stk.",
-     "pris": 9.95,
-     "forPris": 26.95,
-     "maengde": "720",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-1.webp&w=300&x1r=0.04&x2r=0.33&y1r=0.55&y2r=0.79&s=727ffd999a8feb31feec78e6adc5c8ca",
-     "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M15"
     },
     "M141": {
      "id": "DlJDGumWnog5uy6AM_f-B",
@@ -4463,19 +6700,33 @@
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M122"
     },
-    "M36": {
-     "id": "X3teYoHzXGMdpivg7fbVB",
-     "side": 47,
+    "M81": {
+     "id": "U3zF6etF7hyWPq-vgVi7U",
+     "side": 22,
      "butik": "meny",
-     "navn": "RAHBEK RØDSPÆTTEFILETER MED SPRØD OVNKLAR PANERING",
-     "beskrivelse": "400 g. Kg pris 74,88. Frost.",
-     "pris": 29.95,
+     "navn": "DOLMIO SAUCE ELLER BEN’S ORIGINAL RIS I KOGEPOSE ELLER SAUCE",
+     "beskrivelse": "Flere varianter. 390-500 g. Max. kg pris 56,41.",
+     "pris": 22,
      "forPris": null,
-     "maengde": "400",
+     "maengde": "390-500",
      "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-47.webp&w=300&x1r=0&x2r=1&y1r=0.02&y2r=0.97&s=4ead424baf1d4575c1a7d000cfc08fae",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-22.webp&w=300&x1r=0.665&x2r=0.963&y1r=0.392&y2r=0.668&s=30de1803415c8a5416e2be4ae8f20f08",
      "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M36"
+     "kort": "M81"
+    },
+    "M132": {
+     "id": "E7t8R7liQKuT_13oMkYXg",
+     "side": 12,
+     "butik": "meny",
+     "navn": "GESTUS DANSKE ÆBLER FRA ØRSKOV",
+     "beskrivelse": "8 STK. I BAKKE SKARP PRIS\nStk. pris 2,25.\nSæt tænderne i knasende sprøde danske æbler fra Gestus, der er udvalgt som Dansk Madskat for deres fokus på lokale råvarer og god kvalitet",
+     "pris": 18,
+     "forPris": null,
+     "maengde": "8",
+     "enhed": "stk",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-12.webp&w=300&x1r=0.38&x2r=0.98&y1r=0.19&y2r=0.99&s=adddfead67eeeeee3b8ff6410b88795e",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M132"
     },
     "M87": {
      "id": "EYw9wcZ-1BA8FL_xT1i4i",
@@ -4533,33 +6784,19 @@
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M22"
     },
-    "M32": {
-     "id": "29arm2-nMpPJ_DZALlai2",
-     "side": 29,
+    "M38": {
+     "id": "mpARjOi4KwTaik_MC3qAj",
+     "side": 21,
      "butik": "meny",
-     "navn": "RAHBEK RØDSPÆTTEFILETER MED SPRØD OVNKLAR PANERING, ROYAL GREENLAND DISKO BAY EKSTRA STORE KUTTER-REJER ELLER STORE GRØNLANDSKE REJER",
-     "beskrivelse": "125-400 g. Max. kg pris 239,60. Frost",
-     "pris": 29.95,
+     "navn": "OMHU FÆRØSK LAKS ELLER HÅNDPILLEDE REJER",
+     "beskrivelse": "Flere varianter. 200/140-440 g. Kg pris 275,00.",
+     "pris": 55,
      "forPris": null,
-     "maengde": "125-400",
+     "maengde": "140-440",
      "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-29.webp&w=300&x1r=0.49&x2r=0.96&y1r=0.11&y2r=0.66&s=fd70152d83d9636d394e810ace3b6d48",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-21.webp&w=300&x1r=0.484&x2r=0.98&y1r=0.02&y2r=0.613&s=93d7a20cde56fe51f4da0b7625ef81a8",
      "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M32"
-    },
-    "M96": {
-     "id": "WMZ5xnIv9ooIO46kDeZuG",
-     "side": 7,
-     "butik": "meny",
-     "navn": "SAINT AGUR BLÅSKIMMEL, SAINT ALBRAY ELLER GRANA PADANO RISERVA",
-     "beskrivelse": "115-180 g. Max. kg pris 260,87.",
-     "pris": 30,
-     "forPris": null,
-     "maengde": "115-180",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-7.webp&w=300&x1r=0.623&x2r=0.959&y1r=0.725&y2r=0.976&s=016588c78acfa142bff57fe138945198",
-     "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M96"
+     "kort": "M38"
     },
     "M24": {
      "id": "IzQ5-7K76G9HNhCuOktPB",
@@ -4588,20 +6825,6 @@
      "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-18.webp&w=300&x1r=0.391&x2r=0.965&y1r=0.155&y2r=0.548&s=d80211d721630ce97520811a47ad393d",
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M17"
-    },
-    "M49": {
-     "id": "lMR6tbF6XbuKBvwD5Kyuz",
-     "side": 20,
-     "butik": "meny",
-     "navn": "PEKA FLØDEKARTOFLER",
-     "beskrivelse": "Original eller Rød Peber. Kg pris 29,97.",
-     "pris": 44.95,
-     "forPris": null,
-     "maengde": "1.5",
-     "enhed": "kg",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-20.webp&w=300&x1r=0.66&x2r=0.98&y1r=0.7&y2r=0.98&s=2bdee1ff181cdee6a716e86f9d548ed7",
-     "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M49"
     },
     "M156": {
      "id": "0LTtaKyFR_fZ_ntCr1hez",
@@ -4673,20 +6896,6 @@
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M71"
     },
-    "M107": {
-     "id": "Lqq3oybmm2rmerIUtpXCE",
-     "side": 19,
-     "butik": "meny",
-     "navn": "HAKKET OKSEKØD 14-18 % AF DANSK KØDKVÆG",
-     "beskrivelse": "SKARP PRIS\nKg pris 108,25.\nOplev dansk kødkvæg, som vokser op i løsdriftsstalde på danske gårde\nDANSK KØDKVÆG GARANTI FOR MØRHED",
-     "pris": 64.95,
-     "forPris": null,
-     "maengde": "600",
-     "enhed": "g",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-19.webp&w=300&x1r=0.04&x2r=0.66&y1r=0.35&y2r=0.68&s=aa6624ec59a0b9cf7d368bbcc03aad67",
-     "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M107"
-    },
     "M99": {
      "id": "LO16qWm3_P-t5y8XtxHyA",
      "side": 4,
@@ -4728,20 +6937,6 @@
      "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-1.webp&w=300&x1r=0.006&x2r=0.41&y1r=0.112&y2r=0.55&s=72d03e5375ea4e25cec25c293c68de19",
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M175"
-    },
-    "M30": {
-     "id": "vZyvSDeyPaVjaaD1U_k1j",
-     "side": 2,
-     "butik": "meny",
-     "navn": "ERIKS SAUCE",
-     "beskrivelse": "Flere varianter. 170-230 ml. Max. literpris 105,88.\nPR. STK.\nMEDLEMSPRIS*\nPR. STK.\nMax. literpris 58,53 Max. 4 Stk. pr. kunde",
-     "pris": 18,
-     "forPris": null,
-     "maengde": "170-230",
-     "enhed": "ml",
-     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-2.webp&w=300&x1r=0.04&x2r=0.48&y1r=0.23&y2r=0.58&s=d126ce2d96f1c6a558357f31fd4e18f6",
-     "gyldigTil": "2026-11-05T22:59:59+0000",
-     "kort": "M30"
     },
     "M16": {
      "id": "9wR4mawZrtziAHemeH2AQ",
@@ -4798,6 +6993,104 @@
      "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-16.webp&w=300&x1r=0.52&x2r=0.97&y1r=0.52&y2r=0.945&s=5ac8ac92cedc2b67403472fc5fd5fe64",
      "gyldigTil": "2026-11-05T22:59:59+0000",
      "kort": "M13"
+    },
+    "M14": {
+     "id": "9tyuXyhS0D4iLBqobGX0H",
+     "side": 22,
+     "butik": "meny",
+     "navn": "AMANDA ELLER GLYNGØRE FISKEMARKED",
+     "beskrivelse": "Makrel, Tun eller Rogn. Flere varianter. 105-150/125-200 g. Max. kg pris 142,86.",
+     "pris": 15,
+     "forPris": null,
+     "maengde": "105-200",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-22.webp&w=300&x1r=0.038&x2r=0.632&y1r=0.103&y2r=0.518&s=e471887814ebf2855d29a0c4b6b13ec3",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M14"
+    },
+    "M65": {
+     "id": "Hrxc8Kn0xOSI4d8C7RJZa",
+     "side": 24,
+     "butik": "meny",
+     "navn": "PHILADELPHIA",
+     "beskrivelse": "Light, Original eller Hvidløg & urter. 200 g. Kg pris 60,00. BEGRÆNSET PARTI",
+     "pris": 12,
+     "forPris": null,
+     "maengde": "200",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-24.webp&w=300&x1r=0.5&x2r=0.96&y1r=0.1&y2r=0.37&s=efea198c81f1e800c5aa0396b8fdba97",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M65"
+    },
+    "M58": {
+     "id": "hHlS0SUJORWt3zYSlozm4",
+     "side": 22,
+     "butik": "meny",
+     "navn": "SANTA MARIA KRYDDERIER",
+     "beskrivelse": "Flere varianter. 5-92 g. Max. kg pris 3.000,00.",
+     "pris": 15,
+     "forPris": null,
+     "maengde": "5-92",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-22.webp&w=300&x1r=0.063&x2r=0.63&y1r=0.523&y2r=0.978&s=da000279e74e519e6fb5a13a88f0fbcb",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M58"
+    },
+    "M46": {
+     "id": "xVbaqjetZYm87vQs1ejOq",
+     "side": 17,
+     "butik": "meny",
+     "navn": "CULOTTE AF DANSK KALV",
+     "beskrivelse": "SKARP PRIS\nSmag kød af dansk kalv. Dyrene har levet et trygt og godt liv i åbne stalde\nKg pris 179,90.",
+     "pris": 89.95,
+     "forPris": null,
+     "maengde": "0.5",
+     "enhed": "kg",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-17.webp&w=300&x1r=0.435&x2r=0.956&y1r=0.154&y2r=0.675&s=1212a9251b65d28fe1d99bd71a2c7f5e",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M46"
+    },
+    "M119": {
+     "id": "CydzXOLU7_Xp6jKw9jZ_E",
+     "side": 30,
+     "butik": "meny",
+     "navn": "RÉSERVE DU PALAIS CÔTES DU RHÔNE ELLER JOHANN KLAUSS GRÜNER VELTLINER",
+     "beskrivelse": "75 cl. Literpris 53,33.",
+     "pris": 40,
+     "forPris": null,
+     "maengde": "75",
+     "enhed": "cl",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-30.webp&w=300&x1r=0.6&x2r=0.97&y1r=0.04&y2r=0.35&s=6391bdb45de0d006086d17c4e84e065d",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M119"
+    },
+    "M80": {
+     "id": "B4Sqbc2GpnqyOCwSemVxQ",
+     "side": 16,
+     "butik": "meny",
+     "navn": "FREYGAARD OKSETYNDSTEGSFILET",
+     "beskrivelse": "Kg pris 219,90. PR. ½ KG",
+     "pris": 109.95,
+     "forPris": null,
+     "maengde": "0.5",
+     "enhed": "kg",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-16.webp&w=300&x1r=0.03&x2r=0.48&y1r=0.74&y2r=0.945&s=afb80562a0d1c91dbd81b7b42fd51986",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M80"
+    },
+    "M144": {
+     "id": "jXqrJnhGzLEWZqrULOovj",
+     "side": 18,
+     "butik": "meny",
+     "navn": "CANARD MARTÍN BERBERI ANDELÅR",
+     "beskrivelse": "Kg pris 99,83. Frost BEGRÆNSET PARTI",
+     "pris": 29.95,
+     "forPris": null,
+     "maengde": "300",
+     "enhed": "g",
+     "billede": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FWbZr7rED%2Fp-18.webp&w=300&x1r=0.045&x2r=0.34&y1r=0.555&y2r=0.728&s=23467035e945bcabf0ec91477beaae0c",
+     "gyldigTil": "2026-11-05T22:59:59+0000",
+     "kort": "M144"
     }
    }
   }
