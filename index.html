@@ -112,7 +112,7 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
   </header>
 
   <nav class="trin">
-    <button data-trin="retter" class="aktiv">1. Vælg retter</button>
+    <button data-trin="retter" class="aktiv">1. Butik og retter</button>
     <button data-trin="liste">2. Indkøbsliste</button>
     <button data-trin="plan">3. Ugeplan</button>
   </nav>
@@ -123,60 +123,68 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
 
 <script>
-const BUTIKKER = { netto: { navn: 'Netto', prefix: 'N' }, meny: { navn: 'MENY', prefix: 'M' } };
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', vegetar: 'Vegetar', andet: 'Andet' };
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
-const GEM = 'madplan-v1';
+const GEM = 'madplan-v2';
+const TOM = { trin: 'retter', filter: 'alle', valgte: [], butik: null, personer: 4, afkrydset: {}, handlet: false, plan: [] };
 
-let data = null;   // svar fra /api/retter
-let state = { noegle: null, trin: 'retter', filter: 'alle', valgte: [], butik: null, personer: 4, afkrydset: {}, handlet: false, plan: [] };
+let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
+let state = { ...TOM };
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const kr = n => n == null ? '' : n.toLocaleString('da-DK', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + ' kr';
-const gem = () => localStorage.setItem(GEM, JSON.stringify({ state, data }));
-const ret = id => data.retter.find(r => r.id === id);
+const gem = () => localStorage.setItem(GEM, JSON.stringify({ genereret: data.genereret, state }));
+const B = () => data.butikker[state.butik];
+const ret = id => B().retter.find(r => r.id === id);
 const faktor = () => state.personer / 4;
+const dato = s => new Date(s.replace(/([+-]\d\d)(\d\d)$/, '$1:$2'));
+const kortDato = s => dato(s).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' });
+
+const tal = v => (+v.toFixed(2)).toLocaleString('da-DK');
 
 function maengde(m, enhed) {
-  if (enhed === 'efter smag' || !m) return enhed === 'efter smag' ? 'efter smag' : '';
-  if (enhed === 'g' && m >= 1000) return `${+(m / 1000).toFixed(2)} kg`;
-  if (enhed === 'ml' && m >= 1000) return `${+(m / 1000).toFixed(2)} l`;
-  const v = m >= 10 ? Math.round(m) : +m.toFixed(1);
-  return `${v.toLocaleString('da-DK')} ${enhed}`;
+  if (enhed === 'efter smag' || !m) return '';
+  if (enhed === 'g' && m >= 1000) return `${tal(m / 1000)} kg`;
+  if (enhed === 'ml' && m >= 1000) return `${tal(m / 1000)} l`;
+  return `${tal(m >= 10 ? Math.round(m) : m)} ${enhed}`;
 }
 
-// Tilbud der matcher en ingrediens i en given butik
-const butiksTilbud = (ing, butik) => ing.tilbud.filter(id => id.startsWith(BUTIKKER[butik].prefix) && data.tilbud[id]);
+// "500 g hakket oksekød" / "salt og peber (efter smag)"
+const ingTekst = (ing, m) => ing.enhed === 'efter smag' ? `${ing.navn} (efter smag)` : `${maengde(m, ing.enhed)} ${ing.navn}`.trim();
+
+// Hvor mange pakker af et tilbud skal der købes til det samlede forbrug?
+const OMREGN = { g: ['g', 1], kg: ['g', 1000], ml: ['ml', 1], cl: ['ml', 10], l: ['ml', 1000], stk: ['stk', 1] };
+function antalPakker(t, behov) {
+  const str = parseFloat(String(t.maengde || '').split('-')[0]);
+  const [enhed, gange] = OMREGN[t.enhed] || [];
+  let n = Math.ceil((behov.dåse || 0) + (behov.pakke || 0));
+  if (str && enhed && behov[enhed]) n = Math.max(n, Math.ceil(behov[enhed] / (str * gange) - 1e-9));
+  return Math.max(1, n);
+}
+
+// Tilbud der matcher en ingrediens i den valgte butik
+const butiksTilbud = ing => ing.tilbud.filter(id => B().tilbud[id]);
+const udloebet = b => b.aviser.every(a => dato(a.til) < new Date());
 
 // ---------- Indlæsning ----------
 async function start() {
-  const gemt = JSON.parse(localStorage.getItem(GEM) || 'null');
   try {
-    const t = await fetch('/api/tilbud').then(r => r.ok ? r.json() : Promise.reject(r));
-    if (gemt?.data?.noegle === t.noegle) {
-      data = gemt.data; state = { ...state, ...gemt.state };
-    } else {
-      // Ny uge (eller første besøg) — hent nye retter. Plan fra sidste uge nulstilles.
-      vis(`<div class="status"><div class="spinner"></div>Claude gennemgår ${t.tilbud.length} tilbud fra Netto og MENY og finder på retter…<br><small>Første gang i en ny uge kan det tage et par minutter.</small></div>`);
-      const r = await fetch(`/api/retter?noegle=${encodeURIComponent(t.noegle)}`);
-      const svar = await r.json();
-      if (!r.ok) throw new Error(svar.error === 'CLAUDE_NOT_CONFIGURED' ? 'ANTHROPIC_API_KEY mangler i Vercel' : svar.error);
-      data = svar;
-      state.noegle = data.noegle;
-      gem();
-    }
-    visAviser();
+    const r = await fetch('/retter.json', { cache: 'no-cache' });
+    if (!r.ok) throw new Error(`retter.json HTTP ${r.status}`);
+    data = await r.json();
+    // Nye ugeretter -> start forfra; ellers fortsæt hvor brugeren slap
+    const gemt = JSON.parse(localStorage.getItem(GEM) || 'null');
+    if (gemt?.genereret === data.genereret) state = { ...TOM, ...gemt.state };
     render();
   } catch (e) {
-    vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e.statusText || e)}</div>`);
+    vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e)}</div>`);
   }
 }
 
 function visAviser() {
-  const fmt = s => new Date(s.replace(/([+-]\d\d)(\d\d)$/, '$1:$2')).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' });
-  document.getElementById('aviser').innerHTML = Object.entries(data.butikker)
-    .map(([k, b]) => b.aviser.map(a => `${esc(a.navn)} (${fmt(a.fra)}–${fmt(a.til)})`).join(', '))
-    .join(' · ');
+  document.getElementById('aviser').innerHTML = state.butik
+    ? B().aviser.map(a => `${esc(a.navn)} · ${kortDato(a.fra)}–${kortDato(a.til)}`).join(', ')
+    : '';
 }
 
 // ---------- Render ----------
@@ -193,19 +201,37 @@ function render() {
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
     b.disabled = (b.dataset.trin === 'liste' && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
   });
-  ({ retter: renderRetter, liste: renderListe, plan: renderPlan })[state.trin]();
+  visAviser();
+  ({ retter: state.butik ? renderRetter : renderButikker, liste: renderListe, plan: renderPlan })[state.trin]();
   gem();
 }
 
+function renderButikker() {
+  vis(`<div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="valg">
+    ${Object.entries(data.butikker).map(([k, b]) => `
+      <button class="butikvalg" data-butik="${k}">
+        <strong>${esc(b.navn)}</strong>
+        ${b.aviser.map(a => `${esc(a.navn)} · ${kortDato(a.fra)}–${kortDato(a.til)}`).join(', ')}<br>
+        ${b.retter.length} retter${udloebet(b) ? ' · <span class="fejl">avisen er udløbet – nye retter på vej</span>' : ''}
+      </button>`).join('')}
+  </div></div>`);
+  bund('');
+}
+
 function renderRetter() {
-  const kat = ['alle', ...new Set(data.retter.map(r => r.kategori))];
-  const synlige = data.retter.filter(r => state.filter === 'alle' || r.kategori === state.filter);
+  const retter = B().retter;
+  const kat = ['alle', ...new Set(retter.map(r => r.kategori))];
+  const synlige = retter.filter(r => state.filter === 'alle' || r.kategori === state.filter);
 
   vis(`
+    <div class="filtre" style="justify-content:space-between">
+      <span><b style="color:var(--text-1)">${esc(B().navn)}</b> · ${retter.length} retter ud fra ugens tilbud</span>
+      <button class="chip" data-skift>Skift butik</button>
+    </div>
+    ${udloebet(B()) ? '<div class="panel fejl">Denne avis er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
     <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle' : KATEGORIER[k]}</button>`).join('')}</div>
     <div class="grid">${synlige.map(r => {
-      const tilbudsvarer = r.ingredienser.filter(i => i.tilbud.length);
-      const antal = b => r.ingredienser.filter(i => butiksTilbud(i, b).length).length;
+      const tilbudsvarer = r.ingredienser.filter(i => butiksTilbud(i).length);
       return `
         <div class="ret ${state.valgte.includes(r.id) ? 'valgt' : ''}" data-ret="${r.id}">
           <h3>${esc(r.navn)}</h3>
@@ -213,8 +239,7 @@ function renderRetter() {
           <div class="meta">
             <span class="tag">${KATEGORIER[r.kategori]}</span>
             <span class="tag">${r.tid_minutter} min</span>
-            ${antal('netto') ? `<span class="tag netto">Netto: ${antal('netto')} på tilbud</span>` : ''}
-            ${antal('meny') ? `<span class="tag meny">MENY: ${antal('meny')} på tilbud</span>` : ''}
+            <span class="tag ${state.butik}">${tilbudsvarer.length} varer på tilbud</span>
             ${r.spis_tidligt ? '<span class="tag frisk">Spis tidligt</span>' : ''}
           </div>
           ${tilbudsvarer.length ? `<div class="tilbudsliste"><b>På tilbud:</b> ${tilbudsvarer.map(i => esc(i.navn)).join(', ')}</div>` : ''}
@@ -225,20 +250,21 @@ function renderRetter() {
         <button class="knap" data-gaa="liste" ${state.valgte.length ? '' : 'disabled'}>Lav indkøbsliste →</button>`);
 }
 
-// Saml ingredienser fra valgte retter i én liste for valgt butik
-function byggListe(butik) {
+// Saml ingredienser fra valgte retter i én liste for den valgte butik
+function byggListe() {
   const tilbud = new Map(), oevrige = new Map(), basis = new Map();
   for (const id of state.valgte) {
     const r = ret(id);
     for (const ing of r.ingredienser) {
       const m = ing.maengde * faktor();
-      const match = butik ? butiksTilbud(ing, butik) : [];
+      const match = butiksTilbud(ing);
       if (ing.basisvare) {
         basis.set(ing.navn.toLowerCase(), ing.navn);
       } else if (match.length) {
         const key = match[0];
-        const v = tilbud.get(key) || { key, tilbud: data.tilbud[key], brug: [] };
-        v.brug.push(`${maengde(m, ing.enhed)} ${ing.navn} (${r.navn})`.trim());
+        const v = tilbud.get(key) || { key, tilbud: B().tilbud[key], brug: [], behov: {} };
+        v.brug.push(`${ingTekst(ing, m)} (${r.navn})`);
+        v.behov[ing.enhed] = (v.behov[ing.enhed] || 0) + m;
         tilbud.set(key, v);
       } else {
         const key = `${ing.navn.toLowerCase()}|${ing.enhed}`;
@@ -248,29 +274,30 @@ function byggListe(butik) {
       }
     }
   }
+  for (const v of tilbud.values()) {
+    v.antal = antalPakker(v.tilbud, v.behov);
+    v.pris = (v.tilbud.pris || 0) * v.antal;
+  }
   return { tilbud: [...tilbud.values()], oevrige: [...oevrige.values()], basis: [...basis.entries()] };
 }
 
+const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${v.tilbud.navn}`;
+
 function renderListe() {
-  const antal = b => byggListe(b).tilbud.length;
-  const sum = b => byggListe(b).tilbud.reduce((s, v) => s + (v.tilbud.pris || 0), 0);
+  const l = byggListe();
+  const sum = l.tilbud.reduce((s, v) => s + v.pris, 0);
 
   let html = `
     <div class="panel">
-      <h2>Hvor vil du handle?</h2>
-      <div class="valg">
-        ${Object.entries(BUTIKKER).map(([k, b]) => `
-          <button class="butikvalg ${state.butik === k ? 'aktiv' : ''}" data-butik="${k}">
-            <strong>${b.navn}</strong>${antal(k)} varer på tilbud · ${kr(sum(k))}
-          </button>`).join('')}
+      <div class="valg" style="justify-content:space-between">
+        <span>Indkøbsliste til <b style="color:var(--text-1)">${esc(B().navn)}</b> · ${l.tilbud.length} tilbudsvarer for i alt ${kr(sum)}</span>
         <div class="personer">
           <button data-personer="-1">−</button><span><b>${state.personer}</b> personer</span><button data-personer="1">+</button>
         </div>
       </div>
     </div>`;
 
-  if (state.butik) {
-    const l = byggListe(state.butik);
+  {
     const linje = (key, navn, detalje, pris, billede) => `
       <label class="vare ${state.afkrydset[key] ? 'taget' : ''}">
         <input type="checkbox" data-kryds="${esc(key)}" ${state.afkrydset[key] ? 'checked' : ''}>
@@ -279,10 +306,10 @@ function renderListe() {
         ${pris ? `<div class="pris">${pris}</div>` : ''}
       </label>`;
 
-    html += `<div class="panel"><h2>På tilbud i ${BUTIKKER[state.butik].navn}</h2>${
-      l.tilbud.length ? l.tilbud.map(v => linje(v.key, v.tilbud.navn,
-        `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}Til: ${v.brug.map(esc).join('; ')}`,
-        kr(v.tilbud.pris), v.tilbud.billede)).join('')
+    html += `<div class="panel"><h2>På tilbud i ${esc(B().navn)}</h2>${
+      l.tilbud.length ? l.tilbud.map(v => linje(v.key, tilbudsNavn(v),
+        `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
+        kr(v.pris), v.tilbud.billede)).join('')
       : '<p>Ingen af de valgte retter har tilbudsvarer i denne butik.</p>'}</div>`;
 
     if (l.oevrige.length) html += `<div class="panel"><h2>Øvrige varer</h2>${
@@ -293,8 +320,8 @@ function renderListe() {
   }
   vis(html);
 
-  bund(state.butik ? `<button class="knap sekundaer" data-kopier>Kopiér liste</button>
-       <button class="knap" data-handlet>Jeg har handlet → ugeplan</button>` : '');
+  bund(`<button class="knap sekundaer" data-kopier>Kopiér liste</button>
+       <button class="knap" data-handlet>Jeg har handlet → ugeplan</button>`);
 }
 
 function lavPlan() {
@@ -324,7 +351,7 @@ function renderPlan() {
         </summary>
         ${r ? `<div class="opskrift">
           <div><h3>Ingredienser (${state.personer} pers.)</h3><ul>${r.ingredienser.map(ing =>
-            `<li>${esc(`${maengde(ing.maengde * faktor(), ing.enhed)} ${ing.navn}`.trim())}</li>`).join('')}</ul></div>
+            `<li>${esc(ingTekst(ing, ing.maengde * faktor()))}</li>`).join('')}</ul></div>
           <div><h3>Fremgangsmåde · ${r.tid_minutter} min</h3><ol>${r.fremgangsmaade.map(t => `<li>${esc(t)}</li>`).join('')}</ol></div>
         </div>` : ''}
       </details>`;
@@ -333,10 +360,10 @@ function renderPlan() {
 }
 
 function kopierListe() {
-  const l = byggListe(state.butik);
+  const l = byggListe();
   const tekst = [
-    `Indkøbsliste — ${BUTIKKER[state.butik].navn}`, '',
-    ...l.tilbud.map(v => `☐ ${v.tilbud.navn} (${kr(v.tilbud.pris)})`),
+    `Indkøbsliste — ${B().navn}`, '',
+    ...l.tilbud.map(v => `☐ ${tilbudsNavn(v)} (${kr(v.pris)})`),
     ...l.oevrige.map(v => `☐ ${maengde(v.m, v.enhed)} ${v.navn}`.replace('  ', ' ')),
     ...(l.basis.length ? ['', 'Tjek om du har:', ...l.basis.map(([, n]) => `☐ ${n}`)] : []),
   ].join('\n');
@@ -345,19 +372,21 @@ function kopierListe() {
 
 // ---------- Hændelser ----------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-trin],[data-filter],[data-ret],[data-gaa],[data-butik],[data-personer],[data-handlet],[data-kopier],[data-forfra]');
+  const t = e.target.closest('[data-trin],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.trin) state.trin = d.trin;
   else if (d.filter) state.filter = d.filter;
   else if (d.ret) state.valgte = state.valgte.includes(d.ret) ? state.valgte.filter(x => x !== d.ret) : [...state.valgte, d.ret];
   else if (d.gaa) state.trin = d.gaa;
-  else if (d.butik) state.butik = d.butik;
+  else if (d.butik) state = { ...TOM, personer: state.personer, butik: d.butik };
+  else if ('skift' in d || 'forfra' in d) {
+    if ((state.valgte.length || state.handlet) && !confirm('Nulstil valgte retter, indkøbsliste og ugeplan?')) return;
+    state = { ...TOM, personer: state.personer };
+  }
   else if (d.personer) state.personer = Math.max(1, Math.min(12, state.personer + +d.personer));
   else if ('handlet' in d) { state.handlet = true; lavPlan(); state.trin = 'plan'; }
   else if ('kopier' in d) return kopierListe();
-  else if ('forfra' in d) { if (!confirm('Nulstil valg, indkøbsliste og ugeplan?')) return;
-    state = { ...state, trin: 'retter', valgte: [], butik: null, afkrydset: {}, handlet: false, plan: [] }; }
   render();
   if (d.trin || d.gaa || 'handlet' in d) window.scrollTo(0, 0);
 });
