@@ -134,6 +134,24 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .fejl { color: var(--red); }
 .skjult { display: none !important; }
+
+/* Indkøbsliste, tilføj varer og indkøbsseddel */
+.sektionshoved { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.sektionshoved h2 { margin: 0; }
+.vare { cursor: pointer; border-radius: 8px; }
+.vare.valgt { background: rgba(16,185,129,.07); }
+.vare.valgt .navn { color: var(--text-1); }
+.soegefelt { display: flex; gap: 8px; }
+.soegefelt input { flex: 1; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--text-1); font: inherit; font-size: 16px; }
+.soegefelt input:focus { outline: none; border-color: var(--emerald); }
+.tilfoej-top { position: sticky; top: 0; z-index: 5; box-shadow: 0 8px 20px rgba(0,0,0,.35); }
+.ekstra-valgte { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; }
+.chip.valgt-chip { border-color: var(--emerald); color: var(--emerald); }
+.katalog-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.katalog-chips .chip.aktiv { background: rgba(16,185,129,.12); }
+.fremskridt { color: var(--emerald); font-weight: 600; }
+.bar { height: 6px; background: var(--surface-2); border-radius: 99px; margin-top: 10px; overflow: hidden; }
+.bar div { height: 100%; background: var(--emerald); transition: width .2s; }
 </style>
 </head>
 <body>
@@ -146,7 +164,9 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
   <nav class="trin">
     <button data-trin="retter" class="aktiv">1. Butik og retter</button>
     <button data-trin="liste">2. Indkøbsliste</button>
-    <button data-trin="plan">3. Ugeplan</button>
+    <button data-trin="tilfoej">3. Tilføj varer</button>
+    <button data-trin="seddel">4. Indkøbsseddel</button>
+    <button data-trin="plan">5. Ugeplan</button>
   </nav>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
@@ -154,6 +174,7 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
 
+<script src="varer.js"></script>
 <script>
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
 const NIVEAUER = {
@@ -162,8 +183,10 @@ const NIVEAUER = {
   weekend: { ikon: '🍷', navn: 'Weekendmad', kort: 'Weekend', tekst: 'Når der skal hygges lidt ekstra' },
 };
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
-const GEM = 'madplan-v2';
-const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', valgte: [], butik: null, personer: 4, afkrydset: {}, handlet: false, plan: [] };
+const GEM = 'madplan-v3';
+// valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
+const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', valgte: [], butik: null, personer: 4,
+              valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
 let state = { ...TOM };
@@ -179,11 +202,32 @@ const kortDato = s => dato(s).toLocaleDateString('da-DK', { day: 'numeric', mont
 
 const tal = v => (+v.toFixed(2)).toLocaleString('da-DK');
 
-function maengde(m, enhed) {
+// Pæne mængder: ingen "1,25 bundt dild" eller "281 g bønner".
+// tilListe = indkøb (stk rundes op til hele), ellers opskrift (stk må være ¼/½).
+function rund(m, enhed, tilListe = false) {
+  if (!m) return 0;
+  switch (enhed) {
+    case 'g': case 'ml': {
+      const trin = m < 50 ? 5 : m < 250 ? 25 : m < 1000 ? 50 : 100;
+      return Math.max(trin, Math.round(m / trin) * trin);
+    }
+    case 'stk': return tilListe ? Math.ceil(m - 1e-9) : (m < 1 ? Math.max(0.25, Math.round(m * 4) / 4) : Math.round(m * 2) / 2);
+    case 'dåse': case 'pakke': return Math.ceil(m - 0.1);
+    case 'bundt': case 'fed': return Math.max(1, Math.round(m));
+    case 'spsk': case 'tsk': case 'dl': return Math.max(0.5, Math.round(m * 2) / 2);
+    default: return Math.round(m * 10) / 10;
+  }
+}
+const BROEK = { 0.25: '¼', 0.5: '½', 0.75: '¾' };
+const broek = v => { const hel = Math.floor(v), rest = +(v - hel).toFixed(2); return BROEK[rest] ? `${hel || ''}${BROEK[rest]}` : tal(v); };
+
+function maengde(m, enhed, tilListe = false) {
   if (enhed === 'efter smag' || !m) return '';
-  if (enhed === 'g' && m >= 1000) return `${tal(m / 1000)} kg`;
-  if (enhed === 'ml' && m >= 1000) return `${tal(m / 1000)} l`;
-  return `${tal(m >= 10 ? Math.round(m) : m)} ${enhed}`;
+  const r = rund(m, enhed, tilListe);
+  if (enhed === 'g' && r >= 1000) return `${tal(r / 1000)} kg`;
+  if (enhed === 'ml' && r >= 1000) return `${tal(r / 1000)} l`;
+  if (enhed === 'ml' && r >= 100 && r % 100 === 0) return `${tal(r / 100)} dl`;
+  return `${broek(r)} ${enhed === 'dåse' && r > 1 ? 'dåser' : enhed === 'pakke' && r > 1 ? 'pakker' : enhed}`;
 }
 
 // "500 g hakket oksekød" / "salt og peber (efter smag)"
@@ -238,10 +282,11 @@ function bund(html) {
 function render() {
   document.querySelectorAll('nav.trin button').forEach(b => {
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
-    b.disabled = (b.dataset.trin === 'liste' && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
+    b.disabled = (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
   });
   visAviser();
-  ({ retter: state.butik ? renderRetter : renderButikker, liste: renderListe, plan: renderPlan })[state.trin]();
+  ({ retter: state.butik ? renderRetter : renderButikker, liste: renderListe, tilfoej: renderTilfoej,
+     seddel: renderSeddel, plan: renderPlan })[state.trin]();
   gem();
 }
 
@@ -359,7 +404,7 @@ function byggListe() {
         basis.set(ing.navn.toLowerCase(), ing.navn);
       } else if (match.length) {
         const key = match[0];
-        const v = tilbud.get(key) || { key, tilbud: B().tilbud[key], brug: [], behov: {} };
+        const v = tilbud.get(key) || { key, tilbud: B().tilbud[key], ingNavn: ing.navn, brug: [], behov: {} };
         v.brug.push(`${ingTekst(ing, m)} (${r.navn})`);
         v.behov[ing.enhed] = (v.behov[ing.enhed] || 0) + m;
         tilbud.set(key, v);
@@ -380,45 +425,156 @@ function byggListe() {
 
 const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${v.tilbud.navn}`;
 
-function renderListe() {
+// Alle linjer på indkøbslisten med nøgle, tekst og varegruppe – bruges af både listen og sedlen
+function listeLinjer() {
   const l = byggListe();
-  const sum = l.tilbud.reduce((s, v) => s + v.pris, 0);
+  return {
+    tilbud: l.tilbud.map(v => ({
+      key: 't|' + v.key, navn: tilbudsNavn(v), gruppe: varegruppe(v.ingNavn), pris: v.pris, billede: v.tilbud.billede,
+      detalje: `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
+    })),
+    oevrige: l.oevrige.map(v => ({
+      key: 'o|' + v.key, navn: `${maengde(v.m, v.enhed, true)} ${v.navn}`.trim(), gruppe: varegruppe(v.navn),
+      detalje: esc([...new Set(v.retter)].join(', ')),
+    })),
+    basis: l.basis.map(([k, navn]) => ({ key: 'b|' + k, navn, gruppe: varegruppe(navn), detalje: 'Basisvare – har du den i skabet?' })),
+  };
+}
 
-  let html = `
+const SEKTIONER = [
+  ['tilbud', s => `På tilbud i ${esc(B().navn)}`],
+  ['oevrige', () => 'Ikke på tilbud (normalpris)'],
+  ['basis', () => 'Basisvarer – tjek om du har'],
+];
+
+function renderListe() {
+  const L = listeLinjer();
+  const antalValgt = Object.values(L).flat().filter(x => state.valgtVare[x.key]).length;
+  const sum = L.tilbud.filter(x => state.valgtVare[x.key]).reduce((s, x) => s + x.pris, 0);
+
+  const linje = x => `
+    <label class="vare ${state.valgtVare[x.key] ? 'valgt' : ''}">
+      <input type="checkbox" data-vaelg="${esc(x.key)}" ${state.valgtVare[x.key] ? 'checked' : ''}>
+      ${x.billede ? `<img src="${esc(x.billede)}" alt="" loading="lazy">` : ''}
+      <div class="tekst"><div class="navn">${esc(x.navn)}</div><div class="detalje">${x.detalje}</div></div>
+      ${x.pris ? `<div class="pris">${kr(x.pris)}</div>` : ''}
+    </label>`;
+
+  vis(`
     <div class="panel">
       <div class="valg" style="justify-content:space-between">
-        <span>Indkøbsliste til <b style="color:var(--text-1)">${esc(B().navn)}</b> · ${l.tilbud.length} tilbudsvarer for i alt ${kr(sum)}</span>
+        <span>Kryds af, hvad du skal købe i <b style="color:var(--text-1)">${esc(B().navn)}</b>. Fjern fluebenet ved det, du allerede har.</span>
         <div class="personer">
           <button data-personer="-1">−</button><span><b>${state.personer}</b> personer</span><button data-personer="1">+</button>
         </div>
       </div>
-    </div>`;
+    </div>
+    ${SEKTIONER.filter(([k]) => L[k].length).map(([k, titel]) => {
+      const alle = L[k].every(x => state.valgtVare[x.key]);
+      return `<div class="panel">
+        <div class="sektionshoved"><h2>${titel()}</h2>
+          <button class="chip" data-alle="${k}" data-til="${alle ? 0 : 1}">${alle ? 'Fravælg alle' : '✓ Vælg alle'}</button></div>
+        ${L[k].map(linje).join('')}
+      </div>`;
+    }).join('')}`);
 
-  {
-    const linje = (key, navn, detalje, pris, billede) => `
-      <label class="vare ${state.afkrydset[key] ? 'taget' : ''}">
-        <input type="checkbox" data-kryds="${esc(key)}" ${state.afkrydset[key] ? 'checked' : ''}>
-        ${billede ? `<img src="${esc(billede)}" alt="" loading="lazy">` : ''}
-        <div class="tekst"><div class="navn">${esc(navn)}</div><div class="detalje">${detalje}</div></div>
-        ${pris ? `<div class="pris">${pris}</div>` : ''}
-      </label>`;
+  bund(`<span>${antalValgt} varer valgt${sum ? ` · tilbud ${kr(sum)}` : ''}</span>
+        <button class="knap" data-gaa="tilfoej" ${antalValgt ? '' : 'disabled'}>Videre: tilføj flere varer →</button>`);
+}
 
-    html += `<div class="panel"><h2>På tilbud i ${esc(B().navn)}</h2>${
-      l.tilbud.length ? l.tilbud.map(v => linje(v.key, tilbudsNavn(v),
-        `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
-        kr(v.pris), v.tilbud.billede)).join('')
-      : '<p>Ingen af de valgte retter har tilbudsvarer i denne butik.</p>'}</div>`;
+// ---------- Tilføj varer (katalog + egne varer) ----------
+const harEkstra = navn => state.ekstra.some(e => e.navn.toLowerCase() === navn.toLowerCase());
 
-    if (l.oevrige.length) html += `<div class="panel"><h2>Øvrige varer</h2>${
-      l.oevrige.map(v => linje(v.key, `${maengde(v.m, v.enhed)} ${v.navn}`.trim(), esc([...new Set(v.retter)].join(', ')))).join('')}</div>`;
+function tilfoejEkstra(navn, gruppe) {
+  navn = navn.trim();
+  if (!navn || harEkstra(navn)) return;
+  state.ekstra.push({ id: 'e|' + Date.now() + Math.random().toString(36).slice(2, 6), navn, gruppe: gruppe || varegruppe(navn) });
+}
 
-    if (l.basis.length) html += `<div class="panel"><h2>Tjek om du har</h2>${
-      l.basis.map(([k, navn]) => linje('basis|' + k, navn, '')).join('')}</div>`;
-  }
-  vis(html);
+function renderTilfoej() {
+  const valgte = state.ekstra.length
+    ? state.ekstra.map(e => `<button class="chip valgt-chip" data-fjern="${esc(e.id)}" title="Fjern">${esc(e.navn)} ✕</button>`).join('')
+    : '<span class="detalje">Ingen ekstra varer endnu.</span>';
 
-  bund(`<button class="knap sekundaer" data-kopier>Kopiér liste</button>
-       <button class="knap" data-handlet>Jeg har handlet → ugeplan</button>`);
+  vis(`
+    <div class="panel tilfoej-top">
+      <h2>Tilføj basisvarer og andet til indkøbssedlen</h2>
+      <div class="soegefelt">
+        <input id="soeg" type="search" placeholder="Søg fx mælk, toiletpapir, shampoo … eller skriv din egen vare" value="${esc(state.soeg)}" autocomplete="off">
+        <button class="knap" data-egen>Tilføj</button>
+      </div>
+      <div class="detalje" style="margin-top:6px">Tryk på en vare for at tilføje den. Tryk Enter for at tilføje det, du har skrevet.</div>
+      <div class="ekstra-valgte"><b>På sedlen (${state.ekstra.length}):</b> ${valgte}</div>
+    </div>
+    <div id="katalog">
+      ${VAREGRUPPER.filter(g => KATALOG[g.navn]).map(g => `
+        <div class="panel katalog-gruppe" data-gruppe="${esc(g.navn)}">
+          <h2>${g.ikon} ${esc(g.navn)}</h2>
+          <div class="katalog-chips">
+            ${KATALOG[g.navn].map(v => `<button class="chip ${harEkstra(v) ? 'aktiv' : ''}" data-katalog="${esc(v)}" data-kgruppe="${esc(g.navn)}">${harEkstra(v) ? '✓ ' : '+ '}${esc(v)}</button>`).join('')}
+          </div>
+        </div>`).join('')}
+      <div class="panel skjult" id="ingen-fund"><p>Ingen varer matcher. Tryk Enter for at tilføje "<span id="fund-tekst"></span>" som din egen vare.</p></div>
+    </div>`);
+  filtrerKatalog(state.soeg);
+
+  bund(`<button class="knap sekundaer" data-gaa="liste">← Tilbage</button>
+        <button class="knap" data-gaa="seddel">Se indkøbsseddel →</button>`);
+}
+
+// Filtrer katalog-chips uden at tegne siden om (så søgefeltet beholder fokus)
+function filtrerKatalog(q) {
+  q = q.trim().toLowerCase();
+  let fund = 0;
+  document.querySelectorAll('.katalog-gruppe').forEach(g => {
+    let synlige = 0;
+    g.querySelectorAll('[data-katalog]').forEach(c => {
+      const vis = !q || c.dataset.katalog.toLowerCase().includes(q) || c.dataset.kgruppe.toLowerCase().includes(q);
+      c.classList.toggle('skjult', !vis);
+      if (vis) synlige++;
+    });
+    g.classList.toggle('skjult', !synlige);
+    fund += synlige;
+  });
+  const ingen = document.getElementById('ingen-fund');
+  if (ingen) { ingen.classList.toggle('skjult', !!fund || !q); document.getElementById('fund-tekst').textContent = q; }
+}
+
+// ---------- Indkøbsseddel sorteret efter varegruppe ----------
+function seddelLinjer() {
+  const L = listeLinjer();
+  return [...Object.values(L).flat().filter(x => state.valgtVare[x.key]),
+          ...state.ekstra.map(e => ({ key: e.id, navn: e.navn, gruppe: e.gruppe, detalje: '' }))];
+}
+
+function renderSeddel() {
+  const linjer = seddelLinjer();
+  const koebt = linjer.filter(x => state.koebt[x.key]).length;
+  const sum = linjer.reduce((s, x) => s + (x.pris || 0), 0);
+
+  vis(`
+    <div class="panel">
+      <div class="valg" style="justify-content:space-between">
+        <span><b style="color:var(--text-1)">Indkøbsseddel · ${esc(B().navn)}</b> · ${linjer.length} varer${sum ? ` · tilbudsvarer ${kr(sum)}` : ''}</span>
+        <span class="fremskridt">${koebt} af ${linjer.length} i kurven</span>
+      </div>
+      <div class="bar"><div style="width:${linjer.length ? koebt / linjer.length * 100 : 0}%"></div></div>
+    </div>
+    ${linjer.length ? VAREGRUPPER.map(g => {
+      const iGruppe = linjer.filter(x => x.gruppe === g.navn);
+      if (!iGruppe.length) return '';
+      return `<div class="panel"><h2>${g.ikon} ${esc(g.navn)} <span class="detalje">(${iGruppe.length})</span></h2>
+        ${iGruppe.map(x => `
+          <label class="vare ${state.koebt[x.key] ? 'taget' : ''}">
+            <input type="checkbox" data-koebt="${esc(x.key)}" ${state.koebt[x.key] ? 'checked' : ''}>
+            <div class="tekst"><div class="navn">${esc(x.navn)}</div>${x.pris ? `<div class="detalje">På tilbud</div>` : ''}</div>
+            ${x.pris ? `<div class="pris">${kr(x.pris)}</div>` : ''}
+          </label>`).join('')}
+      </div>`;
+    }).join('') : '<div class="panel"><p>Sedlen er tom – gå tilbage og vælg varer.</p></div>'}`);
+
+  bund(`<button class="knap sekundaer" data-kopier>Kopiér seddel</button>
+        <button class="knap" data-handlet>Jeg har handlet → ugeplan</button>`);
 }
 
 function lavPlan() {
@@ -457,22 +613,28 @@ function renderPlan() {
 }
 
 function kopierListe() {
-  const l = byggListe();
-  const tekst = [
-    `Indkøbsliste — ${B().navn}`, '',
-    ...l.tilbud.map(v => `☐ ${tilbudsNavn(v)} (${kr(v.pris)})`),
-    ...l.oevrige.map(v => `☐ ${maengde(v.m, v.enhed)} ${v.navn}`.replace('  ', ' ')),
-    ...(l.basis.length ? ['', 'Tjek om du har:', ...l.basis.map(([, n]) => `☐ ${n}`)] : []),
-  ].join('\n');
-  navigator.clipboard.writeText(tekst).then(() => alert('Listen er kopieret'));
+  const linjer = seddelLinjer();
+  const tekst = [`Indkøbsseddel — ${B().navn}`,
+    ...VAREGRUPPER.flatMap(g => {
+      const iGruppe = linjer.filter(x => x.gruppe === g.navn);
+      return iGruppe.length ? ['', `${g.ikon} ${g.navn}`, ...iGruppe.map(x => `☐ ${x.navn}${x.pris ? ` (${kr(x.pris)})` : ''}`)] : [];
+    })].join('\n');
+  navigator.clipboard.writeText(tekst).then(() => alert('Indkøbssedlen er kopieret'));
 }
 
 // ---------- Hændelser ----------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra]');
+  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen]');
   if (!t || t.disabled) return;
   const d = t.dataset;
-  if (d.trin) state.trin = d.trin;
+  if (d.alle) { listeLinjer()[d.alle].forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
+  else if (d.katalog) {
+    if (harEkstra(d.katalog)) state.ekstra = state.ekstra.filter(x => x.navn.toLowerCase() !== d.katalog.toLowerCase());
+    else tilfoejEkstra(d.katalog, d.kgruppe);
+  }
+  else if (d.fjern) state.ekstra = state.ekstra.filter(x => x.id !== d.fjern);
+  else if ('egen' in d) { tilfoejEkstra(state.soeg); state.soeg = ''; }
+  else if (d.trin) state.trin = d.trin;
   else if (d.niveau) state.niveau = d.niveau;
   else if (d.filter) state.filter = d.filter;
   else if (d.ret) state.valgte = state.valgte.includes(d.ret) ? state.valgte.filter(x => x !== d.ret) : [...state.valgte, d.ret];
@@ -485,14 +647,36 @@ document.addEventListener('click', e => {
   else if (d.personer) state.personer = Math.max(1, Math.min(12, state.personer + +d.personer));
   else if ('handlet' in d) { state.handlet = true; lavPlan(); state.trin = 'plan'; }
   else if ('kopier' in d) return kopierListe();
+  // Bevar scroll-position når man blot klikker i en liste
+  const y = window.scrollY;
   render();
   if (d.trin || d.gaa || 'handlet' in d) window.scrollTo(0, 0);
+  else window.scrollTo(0, y);
+  if ('egen' in d) document.getElementById('soeg')?.focus();
 });
 
 document.addEventListener('change', e => {
   const t = e.target;
-  if (t.dataset.kryds) { state.afkrydset[t.dataset.kryds] = t.checked; t.closest('.vare').classList.toggle('taget', t.checked); gem(); }
+  if (t.dataset.vaelg) { state.valgtVare[t.dataset.vaelg] = t.checked; const y = window.scrollY; render(); window.scrollTo(0, y); }
+  if (t.dataset.koebt) { state.koebt[t.dataset.koebt] = t.checked; const y = window.scrollY; render(); window.scrollTo(0, y); }
   if (t.dataset.dag) { state.plan[+t.dataset.dag].ret = t.value || null; render(); }
+});
+
+// Søgning i varekataloget: filtrer mens man skriver, Enter tilføjer egen vare
+document.addEventListener('input', e => {
+  if (e.target.id === 'soeg') { state.soeg = e.target.value; filtrerKatalog(state.soeg); }
+});
+document.addEventListener('keydown', e => {
+  if (e.target.id === 'soeg' && e.key === 'Enter') {
+    e.preventDefault();
+    // Matcher søgningen præcis én katalogvare, tilføjes den; ellers tilføjes teksten som egen vare
+    const synlige = [...document.querySelectorAll('[data-katalog]:not(.skjult)')];
+    const praecis = synlige.find(c => c.dataset.katalog.toLowerCase() === state.soeg.trim().toLowerCase()) || (synlige.length === 1 && synlige[0]);
+    if (praecis) tilfoejEkstra(praecis.dataset.katalog, praecis.dataset.kgruppe); else tilfoejEkstra(state.soeg);
+    state.soeg = '';
+    render();
+    document.getElementById('soeg')?.focus();
+  }
 });
 
 start();
