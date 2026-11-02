@@ -101,6 +101,8 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 #login-besked { min-height: 1.2em; font-size: 14px; margin: 12px 0 0; }
 #login-besked.ok { color: var(--emerald); }
 button.link { background: none; border: 0; color: var(--text-3); text-decoration: underline; padding: 0; font-size: 14px; margin-top: 8px; }
+.pris.skoen { color: var(--text-3); font-weight: 500; }
+#bundIndhold small { color: var(--text-3); }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -198,6 +200,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="varer.js"></script>
 <script src="auth.js"></script>
+<script src="pris.js"></script>
 <script>
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
 const NIVEAUER = {
@@ -471,11 +474,24 @@ function listeLinjer() {
     })),
     oevrige: l.oevrige.map(v => ({
       key: 'o|' + v.key, navn: `${maengde(v.m, v.enhed, true)} ${v.navn}`.trim(), gruppe: varegruppe(v.navn),
-      detalje: esc([...new Set(v.retter)].join(', ')),
+      skoen: skoenPris(v.navn, v.m, v.enhed), detalje: esc([...new Set(v.retter)].join(', ')),
     })),
-    basis: l.basis.map(([k, navn]) => ({ key: 'b|' + k, navn, gruppe: varegruppe(navn), detalje: 'Basisvare – har du den i skabet?' })),
+    basis: l.basis.map(([k, navn]) => ({ key: 'b|' + k, navn, gruppe: varegruppe(navn), skoen: skoenPris(navn),
+                                         detalje: 'Basisvare – har du den i skabet?' })),
   };
 }
+
+// Samlet pris for en række linjer: tilbudsvarer (faktisk pris) + skøn for resten
+function prisSum(linjer) {
+  const tilbud = linjer.reduce((s, x) => s + (x.pris || 0), 0);
+  const skoen = linjer.reduce((s, x) => s + (x.pris ? 0 : x.skoen || 0), 0);
+  return { tilbud, skoen, ialt: tilbud + skoen };
+}
+const prisTekst = ({ tilbud, skoen, ialt }) =>
+  skoen ? `ca. ${kr(Math.round(ialt))} i alt <small>(tilbud ${kr(tilbud)} + ca. ${kr(Math.round(skoen))} øvrige)</small>`
+        : tilbud ? `${kr(tilbud)} i alt` : '';
+const prisCelle = x => x.pris ? `<div class="pris">${kr(x.pris)}</div>`
+                     : x.skoen ? `<div class="pris skoen" title="Skønnet normalpris">ca. ${kr(x.skoen)}</div>` : '';
 
 const SEKTIONER = [
   ['tilbud', s => `På tilbud i ${esc(B().navn)}`],
@@ -486,14 +502,14 @@ const SEKTIONER = [
 function renderListe() {
   const L = listeLinjer();
   const antalValgt = Object.values(L).flat().filter(x => state.valgtVare[x.key]).length;
-  const sum = L.tilbud.filter(x => state.valgtVare[x.key]).reduce((s, x) => s + x.pris, 0);
+  const sum = prisSum(Object.values(L).flat().filter(x => state.valgtVare[x.key]));
 
   const linje = x => `
     <label class="vare ${state.valgtVare[x.key] ? 'valgt' : ''}">
       <input type="checkbox" data-vaelg="${esc(x.key)}" ${state.valgtVare[x.key] ? 'checked' : ''}>
       ${x.billede ? `<img src="${esc(x.billede)}" alt="" loading="lazy">` : ''}
       <div class="tekst"><div class="navn">${esc(x.navn)}</div><div class="detalje">${x.detalje}</div></div>
-      ${x.pris ? `<div class="pris">${kr(x.pris)}</div>` : ''}
+      ${prisCelle(x)}
     </label>`;
 
   vis(`
@@ -514,7 +530,7 @@ function renderListe() {
       </div>`;
     }).join('')}`);
 
-  bund(`<span>${antalValgt} varer valgt${sum ? ` · tilbud ${kr(sum)}` : ''}</span>
+  bund(`<span>${antalValgt} varer valgt${sum.ialt ? ` · ${prisTekst(sum)}` : ''}</span>
         <button class="knap" data-gaa="tilfoej" ${antalValgt ? '' : 'disabled'}>Videre: tilføj flere varer →</button>`);
 }
 
@@ -580,18 +596,18 @@ function filtrerKatalog(q) {
 function seddelLinjer() {
   const L = listeLinjer();
   return [...Object.values(L).flat().filter(x => state.valgtVare[x.key]),
-          ...state.ekstra.map(e => ({ key: e.id, navn: e.navn, gruppe: e.gruppe, detalje: '' }))];
+          ...state.ekstra.map(e => ({ key: e.id, navn: e.navn, gruppe: e.gruppe, detalje: '', skoen: skoenPris(e.navn, 0, '', e.gruppe) }))];
 }
 
 function renderSeddel() {
   const linjer = seddelLinjer();
   const koebt = linjer.filter(x => state.koebt[x.key]).length;
-  const sum = linjer.reduce((s, x) => s + (x.pris || 0), 0);
+  const sum = prisSum(linjer);
 
   vis(`
     <div class="panel">
       <div class="valg" style="justify-content:space-between">
-        <span><b style="color:var(--text-1)">Indkøbsseddel · ${esc(B().navn)}</b> · ${linjer.length} varer${sum ? ` · tilbudsvarer ${kr(sum)}` : ''}</span>
+        <span><b style="color:var(--text-1)">Indkøbsseddel · ${esc(B().navn)}</b> · ${linjer.length} varer${sum.ialt ? ` · ${prisTekst(sum)}` : ''}</span>
         <span class="fremskridt">${koebt} af ${linjer.length} i kurven</span>
       </div>
       <div class="bar"><div style="width:${linjer.length ? koebt / linjer.length * 100 : 0}%"></div></div>
@@ -604,7 +620,7 @@ function renderSeddel() {
           <label class="vare ${state.koebt[x.key] ? 'taget' : ''}">
             <input type="checkbox" data-koebt="${esc(x.key)}" ${state.koebt[x.key] ? 'checked' : ''}>
             <div class="tekst"><div class="navn">${esc(x.navn)}</div>${x.pris ? `<div class="detalje">På tilbud</div>` : ''}</div>
-            ${x.pris ? `<div class="pris">${kr(x.pris)}</div>` : ''}
+            ${prisCelle(x)}
           </label>`).join('')}
       </div>`;
     }).join('') : '<div class="panel"><p>Sedlen er tom – gå tilbage og vælg varer.</p></div>'}`);
@@ -650,10 +666,11 @@ function renderPlan() {
 
 function kopierListe() {
   const linjer = seddelLinjer();
-  const tekst = [`Indkøbsseddel — ${B().navn}`,
+  const sum = prisSum(linjer);
+  const tekst = [`Indkøbsseddel — ${B().navn} · ca. ${kr(Math.round(sum.ialt))} i alt`,
     ...VAREGRUPPER.flatMap(g => {
       const iGruppe = linjer.filter(x => x.gruppe === g.navn);
-      return iGruppe.length ? ['', `${g.ikon} ${g.navn}`, ...iGruppe.map(x => `☐ ${x.navn}${x.pris ? ` (${kr(x.pris)})` : ''}`)] : [];
+      return iGruppe.length ? ['', `${g.ikon} ${g.navn}`, ...iGruppe.map(x => `☐ ${x.navn}${x.pris ? ` (${kr(x.pris)})` : x.skoen ? ` (ca. ${kr(x.skoen)})` : ''}`)] : [];
     })].join('\n');
   navigator.clipboard.writeText(tekst).then(() => alert('Indkøbssedlen er kopieret'));
 }
