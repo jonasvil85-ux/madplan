@@ -56,6 +56,14 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 .tag.netto { color: var(--netto); }
 .tag.meny { color: #FF5A6E; }
 .tag.frisk { color: var(--amber); }
+.tag.pris { color: var(--emerald); font-weight: 600; }
+
+.niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.niveau { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 12px 14px; text-align: left; color: var(--text-3); display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; }
+.niveau .ikon { grid-row: span 2; font-size: 26px; }
+.niveau strong { color: var(--text-1); font-size: 15px; }
+.niveau small { font-size: 12px; }
+.niveau.aktiv { border-color: var(--emerald); background: var(--surface-2); }
 .tilbudsliste { margin-top: 10px; font-size: 12px; color: var(--text-3); }
 .tilbudsliste b { color: var(--emerald); font-weight: 600; }
 
@@ -123,10 +131,15 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
 
 <script>
-const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', vegetar: 'Vegetar', andet: 'Andet' };
+const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
+const NIVEAUER = {
+  student: { ikon: '🎓', navn: 'Studentermad', tekst: 'Billigt, hurtigt og mættende' },
+  familie: { ikon: '👨‍👩‍👧', navn: 'Familiemad', tekst: 'Hverdagsmad hele familien kan lide' },
+  weekend: { ikon: '🍷', navn: 'Weekendmad', tekst: 'Når der skal hygges lidt ekstra' },
+};
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v2';
-const TOM = { trin: 'retter', filter: 'alle', valgte: [], butik: null, personer: 4, afkrydset: {}, handlet: false, plan: [] };
+const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', valgte: [], butik: null, personer: 4, afkrydset: {}, handlet: false, plan: [] };
 
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
 let state = { ...TOM };
@@ -220,8 +233,14 @@ function renderButikker() {
 
 function renderRetter() {
   const retter = B().retter;
-  const kat = ['alle', ...new Set(retter.map(r => r.kategori))];
-  const synlige = retter.filter(r => state.filter === 'alle' || r.kategori === state.filter);
+  const orden = Object.keys(NIVEAUER);
+  const iNiveau = retter
+    .filter(r => state.niveau === 'alle' || r.niveau === state.niveau)
+    .sort((a, b) => orden.indexOf(a.niveau) - orden.indexOf(b.niveau) || a.pris_tilbud - b.pris_tilbud);
+  const kat = ['alle', ...Object.keys(KATEGORIER).filter(k => iNiveau.some(r => r.kategori === k))];
+  if (!kat.includes(state.filter)) state.filter = 'alle';
+  const synlige = iNiveau.filter(r => state.filter === 'alle' || r.kategori === state.filter);
+  const antal = n => retter.filter(r => n === 'alle' || r.niveau === n).length;
 
   vis(`
     <div class="filtre" style="justify-content:space-between">
@@ -229,7 +248,14 @@ function renderRetter() {
       <button class="chip" data-skift>Skift butik</button>
     </div>
     ${udloebet(B()) ? '<div class="panel fejl">Denne avis er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
-    <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle' : KATEGORIER[k]}</button>`).join('')}</div>
+    <div class="niveauer">
+      <button class="niveau ${state.niveau === 'alle' ? 'aktiv' : ''}" data-niveau="alle"><span class="ikon">🍽️</span><strong>Alle retter</strong><small>${antal('alle')} retter</small></button>
+      ${Object.entries(NIVEAUER).map(([k, n]) => `
+        <button class="niveau ${state.niveau === k ? 'aktiv' : ''}" data-niveau="${k}">
+          <span class="ikon">${n.ikon}</span><strong>${n.navn}</strong><small>${n.tekst} · ${antal(k)} retter</small>
+        </button>`).join('')}
+    </div>
+    <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle typer' : KATEGORIER[k]}</button>`).join('')}</div>
     <div class="grid">${synlige.map(r => {
       const tilbudsvarer = r.ingredienser.filter(i => butiksTilbud(i).length);
       return `
@@ -237,8 +263,10 @@ function renderRetter() {
           <h3>${esc(r.navn)}</h3>
           <p>${esc(r.beskrivelse)}</p>
           <div class="meta">
+            <span class="tag">${NIVEAUER[r.niveau].ikon} ${NIVEAUER[r.niveau].navn}</span>
             <span class="tag">${KATEGORIER[r.kategori]}</span>
             <span class="tag">${r.tid_minutter} min</span>
+            <span class="tag pris" title="Pris for de tilbudsvarer retten bruger (hele pakker, 4 personer)">ca. ${kr(Math.round(r.pris_tilbud))} · ${kr(Math.round(r.pris_tilbud / 4))}/pers.</span>
             <span class="tag ${state.butik}">${tilbudsvarer.length} varer på tilbud</span>
             ${r.spis_tidligt ? '<span class="tag frisk">Spis tidligt</span>' : ''}
           </div>
@@ -372,10 +400,11 @@ function kopierListe() {
 
 // ---------- Hændelser ----------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-trin],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra]');
+  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.trin) state.trin = d.trin;
+  else if (d.niveau) state.niveau = d.niveau;
   else if (d.filter) state.filter = d.filter;
   else if (d.ret) state.valgte = state.valgte.includes(d.ret) ? state.valgte.filter(x => x !== d.ret) : [...state.valgte, d.ret];
   else if (d.gaa) state.trin = d.gaa;

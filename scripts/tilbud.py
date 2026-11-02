@@ -1,9 +1,13 @@
-"""Henter ugens tilbud fra Tjek med samme korte id'er (N1, M1 …) som api/_tjek.js.
+"""Henter ugens tilbud fra Tjek og giver dem korte id'er (N1 … / M1 …).
 
-Brug:  python scripts/tilbud.py            -> skriver tilbudsliste til stdout (til at lave retter ud fra)
-Bruges også af scripts/byg_retter.py.
+Brug:  python -I scripts/tilbud.py > tilbud.txt
+  - gemmer øjebliksbillede i scripts/tilbud_snapshot.json (byg_retter.py bruger det)
+  - skriver tilbudslisten til stdout (til at skrive retter ud fra)
+
+Tjek leverer ikke tilbuddene i fast rækkefølge, så id'erne gælder KUN for det gemte
+øjebliksbillede. Kør derfor ikke scriptet igen mellem at retterne skrives og bygges.
 """
-import json, re, sys, urllib.request
+import json, os, re, sys, urllib.request
 from datetime import datetime, timezone
 
 API = 'https://squid-api.tjek.com/v2'
@@ -12,6 +16,7 @@ BUTIKKER = {
     'meny':  {'navn': 'MENY',  'dealerId': '267e1m', 'prefix': 'M'},
 }
 IKKE_MAD = re.compile(r'nonfood|vin|spisetid|magasin', re.I)
+SNAPSHOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tilbud_snapshot.json')
 ENHEDER = {'pcs': 'stk', 'g': 'g', 'kg': 'kg', 'ml': 'ml', 'cl': 'cl', 'l': 'l'}
 
 
@@ -44,7 +49,7 @@ def hent_butik(key):
                 s = q.get('size') or {}
                 sym = (q.get('unit') or {}).get('symbol')
                 tilbud.append({
-                    'id': o['id'], 'butik': key, 'navn': (o.get('heading') or '').strip(),
+                    'id': o['id'], 'side': o.get('catalog_page') or 0, 'butik': key, 'navn': (o.get('heading') or '').strip(),
                     'beskrivelse': (o.get('description') or '').strip(),
                     'pris': (o.get('pricing') or {}).get('price'),
                     'forPris': (o.get('pricing') or {}).get('pre_price'),
@@ -55,6 +60,7 @@ def hent_butik(key):
                 })
             if len(side) < 100:
                 break
+    tilbud.sort(key=lambda t: (t['side'], t['navn'], t['id']))  # så stabilt som muligt
     info = {'navn': b['navn'], 'aviser': [{'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
     return info, tilbud
 
@@ -72,6 +78,8 @@ def hent_tilbud():
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')
     d = hent_tilbud()
+    with open(SNAPSHOT, 'w', encoding='utf-8') as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
     print('noegle:', d['noegle'])
     for t in d['tilbud']:
         besk = re.sub(r'\s*\n\s*', '; ', t['beskrivelse'])[:110]
