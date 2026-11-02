@@ -75,7 +75,8 @@ def hent_butik(key):
                 break
     tilbud.sort(key=lambda t: (t['side'], t['navn'], t['id']))  # så stabilt som muligt
     tilbud = [{**t, 'kort': f"{b['prefix']}{n + 1}"} for n, t in enumerate(tilbud)]
-    info = {'navn': b['navn'], 'aviser': [{'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
+    dealer = hent(f"{API}/dealers/{b['dealerId']}")
+    info = {'navn': b['navn'], 'logo': dealer.get('logo'), 'farve': '#' + (dealer.get('color') or '10B981'), 'aviser': [{'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
     return info, tilbud
 
 

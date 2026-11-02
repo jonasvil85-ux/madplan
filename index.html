@@ -59,10 +59,24 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 .tag.pris { color: var(--emerald); font-weight: 600; }
 
 .butikvalg { position: relative; }
+.butikker { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; padding-top: 8px; }
+.butikker .butikvalg { min-width: 0; }
+.periode { display: block; color: var(--text-3); font-size: 13px; }
+.butikker .butikvalg { box-shadow: inset 0 4px 0 var(--brand); padding-top: 18px; }
+.butikker .butikvalg:hover { border-color: var(--brand); }
+.butikker .butikvalg.vinder { border-color: var(--emerald); }
+.butikhoved { display: flex; align-items: center; gap: 12px; }
+.butikhoved strong { font-size: 16px; }
+.logo { flex-shrink: 0; width: 76px; height: 44px; background: #fff; border-radius: 10px; padding: 6px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+.logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.logo.tekst { color: #111; font-weight: 700; font-size: 12px; }
+.butikhoved.lille .logo { width: 52px; height: 30px; padding: 4px 6px; border-radius: 7px; }
+.prisrække > * { white-space: nowrap; }
+.prisoverskrift { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); margin-bottom: 4px; }
 .butikvalg.vinder { border-color: var(--emerald); }
 .billigst { position: absolute; top: -11px; right: 14px; background: var(--emerald); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
 .prisrækker { display: block; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
-.prisrække { display: grid; grid-template-columns: 1fr auto 70px; gap: 10px; align-items: baseline; padding: 3px 0; font-size: 14px; }
+.prisrække { display: grid; grid-template-columns: 1fr auto 52px; gap: 8px; align-items: baseline; padding: 3px 0; font-size: 14px; }
 .prisrække b { color: var(--text-1); }
 .prisrække small { color: var(--text-3); text-align: right; }
 .prisrække.bedst b, .prisrække.bedst small { color: var(--emerald); }
@@ -143,9 +157,9 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 <script>
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
 const NIVEAUER = {
-  student: { ikon: '🎓', navn: 'Studentermad', tekst: 'Billigt, hurtigt og mættende' },
-  familie: { ikon: '👨‍👩‍👧', navn: 'Familiemad', tekst: 'Hverdagsmad hele familien kan lide' },
-  weekend: { ikon: '🍷', navn: 'Weekendmad', tekst: 'Når der skal hygges lidt ekstra' },
+  student: { ikon: '🎓', navn: 'Studentermad', kort: 'Student', tekst: 'Billigt, hurtigt og mættende' },
+  familie: { ikon: '👨‍👩‍👧', navn: 'Familiemad', kort: 'Familie', tekst: 'Hverdagsmad hele familien kan lide' },
+  weekend: { ikon: '🍷', navn: 'Weekendmad', kort: 'Weekend', tekst: 'Når der skal hygges lidt ekstra' },
 };
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v2';
@@ -178,7 +192,9 @@ const ingTekst = (ing, m) => ing.enhed === 'efter smag' ? `${ing.navn} (efter sm
 // Hvor mange pakker af et tilbud skal der købes til det samlede forbrug?
 const OMREGN = { g: ['g', 1], kg: ['g', 1000], ml: ['ml', 1], cl: ['ml', 10], l: ['ml', 1000], stk: ['stk', 1] };
 function antalPakker(t, behov) {
-  const str = parseFloat(String(t.maengde || '').split('-')[0]);
+  // Interval (fx "100-400 g") -> brug midten
+  const dele = String(t.maengde || '').split('-').map(parseFloat);
+  const str = dele.reduce((a, b) => a + b, 0) / dele.length;
   const [enhed, gange] = OMREGN[t.enhed] || [];
   let n = Math.ceil((behov.dåse || 0) + (behov.pakke || 0));
   if (str && enhed && behov[enhed]) n = Math.max(n, Math.ceil(behov[enhed] / (str * gange) - 1e-9));
@@ -238,6 +254,11 @@ function median(tal) {
 const prisIAlt = r => r.pris_i_alt ?? r.pris_tilbud;
 const prisPrPers = (b, niveau) => median(b.retter.filter(r => r.niveau === niveau).map(r => prisIAlt(r) / 4));
 
+// Kædens logo i en hvid "chip", så alle logoer står pænt på den mørke baggrund
+const logo = b => b.logo
+  ? `<span class="logo"><img src="${esc(b.logo)}" alt="${esc(b.navn)}" loading="lazy"></span>`
+  : `<span class="logo tekst">${esc(b.navn)}</span>`;
+
 function renderButikker() {
   // Sammenlign kun butikker med gyldig avis
   const aktive = Object.keys(data.butikker).filter(k => !udloebet(data.butikker[k]));
@@ -246,22 +267,29 @@ function renderButikker() {
   const billigstPaa = n => Math.min(...aktive.map(k => priser[k][n] ?? Infinity));
   const samlet = k => Object.values(priser[k]).reduce((s, p) => s + (p ?? 0), 0);
   const vinder = aktive.length > 1 ? aktive.reduce((a, k) => samlet(k) < samlet(a) ? k : a) : null;
+  // Billigste først; butikker med udløbet avis til sidst
+  const orden = Object.keys(data.butikker).sort((a, b) =>
+    (aktive.includes(b) - aktive.includes(a)) || samlet(a) - samlet(b));
 
-  vis(`<div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="valg">
-    ${Object.entries(data.butikker).map(([k, b]) => `
-      <button class="butikvalg ${k === vinder ? 'vinder' : ''}" data-butik="${k}">
+  vis(`<div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="butikker">
+    ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
+      <button class="butikvalg ${k === vinder ? 'vinder' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
         ${k === vinder ? '<span class="billigst">💰 Billigst denne uge</span>' : ''}
-        <strong>${esc(b.navn)}</strong>
-        ${b.aviser.map(a => `${esc(a.navn)} · ${kortDato(a.fra)}–${kortDato(a.til)}`).join(', ')}<br>
-        ${b.retter.length} retter${udloebet(b) ? ' · <span class="fejl">avisen er udløbet – nye retter på vej</span>' : ''}
-        <span class="prisrækker">${Object.entries(NIVEAUER).map(([n, niv]) => {
+        <span class="butikhoved">
+          ${logo(b)}
+          <span><strong>${esc(b.navn)}</strong>
+        <small class="periode">${b.aviser.map(a => `${kortDato(a.fra)}–${kortDato(a.til)}`).join(', ')} · ${b.retter.length} retter</small>
+          </span>
+        </span>
+        ${udloebet(b) ? ' · <span class="fejl">avisen er udløbet – nye retter på vej</span>' : ''}
+        <span class="prisrækker"><small class="prisoverskrift">Pris pr. person</small>${Object.entries(NIVEAUER).map(([n, niv]) => {
           const p = priser[k][n];
           if (p == null) return '';
-          const bedst = aktive.includes(k) && p <= billigstPaa(n);
+          const bedst = aktive.includes(k) && p <= billigstPaa(n) + 0.5;  // under 50 øre = uafgjort
           const forskel = Math.round(p - billigstPaa(n));
           return `<span class="prisrække ${bedst ? 'bedst' : ''}">
-            <span>${niv.ikon} ${niv.navn}</span>
-            <b>${kr(Math.round(p))}/pers.</b>
+            <span>${niv.ikon} ${niv.kort}</span>
+            <b>${kr(Math.round(p))}</b>
             <small>${bedst ? 'billigst' : forskel > 0 ? `+${kr(forskel)}` : ''}</small>
           </span>`;
         }).join('')}</span>
@@ -285,7 +313,7 @@ function renderRetter() {
 
   vis(`
     <div class="filtre" style="justify-content:space-between">
-      <span><b style="color:var(--text-1)">${esc(B().navn)}</b> · ${retter.length} retter ud fra ugens tilbud</span>
+      <span class="butikhoved lille">${logo(B())}<span><b style="color:var(--text-1)">${esc(B().navn)}</b> · ${retter.length} retter ud fra ugens tilbud</span></span>
       <button class="chip" data-skift>Skift butik</button>
     </div>
     ${udloebet(B()) ? '<div class="panel fejl">Denne avis er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}

@@ -1,0 +1,321 @@
+{
+  "avis": "E9MjmW01",
+  "retter": [
+    {
+      "navn": "Frikadeller af gris og kalv med pastinak-kartoffelmos",
+      "beskrivelse": "Saftige frikadeller med cremet mos af pastinak og kartoffel og en skyrdressing.",
+      "niveau": "student", "kategori": "svin", "tid_minutter": 45, "spis_tidligt": false,
+      "ingredienser": [
+        ["Coop hakket gris & kalv", 500, "g", 0, ["K81"]],
+        ["økologiske pastinakker", 500, "g", 0, ["K68"]],
+        ["Arla mælk", 300, "ml", 0, ["K40"]],
+        ["Thise økologisk skyr", 150, "g", 0, ["K22"]],
+        ["kartofler", 600, "g", 0, []],
+        ["æg", 1, "stk", 0, []],
+        ["løg", 1, "stk", 0, []],
+        ["hvedemel", 3, "spsk", 1, []],
+        ["smør", 40, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Rør kødet med æg, revet løg, mel, 1 dl mælk, salt og peber. Lad farsen hvile 15 minutter.",
+        "Kog pastinakker og kartofler i stykker møre, og mos med smør, resten af mælken og salt.",
+        "Form frikadeller, og steg dem i smør 4-5 minutter på hver side.",
+        "Rør skyr med salt og peber.",
+        "Server frikadellerne med mos og skyrdressing."
+      ]
+    },
+    {"som": "Hokkaidosuppe med lunt brød", "tilbud": {"økologisk hokkaido-græskar": {"navn": "Änglamark økologisk hokkaido", "tilbud": ["K67"]}, "Milbona madlavningsjævner": {"navn": "AMA madlavning", "tilbud": ["K39"], "maengde": 330}, "Schulstad Signaturbrød": {"navn": "Schulstad levebrød", "tilbud": ["K21"]}}},
+    {
+      "navn": "Pasta med kylling og portobello i flødesauce",
+      "beskrivelse": "Kyllingestrimler og kraftige portobellosvampe i cremet sauce – hurtig hverdagspasta.",
+      "niveau": "student", "kategori": "kylling", "tid_minutter": 25, "spis_tidligt": false,
+      "ingredienser": [
+        ["Coop kyllingestrimler", 400, "g", 0, ["K88"]],
+        ["Coop portobellosvampe", 300, "g", 0, ["K43"]],
+        ["AMA madlavning", 330, "ml", 0, ["K39"]],
+        ["pasta", 500, "g", 0, []],
+        ["hvidløg", 2, "fed", 0, []],
+        ["tørret timian", 1, "tsk", 1, []],
+        ["olie", 1, "spsk", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Kog pastaen.",
+        "Steg kyllingen gylden i olie, og tag den op.",
+        "Steg svampe i skiver med hvidløg og timian.",
+        "Hæld madlavningsfløden i, læg kyllingen tilbage og lad det simre 5 minutter.",
+        "Vend pastaen i, og smag til."
+      ]
+    },
+    {"som": "Kartoffel-porresuppe med sprød bacon", "tilbud": {"bacon": {"navn": "Steff Houlberg bacon", "tilbud": ["K222"]}, "mælk": {"navn": "Arla mælk", "tilbud": ["K40"]}, "Schulstad Det Gode brød": {"navn": "Schulstad levebrød", "tilbud": ["K21"]}}},
+    {
+      "navn": "Pastinaksuppe med sprød bacon og surdejsbrød",
+      "beskrivelse": "Sødlig, cremet suppe af økologiske pastinakker med sprød bacon og godt brød.",
+      "niveau": "student", "kategori": "svin", "tid_minutter": 35, "spis_tidligt": false,
+      "ingredienser": [
+        ["økologiske pastinakker", 1000, "g", 0, ["K68"]],
+        ["Arla piskefløde", 250, "ml", 0, ["K40"]],
+        ["Steff Houlberg bacon", 250, "g", 0, ["K222"]],
+        ["Schulstad levebrød", 1, "stk", 0, ["K21"]],
+        ["løg", 1, "stk", 0, []],
+        ["grøntsagsbouillon", 2, "stk", 1, []],
+        ["smør", 20, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Svits hakket løg i smør, tilsæt pastinakker i stykker, 1 liter vand og bouillon, og kog 20 minutter.",
+        "Blend suppen, og rør fløden i.",
+        "Steg bacon sprødt.",
+        "Smag suppen til, og server med bacon og brød."
+      ]
+    },
+    {"som": "Pølser med kartoffelmos og hvidkålssalat", "tilbud": {"Langelænder pølser": {"navn": "Steff Houlberg pølser", "tilbud": ["K222"]}, "skyr": {"navn": "Thise økologisk skyr", "tilbud": ["K22"]}, "mælk": {"navn": "Arla mælk", "tilbud": ["K40"]}}},
+    {
+      "navn": "Kylling- og græskarsuppe med lunt brød",
+      "beskrivelse": "Mættende suppe med kyllingetern, hokkaido og pastinak – varmer godt i november.",
+      "niveau": "student", "kategori": "kylling", "tid_minutter": 40, "spis_tidligt": false,
+      "ingredienser": [
+        ["Coop kylling i tern", 400, "g", 0, ["K88"]],
+        ["Änglamark økologisk hokkaido", 1, "stk", 0, ["K67"]],
+        ["økologiske pastinakker", 500, "g", 0, ["K68"]],
+        ["Schulstad levebrød", 1, "stk", 0, ["K21"]],
+        ["løg", 1, "stk", 0, []],
+        ["hønsebouillon", 2, "stk", 1, []],
+        ["karry", 1, "tsk", 1, []],
+        ["olie", 1, "spsk", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Brun kyllingen i olie i en gryde, og tag den op.",
+        "Svits løg og karry, tilsæt græskar og pastinak i tern, 1,2 liter vand og bouillon, og kog 20 minutter.",
+        "Blend halvdelen af suppen, så den bliver cremet.",
+        "Kom kyllingen tilbage, og varm igennem.",
+        "Smag til, og server med brød."
+      ]
+    },
+    {"som": "Kyllingefrikadeller med kartofler og rødkålssalat", "tilbud": {"hakket kyllingekød": {"navn": "Coop hakket kylling 3-6%", "tilbud": ["K88"], "maengde": 800}, "skyr": {"navn": "Thise økologisk skyr", "tilbud": ["K22"]}, "mælk": {"navn": "Arla mælk", "tilbud": ["K40"]}}},
+    {
+      "navn": "Kyllingebryst i fad med hokkaido og pastinak",
+      "beskrivelse": "Ovnbagt kylling på sødt græskar og pastinak med skyrdressing.",
+      "niveau": "familie", "kategori": "kylling", "tid_minutter": 50, "spis_tidligt": false,
+      "ingredienser": [
+        ["Frijsenborg kyllingebrystfilet", 800, "g", 0, ["K90"]],
+        ["Änglamark økologisk hokkaido", 1, "stk", 0, ["K67"]],
+        ["økologiske pastinakker", 500, "g", 0, ["K68"]],
+        ["Thise økologisk skyr", 200, "g", 0, ["K22"]],
+        ["hvidløg", 2, "fed", 0, []],
+        ["tørret timian", 1, "tsk", 1, []],
+        ["olie", 3, "spsk", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Skær græskar og pastinak i stykker, vend med olie, timian og salt, og bag 20 minutter.",
+        "Læg kyllingen ovenpå, krydr og bag 20-25 minutter mere.",
+        "Rør skyr med revet hvidløg og salt.",
+        "Server kyllingen med grøntsagerne og dressingen."
+      ]
+    },
+    {
+      "navn": "Hakkebøf med portobello-flødesauce og pastinakmos",
+      "beskrivelse": "Saftige hakkebøffer med cremet svampesauce og mos af pastinak.",
+      "niveau": "familie", "kategori": "okse", "tid_minutter": 40, "spis_tidligt": false,
+      "ingredienser": [
+        ["Coop hakket oksekød 5-8%", 700, "g", 0, ["K218"]],
+        ["Coop portobellosvampe", 300, "g", 0, ["K43"]],
+        ["AMA madlavning", 330, "ml", 0, ["K39"]],
+        ["økologiske pastinakker", 1000, "g", 0, ["K68"]],
+        ["Arla mælk", 100, "ml", 0, ["K40"]],
+        ["smør", 40, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Kog pastinakkerne møre, og mos dem med smør, mælk og salt.",
+        "Form kødet til 4 bøffer, krydr og steg dem 4 minutter på hver side. Tag dem op.",
+        "Steg svampe i skiver på panden.",
+        "Hæld madlavningsfløden i, kog op og smag til.",
+        "Server bøfferne med svampesauce og pastinakmos."
+      ]
+    },
+    {"som": "Gammeldags brun kødsovs med kartofler og gulerødder", "tilbud": {"hakket oksekød 4-7 %": {"navn": "Coop hakket oksekød 5-8%", "tilbud": ["K218"]}, "økologisk mælk": {"navn": "Arla mælk", "tilbud": ["K40"]}}},
+    {"som": "Helstegt kylling med rodfrugter", "tilbud": {"hel kylling": {"navn": "Xtra! hel kylling", "tilbud": ["K93"]}, "gulerødder": {"navn": "økologiske pastinakker", "tilbud": ["K68"], "maengde": 500, "enhed": "g"}}},
+    {"som": "Mørbradgryde med porrer og ris", "tilbud": {"svinemørbrad": {"navn": "Coop mørbrad af gris", "tilbud": ["K1"]}, "flødeost": {"navn": "AMA madlavning", "tilbud": ["K39"], "maengde": 330, "enhed": "ml"}}},
+    {"som": "Hjemmelavede laksefrikadeller med dildkartofler", "tilbud": {"laksefilet": {"navn": "Glyngøre fersk laksefilet", "tilbud": ["K91"]}, "creme fraiche": {"navn": "Thise økologisk skyr", "tilbud": ["K22"]}}},
+    {
+      "navn": "Røget medister med pastinakmos og sennep",
+      "beskrivelse": "Gammeldags røget medister med cremet pastinak-kartoffelmos og grov sennep.",
+      "niveau": "familie", "kategori": "svin", "tid_minutter": 35, "spis_tidligt": false,
+      "ingredienser": [
+        ["røget medister", 700, "g", 0, ["K108"]],
+        ["økologiske pastinakker", 500, "g", 0, ["K68"]],
+        ["Arla mælk", 200, "ml", 0, ["K40"]],
+        ["kartofler", 600, "g", 0, []],
+        ["grov sennep", 4, "spsk", 0, []],
+        ["smør", 40, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Kog pastinakker og kartofler i stykker møre.",
+        "Varm medisteren i vand, der lige simrer, i 15 minutter – eller steg den på panden.",
+        "Mos grøntsagerne med smør, mælk, salt og peber.",
+        "Server medisteren i skiver med mos og sennep."
+      ]
+    },
+    {"som": "Kartoffel-porretærte med bacon", "tilbud": {"Tulip bacon": {"navn": "Steff Houlberg bacon", "tilbud": ["K222"]}, "Karolines Køkken piskefløde": {"navn": "Arla piskefløde", "tilbud": ["K40"]}, "skiveost": {"navn": "Riberhus havarti", "tilbud": ["K98"]}}},
+    {"som": "Boeuf stroganoff med ris", "tilbud": {"Freygaard okseklump": {"navn": "tykstegsbøffer", "tilbud": ["K79"], "maengde": 600}, "madlavningsfløde": {"navn": "AMA madlavning", "tilbud": ["K39"]}, "champignon": {"navn": "Coop portobellosvampe", "tilbud": ["K43"], "maengde": 300}}},
+    {
+      "navn": "Fiskefileter i ovn med pastinak og skyrdressing",
+      "beskrivelse": "Store hvide fiskefileter bagt på pastinak og kartofler med citron-skyrdressing.",
+      "niveau": "familie", "kategori": "fisk", "tid_minutter": 40, "spis_tidligt": true,
+      "ingredienser": [
+        ["Hirtshals store fiskefileter", 400, "g", 0, ["K61"]],
+        ["økologiske pastinakker", 500, "g", 0, ["K68"]],
+        ["Thise økologisk skyr", 200, "g", 0, ["K22"]],
+        ["kartofler", 600, "g", 0, []],
+        ["citron", 1, "stk", 0, []],
+        ["olie", 2, "spsk", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Skær pastinak og kartofler i tern, vend med olie og salt, og bag 25 minutter.",
+        "Læg fiskefileterne ovenpå, krydr med salt, peber og citronskal.",
+        "Bag 10-12 minutter, til fisken er gennembagt.",
+        "Rør skyr med citronsaft og salt, og server til."
+      ]
+    },
+    {
+      "navn": "Wienerschnitzel med brasekartofler og ærter",
+      "beskrivelse": "Klassisk wienerschnitzel af dansk kalv, paneret derhjemme, med brasekartofler, ærter og citron.",
+      "niveau": "weekend", "kategori": "okse", "tid_minutter": 45, "spis_tidligt": false,
+      "ingredienser": [
+        ["Dansk Kalv wienerschnitzler", 700, "g", 0, ["K70"]],
+        ["kartofler", 1000, "g", 0, []],
+        ["frosne ærter", 400, "g", 0, []],
+        ["æg", 2, "stk", 0, []],
+        ["rasp", 150, "g", 0, []],
+        ["citron", 1, "stk", 0, []],
+        ["kapers og ansjoser", 1, "pakke", 0, []],
+        ["hvedemel", 50, "g", 1, []],
+        ["smør", 100, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne, skær dem i skiver og brase dem gyldne i smør.",
+        "Bank kødet tyndt, vend det i mel, sammenpisket æg og rasp.",
+        "Steg schnitzlerne gyldne i rigeligt smør, ca. 2 minutter på hver side.",
+        "Kog ærterne kort.",
+        "Server med citron, kapers, ansjoser og brunet smør."
+      ]
+    },
+    {"som": "Andebryststeg med æbler og rødkål", "tilbud": {"andebryststeg": {"navn": "Julius bryststeg", "tilbud": ["K37"]}, "madlavningsfløde": {"navn": "Arla piskefløde", "tilbud": ["K40"]}}},
+    {"som": "Andebryst med druesauce og ovnbagte rodfrugter", "tilbud": {"ferske andebryst": {"navn": "andebryst", "tilbud": ["K34"], "maengde": 780}, "gulerødder": {"navn": "økologiske pastinakker", "tilbud": ["K68"], "maengde": 500, "enhed": "g"}}},
+    {"som": "Langtidsstegte andelår med bagte æbler og kartoffelmos", "tilbud": {"Canard Martín andelår": {"navn": "andelår", "tilbud": ["K35"], "maengde": 1080}, "madlavningsfløde": {"navn": "Arla piskefløde", "tilbud": ["K40"]}}},
+    {"som": "Helstegt and med æbler, svesker og rødkål", "tilbud": {"hel and": {"navn": "Gustav landand", "tilbud": ["K36"]}, "piskefløde": {"navn": "Arla piskefløde", "tilbud": ["K40"]}}},
+    {"som": "Ribbensteg med rødkål og brunede kartofler", "tilbud": {"ribbensteg": {"tilbud": ["K77"], "maengde": 1800}}},
+    {
+      "navn": "Ovnstegt roastbeef med ovnkartofler og remoulade",
+      "beskrivelse": "Rosa roastbeef fra ovnen med sprøde kartofler, remoulade og ristede portobellosvampe.",
+      "niveau": "weekend", "kategori": "okse", "tid_minutter": 70, "spis_tidligt": false,
+      "ingredienser": [
+        ["PremiuM roastbeef", 800, "g", 0, ["K75"]],
+        ["Coop portobellosvampe", 300, "g", 0, ["K43"]],
+        ["Graasten remoulade", 1, "stk", 0, ["K59"]],
+        ["kartofler", 1000, "g", 0, []],
+        ["olie", 3, "spsk", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Skær kartoflerne i både, vend med olie og salt, og bag 40 minutter.",
+        "Brun roastbeefen på alle sider, og steg den i ovnen ved 160 °C til kernetemperatur 55 °C (ca. 30 minutter).",
+        "Lad kødet hvile 10 minutter.",
+        "Steg svampene i skiver på panden.",
+        "Skær kødet i tynde skiver, og server med kartofler, svampe og remoulade."
+      ]
+    },
+    {
+      "navn": "Tykstegsbøffer med portobello og pastinakmos",
+      "beskrivelse": "Møre tykstegsbøffer med stegte portobellosvampe, rødvinssauce og pastinakmos.",
+      "niveau": "weekend", "kategori": "okse", "tid_minutter": 40, "spis_tidligt": false,
+      "ingredienser": [
+        ["tykstegbøffer", 600, "g", 0, ["K79"]],
+        ["Coop portobellosvampe", 300, "g", 0, ["K43"]],
+        ["økologiske pastinakker", 1000, "g", 0, ["K68"]],
+        ["Arla piskefløde", 250, "ml", 0, ["K40"]],
+        ["Morel Côtes-du-Rhône (rødvin)", 200, "ml", 0, ["K229"]],
+        ["smør", 60, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Kog pastinakkerne møre, og mos dem med smør, lidt fløde og salt.",
+        "Tag bøfferne ud 30 minutter før, krydr og steg dem på en meget varm pande 3-4 minutter på hver side.",
+        "Steg svampene i smør.",
+        "Kog rødvin og resten af fløden ind på panden til en sauce.",
+        "Server bøfferne med svampe, sauce og pastinakmos."
+      ]
+    },
+    {
+      "navn": "Porchetta med ovnbagt hokkaido og pastinak",
+      "beskrivelse": "Italiensk rullesteg med sprød svær, bagt græskar og pastinak – flot til gæster.",
+      "niveau": "weekend", "kategori": "svin", "tid_minutter": 120, "spis_tidligt": false,
+      "ingredienser": [
+        ["porchetta", 1500, "g", 0, ["K74"]],
+        ["Änglamark økologisk hokkaido", 1, "stk", 0, ["K67"]],
+        ["økologiske pastinakker", 500, "g", 0, ["K68"]],
+        ["Thise økologisk skyr", 200, "g", 0, ["K22"]],
+        ["kartofler", 800, "g", 0, []],
+        ["olie", 3, "spsk", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 175 °C. Steg porchettaen på en rist over en bradepande i ca. 1½ time (kernetemperatur 68 °C).",
+        "Skær græskar, pastinak og kartofler i stykker, vend med olie og salt, og bag i bradepanden den sidste time.",
+        "Skru op til 250 °C de sidste 10 minutter for sprød svær.",
+        "Lad stegen hvile, skær i skiver og server med grøntsager og skyr."
+      ]
+    },
+    {
+      "navn": "Oksemedaljoner med bacon, portobello og flødekartofler",
+      "beskrivelse": "Baconsvøbte oksemedaljoner med stegte svampe og hjemmelavede flødekartofler.",
+      "niveau": "weekend", "kategori": "okse", "tid_minutter": 70, "spis_tidligt": false,
+      "ingredienser": [
+        ["oksemedaljon med bacon", 600, "g", 0, ["K73"]],
+        ["Coop portobellosvampe", 300, "g", 0, ["K43"]],
+        ["AMA madlavning", 330, "ml", 0, ["K39"]],
+        ["kartofler", 1000, "g", 0, []],
+        ["hvidløg", 2, "fed", 0, []],
+        ["smør", 30, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Flødekartofler: Skær kartoflerne i tynde skiver, læg dem i et fad med knust hvidløg, salt og madlavningsfløde, og bag ved 200 °C i 50 minutter.",
+        "Steg medaljonerne i smør 3-4 minutter på hver side, og lad dem hvile.",
+        "Steg svampene i skiver på panden.",
+        "Server medaljonerne med svampe og flødekartofler."
+      ]
+    },
+    {
+      "navn": "Lammekølle med rodfrugter og rødvinssauce",
+      "beskrivelse": "Langtidsstegt lammekølle med hvidløg og rosmarin, græskar, pastinak og rødvinssauce.",
+      "niveau": "weekend", "kategori": "andet", "tid_minutter": 180, "spis_tidligt": false,
+      "ingredienser": [
+        ["frossen lammekølle", 1700, "g", 0, ["K84"]],
+        ["Änglamark økologisk hokkaido", 1, "stk", 0, ["K67"]],
+        ["økologiske pastinakker", 500, "g", 0, ["K68"]],
+        ["Morel Côtes-du-Rhône (rødvin)", 300, "ml", 0, ["K229"]],
+        ["kartofler", 800, "g", 0, []],
+        ["hvidløg", 1, "stk", 0, []],
+        ["frisk rosmarin", 1, "bundt", 0, []],
+        ["smør", 30, "g", 1, []],
+        ["salt og peber", 0, "efter smag", 1, []]
+      ],
+      "fremgangsmaade": [
+        "Tø køllen op i køleskabet (1-2 døgn). Tænd ovnen på 160 °C.",
+        "Stik huller i køllen, og fyld dem med hvidløg og rosmarin. Krydr med salt og peber.",
+        "Steg køllen i en bradepande med rødvin og 2 dl vand i ca. 2 timer (kernetemperatur 60 °C).",
+        "Bag græskar, pastinak og kartofler i stykker omkring køllen den sidste time.",
+        "Kog skyen ind med en smørklat til sauce, og server."
+      ]
+    },
+    {"som": "Ovnbagt laks med porrer og kartofler", "tilbud": {"fersk laksestykke": {"navn": "Glyngøre fersk laksefilet", "tilbud": ["K91"]}, "skyr": {"navn": "Thise økologisk skyr", "tilbud": ["K22"]}}}
+  ]
+}

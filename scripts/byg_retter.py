@@ -36,14 +36,34 @@ FORARBEJDET = re.compile(r'flødekartofler|herregårds|kødboller|melboller|pane
 OMREGN = {'g': ('g', 1), 'kg': ('g', 1000), 'ml': ('ml', 1), 'cl': ('ml', 10), 'l': ('ml', 1000), 'stk': ('stk', 1)}
 # Groft skøn (kr pr. enhed) for ingredienser der IKKE er på tilbud, så retter med få tilbudsvarer
 # ikke ser kunstigt billige ud i prissammenligningen. Basisvarer (salt, olie, mel …) tælles ikke.
+# Mere præcise skøn for almindelige varer (nøgleord i ingrediensnavnet -> kr pr. enhed)
+NORMALPRIS_VARE = [
+    (r'kartof', {'g': 0.015}), (r'gulerød|pastinak|rødbede', {'g': 0.015, 'stk': 1.5}),
+    (r'hvidløg', {'fed': 0.8, 'stk': 5}), (r'skalotte|løg\b', {'stk': 2}),
+    (r'\bæg\b', {'stk': 2.5}), (r'mælk', {'ml': 0.013}), (r'fløde|creme fraiche', {'ml': 0.04, 'g': 0.05}),
+    (r'citron|lime', {'stk': 4}), (r'agurk', {'stk': 9}), (r'porre', {'stk': 6}), (r'rødkål|hvidkål|spidskål', {'stk': 15}),
+    (r'ærter|bønner', {'g': 0.03, 'dåse': 8}), (r'champignon|svampe', {'g': 0.06}), (r'pasta|spaghetti|lasagne', {'g': 0.02}),
+    (r'\bris\b|jasminris', {'g': 0.025}), (r'rasp|hvedemel', {'g': 0.02}), (r'salat', {'stk': 12}),
+    (r'ingefær', {'g': 0.06}), (r'dild|persille|purløg|rosmarin|timian|koriander|estragon', {'bundt': 12}),
+]
 NORMALPRIS = {'g': 0.06, 'ml': 0.025, 'dl': 2.5, 'stk': 6, 'dåse': 9, 'pakke': 20, 'bundt': 15,
               'fed': 1, 'spsk': 2, 'tsk': 1, 'efter smag': 0}
+
+
+def normalpris(ing):
+    """Skønnet pris pr. enhed for en ingrediens der ikke er på tilbud."""
+    for moenster, priser in NORMALPRIS_VARE:
+        if re.search(moenster, ing['navn'], re.I) and ing['enhed'] in priser:
+            return priser[ing['enhed']]
+    return NORMALPRIS.get(ing['enhed'], 5)
 
 
 def antal_pakker(t, behov):
     """Samme logik som antalPakker() i index.html."""
     try:
-        stoerrelse = float(str(t.get('maengde') or '').split('-')[0])
+        # Interval (fx "100-400 g" i "rejer eller fiskefileter") -> brug midten
+        dele = [float(x) for x in str(t.get('maengde') or '').split('-')]
+        stoerrelse = sum(dele) / len(dele)
     except ValueError:
         stoerrelse = 0
     enhed, gange = OMREGN.get(t.get('enhed'), (None, None))
@@ -137,7 +157,7 @@ def main():
                 ingredienser.append(d)
             pris = sum(alle[t]['pris'] * antal_pakker(alle[t], bh) for t, bh in behov.items())
             ikke_basis = [i for i in ingredienser if not i['basisvare']]
-            oevrigt = sum(i['maengde'] * NORMALPRIS.get(i['enhed'], 5) for i in ikke_basis if not i['tilbud'])
+            oevrigt = sum(i['maengde'] * normalpris(i) for i in ikke_basis if not i['tilbud'])
             andel = sum(1 for i in ikke_basis if i['tilbud']) / max(1, len(ikke_basis))
             if not behov:
                 fejl.append(f"{butik}: '{r['navn']}' har ingen tilbudsvarer")
