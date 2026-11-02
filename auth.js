@@ -2,8 +2,8 @@
 // Udfyld url og anonKey fra Supabase → Project Settings → API. anonKey er offentlig og må gerne stå her.
 // Så længe de er tomme, kører siden uden login.
 const AUTH = {
-  url: '',
-  anonKey: '',
+  url: 'https://vppbimvewavvduwwcuwp.supabase.co',
+  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwcGJpbXZld2F2dmR1d3djdXdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2NDY1NDEsImV4cCI6MjEwOTIyMjU0MX0.WN96TpMaan1MC74-dCpFhfzh2wMeSlElpKH4Oo2XkXI',
 };
 
 let sb = null;      // Supabase-klient
