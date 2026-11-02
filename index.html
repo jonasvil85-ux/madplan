@@ -58,6 +58,16 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 .tag.frisk { color: var(--amber); }
 .tag.pris { color: var(--emerald); font-weight: 600; }
 
+.butikvalg { position: relative; }
+.butikvalg.vinder { border-color: var(--emerald); }
+.billigst { position: absolute; top: -11px; right: 14px; background: var(--emerald); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.prisrækker { display: block; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.prisrække { display: grid; grid-template-columns: 1fr auto 70px; gap: 10px; align-items: baseline; padding: 3px 0; font-size: 14px; }
+.prisrække b { color: var(--text-1); }
+.prisrække small { color: var(--text-3); text-align: right; }
+.prisrække.bedst b, .prisrække.bedst small { color: var(--emerald); }
+.fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
+
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
 .niveau { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 12px 14px; text-align: left; color: var(--text-3); display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; }
 .niveau .ikon { grid-row: span 2; font-size: 26px; }
@@ -219,15 +229,44 @@ function render() {
   gem();
 }
 
+// Median-pris pr. person for tilbudsvarerne i en butiks retter på et prisniveau
+function median(tal) {
+  const s = [...tal].sort((a, b) => a - b), m = s.length >> 1;
+  return s.length ? (s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2) : null;
+}
+const prisPrPers = (b, niveau) => median(b.retter.filter(r => r.niveau === niveau).map(r => r.pris_tilbud / 4));
+
 function renderButikker() {
+  // Sammenlign kun butikker med gyldig avis
+  const aktive = Object.keys(data.butikker).filter(k => !udloebet(data.butikker[k]));
+  const priser = Object.fromEntries(Object.keys(data.butikker).map(k =>
+    [k, Object.fromEntries(Object.keys(NIVEAUER).map(n => [n, prisPrPers(data.butikker[k], n)]))]));
+  const billigstPaa = n => Math.min(...aktive.map(k => priser[k][n] ?? Infinity));
+  const samlet = k => Object.values(priser[k]).reduce((s, p) => s + (p ?? 0), 0);
+  const vinder = aktive.length > 1 ? aktive.reduce((a, k) => samlet(k) < samlet(a) ? k : a) : null;
+
   vis(`<div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="valg">
     ${Object.entries(data.butikker).map(([k, b]) => `
-      <button class="butikvalg" data-butik="${k}">
+      <button class="butikvalg ${k === vinder ? 'vinder' : ''}" data-butik="${k}">
+        ${k === vinder ? '<span class="billigst">💰 Billigst denne uge</span>' : ''}
         <strong>${esc(b.navn)}</strong>
         ${b.aviser.map(a => `${esc(a.navn)} · ${kortDato(a.fra)}–${kortDato(a.til)}`).join(', ')}<br>
         ${b.retter.length} retter${udloebet(b) ? ' · <span class="fejl">avisen er udløbet – nye retter på vej</span>' : ''}
+        <span class="prisrækker">${Object.entries(NIVEAUER).map(([n, niv]) => {
+          const p = priser[k][n];
+          if (p == null) return '';
+          const bedst = aktive.includes(k) && p <= billigstPaa(n);
+          const forskel = Math.round(p - billigstPaa(n));
+          return `<span class="prisrække ${bedst ? 'bedst' : ''}">
+            <span>${niv.ikon} ${niv.navn}</span>
+            <b>${kr(Math.round(p))}/pers.</b>
+            <small>${bedst ? 'billigst' : forskel > 0 ? `+${kr(forskel)}` : ''}</small>
+          </span>`;
+        }).join('')}</span>
       </button>`).join('')}
-  </div></div>`);
+  </div>
+  <p class="fodnote">Pris pr. person = median for tilbudsvarerne i butikkens retter på hvert niveau (4 personer, hele pakker). Varer til normalpris er ikke regnet med.</p>
+  </div>`);
   bund('');
 }
 
