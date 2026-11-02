@@ -1,20 +1,111 @@
 {
   "avis": "Wz7NyEgl",
+  "top5": [
+    {
+      "id": "D2",
+      "hvorfor": "Hakket grisekød eller julemedister"
+    },
+    {
+      "id": "D15",
+      "hvorfor": "Kyllingeover- eller underlår"
+    },
+    {
+      "id": "D12",
+      "hvorfor": "Magert hakket oksekød 4-7 %"
+    },
+    {
+      "id": "D45",
+      "hvorfor": "Fersk lakseside, 600 g"
+    },
+    {
+      "id": "D30",
+      "hvorfor": "Danske gulerødder, 1,5 kg"
+    }
+  ],
   "retter": [
     {
       "navn": "Grisefrikadeller med kartofler og gulerodssalat",
       "beskrivelse": "Hjemmelavede frikadeller med nye kartofler og frisk gulerodssalat med yoghurt.",
-      "niveau": "student", "kategori": "svin", "tid_minutter": 45, "spis_tidligt": false,
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 45,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["hakket grisekød", 500, "g", 0, ["D2"]],
-        ["økologiske æg", 1, "stk", 0, ["D5"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["gulerødder", 500, "g", 0, ["D30"]],
-        ["yoghurt", 150, "g", 0, ["D7"]],
-        ["økologisk smør", 30, "g", 0, ["D65"]],
-        ["løg", 1, "stk", 0, []],
-        ["hvedemel", 3, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket grisekød",
+          500,
+          "g",
+          0,
+          [
+            "D2"
+          ]
+        ],
+        [
+          "økologiske æg",
+          1,
+          "stk",
+          0,
+          [
+            "D5"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "gulerødder",
+          500,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "yoghurt",
+          150,
+          "g",
+          0,
+          [
+            "D7"
+          ]
+        ],
+        [
+          "økologisk smør",
+          30,
+          "g",
+          0,
+          [
+            "D65"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Rør kødet med æg, revet løg, mel, 1 dl vand, salt og peber. Lad farsen hvile 15 minutter.",
@@ -27,14 +118,63 @@
     {
       "navn": "Æggekage med chorizo og kartofler",
       "beskrivelse": "Spansk-inspireret æggekage med krydret chorizo og kartofler – server med brød.",
-      "niveau": "student", "kategori": "svin", "tid_minutter": 30, "spis_tidligt": false,
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 30,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["økologiske æg", 8, "stk", 0, ["D5"]],
-        ["Aalbæk chorizo", 200, "g", 0, ["D72"]],
-        ["Alexandra kartofler", 500, "g", 0, ["D33"]],
-        ["økologisk mælk", 100, "ml", 0, ["D50"]],
-        ["Schulstad Signaturbrød", 1, "stk", 0, ["D43"]],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "økologiske æg",
+          8,
+          "stk",
+          0,
+          [
+            "D5"
+          ]
+        ],
+        [
+          "Aalbæk chorizo",
+          200,
+          "g",
+          0,
+          [
+            "D72"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          500,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "økologisk mælk",
+          100,
+          "ml",
+          0,
+          [
+            "D50"
+          ]
+        ],
+        [
+          "Schulstad Signaturbrød",
+          1,
+          "stk",
+          0,
+          [
+            "D43"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne, og skær dem i skiver.",
@@ -47,16 +187,75 @@
     {
       "navn": "Ovnstegte kyllingelår med kartofler og gulerødder",
       "beskrivelse": "Sprøde kyllingelår og rodfrugter i ét fad med yoghurtdressing – meget for pengene.",
-      "niveau": "student", "kategori": "kylling", "tid_minutter": 55, "spis_tidligt": false,
+      "niveau": "student",
+      "kategori": "kylling",
+      "tid_minutter": 55,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["kyllingeover- eller underlår", 1500, "g", 0, ["D15"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["gulerødder", 600, "g", 0, ["D30"]],
-        ["yoghurt", 200, "g", 0, ["D7"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["paprika", 2, "tsk", 1, []],
-        ["olie", 3, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "kyllingeover- eller underlår",
+          1500,
+          "g",
+          0,
+          [
+            "D15"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "gulerødder",
+          600,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "yoghurt",
+          200,
+          "g",
+          0,
+          [
+            "D7"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C.",
@@ -66,25 +265,225 @@
         "Rør yoghurt med revet hvidløg og salt, og server til."
       ]
     },
-    {"som": "Stegt flæsk med persillesovs", "tilbud": {"flæsk i skiver": {"navn": "Bornholmergrisen stegeflæsk", "tilbud": ["D11"], "maengde": 800}, "økologiske kartofler": {"navn": "kartofler", "tilbud": ["D33"]}, "mælk": {"navn": "økologisk mælk", "tilbud": ["D50"]}}},
-    {"som": "Tunfrikadeller med kartofler og skyrdressing", "tilbud": {"tun i vand": {"navn": "John West tun", "tilbud": ["D41"], "maengde": 1}, "æg": {"navn": "økologiske æg", "tilbud": ["D5"]}, "kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "skyr": {"navn": "græsk yoghurt", "tilbud": ["D66"]}, "Kærgården": {"navn": "økologisk smør", "tilbud": ["D65"]}}},
-    {"som": "Spansk kartoffeltortilla med agurkesalat", "tilbud": {"økologiske æg": ["D5"], "økologiske kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "agurk": ["D29"]}},
-    {"som": "Biksemad med spejlæg", "tilbud": {"hakket oksekød 15-18 %": {"navn": "hakket oksekød 4-7 %", "tilbud": ["D12"]}, "kartofler": ["D33"], "æg": {"navn": "økologiske æg", "tilbud": ["D5"]}, "Kærgården": {"navn": "økologisk smør", "tilbud": ["D65"]}}},
-    {"som": "Bagte kartofler med bacon og flødeost", "navn": "Bagte kartofler med chorizo og flødeost", "beskrivelse": "Store ovnbagte kartofler fyldt med sprød chorizo, flødeost og græsk yoghurt.", "tilbud": {"økologiske kartofler (store)": {"navn": "kartofler (store)", "tilbud": ["D56"]}, "bacon i tern": {"navn": "Aalbæk chorizo", "tilbud": ["D72"], "maengde": 200}, "Philadelphia": {"navn": "flødeost", "tilbud": ["D141"]}, "creme fraiche": {"navn": "græsk yoghurt", "tilbud": ["D66"]}, "agurk": ["D29"]}},
+    {
+      "som": "Stegt flæsk med persillesovs",
+      "tilbud": {
+        "flæsk i skiver": {
+          "navn": "Bornholmergrisen stegeflæsk",
+          "tilbud": [
+            "D11"
+          ],
+          "maengde": 800
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "mælk": {
+          "navn": "økologisk mælk",
+          "tilbud": [
+            "D50"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Tunfrikadeller med kartofler og skyrdressing",
+      "tilbud": {
+        "tun i vand": {
+          "navn": "John West tun",
+          "tilbud": [
+            "D41"
+          ],
+          "maengde": 1
+        },
+        "æg": {
+          "navn": "økologiske æg",
+          "tilbud": [
+            "D5"
+          ]
+        },
+        "kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "skyr": {
+          "navn": "græsk yoghurt",
+          "tilbud": [
+            "D66"
+          ]
+        },
+        "Kærgården": {
+          "navn": "økologisk smør",
+          "tilbud": [
+            "D65"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Spansk kartoffeltortilla med agurkesalat",
+      "tilbud": {
+        "økologiske æg": [
+          "D5"
+        ],
+        "økologiske kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "agurk": [
+          "D29"
+        ]
+      }
+    },
+    {
+      "som": "Biksemad med spejlæg",
+      "tilbud": {
+        "hakket oksekød 15-18 %": {
+          "navn": "hakket oksekød 4-7 %",
+          "tilbud": [
+            "D12"
+          ]
+        },
+        "kartofler": [
+          "D33"
+        ],
+        "æg": {
+          "navn": "økologiske æg",
+          "tilbud": [
+            "D5"
+          ]
+        },
+        "Kærgården": {
+          "navn": "økologisk smør",
+          "tilbud": [
+            "D65"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Bagte kartofler med bacon og flødeost",
+      "navn": "Bagte kartofler med chorizo og flødeost",
+      "beskrivelse": "Store ovnbagte kartofler fyldt med sprød chorizo, flødeost og græsk yoghurt.",
+      "tilbud": {
+        "økologiske kartofler (store)": {
+          "navn": "kartofler (store)",
+          "tilbud": [
+            "D56"
+          ]
+        },
+        "bacon i tern": {
+          "navn": "Aalbæk chorizo",
+          "tilbud": [
+            "D72"
+          ],
+          "maengde": 200
+        },
+        "Philadelphia": {
+          "navn": "flødeost",
+          "tilbud": [
+            "D141"
+          ]
+        },
+        "creme fraiche": {
+          "navn": "græsk yoghurt",
+          "tilbud": [
+            "D66"
+          ]
+        },
+        "agurk": [
+          "D29"
+        ]
+      }
+    },
     {
       "navn": "Gulerodssuppe med ingefær og lunt brød",
       "beskrivelse": "Fløjlsblød, billig suppe af danske gulerødder og kartofler med en klat yoghurt.",
-      "niveau": "student", "kategori": "vegetar", "tid_minutter": 35, "spis_tidligt": false,
+      "niveau": "student",
+      "kategori": "vegetar",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["gulerødder", 1000, "g", 0, ["D30"]],
-        ["Alexandra kartofler", 300, "g", 0, ["D33"]],
-        ["græsk yoghurt", 200, "g", 0, ["D66"]],
-        ["Schulstad Signaturbrød", 1, "stk", 0, ["D43"]],
-        ["økologisk smør", 20, "g", 0, ["D65"]],
-        ["løg", 1, "stk", 0, []],
-        ["frisk ingefær", 20, "g", 0, []],
-        ["grøntsagsbouillon", 2, "stk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "gulerødder",
+          1000,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          300,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "græsk yoghurt",
+          200,
+          "g",
+          0,
+          [
+            "D66"
+          ]
+        ],
+        [
+          "Schulstad Signaturbrød",
+          1,
+          "stk",
+          0,
+          [
+            "D43"
+          ]
+        ],
+        [
+          "økologisk smør",
+          20,
+          "g",
+          0,
+          [
+            "D65"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "frisk ingefær",
+          20,
+          "g",
+          0,
+          []
+        ],
+        [
+          "grøntsagsbouillon",
+          2,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Svits hakket løg og revet ingefær i smør.",
@@ -94,21 +493,115 @@
         "Server suppen med en klat yoghurt og lunt brød."
       ]
     },
-    {"som": "Kartoffel-porresuppe med sprød bacon", "navn": "Kartoffel-porresuppe med sprød chorizo", "tilbud": {"kartofler": {"tilbud": ["D56"]}, "bacon": {"navn": "Aalbæk chorizo", "tilbud": ["D72"], "maengde": 200}, "mælk": {"navn": "økologisk mælk", "tilbud": ["D50"]}, "Schulstad Det Gode brød": {"navn": "Schulstad Signaturbrød", "tilbud": ["D43"]}}},
+    {
+      "som": "Kartoffel-porresuppe med sprød bacon",
+      "navn": "Kartoffel-porresuppe med sprød chorizo",
+      "tilbud": {
+        "kartofler": {
+          "tilbud": [
+            "D56"
+          ]
+        },
+        "bacon": {
+          "navn": "Aalbæk chorizo",
+          "tilbud": [
+            "D72"
+          ],
+          "maengde": 200
+        },
+        "mælk": {
+          "navn": "økologisk mælk",
+          "tilbud": [
+            "D50"
+          ]
+        },
+        "Schulstad Det Gode brød": {
+          "navn": "Schulstad Signaturbrød",
+          "tilbud": [
+            "D43"
+          ]
+        }
+      }
+    },
     {
       "navn": "Kyllingeunderlår med mangosalsa og kartoffelbåde",
       "beskrivelse": "Krydrede kyllingelår med frisk salsa af mango og agurk – sommer midt i november.",
-      "niveau": "student", "kategori": "kylling", "tid_minutter": 50, "spis_tidligt": false,
+      "niveau": "student",
+      "kategori": "kylling",
+      "tid_minutter": 50,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["kyllingeunderlår", 1500, "g", 0, ["D15"]],
-        ["mango", 2, "stk", 0, ["D31"]],
-        ["agurk", 1, "stk", 0, ["D29"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["rødløg", 1, "stk", 0, []],
-        ["lime eller citron", 1, "stk", 0, []],
-        ["spidskommen og paprika", 2, "tsk", 1, []],
-        ["olie", 3, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "kyllingeunderlår",
+          1500,
+          "g",
+          0,
+          [
+            "D15"
+          ]
+        ],
+        [
+          "mango",
+          2,
+          "stk",
+          0,
+          [
+            "D31"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "D29"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "rødløg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "lime eller citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "spidskommen og paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Skær kartoflerne i både, vend med olie og salt, og læg dem i et fad.",
@@ -118,21 +611,139 @@
         "Server kyllingen med kartoffelbåde og mangosalsa."
       ]
     },
-    {"som": "Kyllingefrikadeller med kartofler og rødkålssalat", "navn": "Kyllingefrikadeller med kartofler og æble-gulerodssalat", "tilbud": {"hakket kyllingekød": {"navn": "Xtra! hakket kylling", "tilbud": ["D16"], "maengde": 800}, "æg": {"navn": "økologiske æg", "tilbud": ["D5"]}, "kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "rødkål (frisk)": {"navn": "gulerødder", "tilbud": ["D30"], "maengde": 2}, "æbler": {"navn": "økologiske æbler", "tilbud": ["D143"]}, "skyr": {"navn": "yoghurt", "tilbud": ["D7"]}, "mælk": {"navn": "økologisk mælk", "tilbud": ["D50"]}}},
+    {
+      "som": "Kyllingefrikadeller med kartofler og rødkålssalat",
+      "navn": "Kyllingefrikadeller med kartofler og æble-gulerodssalat",
+      "tilbud": {
+        "hakket kyllingekød": {
+          "navn": "Xtra! hakket kylling",
+          "tilbud": [
+            "D16"
+          ],
+          "maengde": 800
+        },
+        "æg": {
+          "navn": "økologiske æg",
+          "tilbud": [
+            "D5"
+          ]
+        },
+        "kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "rødkål (frisk)": {
+          "navn": "gulerødder",
+          "tilbud": [
+            "D30"
+          ],
+          "maengde": 2
+        },
+        "æbler": {
+          "navn": "økologiske æbler",
+          "tilbud": [
+            "D143"
+          ]
+        },
+        "skyr": {
+          "navn": "yoghurt",
+          "tilbud": [
+            "D7"
+          ]
+        },
+        "mælk": {
+          "navn": "økologisk mælk",
+          "tilbud": [
+            "D50"
+          ]
+        }
+      }
+    },
     {
       "navn": "Kyllingelårfilet i flødeostsauce med gulerodsmos",
       "beskrivelse": "Saftige lårfileter i cremet sauce med mos af kartofler og gulerødder.",
-      "niveau": "familie", "kategori": "kylling", "tid_minutter": 40, "spis_tidligt": false,
+      "niveau": "familie",
+      "kategori": "kylling",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["Xtra! kyllingelårfilet", 800, "g", 0, ["D16"]],
-        ["flødeost", 200, "g", 0, ["D141"]],
-        ["økologisk mælk", 300, "ml", 0, ["D50"]],
-        ["Alexandra kartofler", 700, "g", 0, ["D33"]],
-        ["gulerødder", 500, "g", 0, ["D30"]],
-        ["økologisk smør", 40, "g", 0, ["D65"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["paprika", 1, "tsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Xtra! kyllingelårfilet",
+          800,
+          "g",
+          0,
+          [
+            "D16"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "D141"
+          ]
+        ],
+        [
+          "økologisk mælk",
+          300,
+          "ml",
+          0,
+          [
+            "D50"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          700,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "gulerødder",
+          500,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "økologisk smør",
+          40,
+          "g",
+          0,
+          [
+            "D65"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "paprika",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartofler og gulerødder i stykker møre, og mos med smør, lidt mælk og salt.",
@@ -142,25 +753,208 @@
         "Server med gulerodsmosen."
       ]
     },
-    {"som": "Hakkebøf med bløde løg og brun sovs", "tilbud": {"hakket oksekød 14-18 %": {"navn": "hakket oksekød 4-7 %", "tilbud": ["D12"], "maengde": 700}, "økologiske kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "agurk": ["D29"], "økologisk smør": ["D65"]}},
-    {"som": "Burgere med ovnkartofler", "tilbud": {"Burger BOOST (oksebøffer)": {"navn": "hakket oksekød (formes til 4 bøffer)", "tilbud": ["D12"]}, "skiveost": {"navn": "Coop skiveost", "tilbud": ["D20"]}, "friske kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "ketchup": {"navn": "Heinz ketchup", "tilbud": ["D105"]}, "remoulade": {"navn": "K-Salat remoulade", "tilbud": ["D42"]}}},
-    {"som": "Koteletter i fad med porrer og flødeost", "tilbud": {"svinekoteletter": {"navn": "Bornholmergrisen koteletter", "tilbud": ["D11"]}, "flødeost": ["D141"], "mælk": {"navn": "økologisk mælk", "tilbud": ["D50"]}, "kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}}},
-    {"som": "Hjemmelavede laksefrikadeller med dildkartofler", "tilbud": {"laksefilet": {"navn": "Glyngøre fersk lakseside", "tilbud": ["D45"]}, "økologiske æg": ["D5"], "økologiske kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "creme fraiche": {"navn": "græsk yoghurt", "tilbud": ["D66"]}, "økologisk smør": ["D65"]}},
+    {
+      "som": "Hakkebøf med bløde løg og brun sovs",
+      "tilbud": {
+        "hakket oksekød 14-18 %": {
+          "navn": "hakket oksekød 4-7 %",
+          "tilbud": [
+            "D12"
+          ],
+          "maengde": 700
+        },
+        "økologiske kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "agurk": [
+          "D29"
+        ],
+        "økologisk smør": [
+          "D65"
+        ]
+      }
+    },
+    {
+      "som": "Burgere med ovnkartofler",
+      "tilbud": {
+        "Burger BOOST (oksebøffer)": {
+          "navn": "hakket oksekød (formes til 4 bøffer)",
+          "tilbud": [
+            "D12"
+          ]
+        },
+        "skiveost": {
+          "navn": "Coop skiveost",
+          "tilbud": [
+            "D20"
+          ]
+        },
+        "friske kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "ketchup": {
+          "navn": "Heinz ketchup",
+          "tilbud": [
+            "D105"
+          ]
+        },
+        "remoulade": {
+          "navn": "K-Salat remoulade",
+          "tilbud": [
+            "D42"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Koteletter i fad med porrer og flødeost",
+      "tilbud": {
+        "svinekoteletter": {
+          "navn": "Bornholmergrisen koteletter",
+          "tilbud": [
+            "D11"
+          ]
+        },
+        "flødeost": [
+          "D141"
+        ],
+        "mælk": {
+          "navn": "økologisk mælk",
+          "tilbud": [
+            "D50"
+          ]
+        },
+        "kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Hjemmelavede laksefrikadeller med dildkartofler",
+      "tilbud": {
+        "laksefilet": {
+          "navn": "Glyngøre fersk lakseside",
+          "tilbud": [
+            "D45"
+          ]
+        },
+        "økologiske æg": [
+          "D5"
+        ],
+        "økologiske kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "creme fraiche": {
+          "navn": "græsk yoghurt",
+          "tilbud": [
+            "D66"
+          ]
+        },
+        "økologisk smør": [
+          "D65"
+        ]
+      }
+    },
     {
       "navn": "Gammeldags brun kødsovs med kartofler og gulerødder",
       "beskrivelse": "Mormors hverdagsret: hakket oksekød i brun sovs med kogte kartofler og gulerødder.",
-      "niveau": "familie", "kategori": "okse", "tid_minutter": 40, "spis_tidligt": false,
+      "niveau": "familie",
+      "kategori": "okse",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["hakket oksekød 4-7 %", 700, "g", 0, ["D12"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["gulerødder", 500, "g", 0, ["D30"]],
-        ["økologisk mælk", 100, "ml", 0, ["D50"]],
-        ["økologisk smør", 20, "g", 0, ["D65"]],
-        ["løg", 2, "stk", 0, []],
-        ["kulør", 1, "tsk", 1, []],
-        ["hvedemel", 2, "spsk", 1, []],
-        ["oksebouillon", 1, "stk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket oksekød 4-7 %",
+          700,
+          "g",
+          0,
+          [
+            "D12"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "gulerødder",
+          500,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "økologisk mælk",
+          100,
+          "ml",
+          0,
+          [
+            "D50"
+          ]
+        ],
+        [
+          "økologisk smør",
+          20,
+          "g",
+          0,
+          [
+            "D65"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "kulør",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "oksebouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartofler og gulerødder.",
@@ -173,15 +967,66 @@
     {
       "navn": "Æbleflæsk med rugbrød",
       "beskrivelse": "Sprødt stegeflæsk med karamelliserede æbler og løg – en dansk klassiker.",
-      "niveau": "familie", "kategori": "svin", "tid_minutter": 35, "spis_tidligt": false,
+      "niveau": "familie",
+      "kategori": "svin",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["Bornholmergrisen stegeflæsk", 800, "g", 0, ["D11"]],
-        ["økologiske æbler", 1000, "g", 0, ["D143"]],
-        ["Schulstad Signaturbrød", 1, "stk", 0, ["D43"]],
-        ["løg", 2, "stk", 0, []],
-        ["sukker", 2, "spsk", 1, []],
-        ["frisk timian eller timian", 1, "tsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Bornholmergrisen stegeflæsk",
+          800,
+          "g",
+          0,
+          [
+            "D11"
+          ]
+        ],
+        [
+          "økologiske æbler",
+          1000,
+          "g",
+          0,
+          [
+            "D143"
+          ]
+        ],
+        [
+          "Schulstad Signaturbrød",
+          1,
+          "stk",
+          0,
+          [
+            "D43"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "sukker",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "frisk timian eller timian",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Steg flæsket sprødt på en pande, og tag det op. Gem fedtet.",
@@ -194,16 +1039,77 @@
     {
       "navn": "Kyllingelår med chorizo og kartofler i fad",
       "beskrivelse": "Kyllingelår bagt med chorizo, kartofler og gulerødder – røget, krydret og nemt.",
-      "niveau": "familie", "kategori": "kylling", "tid_minutter": 55, "spis_tidligt": false,
+      "niveau": "familie",
+      "kategori": "kylling",
+      "tid_minutter": 55,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["kyllingeoverlår", 1500, "g", 0, ["D15"]],
-        ["Aalbæk chorizo", 200, "g", 0, ["D72"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["gulerødder", 500, "g", 0, ["D30"]],
-        ["græsk yoghurt", 150, "g", 0, ["D66"]],
-        ["hvidløg", 3, "fed", 0, []],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "kyllingeoverlår",
+          1500,
+          "g",
+          0,
+          [
+            "D15"
+          ]
+        ],
+        [
+          "Aalbæk chorizo",
+          200,
+          "g",
+          0,
+          [
+            "D72"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "gulerødder",
+          500,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "græsk yoghurt",
+          150,
+          "g",
+          0,
+          [
+            "D66"
+          ]
+        ],
+        [
+          "hvidløg",
+          3,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C.",
@@ -213,21 +1119,113 @@
         "Server med græsk yoghurt."
       ]
     },
-    {"som": "Julemedister med rødkål og kartofler", "tilbud": {"julemedister af frilandsgris": {"navn": "Coop julemedister", "tilbud": ["D2"], "maengde": 500}, "økologiske kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "danske æbler": {"navn": "økologiske æbler", "tilbud": ["D143"]}}},
+    {
+      "som": "Julemedister med rødkål og kartofler",
+      "tilbud": {
+        "julemedister af frilandsgris": {
+          "navn": "Coop julemedister",
+          "tilbud": [
+            "D2"
+          ],
+          "maengde": 500
+        },
+        "økologiske kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "danske æbler": {
+          "navn": "økologiske æbler",
+          "tilbud": [
+            "D143"
+          ]
+        }
+      }
+    },
     {
       "navn": "Grøntsagsfrikadeller med kartofler og tzatziki",
       "beskrivelse": "Sprøde vegetarfrikadeller af gulerod og kartoffel med hjemmelavet tzatziki.",
-      "niveau": "familie", "kategori": "vegetar", "tid_minutter": 40, "spis_tidligt": false,
+      "niveau": "familie",
+      "kategori": "vegetar",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["gulerødder", 600, "g", 0, ["D30"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["økologiske æg", 3, "stk", 0, ["D5"]],
-        ["græsk yoghurt", 300, "g", 0, ["D66"]],
-        ["agurk", 1, "stk", 0, ["D29"]],
-        ["økologisk smør", 40, "g", 0, ["D65"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["hvedemel", 6, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "gulerødder",
+          600,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "økologiske æg",
+          3,
+          "stk",
+          0,
+          [
+            "D5"
+          ]
+        ],
+        [
+          "græsk yoghurt",
+          300,
+          "g",
+          0,
+          [
+            "D66"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "D29"
+          ]
+        ],
+        [
+          "økologisk smør",
+          40,
+          "g",
+          0,
+          [
+            "D65"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          6,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog 600 g af kartoflerne. Riv resten af kartoflerne og gulerødderne groft, og pres væden ud.",
@@ -240,18 +1238,93 @@
     {
       "navn": "Kyllingesalat med mango, agurk og lunt brød",
       "beskrivelse": "Let aftensmad: stegt kyllingeinderfilet, mango og agurk med yoghurtdressing.",
-      "niveau": "familie", "kategori": "kylling", "tid_minutter": 25, "spis_tidligt": false,
+      "niveau": "familie",
+      "kategori": "kylling",
+      "tid_minutter": 25,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["Xtra! kyllingeinderfilet", 800, "g", 0, ["D16"]],
-        ["mango", 2, "stk", 0, ["D31"]],
-        ["agurk", 1, "stk", 0, ["D29"]],
-        ["gulerødder", 300, "g", 0, ["D30"]],
-        ["græsk yoghurt", 200, "g", 0, ["D66"]],
-        ["Schulstad Signaturbrød", 1, "stk", 0, ["D43"]],
-        ["salat", 1, "stk", 0, []],
-        ["karry", 1, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Xtra! kyllingeinderfilet",
+          800,
+          "g",
+          0,
+          [
+            "D16"
+          ]
+        ],
+        [
+          "mango",
+          2,
+          "stk",
+          0,
+          [
+            "D31"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "D29"
+          ]
+        ],
+        [
+          "gulerødder",
+          300,
+          "g",
+          0,
+          [
+            "D30"
+          ]
+        ],
+        [
+          "græsk yoghurt",
+          200,
+          "g",
+          0,
+          [
+            "D66"
+          ]
+        ],
+        [
+          "Schulstad Signaturbrød",
+          1,
+          "stk",
+          0,
+          [
+            "D43"
+          ]
+        ],
+        [
+          "salat",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "karry",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Krydr kyllingen med karry, salt og peber, og steg den i olie, til den er gennemstegt. Skær i skiver.",
@@ -261,26 +1334,223 @@
         "Server med dressing og lunt brød."
       ]
     },
-    {"som": "Ovnbagt laks med porrer og kartofler", "tilbud": {"fersk laksestykke": {"navn": "Glyngøre fersk lakseside", "tilbud": ["D45"]}, "kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "skyr": {"navn": "græsk yoghurt", "tilbud": ["D66"]}}},
-    {"som": "Andebryststeg med æbler og rødkål", "tilbud": {"andebryststeg": {"navn": "Julius andebryststeg", "tilbud": ["D38"]}, "danske æbler": {"navn": "økologiske æbler", "tilbud": ["D143"]}, "økologiske kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "økologisk smør": ["D65"]}},
-    {"som": "Andebryst med druesauce og ovnbagte rodfrugter", "tilbud": {"ferske andebryst": {"navn": "andebryst", "tilbud": ["D34"]}, "kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "gulerødder": ["D30"], "æbler": {"navn": "økologiske æbler", "tilbud": ["D143"]}}},
-    {"som": "Langtidsstegte andelår med bagte æbler og kartoffelmos", "tilbud": {"Canard Martín andelår": {"navn": "andelår", "tilbud": ["D35"], "maengde": 1080}, "danske æbler": {"navn": "økologiske æbler", "tilbud": ["D143"]}, "økologiske kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}, "økologisk smør": ["D65"]}},
-    {"som": "Helstegt and med æbler, svesker og rødkål", "tilbud": {"hel and": {"navn": "Gustav landand", "tilbud": ["D36"]}, "æbler": {"navn": "økologiske æbler", "tilbud": ["D143"]}, "kartofler": {"navn": "Alexandra kartofler", "tilbud": ["D33"]}}},
+    {
+      "som": "Ovnbagt laks med porrer og kartofler",
+      "tilbud": {
+        "fersk laksestykke": {
+          "navn": "Glyngøre fersk lakseside",
+          "tilbud": [
+            "D45"
+          ]
+        },
+        "kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "skyr": {
+          "navn": "græsk yoghurt",
+          "tilbud": [
+            "D66"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Andebryststeg med æbler og rødkål",
+      "tilbud": {
+        "andebryststeg": {
+          "navn": "Julius andebryststeg",
+          "tilbud": [
+            "D38"
+          ]
+        },
+        "danske æbler": {
+          "navn": "økologiske æbler",
+          "tilbud": [
+            "D143"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "økologisk smør": [
+          "D65"
+        ]
+      }
+    },
+    {
+      "som": "Andebryst med druesauce og ovnbagte rodfrugter",
+      "tilbud": {
+        "ferske andebryst": {
+          "navn": "andebryst",
+          "tilbud": [
+            "D34"
+          ]
+        },
+        "kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "gulerødder": [
+          "D30"
+        ],
+        "æbler": {
+          "navn": "økologiske æbler",
+          "tilbud": [
+            "D143"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Langtidsstegte andelår med bagte æbler og kartoffelmos",
+      "tilbud": {
+        "Canard Martín andelår": {
+          "navn": "andelår",
+          "tilbud": [
+            "D35"
+          ],
+          "maengde": 1080
+        },
+        "danske æbler": {
+          "navn": "økologiske æbler",
+          "tilbud": [
+            "D143"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        },
+        "økologisk smør": [
+          "D65"
+        ]
+      }
+    },
+    {
+      "som": "Helstegt and med æbler, svesker og rødkål",
+      "tilbud": {
+        "hel and": {
+          "navn": "Gustav landand",
+          "tilbud": [
+            "D36"
+          ]
+        },
+        "æbler": {
+          "navn": "økologiske æbler",
+          "tilbud": [
+            "D143"
+          ]
+        },
+        "kartofler": {
+          "navn": "Alexandra kartofler",
+          "tilbud": [
+            "D33"
+          ]
+        }
+      }
+    },
     {
       "navn": "Røget laks og kutterrejer med lun kartoffelsalat",
       "beskrivelse": "Weekendanretning med røget laks, rejer, kogte æg og lun kartoffelsalat med yoghurt.",
-      "niveau": "weekend", "kategori": "fisk", "tid_minutter": 30, "spis_tidligt": true,
+      "niveau": "weekend",
+      "kategori": "fisk",
+      "tid_minutter": 30,
+      "spis_tidligt": true,
       "ingredienser": [
-        ["røget laks", 200, "g", 0, ["D48"]],
-        ["Diskobay kutterrejer", 230, "g", 0, ["D44"]],
-        ["økologiske æg", 4, "stk", 0, ["D5"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["græsk yoghurt", 200, "g", 0, ["D66"]],
-        ["agurk", 1, "stk", 0, ["D29"]],
-        ["Schulstad Signaturbrød", 1, "stk", 0, ["D43"]],
-        ["citron", 1, "stk", 0, []],
-        ["frisk dild", 1, "bundt", 0, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "røget laks",
+          200,
+          "g",
+          0,
+          [
+            "D48"
+          ]
+        ],
+        [
+          "Diskobay kutterrejer",
+          230,
+          "g",
+          0,
+          [
+            "D44"
+          ]
+        ],
+        [
+          "økologiske æg",
+          4,
+          "stk",
+          0,
+          [
+            "D5"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "græsk yoghurt",
+          200,
+          "g",
+          0,
+          [
+            "D66"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "D29"
+          ]
+        ],
+        [
+          "Schulstad Signaturbrød",
+          1,
+          "stk",
+          0,
+          [
+            "D43"
+          ]
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "frisk dild",
+          1,
+          "bundt",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne, og halver dem. Kog æggene i 8 minutter.",
@@ -293,18 +1563,95 @@
     {
       "navn": "Økologiske hakkebøffer med blåskimmelsauce",
       "beskrivelse": "Tykke bøffer af økologisk oksekød med cremet Saint Agur-sauce, kartofler og agurkesalat.",
-      "niveau": "weekend", "kategori": "okse", "tid_minutter": 40, "spis_tidligt": false,
+      "niveau": "weekend",
+      "kategori": "okse",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
       "ingredienser": [
-        ["Änglamark økologisk hakket oksekød", 800, "g", 0, ["D18"]],
-        ["Saint Agur", 150, "g", 0, ["D68"]],
-        ["flødeost", 200, "g", 0, ["D141"]],
-        ["økologisk mælk", 200, "ml", 0, ["D50"]],
-        ["Alexandra kartofler", 1000, "g", 0, ["D33"]],
-        ["agurk", 1, "stk", 0, ["D29"]],
-        ["økologisk smør", 20, "g", 0, ["D65"]],
-        ["eddike", 2, "spsk", 1, []],
-        ["sukker", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Änglamark økologisk hakket oksekød",
+          800,
+          "g",
+          0,
+          [
+            "D18"
+          ]
+        ],
+        [
+          "Saint Agur",
+          150,
+          "g",
+          0,
+          [
+            "D68"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "D141"
+          ]
+        ],
+        [
+          "økologisk mælk",
+          200,
+          "ml",
+          0,
+          [
+            "D50"
+          ]
+        ],
+        [
+          "Alexandra kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "D33"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "D29"
+          ]
+        ],
+        [
+          "økologisk smør",
+          20,
+          "g",
+          0,
+          [
+            "D65"
+          ]
+        ],
+        [
+          "eddike",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne. Rør agurkeskiver med eddike, sukker og salt.",

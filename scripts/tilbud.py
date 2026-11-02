@@ -66,6 +66,7 @@ def hent_butik(key):
                     'beskrivelse': (o.get('description') or '').strip(),
                     'pris': (o.get('pricing') or {}).get('price'),
                     'forPris': (o.get('pricing') or {}).get('pre_price'),
+                    'stk': ((q.get('pieces') or {}).get('from') or 1),  # antal i pakken (fx 20 dåser i en ramme)
                     'maengde': None if s.get('from') is None else (fmt(s['from']) if s['from'] == s['to'] else f"{fmt(s['from'])}-{fmt(s['to'])}"),
                     'enhed': ENHEDER.get(sym, sym),
                     'billede': (o.get('images') or {}).get('thumb'),

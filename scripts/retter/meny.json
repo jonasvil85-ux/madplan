@@ -1,5 +1,28 @@
 {
   "avis": "WbZr7rED",
+  "top5": [
+    {
+      "id": "M17",
+      "hvorfor": "Kyllingebryst, stor pakke"
+    },
+    {
+      "id": "M60",
+      "hvorfor": "Flæsk i skiver til stegt flæsk"
+    },
+    {
+      "id": "M2",
+      "hvorfor": "Sodavand i ramme",
+      "enhedspris": "4,00 kr/dåse"
+    },
+    {
+      "id": "M84",
+      "hvorfor": "Ekstra jomfru olivenolie, 1 l"
+    },
+    {
+      "id": "M6",
+      "hvorfor": "Marabou chokolade"
+    }
+  ],
   "retter": [
     {
       "navn": "Pasta med skinkestrimler i tomatflødesauce",
@@ -9,15 +32,79 @@
       "tid_minutter": 20,
       "spis_tidligt": false,
       "ingredienser": [
-        ["økologisk pasta", 500, "g", 0, ["M92"]],
-        ["skinkestrimler", 400, "g", 0, ["M29"]],
-        ["økologiske hakkede tomater", 2, "dåse", 0, ["M153"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["bouillonterning", 1, "stk", 0, ["M68"]],
-        ["løg", 1, "stk", 0, []],
-        ["tørret oregano", 1, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "økologisk pasta",
+          500,
+          "g",
+          0,
+          [
+            "M92"
+          ]
+        ],
+        [
+          "skinkestrimler",
+          400,
+          "g",
+          0,
+          [
+            "M29"
+          ]
+        ],
+        [
+          "økologiske hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "bouillonterning",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog pastaen.",
@@ -35,17 +122,93 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket oksekød 14-18 %", 600, "g", 0, ["M107"]],
-        ["økologiske æg", 1, "stk", 0, ["M19"]],
-        ["økologisk pasta", 500, "g", 0, ["M92"]],
-        ["økologiske hakkede tomater", 2, "dåse", 0, ["M153"]],
-        ["Grana Padano", 50, "g", 0, ["M96"]],
-        ["løg", 1, "stk", 0, []],
-        ["hvidløg", 2, "fed", 0, []],
-        ["hvedemel eller rasp", 3, "spsk", 1, []],
-        ["tørret oregano", 1, "tsk", 1, []],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket oksekød 14-18 %",
+          600,
+          "g",
+          0,
+          [
+            "M107"
+          ]
+        ],
+        [
+          "økologiske æg",
+          1,
+          "stk",
+          0,
+          [
+            "M19"
+          ]
+        ],
+        [
+          "økologisk pasta",
+          500,
+          "g",
+          0,
+          [
+            "M92"
+          ]
+        ],
+        [
+          "økologiske hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "Grana Padano",
+          50,
+          "g",
+          0,
+          [
+            "M96"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "hvedemel eller rasp",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Rør kødet med æg, mel, halvdelen af det hakkede løg, salt og peber. Rul ca. 24 kødboller med våde hænder.",
@@ -63,15 +226,77 @@
       "tid_minutter": 25,
       "spis_tidligt": false,
       "ingredienser": [
-        ["røget medister", 500, "g", 0, ["M157"]],
-        ["brioche hotdogbrød", 1, "pakke", 0, ["M10"]],
-        ["sennep", 1, "stk", 0, ["M9"]],
-        ["agurk", 1, "stk", 0, ["M141"]],
-        ["løg", 2, "stk", 0, []],
-        ["hvedemel", 2, "spsk", 1, []],
-        ["olie", 1, "dl", 1, []],
-        ["eddike", 2, "spsk", 1, []],
-        ["sukker", 1, "spsk", 1, []]
+        [
+          "røget medister",
+          500,
+          "g",
+          0,
+          [
+            "M157"
+          ]
+        ],
+        [
+          "brioche hotdogbrød",
+          1,
+          "pakke",
+          0,
+          [
+            "M10"
+          ]
+        ],
+        [
+          "sennep",
+          1,
+          "stk",
+          0,
+          [
+            "M9"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "M141"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "eddike",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "spsk",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Skær agurken i tynde skiver, og rør med eddike, sukker og lidt salt.",
@@ -89,13 +314,61 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["flæsk i skiver", 700, "g", 0, ["M60"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["frisk persille", 1, "bundt", 0, ["M122"]],
-        ["mælk", 500, "ml", 0, []],
-        ["smør", 30, "g", 1, []],
-        ["hvedemel", 30, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "flæsk i skiver",
+          700,
+          "g",
+          0,
+          [
+            "M60"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "frisk persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "mælk",
+          500,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne.",
@@ -113,17 +386,97 @@
       "tid_minutter": 30,
       "spis_tidligt": false,
       "ingredienser": [
-        ["økologiske æg", 8, "stk", 0, ["M19"]],
-        ["Ben's Original ris", 1, "pakke", 0, ["M81"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["grøntsagsbouillon", 1, "stk", 0, ["M68"]],
-        ["danske æbler", 1, "stk", 0, ["M132"]],
-        ["økologisk smør", 30, "g", 0, ["M87"]],
-        ["frisk persille", 1, "bundt", 0, ["M122"]],
-        ["løg", 1, "stk", 0, []],
-        ["karry", 2, "spsk", 1, []],
-        ["hvedemel", 30, "g", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "økologiske æg",
+          8,
+          "stk",
+          0,
+          [
+            "M19"
+          ]
+        ],
+        [
+          "Ben's Original ris",
+          1,
+          "pakke",
+          0,
+          [
+            "M81"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "grøntsagsbouillon",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "danske æbler",
+          1,
+          "stk",
+          0,
+          [
+            "M132"
+          ]
+        ],
+        [
+          "økologisk smør",
+          30,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "frisk persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "karry",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene. Kog æggene i 8 minutter, køl dem af og pil dem.",
@@ -141,15 +494,81 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["knoldselleri med top", 1, "stk", 0, ["M134"]],
-        ["økologiske kartofler", 650, "g", 0, ["M115"]],
-        ["bacon i tern", 250, "g", 0, ["M64"]],
-        ["bouillonterning", 2, "stk", 0, ["M68"]],
-        ["madlavningsfløde", 200, "ml", 0, ["M142"]],
-        ["rugbrød", 4, "stk", 0, ["M22"]],
-        ["løg", 1, "stk", 0, []],
-        ["smør", 20, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "knoldselleri med top",
+          1,
+          "stk",
+          0,
+          [
+            "M134"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          650,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "bacon i tern",
+          250,
+          "g",
+          0,
+          [
+            "M64"
+          ]
+        ],
+        [
+          "bouillonterning",
+          2,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "rugbrød",
+          4,
+          "stk",
+          0,
+          [
+            "M22"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Skræl selleri og kartofler, og skær dem i tern. Gem sellerytoppen.",
@@ -167,15 +586,79 @@
       "tid_minutter": 20,
       "spis_tidligt": true,
       "ingredienser": [
-        ["OMHU håndpillede rejer", 280, "g", 0, ["M38"]],
-        ["økologisk pasta", 500, "g", 0, ["M92"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["frisk persille", 1, "bundt", 0, ["M122"]],
-        ["Grana Padano", 50, "g", 0, ["M96"]],
-        ["citron", 1, "stk", 0, []],
-        ["hvidløg", 2, "fed", 0, []],
-        ["olivenolie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "OMHU håndpillede rejer",
+          280,
+          "g",
+          0,
+          [
+            "M38"
+          ]
+        ],
+        [
+          "økologisk pasta",
+          500,
+          "g",
+          0,
+          [
+            "M92"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "frisk persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "Grana Padano",
+          50,
+          "g",
+          0,
+          [
+            "M96"
+          ]
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "olivenolie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog pastaen.",
@@ -193,16 +676,86 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Freygaard okseklump", 1000, "g", 0, ["M24"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["Ben's Original ris", 1, "pakke", 0, ["M81"]],
-        ["oksefond", 1, "stk", 0, ["M68"]],
-        ["Maille sennep", 1, "stk", 0, ["M9"]],
-        ["løg", 2, "stk", 0, []],
-        ["champignon", 250, "g", 0, []],
-        ["paprika", 2, "tsk", 1, []],
-        ["smør", 20, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Freygaard okseklump",
+          1000,
+          "g",
+          0,
+          [
+            "M24"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "Ben's Original ris",
+          1,
+          "pakke",
+          0,
+          [
+            "M81"
+          ]
+        ],
+        [
+          "oksefond",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "Maille sennep",
+          1,
+          "stk",
+          0,
+          [
+            "M9"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "champignon",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene.",
@@ -220,14 +773,72 @@
       "tid_minutter": 70,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Gestus kyllingebrystfilet", 600, "g", 0, ["M17"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["økologiske bønner", 225, "g", 0, ["M156"]],
-        ["fond / sovsejævner", 1, "stk", 0, ["M68"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["smør", 20, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Gestus kyllingebrystfilet",
+          600,
+          "g",
+          0,
+          [
+            "M17"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "økologiske bønner",
+          225,
+          "g",
+          0,
+          [
+            "M156"
+          ]
+        ],
+        [
+          "fond / sovsejævner",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Flødekartofler: Skær kartoflerne i tynde skiver, læg dem i et fad, hæld fløde med knust hvidløg, salt og peber over og bag ved 200 °C i ca. 50 minutter.",
@@ -245,14 +856,72 @@
       "tid_minutter": 30,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Gestus kyllingebrystfilet", 600, "g", 0, ["M17"]],
-        ["peanutbutter", 4, "spsk", 0, ["M129"]],
-        ["madlavningsfløde", 200, "ml", 0, ["M142"]],
-        ["Ben's Original ris", 1, "pakke", 0, ["M81"]],
-        ["agurk", 1, "stk", 0, ["M141"]],
-        ["sojasauce", 2, "spsk", 1, []],
-        ["karry", 1, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []]
+        [
+          "Gestus kyllingebrystfilet",
+          600,
+          "g",
+          0,
+          [
+            "M17"
+          ]
+        ],
+        [
+          "peanutbutter",
+          4,
+          "spsk",
+          0,
+          [
+            "M129"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "Ben's Original ris",
+          1,
+          "pakke",
+          0,
+          [
+            "M81"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "M141"
+          ]
+        ],
+        [
+          "sojasauce",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "karry",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene.",
@@ -270,16 +939,88 @@
       "tid_minutter": 120,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Himmerland hel kylling", 1, "stk", 0, ["M45"]],
-        ["økologiske æg", 2, "stk", 0, ["M19"]],
-        ["økologisk smør", 50, "g", 0, ["M87"]],
-        ["hvedemel", 75, "g", 1, []],
-        ["knoldselleri med top", 1, "stk", 0, ["M134"]],
-        ["bouillonterning", 2, "stk", 0, ["M68"]],
-        ["frisk persille", 1, "bundt", 0, ["M122"]],
-        ["gulerødder", 4, "stk", 0, []],
-        ["porre", 1, "stk", 0, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Himmerland hel kylling",
+          1,
+          "stk",
+          0,
+          [
+            "M45"
+          ]
+        ],
+        [
+          "økologiske æg",
+          2,
+          "stk",
+          0,
+          [
+            "M19"
+          ]
+        ],
+        [
+          "økologisk smør",
+          50,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "hvedemel",
+          75,
+          "g",
+          1,
+          []
+        ],
+        [
+          "knoldselleri med top",
+          1,
+          "stk",
+          0,
+          [
+            "M134"
+          ]
+        ],
+        [
+          "bouillonterning",
+          2,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "frisk persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "gulerødder",
+          4,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "porre",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kom kyllingen i en stor gryde med 2,5 liter vand, bouillon og grove stykker selleri. Kog under låg i ca. 1 time.",
@@ -298,16 +1039,88 @@
       "tid_minutter": 120,
       "spis_tidligt": false,
       "ingredienser": [
-        ["gullasch af okseinderlår", 800, "g", 0, ["M76"]],
-        ["økologiske hakkede tomater", 1, "dåse", 0, ["M153"]],
-        ["oksefond", 1, "stk", 0, ["M68"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["creme fraiche", 200, "g", 0, ["M71"]],
-        ["økologisk smør", 50, "g", 0, ["M87"]],
-        ["løg", 3, "stk", 0, []],
-        ["paprika", 2, "spsk", 1, []],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "gullasch af okseinderlår",
+          800,
+          "g",
+          0,
+          [
+            "M76"
+          ]
+        ],
+        [
+          "økologiske hakkede tomater",
+          1,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "oksefond",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "creme fraiche",
+          200,
+          "g",
+          0,
+          [
+            "M71"
+          ]
+        ],
+        [
+          "økologisk smør",
+          50,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "løg",
+          3,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "paprika",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Brun kødet i olie i flere omgange.",
@@ -325,15 +1138,79 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket oksekød 14-18 %", 600, "g", 0, ["M107"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["fond / sovsejævner", 1, "stk", 0, ["M68"]],
-        ["agurk", 1, "stk", 0, ["M141"]],
-        ["økologisk smør", 50, "g", 0, ["M87"]],
-        ["løg", 4, "stk", 0, []],
-        ["eddike", 2, "spsk", 1, []],
-        ["sukker", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket oksekød 14-18 %",
+          600,
+          "g",
+          0,
+          [
+            "M107"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "fond / sovsejævner",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "M141"
+          ]
+        ],
+        [
+          "økologisk smør",
+          50,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "løg",
+          4,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "eddike",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne. Rør agurkeskiver med eddike, sukker og salt.",
@@ -351,15 +1228,77 @@
       "tid_minutter": 75,
       "spis_tidligt": false,
       "ingredienser": [
-        ["julemedister af frilandsgris", 600, "g", 0, ["M99"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["fond / sovsejævner", 1, "stk", 0, ["M68"]],
-        ["danske æbler", 2, "stk", 0, ["M132"]],
-        ["rødkål (frisk)", 0.5, "stk", 0, []],
-        ["eddike", 1, "dl", 1, []],
-        ["sukker", 50, "g", 1, []],
-        ["smør", 20, "g", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "julemedister af frilandsgris",
+          600,
+          "g",
+          0,
+          [
+            "M99"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "fond / sovsejævner",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "danske æbler",
+          2,
+          "stk",
+          0,
+          [
+            "M132"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.5,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          50,
+          "g",
+          1,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Rødkål: Snit rødkålen fint, og kog den under låg med æbler i tern, eddike, sukker, 1 dl vand og salt i ca. 1 time.",
@@ -377,14 +1316,74 @@
       "tid_minutter": 40,
       "spis_tidligt": true,
       "ingredienser": [
-        ["laksefilet med skind", 600, "g", 0, ["M21"]],
-        ["knoldselleri med top", 1, "stk", 0, ["M134"]],
-        ["økologiske kartofler", 650, "g", 0, ["M115"]],
-        ["creme fraiche", 200, "g", 0, ["M71"]],
-        ["frisk dild", 1, "bundt", 0, ["M122"]],
-        ["økologisk smør", 40, "g", 0, ["M87"]],
-        ["citron", 1, "stk", 0, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "laksefilet med skind",
+          600,
+          "g",
+          0,
+          [
+            "M21"
+          ]
+        ],
+        [
+          "knoldselleri med top",
+          1,
+          "stk",
+          0,
+          [
+            "M134"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          650,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "creme fraiche",
+          200,
+          "g",
+          0,
+          [
+            "M71"
+          ]
+        ],
+        [
+          "frisk dild",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "økologisk smør",
+          40,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog selleri og kartofler i tern møre, og mos med smør, salt og peber.",
@@ -402,18 +1401,102 @@
       "tid_minutter": 50,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Freygaard entrecote", 1000, "g", 0, ["M175"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["agurk", 1, "stk", 0, ["M141"]],
-        ["økologisk smør", 230, "g", 0, ["M87"]],
-        ["økologiske æg (blommer)", 3, "stk", 0, ["M19"]],
-        ["frisk estragon", 1, "bundt", 0, ["M122"]],
-        ["skalotteløg", 1, "stk", 0, []],
-        ["hvidvinseddike", 3, "spsk", 1, []],
-        ["eddike", 2, "spsk", 1, []],
-        ["sukker", 1, "spsk", 1, []],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Freygaard entrecote",
+          1000,
+          "g",
+          0,
+          [
+            "M175"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "M141"
+          ]
+        ],
+        [
+          "økologisk smør",
+          230,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "økologiske æg (blommer)",
+          3,
+          "stk",
+          0,
+          [
+            "M19"
+          ]
+        ],
+        [
+          "frisk estragon",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "skalotteløg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidvinseddike",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "eddike",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 220 °C. Skær kartoflerne i både, vend med olie og salt, og bag 35 minutter.",
@@ -432,16 +1515,86 @@
       "tid_minutter": 120,
       "spis_tidligt": false,
       "ingredienser": [
-        ["flæskesteg af økologisk frilandsgris", 1500, "g", 0, ["M16"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["fond / sovsejævner", 1, "stk", 0, ["M68"]],
-        ["danske æbler", 2, "stk", 0, ["M132"]],
-        ["økologisk smør", 30, "g", 0, ["M87"]],
-        ["rødkål (frisk)", 0.5, "stk", 0, []],
-        ["laurbærblade", 3, "stk", 1, []],
-        ["eddike", 1, "dl", 1, []],
-        ["sukker", 125, "g", 1, []],
-        ["groft salt", 2, "spsk", 1, []]
+        [
+          "flæskesteg af økologisk frilandsgris",
+          1500,
+          "g",
+          0,
+          [
+            "M16"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "fond / sovsejævner",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "danske æbler",
+          2,
+          "stk",
+          0,
+          [
+            "M132"
+          ]
+        ],
+        [
+          "økologisk smør",
+          30,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.5,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "laurbærblade",
+          3,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          125,
+          "g",
+          1,
+          []
+        ],
+        [
+          "groft salt",
+          2,
+          "spsk",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Gnid sværen med groft salt, og stik laurbærblade i ridserne.",
@@ -459,14 +1612,74 @@
       "tid_minutter": 70,
       "spis_tidligt": false,
       "ingredienser": [
-        ["tykstegsmedaljoner af dansk kalv", 600, "g", 0, ["M158"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["økologiske bønner", 225, "g", 0, ["M156"]],
-        ["Fond du Chef", 1, "stk", 0, ["M68"]],
-        ["økologisk smør", 30, "g", 0, ["M87"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "tykstegsmedaljoner af dansk kalv",
+          600,
+          "g",
+          0,
+          [
+            "M158"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "økologiske bønner",
+          225,
+          "g",
+          0,
+          [
+            "M156"
+          ]
+        ],
+        [
+          "Fond du Chef",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "økologisk smør",
+          30,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Flødekartofler: Skær kartoflerne i tynde skiver, læg dem i et fad, hæld fløde med knust hvidløg, salt og peber over og bag ved 200 °C i ca. 50 minutter.",
@@ -484,16 +1697,88 @@
       "tid_minutter": 90,
       "spis_tidligt": false,
       "ingredienser": [
-        ["andebryststeg", 1300, "g", 0, ["M26"]],
-        ["danske æbler", 6, "stk", 0, ["M132"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["økologisk smør", 30, "g", 0, ["M87"]],
-        ["fond / sovsejævner", 1, "stk", 0, ["M68"]],
-        ["madlavningsfløde", 200, "ml", 0, ["M142"]],
-        ["rødkål (frisk)", 0.5, "stk", 0, []],
-        ["eddike", 1, "dl", 1, []],
-        ["sukker", 125, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "andebryststeg",
+          1300,
+          "g",
+          0,
+          [
+            "M26"
+          ]
+        ],
+        [
+          "danske æbler",
+          6,
+          "stk",
+          0,
+          [
+            "M132"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "økologisk smør",
+          30,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "fond / sovsejævner",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.5,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          125,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tø stegen op i køleskabet dagen før. Rødkål: Snit rødkålen fint, og kog den under låg med 2 æbler i tern, eddike, 50 g sukker, 1 dl vand og salt i ca. 1 time.",
@@ -511,13 +1796,67 @@
       "tid_minutter": 35,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Freygaard steak af okseinderlår", 600, "g", 0, ["M13"]],
-        ["Saint Agur blåskimmelost", 1, "stk", 0, ["M96"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["frisk persille", 1, "bundt", 0, ["M122"]],
-        ["økologisk smør", 30, "g", 0, ["M87"]],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Freygaard steak af okseinderlår",
+          600,
+          "g",
+          0,
+          [
+            "M13"
+          ]
+        ],
+        [
+          "Saint Agur blåskimmelost",
+          1,
+          "stk",
+          0,
+          [
+            "M96"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "frisk persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "økologisk smør",
+          30,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne, og vend dem i smør og hakket persille.",
@@ -535,16 +1874,84 @@
       "tid_minutter": 50,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket oksekød 14-18 %", 600, "g", 0, ["M107"]],
-        ["økologisk pasta", 500, "g", 0, ["M92"]],
-        ["økologiske hakkede tomater", 2, "dåse", 0, ["M153"]],
-        ["oksebouillon", 1, "stk", 0, ["M68"]],
-        ["løg", 1, "stk", 0, []],
-        ["gulerødder", 2, "stk", 0, []],
-        ["hvidløg", 2, "fed", 0, []],
-        ["tørret oregano", 1, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket oksekød 14-18 %",
+          600,
+          "g",
+          0,
+          [
+            "M107"
+          ]
+        ],
+        [
+          "økologisk pasta",
+          500,
+          "g",
+          0,
+          [
+            "M92"
+          ]
+        ],
+        [
+          "økologiske hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "oksebouillon",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Hak løg og hvidløg, og riv gulerødderne.",
@@ -562,14 +1969,70 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["økologiske æg", 8, "stk", 0, ["M19"]],
-        ["økologiske kartofler", 650, "g", 0, ["M115"]],
-        ["agurk", 1, "stk", 0, ["M141"]],
-        ["frisk persille", 1, "bundt", 0, ["M122"]],
-        ["løg", 2, "stk", 0, []],
-        ["olie", 1, "dl", 1, []],
-        ["eddike", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "økologiske æg",
+          8,
+          "stk",
+          0,
+          [
+            "M19"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          650,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "M141"
+          ]
+        ],
+        [
+          "frisk persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "eddike",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Skær kartoflerne i tynde skiver og løgene i strimler. Steg dem bløde i olie ved lav varme i ca. 20 minutter.",
@@ -587,14 +2050,70 @@
       "tid_minutter": 20,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Glyngøre tun", 2, "dåse", 0, ["M14"]],
-        ["økologisk pasta", 500, "g", 0, ["M92"]],
-        ["økologiske hakkede tomater", 2, "dåse", 0, ["M153"]],
-        ["frisk persille", 1, "bundt", 0, ["M122"]],
-        ["løg", 1, "stk", 0, []],
-        ["hvidløg", 1, "fed", 0, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Glyngøre tun",
+          2,
+          "dåse",
+          0,
+          [
+            "M14"
+          ]
+        ],
+        [
+          "økologisk pasta",
+          500,
+          "g",
+          0,
+          [
+            "M92"
+          ]
+        ],
+        [
+          "økologiske hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "frisk persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          1,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog pastaen.",
@@ -612,14 +2131,74 @@
       "tid_minutter": 70,
       "spis_tidligt": false,
       "ingredienser": [
-        ["økologiske kartofler (store)", 1300, "g", 0, ["M115"]],
-        ["bacon i tern", 250, "g", 0, ["M64"]],
-        ["Philadelphia", 200, "g", 0, ["M65"]],
-        ["creme fraiche", 200, "g", 0, ["M71"]],
-        ["agurk", 1, "stk", 0, ["M141"]],
-        ["purløg eller persille", 1, "bundt", 0, ["M122"]],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "økologiske kartofler (store)",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "bacon i tern",
+          250,
+          "g",
+          0,
+          [
+            "M64"
+          ]
+        ],
+        [
+          "Philadelphia",
+          200,
+          "g",
+          0,
+          [
+            "M65"
+          ]
+        ],
+        [
+          "creme fraiche",
+          200,
+          "g",
+          0,
+          [
+            "M71"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "M141"
+          ]
+        ],
+        [
+          "purløg eller persille",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Prik kartoflerne, gnid dem med olie og salt, og bag i ca. 60 minutter.",
@@ -637,14 +2216,70 @@
       "tid_minutter": 75,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Rose hel kylling", 1, "stk", 0, ["M99"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["frisk timian", 1, "bundt", 0, ["M122"]],
-        ["økologisk smør", 30, "g", 0, ["M87"]],
-        ["citron", 2, "stk", 0, []],
-        ["hvidløg", 1, "stk", 0, []],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Rose hel kylling",
+          1,
+          "stk",
+          0,
+          [
+            "M99"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "frisk timian",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "økologisk smør",
+          30,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "citron",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Skær kyllingen i 8 stykker.",
@@ -662,15 +2297,81 @@
       "tid_minutter": 40,
       "spis_tidligt": true,
       "ingredienser": [
-        ["laksefilet", 600, "g", 0, ["M21"]],
-        ["økologiske æg", 2, "stk", 0, ["M19"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["creme fraiche", 200, "g", 0, ["M71"]],
-        ["frisk dild", 1, "bundt", 0, ["M122"]],
-        ["økologisk smør", 40, "g", 0, ["M87"]],
-        ["citron", 1, "stk", 0, []],
-        ["hvedemel", 3, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "laksefilet",
+          600,
+          "g",
+          0,
+          [
+            "M21"
+          ]
+        ],
+        [
+          "økologiske æg",
+          2,
+          "stk",
+          0,
+          [
+            "M19"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "creme fraiche",
+          200,
+          "g",
+          0,
+          [
+            "M71"
+          ]
+        ],
+        [
+          "frisk dild",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "økologisk smør",
+          40,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Fjern skindet, og hak laksen fint med en kniv (eller kør den kort i blender).",
@@ -688,15 +2389,79 @@
       "tid_minutter": 45,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket oksekød 14-18 %", 600, "g", 0, ["M107"]],
-        ["økologiske hakkede tomater", 2, "dåse", 0, ["M153"]],
-        ["Ben's Original ris", 1, "pakke", 0, ["M81"]],
-        ["creme fraiche", 200, "g", 0, ["M71"]],
-        ["Santa Maria chili-krydderi", 1, "pakke", 0, ["M58"]],
-        ["kidneybønner", 1, "dåse", 0, []],
-        ["løg", 2, "stk", 0, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "hakket oksekød 14-18 %",
+          600,
+          "g",
+          0,
+          [
+            "M107"
+          ]
+        ],
+        [
+          "økologiske hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "Ben's Original ris",
+          1,
+          "pakke",
+          0,
+          [
+            "M81"
+          ]
+        ],
+        [
+          "creme fraiche",
+          200,
+          "g",
+          0,
+          [
+            "M71"
+          ]
+        ],
+        [
+          "Santa Maria chili-krydderi",
+          1,
+          "pakke",
+          0,
+          [
+            "M58"
+          ]
+        ],
+        [
+          "kidneybønner",
+          1,
+          "dåse",
+          0,
+          []
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Brun kødet i olie med hakket løg.",
@@ -714,15 +2479,83 @@
       "tid_minutter": 90,
       "spis_tidligt": false,
       "ingredienser": [
-        ["culotte af dansk kalv", 1000, "g", 0, ["M46"]],
-        ["knoldselleri med top", 1, "stk", 0, ["M134"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["Côtes du Rhône (rødvin)", 200, "ml", 0, ["M119"]],
-        ["Fond du Chef", 1, "stk", 0, ["M68"]],
-        ["økologisk smør", 50, "g", 0, ["M87"]],
-        ["frisk timian", 1, "bundt", 0, ["M122"]],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "culotte af dansk kalv",
+          1000,
+          "g",
+          0,
+          [
+            "M46"
+          ]
+        ],
+        [
+          "knoldselleri med top",
+          1,
+          "stk",
+          0,
+          [
+            "M134"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "Côtes du Rhône (rødvin)",
+          200,
+          "ml",
+          0,
+          [
+            "M119"
+          ]
+        ],
+        [
+          "Fond du Chef",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "økologisk smør",
+          50,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "frisk timian",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Skær selleri og kartofler i tern, vend med olie, salt og timian, og bag 45 minutter.",
@@ -740,14 +2573,74 @@
       "tid_minutter": 75,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Freygaard oksetyndstegsfilet", 1000, "g", 0, ["M80"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["madlavningsfløde", 330, "ml", 0, ["M142"]],
-        ["økologisk smør", 60, "g", 0, ["M87"]],
-        ["Fond du Chef", 1, "stk", 0, ["M68"]],
-        ["frisk timian", 1, "bundt", 0, ["M122"]],
-        ["champignon", 250, "g", 0, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Freygaard oksetyndstegsfilet",
+          1000,
+          "g",
+          0,
+          [
+            "M80"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          330,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "økologisk smør",
+          60,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "Fond du Chef",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "frisk timian",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "champignon",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Skær tætte snit i kartoflerne, pensl med smeltet smør og salt, og bag ca. 50 minutter.",
@@ -765,14 +2658,76 @@
       "tid_minutter": 150,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Canard Martín andelår", 1200, "g", 0, ["M144"]],
-        ["danske æbler", 4, "stk", 0, ["M132"]],
-        ["økologiske kartofler", 1300, "g", 0, ["M115"]],
-        ["økologisk smør", 50, "g", 0, ["M87"]],
-        ["madlavningsfløde", 200, "ml", 0, ["M142"]],
-        ["fond / sovsejævner", 1, "stk", 0, ["M68"]],
-        ["frisk timian", 1, "bundt", 0, ["M122"]],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Canard Martín andelår",
+          1200,
+          "g",
+          0,
+          [
+            "M144"
+          ]
+        ],
+        [
+          "danske æbler",
+          4,
+          "stk",
+          0,
+          [
+            "M132"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1300,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "økologisk smør",
+          50,
+          "g",
+          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          [
+            "M142"
+          ]
+        ],
+        [
+          "fond / sovsejævner",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "frisk timian",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tø lårene op dagen før. Tænd ovnen på 150 °C.",

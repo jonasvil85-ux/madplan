@@ -1,5 +1,27 @@
 {
   "avis": "xozUXXk1",
+  "top5": [
+    {
+      "id": "N3",
+      "hvorfor": "Kyllingebryst, 1 kg"
+    },
+    {
+      "id": "N7",
+      "hvorfor": "Hakket grisekød – billigste fars"
+    },
+    {
+      "id": "N18",
+      "hvorfor": "Hel dansk kylling"
+    },
+    {
+      "id": "N10",
+      "hvorfor": "Kaffe 3-pak (Merrild/Gevalia)"
+    },
+    {
+      "id": "N8",
+      "hvorfor": "Faxe Kondi / Pepsi Max 1,5 l"
+    }
+  ],
   "retter": [
     {
       "navn": "Pasta med kødsauce af hakket grisekød",
@@ -9,15 +31,81 @@
       "tid_minutter": 30,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket grisekød", 600, "g", 0, ["N7"]],
-        ["penne", 500, "g", 0, ["N91"]],
-        ["hakkede tomater", 2, "dåse", 0, ["N66"]],
-        ["tomatpuré", 140, "g", 0, ["N84"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["gulerødder", 2, "stk", 0, ["N134"]],
-        ["tørret oregano", 1, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket grisekød",
+          600,
+          "g",
+          0,
+          [
+            "N7"
+          ]
+        ],
+        [
+          "penne",
+          500,
+          "g",
+          0,
+          [
+            "N91"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "tomatpuré",
+          140,
+          "g",
+          0,
+          [
+            "N84"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Hak løget og riv gulerødderne.",
@@ -35,15 +123,85 @@
       "tid_minutter": 25,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket grisekød", 600, "g", 0, ["N7"]],
-        ["tortilla wraps", 2, "pakke", 0, ["N103"]],
-        ["taco-krydderi", 1, "pakke", 0, ["N55"]],
-        ["hakkede tomater", 1, "dåse", 0, ["N66"]],
-        ["avocado", 3, "stk", 0, ["N23"]],
-        ["revet cheddar", 140, "g", 0, ["N152"]],
-        ["skyr (som creme fraiche)", 200, "g", 0, ["N13"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["olie", 1, "spsk", 1, []]
+        [
+          "hakket grisekød",
+          600,
+          "g",
+          0,
+          [
+            "N7"
+          ]
+        ],
+        [
+          "tortilla wraps",
+          2,
+          "pakke",
+          0,
+          [
+            "N103"
+          ]
+        ],
+        [
+          "taco-krydderi",
+          1,
+          "pakke",
+          0,
+          [
+            "N55"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "avocado",
+          3,
+          "stk",
+          0,
+          [
+            "N23"
+          ]
+        ],
+        [
+          "revet cheddar",
+          140,
+          "g",
+          0,
+          [
+            "N152"
+          ]
+        ],
+        [
+          "skyr (som creme fraiche)",
+          200,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Hak løget, og brun det med kødet i olie.",
@@ -61,15 +219,81 @@
       "tid_minutter": 30,
       "spis_tidligt": false,
       "ingredienser": [
-        ["kikærter", 2, "dåse", 0, ["N44"]],
-        ["kokosmælk", 400, "ml", 0, ["N123"]],
-        ["hakkede tomater", 1, "dåse", 0, ["N66"]],
-        ["økologiske grøntsager", 1, "pakke", 0, ["N93"]],
-        ["jasminris", 300, "g", 0, ["N107"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["karry", 2, "spsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "kikærter",
+          2,
+          "dåse",
+          0,
+          [
+            "N44"
+          ]
+        ],
+        [
+          "kokosmælk",
+          400,
+          "ml",
+          0,
+          [
+            "N123"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "økologiske grøntsager",
+          1,
+          "pakke",
+          0,
+          [
+            "N93"
+          ]
+        ],
+        [
+          "jasminris",
+          300,
+          "g",
+          0,
+          [
+            "N107"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "karry",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene.",
@@ -87,12 +311,56 @@
       "tid_minutter": 20,
       "spis_tidligt": false,
       "ingredienser": [
-        ["fettuccine", 500, "g", 0, ["N109"]],
-        ["bacon", 300, "g", 0, ["N20"]],
-        ["porrer", 2, "stk", 0, ["N89"]],
-        ["flødeost", 200, "g", 0, ["N36"]],
-        ["hvidløg", 1, "fed", 0, []],
-        ["sort peber", 0, "efter smag", 1, []]
+        [
+          "fettuccine",
+          500,
+          "g",
+          0,
+          [
+            "N109"
+          ]
+        ],
+        [
+          "bacon",
+          300,
+          "g",
+          0,
+          [
+            "N20"
+          ]
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "N36"
+          ]
+        ],
+        [
+          "hvidløg",
+          1,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "sort peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog pastaen, og gem en kop af kogevandet.",
@@ -110,16 +378,86 @@
       "tid_minutter": 90,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hvedemel", 500, "g", 1, []],
-        ["gær", 25, "g", 0, []],
-        ["hakkede tomater", 1, "dåse", 0, ["N66"]],
-        ["tomatpuré", 140, "g", 0, ["N84"]],
-        ["mozzarella", 200, "g", 0, ["N140"]],
-        ["bacon", 300, "g", 0, ["N20"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["tørret oregano", 1, "tsk", 1, []],
-        ["olie", 3, "spsk", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "hvedemel",
+          500,
+          "g",
+          1,
+          []
+        ],
+        [
+          "gær",
+          25,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "tomatpuré",
+          140,
+          "g",
+          0,
+          [
+            "N84"
+          ]
+        ],
+        [
+          "mozzarella",
+          200,
+          "g",
+          0,
+          [
+            "N140"
+          ]
+        ],
+        [
+          "bacon",
+          300,
+          "g",
+          0,
+          [
+            "N20"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Opløs gæren i 3 dl lunkent vand, og ælt det sammen med mel, olie og 1 tsk salt til en smidig dej. Lad den hæve tildækket i 1 time.",
@@ -137,13 +475,67 @@
       "tid_minutter": 30,
       "spis_tidligt": false,
       "ingredienser": [
-        ["æg", 8, "stk", 0, ["N1"]],
-        ["bacon", 300, "g", 0, ["N20"]],
-        ["friske kartofler", 450, "g", 0, ["N100"]],
-        ["porre", 1, "stk", 0, ["N89"]],
-        ["mælk", 100, "ml", 0, ["N11"]],
-        ["rugbrød", 1, "stk", 0, ["N170"]],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "æg",
+          8,
+          "stk",
+          0,
+          [
+            "N1"
+          ]
+        ],
+        [
+          "bacon",
+          300,
+          "g",
+          0,
+          [
+            "N20"
+          ]
+        ],
+        [
+          "friske kartofler",
+          450,
+          "g",
+          0,
+          [
+            "N100"
+          ]
+        ],
+        [
+          "porre",
+          1,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "mælk",
+          100,
+          "ml",
+          0,
+          [
+            "N11"
+          ]
+        ],
+        [
+          "rugbrød",
+          1,
+          "stk",
+          0,
+          [
+            "N170"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne, og skær dem i skiver.",
@@ -161,14 +553,72 @@
       "tid_minutter": 20,
       "spis_tidligt": false,
       "ingredienser": [
-        ["tun i vand eller olie", 2, "dåse", 0, ["N5"]],
-        ["penne", 500, "g", 0, ["N91"]],
-        ["hakkede tomater", 2, "dåse", 0, ["N66"]],
-        ["tomatpuré", 140, "g", 0, ["N84"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["tørret oregano", 1, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "tun i vand eller olie",
+          2,
+          "dåse",
+          0,
+          [
+            "N5"
+          ]
+        ],
+        [
+          "penne",
+          500,
+          "g",
+          0,
+          [
+            "N91"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "tomatpuré",
+          140,
+          "g",
+          0,
+          [
+            "N84"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog pastaen.",
@@ -186,15 +636,81 @@
       "tid_minutter": 30,
       "spis_tidligt": false,
       "ingredienser": [
-        ["grillpølser", 700, "g", 0, ["N52"]],
-        ["hakkede tomater", 2, "dåse", 0, ["N66"]],
-        ["tomatpuré", 140, "g", 0, ["N84"]],
-        ["løg", 2, "stk", 0, ["N125"]],
-        ["økologiske grøntsager", 1, "pakke", 0, ["N93"]],
-        ["jasminris", 300, "g", 0, ["N107"]],
-        ["paprika", 2, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "grillpølser",
+          700,
+          "g",
+          0,
+          [
+            "N52"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "tomatpuré",
+          140,
+          "g",
+          0,
+          [
+            "N84"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "økologiske grøntsager",
+          1,
+          "pakke",
+          0,
+          [
+            "N93"
+          ]
+        ],
+        [
+          "jasminris",
+          300,
+          "g",
+          0,
+          [
+            "N107"
+          ]
+        ],
+        [
+          "paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene.",
@@ -212,15 +728,81 @@
       "tid_minutter": 35,
       "spis_tidligt": false,
       "ingredienser": [
-        ["kyllingebrystfilet", 600, "g", 0, ["N3"]],
-        ["kokosmælk", 400, "ml", 0, ["N123"]],
-        ["jasminris", 300, "g", 0, ["N107"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["gulerødder", 3, "stk", 0, ["N134"]],
-        ["porre", 1, "stk", 0, ["N89"]],
-        ["karry", 2, "spsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "kyllingebrystfilet",
+          600,
+          "g",
+          0,
+          [
+            "N3"
+          ]
+        ],
+        [
+          "kokosmælk",
+          400,
+          "ml",
+          0,
+          [
+            "N123"
+          ]
+        ],
+        [
+          "jasminris",
+          300,
+          "g",
+          0,
+          [
+            "N107"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "gulerødder",
+          3,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "porre",
+          1,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "karry",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene.",
@@ -238,14 +820,72 @@
       "tid_minutter": 90,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hel kylling", 1, "stk", 0, ["N18"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["gulerødder", 4, "stk", 0, ["N134"]],
-        ["løg", 2, "stk", 0, ["N125"]],
-        ["porre", 1, "stk", 0, ["N89"]],
-        ["tørret timian", 1, "tsk", 1, []],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hel kylling",
+          1,
+          "stk",
+          0,
+          [
+            "N18"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "gulerødder",
+          4,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "porre",
+          1,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "tørret timian",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C.",
@@ -263,18 +903,106 @@
       "tid_minutter": 75,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket oksekød", 800, "g", 0, ["N6"]],
-        ["hakkede tomater", 2, "dåse", 0, ["N66"]],
-        ["tomatpuré", 140, "g", 0, ["N84"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["gulerødder", 2, "stk", 0, ["N134"]],
-        ["mælk", 500, "ml", 0, ["N11"]],
-        ["mozzarella", 200, "g", 0, ["N140"]],
-        ["Grana Padano", 50, "g", 0, ["N62"]],
-        ["lasagneplader", 250, "g", 0, []],
-        ["smør", 40, "g", 1, []],
-        ["hvedemel", 40, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket oksekød",
+          800,
+          "g",
+          0,
+          [
+            "N6"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "tomatpuré",
+          140,
+          "g",
+          0,
+          [
+            "N84"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "mælk",
+          500,
+          "ml",
+          0,
+          [
+            "N11"
+          ]
+        ],
+        [
+          "mozzarella",
+          200,
+          "g",
+          0,
+          [
+            "N140"
+          ]
+        ],
+        [
+          "Grana Padano",
+          50,
+          "g",
+          0,
+          [
+            "N62"
+          ]
+        ],
+        [
+          "lasagneplader",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "smør",
+          40,
+          "g",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          40,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Brun kødet med hakket løg og revet gulerod. Tilsæt tomater og tomatpuré, og lad det simre 20 minutter.",
@@ -292,16 +1020,92 @@
       "tid_minutter": 45,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket oksekød", 800, "g", 0, ["N6"]],
-        ["kidneybønner", 2, "dåse", 0, ["N44"]],
-        ["hakkede tomater", 2, "dåse", 0, ["N66"]],
-        ["tomatpuré", 140, "g", 0, ["N84"]],
-        ["løg", 2, "stk", 0, ["N125"]],
-        ["chilikrydderi", 1, "pakke", 0, ["N55"]],
-        ["jasminris", 300, "g", 0, ["N107"]],
-        ["skyr (som creme fraiche)", 200, "g", 0, ["N13"]],
-        ["olie", 1, "spsk", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "hakket oksekød",
+          800,
+          "g",
+          0,
+          [
+            "N6"
+          ]
+        ],
+        [
+          "kidneybønner",
+          2,
+          "dåse",
+          0,
+          [
+            "N44"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "tomatpuré",
+          140,
+          "g",
+          0,
+          [
+            "N84"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "chilikrydderi",
+          1,
+          "pakke",
+          0,
+          [
+            "N55"
+          ]
+        ],
+        [
+          "jasminris",
+          300,
+          "g",
+          0,
+          [
+            "N107"
+          ]
+        ],
+        [
+          "skyr (som creme fraiche)",
+          200,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Brun kødet i olie med hakket løg.",
@@ -319,15 +1123,83 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Burger BOOST (oksebøffer)", 700, "g", 0, ["N27"]],
-        ["fuldkornsburgerboller", 4, "stk", 0, ["N42"]],
-        ["skiveost", 4, "stk", 0, ["N70"]],
-        ["friske kartofler", 900, "g", 0, ["N100"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["ketchup", 4, "spsk", 0, ["N160"]],
-        ["remoulade", 4, "spsk", 0, ["N184"]],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Burger BOOST (oksebøffer)",
+          700,
+          "g",
+          0,
+          [
+            "N27"
+          ]
+        ],
+        [
+          "fuldkornsburgerboller",
+          4,
+          "stk",
+          0,
+          [
+            "N42"
+          ]
+        ],
+        [
+          "skiveost",
+          4,
+          "stk",
+          0,
+          [
+            "N70"
+          ]
+        ],
+        [
+          "friske kartofler",
+          900,
+          "g",
+          0,
+          [
+            "N100"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "ketchup",
+          4,
+          "spsk",
+          0,
+          [
+            "N160"
+          ]
+        ],
+        [
+          "remoulade",
+          4,
+          "spsk",
+          0,
+          [
+            "N184"
+          ]
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 220 °C. Skær kartoflerne i både, vend dem med olie og salt, og bag 30 minutter.",
@@ -345,17 +1217,99 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["hakket kyllingekød", 600, "g", 0, ["N22"]],
-        ["æg", 1, "stk", 0, ["N1"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["rødkål (frisk)", 0.25, "stk", 0, ["N94"]],
-        ["æbler", 2, "stk", 0, ["N97"]],
-        ["skyr", 100, "g", 0, ["N13"]],
-        ["mælk", 100, "ml", 0, ["N11"]],
-        ["hvedemel", 3, "spsk", 1, []],
-        ["smør", 30, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "hakket kyllingekød",
+          600,
+          "g",
+          0,
+          [
+            "N22"
+          ]
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          0,
+          [
+            "N1"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.25,
+          "stk",
+          0,
+          [
+            "N94"
+          ]
+        ],
+        [
+          "æbler",
+          2,
+          "stk",
+          0,
+          [
+            "N97"
+          ]
+        ],
+        [
+          "skyr",
+          100,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "mælk",
+          100,
+          "ml",
+          0,
+          [
+            "N11"
+          ]
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Riv løget fint, og rør det med kød, æg, mel, mælk, salt og peber. Lad farsen hvile 15 minutter.",
@@ -373,16 +1327,88 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["oksekød i tern", 800, "g", 0, ["N50"]],
-        ["spidskommen, paprika og oregano", 1, "spsk", 1, []],
-        ["madbrød", 1, "pakke", 0, ["N112"]],
-        ["skyr", 200, "g", 0, ["N13"]],
-        ["gulerødder", 2, "stk", 0, ["N134"]],
-        ["rødkål (frisk)", 0.25, "stk", 0, ["N94"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt", 0, "efter smag", 1, []]
+        [
+          "oksekød i tern",
+          800,
+          "g",
+          0,
+          [
+            "N50"
+          ]
+        ],
+        [
+          "spidskommen, paprika og oregano",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "madbrød",
+          1,
+          "pakke",
+          0,
+          [
+            "N112"
+          ]
+        ],
+        [
+          "skyr",
+          200,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.25,
+          "stk",
+          0,
+          [
+            "N94"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Skær kødet i meget tynde strimler, og vend dem i olie, krydderier og salt. Lad det trække 20 minutter.",
@@ -401,14 +1427,70 @@
       "tid_minutter": 35,
       "spis_tidligt": false,
       "ingredienser": [
-        ["svinemørbrad", 800, "g", 0, ["N15"]],
-        ["flødeost", 200, "g", 0, ["N36"]],
-        ["porrer", 2, "stk", 0, ["N89"]],
-        ["jasminris", 300, "g", 0, ["N107"]],
-        ["bouillonterning", 1, "stk", 1, []],
-        ["paprika", 1, "tsk", 1, []],
-        ["smør", 20, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "svinemørbrad",
+          800,
+          "g",
+          0,
+          [
+            "N15"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "N36"
+          ]
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "jasminris",
+          300,
+          "g",
+          0,
+          [
+            "N107"
+          ]
+        ],
+        [
+          "bouillonterning",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "paprika",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene. (Mørbraden på tilbud er stor – frys resten.)",
@@ -426,13 +1508,63 @@
       "tid_minutter": 35,
       "spis_tidligt": true,
       "ingredienser": [
-        ["fersk laksestykke", 600, "g", 0, ["N71"]],
-        ["porrer", 2, "stk", 0, ["N89"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["skyr", 200, "g", 0, ["N13"]],
-        ["citron", 1, "stk", 0, []],
-        ["smør", 20, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "fersk laksestykke",
+          600,
+          "g",
+          0,
+          [
+            "N71"
+          ]
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "skyr",
+          200,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C, og sæt kartoflerne over.",
@@ -450,13 +1582,63 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "ingredienser": [
-        ["økologiske oksefiletbøffer", 700, "g", 0, ["N110"]],
-        ["porrer", 2, "stk", 0, ["N89"]],
-        ["flødeost", 200, "g", 0, ["N36"]],
-        ["friske kartofler", 900, "g", 0, ["N100"]],
-        ["smør", 30, "g", 1, []],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "økologiske oksefiletbøffer",
+          700,
+          "g",
+          0,
+          [
+            "N110"
+          ]
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "N36"
+          ]
+        ],
+        [
+          "friske kartofler",
+          900,
+          "g",
+          0,
+          [
+            "N100"
+          ]
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 220 °C. Skær kartoflerne i både, vend med olie og salt, og bag 30 minutter.",
@@ -474,18 +1656,104 @@
       "tid_minutter": 100,
       "spis_tidligt": false,
       "ingredienser": [
-        ["ferske andelår", 4, "pakke", 0, ["N117"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["flødeost", 200, "g", 0, ["N36"]],
-        ["mælk", 300, "ml", 0, ["N11"]],
-        ["rødkål (frisk)", 1, "stk", 0, ["N94"]],
-        ["æbler", 3, "stk", 0, ["N97"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["eddike", 1, "dl", 1, []],
-        ["sukker", 75, "g", 1, []],
-        ["tørret timian", 1, "tsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "ferske andelår",
+          4,
+          "pakke",
+          0,
+          [
+            "N117"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "N36"
+          ]
+        ],
+        [
+          "mælk",
+          300,
+          "ml",
+          0,
+          [
+            "N11"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          1,
+          "stk",
+          0,
+          [
+            "N94"
+          ]
+        ],
+        [
+          "æbler",
+          3,
+          "stk",
+          0,
+          [
+            "N97"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          75,
+          "g",
+          1,
+          []
+        ],
+        [
+          "tørret timian",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 175 °C. Gnid andelårene med salt, peber og timian, og steg dem på en rist over et fad i ca. 75 minutter.",
@@ -503,16 +1771,86 @@
       "tid_minutter": 120,
       "spis_tidligt": false,
       "ingredienser": [
-        ["ribbensteg", 1500, "g", 0, ["N33"]],
-        ["rødkål (frisk)", 1, "stk", 0, ["N94"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["æbler", 2, "stk", 0, ["N97"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["eddike", 1, "dl", 1, []],
-        ["laurbærblade", 3, "stk", 1, []],
-        ["sukker", 75, "g", 1, []],
-        ["smør", 30, "g", 1, []],
-        ["groft salt", 2, "spsk", 1, []]
+        [
+          "ribbensteg",
+          1500,
+          "g",
+          0,
+          [
+            "N33"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          1,
+          "stk",
+          0,
+          [
+            "N94"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "æbler",
+          2,
+          "stk",
+          0,
+          [
+            "N97"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "eddike",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "laurbærblade",
+          3,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          75,
+          "g",
+          1,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "groft salt",
+          2,
+          "spsk",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Gnid sværen med groft salt, og stik laurbærblade i ridserne.",
@@ -530,15 +1868,85 @@
       "tid_minutter": 25,
       "spis_tidligt": false,
       "ingredienser": [
-        ["økologisk grillost", 400, "g", 0, ["N113"]],
-        ["tortilla wraps", 1, "pakke", 0, ["N103"]],
-        ["kidneybønner", 1, "dåse", 0, ["N44"]],
-        ["hakkede tomater", 1, "dåse", 0, ["N66"]],
-        ["avocado", 3, "stk", 0, ["N23"]],
-        ["skyr", 200, "g", 0, ["N13"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["taco-krydderi", 1, "pakke", 0, ["N55"]],
-        ["olie", 1, "spsk", 1, []]
+        [
+          "økologisk grillost",
+          400,
+          "g",
+          0,
+          [
+            "N113"
+          ]
+        ],
+        [
+          "tortilla wraps",
+          1,
+          "pakke",
+          0,
+          [
+            "N103"
+          ]
+        ],
+        [
+          "kidneybønner",
+          1,
+          "dåse",
+          0,
+          [
+            "N44"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          [
+            "N66"
+          ]
+        ],
+        [
+          "avocado",
+          3,
+          "stk",
+          0,
+          [
+            "N23"
+          ]
+        ],
+        [
+          "skyr",
+          200,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "taco-krydderi",
+          1,
+          "pakke",
+          0,
+          [
+            "N55"
+          ]
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Svits hakket løg i olie, tilsæt bønner, tomater og krydderi, og lad det simre 10 minutter.",
@@ -555,18 +1963,104 @@
       "tid_minutter": 35,
       "spis_tidligt": false,
       "ingredienser": [
-        ["kikærter", 2, "dåse", 0, ["N44"]],
-        ["æg", 1, "stk", 0, ["N1"]],
-        ["gulerødder", 3, "stk", 0, ["N134"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["pitabrød", 1, "pakke", 0, ["N115"]],
-        ["skyr", 250, "g", 0, ["N13"]],
-        ["rødkål (frisk)", 0.25, "stk", 0, ["N94"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["hvedemel", 4, "spsk", 1, []],
-        ["spidskommen", 1, "tsk", 1, []],
-        ["olie", 3, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "kikærter",
+          2,
+          "dåse",
+          0,
+          [
+            "N44"
+          ]
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          0,
+          [
+            "N1"
+          ]
+        ],
+        [
+          "gulerødder",
+          3,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "pitabrød",
+          1,
+          "pakke",
+          0,
+          [
+            "N115"
+          ]
+        ],
+        [
+          "skyr",
+          250,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.25,
+          "stk",
+          0,
+          [
+            "N94"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          4,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "spidskommen",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Mos de afdryppede kikærter groft, og rør dem med æg, 1 revet gulerod, revet løg, mel, spidskommen, salt og peber.",
@@ -584,14 +2078,72 @@
       "tid_minutter": 35,
       "spis_tidligt": false,
       "ingredienser": [
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["porrer", 2, "stk", 0, ["N89"]],
-        ["bacon", 300, "g", 0, ["N20"]],
-        ["mælk", 500, "ml", 0, ["N11"]],
-        ["Schulstad Det Gode brød", 1, "stk", 0, ["N2"]],
-        ["bouillonterning", 2, "stk", 1, []],
-        ["smør", 20, "g", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "bacon",
+          300,
+          "g",
+          0,
+          [
+            "N20"
+          ]
+        ],
+        [
+          "mælk",
+          500,
+          "ml",
+          0,
+          [
+            "N11"
+          ]
+        ],
+        [
+          "Schulstad Det Gode brød",
+          1,
+          "stk",
+          0,
+          [
+            "N2"
+          ]
+        ],
+        [
+          "bouillonterning",
+          2,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Skræl kartoflerne og skær dem i tern. Skær porrerne i ringe, og gem lidt af det grønne.",
@@ -609,18 +2161,104 @@
       "tid_minutter": 35,
       "spis_tidligt": false,
       "ingredienser": [
-        ["kyllingebrystfilet", 600, "g", 0, ["N3"]],
-        ["ananas", 1, "stk", 0, ["N147"]],
-        ["gulerødder", 2, "stk", 0, ["N134"]],
-        ["porre", 1, "stk", 0, ["N89"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["tomatpuré", 140, "g", 0, ["N84"]],
-        ["jasminris", 300, "g", 0, ["N107"]],
-        ["eddike", 3, "spsk", 1, []],
-        ["sukker", 3, "spsk", 1, []],
-        ["sojasauce", 3, "spsk", 1, []],
-        ["hvedemel eller maizena", 1, "spsk", 1, []],
-        ["olie", 2, "spsk", 1, []]
+        [
+          "kyllingebrystfilet",
+          600,
+          "g",
+          0,
+          [
+            "N3"
+          ]
+        ],
+        [
+          "ananas",
+          1,
+          "stk",
+          0,
+          [
+            "N147"
+          ]
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "porre",
+          1,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "tomatpuré",
+          140,
+          "g",
+          0,
+          [
+            "N84"
+          ]
+        ],
+        [
+          "jasminris",
+          300,
+          "g",
+          0,
+          [
+            "N107"
+          ]
+        ],
+        [
+          "eddike",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sojasauce",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "hvedemel eller maizena",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog risene. Skær ananas, gulerødder, porre og løg i mundrette stykker.",
@@ -638,14 +2276,74 @@
       "tid_minutter": 75,
       "spis_tidligt": false,
       "ingredienser": [
-        ["Jensens spareribs", 1500, "g", 0, ["N46"]],
-        ["friske kartofler", 900, "g", 0, ["N100"]],
-        ["rødkål (frisk)", 0.25, "stk", 0, ["N94"]],
-        ["gulerødder", 2, "stk", 0, ["N134"]],
-        ["skyr", 150, "g", 0, ["N13"]],
-        ["ketchup", 4, "spsk", 0, ["N160"]],
-        ["olie", 2, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "Jensens spareribs",
+          1500,
+          "g",
+          0,
+          [
+            "N46"
+          ]
+        ],
+        [
+          "friske kartofler",
+          900,
+          "g",
+          0,
+          [
+            "N100"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.25,
+          "stk",
+          0,
+          [
+            "N94"
+          ]
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "skyr",
+          150,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "ketchup",
+          4,
+          "spsk",
+          0,
+          [
+            "N160"
+          ]
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 175 °C. Læg ribbene i et fad, dæk med folie og bag 40 minutter.",
@@ -663,14 +2361,72 @@
       "tid_minutter": 45,
       "spis_tidligt": false,
       "ingredienser": [
-        ["svinekoteletter", 800, "g", 0, ["N30"]],
-        ["porrer", 2, "stk", 0, ["N89"]],
-        ["flødeost", 200, "g", 0, ["N36"]],
-        ["mælk", 200, "ml", 0, ["N11"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["paprika", 1, "tsk", 1, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "svinekoteletter",
+          800,
+          "g",
+          0,
+          [
+            "N30"
+          ]
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "N36"
+          ]
+        ],
+        [
+          "mælk",
+          200,
+          "ml",
+          0,
+          [
+            "N11"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "paprika",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C, og sæt kartoflerne over.",
@@ -688,15 +2444,79 @@
       "tid_minutter": 20,
       "spis_tidligt": true,
       "ingredienser": [
-        ["rejer", 300, "g", 0, ["N67"]],
-        ["fettuccine", 500, "g", 0, ["N109"]],
-        ["flødeost", 200, "g", 0, ["N36"]],
-        ["Grana Padano", 50, "g", 0, ["N62"]],
-        ["porre", 1, "stk", 0, ["N89"]],
-        ["hvidløg", 2, "fed", 0, []],
-        ["citron", 1, "stk", 0, []],
-        ["olie", 1, "spsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "rejer",
+          300,
+          "g",
+          0,
+          [
+            "N67"
+          ]
+        ],
+        [
+          "fettuccine",
+          500,
+          "g",
+          0,
+          [
+            "N109"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "N36"
+          ]
+        ],
+        [
+          "Grana Padano",
+          50,
+          "g",
+          0,
+          [
+            "N62"
+          ]
+        ],
+        [
+          "porre",
+          1,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog pastaen, og gem en kop kogevand.",
@@ -714,16 +2534,88 @@
       "tid_minutter": 60,
       "spis_tidligt": false,
       "ingredienser": [
-        ["ferske andebryst", 800, "g", 0, ["N95"]],
-        ["røde druer", 250, "g", 0, ["N25"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["gulerødder", 4, "stk", 0, ["N134"]],
-        ["æbler", 2, "stk", 0, ["N97"]],
-        ["løg", 1, "stk", 0, ["N125"]],
-        ["bouillonterning", 1, "stk", 1, []],
-        ["smør", 20, "g", 1, []],
-        ["tørret timian", 1, "tsk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "ferske andebryst",
+          800,
+          "g",
+          0,
+          [
+            "N95"
+          ]
+        ],
+        [
+          "røde druer",
+          250,
+          "g",
+          0,
+          [
+            "N25"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "gulerødder",
+          4,
+          "stk",
+          0,
+          [
+            "N134"
+          ]
+        ],
+        [
+          "æbler",
+          2,
+          "stk",
+          0,
+          [
+            "N97"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          [
+            "N125"
+          ]
+        ],
+        [
+          "bouillonterning",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "smør",
+          20,
+          "g",
+          1,
+          []
+        ],
+        [
+          "tørret timian",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Skær kartofler, gulerødder, æbler og løg i stykker, vend med salt og timian og bag i 40 minutter.",
@@ -741,14 +2633,74 @@
       "tid_minutter": 30,
       "spis_tidligt": true,
       "ingredienser": [
-        ["varmrøget laks", 400, "g", 0, ["N57"]],
-        ["friske kartofler", 900, "g", 0, ["N100"]],
-        ["æg", 4, "stk", 0, ["N1"]],
-        ["skyr", 200, "g", 0, ["N13"]],
-        ["porre", 1, "stk", 0, ["N89"]],
-        ["frø og kerner", 1, "pakke", 0, ["N47"]],
-        ["citron", 1, "stk", 0, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "varmrøget laks",
+          400,
+          "g",
+          0,
+          [
+            "N57"
+          ]
+        ],
+        [
+          "friske kartofler",
+          900,
+          "g",
+          0,
+          [
+            "N100"
+          ]
+        ],
+        [
+          "æg",
+          4,
+          "stk",
+          0,
+          [
+            "N1"
+          ]
+        ],
+        [
+          "skyr",
+          200,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "porre",
+          1,
+          "stk",
+          0,
+          [
+            "N89"
+          ]
+        ],
+        [
+          "frø og kerner",
+          1,
+          "pakke",
+          0,
+          [
+            "N47"
+          ]
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Kog kartoflerne, og skær dem i halve. Kog æggene i 8 minutter.",
@@ -766,14 +2718,72 @@
       "tid_minutter": 60,
       "spis_tidligt": false,
       "ingredienser": [
-        ["svinemørbrad", 800, "g", 0, ["N15"]],
-        ["bacon i skiver", 300, "g", 0, ["N20"]],
-        ["kartofler", 1000, "g", 0, ["N87"]],
-        ["flødeost", 200, "g", 0, ["N36"]],
-        ["mælk", 200, "ml", 0, ["N11"]],
-        ["smør", 40, "g", 1, []],
-        ["bouillonterning", 1, "stk", 1, []],
-        ["salt og peber", 0, "efter smag", 1, []]
+        [
+          "svinemørbrad",
+          800,
+          "g",
+          0,
+          [
+            "N15"
+          ]
+        ],
+        [
+          "bacon i skiver",
+          300,
+          "g",
+          0,
+          [
+            "N20"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "N87"
+          ]
+        ],
+        [
+          "flødeost",
+          200,
+          "g",
+          0,
+          [
+            "N36"
+          ]
+        ],
+        [
+          "mælk",
+          200,
+          "ml",
+          0,
+          [
+            "N11"
+          ]
+        ],
+        [
+          "smør",
+          40,
+          "g",
+          1,
+          []
+        ],
+        [
+          "bouillonterning",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
       ],
       "fremgangsmaade": [
         "Tænd ovnen på 200 °C. Skær tætte snit i kartoflerne (ikke helt igennem), pensl med smeltet smør og drys med salt. Bag i ca. 50 minutter.",

@@ -18,11 +18,13 @@ def main(fra, til):
     noegle = lambda t: (t['navn'].lower(), t['pris'], t['maengde'], t['enhed'])
     fra_tilbud = {t['kort']: t for t in data['tilbud'] if t['butik'] == fra}
     til_efter_noegle = {noegle(t): t['kort'] for t in data['tilbud'] if t['butik'] == til}
-    til_efter_navn = {t['navn'].lower(): t['kort'] for t in data['tilbud'] if t['butik'] == til}
+    # Navne sammenlignes uden mellemrum/tegn, så "kyllinge lårfilet" = "kyllingelårfilet"
+    norm = lambda s: re.sub(r'[^a-zæøå0-9]', '', s.lower())
+    til_efter_navn = {norm(t['navn']): t['kort'] for t in data['tilbud'] if t['butik'] == til}
 
     def oversaet(kort):
         t = fra_tilbud[kort]
-        return til_efter_noegle.get(noegle(t)) or til_efter_navn.get(t['navn'].lower())
+        return til_efter_noegle.get(noegle(t)) or til_efter_navn.get(norm(t['navn']))
 
     with open(os.path.join(RETTER, f'{fra}.json'), encoding='utf-8') as f:
         tekst = f.read()
@@ -39,8 +41,14 @@ def main(fra, til):
     tekst = re.sub(rf'"({prefix}\d+)"', erstat, tekst)
     d = json.loads(tekst)
     d['avis'] = data['butikker'][til]['aviser'][0]['id']
-    # Fjern id'er der ikke kunne oversættes (ingrediensen bliver så til normalpris)
-    tekst = json.dumps(d, ensure_ascii=False, indent=2).replace(', "__MANGLER__"', '').replace('"__MANGLER__", ', '').replace('"__MANGLER__"', '')
+    # Fjern id'er der ikke kunne oversættes (ingrediensen bliver så til normalpris; top 5-linjen udgår)
+    def rens(x):
+        if isinstance(x, list):
+            return [rens(v) for v in x if v != '__MANGLER__' and not (isinstance(v, dict) and v.get('id') == '__MANGLER__')]
+        if isinstance(x, dict):
+            return {k: rens(v) for k, v in x.items()}
+        return x
+    tekst = json.dumps(rens(d), ensure_ascii=False, indent=2)
     with open(os.path.join(RETTER, f'{til}.json'), 'w', encoding='utf-8') as f:
         f.write(tekst + '\n')
     print(f"Skrev scripts/retter/{til}.json fra {fra}.json")
