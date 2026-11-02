@@ -89,7 +89,7 @@ def antal_pakker(t, behov):
     enhed, gange = OMREGN.get(t.get('enhed'), (None, None))
     n = math.ceil(behov.get('dåse', 0) + behov.get('pakke', 0))
     if stoerrelse and enhed and behov.get(enhed):
-        n = max(n, math.ceil(behov[enhed] / (stoerrelse * gange) - 1e-9))
+        n = max(n, math.ceil(behov[enhed] / (stoerrelse * gange) - 0.15))  # samme 15 % tolerance som index.html
     return max(1, n)
 
 

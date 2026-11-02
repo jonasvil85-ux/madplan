@@ -261,13 +261,15 @@ const ingTekst = (ing, m) => ing.enhed === 'efter smag' ? `${ing.navn} (efter sm
 
 // Hvor mange pakker af et tilbud skal der købes til det samlede forbrug?
 const OMREGN = { g: ['g', 1], kg: ['g', 1000], ml: ['ml', 1], cl: ['ml', 10], l: ['ml', 1000], stk: ['stk', 1] };
+const PAKKE_TOLERANCE = 0.15;
 function antalPakker(t, behov) {
   // Interval (fx "100-400 g") -> brug midten
   const dele = String(t.maengde || '').split('-').map(parseFloat);
   const str = dele.reduce((a, b) => a + b, 0) / dele.length;
   const [enhed, gange] = OMREGN[t.enhed] || [];
   let n = Math.ceil((behov.dåse || 0) + (behov.pakke || 0));
-  if (str && enhed && behov[enhed]) n = Math.max(n, Math.ceil(behov[enhed] / (str * gange) - 1e-9));
+  // Opskrifters mængder er cirka: mangler der under 15 % af en pakke, købes der ikke en ekstra
+  if (str && enhed && behov[enhed]) n = Math.max(n, Math.ceil(behov[enhed] / (str * gange) - PAKKE_TOLERANCE));
   return Math.max(1, n);
 }
 
@@ -470,7 +472,7 @@ function listeLinjer() {
   return {
     tilbud: l.tilbud.map(v => ({
       key: 't|' + v.key, navn: tilbudsNavn(v), gruppe: varegruppe(v.ingNavn), pris: v.pris, billede: v.tilbud.billede,
-      detalje: `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
+      detalje: `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}${v.brug.length > 1 ? `I alt ca. ${samletBehov(v.behov)} · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
     })),
     oevrige: l.oevrige.map(v => ({
       key: 'o|' + v.key, navn: `${maengde(v.m, v.enhed, true)} ${v.navn}`.trim(), gruppe: varegruppe(v.navn),
@@ -480,6 +482,9 @@ function listeLinjer() {
                                          detalje: 'Basisvare – har du den i skabet?' })),
   };
 }
+
+// "2,3 kg" / "3 stk" – samlet behov på tværs af retter (flere enheder adskilles med +)
+const samletBehov = behov => Object.entries(behov).map(([e, m]) => maengde(m, e, true)).filter(Boolean).join(' + ');
 
 // Samlet pris for en række linjer: tilbudsvarer (faktisk pris) + skøn for resten
 function prisSum(linjer) {
