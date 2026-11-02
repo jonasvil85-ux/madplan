@@ -14,7 +14,7 @@ Format for scripts/retter/<butik>.json:
      "fremgangsmaade": [...]}
   eller en genbrugt opskrift fra en anden butiks fil:
     {"som": "<navn på opskrift>", "tilbud": {"<ingrediensnavn>": ["R12"], ...}}
-    Værdien kan også være {"tilbud": [...], "navn": "nyt navn", "maengde": 500} for at tilpasse
+    Værdien kan også være {"tilbud": [...], "navn": "nyt navn", "maengde": 500, "enhed": "g"} for at tilpasse
     ingrediensen. Øvrige felter (fx "niveau", "beskrivelse") overskriver opskriftens.
 """
 import copy, glob, json, math, os, re, sys
@@ -80,6 +80,7 @@ def udfold(r, bibliotek, fejl, butik):
         if isinstance(v, dict):
             ing[0] = v.get('navn', ing[0])
             ing[1] = v.get('maengde', ing[1])
+            ing[2] = v.get('enhed', ing[2])
             v = v.get('tilbud', [])
         ing[4] = v
     ret.update({k: v for k, v in r.items() if k not in ('som', 'tilbud')})
