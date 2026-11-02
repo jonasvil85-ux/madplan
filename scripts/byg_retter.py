@@ -123,8 +123,40 @@ def udfold(r, bibliotek, fejl, butik):
             ing[2] = v.get('enhed', ing[2])
             v = v.get('tilbud', [])
         ing[4] = v
-    ret.update({k: v for k, v in r.items() if k not in ('som', 'tilbud')})
+    # "erstat": {"hvidkål": "gulerødder"} retter ordene i fremgangsmåde og beskrivelse,
+    # når en ingrediens er skiftet ud (store/små forbogstaver bevares)
+    def erstat(tekst):
+        for gammel, ny in r.get('erstat', {}).items():
+            # Stort forbogstav kun i starten af en sætning
+            tekst = re.sub(re.escape(gammel),
+                           lambda m: ny[0].upper() + ny[1:] if (m.start() == 0 or m.string[:m.start()].rstrip().endswith('.')) else ny,
+                           tekst, flags=re.I)
+        return tekst
+    ret['fremgangsmaade'] = [erstat(t) for t in ret['fremgangsmaade']]
+    ret['beskrivelse'] = erstat(ret['beskrivelse'])
+    ret.update({k: v for k, v in r.items() if k not in ('som', 'tilbud', 'erstat')})
+
+    # Advar hvis en udskiftet ingrediens stadig nævnes i fremgangsmåden
+    tekst = ' '.join(ret['fremgangsmaade']).lower()
+    originale = {ing[0]: ing for ing in bibliotek[r['som']]['ingredienser']}
+    for gammel, v in tilpas.items():
+        if isinstance(v, dict) and 'navn' in v and gammel in originale:
+            ord_ = [o for o in re.findall(r'[a-zæøå]{4,}', gammel.lower()) if o not in v['navn'].lower()
+                    and o not in ('økologisk', 'økologiske', 'dansk', 'danske', 'frisk', 'ferske', 'fersk')]
+            for o in ord_:
+                if any(o.startswith(a) and b in v['navn'].lower() for a, b in SYNONYMER):
+                    continue
+                stamme = o[:-2] if len(o) > 6 else o
+                if stamme in tekst:
+                    advarsler.append(f"{butik}: '{ret['navn']}' – '{gammel}' er skiftet til '{v['navn']}', men '{o}' står stadig i fremgangsmåden (brug \"erstat\")")
+                    break
     return ret
+
+
+advarsler = []
+# Udskiftninger der betyder det samme, så der ikke advares (gammelt ord, ord i det nye navn)
+SYNONYMER = [('smør', 'kærgården'), ('smør', 'smør'), ('græskar', 'hokkaido'), ('burger', 'oksekød'),
+             ('hakkede', 'tomater'), ('madlavningsjævner', 'madlavningsjævner')]
 
 
 def main():
@@ -203,6 +235,8 @@ def main():
             for r in rr:
                 print(f"    {r['pris_i_alt']:7.2f} kr (tilbud {r['pris_tilbud']:6.2f})  {round(r['andel_tilbud'] * 100):3d}% tilbud  {r['navn']}")
 
+    if advarsler:
+        print('\nADVARSLER (opskriftstekst passer ikke til ingredienserne):\n- ' + '\n- '.join(advarsler))
     if fejl:
         print('\nFEJL:\n- ' + '\n- '.join(fejl))
         sys.exit(1)

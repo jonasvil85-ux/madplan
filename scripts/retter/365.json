@@ -60,16 +60,16 @@
           ]
         ],
         [
-          "yoghurt",
+          "græsk yoghurt",
           150,
           "g",
           0,
           [
-            "D7"
+            "D66"
           ]
         ],
         [
-          "økologisk smør",
+          "Naturli' smør (plantebaseret)",
           30,
           "g",
           0,
@@ -212,12 +212,12 @@
           ]
         ],
         [
-          "yoghurt",
+          "græsk yoghurt",
           200,
           "g",
           0,
           [
-            "D7"
+            "D66"
           ]
         ],
         [
@@ -310,11 +310,15 @@
           ]
         },
         "Kærgården": {
-          "navn": "økologisk smør",
+          "navn": "Naturli' smør (plantebaseret)",
           "tilbud": [
             "D65"
           ]
         }
+      },
+      "erstat": {
+        "skyrdressing": "yoghurtdressing",
+        "skyr": "græsk yoghurt"
       }
     },
     {
@@ -353,7 +357,7 @@
           ]
         },
         "Kærgården": {
-          "navn": "økologisk smør",
+          "navn": "Naturli' smør (plantebaseret)",
           "tilbud": [
             "D65"
           ]
@@ -393,6 +397,11 @@
         "agurk": [
           "D29"
         ]
+      },
+      "erstat": {
+        "bacon": "chorizo",
+        "Philadelphia": "flødeost",
+        "creme fraiche": "græsk yoghurt"
       }
     },
     {
@@ -440,7 +449,7 @@
           ]
         ],
         [
-          "økologisk smør",
+          "Naturli' smør (plantebaseret)",
           20,
           "g",
           0,
@@ -513,6 +522,9 @@
             "D43"
           ]
         }
+      },
+      "erstat": {
+        "bacon": "chorizo"
       }
     },
     {
@@ -640,9 +652,9 @@
           ]
         },
         "skyr": {
-          "navn": "yoghurt",
+          "navn": "græsk yoghurt",
           "tilbud": [
-            "D7"
+            "D66"
           ]
         },
         "mælk": {
@@ -651,6 +663,11 @@
             "D50"
           ]
         }
+      },
+      "erstat": {
+        "Snit rødkålen fint": "Riv gulerødderne",
+        "skyr": "yoghurt",
+        "rødkålssalat": "gulerodssalat"
       }
     },
     {
@@ -707,7 +724,7 @@
           ]
         ],
         [
-          "økologisk smør",
+          "Naturli' smør (plantebaseret)",
           40,
           "g",
           0,
@@ -764,9 +781,12 @@
         "agurk": [
           "D29"
         ],
-        "økologisk smør": [
-          "D65"
-        ]
+        "økologisk smør": {
+          "navn": "Naturli' smør (plantebaseret)",
+          "tilbud": [
+            "D65"
+          ]
+        }
       }
     },
     {
@@ -854,9 +874,15 @@
             "D66"
           ]
         },
-        "økologisk smør": [
-          "D65"
-        ]
+        "økologisk smør": {
+          "navn": "Naturli' smør (plantebaseret)",
+          "tilbud": [
+            "D65"
+          ]
+        }
+      },
+      "erstat": {
+        "creme fraiche": "græsk yoghurt"
       }
     },
     {
@@ -904,7 +930,7 @@
           ]
         ],
         [
-          "økologisk smør",
+          "Naturli' smør (plantebaseret)",
           20,
           "g",
           0,
@@ -1189,7 +1215,7 @@
           ]
         ],
         [
-          "økologisk smør",
+          "Naturli' smør (plantebaseret)",
           40,
           "g",
           0,
@@ -1347,6 +1373,9 @@
             "D66"
           ]
         }
+      },
+      "erstat": {
+        "skyr": "græsk yoghurt"
       }
     },
     {
@@ -1370,9 +1399,12 @@
             "D33"
           ]
         },
-        "økologisk smør": [
-          "D65"
-        ]
+        "økologisk smør": {
+          "navn": "Naturli' smør (plantebaseret)",
+          "tilbud": [
+            "D65"
+          ]
+        }
       }
     },
     {
@@ -1423,9 +1455,12 @@
             "D33"
           ]
         },
-        "økologisk smør": [
-          "D65"
-        ]
+        "økologisk smør": {
+          "navn": "Naturli' smør (plantebaseret)",
+          "tilbud": [
+            "D65"
+          ]
+        }
       }
     },
     {
@@ -1615,7 +1650,7 @@
           ]
         ],
         [
-          "økologisk smør",
+          "Naturli' smør (plantebaseret)",
           20,
           "g",
           0,

@@ -113,9 +113,9 @@
           ]
         },
         "skyr": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         },
         "Kærgården": {
@@ -124,6 +124,11 @@
             "B208"
           ]
         }
+      },
+      "erstat": {
+        "Snit hvidkålen meget fint": "Riv gulerødderne",
+        "skyr": "yoghurt",
+        "kålsalat": "æble-gulerodssalat"
       }
     },
     {
@@ -322,9 +327,9 @@
           ]
         },
         "græsk yoghurt": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         },
         "Schulstad Signaturbrød": {
@@ -333,12 +338,15 @@
             "B197"
           ]
         },
-        "økologisk smør": {
+        "Naturli' smør (plantebaseret)": {
           "navn": "Arla smør",
           "tilbud": [
             "B208"
           ]
         }
+      },
+      "erstat": {
+        "græsk yoghurt": "yoghurt"
       }
     },
     {
@@ -489,9 +497,9 @@
           ]
         },
         "skyr": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         },
         "mælk": {
@@ -500,6 +508,9 @@
             "B103"
           ]
         }
+      },
+      "erstat": {
+        "skyr": "yoghurt"
       }
     },
     {
@@ -539,9 +550,9 @@
           ]
         },
         "skyr": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         },
         "mælk": {
@@ -550,6 +561,11 @@
             "B103"
           ]
         }
+      },
+      "erstat": {
+        "Snit hvidkålen fint, riv æblet": "Riv gulerødderne og æblet",
+        "skyr": "yoghurt",
+        "kålsalat": "æblesalat"
       }
     },
     {
@@ -605,11 +621,15 @@
           ]
         },
         "skyr": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         }
+      },
+      "erstat": {
+        "peberfrugterne i strimler": "porrerne i ringe",
+        "skyr": "yoghurt"
       }
     },
     {
@@ -679,9 +699,9 @@
           ]
         },
         "creme fraiche": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         },
         "økologisk smør": {
@@ -690,6 +710,9 @@
             "B208"
           ]
         }
+      },
+      "erstat": {
+        "creme fraiche": "yoghurt"
       }
     },
     {
@@ -715,9 +738,9 @@
           ]
         },
         "creme fraiche": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         },
         "økologisk smør": {
@@ -726,6 +749,9 @@
             "B208"
           ]
         }
+      },
+      "erstat": {
+        "creme fraiche": "yoghurt"
       }
     },
     {
@@ -954,11 +980,14 @@
           ]
         },
         "skyr": {
-          "navn": "Yoggi yoghurt",
+          "navn": "Arla yoghurt naturel",
           "tilbud": [
-            "B39"
+            "B209"
           ]
         }
+      },
+      "erstat": {
+        "skyr": "yoghurt"
       }
     },
     {
