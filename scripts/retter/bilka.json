@@ -1,0 +1,1260 @@
+{
+  "avis": "ep1ht3mm",
+  "retter": [
+    {
+      "som": "Kartoffel-porresuppe med sprød bacon",
+      "tilbud": {
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "porrer": {
+          "navn": "danske porrer",
+          "tilbud": [
+            "B127"
+          ]
+        },
+        "bacon": {
+          "navn": "Tulip bacon",
+          "tilbud": [
+            "B169"
+          ]
+        },
+        "mælk": {
+          "navn": "Arla Lactofree mælk",
+          "tilbud": [
+            "B103"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Æggekage med bacon, kartofler og porre",
+      "tilbud": {
+        "æg": {
+          "navn": "Dava frilandsæg",
+          "tilbud": [
+            "B36"
+          ]
+        },
+        "bacon": {
+          "navn": "Tulip bacon",
+          "tilbud": [
+            "B169"
+          ]
+        },
+        "friske kartofler": {
+          "navn": "danske aspargeskartofler",
+          "tilbud": [
+            "B99"
+          ]
+        },
+        "porre": {
+          "navn": "dansk porre",
+          "tilbud": [
+            "B127"
+          ]
+        },
+        "mælk": {
+          "navn": "Arla Lactofree mælk",
+          "tilbud": [
+            "B103"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Grisefrikadeller med kartofler og hvidkålssalat",
+      "navn": "Grisefrikadeller med kartofler og æble-gulerodssalat",
+      "tilbud": {
+        "hakket grisekød": {
+          "tilbud": [
+            "B69"
+          ]
+        },
+        "æg": {
+          "navn": "Dava frilandsæg",
+          "tilbud": [
+            "B36"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "hvidkål": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ]
+        },
+        "æbler": {
+          "navn": "danske æbler",
+          "tilbud": [
+            "B128"
+          ]
+        },
+        "skyr": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        },
+        "Kærgården": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Stegt flæsk med persillesovs",
+      "tilbud": {
+        "flæsk i skiver": {
+          "tilbud": [
+            "B129"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "mælk": {
+          "navn": "Arla Lactofree mælk",
+          "tilbud": [
+            "B103"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Stuvet grønkål med medister og kartofler",
+      "beskrivelse": "Dansk vintermad: økologisk grønkål i cremet stuvning med stegt medister og kartofler.",
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 45,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "medister",
+          800,
+          "g",
+          0,
+          [
+            "B69"
+          ]
+        ],
+        [
+          "økologisk dansk grønkål",
+          400,
+          "g",
+          0,
+          [
+            "B102"
+          ]
+        ],
+        [
+          "danske kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "B126"
+          ]
+        ],
+        [
+          "Arla Lactofree mælk",
+          400,
+          "ml",
+          0,
+          [
+            "B103"
+          ]
+        ],
+        [
+          "Arla smør",
+          30,
+          "g",
+          0,
+          [
+            "B208"
+          ]
+        ],
+        [
+          "hvedemel",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne.",
+        "Steg medisteren ved middel varme i ca. 20 minutter.",
+        "Blancher grønkålen 2 minutter, hæld fra og hak den fint.",
+        "Smelt smør, rør mel i og spæd med mælk til en tyk sauce. Vend grønkålen i, og smag til med salt, peber og lidt sukker.",
+        "Server medisteren med grønkål og kartofler."
+      ]
+    },
+    {
+      "navn": "Kyllingenudler med porrer og gulerødder",
+      "beskrivelse": "Hurtig wok med hakket kylling, udonnudler, porrer og gulerødder.",
+      "niveau": "student",
+      "kategori": "kylling",
+      "tid_minutter": 20,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket dansk kyllingekød",
+          500,
+          "g",
+          0,
+          [
+            "B20"
+          ]
+        ],
+        [
+          "Ita-San udonnudler",
+          3,
+          "pakke",
+          0,
+          [
+            "B214"
+          ]
+        ],
+        [
+          "danske porrer",
+          2,
+          "stk",
+          0,
+          [
+            "B127"
+          ]
+        ],
+        [
+          "danske gulerødder",
+          3,
+          "stk",
+          0,
+          [
+            "B125"
+          ]
+        ],
+        [
+          "asiatisk sauce (fx teriyaki)",
+          1,
+          "stk",
+          0,
+          [
+            "B211"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog nudlerne efter anvisningen.",
+        "Brun kødet i olie på en wok eller stor pande.",
+        "Tilsæt porrer i ringe, gulerødder i tynde stave og hvidløg, og steg 3-4 minutter.",
+        "Vend nudler og sauce i, og steg et minut mere."
+      ]
+    },
+    {
+      "som": "Gulerodssuppe med ingefær og lunt brød",
+      "tilbud": {
+        "gulerødder": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ]
+        },
+        "Alexandra kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "græsk yoghurt": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        },
+        "Schulstad Signaturbrød": {
+          "navn": "XXL brød eller baguette",
+          "tilbud": [
+            "B197"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Biksemad med spejlæg",
+      "tilbud": {
+        "hakket oksekød 15-18 %": {
+          "navn": "hakket grisekød",
+          "tilbud": [
+            "B69"
+          ],
+          "maengde": 500
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "æg": {
+          "navn": "Dava frilandsæg",
+          "tilbud": [
+            "B36"
+          ]
+        },
+        "Kærgården": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Græskarsuppe med ristede kerner",
+      "beskrivelse": "Cremet suppe af dansk græskar og kartoffel med ristede græskarkerner og brød.",
+      "niveau": "student",
+      "kategori": "vegetar",
+      "tid_minutter": 45,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "dansk græskar",
+          1,
+          "stk",
+          0,
+          [
+            "B124"
+          ]
+        ],
+        [
+          "danske kartofler",
+          300,
+          "g",
+          0,
+          [
+            "B126"
+          ]
+        ],
+        [
+          "Karolines Køkken piskefløde",
+          200,
+          "ml",
+          0,
+          [
+            "B107"
+          ]
+        ],
+        [
+          "danske gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "B125"
+          ]
+        ],
+        [
+          "XXL brød eller baguette",
+          1,
+          "stk",
+          0,
+          [
+            "B197"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "grøntsagsbouillon",
+          2,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Del græskarret, skrab kernerne ud og gem dem. Skær kødet i tern.",
+        "Svits løg i olie, tilsæt græskar, kartofler, gulerødder, 1,2 liter vand og bouillon, og kog 25 minutter.",
+        "Skyl kernerne, og rist dem med salt på en tør pande.",
+        "Blend suppen, rør fløden i og smag til.",
+        "Server med ristede kerner og brød."
+      ]
+    },
+    {
+      "som": "Kyllingefrikadeller med kartofler og rødkålssalat",
+      "tilbud": {
+        "hakket kyllingekød": {
+          "navn": "hakket dansk kyllingekød",
+          "tilbud": [
+            "B20"
+          ]
+        },
+        "æg": {
+          "navn": "Dava frilandsæg",
+          "tilbud": [
+            "B36"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "æbler": {
+          "navn": "danske æbler",
+          "tilbud": [
+            "B128"
+          ]
+        },
+        "skyr": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        },
+        "mælk": {
+          "navn": "Arla Lactofree mælk",
+          "tilbud": [
+            "B103"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Pølser med kartoffelmos og hvidkålssalat",
+      "navn": "Grillpølser med kartoffelmos og æblesalat",
+      "niveau": "familie",
+      "tilbud": {
+        "Langelænder pølser": {
+          "navn": "grillpølser",
+          "tilbud": [
+            "B46"
+          ],
+          "maengde": 640
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "Kærgården": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        },
+        "hvidkål": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ]
+        },
+        "æbler": {
+          "navn": "danske æbler",
+          "tilbud": [
+            "B128"
+          ]
+        },
+        "skyr": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        },
+        "mælk": {
+          "navn": "Arla Lactofree mælk",
+          "tilbud": [
+            "B103"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Helstegt kylling med rodfrugter",
+      "tilbud": {
+        "hel kylling": {
+          "navn": "frilandskylling",
+          "tilbud": [
+            "B170"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "gulerødder": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ]
+        },
+        "porre": {
+          "navn": "dansk porre",
+          "tilbud": [
+            "B127"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Kyllingebryst i fad med rød peber og kartofler",
+      "navn": "Kyllingeoverlår i fad med porrer og kartofler",
+      "beskrivelse": "Nem ovnret: saftige udbenede overlår, porrer og kartofler i ét fad med yoghurtdressing.",
+      "tilbud": {
+        "kyllingebrystfilet": {
+          "navn": "udbenede kyllingeoverlår",
+          "tilbud": [
+            "B174"
+          ]
+        },
+        "rød peber": {
+          "navn": "danske porrer",
+          "tilbud": [
+            "B127"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "skyr": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Kylling i sød-sur med ananas og ris",
+      "tilbud": {
+        "kyllingebrystfilet": {
+          "navn": "udbenede kyllingeoverlår",
+          "tilbud": [
+            "B174"
+          ]
+        },
+        "ananas": [
+          "B27"
+        ],
+        "gulerødder": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ]
+        },
+        "porre": {
+          "navn": "dansk porre",
+          "tilbud": [
+            "B127"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Hakkebøf med bløde løg og brun sovs",
+      "tilbud": {
+        "hakket oksekød 14-18 %": {
+          "navn": "hakket oksekød",
+          "tilbud": [
+            "B8"
+          ],
+          "maengde": 800
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Gullasch med kartoffelmos",
+      "tilbud": {
+        "gullasch af okseinderlår": {
+          "navn": "gullasch af okse",
+          "tilbud": [
+            "B133"
+          ],
+          "maengde": 600
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "creme fraiche": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Hjemmelavede laksefrikadeller med dildkartofler",
+      "tilbud": {
+        "laksefilet": {
+          "navn": "vildlaksportioner",
+          "tilbud": [
+            "B26"
+          ],
+          "maengde": 450
+        },
+        "økologiske æg": {
+          "navn": "Dava frilandsæg",
+          "tilbud": [
+            "B36"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "creme fraiche": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Mørksej i fad med flødekål og kartofler",
+      "navn": "Fiskefilet i fad med flødeporrer og kartofler",
+      "beskrivelse": "Hvid fisk bagt på cremede porrer med kogte kartofler – mild og nem fiskeret.",
+      "tilbud": {
+        "mørksejfilet": {
+          "navn": "fiskefilet",
+          "tilbud": [
+            "B23"
+          ],
+          "maengde": 600
+        },
+        "hvidkål": {
+          "navn": "danske porrer",
+          "tilbud": [
+            "B127"
+          ],
+          "maengde": 3,
+          "enhed": "stk"
+        },
+        "piskefløde": {
+          "navn": "Karolines Køkken piskefløde",
+          "tilbud": [
+            "B107"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "Kærgården": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Julemedister med rødkål og kartofler",
+      "tilbud": {
+        "julemedister af frilandsgris": {
+          "navn": "medister",
+          "tilbud": [
+            "B69"
+          ],
+          "maengde": 900
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "danske æbler": {
+          "tilbud": [
+            "B128"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Citronkylling i fad med kartofler og timian",
+      "tilbud": {
+        "Rose hel kylling": {
+          "navn": "frilandskylling",
+          "tilbud": [
+            "B170"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Kyllingekarry med gulerødder og jasminris",
+      "tilbud": {
+        "kyllingebrystfilet": {
+          "navn": "udbenede kyllingeoverlår",
+          "tilbud": [
+            "B174"
+          ]
+        },
+        "gulerødder": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ]
+        },
+        "porre": {
+          "navn": "dansk porre",
+          "tilbud": [
+            "B127"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Kartoffel-porretærte med bacon",
+      "beskrivelse": "Hjemmelavet tærte med sprød bund, porrer, kartofler, bacon og ost – god til rester dagen efter.",
+      "niveau": "familie",
+      "kategori": "svin",
+      "tid_minutter": 75,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "danske porrer",
+          3,
+          "stk",
+          0,
+          [
+            "B127"
+          ]
+        ],
+        [
+          "danske aspargeskartofler",
+          400,
+          "g",
+          0,
+          [
+            "B99"
+          ]
+        ],
+        [
+          "Tulip bacon",
+          250,
+          "g",
+          0,
+          [
+            "B169"
+          ]
+        ],
+        [
+          "Dava frilandsæg",
+          4,
+          "stk",
+          0,
+          [
+            "B36"
+          ]
+        ],
+        [
+          "Karolines Køkken piskefløde",
+          250,
+          "ml",
+          0,
+          [
+            "B107"
+          ]
+        ],
+        [
+          "skiveost",
+          150,
+          "g",
+          0,
+          [
+            "B200"
+          ]
+        ],
+        [
+          "Arla smør (kold)",
+          100,
+          "g",
+          0,
+          [
+            "B208"
+          ]
+        ],
+        [
+          "hvedemel",
+          200,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Smuldr mel og kold smør, tilsæt 3 spsk koldt vand og salt, og saml dejen. Stil den koldt 20 minutter.",
+        "Tænd ovnen på 200 °C. Rul dejen ud i en tærteform, og forbag 10 minutter.",
+        "Kog kartoflerne og skær dem i skiver. Steg bacon og porrer i ringe.",
+        "Pisk æg og fløde med salt og peber.",
+        "Fordel fyldet og osten i bunden, hæld æggemassen over og bag 30 minutter."
+      ]
+    },
+    {
+      "som": "Ovnbagt laks med porrer og kartofler",
+      "tilbud": {
+        "fersk laksestykke": {
+          "navn": "vildlaksportioner",
+          "tilbud": [
+            "B26"
+          ],
+          "maengde": 450
+        },
+        "porrer": {
+          "navn": "danske porrer",
+          "tilbud": [
+            "B127"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "skyr": {
+          "navn": "Yoggi yoghurt",
+          "tilbud": [
+            "B39"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Entrecote med bearnaise og ovnkartofler",
+      "navn": "Entrecote med hjemmelavet bearnaise og ovnkartofler",
+      "tilbud": {
+        "Freygaard entrecote": {
+          "navn": "entrecotes eller ribeyes",
+          "tilbud": [
+            "B10"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        },
+        "økologiske æg (blommer)": {
+          "navn": "Dava frilandsæg (blommer)",
+          "tilbud": [
+            "B36"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Kalveculotte med selleri og rødvinssauce",
+      "navn": "Kalveculotte med rodfrugter og rødvinssauce",
+      "tilbud": {
+        "culotte af dansk kalv": {
+          "navn": "kalveculotte",
+          "tilbud": [
+            "B130"
+          ],
+          "maengde": 800
+        },
+        "knoldselleri med top": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ],
+          "maengde": 500,
+          "enhed": "g"
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "Côtes du Rhône (rødvin)": {
+          "navn": "Il Capolavoro (rødvin)",
+          "tilbud": [
+            "B138"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Andebryststeg med æbler og rødkål",
+      "tilbud": {
+        "andebryststeg": {
+          "navn": "Oscar fritgående andebryststeg",
+          "tilbud": [
+            "B116"
+          ],
+          "maengde": 1200
+        },
+        "danske æbler": {
+          "tilbud": [
+            "B128"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        },
+        "madlavningsfløde": {
+          "navn": "Karolines Køkken piskefløde",
+          "tilbud": [
+            "B107"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Andebryst med druesauce og ovnbagte rodfrugter",
+      "tilbud": {
+        "ferske andebryst": {
+          "navn": "Oscar fersk andebryst",
+          "tilbud": [
+            "B122"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "gulerødder": {
+          "navn": "danske gulerødder",
+          "tilbud": [
+            "B125"
+          ]
+        },
+        "æbler": {
+          "navn": "danske æbler",
+          "tilbud": [
+            "B128"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Langtidsstegte andelår med bagte æbler og kartoffelmos",
+      "tilbud": {
+        "Canard Martín andelår": {
+          "navn": "ferske andelår",
+          "tilbud": [
+            "B118"
+          ],
+          "maengde": 1050
+        },
+        "danske æbler": {
+          "tilbud": [
+            "B128"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Arla smør",
+          "tilbud": [
+            "B208"
+          ]
+        },
+        "madlavningsfløde": {
+          "navn": "Karolines Køkken piskefløde",
+          "tilbud": [
+            "B107"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Helstegt and med æbler, svesker og rødkål",
+      "tilbud": {
+        "hel and": {
+          "navn": "Oscar fritgående pekingand",
+          "tilbud": [
+            "B4"
+          ]
+        },
+        "æbler": {
+          "navn": "danske æbler",
+          "tilbud": [
+            "B128"
+          ]
+        },
+        "svesker": {
+          "navn": "svesker uden sten",
+          "tilbud": [
+            "B101"
+          ]
+        },
+        "kartofler": {
+          "navn": "danske kartofler",
+          "tilbud": [
+            "B126"
+          ]
+        },
+        "piskefløde": {
+          "navn": "Karolines Køkken piskefløde",
+          "tilbud": [
+            "B107"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Rødvinsbraiserede oksekæber med kartoffelmos",
+      "beskrivelse": "Weekendens langtidsret: oksekæber braiseret mørt i rødvin med gulerødder og cremet mos.",
+      "niveau": "weekend",
+      "kategori": "okse",
+      "tid_minutter": 210,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "oksekæber",
+          600,
+          "g",
+          0,
+          [
+            "B131"
+          ]
+        ],
+        [
+          "Il Capolavoro (rødvin)",
+          500,
+          "ml",
+          0,
+          [
+            "B138"
+          ]
+        ],
+        [
+          "danske gulerødder",
+          4,
+          "stk",
+          0,
+          [
+            "B125"
+          ]
+        ],
+        [
+          "danske kartofler",
+          1200,
+          "g",
+          0,
+          [
+            "B126"
+          ]
+        ],
+        [
+          "Arla smør",
+          60,
+          "g",
+          0,
+          [
+            "B208"
+          ]
+        ],
+        [
+          "Karolines Køkken piskefløde",
+          100,
+          "ml",
+          0,
+          [
+            "B107"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tomatpuré",
+          2,
+          "spsk",
+          0,
+          []
+        ],
+        [
+          "laurbærblade og timian",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "oksebouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Brun kæberne godt i lidt smør i en tykbundet gryde, og tag dem op.",
+        "Svits løg og gulerødder i grove stykker, og rør tomatpuré i.",
+        "Hæld rødvin, 3 dl vand, bouillon og krydderier i, læg kæberne tilbage og braiser under låg ved 150 °C i ca. 3 timer.",
+        "Kog kartoflerne, og mos dem med smør, fløde og salt.",
+        "Kog skyen lidt ind til sauce, og server kæberne med mos og gulerødder."
+      ]
+    }
+  ]
+}
