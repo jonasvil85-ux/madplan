@@ -1,21 +1,32 @@
-"""Henter ugens tilbud fra Tjek og giver dem korte id'er (N1 … / M1 …).
+"""Henter ugens tilbudsaviser fra Tjek og giver tilbuddene korte id'er (N1, M1, B1 …).
 
-Brug:  python -I scripts/tilbud.py > tilbud.txt
-  - gemmer øjebliksbillede i scripts/tilbud_snapshot.json (byg_retter.py bruger det)
-  - skriver tilbudslisten til stdout (til at skrive retter ud fra)
+Brug:
+  python -I scripts/tilbud.py bilka rema > tilbud.txt   (kun de nævnte butikker – fx dem med ny avis)
+  python -I scripts/tilbud.py alle > tilbud.txt          (alle butikker)
+
+  - opdaterer scripts/tilbud_snapshot.json for de nævnte butikker (de andre røres ikke)
+  - skriver tilbudslisten for de nævnte butikker til stdout (til at skrive retter ud fra)
 
 Tjek leverer ikke tilbuddene i fast rækkefølge, så id'erne gælder KUN for det gemte
-øjebliksbillede. Kør derfor ikke scriptet igen mellem at retterne skrives og bygges.
+øjebliksbillede. Hent derfor ikke en butik igen mellem at dens retter skrives og bygges.
 """
 import json, os, re, sys, urllib.request
 from datetime import datetime, timezone
 
 API = 'https://squid-api.tjek.com/v2'
 BUTIKKER = {
-    'netto': {'navn': 'Netto', 'dealerId': '9ba51', 'prefix': 'N'},
-    'meny':  {'navn': 'MENY',  'dealerId': '267e1m', 'prefix': 'M'},
+    'netto':        {'navn': 'Netto',        'dealerId': '9ba51',  'prefix': 'N'},
+    'meny':         {'navn': 'MENY',         'dealerId': '267e1m', 'prefix': 'M'},
+    'bilka':        {'navn': 'Bilka',        'dealerId': '93f13',  'prefix': 'B'},
+    'rema':         {'navn': 'REMA 1000',    'dealerId': '11deC',  'prefix': 'R'},
+    'kvickly':      {'navn': 'Kvickly',      'dealerId': 'c1edq',  'prefix': 'K'},
+    'superbrugsen': {'navn': 'SuperBrugsen', 'dealerId': '0b1e8',  'prefix': 'S'},
+    'lidl':         {'navn': 'Lidl',         'dealerId': '71c90',  'prefix': 'L'},
+    '365':          {'navn': '365discount',  'dealerId': 'DWZE1w', 'prefix': 'D'},
 }
-IKKE_MAD = re.compile(r'nonfood|vin|spisetid|magasin', re.I)
+# Kun den ugentlige madavis ("Uge 45", "Netto uge 45", "Lidl avis (uge 45)" …)
+UGEAVIS = re.compile(r'uge\s*\d+', re.I)
+IKKE_MAD = re.compile(r'nonfood|vin|søndag|magasin|katalog', re.I)
 SNAPSHOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tilbud_snapshot.json')
 ENHEDER = {'pcs': 'stk', 'g': 'g', 'kg': 'kg', 'ml': 'ml', 'cl': 'cl', 'l': 'l'}
 
@@ -38,7 +49,9 @@ def hent_butik(key):
     b = BUTIKKER[key]
     nu = datetime.now(timezone.utc)
     kat = [c for c in hent(f"{API}/catalogs?dealer_ids={b['dealerId']}&limit=24")
-           if c['offer_count'] > 0 and not IKKE_MAD.search(c.get('label') or '') and tid(c['run_till']) >= nu]
+           if c['offer_count'] > 0 and UGEAVIS.search(c.get('label') or '')
+           and not IKKE_MAD.search(c.get('label') or '') and tid(c['run_till']) >= nu]
+    # Foretræk avisen der gælder nu; ellers den næste der starter
     aviser = [c for c in kat if tid(c['run_from']) <= nu] or sorted(kat, key=lambda c: tid(c['run_from']))[:1]
     tilbud = []
     for avis in aviser:
@@ -61,26 +74,43 @@ def hent_butik(key):
             if len(side) < 100:
                 break
     tilbud.sort(key=lambda t: (t['side'], t['navn'], t['id']))  # så stabilt som muligt
+    tilbud = [{**t, 'kort': f"{b['prefix']}{n + 1}"} for n, t in enumerate(tilbud)]
     info = {'navn': b['navn'], 'aviser': [{'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
     return info, tilbud
 
 
-def hent_tilbud():
-    butikker, tilbud = {}, []
-    for k in BUTIKKER:
+def laes_snapshot():
+    if os.path.exists(SNAPSHOT):
+        with open(SNAPSHOT, encoding='utf-8') as f:
+            return json.load(f)
+    return {'butikker': {}, 'tilbud': []}
+
+
+def opdater_snapshot(keys):
+    """Henter de nævnte butikker og erstatter kun dem i øjebliksbilledet."""
+    d = laes_snapshot()
+    for k in keys:
         info, t = hent_butik(k)
-        butikker[k] = info
-        tilbud += [{**x, 'kort': f"{BUTIKKER[k]['prefix']}{n + 1}"} for n, x in enumerate(t)]
-    noegle = '-'.join(sorted(a['id'] for k in BUTIKKER for a in butikker[k]['aviser']))
-    return {'noegle': noegle, 'butikker': butikker, 'tilbud': tilbud}
+        d['butikker'][k] = info
+        d['tilbud'] = [x for x in d['tilbud'] if x['butik'] != k] + t
+    d.pop('noegle', None)
+    with open(SNAPSHOT, 'w', encoding='utf-8') as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+    return d
 
 
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')
-    d = hent_tilbud()
-    with open(SNAPSHOT, 'w', encoding='utf-8') as f:
-        json.dump(d, f, ensure_ascii=False, indent=1)
-    print('noegle:', d['noegle'])
-    for t in d['tilbud']:
-        besk = re.sub(r'\s*\n\s*', '; ', t['beskrivelse'])[:110]
-        print(f"{t['kort']} | {t['navn']} | {t['pris']} kr | {t['maengde'] or ''} {t['enhed'] or ''} | {besk}")
+    valgt = sys.argv[1:] or ['alle']
+    keys = list(BUTIKKER) if valgt == ['alle'] else valgt
+    ukendte = [k for k in keys if k not in BUTIKKER]
+    if ukendte:
+        sys.exit(f"Ukendt butik: {ukendte}. Vælg blandt: {', '.join(BUTIKKER)} eller 'alle'")
+    d = opdater_snapshot(keys)
+    for k in keys:
+        info = d['butikker'][k]
+        print(f"\n## {info['navn']} – " + ', '.join(f"{a['navn']} ({a['id']}, {a['fra'][:10]}–{a['til'][:10]})" for a in info['aviser']))
+        for t in d['tilbud']:
+            if t['butik'] == k:
+                besk = re.sub(r'\s*\n\s*', '; ', t['beskrivelse'])[:90]
+                print(f"{t['kort']} | {t['navn'][:70]} | {t['pris']} kr | {t['maengde'] or ''} {t['enhed'] or ''} | {besk}")

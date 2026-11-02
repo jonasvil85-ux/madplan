@@ -1,0 +1,1610 @@
+{
+  "avis": "otpMvLYC",
+  "retter": [
+    {
+      "navn": "Grisefrikadeller med kartofler og hvidkålssalat",
+      "beskrivelse": "Hjemmelavede frikadeller med kogte kartofler og sprød hvidkålssalat med æble.",
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 45,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket grisekød",
+          500,
+          "g",
+          0,
+          [
+            "R30"
+          ]
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          0,
+          [
+            "R107"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "hvidkål",
+          300,
+          "g",
+          0,
+          [
+            "R23"
+          ]
+        ],
+        [
+          "æbler",
+          2,
+          "stk",
+          0,
+          [
+            "R26"
+          ]
+        ],
+        [
+          "skyr",
+          150,
+          "g",
+          0,
+          [
+            "R51"
+          ]
+        ],
+        [
+          "Kærgården",
+          30,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Rør kødet med æg, revet løg, mel, 1 dl vand, salt og peber. Lad farsen hvile 15 minutter.",
+        "Kog kartoflerne.",
+        "Form frikadeller med en ske, og steg dem i smør 4-5 minutter på hver side.",
+        "Snit hvidkålen meget fint, skær æblerne i tern og vend med skyr og salt.",
+        "Server frikadellerne med kartofler og kålsalat."
+      ]
+    },
+    {
+      "navn": "Brunchtallerken med bacon, æg og ovnkartofler",
+      "beskrivelse": "Brunch til aftensmad: sprød bacon, røræg, ovnkartofler, ost, brød og clementiner.",
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "bacon i skiver",
+          300,
+          "g",
+          0,
+          [
+            "R108"
+          ]
+        ],
+        [
+          "æg",
+          8,
+          "stk",
+          0,
+          [
+            "R107"
+          ]
+        ],
+        [
+          "kartofler",
+          800,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "skiveost",
+          200,
+          "g",
+          0,
+          [
+            "R45"
+          ]
+        ],
+        [
+          "Schulstad brød",
+          1,
+          "stk",
+          0,
+          [
+            "R41"
+          ]
+        ],
+        [
+          "clementiner",
+          4,
+          "stk",
+          0,
+          [
+            "R22"
+          ]
+        ],
+        [
+          "Kærgården",
+          20,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 220 °C. Skær kartoflerne i tern, vend med olie og salt, og bag 30 minutter.",
+        "Steg bacon sprødt på en bageplade i ovnen de sidste 12 minutter.",
+        "Pisk æggene, og rør dem langsomt sammen i smør ved lav varme.",
+        "Rist brødet.",
+        "Anret det hele med ost og clementiner i både."
+      ]
+    },
+    {
+      "som": "Æggekage med bacon, kartofler og porre",
+      "tilbud": {
+        "æg": [
+          "R107"
+        ],
+        "bacon": [
+          "R108"
+        ],
+        "friske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "rugbrød": {
+          "navn": "Schulstad brød",
+          "tilbud": [
+            "R41"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Tunfrikadeller med kartofler og skyrdressing",
+      "beskrivelse": "Billige, saftige fiskefrikadeller af tun og kartoffel med frisk skyrdressing.",
+      "niveau": "student",
+      "kategori": "fisk",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "tun i vand",
+          3,
+          "dåse",
+          0,
+          [
+            "R44"
+          ]
+        ],
+        [
+          "æg",
+          2,
+          "stk",
+          0,
+          [
+            "R107"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "skyr",
+          200,
+          "g",
+          0,
+          [
+            "R51"
+          ]
+        ],
+        [
+          "rød peber",
+          1,
+          "stk",
+          0,
+          [
+            "R35"
+          ]
+        ],
+        [
+          "Kærgården",
+          30,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne. Mos 300 g af dem groft, og lad dem køle lidt af.",
+        "Rør mos med afdryppet tun, æg, revet løg, mel, salt og peber.",
+        "Form frikadeller, og steg dem gyldne i smør 3-4 minutter på hver side.",
+        "Rør skyr med fint hakket rød peber og salt.",
+        "Server med resten af kartoflerne og dressingen."
+      ]
+    },
+    {
+      "navn": "Pølser med kartoffelmos og hvidkålssalat",
+      "beskrivelse": "Langelænder pølser med cremet kartoffelmos og frisk kålsalat – hurtigt og billigt.",
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 30,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "Langelænder pølser",
+          660,
+          "g",
+          0,
+          [
+            "R98"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "Kærgården",
+          50,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "hvidkål",
+          300,
+          "g",
+          0,
+          [
+            "R23"
+          ]
+        ],
+        [
+          "æbler",
+          1,
+          "stk",
+          0,
+          [
+            "R26"
+          ]
+        ],
+        [
+          "skyr",
+          100,
+          "g",
+          0,
+          [
+            "R51"
+          ]
+        ],
+        [
+          "mælk",
+          150,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne, og mos dem med smør, mælk og salt.",
+        "Varm pølserne i vand, der lige simrer, i 10 minutter.",
+        "Snit hvidkålen fint, riv æblet og vend med skyr og salt.",
+        "Server pølserne med mos og kålsalat."
+      ]
+    },
+    {
+      "navn": "Biksemad med spejlæg",
+      "beskrivelse": "Klassisk biksemad af oksekød og kartofler i tern med spejlæg på toppen.",
+      "niveau": "student",
+      "kategori": "okse",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket oksekød 15-18 %",
+          400,
+          "g",
+          0,
+          [
+            "R29"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "æg",
+          4,
+          "stk",
+          0,
+          [
+            "R107"
+          ]
+        ],
+        [
+          "Kærgården",
+          40,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "worcestershiresauce",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Skær kartoflerne i små tern, og steg dem gyldne og møre i smør (ca. 20 minutter).",
+        "Brun kød og hakkede løg på en anden pande.",
+        "Vend kød og kartofler sammen, og smag til med worcestershiresauce, salt og peber.",
+        "Steg spejlæg, og læg dem på biksemaden."
+      ]
+    },
+    {
+      "som": "Kartoffel-porresuppe med sprød bacon",
+      "tilbud": {
+        "kartofler": [
+          "R24"
+        ],
+        "bacon": [
+          "R108"
+        ],
+        "Schulstad Det Gode brød": {
+          "navn": "Schulstad brød",
+          "tilbud": [
+            "R41"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Spansk kartoffeltortilla med agurkesalat",
+      "tilbud": {
+        "økologiske æg": {
+          "navn": "æg",
+          "tilbud": [
+            "R107"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Bagte kartofler med bacon og flødeost",
+      "tilbud": {
+        "økologiske kartofler (store)": {
+          "navn": "kartofler (store)",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "bacon i tern": {
+          "navn": "bacon",
+          "tilbud": [
+            "R108"
+          ]
+        },
+        "creme fraiche": {
+          "navn": "skyr",
+          "tilbud": [
+            "R51"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Stuvet hvidkål med medister og kartofler",
+      "beskrivelse": "Dansk vintermad til næsten ingen penge: stegt medister med cremet stuvet hvidkål.",
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 45,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "medister",
+          500,
+          "g",
+          0,
+          [
+            "R30"
+          ]
+        ],
+        [
+          "hvidkål",
+          500,
+          "g",
+          0,
+          [
+            "R23"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "Kærgården",
+          40,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "mælk",
+          400,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "muskatnød",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne.",
+        "Snit hvidkålen, og kog den mør i letsaltet vand i 8-10 minutter. Hæld fra.",
+        "Steg medisteren ved middel varme i ca. 20 minutter.",
+        "Smelt smørret, rør melet i og spæd med mælk til en tyk sauce. Vend kålen i, og smag til med salt, peber og muskat.",
+        "Server medisteren med stuvet hvidkål og kartofler."
+      ]
+    },
+    {
+      "navn": "Kålnudler med hakket grisekød og chili",
+      "beskrivelse": "Hurtig wok med nudler, sprød hvidkål, rød peber og stærk chilisauce.",
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 20,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket grisekød",
+          500,
+          "g",
+          0,
+          [
+            "R30"
+          ]
+        ],
+        [
+          "fuldkornsnudler",
+          250,
+          "g",
+          0,
+          [
+            "R33"
+          ]
+        ],
+        [
+          "hvidkål",
+          300,
+          "g",
+          0,
+          [
+            "R23"
+          ]
+        ],
+        [
+          "rød peber",
+          1,
+          "stk",
+          0,
+          [
+            "R35"
+          ]
+        ],
+        [
+          "stærk chilisauce",
+          3,
+          "spsk",
+          0,
+          [
+            "R34"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "sojasauce",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog nudlerne efter anvisningen, og skyl dem i koldt vand.",
+        "Steg kødet godt brunt i olie på en wok eller stor pande.",
+        "Tilsæt fintsnittet hvidkål, peber i strimler og hvidløg, og steg 3-4 minutter.",
+        "Vend nudler, sojasauce og chilisauce i, og steg et minut mere."
+      ]
+    },
+    {
+      "navn": "Kyllingebryst i fad med rød peber og kartofler",
+      "beskrivelse": "Nem ovnret: kylling, rød peber og kartofler i ét fad med skyrdressing.",
+      "niveau": "familie",
+      "kategori": "kylling",
+      "tid_minutter": 50,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "kyllingebrystfilet",
+          900,
+          "g",
+          0,
+          [
+            "R32"
+          ]
+        ],
+        [
+          "rød peber",
+          2,
+          "stk",
+          0,
+          [
+            "R35"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "skyr",
+          200,
+          "g",
+          0,
+          [
+            "R51"
+          ]
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Skær kartoflerne i både og peberfrugterne i strimler.",
+        "Vend grøntsagerne med olie, salt og paprika i et fad, og bag 20 minutter.",
+        "Læg kyllingen ovenpå, krydr den og bag 20-25 minutter mere.",
+        "Rør skyr med revet hvidløg og salt, og server til."
+      ]
+    },
+    {
+      "som": "Helstegt kylling med rodfrugter",
+      "tilbud": {
+        "hel kylling": [
+          "R103"
+        ],
+        "kartofler": [
+          "R24"
+        ]
+      }
+    },
+    {
+      "navn": "Oksekødsgryde med rød peber og kartoffelmos",
+      "beskrivelse": "Hakket oksekød i cremet paprikasauce med rød peber, serveret med kartoffelmos.",
+      "niveau": "familie",
+      "kategori": "okse",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket oksekød 15-18 %",
+          800,
+          "g",
+          0,
+          [
+            "R29"
+          ]
+        ],
+        [
+          "rød peber",
+          2,
+          "stk",
+          0,
+          [
+            "R35"
+          ]
+        ],
+        [
+          "piskefløde",
+          250,
+          "ml",
+          0,
+          [
+            "R2"
+          ]
+        ],
+        [
+          "fond",
+          1,
+          "stk",
+          0,
+          [
+            "R46"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "Kærgården",
+          40,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Brun kødet med hakket løg.",
+        "Tilsæt peber i strimler og paprika, og steg et par minutter.",
+        "Hæld fløde, 1 dl vand og fond i, og lad det simre 15 minutter.",
+        "Kog kartoflerne, og mos dem med smør og salt.",
+        "Smag gryden til, og server med mos."
+      ]
+    },
+    {
+      "som": "Burgere med ovnkartofler",
+      "tilbud": {
+        "Burger BOOST (oksebøffer)": {
+          "navn": "Burgerboost (oksebøffer)",
+          "tilbud": [
+            "R112"
+          ]
+        },
+        "friske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "skiveost": [
+          "R45"
+        ]
+      }
+    },
+    {
+      "som": "Hakkebøf med bløde løg og brun sovs",
+      "tilbud": {
+        "hakket oksekød 14-18 %": {
+          "navn": "hakket oksekød 15-18 %",
+          "tilbud": [
+            "R29"
+          ],
+          "maengde": 800
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "fond / sovsejævner": [
+          "R46"
+        ],
+        "økologisk smør": {
+          "navn": "Kærgården",
+          "tilbud": [
+            "R111"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Mørksej i fad med flødekål og kartofler",
+      "beskrivelse": "Hvid fisk bagt på cremet hvidkål med kogte kartofler – mild og billig fiskeret.",
+      "niveau": "familie",
+      "kategori": "fisk",
+      "tid_minutter": 45,
+      "spis_tidligt": true,
+      "ingredienser": [
+        [
+          "mørksejfilet",
+          675,
+          "g",
+          0,
+          [
+            "R31"
+          ]
+        ],
+        [
+          "hvidkål",
+          500,
+          "g",
+          0,
+          [
+            "R23"
+          ]
+        ],
+        [
+          "piskefløde",
+          250,
+          "ml",
+          0,
+          [
+            "R2"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "Kærgården",
+          30,
+          "g",
+          0,
+          [
+            "R111"
+          ]
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C, og sæt kartoflerne over.",
+        "Snit kålen fint, og svits den blød i smør. Hæld fløden i, og smag til.",
+        "Kom flødekålen i et fad, og læg fisken ovenpå. Krydr med salt, peber og citronskal.",
+        "Bag 15-18 minutter, til fisken er gennembagt.",
+        "Server med kartofler og citronbåde."
+      ]
+    },
+    {
+      "navn": "Kyllingenudler med hvidkål og rød peber",
+      "beskrivelse": "Sprøde grøntsager og kyllingestrimler i nudler med chili – på bordet på 25 minutter.",
+      "niveau": "familie",
+      "kategori": "kylling",
+      "tid_minutter": 25,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "kyllingebrystfilet",
+          900,
+          "g",
+          0,
+          [
+            "R32"
+          ]
+        ],
+        [
+          "fuldkornsnudler",
+          250,
+          "g",
+          0,
+          [
+            "R33"
+          ]
+        ],
+        [
+          "hvidkål",
+          400,
+          "g",
+          0,
+          [
+            "R23"
+          ]
+        ],
+        [
+          "rød peber",
+          2,
+          "stk",
+          0,
+          [
+            "R35"
+          ]
+        ],
+        [
+          "stærk chilisauce",
+          2,
+          "spsk",
+          0,
+          [
+            "R34"
+          ]
+        ],
+        [
+          "æg",
+          2,
+          "stk",
+          0,
+          [
+            "R107"
+          ]
+        ],
+        [
+          "sojasauce",
+          4,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog nudlerne, og skyl dem kolde.",
+        "Skær kyllingen i strimler, og steg den gylden i olie. Tag den op.",
+        "Steg fintsnittet hvidkål og peber i strimler 3 minutter på høj varme.",
+        "Skub grøntsagerne til side, og rør æggene sammen på panden.",
+        "Vend kylling, nudler, soja og chilisauce i, og server."
+      ]
+    },
+    {
+      "som": "Ovnbagt laks med porrer og kartofler",
+      "tilbud": {
+        "fersk laksestykke": {
+          "navn": "laksefileter",
+          "tilbud": [
+            "R31"
+          ],
+          "maengde": 675
+        },
+        "kartofler": [
+          "R24"
+        ],
+        "skyr": [
+          "R51"
+        ]
+      }
+    },
+    {
+      "som": "Hjemmelavede laksefrikadeller med dildkartofler",
+      "tilbud": {
+        "laksefilet": {
+          "navn": "laksefileter",
+          "tilbud": [
+            "R31"
+          ],
+          "maengde": 675
+        },
+        "økologiske æg": {
+          "navn": "æg",
+          "tilbud": [
+            "R107"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "creme fraiche": {
+          "navn": "skyr",
+          "tilbud": [
+            "R51"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Kærgården",
+          "tilbud": [
+            "R111"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Julemedister med rødkål og kartofler",
+      "tilbud": {
+        "julemedister af frilandsgris": {
+          "navn": "Friland julemedister",
+          "tilbud": [
+            "R17"
+          ],
+          "maengde": 800
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "fond / sovsejævner": [
+          "R46"
+        ],
+        "danske æbler": {
+          "navn": "æbler",
+          "tilbud": [
+            "R26"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Citronkylling i fad med kartofler og timian",
+      "tilbud": {
+        "Rose hel kylling": {
+          "navn": "hel dansk kylling",
+          "tilbud": [
+            "R103"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Kærgården",
+          "tilbud": [
+            "R111"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Kyllingebryst med flødekartofler og grønne bønner",
+      "tilbud": {
+        "Gestus kyllingebrystfilet": {
+          "navn": "kyllingebrystfilet",
+          "tilbud": [
+            "R32"
+          ],
+          "maengde": 900
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "madlavningsfløde": {
+          "navn": "piskefløde",
+          "tilbud": [
+            "R2"
+          ]
+        },
+        "fond / sovsejævner": [
+          "R46"
+        ]
+      }
+    },
+    {
+      "navn": "Kålrouletter i flødesauce med kartofler",
+      "beskrivelse": "Hvidkålsblade rullet om krydret grisefars og bagt i flødesauce – gammeldags hygge.",
+      "niveau": "familie",
+      "kategori": "svin",
+      "tid_minutter": 75,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket grisekød",
+          500,
+          "g",
+          0,
+          [
+            "R30"
+          ]
+        ],
+        [
+          "hvidkål",
+          1,
+          "stk",
+          0,
+          [
+            "R23"
+          ]
+        ],
+        [
+          "piskefløde",
+          250,
+          "ml",
+          0,
+          [
+            "R2"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "fond",
+          1,
+          "stk",
+          0,
+          [
+            "R46"
+          ]
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          0,
+          [
+            "R107"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Skær stokken ud af kålen, og kog hovedet 5 minutter, så bladene kan pilles af.",
+        "Rør kødet med æg, revet løg, mel, salt og peber.",
+        "Læg en klump fars på hvert kålblad, fold siderne ind og rul stramt. Læg dem i et ovnfast fad.",
+        "Kog fløde med 2 dl vand og fond, hæld over og bag ved 200 °C i ca. 40 minutter.",
+        "Server med kogte kartofler."
+      ]
+    },
+    {
+      "som": "Økologisk flæskesteg med rødkål og brunede kartofler",
+      "niveau": "weekend",
+      "beskrivelse": "Klassisk flæskesteg med sprød svær, hjemmelavet rødkål og brunede kartofler.",
+      "navn": "Flæskesteg med rødkål og brunede kartofler",
+      "tilbud": {
+        "flæskesteg af økologisk frilandsgris": {
+          "navn": "dansk flæskesteg",
+          "tilbud": [
+            "R39"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "fond / sovsejævner": [
+          "R46"
+        ],
+        "danske æbler": {
+          "navn": "æbler",
+          "tilbud": [
+            "R26"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Kærgården",
+          "tilbud": [
+            "R111"
+          ]
+        }
+      }
+    },
+    {
+      "som": "Andebryststeg med æbler og rødkål",
+      "tilbud": {
+        "andebryststeg": {
+          "tilbud": [
+            "R1"
+          ],
+          "maengde": 1200
+        },
+        "danske æbler": {
+          "navn": "æbler",
+          "tilbud": [
+            "R26"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Kærgården",
+          "tilbud": [
+            "R111"
+          ]
+        },
+        "fond / sovsejævner": [
+          "R46"
+        ],
+        "madlavningsfløde": {
+          "navn": "piskefløde",
+          "tilbud": [
+            "R2"
+          ]
+        }
+      }
+    },
+    {
+      "navn": "Andelår i fad med æbler, svesker og kartofler",
+      "beskrivelse": "Alt i ét fad: andelår, æbler, svesker og kartofler, der bages i andefedtet.",
+      "niveau": "weekend",
+      "kategori": "and",
+      "tid_minutter": 110,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "Julius ferske andelår",
+          4,
+          "pakke",
+          0,
+          [
+            "R10"
+          ]
+        ],
+        [
+          "æbler",
+          4,
+          "stk",
+          0,
+          [
+            "R26"
+          ]
+        ],
+        [
+          "svesker",
+          200,
+          "g",
+          0,
+          [
+            "R48"
+          ]
+        ],
+        [
+          "kartofler",
+          1200,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "fond",
+          1,
+          "stk",
+          0,
+          [
+            "R46"
+          ]
+        ],
+        [
+          "tørret timian",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 175 °C. Gnid lårene med salt, peber og timian.",
+        "Læg kartofler i både, æbler i kvarte og svesker i et stort fad, og læg lårene ovenpå.",
+        "Bag i ca. 90 minutter. Skru op til 220 °C de sidste 10 minutter.",
+        "Hæld lidt af skyen fra, og kog den op med fond og vand til sovs.",
+        "Server direkte fra fadet."
+      ]
+    },
+    {
+      "som": "Andebryst med druesauce og ovnbagte rodfrugter",
+      "tilbud": {
+        "ferske andebryst": {
+          "navn": "andebryst",
+          "tilbud": [
+            "R5"
+          ]
+        },
+        "kartofler": [
+          "R24"
+        ],
+        "æbler": [
+          "R26"
+        ]
+      }
+    },
+    {
+      "som": "Langtidsstegte andelår med bagte æbler og kartoffelmos",
+      "tilbud": {
+        "Canard Martín andelår": {
+          "navn": "fritgående andelår",
+          "tilbud": [
+            "R20"
+          ],
+          "maengde": 1000
+        },
+        "danske æbler": {
+          "navn": "æbler",
+          "tilbud": [
+            "R26"
+          ]
+        },
+        "økologiske kartofler": {
+          "navn": "kartofler",
+          "tilbud": [
+            "R24"
+          ]
+        },
+        "økologisk smør": {
+          "navn": "Kærgården",
+          "tilbud": [
+            "R111"
+          ]
+        },
+        "madlavningsfløde": {
+          "navn": "piskefløde",
+          "tilbud": [
+            "R2"
+          ]
+        },
+        "fond / sovsejævner": [
+          "R46"
+        ]
+      }
+    },
+    {
+      "navn": "Helstegt and med æbler, svesker og rødkål",
+      "beskrivelse": "Mortensaften som hos mormor: hel and fyldt med æbler og svesker, hjemmelavet rødkål, kartofler og flødesovs.",
+      "niveau": "weekend",
+      "kategori": "and",
+      "tid_minutter": 240,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hel and",
+          1,
+          "stk",
+          0,
+          [
+            "R6"
+          ]
+        ],
+        [
+          "æbler",
+          6,
+          "stk",
+          0,
+          [
+            "R26"
+          ]
+        ],
+        [
+          "svesker",
+          200,
+          "g",
+          0,
+          [
+            "R48"
+          ]
+        ],
+        [
+          "kartofler",
+          1500,
+          "g",
+          0,
+          [
+            "R24"
+          ]
+        ],
+        [
+          "piskefløde",
+          250,
+          "ml",
+          0,
+          [
+            "R2"
+          ]
+        ],
+        [
+          "fond",
+          1,
+          "stk",
+          0,
+          [
+            "R46"
+          ]
+        ],
+        [
+          "rødkål (frisk)",
+          0.5,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          50,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tø anden op i køleskabet (2 døgn). Tænd ovnen på 160 °C.",
+        "Gnid anden med salt og peber, og fyld den med 4 æbler i både og sveskerne.",
+        "Steg anden på en rist over en bradepande med vand i ca. 3 timer. Skru op til 220 °C de sidste 15 minutter for sprødt skind.",
+        "Rødkål: Snit rødkålen, og kog den under låg med 2 æbler, eddike, sukker, 1 dl vand og salt i ca. 1 time.",
+        "Kog kartoflerne. Afsku skyen, og kog den op med fond og fløde til sovs. Server det hele med fyldet."
+      ]
+    }
+  ]
+}
