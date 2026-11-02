@@ -88,6 +88,19 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 .top3-tekst small { display: block; color: var(--text-3); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .top3-enhed { color: var(--emerald); }
 .top3-vare b { color: var(--amber); font-size: 13px; white-space: nowrap; }
+.topinfo { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.bruger { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-3); }
+.kraever-login nav.trin, .kraever-login #bund { display: none !important; }
+.login-boks { max-width: 400px; margin: 40px auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.login-boks h2 { margin-bottom: 4px; }
+.login-faner { display: flex; gap: 8px; margin: 16px 0; }
+#login-form { display: flex; flex-direction: column; gap: 10px; }
+#login-form input { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--text-1); font: inherit; font-size: 16px; }
+#login-form input:focus { outline: none; border-color: var(--emerald); }
+#login-form .knap { margin-top: 4px; }
+#login-besked { min-height: 1.2em; font-size: 14px; margin: 12px 0 0; }
+#login-besked.ok { color: var(--emerald); }
+button.link { background: none; border: 0; color: var(--text-3); text-decoration: underline; padding: 0; font-size: 14px; margin-top: 8px; }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -166,7 +179,7 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 <div class="wrap">
   <header class="top">
     <h1>Mad<span>plan</span></h1>
-    <div class="aviser" id="aviser"></div>
+    <div class="topinfo"><div class="aviser" id="aviser"></div><div class="bruger" id="bruger"></div></div>
   </header>
 
   <nav class="trin">
@@ -182,7 +195,9 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="varer.js"></script>
+<script src="auth.js"></script>
 <script>
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
 const NIVEAUER = {
@@ -700,7 +715,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-start();
+startAuth(start);  // login først (hvis Supabase er sat op i auth.js), derefter siden
 </script>
 </body>
 </html>
