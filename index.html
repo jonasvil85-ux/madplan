@@ -52,15 +52,25 @@ header.top h1.maerke .logo-navn { color: var(--text-1); }
 header.top h1 span { color: var(--accent); }
 .aviser { font-size: 13px; color: var(--text-3); }
 
-nav.trin { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.nav-raekke { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+nav.trin { display: flex; gap: 8px; flex-wrap: wrap; flex: 1 1 auto; min-width: 0; }
 nav.trin button { background: var(--surface); border: 1px solid var(--border); color: var(--text-3); padding: 10px 16px; border-radius: 999px; font-weight: 500; }
 nav.trin button.aktiv { background: var(--accent-fill); border-color: var(--accent-fill); color: #fff; }
 nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 .nav-hoejre { margin-left: auto; display: flex; align-items: center; gap: 10px; }
 .sky-status { font-size: 12px; color: var(--text-3); }
 .sky-status.fejl { color: #f87171; }
-nav.trin button.slet-valg { background: transparent; border-color: var(--border); color: var(--text-2); padding: 8px 14px; }
-nav.trin button.slet-valg:hover { border-color: #f87171; color: #fca5a5; }
+button.slet-valg { background: transparent; border: 1px solid var(--border); color: var(--text-2); padding: 8px 14px; border-radius: 999px; font-size: 14px; font-weight: 500; }
+button.slet-valg:hover { border-color: #f87171; color: #fca5a5; }
+button.slet-valg[hidden] { display: none; }
+/* Mobil: fanerne er én række, man kan stryge i, i stedet for tre rækker der skubber indholdet ned */
+@media (max-width: 700px) {
+  .nav-raekke { margin-bottom: 18px; row-gap: 8px; }
+  nav.trin { flex-wrap: nowrap; overflow-x: auto; flex-basis: 100%; scrollbar-width: none; padding-bottom: 2px; }
+  nav.trin::-webkit-scrollbar { display: none; }
+  nav.trin button { flex: none; white-space: nowrap; padding: 9px 14px; font-size: 14px; }
+  .nav-hoejre { margin-left: auto; }
+}
 .uge-besked { background: #2a2210; border: 1px solid #5c4a14; color: #F5D98B; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
 .uge-besked[hidden], nav.trin button[hidden] { display: none; }
 .plan-laast { text-align: center; padding: 36px 20px; }
@@ -260,14 +270,16 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
     <div class="topinfo"><div class="aviser" id="aviser"></div><div class="bruger" id="bruger"></div></div>
   </header>
 
+  <div class="nav-raekke">
   <nav class="trin">
     <button data-trin="retter" class="aktiv">1. Butik og retter</button>
     <button data-trin="liste">2. Indkøbsliste</button>
     <button data-trin="tilfoej">3. Tilføj varer</button>
     <button data-trin="seddel">4. Indkøbsseddel</button>
     <button data-trin="plan">5. Ugeplan</button>
-    <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden><svg class="ikon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6"/><path d="M14 10v6"/></svg> Slet valg</button></span>
   </nav>
+    <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden><svg class="ikon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6"/><path d="M14 10v6"/></svg> Slet valg</button></span>
+  </div>
   <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
@@ -459,6 +471,7 @@ function render() {
     b.disabled = (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
   });
   visAviser();
+  document.querySelector('nav.trin button.aktiv')?.scrollIntoView({ inline: 'center', block: 'nearest' });
   document.querySelector('.slet-valg').hidden = !harValg();
   const besked = document.getElementById('uge-besked');
   const foerste = state.plan?.[0]?.dato;
