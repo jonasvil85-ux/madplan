@@ -139,6 +139,10 @@ button.slet-valg[hidden] { display: none; }
 .prisoverskrift-raekke { display: flex !important; align-items: center; justify-content: space-between; }
 .info-i { position: relative; display: inline-grid; place-items: center; width: 22px; height: 22px; margin: -3px -2px -3px 0; border-radius: 50%; border: 1.5px solid var(--accent); background: rgba(232,116,59,.14); color: var(--accent); font: italic 700 13px/1 Georgia, serif; text-transform: none; letter-spacing: 0; cursor: help; flex: none; }
 .info-i:hover, .info-i:focus-visible, .info-i.aaben { background: var(--accent-fill); border-color: var(--accent-fill); color: #fff; outline: none; }
+.panel-hoved-hoejre { display: flex; align-items: center; gap: 10px; flex: none; }
+.chip.top-knap { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 13px; }
+.chip.top-knap .ikon-svg { width: 15px; height: 15px; color: var(--accent); }
+@media (max-width: 700px) { .panel-hoved { flex-wrap: wrap; } .panel-hoved-hoejre { width: 100%; justify-content: space-between; } }
 .panel-hoved { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .panel-hoved h2 { margin: 0; }
 .info-bred .info-tekst { width: min(320px, 78vw); }
@@ -370,6 +374,7 @@ const GEM = 'madplan-v3';
 const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, personer: 4,
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
+let visTop = false;  // 'Værd at køre efter' på butikkortene er skjult som udgangspunkt og vises med én knap
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
 let state = { ...TOM };
 
@@ -596,7 +601,7 @@ function renderButikker() {
     <div class="saadan-trin"><span class="saadan-nr">3</span><div><b>Få din indkøbsseddel</b><small>Alt, du skal købe, samlet med priser</small></div></div>
     <div class="saadan-trin fremhaevet"><span class="saadan-nr">${ikon('book')}</span><div><b>Få opskrifterne</b><small>Ingredienser og fremgangsmåde i din ugeplan – med gratis bruger</small></div></div>
   </div>
-  <div class="panel"><div class="panel-hoved"><h2>Hvilken tilbudsavis vil du handle efter?</h2><span class="info-i info-bred" tabindex="0" role="button" aria-label="Hvad betyder billigst?">i<span class="info-tekst" role="tooltip">Måltidsjagten.dk bruger AI til at finde retter, man kan lave ud fra tilbuddene i hver butiks aktuelle tilbudsavis. Hvilken butik der er billigst, bygger kun på de retter og tilbud, vi viser – ikke på butikkens priser generelt. Andre forhold er ikke med, fx dyrere økologiske varer, kvalitet og lokale tilbud.</span></span></div><div class="butikker">
+  <div class="panel"><div class="panel-hoved"><h2>Hvilken tilbudsavis vil du handle efter?</h2><span class="panel-hoved-hoejre"><button type="button" class="chip top-knap ${visTop ? 'aktiv' : ''}" data-vistop aria-pressed="${visTop}">${ikon('flame')} ${visTop ? 'Skjul ugens bedste enkelttilbud' : 'Vis ugens bedste enkelttilbud'}</button><span class="info-i info-bred" tabindex="0" role="button" aria-label="Hvad betyder billigst?">i<span class="info-tekst" role="tooltip">Måltidsjagten.dk bruger AI til at finde retter, man kan lave ud fra tilbuddene i hver butiks aktuelle tilbudsavis. Hvilken butik der er billigst, bygger kun på de retter og tilbud, vi viser – ikke på butikkens priser generelt. Andre forhold er ikke med, fx dyrere økologiske varer, kvalitet og lokale tilbud.</span></span></span></div><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
       <button class="butikvalg ${k === vinder ? 'vinder' : ''} ${k === state.butik ? 'aktiv' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
         ${k === vinder ? `<span class="billigst">${ikon('trend')} Billigst denne uge</span>` : ''}
@@ -618,7 +623,7 @@ function renderButikker() {
             <small>${bedst ? 'billigst' : forskel > 0 ? `+${kr(forskel)}` : ''}</small>
           </span>`;
         }).join('')}</span>
-        ${(b.top || []).length ? `<span class="top3"><small class="prisoverskrift">${ikon('flame')} Værd at køre efter</small>${b.top.slice(0, 3).map(t => `
+        ${visTop && (b.top || []).length ? `<span class="top3"><small class="prisoverskrift">${ikon('flame')} Værd at køre efter</small>${b.top.slice(0, 3).map(t => `
           <span class="top3-vare" title="${esc(t.navn)}">
             ${t.billede ? `<img src="${esc(t.billede)}" alt="" loading="lazy">` : '<span class="top3-ingen"></span>'}
             <span class="top3-tekst"><span class="top3-navn">${esc(t.hvorfor)}</span>
@@ -1052,10 +1057,11 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-vistop],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.koekken) state.koekken = d.koekken;
+  else if ('vistop' in d) visTop = !visTop;
   else if ('kunrest' in d) state.kunRest = !state.kunRest;
   else if (d.onlineTil) state.online = d.onlineTil === '1';
   else if (d.online) { state.koebt[d.online] = true; setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 0); return; }
