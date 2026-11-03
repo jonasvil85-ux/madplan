@@ -49,6 +49,7 @@ OMREGN = {'g': ('g', 1), 'kg': ('g', 1000), 'ml': ('ml', 1), 'cl': ('ml', 10), '
 # ikke ser kunstigt billige ud i prissammenligningen. Basisvarer (salt, olie, mel …) tælles ikke.
 # Mere præcise skøn for almindelige varer (nøgleord i ingrediensnavnet -> kr pr. enhed)
 NORMALPRIS_VARE = [
+    (r'syltede', {'g': 0.04}),  # syltede rødbeder/agurker på glas
     (r'kartof', {'g': 0.015}), (r'gulerød|pastinak|rødbede', {'g': 0.015, 'stk': 1.5}),
     (r'hvidløg', {'fed': 0.8, 'stk': 5}), (r'skalotte|løg\b', {'stk': 2}),
     (r'\bæg\b', {'stk': 2.5}), (r'mælk', {'ml': 0.013}), (r'fløde|creme fraiche', {'ml': 0.04, 'g': 0.05}),
