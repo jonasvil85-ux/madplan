@@ -48,7 +48,6 @@ nav.trin button.slet-valg:hover { border-color: #f87171; color: #fca5a5; }
 .uge-besked { background: #2a2210; border: 1px solid #5c4a14; color: #F5D98B; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
 .uge-besked[hidden], nav.trin button[hidden] { display: none; }
 .plan-laast { text-align: center; padding: 36px 20px; }
-.plan-laast .laas-ikon { font-size: 40px; margin-bottom: 8px; }
 .plan-laast h2 { margin-bottom: 8px; }
 .plan-laast p { max-width: 520px; margin: 0 auto 16px; color: var(--text-2); }
 .laast-billeder { display: flex; justify-content: center; gap: 10px; margin: 6px 0 20px; flex-wrap: wrap; }
@@ -874,15 +873,14 @@ function lavPlan() {
 function renderPlanLaast() {
   const billeder = state.valgte.map(id => ret(id)?.billede).filter(Boolean).slice(0, 4);
   vis(`<div class="panel plan-laast">
-    <div class="laas-ikon">🔒</div>
-    <h2>Din ugeplan er klar!</h2>
-    <p>Opret en gratis bruger (eller log ind) for at se din ugeplan med opskrifter og billeder.<br>Så kan du altid finde den igen i løbet af ugen – også på telefonen.</p>
+    <h2>Din madplan er klar</h2>
+    <p>For at vise din madplan og dine opskrifter skal du først oprette en gratis bruger. Så kan vi gemme din madplan, og du kan logge ind og se den hver dag i løbet af ugen – også på telefonen.</p>
     ${billeder.length ? `<div class="laast-billeder">${billeder.map(b => `<img src="${esc(b)}" alt="" loading="lazy">`).join('')}</div>` : ''}
     <div class="gem-knapper">
-      <button class="knap" data-aabn-login data-fane="opret" data-titel="Se din ugeplan – gratis">Opret gratis bruger</button>
+      <button class="knap" data-aabn-login data-fane="opret" data-titel="Se din madplan og dine opskrifter">Opret gratis bruger</button>
       <button class="knap sekundaer" data-aabn-login data-fane="ind">Log ind</button>
     </div>
-    <p class="detalje">Det er gratis, og du kan slette dine valg, når en ny uge starter.</p>
+    <p class="detalje">Det er gratis, og du kan til enhver tid slette dine valg, når en ny uge starter.</p>
   </div>`);
   bund(`<button class="knap sekundaer" data-forfra>Start forfra</button><span></span>`);
 }

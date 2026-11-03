@@ -121,7 +121,7 @@ document.addEventListener('click', async e => {
   const fane = e.target.closest('[data-login-fane]')?.dataset.loginFane;
   if (fane) return visLogin(fane);
   const aabn = e.target.closest('[data-aabn-login]');
-  if (aabn) { loginEkstra = aabn.dataset.titel ? { titel: aabn.dataset.titel, tekst: 'Din ugeplan er klar! Opret en gratis bruger, så du altid kan finde den igen i løbet af ugen.' } : {}; return visLogin(aabn.dataset.fane || 'ind'); }
+  if (aabn) { loginEkstra = aabn.dataset.titel ? { titel: aabn.dataset.titel, tekst: 'Din madplan er klar. Opret en gratis bruger, så vi kan gemme den, og du kan se den hver dag i løbet af ugen.' } : {}; return visLogin(aabn.dataset.fane || 'ind'); }
   if (e.target.closest('[data-luk-login]')) return lukLogin();
   if (e.target.id === 'logud') {
     // Valgene ligger også på brugeren – ryd dem på denne enhed, så den næste på computeren ikke kan se dem
