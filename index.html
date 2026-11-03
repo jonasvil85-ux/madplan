@@ -103,6 +103,9 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 button.link { background: none; border: 0; color: var(--text-3); text-decoration: underline; padding: 0; font-size: 14px; margin-top: 8px; }
 .pris.skoen { color: var(--text-3); font-weight: 500; }
 #bundIndhold small { color: var(--text-3); }
+.online-boks { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-color: rgba(0,174,239,.4); }
+.online-boks.aktiv { flex-direction: column; align-items: flex-start; background: rgba(0,174,239,.08); }
+.knap.lille { padding: 6px 12px; font-size: 13px; text-decoration: none; white-space: nowrap; background: #00aeef; }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -472,19 +475,27 @@ function listeLinjer() {
   return {
     tilbud: l.tilbud.map(v => ({
       key: 't|' + v.key, navn: tilbudsNavn(v), gruppe: varegruppe(v.ingNavn), pris: v.pris, billede: v.tilbud.billede,
+      soeg: soegeord(v.tilbud.navn),
       detalje: `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}${v.brug.length > 1 ? `I alt ca. ${samletBehov(v.behov)} · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
     })),
     oevrige: l.oevrige.map(v => ({
-      key: 'o|' + v.key, navn: `${maengde(v.m, v.enhed, true)} ${v.navn}`.trim(), gruppe: varegruppe(v.navn),
+      key: 'o|' + v.key, navn: `${maengde(v.m, v.enhed, true)} ${v.navn}`.trim(), gruppe: varegruppe(v.navn), soeg: soegeord(v.navn),
       skoen: skoenPris(v.navn, v.m, v.enhed), detalje: esc([...new Set(v.retter)].join(', ')),
     })),
-    basis: l.basis.map(([k, navn]) => ({ key: 'b|' + k, navn, gruppe: varegruppe(navn), skoen: skoenPris(navn),
+    basis: l.basis.map(([k, navn]) => ({ key: 'b|' + k, navn, gruppe: varegruppe(navn), skoen: skoenPris(navn), soeg: soegeord(navn),
                                          detalje: 'Basisvare – har du den i skabet?' })),
   };
 }
 
 // "2,3 kg" / "3 stk" – samlet behov på tværs af retter (flere enheder adskilles med +)
 const samletBehov = behov => Object.entries(behov).map(([e, m]) => maengde(m, e, true)).filter(Boolean).join(' + ');
+
+// Butikker med netbutik, hvor varerne kan søges frem direkte (ingen offentlig mulighed for at fylde kurven)
+const NETBUTIKKER = {
+  bilka: { navn: 'Bilka To Go', url: q => `https://www.bilkatogo.dk/s/?query=${encodeURIComponent(q)}` },
+};
+// Kort, søgbart navn: "Danske kartofler" / "Oscar fersk andebryst" – uden "eller …", mængder og parenteser
+const soegeord = navn => navn.split(/ eller |,| – | - /i)[0].replace(/\(.*?\)/g, '').replace(/\s(marked|storkøb|xxl)/gi, '').replace(/\d+([,.]\d+)?\s*(%|g|kg|ml|l|stk)\b/gi, '').trim();
 
 // Samlet pris for en række linjer: tilbudsvarer (faktisk pris) + skøn for resten
 function prisSum(linjer) {
@@ -601,15 +612,24 @@ function filtrerKatalog(q) {
 function seddelLinjer() {
   const L = listeLinjer();
   return [...Object.values(L).flat().filter(x => state.valgtVare[x.key]),
-          ...state.ekstra.map(e => ({ key: e.id, navn: e.navn, gruppe: e.gruppe, detalje: '', skoen: skoenPris(e.navn, 0, '', e.gruppe) }))];
+          ...state.ekstra.map(e => ({ key: e.id, navn: e.navn, gruppe: e.gruppe, detalje: '', skoen: skoenPris(e.navn, 0, '', e.gruppe), soeg: soegeord(e.navn) }))];
 }
 
 function renderSeddel() {
   const linjer = seddelLinjer();
   const koebt = linjer.filter(x => state.koebt[x.key]).length;
   const sum = prisSum(linjer);
+  const netbutik = NETBUTIKKER[state.butik];
+  const online = state.online && netbutik;
 
   vis(`
+    ${netbutik ? `<div class="panel online-boks ${online ? 'aktiv' : ''}">
+      ${online
+        ? `<b>🛒 Du handler i ${esc(netbutik.navn)}</b><span class="detalje">Tryk <b>Find ↗</b> ved hver vare – ${esc(netbutik.navn)} åbner med søgningen, og du lægger varen i kurven. Varen krydses af her, så du kan se, hvad der mangler.</span>
+           <button class="chip" data-online-til="0">Tilbage til almindelig seddel</button>`
+        : `<span><b>Vil du handle online?</b> Åbn varerne én for én i ${esc(netbutik.navn)} og læg dem i kurven.</span>
+           <button class="knap" data-online-til="1">🛒 Handl i ${esc(netbutik.navn)}</button>`}
+    </div>` : ''}
     <div class="panel">
       <div class="valg" style="justify-content:space-between">
         <span><b style="color:var(--text-1)">Indkøbsseddel · ${esc(B().navn)}</b> · ${linjer.length} varer${sum.ialt ? ` · ${prisTekst(sum)}` : ''}</span>
@@ -626,6 +646,7 @@ function renderSeddel() {
             <input type="checkbox" data-koebt="${esc(x.key)}" ${state.koebt[x.key] ? 'checked' : ''}>
             <div class="tekst"><div class="navn">${esc(x.navn)}</div>${x.pris ? `<div class="detalje">På tilbud</div>` : ''}</div>
             ${prisCelle(x)}
+            ${online ? `<a class="knap lille" href="${esc(online.url(x.soeg))}" target="_blank" rel="noopener" data-online="${esc(x.key)}">Find ↗</a>` : ''}
           </label>`).join('')}
       </div>`;
     }).join('') : '<div class="panel"><p>Sedlen er tom – gå tilbage og vælg varer.</p></div>'}`);
@@ -682,10 +703,12 @@ function kopierListe() {
 
 // ---------- Hændelser ----------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen]');
+  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online]');
   if (!t || t.disabled) return;
   const d = t.dataset;
-  if (d.alle) { listeLinjer()[d.alle].forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
+  if (d.onlineTil) state.online = d.onlineTil === '1';
+  else if (d.online) { state.koebt[d.online] = true; setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 0); return; }
+  else if (d.alle) { listeLinjer()[d.alle].forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
   else if (d.katalog) {
     if (harEkstra(d.katalog)) state.ekstra = state.ekstra.filter(x => x.navn.toLowerCase() !== d.katalog.toLowerCase());
     else tilfoejEkstra(d.katalog, d.kgruppe);
