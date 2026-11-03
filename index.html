@@ -40,6 +40,14 @@ nav.trin { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
 nav.trin button { background: var(--surface); border: 1px solid var(--border); color: var(--text-3); padding: 10px 16px; border-radius: 999px; font-weight: 500; }
 nav.trin button.aktiv { background: var(--emerald); border-color: var(--emerald); color: #fff; }
 nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
+.nav-hoejre { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.sky-status { font-size: 12px; color: var(--text-3); }
+.sky-status.fejl { color: #f87171; }
+nav.trin button.slet-valg { background: transparent; border-color: var(--border); color: var(--text-2); padding: 8px 14px; }
+nav.trin button.slet-valg:hover { border-color: #f87171; color: #fca5a5; }
+.uge-besked { background: #2a2210; border: 1px solid #5c4a14; color: #F5D98B; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
+.uge-besked[hidden], nav.trin button[hidden] { display: none; }
+.uge-besked button { background: transparent; border: 1px solid #8a6d1d; color: #F5D98B; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
 
 .filtre { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
 .chip { background: var(--surface); border: 1px solid var(--border); color: var(--text-2); padding: 6px 12px; border-radius: 999px; font-size: 13px; }
@@ -219,7 +227,9 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
     <button data-trin="tilfoej">3. Tilføj varer</button>
     <button data-trin="seddel">4. Indkøbsseddel</button>
     <button data-trin="plan">5. Ugeplan</button>
+    <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden>🗑 Slet valg</button></span>
   </nav>
+  <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
   <footer class="fod">Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn. <a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
@@ -255,7 +265,53 @@ let state = { ...TOM };
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const kr = n => n == null ? '' : n.toLocaleString('da-DK', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + ' kr';
-const gem = () => localStorage.setItem(GEM, JSON.stringify({ genereret: data.genereret, state }));
+// Valgene gemmes i browseren og (når man er logget ind) på brugeren i Supabase-tabellen brugerdata, så de kan ses på flere enheder.
+// valgteNavne bruges ved indlæsning: et gemt valg bevares kun, hvis retten stadig findes med samme navn (ugens retter skifter).
+const SKY = 'brugerdata';
+let skyTimer = null;
+const valgteNavne = () => {
+  const ids = new Set([...state.valgte, ...(state.plan || []).map(d => d.ret).filter(Boolean)]);
+  const b = state.butik && data.butikker[state.butik];
+  return Object.fromEntries([...ids].map(id => [id, b?.retter.find(r => r.id === id)?.navn]).filter(([, n]) => n));
+};
+const harValg = () => state.valgte.length || state.ekstra.length || state.handlet;
+function skyTekst(t, fejl) {
+  const el = document.getElementById('sky-status');
+  if (el) { el.textContent = t; el.classList.toggle('fejl', !!fejl); }
+}
+async function gemSky() {
+  if (!sb || !bruger) return;
+  try {
+    if (!harValg()) {
+      const { error } = await sb.from(SKY).delete().eq('user_id', bruger.id);
+      if (error) throw error;
+      return skyTekst('');
+    }
+    const { error } = await sb.from(SKY).upsert({ user_id: bruger.id, data: { state, valgteNavne: valgteNavne() }, genereret: data.genereret, opdateret: new Date().toISOString() });
+    if (error) throw error;
+    skyTekst('☁ Gemt på din bruger');
+  } catch (e) {
+    if (['42P01', 'PGRST205'].includes(e?.code)) return;  // tabellen er ikke oprettet i Supabase endnu – valgene gemmes kun på enheden
+    skyTekst('Kunne ikke gemme på din bruger – valgene er gemt på denne enhed', true);
+  }
+}
+const gem = () => {
+  localStorage.setItem(GEM, JSON.stringify({ genereret: data.genereret, tid: Date.now(), valgteNavne: valgteNavne(), state }));
+  if (sb && bruger) { clearTimeout(skyTimer); skyTimer = setTimeout(gemSky, 1200); }
+};
+// Gendan gemte valg: behold kun det, der stadig passer til ugens retter
+function gendan(gemt) {
+  const s = { ...TOM, ...gemt.state };
+  const b = s.butik && data.butikker[s.butik];
+  if (!b) return { ...TOM, personer: s.personer };
+  if (!gemt.valgteNavne && gemt.genereret !== data.genereret) return { ...TOM, personer: s.personer };  // gammelt format
+  const navne = gemt.valgteNavne || {};
+  const gyldig = id => { const r = b.retter.find(x => x.id === id); return !!r && (!navne[id] || navne[id] === r.navn); };
+  s.valgte = (s.valgte || []).filter(gyldig);
+  s.plan = (s.plan || []).map(d => ({ ...d, ret: d.ret && gyldig(d.ret) ? d.ret : null }));
+  if (!s.valgte.length) return { ...TOM, personer: s.personer, butik: s.butik };
+  return s;
+}
 const B = () => data.butikker[state.butik];
 const ret = id => B().retter.find(r => r.id === id);
 const faktor = () => state.personer / 4;
@@ -319,9 +375,17 @@ async function start() {
     const r = await fetch('/retter.json', { cache: 'no-cache' });
     if (!r.ok) throw new Error(`retter.json HTTP ${r.status}`);
     data = await r.json();
-    // Nye ugeretter -> start forfra; ellers fortsæt hvor brugeren slap
-    const gemt = JSON.parse(localStorage.getItem(GEM) || 'null');
-    if (gemt?.genereret === data.genereret) state = { ...TOM, ...gemt.state };
+    // Fortsæt hvor brugeren slap: nyeste af det der er gemt på brugeren og på denne enhed
+    const lokal = JSON.parse(localStorage.getItem(GEM) || 'null');
+    let sky = null;
+    if (sb && bruger) {
+      try {
+        const { data: rk } = await sb.from(SKY).select('data, opdateret').eq('user_id', bruger.id).maybeSingle();
+        if (rk?.data) sky = { ...rk.data, tid: Date.parse(rk.opdateret) };
+      } catch (e) { /* tabellen findes måske ikke endnu – brug det lokale */ }
+    }
+    const kilde = [lokal, sky].filter(Boolean).sort((a, b) => (b.tid || 0) - (a.tid || 0))[0];
+    if (kilde) state = gendan(kilde);
     render();
   } catch (e) {
     vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e)}</div>`);
@@ -349,6 +413,12 @@ function render() {
     b.disabled = (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
   });
   visAviser();
+  document.querySelector('.slet-valg').hidden = !harValg();
+  const besked = document.getElementById('uge-besked');
+  const foerste = state.plan?.[0]?.dato;
+  const gammel = foerste && (Date.now() - new Date(foerste).getTime()) > 6 * 864e5;
+  besked.hidden = !gammel;
+  if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
   ({ retter: state.butik ? renderRetter : renderButikker, liste: renderListe, tilfoej: renderTilfoej,
      seddel: renderSeddel, plan: renderPlan })[state.trin]();
   gem();
@@ -823,7 +893,7 @@ function kopierListe() {
 
 // ---------- Hændelser ----------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.koekken) state.koekken = d.koekken;
@@ -847,8 +917,8 @@ document.addEventListener('click', e => {
   }
   else if (d.gaa) state.trin = d.gaa;
   else if (d.butik) state = { ...TOM, personer: state.personer, butik: d.butik };
-  else if ('skift' in d || 'forfra' in d) {
-    if ((state.valgte.length || state.handlet) && !confirm('Nulstil valgte retter, indkøbsliste og ugeplan?')) return;
+  else if ('skift' in d || 'forfra' in d || 'sletvalg' in d) {
+    if (harValg() && !confirm('Slet alle valgte retter, indkøbslisten og ugeplanen? Det kan ikke fortrydes.')) return;
     state = { ...TOM, personer: state.personer };
   }
   else if (d.personer) state.personer = Math.max(1, Math.min(12, state.personer + +d.personer));
