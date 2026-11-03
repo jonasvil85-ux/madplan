@@ -48,6 +48,10 @@ nav.trin button:disabled { opacity: .4; cursor: not-allowed; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
 .ret { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; cursor: pointer; transition: border-color .15s, transform .15s; position: relative; }
 .ret:hover { transform: translateY(-2px); }
+.bil { margin: -16px -16px 12px; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: linear-gradient(135deg, #1A2438, #0C1120); position: relative; display: grid; place-items: center; }
+.bil img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bil-ikon { font-size: 44px; opacity: .55; }
+.bil-maerke { position: absolute; left: 8px; bottom: 8px; font-size: 10px; letter-spacing: .03em; background: rgba(0,0,0,.55); color: #E5E7EB; padding: 2px 7px; border-radius: 6px; }
 .ret.valgt { border-color: var(--emerald); box-shadow: 0 0 0 1px var(--emerald) inset; }
 .ret.valgt::after { content: '✓'; position: absolute; top: 12px; right: 14px; background: var(--emerald); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 700; }
 .ret h3 { font-size: 16px; margin-bottom: 4px; padding-right: 30px; }
@@ -479,6 +483,7 @@ function renderRetter() {
       const restTil = restMap[r.id] || [];
       return `
         <div class="ret ${state.valgte.includes(r.id) ? 'valgt' : ''} ${restTil.length ? 'bruger-rest' : ''}" data-ret="${r.id}">
+          <div class="bil">${r.billede ? `<img src="${esc(r.billede)}" alt="Illustration af ${esc(r.navn)}" loading="lazy" width="720" height="540"><span class="bil-maerke">Illustration</span>` : `<span class="bil-ikon">${KOEKKENER[r.koekken]?.ikon || '🍽️'}</span>`}</div>
           ${restTil.length ? `<div class="restmaerke">♻ Bruger din rest: ${restTil.map(x => `ca. ${esc(maengde(x.behov, x.enhed, true))} ${esc(x.navn)}`).join(', ')}</div>` : ''}
           <h3>${esc(r.navn)}</h3>
           <p>${esc(r.beskrivelse)}</p>

@@ -49,6 +49,11 @@ python -I scripts/byg_retter.py                                # validerer og sk
 Findes en fejlkobling (fx andebryst som kyllingebryst), så ret regexen i `scripts/bibliotek_typer.py` (brug `(?<![a-zæøå])…(?![a-zæøå])` – `\b` virker ikke med æøå)
 eller `IKKE_MAD` i `udvid_retter.py`, og kør igen. Tynde aviser (Kvickly/SuperBrugsen/Lidl) når måske ikke 50 – kvalitet er vigtigere end antal.
 
+**Billeder (valgfrit trin, kun hvis miljøvariablen `CLOUDFLARE_API_TOKEN` findes):** Kør `python -I scripts/billeder.py` FØR `byg_retter.py`. Den laver et illustrationsbillede til hver ny ret
+(Cloudflare Workers AI, Flux Schnell, gratis daglig grænse), gemmer det i `billeder/` (ca. 60 KB pr. stk.) og springer retter over, der allerede har et. Når den daglige gratis grænse er nået, stopper den
+uden fejl – resten tages næste dag. Findes nøglen ikke (eller kan `api.cloudflare.com` ikke nås), så spring trinnet over; retter uden billede viser et køkkenikon. `byg_retter.py` sætter selv feltet `billede`.
+Husk at committe de nye filer i `billeder/`.
+
 `byg_retter.py` skal slutte uden linjen `FEJL:`. Ved FEJL skrives `retter.json` ikke. Ret retterne og kør igen. Gennemse ADVARSLER og REST-TIP,
 og ret de enkle (studentermad over loftet → niveau `familie`). Antal retter og køkkenfordeling står i udskriften pr. butik.
 

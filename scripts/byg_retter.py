@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tilbud import BUTIKKER, SNAPSHOT  # noqa: E402
+from billeder import slug  # noqa: E402
 
 ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FELTER = ['navn', 'maengde', 'enhed', 'basisvare', 'tilbud']
@@ -249,6 +250,9 @@ def main():
             andel = sum(1 for i in ikke_basis if i['tilbud']) / max(1, len(ikke_basis))
             if not behov:
                 fejl.append(f"{butik}: '{r['navn']}' har ingen tilbudsvarer")
+            billede = f"billeder/{slug(r['navn'])}.jpg"
+            if os.path.exists(os.path.join(ROD, billede)):
+                r = {**r, 'billede': billede}
             retter.append({**r, 'id': f'{butik}-{nr}', 'ingredienser': ingredienser,
                            'pris_tilbud': round(pris, 2), 'pris_oevrigt': round(oevrigt, 2),
                            'pris_i_alt': round(pris + oevrigt, 2), 'pris_forbrug': round(forbrug, 2),
