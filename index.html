@@ -113,6 +113,13 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .ret.bruger-rest { border-color: rgba(245,158,11,.55); }
 .chip.rest-chip { border-color: rgba(245,158,11,.6); color: var(--amber); }
 .chip.rest-chip.aktiv { background: rgba(245,158,11,.15); }
+.hero { position: relative; border-radius: var(--radius); overflow: hidden; height: 280px; margin-bottom: 20px; background: #0C1120; border: 1px solid var(--border); }
+.hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,17,32,.88) 0%, rgba(12,17,32,.55) 45%, rgba(12,17,32,0) 75%); }
+.hero-tekst { position: absolute; z-index: 1; left: 28px; top: 50%; transform: translateY(-50%); max-width: 520px; }
+.hero-tekst h2 { font-size: 30px; line-height: 1.15; margin-bottom: 10px; }
+.hero-tekst p { margin: 0; font-size: 16px; color: #E5E7EB; }
+@media (max-width: 700px) { .hero { height: 220px; } .hero-tekst { left: 18px; right: 18px; } .hero-tekst h2 { font-size: 22px; } .hero-tekst p { font-size: 14px; } }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -361,7 +368,15 @@ function renderButikker() {
   const orden = Object.keys(data.butikker).sort((a, b) =>
     (aktive.includes(b) - aktive.includes(a)) || samlet(a) - samlet(b));
 
-  vis(`<div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="butikker">
+  vis(`
+  <section class="hero">
+    <img class="hero-img" src="hero.jpg" alt="" onerror="this.onerror=null;this.src='hero.svg'">
+    <div class="hero-tekst">
+      <h2>Billig aftensmad ud fra ugens tilbud</h2>
+      <p>Sammenlign 8 butikker, vælg dine retter og få indkøbslisten – klar til at handle.</p>
+    </div>
+  </section>
+  <div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
       <button class="butikvalg ${k === vinder ? 'vinder' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
         ${k === vinder ? '<span class="billigst">💰 Billigst denne uge</span>' : ''}
