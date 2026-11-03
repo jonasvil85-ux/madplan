@@ -47,10 +47,13 @@ nav.trin button.slet-valg { background: transparent; border-color: var(--border)
 nav.trin button.slet-valg:hover { border-color: #f87171; color: #fca5a5; }
 .uge-besked { background: #2a2210; border: 1px solid #5c4a14; color: #F5D98B; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
 .uge-besked[hidden], nav.trin button[hidden] { display: none; }
-.gem-besked { background: rgba(16,185,129,.09); border: 1px solid rgba(16,185,129,.45); color: var(--text-2); padding: 14px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
-.gem-besked b { color: var(--text-1); display: block; margin-bottom: 2px; }
-.gem-besked .gem-knapper { display: flex; gap: 8px; flex-wrap: wrap; }
-.gem-besked[hidden] { display: none; }
+.plan-laast { text-align: center; padding: 36px 20px; }
+.plan-laast .laas-ikon { font-size: 40px; margin-bottom: 8px; }
+.plan-laast h2 { margin-bottom: 8px; }
+.plan-laast p { max-width: 520px; margin: 0 auto 16px; color: var(--text-2); }
+.laast-billeder { display: flex; justify-content: center; gap: 10px; margin: 6px 0 20px; flex-wrap: wrap; }
+.laast-billeder img { width: 110px; height: 82px; object-fit: cover; border-radius: 12px; filter: blur(5px) brightness(.8); }
+.plan-laast .gem-knapper { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
 .uge-besked button { background: transparent; border: 1px solid #8a6d1d; color: #F5D98B; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
 
 .filtre { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -234,7 +237,6 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
     <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden>🗑 Slet valg</button></span>
   </nav>
   <div id="uge-besked" class="uge-besked" hidden></div>
-  <div id="gem-besked" class="gem-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
   <footer class="fod">Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn. <a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
@@ -429,11 +431,6 @@ function render() {
   besked.hidden = !gammel;
   if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
   if (['liste', 'tilfoej', 'seddel', 'plan'].includes(state.trin)) standardValg();
-  const gemB = document.getElementById('gem-besked');
-  const visGem = !!sb && !bruger && !!harValg();
-  gemB.hidden = !visGem;
-  if (visGem) gemB.innerHTML = `<div><b>💾 Gem din madplan – helt gratis</b>Opret en gratis bruger, så du altid kan finde dine valgte retter, din indkøbsliste og din ugeplan igen i løbet af ugen – også på telefonen.</div>
-    <div class="gem-knapper"><button class="knap" data-aabn-login data-fane="opret">Opret gratis bruger</button><button class="knap sekundaer" data-aabn-login data-fane="ind">Log ind</button></div>`;
   ({ retter: state.butik ? renderRetter : renderButikker, liste: renderListe, tilfoej: renderTilfoej,
      seddel: renderSeddel, plan: renderPlan })[state.trin]();
   gem();
@@ -873,7 +870,25 @@ function lavPlan() {
   });
 }
 
+// Ugeplanen kræver en gratis bruger (hvis login er sat op): den gemmes på brugeren og kan ses igen hele ugen og på andre enheder
+function renderPlanLaast() {
+  const billeder = state.valgte.map(id => ret(id)?.billede).filter(Boolean).slice(0, 4);
+  vis(`<div class="panel plan-laast">
+    <div class="laas-ikon">🔒</div>
+    <h2>Din ugeplan er klar!</h2>
+    <p>Opret en gratis bruger (eller log ind) for at se din ugeplan med opskrifter og billeder.<br>Så kan du altid finde den igen i løbet af ugen – også på telefonen.</p>
+    ${billeder.length ? `<div class="laast-billeder">${billeder.map(b => `<img src="${esc(b)}" alt="" loading="lazy">`).join('')}</div>` : ''}
+    <div class="gem-knapper">
+      <button class="knap" data-aabn-login data-fane="opret" data-titel="Se din ugeplan – gratis">Opret gratis bruger</button>
+      <button class="knap sekundaer" data-aabn-login data-fane="ind">Log ind</button>
+    </div>
+    <p class="detalje">Det er gratis, og du kan slette dine valg, når en ny uge starter.</p>
+  </div>`);
+  bund(`<button class="knap sekundaer" data-forfra>Start forfra</button><span></span>`);
+}
+
 function renderPlan() {
+  if (sb && !bruger) return renderPlanLaast();
   vis(state.plan.map((dag, i) => {
     const d = new Date(dag.dato);
     const r = dag.ret && ret(dag.ret);
@@ -943,13 +958,7 @@ document.addEventListener('click', e => {
     sletSky();
   }
   else if (d.personer) state.personer = Math.max(1, Math.min(12, state.personer + +d.personer));
-  else if ('handlet' in d) {
-    state.handlet = true; lavPlan(); state.trin = 'plan';
-    if (sb && !bruger && !sessionStorage.getItem('gem-spoerg')) {
-      sessionStorage.setItem('gem-spoerg', '1');
-      setTimeout(() => visLogin('opret', '', { titel: 'Gem din madplan – gratis', tekst: 'Din ugeplan er klar! Opret en gratis bruger, så du altid kan finde den igen i løbet af ugen.' }), 500);
-    }
-  }
+  else if ('handlet' in d) { state.handlet = true; lavPlan(); state.trin = 'plan'; }
   else if ('kopier' in d) return kopierListe();
   // Bevar scroll-position når man blot klikker i en liste
   const y = window.scrollY;
