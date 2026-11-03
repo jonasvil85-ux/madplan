@@ -109,6 +109,10 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .rest { font-size: 12px; color: var(--amber); margin-top: 4px; line-height: 1.8; }
 .chip.lille { padding: 2px 9px; font-size: 12px; }
 .fod { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); line-height: 1.6; }
+.restmaerke { font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 8px; }
+.ret.bruger-rest { border-color: rgba(245,158,11,.55); }
+.chip.rest-chip { border-color: rgba(245,158,11,.6); color: var(--amber); }
+.chip.rest-chip.aktiv { background: rgba(245,158,11,.15); }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -218,7 +222,7 @@ const NIVEAUER = {
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
-const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', valgte: [], butik: null, personer: 4,
+const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', kunRest: false, valgte: [], butik: null, personer: 4,
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
@@ -393,15 +397,36 @@ function renderButikker() {
   bund('');
 }
 
+// Ikke-valgte retter der kan bruge resten af en pakke, som de valgte retter allerede har købt
+// -> { retId: [{ navn, behov, enhed }] } (behov = det retten skal bruge, i g/ml/stk)
+function restMatch() {
+  const map = {};
+  if (!state.valgte.length) return map;
+  for (const v of byggListe().tilbud) {
+    const r = restAf(v);
+    if (!r) continue;
+    for (const kandidat of B().retter.filter(x => !state.valgte.includes(x.id))) {
+      const ings = kandidat.ingredienser.filter(i => butiksTilbud(i)[0] === v.key && i.enhed === r.enhed);
+      const behov = ings.reduce((sum, i) => sum + i.maengde * faktor(), 0);
+      if (behov && behov <= r.rest * 1.15) (map[kandidat.id] = map[kandidat.id] || []).push({ navn: v.ingNavn, behov, enhed: r.enhed, rest: r.rest, v });
+    }
+  }
+  return map;
+}
+const FRYS = ['Kød & fjerkræ', 'Fisk & skaldyr'];
+
 function renderRetter() {
   const retter = B().retter;
+  const restMap = restMatch();
+  const antalRest = Object.keys(restMap).length;
+  if (!antalRest) state.kunRest = false;
   const orden = Object.keys(NIVEAUER);
   const iNiveau = retter
     .filter(r => state.niveau === 'alle' || r.niveau === state.niveau)
     .sort((a, b) => orden.indexOf(a.niveau) - orden.indexOf(b.niveau) || prisIAlt(a) - prisIAlt(b));
   const kat = ['alle', ...Object.keys(KATEGORIER).filter(k => iNiveau.some(r => r.kategori === k))];
   if (!kat.includes(state.filter)) state.filter = 'alle';
-  const synlige = iNiveau.filter(r => state.filter === 'alle' || r.kategori === state.filter);
+  const synlige = iNiveau.filter(r => (state.filter === 'alle' || r.kategori === state.filter) && (!state.kunRest || restMap[r.id]));
   const antal = n => retter.filter(r => n === 'alle' || r.niveau === n).length;
 
   vis(`
@@ -417,11 +442,14 @@ function renderRetter() {
           <span class="ikon">${n.ikon}</span><strong>${n.navn}</strong><small>${n.tekst} · ${antal(k)} retter</small>
         </button>`).join('')}
     </div>
-    <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle typer' : KATEGORIER[k]}</button>`).join('')}</div>
+    <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle typer' : KATEGORIER[k]}</button>`).join('')}
+      ${antalRest ? `<button class="chip rest-chip ${state.kunRest ? 'aktiv' : ''}" data-kunrest>♻ Bruger min rest (${antalRest})</button>` : ''}</div>
     <div class="grid">${synlige.map(r => {
       const tilbudsvarer = r.ingredienser.filter(i => butiksTilbud(i).length);
+      const restTil = restMap[r.id] || [];
       return `
-        <div class="ret ${state.valgte.includes(r.id) ? 'valgt' : ''}" data-ret="${r.id}">
+        <div class="ret ${state.valgte.includes(r.id) ? 'valgt' : ''} ${restTil.length ? 'bruger-rest' : ''}" data-ret="${r.id}">
+          ${restTil.length ? `<div class="restmaerke">♻ Bruger din rest: ${restTil.map(x => `ca. ${esc(maengde(x.behov, x.enhed, true))} ${esc(x.navn)}`).join(', ')}</div>` : ''}
           <h3>${esc(r.navn)}</h3>
           <p>${esc(r.beskrivelse)}</p>
           <div class="meta">
@@ -483,7 +511,8 @@ function restAf(v) {
   const [grund, gange] = OMREGN[e];
   const pakke = str * (OMREGN[v.tilbud.enhed]?.[1] || 1);
   const rest = v.antal * pakke - v.behov[e];
-  return rest >= pakke * 0.15 ? { rest, enhed: grund, pakke } : null;
+  // Kun rester der betyder noget: mindst 15 % af en pakke og mindst 8 kr værd (ellers støjer tomatpuré og lign.)
+  return rest >= pakke * 0.15 && v.tilbud.pris * (rest / pakke) >= 8 ? { rest, enhed: grund, pakke } : null;
 }
 
 // Ikke-valgte retter der kan bruge resten af en pakke (samme tilbudsvare, behov højst resten + 15 %)
@@ -502,7 +531,8 @@ function restTekst(v) {
   const r = restAf(v);
   if (!r) return '';
   const forslag = retterTilRest(v, r);
-  return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${forslag.length
+  const frys = FRYS.includes(varegruppe(v.ingNavn)) ? ' · <b>frys resten</b>, hvis den ikke bruges inden for 1-2 dage' : '';
+  return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${frys}${forslag.length
     ? ` · brug den i: ${forslag.map(f => `<button class="chip lille" data-ret="${esc(f.r.id)}" title="Bruger ca. ${esc(maengde(f.behov, r.enhed, true))}">+ ${esc(f.r.navn)}</button>`).join(' ')}`
     : ''}</div>`;
 }
@@ -740,10 +770,11 @@ function kopierListe() {
 
 // ---------- Hændelser ----------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online]');
+  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest]');
   if (!t || t.disabled) return;
   const d = t.dataset;
-  if (d.onlineTil) state.online = d.onlineTil === '1';
+  if ('kunrest' in d) state.kunRest = !state.kunRest;
+  else if (d.onlineTil) state.online = d.onlineTil === '1';
   else if (d.online) { state.koebt[d.online] = true; setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 0); return; }
   else if (d.alle) { listeLinjer()[d.alle].forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
   else if (d.katalog) {

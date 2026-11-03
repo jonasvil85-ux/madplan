@@ -171,6 +171,7 @@ def udfold(r, bibliotek, fejl, butik):
 
 
 advarsler = []
+rest_tips = []
 # Udskiftninger der betyder det samme, så der ikke advares (gammelt ord, ord i det nye navn)
 SYNONYMER = [('smør', 'kærgården'), ('smør', 'smør'), ('græskar', 'hokkaido'), ('burger', 'oksekød'),
              ('hakkede', 'tomater'), ('madlavningsjævner', 'madlavningsjævner')]
@@ -237,6 +238,27 @@ def main():
                            'pris_tilbud': round(pris, 2), 'pris_oevrigt': round(oevrigt, 2),
                            'pris_i_alt': round(pris + oevrigt, 2), 'pris_forbrug': round(forbrug, 2),
                            'andel_tilbud': round(andel, 2)})
+        # Rest-tip: store pakker (efter 4 personers behov bliver >=30 % tilbage) som kun få retter bruger,
+        # så brugeren ikke kan bruge resten i en anden ret
+        brug = {}
+        for r in retter:
+            for i in r['ingredienser']:
+                if i['tilbud'][:1] and not i['basisvare']:
+                    o = alle[i['tilbud'][0]]
+                    try:
+                        dele = [float(x) for x in str(o.get('maengde') or '').split('-')]
+                    except ValueError:
+                        continue
+                    grund, gange = OMREGN.get(o.get('enhed'), (None, None))
+                    if grund and OMREGN.get(i['enhed'], (None,))[0] == grund and (sum(dele) / len(dele)):
+                        pakke = sum(dele) / len(dele) * gange * (o.get('stk') or 1)
+                        brug.setdefault(i['tilbud'][0], {'pakke': pakke, 'enhed': grund, 'retter': []})['retter'].append(
+                            (r['navn'], i['maengde'] * OMREGN[i['enhed']][1]))
+        for k, v in brug.items():
+            stoerste = max(m for _, m in v['retter'])
+            if v['pakke'] - stoerste >= 0.3 * v['pakke'] and len(v['retter']) < 2 and alle[k]['pris'] >= 30:
+                rest_tips.append(f"{info['navn']}: {alle[k]['navn'][:40]} ({alle[k]['pris']:g} kr, {v['pakke']:g} {v['enhed']}) bruges kun af '{v['retter'][0][0]}' ({v['retter'][0][1]:g} {v['enhed']}) – resten kan ikke bruges")
+
         # Ugens 3 bedste tilbud ("værd at køre efter") – vælges i hånden i butikkens fil
         top = []
         for t in kilder[butik].get('top', []):
@@ -256,6 +278,8 @@ def main():
             for r in rr:
                 print(f"    {r['pris_i_alt']:7.2f} kr (tilbud {r['pris_tilbud']:6.2f})  {round(r['andel_tilbud'] * 100):3d}% tilbud  {r['navn']}")
 
+    if rest_tips:
+        print(f'\nREST-TIP ({len(rest_tips)}): store tilbudspakker, hvor resten ikke kan bruges i en anden ret – tilføj en ret mere:\n- ' + '\n- '.join(rest_tips))
     if advarsler:
         print('\nADVARSLER:\n- ' + '\n- '.join(advarsler))
     if fejl:
