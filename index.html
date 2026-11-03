@@ -48,7 +48,19 @@ header.top h1 { font-size: 24px; font-weight: 700; }
 header.top h1.maerke { display: flex; align-items: center; gap: 10px; font-size: 26px; font-weight: 800; letter-spacing: -.02em; color: var(--text-1); }
 header.top h1.maerke .logo-navn { color: var(--text-1); }
 .logo-symbol { width: 40px; height: 40px; color: var(--accent); flex: none; }
-@media (max-width: 480px) { header.top h1.maerke { font-size: 22px; } .logo-symbol { width: 34px; height: 34px; } }
+/* Mobil: logo til venstre, Log ind / Opret bruger lille i højre hjørne, ugens periode under */
+@media (max-width: 700px) {
+  header.top { gap: 4px 10px; margin-bottom: 14px; }
+  header.top .topinfo { display: contents; }
+  header.top h1.maerke { order: 1; flex: 0 1 auto; min-width: 0; font-size: 19px; gap: 7px; }
+  .logo-symbol { width: 28px; height: 28px; }
+  header.top .bruger { order: 2; margin-left: auto; gap: 6px; font-size: 12px; }
+  header.top .bruger .chip { padding: 4px 9px; font-size: 12px; white-space: nowrap; }
+  header.top .bruger > span { max-width: 26vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  header.top .aviser { order: 3; flex-basis: 100%; font-size: 12px; }
+}
+@media (max-width: 400px) { .kun-bred { display: none; } }
+@media (min-width: 481px) and (max-width: 700px) { .logo-symbol { width: 32px; height: 32px; } }
 header.top h1 span { color: var(--accent); }
 .aviser { font-size: 13px; color: var(--text-3); }
 

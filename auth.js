@@ -41,7 +41,7 @@ function visBruger() {
   if (!el) return;
   el.innerHTML = bruger
     ? `<span>${esc(bruger.email)}</span> <button class="chip" id="logud">Log ud</button>`
-    : `<button class="chip" data-aabn-login data-fane="ind">Log ind</button> <button class="chip aktiv" data-aabn-login data-fane="opret">Opret gratis bruger</button>`;
+    : `<button class="chip" data-aabn-login data-fane="ind">Log ind</button> <button class="chip aktiv" data-aabn-login data-fane="opret">Opret<span class="kun-bred"> gratis</span> bruger</button>`;
 }
 
 // ---------- Login-vindue (åbnes når man vil gemme, eller via knapperne i toppen) ----------

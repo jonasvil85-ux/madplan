@@ -16,6 +16,12 @@
     background: #C9561E; color: #fff; font-size: 24px; box-shadow: 0 6px 20px rgba(0,0,0,.45); }
   #fb-knap:hover { filter: brightness(1.1); }
   body.har-bund #fb-knap { bottom: 86px; }
+  @media (max-width: 700px) {
+    #fb-knap { width: 46px; height: 46px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+    #fb-knap svg { width: 22px; height: 22px; }
+    body.har-bund #fb-knap { bottom: 78px; }
+    #fb-panel { right: 10px; bottom: 64px; }
+  }
   #fb-panel { position: fixed; right: 18px; bottom: 84px; z-index: 61; width: min(360px, calc(100vw - 24px)); max-height: min(520px, calc(100vh - 110px));
     display: none; flex-direction: column; background: #1F1813; border: 1px solid #3A2D22; border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.55); overflow: hidden; }
   #fb-panel.aaben { display: flex; }
