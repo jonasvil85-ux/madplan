@@ -40,9 +40,9 @@
   document.head.appendChild(Object.assign(document.createElement('style'), { textContent: css }));
 
   const html = `
-    <button id="fb-knap" type="button" aria-label="Giv feedback" title="Giv feedback">💬</button>
+    <button id="fb-knap" type="button" aria-label="Giv feedback" title="Giv feedback"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/></svg></button>
     <div id="fb-panel" role="dialog" aria-label="Feedback">
-      <div id="fb-top"><span>💬 Hjælp os med at blive bedre</span><button type="button" id="fb-luk" aria-label="Luk">×</button></div>
+      <div id="fb-top"><span>Hjælp os med at blive bedre</span><button type="button" id="fb-luk" aria-label="Luk">×</button></div>
       <div id="fb-log"></div>
       <form id="fb-form" autocomplete="off">
         <input class="fb-hp" id="fb-hp" tabindex="-1" aria-hidden="true" placeholder="Lad stå tom">
@@ -89,7 +89,7 @@
     $('fb-log').innerHTML = '';
     trin = 'start'; valg = null; besked = '';
     visFelt(false);
-    boble('Hej! 👋 Har du set en mærkelig opskrift, en forkert vare på listen eller noget andet, der kan blive bedre? Fortæl os det – vi læser alt og forsøger at gøre siden bedre.');
+    boble('Hej! Har du set en mærkelig opskrift, en forkert vare på listen eller noget andet, der kan blive bedre? Fortæl os det – vi læser alt og forsøger at gøre siden bedre.');
     boble('Hvad drejer det sig om?');
     valgknapper(TYPER, t => {
       valg = t;
@@ -125,7 +125,7 @@
   async function send(email) {
     $('fb-send').disabled = true;
     visFelt(false);
-    if ($('fb-hp').value) { boble('Tak for dit input! 💚'); trin = 'faerdig'; return; }  // bot-fælde
+    if ($('fb-hp').value) { boble('Tak for dit input!'); trin = 'faerdig'; return; }  // bot-fælde
     if (!tilladt()) { boble('Du har sendt mange beskeder på kort tid – prøv igen om lidt. Tak for din tålmodighed!'); trin = 'faerdig'; return; }
     try {
       if (!AUTH?.url || !AUTH?.anonKey) throw new Error('ingen forbindelse sat op');
@@ -136,7 +136,7 @@
       });
       if (!svar.ok) throw new Error('HTTP ' + svar.status);
       husk();
-      boble('Tak for dit input! 💚 Vi vil forsøge at implementere det. Jo mere konkret du var (hvilken ret, butik og vare), jo nemmere er det for os at rette.');
+      boble('Tak for dit input! Vi vil forsøge at implementere det. Jo mere konkret du var (hvilken ret, butik og vare), jo nemmere er det for os at rette.');
       boble('Har du mere på hjerte?');
       valgknapper(['Send en ny besked', 'Luk'], t => t === 'Luk' ? luk() : start());
     } catch (e) {
