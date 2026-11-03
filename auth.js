@@ -58,7 +58,7 @@ function visLogin(fane = 'ind', besked = '') {
   document.getElementById('indhold').innerHTML = `
     <div class="login-boks">
       <h2>${titel}</h2>
-      <p class="detalje">Madplan ud fra ugens tilbudsaviser – log ind for at komme i gang.</p>
+      <p class="detalje">Måltidsjagten – hjemmelavet mad ud fra ugens tilbud. Log ind for at komme i gang.</p>
       ${fane !== 'nyt' ? `<div class="login-faner">
         <button class="chip ${fane === 'ind' ? 'aktiv' : ''}" data-login-fane="ind">Log ind</button>
         <button class="chip ${fane === 'opret' ? 'aktiv' : ''}" data-login-fane="opret">Opret bruger</button>

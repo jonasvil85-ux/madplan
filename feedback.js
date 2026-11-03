@@ -7,7 +7,7 @@
     'Mærkelig opskrift': 'Hvilken ret er det, og hvad virker mærkeligt? (fx en ingrediens der ikke passer, forkert mængde eller noget der ikke er hjemmelavet)',
     'Forkert vare på listen': 'Hvilken vare er forkert, og hvad skulle det have været? (fx kylling i stedet for and, eller et tilbud der ikke passer til retten)',
     'Forkert pris eller tilbud': 'Hvilken butik og vare drejer det sig om, og hvad er forkert?',
-    'Forslag til forbedring': 'Fortæl os gerne, hvad der ville gøre Madplan bedre for dig.',
+    'Forslag til forbedring': 'Fortæl os gerne, hvad der ville gøre Måltidsjagten bedre for dig.',
     'Andet': 'Hvad vil du gerne fortælle os?',
   };
 
