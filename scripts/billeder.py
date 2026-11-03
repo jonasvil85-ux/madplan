@@ -14,8 +14,8 @@ ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAPPE = os.path.join(ROD, 'billeder')
 KONTO = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '38253a60db8406866eb2a255247002d5')
 MODEL = '@cf/black-forest-labs/flux-1-schnell'
-STIL = ('Appetizing food photography of homemade Danish home cooking, served on a plate, natural daylight, '
-        'rustic table, realistic, high detail, no text')
+# Stilen er neutral: beskrivelsen af retten angiver selv kar, tilbehør og køkken (fad, tallerken, skål, dansk, asiatisk …)
+STIL = 'Appetizing food photography, freshly cooked homemade dish, natural daylight, rustic table, realistic, high detail, no text'
 BESKRIVELSER = os.path.join(ROD, 'scripts', 'billedprompts.json')  # {rettens navn: engelsk beskrivelse af den færdige ret}
 
 
