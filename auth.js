@@ -59,7 +59,7 @@ function sikrLoginVindue() {
     #login-vindue .login-fordele { margin: 8px 0 4px; padding-left: 18px; font-size: 14px; color: var(--text-2, #D4D4D4); }
     #login-vindue .login-fordele li { margin: 3px 0; }
     #login-vindue .login-fod { margin-top: 12px; font-size: 12px; color: var(--text-3, #A0A0A0); }
-    #login-vindue .login-fod a { color: var(--emerald, #10B981); }`;
+    #login-vindue .login-fod a { color: var(--accent, #E8743B); }`;
   document.head.appendChild(st);
   const v = document.createElement('div');
   v.id = 'login-vindue';
