@@ -45,14 +45,20 @@ def fmt(v):
     return str(int(v)) if float(v).is_integer() else str(v)
 
 
-def hent_butik(key):
+def find_aviser(key):
+    """De ugeaviser der gælder nu for butikken (eller den næste der starter) – uden at hente selve tilbuddene."""
     b = BUTIKKER[key]
     nu = datetime.now(timezone.utc)
     kat = [c for c in hent(f"{API}/catalogs?dealer_ids={b['dealerId']}&limit=24")
            if c['offer_count'] > 0 and UGEAVIS.search(c.get('label') or '')
            and not IKKE_MAD.search(c.get('label') or '') and tid(c['run_till']) >= nu]
     # Foretræk avisen der gælder nu; ellers den næste der starter
-    aviser = [c for c in kat if tid(c['run_from']) <= nu] or sorted(kat, key=lambda c: tid(c['run_from']))[:1]
+    return [c for c in kat if tid(c['run_from']) <= nu] or sorted(kat, key=lambda c: tid(c['run_from']))[:1]
+
+
+def hent_butik(key):
+    b = BUTIKKER[key]
+    aviser = find_aviser(key)
     tilbud = []
     for avis in aviser:
         for offset in range(0, 1500, 100):
