@@ -37,10 +37,8 @@
           ]
         },
         "mælk": {
-          "navn": "Arla Lactofree mælk",
-          "tilbud": [
-            "B103"
-          ]
+          "navn": "mælk",
+          "tilbud": []
         }
       }
     },
@@ -72,10 +70,8 @@
           ]
         },
         "mælk": {
-          "navn": "Arla Lactofree mælk",
-          "tilbud": [
-            "B103"
-          ]
+          "navn": "mælk",
+          "tilbud": []
         }
       }
     },
@@ -113,16 +109,8 @@
           ]
         },
         "skyr": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
-        },
-        "Kærgården": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         }
       },
       "erstat": {
@@ -146,10 +134,8 @@
           ]
         },
         "mælk": {
-          "navn": "Arla Lactofree mælk",
-          "tilbud": [
-            "B103"
-          ]
+          "navn": "mælk",
+          "tilbud": []
         }
       }
     },
@@ -189,22 +175,18 @@
           ]
         ],
         [
-          "Arla Lactofree mælk",
+          "mælk",
           400,
           "ml",
           0,
-          [
-            "B103"
-          ]
+          []
         ],
         [
-          "Arla smør",
+          "smør",
           30,
           "g",
           0,
-          [
-            "B208"
-          ]
+          []
         ],
         [
           "hvedemel",
@@ -327,21 +309,13 @@
           ]
         },
         "græsk yoghurt": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         },
         "Schulstad Signaturbrød": {
           "navn": "XXL brød eller baguette",
           "tilbud": [
             "B197"
-          ]
-        },
-        "Naturli' smør (plantebaseret)": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
           ]
         }
       },
@@ -369,12 +343,6 @@
           "navn": "Dava frilandsæg",
           "tilbud": [
             "B36"
-          ]
-        },
-        "Kærgården": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
           ]
         }
       }
@@ -497,16 +465,12 @@
           ]
         },
         "skyr": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         },
         "mælk": {
-          "navn": "Arla Lactofree mælk",
-          "tilbud": [
-            "B103"
-          ]
+          "navn": "mælk",
+          "tilbud": []
         }
       },
       "erstat": {
@@ -531,12 +495,6 @@
             "B126"
           ]
         },
-        "Kærgården": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
-        },
         "hvidkål": {
           "navn": "danske gulerødder",
           "tilbud": [
@@ -550,16 +508,12 @@
           ]
         },
         "skyr": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         },
         "mælk": {
-          "navn": "Arla Lactofree mælk",
-          "tilbud": [
-            "B103"
-          ]
+          "navn": "mælk",
+          "tilbud": []
         }
       },
       "erstat": {
@@ -621,10 +575,8 @@
           ]
         },
         "skyr": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         }
       },
       "erstat": {
@@ -675,10 +627,8 @@
           ]
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         }
       }
     },
@@ -699,16 +649,12 @@
           ]
         },
         "creme fraiche": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         }
       },
       "erstat": {
@@ -738,16 +684,12 @@
           ]
         },
         "creme fraiche": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         }
       },
       "erstat": {
@@ -784,12 +726,6 @@
           "navn": "danske kartofler",
           "tilbud": [
             "B126"
-          ]
-        },
-        "Kærgården": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
           ]
         }
       }
@@ -833,10 +769,8 @@
           ]
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         }
       }
     },
@@ -926,13 +860,11 @@
           ]
         ],
         [
-          "Arla smør (kold)",
+          "smør (kold)",
           100,
           "g",
           0,
-          [
-            "B208"
-          ]
+          []
         ],
         [
           "hvedemel",
@@ -980,10 +912,8 @@
           ]
         },
         "skyr": {
-          "navn": "Arla yoghurt naturel",
-          "tilbud": [
-            "B209"
-          ]
+          "navn": "yoghurt naturel",
+          "tilbud": []
         }
       },
       "erstat": {
@@ -1007,10 +937,8 @@
           ]
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         },
         "økologiske æg (blommer)": {
           "navn": "Dava frilandsæg (blommer)",
@@ -1052,10 +980,8 @@
           ]
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         }
       }
     },
@@ -1081,10 +1007,8 @@
           ]
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         },
         "madlavningsfløde": {
           "navn": "Karolines Køkken piskefløde",
@@ -1145,10 +1069,8 @@
           ]
         },
         "økologisk smør": {
-          "navn": "Arla smør",
-          "tilbud": [
-            "B208"
-          ]
+          "navn": "smør",
+          "tilbud": []
         },
         "madlavningsfløde": {
           "navn": "Karolines Køkken piskefløde",
@@ -1238,13 +1160,11 @@
           ]
         ],
         [
-          "Arla smør",
+          "smør",
           60,
           "g",
           0,
-          [
-            "B208"
-          ]
+          []
         ],
         [
           "Karolines Køkken piskefløde",

@@ -30,7 +30,7 @@ NIVEAUER = {'student', 'familie', 'weekend'}
 FORARBEJDET = re.compile(r'flødekartofler|herregårds|kødboller|melboller|panering|paneret|eriks sauce|færdigret|middagsret|'
                          r'dinner kit|pizzadej|pesto|pastasauce|kopsuppe|snackpot|ristorante|rustica|surdejspizza|'
                          r'italiensk pizza|æbleskiver|kyllingemarked|kebab|confit|smørrebrød|menu|mortensaften|'
-                         r'frikadeller|lasagne|nuggets|cordon|wok-?mix|færdig|brunede kartofler|kartoffelgratin|kålsalat|'
+                         r'frikadeller|lasagne|nuggets|cordon|wok-?mix|færdig|lactofree|laktosefri|smørbar|naturli|margarine|^kærgården|brunede kartofler|kartoffelgratin|kålsalat|'
                          r'andesauce|risalamande|forårsruller|spring rolls|fyldt pasta|pizzatopping|grande pizza|'
                          r'tex mex|indbagt|minifrikadeller|kebabbrød|toast|wienerbrød|tærte', re.I)
 OMREGN = {'g': ('g', 1), 'kg': ('g', 1000), 'ml': ('ml', 1), 'cl': ('ml', 10), 'l': ('ml', 1000), 'stk': ('stk', 1)}

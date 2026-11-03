@@ -495,7 +495,7 @@ const NETBUTIKKER = {
   bilka: { navn: 'Bilka To Go', url: q => `https://www.bilkatogo.dk/s/?query=${encodeURIComponent(q)}` },
 };
 // Kort, søgbart navn: "Danske kartofler" / "Oscar fersk andebryst" – uden "eller …", mængder og parenteser
-const soegeord = navn => navn.split(/ eller |,| – | - /i)[0].replace(/\(.*?\)/g, '').replace(/\s(marked|storkøb|xxl)/gi, '').replace(/\d+([,.]\d+)?\s*(%|g|kg|ml|l|stk)\b/gi, '').trim();
+const soegeord = navn => navn.split(/ eller |,| – | - /i)[0].replace(/\(.*?\)/g, '').replace(/\s(marked|storkøb|xxl)/gi, '').replace(/\d+([,.]\d+)?(-\d+([,.]\d+)?)?\s*(%|g|kg|ml|l|stk)\b/gi, '').trim();
 
 // Samlet pris for en række linjer: tilbudsvarer (faktisk pris) + skøn for resten
 function prisSum(linjer) {
