@@ -78,6 +78,23 @@ def enhedspris(t):
     return f"{pris:.2f}".replace('.', ',') + f" kr/{label}"
 
 
+STUDENT_LOFT_PR_PERSON = 35  # kr pr. person (indkøb) – Studentermad over dette giver en advarsel
+
+
+def forbrugs_andel(t, behov):
+    """Hvor stor en del af EN pakke retten bruger (0-1+). Bruges til forbrugspris = det retten reelt bruger."""
+    try:
+        dele = [float(x) for x in str(t.get('maengde') or '').split('-')]
+        stoerrelse = sum(dele) / len(dele)
+    except ValueError:
+        return float(antal_pakker(t, behov))
+    enhed, gange = OMREGN.get(t.get('enhed'), (None, None))
+    andele = [behov.get('dåse', 0) + behov.get('pakke', 0)]
+    if stoerrelse and enhed and behov.get(enhed):
+        andele.append(behov[enhed] / (stoerrelse * gange))
+    return max(max(andele), 0.05)
+
+
 def antal_pakker(t, behov):
     """Samme logik som antalPakker() i index.html."""
     try:
@@ -210,12 +227,16 @@ def main():
             pris = sum(alle[t]['pris'] * antal_pakker(alle[t], bh) for t, bh in behov.items())
             ikke_basis = [i for i in ingredienser if not i['basisvare']]
             oevrigt = sum(i['maengde'] * normalpris(i) for i in ikke_basis if not i['tilbud'])
+            forbrug = sum(alle[t]['pris'] * forbrugs_andel(alle[t], bh) for t, bh in behov.items()) + oevrigt
+            if r['niveau'] == 'student' and (pris + oevrigt) / 4 > STUDENT_LOFT_PR_PERSON:
+                advarsler.append(f"{butik}: Studentermad '{r['navn']}' koster ca. {round((pris + oevrigt) / 4)} kr/pers. (loft {STUDENT_LOFT_PR_PERSON}) – gør den billigere eller flyt til Familiemad")
             andel = sum(1 for i in ikke_basis if i['tilbud']) / max(1, len(ikke_basis))
             if not behov:
                 fejl.append(f"{butik}: '{r['navn']}' har ingen tilbudsvarer")
             retter.append({**r, 'id': f'{butik}-{nr}', 'ingredienser': ingredienser,
                            'pris_tilbud': round(pris, 2), 'pris_oevrigt': round(oevrigt, 2),
-                           'pris_i_alt': round(pris + oevrigt, 2), 'andel_tilbud': round(andel, 2)})
+                           'pris_i_alt': round(pris + oevrigt, 2), 'pris_forbrug': round(forbrug, 2),
+                           'andel_tilbud': round(andel, 2)})
         # Ugens 3 bedste tilbud ("værd at køre efter") – vælges i hånden i butikkens fil
         top = []
         for t in kilder[butik].get('top', []):
@@ -236,7 +257,7 @@ def main():
                 print(f"    {r['pris_i_alt']:7.2f} kr (tilbud {r['pris_tilbud']:6.2f})  {round(r['andel_tilbud'] * 100):3d}% tilbud  {r['navn']}")
 
     if advarsler:
-        print('\nADVARSLER (opskriftstekst passer ikke til ingredienserne):\n- ' + '\n- '.join(advarsler))
+        print('\nADVARSLER:\n- ' + '\n- '.join(advarsler))
     if fejl:
         print('\nFEJL:\n- ' + '\n- '.join(fejl))
         sys.exit(1)

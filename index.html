@@ -106,6 +106,9 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .online-boks { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-color: rgba(0,174,239,.4); }
 .online-boks.aktiv { flex-direction: column; align-items: flex-start; background: rgba(0,174,239,.08); }
 .knap.lille { padding: 6px 12px; font-size: 13px; text-decoration: none; white-space: nowrap; background: #00aeef; }
+.rest { font-size: 12px; color: var(--amber); margin-top: 4px; line-height: 1.8; }
+.chip.lille { padding: 2px 9px; font-size: 12px; }
+.fod { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); line-height: 1.6; }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -196,6 +199,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
   </nav>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
+  <footer class="fod">Madplan er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</footer>
 </div>
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
@@ -424,7 +428,8 @@ function renderRetter() {
             <span class="tag">${NIVEAUER[r.niveau].ikon} ${NIVEAUER[r.niveau].navn}</span>
             <span class="tag">${KATEGORIER[r.kategori]}</span>
             <span class="tag">${r.tid_minutter} min</span>
-            <span class="tag pris" title="Tilbudsvarer ${kr(Math.round(r.pris_tilbud))} (hele pakker) + skøn for øvrige varer · 4 personer">ca. ${kr(Math.round(prisIAlt(r)))} · ${kr(Math.round(prisIAlt(r) / 4))}/pers.</span>
+            <span class="tag pris" title="Indkøb = hele pakker (tilbud ${kr(Math.round(r.pris_tilbud))}) + skøn for øvrige varer. Forbrug = kun det retten bruger. 4 personer.">Indkøb ca. ${kr(Math.round(prisIAlt(r)))} · ${kr(Math.round(prisIAlt(r) / 4))}/pers.</span>
+            ${r.pris_forbrug ? `<span class="tag">Forbrug ca. ${kr(Math.round(r.pris_forbrug))}</span>` : ''}
             <span class="tag ${state.butik}">${tilbudsvarer.length} varer på tilbud</span>
             ${r.spis_tidligt ? '<span class="tag frisk">Spis tidligt</span>' : ''}
           </div>
@@ -467,15 +472,47 @@ function byggListe() {
   return { tilbud: [...tilbud.values()], oevrige: [...oevrige.values()], basis: [...basis.entries()] };
 }
 
+// Hvad er der tilbage af pakkerne, når alle valgte retter er dækket? (i g, ml eller stk)
+function restAf(v) {
+  const dele = String(v.tilbud.maengde || '').split('-').map(parseFloat);
+  const str = dele.reduce((a, b) => a + b, 0) / dele.length;
+  // Kun når behovet og pakken er i samme slags enhed (g/ml/stk) – ellers kan de ikke trækkes fra hinanden
+  const pakkeGrund = OMREGN[v.tilbud.enhed]?.[0];
+  const e = Object.keys(v.behov).find(k => OMREGN[k] && OMREGN[k][0] === pakkeGrund);
+  if (!str || !e) return null;
+  const [grund, gange] = OMREGN[e];
+  const pakke = str * (OMREGN[v.tilbud.enhed]?.[1] || 1);
+  const rest = v.antal * pakke - v.behov[e];
+  return rest >= pakke * 0.15 ? { rest, enhed: grund, pakke } : null;
+}
+
+// Ikke-valgte retter der kan bruge resten af en pakke (samme tilbudsvare, behov højst resten + 15 %)
+function retterTilRest(v, rest) {
+  return B().retter.filter(r => !state.valgte.includes(r.id)).map(r => {
+    const ings = r.ingredienser.filter(i => butiksTilbud(i)[0] === v.key && i.enhed === rest.enhed);
+    const behov = ings.reduce((s, i) => s + i.maengde * faktor(), 0);
+    return behov && behov <= rest.rest * 1.15 ? { r, behov } : null;
+  }).filter(Boolean).sort((a, b) => b.behov - a.behov).slice(0, 3);
+}
+
 const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${v.tilbud.navn}`;
 
 // Alle linjer på indkøbslisten med nøgle, tekst og varegruppe – bruges af både listen og sedlen
+function restTekst(v) {
+  const r = restAf(v);
+  if (!r) return '';
+  const forslag = retterTilRest(v, r);
+  return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${forslag.length
+    ? ` · brug den i: ${forslag.map(f => `<button class="chip lille" data-ret="${esc(f.r.id)}" title="Bruger ca. ${esc(maengde(f.behov, r.enhed, true))}">+ ${esc(f.r.navn)}</button>`).join(' ')}`
+    : ''}</div>`;
+}
+
 function listeLinjer() {
   const l = byggListe();
   return {
     tilbud: l.tilbud.map(v => ({
       key: 't|' + v.key, navn: tilbudsNavn(v), gruppe: varegruppe(v.ingNavn), pris: v.pris, billede: v.tilbud.billede,
-      soeg: soegeord(v.tilbud.navn),
+      soeg: soegeord(v.tilbud.navn), restHtml: restTekst(v),
       detalje: `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}${v.brug.length > 1 ? `I alt ca. ${samletBehov(v.behov)} · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
     })),
     oevrige: l.oevrige.map(v => ({
@@ -524,7 +561,7 @@ function renderListe() {
     <label class="vare ${state.valgtVare[x.key] ? 'valgt' : ''}">
       <input type="checkbox" data-vaelg="${esc(x.key)}" ${state.valgtVare[x.key] ? 'checked' : ''}>
       ${x.billede ? `<img src="${esc(x.billede)}" alt="" loading="lazy">` : ''}
-      <div class="tekst"><div class="navn">${esc(x.navn)}</div><div class="detalje">${x.detalje}</div></div>
+      <div class="tekst"><div class="navn">${esc(x.navn)}</div><div class="detalje">${x.detalje}</div>${x.restHtml || ''}</div>
       ${prisCelle(x)}
     </label>`;
 
@@ -718,7 +755,11 @@ document.addEventListener('click', e => {
   else if (d.trin) state.trin = d.trin;
   else if (d.niveau) state.niveau = d.niveau;
   else if (d.filter) state.filter = d.filter;
-  else if (d.ret) state.valgte = state.valgte.includes(d.ret) ? state.valgte.filter(x => x !== d.ret) : [...state.valgte, d.ret];
+  else if (d.ret) {
+    const foer = new Set(Object.values(listeLinjer()).flat().map(x => x.key));
+    state.valgte = state.valgte.includes(d.ret) ? state.valgte.filter(x => x !== d.ret) : [...state.valgte, d.ret];
+    if (state.trin === 'liste') Object.values(listeLinjer()).flat().forEach(x => { if (!foer.has(x.key)) state.valgtVare[x.key] = true; });
+  }
   else if (d.gaa) state.trin = d.gaa;
   else if (d.butik) state = { ...TOM, personer: state.personer, butik: d.butik };
   else if ('skift' in d || 'forfra' in d) {
