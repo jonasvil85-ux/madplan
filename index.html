@@ -136,6 +136,9 @@ button.slet-valg[hidden] { display: none; }
 .prisoverskrift-raekke { display: flex !important; align-items: center; justify-content: space-between; }
 .info-i { position: relative; display: inline-grid; place-items: center; width: 22px; height: 22px; margin: -3px -2px -3px 0; border-radius: 50%; border: 1.5px solid var(--accent); background: rgba(232,116,59,.14); color: var(--accent); font: italic 700 13px/1 Georgia, serif; text-transform: none; letter-spacing: 0; cursor: help; flex: none; }
 .info-i:hover, .info-i:focus-visible, .info-i.aaben { background: var(--accent-fill); border-color: var(--accent-fill); color: #fff; outline: none; }
+.panel-hoved { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.panel-hoved h2 { margin: 0; }
+.info-bred .info-tekst { width: min(320px, 78vw); }
 .info-tekst { display: none; position: absolute; right: -6px; top: 30px; width: 230px; z-index: 40; padding: 11px 13px; border-radius: 10px; background: #2B211A; border: 1px solid rgba(232,116,59,.5); box-shadow: 0 10px 28px rgba(0,0,0,.55);
   color: var(--text-2); font: 400 12.5px/1.5 Inter, system-ui, sans-serif; text-transform: none; letter-spacing: 0; text-align: left; white-space: normal; cursor: default; }
 .info-i:hover .info-tekst, .info-i:focus .info-tekst, .info-i.aaben .info-tekst { display: block; }
@@ -576,7 +579,7 @@ function renderButikker() {
     <div class="saadan-trin"><span class="saadan-nr">3</span><div><b>Handl ind</b><small>Indkøbsliste og seddel med priser</small></div></div>
     <div class="saadan-trin fremhaevet"><span class="saadan-nr">${ikon('book')}</span><div><b>Få opskrifterne</b><small>Ingredienser og fremgangsmåde i din ugeplan – med gratis bruger</small></div></div>
   </div>
-  <div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="butikker">
+  <div class="panel"><div class="panel-hoved"><h2>Hvilken tilbudsavis vil du handle efter?</h2><span class="info-i info-bred" tabindex="0" role="button" aria-label="Hvad betyder billigst?">i<span class="info-tekst" role="tooltip">Mærkaten ”Billigst” gælder kun de retter, vi viser på siden. Den viser, hvilken butik der har de billigste retter ud fra deres egne tilbud denne uge – ikke hvilket supermarked der generelt er billigst at handle i. Hverdagspriser, varer uden for retterne og lokale tilbud er ikke med.</span></span></div><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
       <button class="butikvalg ${k === vinder ? 'vinder' : ''} ${k === state.butik ? 'aktiv' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
         ${k === vinder ? `<span class="billigst">${ikon('trend')} Billigst denne uge</span>` : ''}
