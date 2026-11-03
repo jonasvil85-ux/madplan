@@ -2145,7 +2145,7 @@
       "ingredienser": [
         [
           "kyllingebrystfilet",
-          600,
+          450,
           "g",
           0,
           [
@@ -2769,6 +2769,90 @@
         "Brun mørbraden på panden, og steg den i ovnen i 20-25 minutter (kernetemperatur 65 °C).",
         "Rør flødeost, mælk og bouillon sammen i panden til en cremet sauce.",
         "Lad kødet hvile 5 minutter, skær i skiver og server med kartofler og sauce."
+      ]
+    },
+    {
+      "navn": "Kyllingewraps med hakket kylling og avocado",
+      "beskrivelse": "Krydret hakket kylling i wraps med avocado, revet cheddar og skyrdressing – hurtig hverdagsmad.",
+      "niveau": "familie",
+      "kategori": "kylling",
+      "tid_minutter": 25,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket kyllingekød",
+          400,
+          "g",
+          0,
+          [
+            "N22"
+          ]
+        ],
+        [
+          "tortilla wraps",
+          1,
+          "pakke",
+          0,
+          [
+            "N103"
+          ]
+        ],
+        [
+          "avocado",
+          3,
+          "stk",
+          0,
+          [
+            "N23"
+          ]
+        ],
+        [
+          "revet cheddar",
+          100,
+          "g",
+          0,
+          [
+            "N152"
+          ]
+        ],
+        [
+          "skyr",
+          150,
+          "g",
+          0,
+          [
+            "N13"
+          ]
+        ],
+        [
+          "taco-krydderi",
+          1,
+          "pakke",
+          0,
+          [
+            "N55"
+          ]
+        ],
+        [
+          "salat",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Steg kyllingekødet i olie, til det er gennemstegt, og rør taco-krydderiet i med 1 dl vand.",
+        "Mos avocadoen groft med lidt salt, og riv eller snit salaten.",
+        "Varm wraps på en tør pande.",
+        "Fyld wraps med kød, avocado, salat, cheddar og en klat skyr, og rul dem sammen."
       ]
     }
   ]

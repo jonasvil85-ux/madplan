@@ -1219,6 +1219,160 @@
         "Kog kartoflerne, og mos dem med smør, fløde og salt.",
         "Kog skyen lidt ind til sauce, og server kæberne med mos og gulerødder."
       ]
+    },
+    {
+      "navn": "Grønkålssuppe med sprødt flæsk",
+      "beskrivelse": "Mættende suppe af økologisk grønkål og kartofler, toppet med sprødt stegt flæsk.",
+      "niveau": "student",
+      "kategori": "svin",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "økologisk dansk grønkål",
+          400,
+          "g",
+          0,
+          [
+            "B102"
+          ]
+        ],
+        [
+          "danske kartofler",
+          600,
+          "g",
+          0,
+          [
+            "B126"
+          ]
+        ],
+        [
+          "flæsk i skiver",
+          300,
+          "g",
+          0,
+          [
+            "B129"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "rugbrød",
+          1,
+          "pakke",
+          0,
+          []
+        ],
+        [
+          "grøntsagsbouillon",
+          2,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Skær kartofler i tern og hak løget. Kog dem i 1 liter vand med bouillon i 15 minutter.",
+        "Hak grønkålen fint, og kog den med de sidste 5 minutter. Blend halvdelen af suppen, hvis du vil have den cremet.",
+        "Skær flæsket i strimler, og steg det sprødt på en tør pande.",
+        "Smag suppen til, og server med flæsk og rugbrød."
+      ]
+    },
+    {
+      "navn": "Hjemmelavet kødsovs med spaghetti",
+      "beskrivelse": "Langsomt simret kødsovs af hakket oksekød med gulerod og tomat – laver gerne rester til dagen efter.",
+      "niveau": "familie",
+      "kategori": "okse",
+      "tid_minutter": 50,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "hakket oksekød",
+          400,
+          "g",
+          0,
+          [
+            "B8"
+          ]
+        ],
+        [
+          "danske gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "B125"
+          ]
+        ],
+        [
+          "spaghetti",
+          500,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          []
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Hak løg og hvidløg, og riv gulerødderne.",
+        "Brun kødet i olie, og tilsæt grøntsagerne.",
+        "Hæld hakkede tomater og oregano i, og lad saucen simre i 30 minutter. Smag til.",
+        "Kog spaghettien, og server med kødsovsen."
+      ]
     }
   ]
 }

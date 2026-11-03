@@ -255,9 +255,13 @@ def main():
                         brug.setdefault(i['tilbud'][0], {'pakke': pakke, 'enhed': grund, 'retter': []})['retter'].append(
                             (r['navn'], i['maengde'] * OMREGN[i['enhed']][1]))
         for k, v in brug.items():
-            stoerste = max(m for _, m in v['retter'])
-            if v['pakke'] - stoerste >= 0.3 * v['pakke'] and len(v['retter']) < 2 and alle[k]['pris'] >= 30:
-                rest_tips.append(f"{info['navn']}: {alle[k]['navn'][:40]} ({alle[k]['pris']:g} kr, {v['pakke']:g} {v['enhed']}) bruges kun af '{v['retter'][0][0]}' ({v['retter'][0][1]:g} {v['enhed']}) – resten kan ikke bruges")
+            behov = sorted(m for _, m in v['retter'])
+            stoerste = behov[-1]
+            # findes der to forskellige retter, der TILSAMMEN passer til én pakke (+15 %)?
+            par = any(behov[x] + behov[y] <= v['pakke'] * 1.15 for x in range(len(behov)) for y in range(x + 1, len(behov)))
+            if v['pakke'] - stoerste >= 0.3 * v['pakke'] and not par and alle[k]['pris'] >= 30:
+                brugt = ', '.join(f"'{n[:28]}' {m:g}" for n, m in v['retter'])
+                rest_tips.append(f"{info['navn']}: {alle[k]['navn'][:40]} ({alle[k]['pris']:g} kr, {v['pakke']:g} {v['enhed']}) – ingen to retter passer til én pakke. Bruges af: {brugt} {v['enhed']}")
 
         # Ugens 3 bedste tilbud ("værd at køre efter") – vælges i hånden i butikkens fil
         top = []
@@ -279,7 +283,7 @@ def main():
                 print(f"    {r['pris_i_alt']:7.2f} kr (tilbud {r['pris_tilbud']:6.2f})  {round(r['andel_tilbud'] * 100):3d}% tilbud  {r['navn']}")
 
     if rest_tips:
-        print(f'\nREST-TIP ({len(rest_tips)}): store tilbudspakker, hvor resten ikke kan bruges i en anden ret – tilføj en ret mere:\n- ' + '\n- '.join(rest_tips))
+        print(f'\nREST-TIP ({len(rest_tips)}): store tilbudspakker, hvor ingen to retter tilsammen passer til én pakke – tilføj en lille ret:\n- ' + '\n- '.join(rest_tips))
     if advarsler:
         print('\nADVARSLER:\n- ' + '\n- '.join(advarsler))
     if fejl:

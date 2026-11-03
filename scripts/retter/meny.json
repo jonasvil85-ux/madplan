@@ -2728,6 +2728,103 @@
         "Kog kartoflerne, og mos dem med smør, en skvæt fløde og salt.",
         "Hæld fedtet fra, kog skyen op med fond og resten af fløden til sovs, og server."
       ]
+    },
+    {
+      "navn": "Kylling i rødvin med champignon og kartofler",
+      "beskrivelse": "Mør kylling i rødvinssauce med champignon og timian – bruger resten af flasken fra kalveculotten.",
+      "niveau": "familie",
+      "kategori": "kylling",
+      "tid_minutter": 50,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "Gestus kyllingebrystfilet",
+          700,
+          "g",
+          0,
+          [
+            "M17"
+          ]
+        ],
+        [
+          "Côtes du Rhône (rødvin)",
+          300,
+          "ml",
+          0,
+          [
+            "M119"
+          ]
+        ],
+        [
+          "økologiske kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "frisk timian",
+          1,
+          "bundt",
+          0,
+          [
+            "M122"
+          ]
+        ],
+        [
+          "fond / sovsejævner",
+          1,
+          "stk",
+          0,
+          [
+            "M68"
+          ]
+        ],
+        [
+          "champignon",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne.",
+        "Skær kyllingen i store stykker, krydr med salt og peber, og brun den i smør. Tag den op.",
+        "Svits løg i både, champignon i kvarte og hvidløg på panden.",
+        "Hæld rødvin, 1 dl vand og fond i, kom timian og kylling tilbage, og lad det simre under låg i 20 minutter.",
+        "Smag til, og server med kartoflerne."
+      ]
     }
   ]
 }

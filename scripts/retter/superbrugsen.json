@@ -1420,6 +1420,148 @@
           ]
         }
       }
+    },
+    {
+      "navn": "Svinemørbrad med svampesauce og kartoffelmos",
+      "beskrivelse": "Mørbrad i medaljoner med cremet portobellosauce og blød kartoffelmos.",
+      "niveau": "familie",
+      "kategori": "svin",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "Coop mørbrad af gris",
+          600,
+          "g",
+          0,
+          [
+            "S1"
+          ]
+        ],
+        [
+          "Coop portobellosvampe",
+          300,
+          "g",
+          0,
+          [
+            "S43"
+          ]
+        ],
+        [
+          "AMA madlavning",
+          330,
+          "ml",
+          0,
+          [
+            "S39"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          []
+        ],
+        [
+          "smør",
+          40,
+          "g",
+          1,
+          []
+        ],
+        [
+          "bouillonterning",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne, og mos dem med smør og lidt kogevand.",
+        "Skær mørbraden i medaljoner, krydr, og steg dem i smør 2-3 minutter på hver side. Tag dem op.",
+        "Steg svampene i skiver på panden, hæld madlavningsfløde og bouillon i, og kog saucen ind.",
+        "Læg kødet tilbage i saucen, og server med mosen."
+      ]
+    },
+    {
+      "navn": "Kartoffel- og pastinakgratin med havarti",
+      "beskrivelse": "Cremet gratin af kartofler og pastinak med smeltet havarti på toppen – billig og mættende.",
+      "niveau": "student",
+      "kategori": "vegetar",
+      "tid_minutter": 60,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "Riberhus havarti",
+          200,
+          "g",
+          0,
+          [
+            "S94"
+          ]
+        ],
+        [
+          "økologiske pastinakker",
+          500,
+          "g",
+          0,
+          [
+            "S64"
+          ]
+        ],
+        [
+          "AMA madlavning",
+          330,
+          "ml",
+          0,
+          [
+            "S39"
+          ]
+        ],
+        [
+          "kartofler",
+          600,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "muskatnød",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Skær kartofler og pastinak i tynde skiver, og kom dem i et fad.",
+        "Varm madlavningsfløde med knust hvidløg, muskat, salt og peber, og hæld den over.",
+        "Dæk med folie, og bag i 35 minutter.",
+        "Fjern folien, riv havartien over, og bag 15 minutter mere, til toppen er gylden."
+      ]
     }
   ]
 }

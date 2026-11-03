@@ -723,8 +723,15 @@ function renderSeddel() {
 }
 
 function lavPlan() {
-  // Retter med frisk fisk o.l. først, resten i valgt rækkefølge
-  const orden = [...state.valgte].sort((a, b) => ret(b).spis_tidligt - ret(a).spis_tidligt);
+  // Retter med frisk fisk o.l. først. Retter der deler en pakke kød/fisk lægges tæt (og tidligt), så resten ikke bliver gammel.
+  const friskKey = id => ret(id).ingredienser.filter(i => !i.basisvare && FRYS.includes(varegruppe(i.navn)) && butiksTilbud(i)[0])
+                                   .map(i => butiksTilbud(i)[0]);
+  const antalPr = {};
+  state.valgte.forEach(id => new Set(friskKey(id)).forEach(k => { antalPr[k] = (antalPr[k] || 0) + 1; }));
+  const delt = id => friskKey(id).find(k => antalPr[k] > 1) || '';
+  const prio = id => ret(id).spis_tidligt ? 0 : delt(id) ? 1 : 2;
+  const orden = state.valgte.map((id, i) => ({ id, i })).sort((a, b) =>
+    prio(a.id) - prio(b.id) || delt(a.id).localeCompare(delt(b.id)) || a.i - b.i).map(x => x.id);
   const idag = new Date();
   state.plan = Array.from({ length: 7 }, (_, i) => {
     const d = new Date(idag); d.setDate(idag.getDate() + i);
