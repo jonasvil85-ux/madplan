@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#15100C">
 <title>Måltidsjagten — ugens retter ud fra tilbudsaviserne</title>
-<meta name="description" content="Måltidsjagten finder ugens bedste tilbud i Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl og 365discount og foreslår hjemmelavede retter, indkøbsliste og ugeplan.">
+<meta name="description" content="Måltidsjagten finder ugens bedste tilbud i Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl og 365discount og foreslår hjemmelavede retter med opskrifter, indkøbsliste og ugeplan.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Måltidsjagten – billig aftensmad ud fra ugens tilbud">
-<meta property="og:description" content="Tilbudsaviser fra 8 supermarkeder samlet. Find hjemmelavede retter, få indkøbsliste og ugeplan – gratis.">
+<meta property="og:description" content="Tilbudsaviser fra 8 supermarkeder samlet. Find hjemmelavede retter med opskrifter, få indkøbsliste og ugeplan – gratis.">
 <meta property="og:image" content="https://www.xn--mltidsjagten-tcb.dk/og-image.jpg">
 <meta property="og:url" content="https://www.xn--mltidsjagten-tcb.dk/">
 <meta name="twitter:card" content="summary_large_image">
@@ -174,11 +174,23 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .ret.bruger-rest { border-color: rgba(245,158,11,.55); }
 .chip.rest-chip { border-color: rgba(245,158,11,.6); color: var(--amber); }
 .chip.rest-chip.aktiv { background: rgba(245,158,11,.15); }
+.saadan { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: -6px 0 20px; }
+.saadan-trin { display: flex; gap: 11px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.saadan-trin b { display: block; color: var(--text-1); font-size: 14px; margin-bottom: 2px; }
+.saadan-trin small { color: var(--text-3); font-size: 12.5px; line-height: 1.4; display: block; }
+.saadan-nr { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: rgba(232,116,59,.17); color: var(--accent); font-weight: 700; font-size: 13px; }
+.saadan-nr .ikon-svg { width: 16px; height: 16px; vertical-align: 0; }
+.saadan-trin.fremhaevet { border-color: rgba(232,116,59,.55); background: rgba(232,116,59,.09); }
+.saadan-trin.fremhaevet .saadan-nr { background: var(--accent-fill); color: #fff; }
+@media (max-width: 700px) { .saadan { grid-template-columns: 1fr 1fr; margin-top: 0; } .saadan-trin { padding: 10px 12px; } .saadan-trin small { font-size: 12px; } }
+.opskrift-info { display: flex; align-items: center; gap: 10px; color: var(--text-2); font-size: 13.5px; margin: 2px 0 12px; }
+.opskrift-info .ikon-svg { color: var(--accent); width: 18px; height: 18px; flex: none; }
 .hero { display: grid; grid-template-columns: minmax(300px, 40%) 1fr; min-height: 270px; border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--border); }
 .hero-tekst { position: relative; z-index: 1; align-self: center; padding: 34px 30px; }
 .hero-kicker { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
 .hero-tekst h2 { font-size: 34px; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 14px; }
 .hero-tekst h2 span { color: var(--accent); }
+.hero-tekst p b { color: var(--text-1); font-weight: 600; }
 .hero-tekst p { margin: 0; max-width: 420px; font-size: 15.5px; line-height: 1.55; color: var(--text-2); }
 .hero-mosaik { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16%); mask-image: linear-gradient(90deg, transparent 0, #000 16%); }
 .hero-mosaik img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -537,9 +549,9 @@ function renderButikker() {
   vis(`
   <section class="hero">
     <div class="hero-tekst">
-      <div class="hero-kicker">Ugens tilbud i 8 butikker</div>
+      <div class="hero-kicker">Tilbud · Opskrifter · Ugeplan</div>
       <h2>Billig aftensmad <span>ud fra ugens tilbud</span></h2>
-      <p>Sammenlign butikkerne, vælg dine retter og få indkøbslisten – klar til at handle.</p>
+      <p>Vælg dine retter, få indkøbslisten og se <b>opskrifterne trin for trin</b> i din ugeplan – alt bygget over ugens tilbud i 8 butikker.</p>
     </div>
     <div class="hero-mosaik" aria-hidden="true">
       <img src="grafik/hero-indkoeb.jpg" alt="" width="800" height="800">
@@ -547,6 +559,12 @@ function renderButikker() {
       <img src="grafik/hero-bord.jpg" alt="" width="800" height="800">
     </div>
   </section>
+  <div class="saadan">
+    <div class="saadan-trin"><span class="saadan-nr">1</span><div><b>Vælg butik</b><small>Sammenlign 8 tilbudsaviser</small></div></div>
+    <div class="saadan-trin"><span class="saadan-nr">2</span><div><b>Vælg retter</b><small>Hjemmelavet mad ud fra tilbuddene</small></div></div>
+    <div class="saadan-trin"><span class="saadan-nr">3</span><div><b>Handl ind</b><small>Indkøbsliste og seddel med priser</small></div></div>
+    <div class="saadan-trin fremhaevet"><span class="saadan-nr">${ikon('book')}</span><div><b>Få opskrifterne</b><small>Ingredienser og fremgangsmåde i din ugeplan – med gratis bruger</small></div></div>
+  </div>
   <div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
       <button class="butikvalg ${k === vinder ? 'vinder' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
@@ -620,6 +638,7 @@ function renderRetter() {
       <span class="butikhoved lille">${logo(B())}<span><b style="color:var(--text-1)">${esc(B().navn)}</b> · ${retter.length} retter ud fra ugens tilbud</span></span>
       <button class="chip" data-skift>Skift butik</button>
     </div>
+    <div class="opskrift-info">${ikon('book')}<span>Alle retter har en <b style="color:var(--text-1)">opskrift med mængder og fremgangsmåde</b>. Du ser dem i din ugeplan, når du har lavet en gratis bruger.</span></div>
     ${udloebet(B()) ? '<div class="panel fejl">Denne avis er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
     <div class="niveauer">
       <button class="niveau ${state.niveau === 'alle' ? 'aktiv' : ''}" data-niveau="alle" style="--bg:url('grafik/hero-bord.jpg')"><span class="ikon">${ikon('utensils')}</span><strong>Alle retter</strong><small>${antal('alle')} retter</small></button>
@@ -946,7 +965,7 @@ function renderPlanLaast() {
   const billeder = state.valgte.map(id => ret(id)?.billede).filter(Boolean).slice(0, 4);
   vis(`<div class="panel plan-laast">
     <h2>Din madplan er klar</h2>
-    <p>For at vise din madplan og dine opskrifter skal du først oprette en gratis bruger. Så kan vi gemme din madplan, og du kan logge ind og se den hver dag i løbet af ugen – også på telefonen.</p>
+    <p>For at vise din madplan og dine opskrifter (ingredienser og fremgangsmåde for hver ret) skal du først oprette en gratis bruger. Så kan vi gemme din madplan, og du kan logge ind og se den hver dag i løbet af ugen – også på telefonen.</p>
     ${billeder.length ? `<div class="laast-billeder">${billeder.map(b => `<img src="${esc(b)}" alt="" loading="lazy">`).join('')}</div>` : ''}
     <div class="gem-knapper">
       <button class="knap" data-aabn-login data-fane="opret" data-titel="Se din madplan og dine opskrifter">Opret gratis bruger</button>

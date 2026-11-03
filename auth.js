@@ -94,7 +94,8 @@ function visLogin(fane = 'ind', besked = '', ekstra) {
       <button class="luk-x" data-luk-login aria-label="Luk">×</button>
       <h2>${esc(titel)}</h2>
       ${intro ? `<p class="detalje">${esc(intro)}</p>` : ''}
-      ${fane === 'opret' ? `<ul class="login-fordele"><li>Find dine valgte retter og din indkøbsliste igen hele ugen</li>
+      ${fane === 'opret' ? `<ul class="login-fordele"><li>Se opskrifterne med ingredienser og fremgangsmåde i din ugeplan</li>
+        <li>Find dine valgte retter og din indkøbsliste igen hele ugen</li>
         <li>Se din ugeplan på både telefon og computer</li><li>Det er gratis, og du kan slette dine valg når som helst</li></ul>` : ''}
       ${fane !== 'nyt' ? `<div class="login-faner">
         <button class="chip ${fane === 'opret' ? 'aktiv' : ''}" data-login-fane="opret">Opret gratis bruger</button>
