@@ -47,6 +47,10 @@ nav.trin button.slet-valg { background: transparent; border-color: var(--border)
 nav.trin button.slet-valg:hover { border-color: #f87171; color: #fca5a5; }
 .uge-besked { background: #2a2210; border: 1px solid #5c4a14; color: #F5D98B; padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
 .uge-besked[hidden], nav.trin button[hidden] { display: none; }
+.gem-besked { background: rgba(16,185,129,.09); border: 1px solid rgba(16,185,129,.45); color: var(--text-2); padding: 14px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 14px; }
+.gem-besked b { color: var(--text-1); display: block; margin-bottom: 2px; }
+.gem-besked .gem-knapper { display: flex; gap: 8px; flex-wrap: wrap; }
+.gem-besked[hidden] { display: none; }
 .uge-besked button { background: transparent; border: 1px solid #8a6d1d; color: #F5D98B; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
 
 .filtre { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -230,6 +234,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
     <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden>🗑 Slet valg</button></span>
   </nav>
   <div id="uge-besked" class="uge-besked" hidden></div>
+  <div id="gem-besked" class="gem-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
   <footer class="fod">Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn. <a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
@@ -282,11 +287,7 @@ function skyTekst(t, fejl) {
 async function gemSky() {
   if (!sb || !bruger) return;
   try {
-    if (!harValg()) {
-      const { error } = await sb.from(SKY).delete().eq('user_id', bruger.id);
-      if (error) throw error;
-      return skyTekst('');
-    }
+    if (!harValg()) return;  // tomme valg overskriver aldrig det, der er gemt på brugeren (fx ved login på en ny enhed)
     const { error } = await sb.from(SKY).upsert({ user_id: bruger.id, data: { state, valgteNavne: valgteNavne() }, genereret: data.genereret, opdateret: new Date().toISOString() });
     if (error) throw error;
     skyTekst('☁ Gemt på din bruger');
@@ -295,9 +296,17 @@ async function gemSky() {
     skyTekst('Kunne ikke gemme på din bruger – valgene er gemt på denne enhed', true);
   }
 }
+async function sletSky() {  // kaldes kun når brugeren selv trykker "Slet valg"
+  if (!sb || !bruger) return;
+  try {
+    const { error } = await sb.from(SKY).delete().eq('user_id', bruger.id);
+    if (error) throw error;
+    skyTekst('');
+  } catch (e) { /* tabellen findes måske ikke endnu */ }
+}
 const gem = () => {
   localStorage.setItem(GEM, JSON.stringify({ genereret: data.genereret, tid: Date.now(), valgteNavne: valgteNavne(), state }));
-  if (sb && bruger) { clearTimeout(skyTimer); skyTimer = setTimeout(gemSky, 1200); }
+  if (sb && bruger && harValg()) { clearTimeout(skyTimer); skyTimer = setTimeout(gemSky, 1200); }
 };
 // Gendan gemte valg: behold kun det, der stadig passer til ugens retter
 function gendan(gemt) {
@@ -384,7 +393,7 @@ async function start() {
         if (rk?.data) sky = { ...rk.data, tid: Date.parse(rk.opdateret) };
       } catch (e) { /* tabellen findes måske ikke endnu – brug det lokale */ }
     }
-    const kilde = [lokal, sky].filter(Boolean).sort((a, b) => (b.tid || 0) - (a.tid || 0))[0];
+    const kilde = [lokal, sky].filter(k => k?.state?.valgte?.length).sort((a, b) => (b.tid || 0) - (a.tid || 0))[0];
     if (kilde) state = gendan(kilde);
     render();
   } catch (e) {
@@ -419,6 +428,11 @@ function render() {
   const gammel = foerste && (Date.now() - new Date(foerste).getTime()) > 6 * 864e5;
   besked.hidden = !gammel;
   if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
+  const gemB = document.getElementById('gem-besked');
+  const visGem = !!sb && !bruger && !!harValg();
+  gemB.hidden = !visGem;
+  if (visGem) gemB.innerHTML = `<div><b>💾 Gem din madplan – helt gratis</b>Opret en gratis bruger, så du altid kan finde dine valgte retter, din indkøbsliste og din ugeplan igen i løbet af ugen – også på telefonen.</div>
+    <div class="gem-knapper"><button class="knap" data-aabn-login data-fane="opret">Opret gratis bruger</button><button class="knap sekundaer" data-aabn-login data-fane="ind">Log ind</button></div>`;
   ({ retter: state.butik ? renderRetter : renderButikker, liste: renderListe, tilfoej: renderTilfoej,
      seddel: renderSeddel, plan: renderPlan })[state.trin]();
   gem();
@@ -920,9 +934,16 @@ document.addEventListener('click', e => {
   else if ('skift' in d || 'forfra' in d || 'sletvalg' in d) {
     if (harValg() && !confirm('Slet alle valgte retter, indkøbslisten og ugeplanen? Det kan ikke fortrydes.')) return;
     state = { ...TOM, personer: state.personer };
+    sletSky();
   }
   else if (d.personer) state.personer = Math.max(1, Math.min(12, state.personer + +d.personer));
-  else if ('handlet' in d) { state.handlet = true; lavPlan(); state.trin = 'plan'; }
+  else if ('handlet' in d) {
+    state.handlet = true; lavPlan(); state.trin = 'plan';
+    if (sb && !bruger && !sessionStorage.getItem('gem-spoerg')) {
+      sessionStorage.setItem('gem-spoerg', '1');
+      setTimeout(() => visLogin('opret', '', { titel: 'Gem din madplan – gratis', tekst: 'Din ugeplan er klar! Opret en gratis bruger, så du altid kan finde den igen i løbet af ugen.' }), 500);
+    }
+  }
   else if ('kopier' in d) return kopierListe();
   // Bevar scroll-position når man blot klikker i en liste
   const y = window.scrollY;

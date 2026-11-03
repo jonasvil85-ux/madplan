@@ -19,6 +19,7 @@ const FEJLTEKST = [
 ];
 const dansk = fejl => (FEJLTEKST.find(([m]) => m.test(fejl?.message || '')) || [, fejl?.message || 'Noget gik galt.'])[1];
 
+// Login er valgfrit: man kan bruge siden frit og logger først ind, når man vil gemme sin madplan.
 async function startAuth(fortsaet) {
   if (!AUTH.url || !AUTH.anonKey || !window.supabase) return fortsaet();  // login er ikke sat op endnu
   sb = window.supabase.createClient(AUTH.url, AUTH.anonKey);
@@ -30,20 +31,51 @@ async function startAuth(fortsaet) {
 
   const { data } = await sb.auth.getSession();
   bruger = data.session?.user || null;
-  if (location.hash.includes('type=recovery')) return visLogin('nyt');
-  if (bruger) { visBruger(); fortsaet(); }
-  else visLogin('ind');
+  visBruger();
+  fortsaet();
+  if (location.hash.includes('type=recovery')) visLogin('nyt');
 }
 
 function visBruger() {
-  document.body.classList.remove('kraever-login');
   const el = document.getElementById('bruger');
-  if (el && bruger) el.innerHTML = `<span>${esc(bruger.email)}</span> <button class="chip" id="logud">Log ud</button>`;
+  if (!el) return;
+  el.innerHTML = bruger
+    ? `<span>${esc(bruger.email)}</span> <button class="chip" id="logud">Log ud</button>`
+    : `<button class="chip" data-aabn-login data-fane="ind">Log ind</button> <button class="chip aktiv" data-aabn-login data-fane="opret">Opret gratis bruger</button>`;
 }
 
-function visLogin(fane = 'ind', besked = '') {
-  document.body.classList.add('kraever-login');
-  const titel = { ind: 'Log ind', opret: 'Opret bruger', glemt: 'Glemt adgangskode', nyt: 'Vælg ny adgangskode' }[fane];
+// ---------- Login-vindue (åbnes når man vil gemme, eller via knapperne i toppen) ----------
+let loginEkstra = {};  // { titel, tekst } – fx når man vil gemme sin madplan
+
+function sikrLoginVindue() {
+  if (document.getElementById('login-vindue')) return;
+  const st = document.createElement('style');
+  st.textContent = `
+    #login-vindue { position: fixed; inset: 0; z-index: 90; display: none; align-items: flex-start; justify-content: center; overflow-y: auto;
+      background: rgba(5,8,16,.78); padding: 24px 16px; }
+    #login-vindue.aaben { display: flex; }
+    #login-vindue .login-boks { margin: 6vh auto; position: relative; width: 100%; }
+    #login-vindue .luk-x { position: absolute; top: 10px; right: 14px; background: none; border: 0; color: var(--text-3, #A0A0A0); font-size: 24px; cursor: pointer; line-height: 1; }
+    #login-vindue .login-fordele { margin: 8px 0 4px; padding-left: 18px; font-size: 14px; color: var(--text-2, #D4D4D4); }
+    #login-vindue .login-fordele li { margin: 3px 0; }
+    #login-vindue .login-fod { margin-top: 12px; font-size: 12px; color: var(--text-3, #A0A0A0); }
+    #login-vindue .login-fod a { color: var(--emerald, #10B981); }`;
+  document.head.appendChild(st);
+  const v = document.createElement('div');
+  v.id = 'login-vindue';
+  v.addEventListener('click', e => { if (e.target === v) lukLogin(); });
+  document.body.appendChild(v);
+}
+
+function lukLogin() {
+  document.getElementById('login-vindue')?.classList.remove('aaben');
+  document.body.style.overflow = '';
+}
+
+function visLogin(fane = 'ind', besked = '', ekstra) {
+  if (ekstra) loginEkstra = ekstra;
+  sikrLoginVindue();
+  const titel = loginEkstra.titel || { ind: 'Log ind', opret: 'Opret gratis bruger', glemt: 'Glemt adgangskode', nyt: 'Vælg ny adgangskode' }[fane];
   const felter = {
     ind: `<input id="l-mail" type="email" placeholder="E-mail" autocomplete="email" required>
           <input id="l-pw" type="password" placeholder="Adgangskode" autocomplete="current-password" required>`,
@@ -53,32 +85,44 @@ function visLogin(fane = 'ind', besked = '') {
     glemt: `<input id="l-mail" type="email" placeholder="E-mail" autocomplete="email" required>`,
     nyt: `<input id="l-pw" type="password" placeholder="Ny adgangskode (mindst 6 tegn)" autocomplete="new-password" minlength="6" required>`,
   }[fane];
-  const knap = { ind: 'Log ind', opret: 'Opret bruger', glemt: 'Send link', nyt: 'Gem adgangskode' }[fane];
+  const knap = { ind: 'Log ind', opret: 'Opret gratis bruger', glemt: 'Send link', nyt: 'Gem adgangskode' }[fane];
+  const intro = loginEkstra.tekst || (fane === 'ind' ? 'Log ind for at se din gemte madplan.' : '');
 
-  document.getElementById('indhold').innerHTML = `
+  const v = document.getElementById('login-vindue');
+  v.innerHTML = `
     <div class="login-boks">
-      <h2>${titel}</h2>
-      <p class="detalje">Måltidsjagten – hjemmelavet mad ud fra ugens tilbud. Log ind for at komme i gang.</p>
+      <button class="luk-x" data-luk-login aria-label="Luk">×</button>
+      <h2>${esc(titel)}</h2>
+      ${intro ? `<p class="detalje">${esc(intro)}</p>` : ''}
+      ${fane === 'opret' ? `<ul class="login-fordele"><li>Find dine valgte retter og din indkøbsliste igen hele ugen</li>
+        <li>Se din ugeplan på både telefon og computer</li><li>Det er gratis, og du kan slette dine valg når som helst</li></ul>` : ''}
       ${fane !== 'nyt' ? `<div class="login-faner">
+        <button class="chip ${fane === 'opret' ? 'aktiv' : ''}" data-login-fane="opret">Opret gratis bruger</button>
         <button class="chip ${fane === 'ind' ? 'aktiv' : ''}" data-login-fane="ind">Log ind</button>
-        <button class="chip ${fane === 'opret' ? 'aktiv' : ''}" data-login-fane="opret">Opret bruger</button>
       </div>` : ''}
       <form id="login-form" data-fane="${fane}">
         ${felter}
         <button class="knap" type="submit">${knap}</button>
       </form>
       <p id="login-besked" class="${besked.startsWith('✓') ? 'ok' : 'fejl'}">${esc(besked)}</p>
-      ${fane === 'opret' ? '<p class="detalje">Når du opretter en bruger, gemmer vi din e-mail. Læs <a href="/privatlivspolitik.html" target="_blank" rel="noopener">privatlivspolitikken</a>.</p>' : ''}
       ${fane === 'ind' ? '<button class="link" data-login-fane="glemt">Glemt adgangskode?</button>' : ''}
       ${fane === 'glemt' ? '<button class="link" data-login-fane="ind">← Tilbage til log ind</button>' : ''}
+      ${fane !== 'nyt' ? '<button class="link" data-luk-login>Fortsæt uden at gemme</button>' : ''}
+      <p class="login-fod">Når du opretter en bruger, gemmer vi din e-mail og dine valg. Læs <a href="/privatlivspolitik.html" target="_blank" rel="noopener">privatlivspolitikken</a>.</p>
     </div>`;
-  document.getElementById('bund').classList.add('skjult');
-  document.querySelector('#login-form input')?.focus();
+  v.classList.add('aaben');
+  document.body.style.overflow = 'hidden';
+  v.querySelector('#login-form input')?.focus();
 }
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lukLogin(); });
 
 document.addEventListener('click', async e => {
   const fane = e.target.closest('[data-login-fane]')?.dataset.loginFane;
   if (fane) return visLogin(fane);
+  const aabn = e.target.closest('[data-aabn-login]');
+  if (aabn) { loginEkstra = {}; return visLogin(aabn.dataset.fane || 'ind'); }
+  if (e.target.closest('[data-luk-login]')) return lukLogin();
   if (e.target.id === 'logud') { await sb.auth.signOut(); location.reload(); }
 });
 
