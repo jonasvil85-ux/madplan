@@ -300,11 +300,12 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 
   <div class="nav-raekke">
   <nav class="trin">
-    <button data-trin="retter" class="aktiv">1. Butik og retter</button>
-    <button data-trin="liste">2. Indkøbsliste</button>
-    <button data-trin="tilfoej">3. Tilføj varer</button>
-    <button data-trin="seddel">4. Indkøbsseddel</button>
-    <button data-trin="plan">5. Ugeplan</button>
+    <button data-trin="butik" class="aktiv">1. Butik</button>
+    <button data-trin="retter" disabled>2. Retter</button>
+    <button data-trin="liste">3. Indkøbsliste</button>
+    <button data-trin="tilfoej">4. Tilføj varer</button>
+    <button data-trin="seddel">5. Indkøbsseddel</button>
+    <button data-trin="plan">6. Ugeplan</button>
   </nav>
     <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden><svg class="ikon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6"/><path d="M14 10v6"/></svg> Slet valg</button></span>
   </div>
@@ -339,7 +340,7 @@ const NIVEAUER = {
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
-const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, personer: 4,
+const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, personer: 4,
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
@@ -395,7 +396,7 @@ function gendan(gemt) {
   const gyldig = id => { const r = b.retter.find(x => x.id === id); return !!r && (!navne[id] || navne[id] === r.navn); };
   s.valgte = (s.valgte || []).filter(gyldig);
   s.plan = (s.plan || []).map(d => ({ ...d, ret: d.ret && gyldig(d.ret) ? d.ret : null }));
-  if (!s.valgte.length) return { ...TOM, personer: s.personer, butik: s.butik };
+  if (!s.valgte.length) return { ...TOM, personer: s.personer, butik: s.butik, trin: 'retter' };
   return s;
 }
 const B = () => data.butikker[state.butik];
@@ -494,9 +495,10 @@ function bund(html) {
 }
 
 function render() {
+  if (state.trin === 'retter' && !state.butik) state.trin = 'butik';  // ingen butik valgt endnu (fx gammel gemt tilstand)
   document.querySelectorAll('nav.trin button').forEach(b => {
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
-    b.disabled = (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
+    b.disabled = (b.dataset.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
   });
   visAviser();
   document.querySelector('nav.trin button.aktiv')?.scrollIntoView({ inline: 'center', block: 'nearest' });
@@ -507,7 +509,7 @@ function render() {
   besked.hidden = !gammel;
   if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
   if (['liste', 'tilfoej', 'seddel', 'plan'].includes(state.trin)) standardValg();
-  ({ retter: state.butik ? renderRetter : renderButikker, liste: renderListe, tilfoej: renderTilfoej,
+  ({ butik: renderButikker, retter: renderRetter, liste: renderListe, tilfoej: renderTilfoej,
      seddel: renderSeddel, plan: renderPlan })[state.trin]();
   gem();
 }
@@ -567,7 +569,7 @@ function renderButikker() {
   </div>
   <div class="panel"><h2>Hvilken tilbudsavis vil du handle efter?</h2><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
-      <button class="butikvalg ${k === vinder ? 'vinder' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
+      <button class="butikvalg ${k === vinder ? 'vinder' : ''} ${k === state.butik ? 'aktiv' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
         ${k === vinder ? `<span class="billigst">${ikon('trend')} Billigst denne uge</span>` : ''}
         <span class="butikhoved">
           ${logo(b)}
@@ -636,7 +638,6 @@ function renderRetter() {
   vis(`
     <div class="filtre" style="justify-content:space-between">
       <span class="butikhoved lille">${logo(B())}<span><b style="color:var(--text-1)">${esc(B().navn)}</b> · ${retter.length} retter ud fra ugens tilbud</span></span>
-      <button class="chip" data-skift>Skift butik</button>
     </div>
     <div class="opskrift-info">${ikon('book')}<span>Alle retter har en <b style="color:var(--text-1)">opskrift med mængder og fremgangsmåde</b>. Du ser dem i din ugeplan, når du har lavet en gratis bruger.</span></div>
     ${udloebet(B()) ? '<div class="panel fejl">Denne avis er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
@@ -1040,7 +1041,14 @@ document.addEventListener('click', e => {
     state.valgte = state.valgte.includes(d.ret) ? state.valgte.filter(x => x !== d.ret) : [...state.valgte, d.ret];
   }
   else if (d.gaa) state.trin = d.gaa;
-  else if (d.butik) state = { ...TOM, personer: state.personer, butik: d.butik };
+  else if (d.butik) {
+    if (state.butik === d.butik) state.trin = 'retter';  // samme butik: fortsæt med dine valg
+    else {
+      if (state.butik && harValg() && !confirm(`Du har valgt retter fra ${data.butikker[state.butik].navn}. Hvis du skifter butik, nulstilles dine valg. Vil du skifte?`)) return;
+      if (harValg()) sletSky();
+      state = { ...TOM, personer: state.personer, butik: d.butik, trin: 'retter' };
+    }
+  }
   else if ('skift' in d || 'forfra' in d || 'sletvalg' in d) {
     if (harValg() && !confirm('Slet alle valgte retter, indkøbslisten og ugeplanen? Det kan ikke fortrydes.')) return;
     state = { ...TOM, personer: state.personer };
@@ -1052,7 +1060,7 @@ document.addEventListener('click', e => {
   // Bevar scroll-position når man blot klikker i en liste
   const y = window.scrollY;
   render();
-  if (d.trin || d.gaa || 'handlet' in d) window.scrollTo(0, 0);
+  if (d.trin || d.gaa || d.butik || 'handlet' in d) window.scrollTo(0, 0);
   else window.scrollTo(0, y);
   if ('egen' in d) document.getElementById('soeg')?.focus();
 });
