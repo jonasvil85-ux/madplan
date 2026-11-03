@@ -428,6 +428,7 @@ function render() {
   const gammel = foerste && (Date.now() - new Date(foerste).getTime()) > 6 * 864e5;
   besked.hidden = !gammel;
   if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
+  if (['liste', 'tilfoej', 'seddel', 'plan'].includes(state.trin)) standardValg();
   const gemB = document.getElementById('gem-besked');
   const visGem = !!sb && !bruger && !!harValg();
   gemB.hidden = !visGem;
@@ -708,6 +709,13 @@ const SEKTIONER = [
   ['basis', () => 'Basisvarer – tjek om du har'],
 ];
 
+// Standard på indkøbslisten: alle tilbudsvarer er afkrydset; øvrige varer og basisvarer vælger man selv til.
+// Kun varer uden et gemt valg påvirkes, så et fravalgt flueben bliver ved med at være fravalgt.
+function standardValg() {
+  if (!state.valgte.length) return;
+  listeLinjer().tilbud.forEach(x => { if (!(x.key in state.valgtVare)) state.valgtVare[x.key] = true; });
+}
+
 function renderListe() {
   const L = listeLinjer();
   const antalValgt = Object.values(L).flat().filter(x => state.valgtVare[x.key]).length;
@@ -925,9 +933,7 @@ document.addEventListener('click', e => {
   else if (d.niveau) state.niveau = d.niveau;
   else if (d.filter) state.filter = d.filter;
   else if (d.ret) {
-    const foer = new Set(Object.values(listeLinjer()).flat().map(x => x.key));
     state.valgte = state.valgte.includes(d.ret) ? state.valgte.filter(x => x !== d.ret) : [...state.valgte, d.ret];
-    if (state.trin === 'liste') Object.values(listeLinjer()).flat().forEach(x => { if (!foer.has(x.key)) state.valgtVare[x.key] = true; });
   }
   else if (d.gaa) state.trin = d.gaa;
   else if (d.butik) state = { ...TOM, personer: state.personer, butik: d.butik };
