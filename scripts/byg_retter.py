@@ -26,6 +26,8 @@ from tilbud import BUTIKKER, SNAPSHOT  # noqa: E402
 ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FELTER = ['navn', 'maengde', 'enhed', 'basisvare', 'tilbud']
 NIVEAUER = {'student', 'familie', 'weekend'}
+KOEKKENER = ['dansk', 'italiensk', 'amerikansk', 'asiatisk', 'middelhav', 'vegetar']
+MIN_PR_KOEKKEN = 4
 # Retterne skal være hjemmelavede: ingen færdigretter, færdigtilbehør eller færdige saucer/deje
 FORARBEJDET = re.compile(r'flødekartofler|herregårds|kødboller|melboller|panering|paneret|eriks sauce|færdigret|middagsret|'
                          r'dinner kit|pizzadej|pesto|pastasauce|kopsuppe|snackpot|ristorante|rustica|surdejspizza|'
@@ -203,6 +205,8 @@ def main():
             r = udfold(kilderet, bibliotek, fejl, butik)
             if r is None:
                 continue
+            if r.get('koekken') not in KOEKKENER:
+                fejl.append(f"{r['navn']}: mangler køkken ({KOEKKENER})")
             if r['niveau'] not in NIVEAUER:
                 fejl.append(f"{r['navn']}: ukendt niveau {r['niveau']}")
             if r['navn'] in navne:
@@ -274,8 +278,13 @@ def main():
                          'billede': o['billede'], 'enhedspris': t.get('enhedspris', enhedspris(o)), 'hvorfor': t['hvorfor']})
         ud[butik] = {**info, 'top': top, 'retter': retter, 'tilbud': brugte}
 
+        antal_k = {k: sum(1 for r in retter if r.get('koekken') == k) for k in KOEKKENER}
+        mangler_k = [f"{k} ({n})" for k, n in antal_k.items() if n < MIN_PR_KOEKKEN]
+        if mangler_k:
+            rest_tips.append(f"{info['navn']}: for få retter i køkken (min {MIN_PR_KOEKKEN}): {', '.join(mangler_k)}")
         print(f"\n{info['navn']}: {len(retter)} retter, {len(brugte)} forskellige tilbudsvarer, "
               f"gns. {round(sum(r['andel_tilbud'] for r in retter) / max(1, len(retter)) * 100)}% tilbud")
+        print('  køkkener: ' + ', '.join(f'{k} {n}' for k, n in antal_k.items()))
         for niv in ('student', 'familie', 'weekend'):
             rr = [r for r in retter if r['niveau'] == niv]
             print(f"  {niv:8} {len(rr):2} retter")

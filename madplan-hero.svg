@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF6E5"/>
+      <stop offset="1" stop-color="#FFE3C2"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFF9F0"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#8A4B14" flood-opacity="0.22"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#8A4B14" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1350" cy="160" r="380" fill="#FFD9A8" opacity="0.55"/>
+  <circle cx="1500" cy="800" r="300" fill="#C9E4B5" opacity="0.5"/>
+  <circle cx="120" cy="840" r="260" fill="#FFC9B0" opacity="0.4"/>
+
+  <!-- decorative leaves left -->
+  <g opacity="0.9">
+    <path d="M70 120 C130 40 230 50 250 130 C170 160 110 160 70 120Z" fill="#7DB36B"/>
+    <path d="M70 120 C130 110 200 120 250 130" stroke="#5A9150" stroke-width="4" fill="none"/>
+    <path d="M140 760 C200 700 300 710 320 790 C240 820 180 820 140 760Z" fill="#9CCB86"/>
+    <path d="M140 760 C200 770 270 780 320 790" stroke="#6FA35E" stroke-width="4" fill="none"/>
+  </g>
+
+  <!-- planner card -->
+  <g filter="url(#shadow)" transform="rotate(-3 1000 450)">
+    <rect x="640" y="130" width="720" height="640" rx="36" fill="url(#card)"/>
+    <rect x="640" y="130" width="720" height="110" rx="36" fill="#E8603C"/>
+    <rect x="640" y="200" width="720" height="40" fill="#E8603C"/>
+    <circle cx="720" cy="130" r="14" fill="#FFF6E5"/>
+    <circle cx="1000" cy="130" r="14" fill="#FFF6E5"/>
+    <circle cx="1280" cy="130" r="14" fill="#FFF6E5"/>
+    <rect x="712" y="104" width="16" height="50" rx="8" fill="#B8432A"/>
+    <rect x="992" y="104" width="16" height="50" rx="8" fill="#B8432A"/>
+    <rect x="1272" y="104" width="16" height="50" rx="8" fill="#B8432A"/>
+    <text x="700" y="203" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" fill="#FFF6E5">Ugens madplan</text>
+
+    <!-- rows -->
+    <g font-family="'Segoe UI', Arial, sans-serif" font-size="30">
+      <g transform="translate(0,0)">
+        <rect x="680" y="272" width="64" height="64" rx="16" fill="#FFE3C2"/>
+        <text x="712" y="316" text-anchor="middle" font-weight="700" fill="#B8432A">M</text>
+        <rect x="770" y="288" width="330" height="18" rx="9" fill="#3D3A36" opacity="0.85"/>
+        <rect x="770" y="316" width="210" height="12" rx="6" fill="#3D3A36" opacity="0.25"/>
+        <circle cx="1310" cy="304" r="22" fill="#7DB36B"/>
+        <path d="M1299 304 l8 9 l16 -18" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g transform="translate(0,82)">
+        <rect x="680" y="272" width="64" height="64" rx="16" fill="#FFE3C2"/>
+        <text x="712" y="316" text-anchor="middle" font-weight="700" fill="#B8432A">T</text>
+        <rect x="770" y="288" width="280" height="18" rx="9" fill="#3D3A36" opacity="0.85"/>
+        <rect x="770" y="316" width="240" height="12" rx="6" fill="#3D3A36" opacity="0.25"/>
+        <circle cx="1310" cy="304" r="22" fill="#7DB36B"/>
+        <path d="M1299 304 l8 9 l16 -18" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g transform="translate(0,164)">
+        <rect x="680" y="272" width="64" height="64" rx="16" fill="#FFE3C2"/>
+        <text x="712" y="316" text-anchor="middle" font-weight="700" fill="#B8432A">O</text>
+        <rect x="770" y="288" width="360" height="18" rx="9" fill="#3D3A36" opacity="0.85"/>
+        <rect x="770" y="316" width="190" height="12" rx="6" fill="#3D3A36" opacity="0.25"/>
+        <circle cx="1310" cy="304" r="22" fill="#7DB36B"/>
+        <path d="M1299 304 l8 9 l16 -18" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g transform="translate(0,246)">
+        <rect x="680" y="272" width="64" height="64" rx="16" fill="#FFE3C2"/>
+        <text x="712" y="316" text-anchor="middle" font-weight="700" fill="#B8432A">T</text>
+        <rect x="770" y="288" width="300" height="18" rx="9" fill="#3D3A36" opacity="0.85"/>
+        <rect x="770" y="316" width="230" height="12" rx="6" fill="#3D3A36" opacity="0.25"/>
+        <circle cx="1310" cy="304" r="22" fill="none" stroke="#E8603C" stroke-width="4"/>
+      </g>
+      <g transform="translate(0,328)">
+        <rect x="680" y="272" width="64" height="64" rx="16" fill="#FFE3C2"/>
+        <text x="712" y="316" text-anchor="middle" font-weight="700" fill="#B8432A">F</text>
+        <rect x="770" y="288" width="340" height="18" rx="9" fill="#3D3A36" opacity="0.85"/>
+        <rect x="770" y="316" width="170" height="12" rx="6" fill="#3D3A36" opacity="0.25"/>
+        <circle cx="1310" cy="304" r="22" fill="none" stroke="#E8603C" stroke-width="4"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- tomato -->
+  <g filter="url(#soft)">
+    <circle cx="610" cy="690" r="95" fill="#E5382F"/>
+    <ellipse cx="580" cy="650" rx="26" ry="14" fill="#fff" opacity="0.35" transform="rotate(-30 580 650)"/>
+    <path d="M610 598 l-34 22 l24 -4 l10 24 l10 -24 l24 4z" fill="#4E9A3E"/>
+  </g>
+
+  <!-- avocado half -->
+  <g filter="url(#soft)" transform="rotate(18 1420 680)">
+    <path d="M1420 540 C1500 540 1540 640 1520 720 C1500 790 1340 790 1320 720 C1300 640 1340 540 1420 540Z" fill="#3E7B3A"/>
+    <path d="M1420 558 C1485 558 1520 645 1503 715 C1486 772 1354 772 1337 715 C1320 645 1355 558 1420 558Z" fill="#CFE79A"/>
+    <circle cx="1420" cy="682" r="44" fill="#8B5A2B"/>
+    <ellipse cx="1406" cy="668" rx="12" ry="8" fill="#fff" opacity="0.3"/>
+  </g>
+
+  <!-- lemon -->
+  <g filter="url(#soft)">
+    <ellipse cx="1180" cy="810" rx="76" ry="52" fill="#FFD84A" transform="rotate(-12 1180 810)"/>
+    <ellipse cx="1155" cy="795" rx="22" ry="10" fill="#fff" opacity="0.4" transform="rotate(-25 1155 795)"/>
+  </g>
+
+  <!-- carrot -->
+  <g filter="url(#soft)" transform="rotate(-28 860 820)">
+    <path d="M760 800 L960 820 L760 842 C742 840 738 802 760 800Z" fill="#FF8A2B"/>
+    <path d="M800 806 l0 30 M850 811 l0 24 M900 815 l0 18" stroke="#E06D12" stroke-width="3" stroke-linecap="round"/>
+    <path d="M740 820 C700 790 690 770 700 750 C720 770 735 790 746 808Z" fill="#5FA84E"/>
+    <path d="M740 822 C690 820 670 830 660 850 C690 848 720 840 746 830Z" fill="#7DB36B"/>
+  </g>
+
+  <!-- bowl on the left (dinner) -->
+  <g filter="url(#soft)">
+    <path d="M150 560 H470 C470 660 410 730 310 730 C210 730 150 660 150 560Z" fill="#FFFFFF"/>
+    <path d="M150 560 H470" stroke="#E8603C" stroke-width="10" stroke-linecap="round"/>
+    <ellipse cx="310" cy="560" rx="160" ry="24" fill="#F6C56A"/>
+    <circle cx="250" cy="548" r="22" fill="#E5382F"/>
+    <circle cx="300" cy="540" r="20" fill="#7DB36B"/>
+    <circle cx="352" cy="548" r="22" fill="#FF8A2B"/>
+    <circle cx="395" cy="552" r="16" fill="#CFE79A"/>
+    <path d="M230 520 q10 -50 -4 -80 M300 515 q10 -50 -4 -80 M370 520 q10 -50 -4 -80" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.7"/>
+  </g>
+
+  <!-- sparkles -->
+  <g fill="#E8603C" opacity="0.8">
+    <path d="M560 120 l8 22 l22 8 l-22 8 l-8 22 l-8 -22 l-22 -8 l22 -8z"/>
+    <path d="M1480 330 l6 16 l16 6 l-16 6 l-6 16 l-6 -16 l-16 -6 l16 -6z"/>
+  </g>
+</svg>

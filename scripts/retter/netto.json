@@ -105,7 +105,8 @@
         "Rør tomatpuré, hakkede tomater og oregano i, og lad saucen simre 15-20 minutter.",
         "Kog pastaen imens.",
         "Smag saucen til med salt og peber, og server med pastaen."
-      ]
+      ],
+      "koekken": "italiensk"
     },
     {
       "navn": "Tacos med hakket grisekød og avocado",
@@ -201,7 +202,8 @@
         "Mos avocadoerne med lidt salt.",
         "Varm wraps på en tør pande.",
         "Fyld wraps med kød, avocado, cheddar og en klat skyr."
-      ]
+      ],
+      "koekken": "amerikansk"
     },
     {
       "navn": "Kikærtecurry med kokos og ris",
@@ -293,7 +295,8 @@
         "Tilsæt tomater, kokosmælk og afdryppede kikærter, og lad det simre 10 minutter.",
         "Tilsæt grøntsagerne, og kog 5 minutter mere.",
         "Smag til med salt, og server med ris."
-      ]
+      ],
+      "koekken": "asiatisk"
     },
     {
       "navn": "Fettuccine med bacon, porrer og flødeostsauce",
@@ -360,7 +363,8 @@
         "Skær porrerne i tynde ringe, og svits dem med hakket hvidløg i baconfedtet til de er bløde.",
         "Rør flødeost og lidt pastavand i til en cremet sauce.",
         "Vend pastaen i, og server med friskkværnet peber."
-      ]
+      ],
+      "koekken": "italiensk"
     },
     {
       "navn": "Hjemmelavet pizza med bacon og mozzarella",
@@ -457,7 +461,8 @@
         "Del dejen i to, rul den tyndt ud på bagepapir, og fordel saucen.",
         "Top med mozzarella, bacon og tynde løgringe.",
         "Bag pizzaerne 10-12 minutter."
-      ]
+      ],
+      "koekken": "italiensk"
     },
     {
       "navn": "Æggekage med bacon, kartofler og porre",
@@ -533,7 +538,8 @@
         "Pisk æg, mælk, salt og peber sammen, og hæld over kartoflerne.",
         "Lad æggekagen stivne under låg ved lav varme i ca. 10 minutter.",
         "Top med bacon, og server med rugbrød."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Tunpasta i tomatsauce",
@@ -616,7 +622,8 @@
         "Tilsæt tomater, tomatpuré og oregano, og lad det simre 10 minutter.",
         "Vend den afdryppede tun i saucen, og smag til.",
         "Bland med pastaen og server."
-      ]
+      ],
+      "koekken": "italiensk"
     },
     {
       "navn": "Pølsegryde med tomat og ris",
@@ -708,7 +715,8 @@
         "Tilsæt paprika, tomatpuré og hakkede tomater.",
         "Tilsæt grøntsagerne, og lad gryden simre 10 minutter.",
         "Smag til, og server med ris."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Kyllingekarry med gulerødder og jasminris",
@@ -800,7 +808,8 @@
         "Svits løg, gulerødder i skiver, porre i ringe og karry i 3 minutter.",
         "Tilsæt kokosmælk og kylling, og lad det simre 15 minutter.",
         "Smag til med salt, og server med ris."
-      ]
+      ],
+      "koekken": "asiatisk"
     },
     {
       "navn": "Helstegt kylling med rodfrugter",
@@ -883,7 +892,8 @@
         "Gnid kyllingen med olie, salt og peber, og læg den ovenpå.",
         "Steg i ca. 75 minutter, til saften fra låret er klar.",
         "Lad kyllingen hvile 10 minutter, før den skæres ud."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Lasagne med oksekød",
@@ -998,7 +1008,8 @@
         "Lag kødsauce, lasagneplader og hvid sauce i et fad. Slut med hvid sauce.",
         "Top med mozzarella og revet Grana Padano.",
         "Bag ved 200 °C i ca. 35 minutter."
-      ]
+      ],
+      "koekken": "italiensk"
     },
     {
       "navn": "Chili con carne med ris",
@@ -1101,7 +1112,8 @@
         "Hæld tomater og afdryppede bønner i, og lad det simre 25 minutter.",
         "Kog risene imens.",
         "Smag til, og server med ris og en klat skyr."
-      ]
+      ],
+      "koekken": "amerikansk"
     },
     {
       "navn": "Burgere med ovnkartofler",
@@ -1195,7 +1207,8 @@
         "Rist bollerne kort, og skær løget i ringe.",
         "Byg burgerne med ketchup, remoulade, bøf og løg.",
         "Server med ovnkartofler."
-      ]
+      ],
+      "koekken": "amerikansk"
     },
     {
       "navn": "Kyllingefrikadeller med kartofler og rødkålssalat",
@@ -1303,7 +1316,8 @@
         "Form frikadeller med en ske, og steg dem i smør 4-5 minutter på hver side.",
         "Snit rødkålen fint, skær æblerne i tern og vend med skyr og salt.",
         "Server frikadellerne med kartofler og rødkålssalat."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Hjemmelavet kebab i madbrød med hvidløgsdressing",
@@ -1403,7 +1417,8 @@
         "Steg kødet sprødt i små portioner på en meget varm pande.",
         "Varm madbrødene i ovnen eller på panden.",
         "Fyld brødene med kød, grønt og dressing."
-      ]
+      ],
+      "koekken": "middelhav"
     },
     {
       "navn": "Mørbradgryde med porrer og ris",
@@ -1484,7 +1499,8 @@
         "Svits porrer i ringe på panden.",
         "Rør flødeost, 2 dl vand, bouillon og paprika i til en jævn sauce.",
         "Læg kødet tilbage, og lad det simre 8-10 minutter. Server med ris."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Ovnbagt laks med porrer og kartofler",
@@ -1558,7 +1574,8 @@
         "Læg laksen ovenpå, og krydr med salt, peber og citronskal.",
         "Bag 12-15 minutter, til laksen netop er gennembagt.",
         "Rør skyr med citronsaft og salt, og server til laks og kartofler."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Økologiske oksefiletbøffer med flødeporrer",
@@ -1632,7 +1649,8 @@
         "Svits porrer i ringe i smør, og rør flødeost og lidt vand i til en cremet sauce.",
         "Steg bøfferne på en meget varm pande 3-4 minutter på hver side, og lad dem hvile.",
         "Server med flødeporrer og ovnkartofler."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Sprøde andelår med flødekartofler og rødkål",
@@ -1745,7 +1763,8 @@
         "Flødekartofler: Skær kartoflerne i tynde skiver. Varm mælk, flødeost og knust hvidløg sammen, og smag til med salt og peber.",
         "Læg kartoflerne i et fad, hæld flødeblandingen over og bag dem med lårene i ca. 50 minutter.",
         "Skru op til 220 °C de sidste 10 minutter for sprødt skind, og server med rødkål og frisk æble i tern."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Ribbensteg med rødkål og brunede kartofler",
@@ -1842,7 +1861,8 @@
         "Rødkål: Snit rødkålen fint, og kog den under låg med løg, æbler i tern, eddike, 50 g af sukkeret, 1 dl vand og salt i ca. 1 time.",
         "Kog kartoflerne. Smelt resten af sukkeret til karamel, tilsæt smør og vend kartoflerne i.",
         "Lav sovs af skyen fra bradepanden, og server."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Grillost-wraps med bønner og avocado",
@@ -1937,7 +1957,8 @@
         "Skær grillosten i skiver, og steg dem gyldne på en tør pande.",
         "Skær avocadoerne i skiver.",
         "Varm wraps, og fyld dem med bønner, grillost, avocado og skyr."
-      ]
+      ],
+      "koekken": "vegetar"
     },
     {
       "navn": "Kikærtebøffer i pitabrød med hvidløgsskyr",
@@ -2052,7 +2073,8 @@
         "Rør skyr med revet hvidløg og salt.",
         "Snit rødkålen og riv resten af gulerødderne.",
         "Varm pitabrødene, og fyld dem med bøffer, grønt og hvidløgsskyr."
-      ]
+      ],
+      "koekken": "vegetar"
     },
     {
       "navn": "Kartoffel-porresuppe med sprød bacon",
@@ -2133,7 +2155,8 @@
         "Blend suppen, rør mælken i og smag til.",
         "Steg bacon sprødt.",
         "Server suppen med bacon, porreringe og brød."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Kylling i sød-sur med ananas og ris",
@@ -2248,7 +2271,8 @@
         "Steg grøntsagerne 3-4 minutter på høj varme.",
         "Rør tomatpuré, eddike, sukker, soja og 2 dl vand sammen, og hæld på panden. Lad det koge op og tykne.",
         "Vend kylling og ananas i, varm igennem og server med ris."
-      ]
+      ],
+      "koekken": "asiatisk"
     },
     {
       "navn": "Spareribs med ovnkartofler og coleslaw",
@@ -2333,7 +2357,8 @@
         "Fjern folien, pensl ribbene med ketchup, skru op til 220 °C og bag 20 minutter mere.",
         "Snit rødkålen fint og riv gulerødderne. Vend med skyr, salt og peber.",
         "Server ribs med kartofler og coleslaw."
-      ]
+      ],
+      "koekken": "amerikansk"
     },
     {
       "navn": "Koteletter i fad med porrer og flødeost",
@@ -2414,7 +2439,8 @@
         "Svits porrer i ringe på panden, og rør flødeost og mælk i.",
         "Hæld saucen over koteletterne, og bag 20 minutter.",
         "Server med kartoflerne."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Pasta med rejer og hvidløgsflødeost",
@@ -2504,7 +2530,8 @@
         "Rør flødeost, citronskal og lidt pastavand i til en cremet sauce.",
         "Vend pasta og rejer i, og varm kort igennem.",
         "Top med revet Grana Padano og citronsaft."
-      ]
+      ],
+      "koekken": "italiensk"
     },
     {
       "navn": "Andebryst med druesauce og ovnbagte rodfrugter",
@@ -2603,7 +2630,8 @@
         "Vend brysterne, og læg dem i ovnen i 6-8 minutter. Lad dem hvile.",
         "Hæld det meste af fedtet fra, og kog druer, 2 dl vand og bouillon ind på panden. Rør smør i til sidst.",
         "Skær brysterne i skiver, og server med druesauce og rodfrugter."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Varmrøget laks med lun kartoffelsalat og æg",
@@ -2688,7 +2716,8 @@
         "Rør skyr med citronsaft, salt og peber, og vend de lune kartofler og fint snittet porre i.",
         "Del laksen i flager og æggene i både.",
         "Anret kartoffelsalaten med laks og æg, og drys med kerner."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Svinemørbrad i bacon med hasselbackkartofler",
@@ -2769,7 +2798,8 @@
         "Brun mørbraden på panden, og steg den i ovnen i 20-25 minutter (kernetemperatur 65 °C).",
         "Rør flødeost, mælk og bouillon sammen i panden til en cremet sauce.",
         "Lad kødet hvile 5 minutter, skær i skiver og server med kartofler og sauce."
-      ]
+      ],
+      "koekken": "dansk"
     },
     {
       "navn": "Kyllingewraps med hakket kylling og avocado",
@@ -2853,7 +2883,8 @@
         "Mos avocadoen groft med lidt salt, og riv eller snit salaten.",
         "Varm wraps på en tør pande.",
         "Fyld wraps med kød, avocado, salat, cheddar og en klat skyr, og rul dem sammen."
-      ]
+      ],
+      "koekken": "amerikansk"
     }
   ]
 }

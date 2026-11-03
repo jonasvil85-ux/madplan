@@ -120,6 +120,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .hero-tekst h2 { font-size: 30px; line-height: 1.15; margin-bottom: 10px; }
 .hero-tekst p { margin: 0; font-size: 16px; color: #E5E7EB; }
 @media (max-width: 700px) { .hero { height: 220px; } .hero-tekst { left: 18px; right: 18px; } .hero-tekst h2 { font-size: 22px; } .hero-tekst p { font-size: 14px; } }
+.chip small { opacity: .6; margin-left: 4px; }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
@@ -221,6 +222,11 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 <script src="pris.js"></script>
 <script>
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
+const KOEKKENER = {
+  dansk: { ikon: '🇩🇰', navn: 'Klassisk dansk' }, italiensk: { ikon: '🇮🇹', navn: 'Italiensk' },
+  amerikansk: { ikon: '🍔', navn: 'Amerikansk & Tex-Mex' }, asiatisk: { ikon: '🥢', navn: 'Asiatisk' },
+  middelhav: { ikon: '🫒', navn: 'Middelhav' }, vegetar: { ikon: '🥦', navn: 'Vegetar' },
+};
 const NIVEAUER = {
   student: { ikon: '🎓', navn: 'Studentermad', kort: 'Student', tekst: 'Billigt, hurtigt og mættende' },
   familie: { ikon: '👨‍👩‍👧', navn: 'Familiemad', kort: 'Familie', tekst: 'Hverdagsmad hele familien kan lide' },
@@ -229,7 +235,7 @@ const NIVEAUER = {
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
-const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', kunRest: false, valgte: [], butik: null, personer: 4,
+const TOM = { trin: 'retter', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, personer: 4,
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
@@ -441,7 +447,7 @@ function renderRetter() {
     .sort((a, b) => orden.indexOf(a.niveau) - orden.indexOf(b.niveau) || prisIAlt(a) - prisIAlt(b));
   const kat = ['alle', ...Object.keys(KATEGORIER).filter(k => iNiveau.some(r => r.kategori === k))];
   if (!kat.includes(state.filter)) state.filter = 'alle';
-  const synlige = iNiveau.filter(r => (state.filter === 'alle' || r.kategori === state.filter) && (!state.kunRest || restMap[r.id]));
+  const synlige = iNiveau.filter(r => (state.filter === 'alle' || r.kategori === state.filter) && (!state.kunRest || restMap[r.id]) && (state.koekken === 'alle' || r.koekken === state.koekken));
   const antal = n => retter.filter(r => n === 'alle' || r.niveau === n).length;
 
   vis(`
@@ -457,6 +463,13 @@ function renderRetter() {
           <span class="ikon">${n.ikon}</span><strong>${n.navn}</strong><small>${n.tekst} · ${antal(k)} retter</small>
         </button>`).join('')}
     </div>
+    <div class="filtre koekkenrække">
+      <button class="chip ${state.koekken === 'alle' ? 'aktiv' : ''}" data-koekken="alle">Alle køkkener</button>
+      ${Object.entries(KOEKKENER).map(([k, ko]) => {
+        const n = iNiveau.filter(r => r.koekken === k).length;
+        return n ? `<button class="chip ${state.koekken === k ? 'aktiv' : ''}" data-koekken="${k}">${ko.ikon} ${ko.navn} <small>${n}</small></button>` : '';
+      }).join('')}
+    </div>
     <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle typer' : KATEGORIER[k]}</button>`).join('')}
       ${antalRest ? `<button class="chip rest-chip ${state.kunRest ? 'aktiv' : ''}" data-kunrest>♻ Bruger min rest (${antalRest})</button>` : ''}</div>
     <div class="grid">${synlige.map(r => {
@@ -470,6 +483,7 @@ function renderRetter() {
           <div class="meta">
             <span class="tag">${NIVEAUER[r.niveau].ikon} ${NIVEAUER[r.niveau].navn}</span>
             <span class="tag">${KATEGORIER[r.kategori]}</span>
+            ${r.koekken && KOEKKENER[r.koekken] ? `<span class="tag">${KOEKKENER[r.koekken].ikon} ${KOEKKENER[r.koekken].navn}</span>` : ''}
             <span class="tag">${r.tid_minutter} min</span>
             <span class="tag pris" title="Indkøb = hele pakker (tilbud ${kr(Math.round(r.pris_tilbud))}) + skøn for øvrige varer. Forbrug = kun det retten bruger. 4 personer.">Indkøb ca. ${kr(Math.round(prisIAlt(r)))} · ${kr(Math.round(prisIAlt(r) / 4))}/pers.</span>
             ${r.pris_forbrug ? `<span class="tag">Forbrug ca. ${kr(Math.round(r.pris_forbrug))}</span>` : ''}
@@ -792,10 +806,11 @@ function kopierListe() {
 
 // ---------- Hændelser ----------
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest]');
+  const t = e.target.closest('[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
-  if ('kunrest' in d) state.kunRest = !state.kunRest;
+  if (d.koekken) state.koekken = d.koekken;
+  else if ('kunrest' in d) state.kunRest = !state.kunRest;
   else if (d.onlineTil) state.online = d.onlineTil === '1';
   else if (d.online) { state.koebt[d.online] = true; setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 0); return; }
   else if (d.alle) { listeLinjer()[d.alle].forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
