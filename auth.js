@@ -68,6 +68,7 @@ function visLogin(fane = 'ind', besked = '') {
         <button class="knap" type="submit">${knap}</button>
       </form>
       <p id="login-besked" class="${besked.startsWith('✓') ? 'ok' : 'fejl'}">${esc(besked)}</p>
+      ${fane === 'opret' ? '<p class="detalje">Når du opretter en bruger, gemmer vi din e-mail. Læs <a href="/privatlivspolitik.html" target="_blank" rel="noopener">privatlivspolitikken</a>.</p>' : ''}
       ${fane === 'ind' ? '<button class="link" data-login-fane="glemt">Glemt adgangskode?</button>' : ''}
       ${fane === 'glemt' ? '<button class="link" data-login-fane="ind">← Tilbage til log ind</button>' : ''}
     </div>`;
