@@ -287,6 +287,9 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .katalog-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .katalog-chips .chip.aktiv { background: rgba(232,116,59,.13); }
 .fremskridt { color: var(--accent); font-weight: 600; }
+/* Statuslinjen på indkøbssedlen følger med, når man ruller, så man altid kan se, hvor langt man er */
+.seddel-status { position: sticky; top: 0; z-index: 25; background: var(--surface); box-shadow: 0 8px 20px rgba(0,0,0,.45); }
+@media (max-width: 700px) { .seddel-status { padding: 12px 14px; } }
 .bar { height: 6px; background: var(--surface-2); border-radius: 99px; margin-top: 10px; overflow: hidden; }
 .bar div { height: 100%; background: var(--accent); transition: width .2s; }
 </style>
@@ -919,7 +922,7 @@ function renderSeddel() {
         : `<span><b>Vil du handle online?</b> Åbn varerne én for én i ${esc(netbutik.navn)} og læg dem i kurven.</span>
            <button class="knap" data-online-til="1">${ikon('cart')} Handl i ${esc(netbutik.navn)}</button>`}
     </div>` : ''}
-    <div class="panel">
+    <div class="panel seddel-status">
       <div class="valg" style="justify-content:space-between">
         <span><b style="color:var(--text-1)">Indkøbsseddel · ${esc(B().navn)}</b> · ${linjer.length} varer${sum.ialt ? ` · ${prisTekst(sum)}` : ''}</span>
         <span class="fremskridt">${koebt} af ${linjer.length} i kurven</span>
