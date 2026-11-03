@@ -49,7 +49,8 @@ python -I scripts/byg_retter.py                                # validerer og sk
 Findes en fejlkobling (fx andebryst som kyllingebryst), så ret regexen i `scripts/bibliotek_typer.py` (brug `(?<![a-zæøå])…(?![a-zæøå])` – `\b` virker ikke med æøå)
 eller `IKKE_MAD` i `udvid_retter.py`, og kør igen. Tynde aviser (Kvickly/SuperBrugsen/Lidl) når måske ikke 50 – kvalitet er vigtigere end antal.
 
-**Billeder (valgfrit trin, kun hvis miljøvariablen `CLOUDFLARE_API_TOKEN` findes):** Kør `python -I scripts/billeder.py` FØR `byg_retter.py`. Den laver et illustrationsbillede til hver ny ret
+**Billeder (valgfrit trin, kun hvis miljøvariablen `CLOUDFLARE_API_TOKEN` findes):** Billedmodellen forstår ikke danske retnavne, så hver ret skal have en kort ENGELSK beskrivelse af, hvordan den færdige ret ser ud på tallerkenen
+(fx "Danish stewed white cabbage in a creamy white sauce, served with fried brown medister sausage slices and boiled potatoes"). Skriv beskrivelsen til hver NY ret i `scripts/billedprompts.json` (nøgle = rettens præcise navn) – scriptet advarer om retter uden. Kør derefter `python -I scripts/billeder.py` FØR `byg_retter.py`. `--forfra` laver alle billeder om. Den laver et illustrationsbillede til hver ny ret
 (Cloudflare Workers AI, Flux Schnell, gratis daglig grænse), gemmer det i `billeder/` (ca. 60 KB pr. stk.) og springer retter over, der allerede har et. Når den daglige gratis grænse er nået, stopper den
 uden fejl – resten tages næste dag. Findes nøglen ikke (eller kan `api.cloudflare.com` ikke nås), så spring trinnet over; retter uden billede viser et køkkenikon. `byg_retter.py` sætter selv feltet `billede`.
 Husk at committe de nye filer i `billeder/`.

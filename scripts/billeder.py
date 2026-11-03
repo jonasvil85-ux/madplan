@@ -16,6 +16,13 @@ KONTO = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '38253a60db8406866eb2a255247002d
 MODEL = '@cf/black-forest-labs/flux-1-schnell'
 STIL = ('Appetizing food photography of homemade Danish home cooking, served on a plate, natural daylight, '
         'rustic table, realistic, high detail, no text')
+BESKRIVELSER = os.path.join(ROD, 'scripts', 'billedprompts.json')  # {rettens navn: engelsk beskrivelse af den færdige ret}
+
+
+def beskrivelser():
+    if os.path.exists(BESKRIVELSER):
+        return json.load(open(BESKRIVELSER, encoding='utf-8'))
+    return {}
 
 
 def slug(navn):
@@ -27,7 +34,11 @@ def sti(navn):
     return os.path.join(MAPPE, slug(navn) + '.jpg')
 
 
-def prompt(r):
+def prompt(r, besk=None):
+    """Foretræk en håndskrevet engelsk beskrivelse af den færdige ret (billedmodellen forstår ikke danske retnavne
+    som 'stuvet hvidkål'). Uden beskrivelse bruges retnavn + hovedingredienser, men det giver oftere skæve billeder."""
+    if besk and r['navn'] in besk:
+        return f"{besk[r['navn']]}. {STIL}"
     hoved = [i['navn'] for i in r['ingredienser'] if not i.get('basisvare')][:5]
     return f"{r['navn']}. Main ingredients: {', '.join(hoved)}. {STIL}"
 
@@ -67,12 +78,17 @@ def main():
     if not nøgle:
         sys.exit('Mangler miljøvariablen CLOUDFLARE_API_TOKEN')
     maks = int(sys.argv[sys.argv.index('--maks') + 1]) if '--maks' in sys.argv else 10 ** 6
+    forfra = '--forfra' in sys.argv  # lav alle billeder om (også dem der findes)
+    besk = beskrivelser()
     d = json.load(open(os.path.join(ROD, 'retter.json'), encoding='utf-8'))
     unikke = {}
     for b in d['butikker'].values():
         for r in b['retter']:
             unikke.setdefault(r['navn'], r)
-    mangler = [r for n, r in unikke.items() if not os.path.exists(sti(n))][:maks]
+    mangler = [r for n, r in unikke.items() if forfra or not os.path.exists(sti(n))][:maks]
+    uden = [n for n in unikke if n not in besk]
+    if uden:
+        print(f'ADVARSEL: {len(uden)} retter mangler beskrivelse i scripts/billedprompts.json (billedet bliver dårligere): ' + '; '.join(uden[:8]))
     print(f'{len(unikke)} forskellige retter, {len(unikke) - len([n for n in unikke if not os.path.exists(sti(n))])} har billede, laver {len(mangler)} nye')
     stop = {'graense': False}
     lavet = fejl = 0
@@ -81,7 +97,7 @@ def main():
         if stop['graense']:
             return None
         try:
-            lav(r['navn'], prompt(r), nøgle)
+            lav(r['navn'], prompt(r, besk), nøgle)
             return 'ok'
         except GraenseNaaet as e:
             stop['graense'] = True
