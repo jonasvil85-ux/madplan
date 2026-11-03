@@ -1,6 +1,6 @@
 """Lav illustrationsbilleder til retterne med Cloudflare Workers AI (Flux Schnell, gratis grænse pr. dag).
 
-Brug:  python -I scripts/billeder.py            (alle retter i retter.json der mangler billede)
+Brug:  python -I scripts/billeder.py            (retter i retter.json der mangler billede – højst 60 pr. kørsel som standard)
        python -I scripts/billeder.py --maks 20  (højst 20 nye billeder i denne kørsel)
 Kræver miljøvariablen CLOUDFLARE_API_TOKEN (nøgle med Workers AI-adgang) – den må ikke stå i koden eller sendes i chatten.
 Billeder gemmes som billeder/<navn-som-slug>.jpg (720×540, ca. 50 KB). Eksisterende billeder genbruges, så kørslen kan
@@ -77,15 +77,17 @@ def main():
     nøgle = os.environ.get('CLOUDFLARE_API_TOKEN', '')
     if not nøgle:
         sys.exit('Mangler miljøvariablen CLOUDFLARE_API_TOKEN')
-    maks = int(sys.argv[sys.argv.index('--maks') + 1]) if '--maks' in sys.argv else 10 ** 6
+    # Sikkerhedsgrænse mod uventet forbrug: højst 60 nye billeder pr. kørsel, medmindre --maks er angivet (bevidst valg)
+    maks = int(sys.argv[sys.argv.index('--maks') + 1]) if '--maks' in sys.argv else 60
     forfra = '--forfra' in sys.argv  # lav alle billeder om (også dem der findes)
+    kun = [x.strip().lower() for x in sys.argv[sys.argv.index('--kun') + 1].split(';')] if '--kun' in sys.argv else None  # kun retter hvis navn indeholder en af disse tekster (laves altid forfra)
     besk = beskrivelser()
     d = json.load(open(os.path.join(ROD, 'retter.json'), encoding='utf-8'))
     unikke = {}
     for b in d['butikker'].values():
         for r in b['retter']:
             unikke.setdefault(r['navn'], r)
-    mangler = [r for n, r in unikke.items() if forfra or not os.path.exists(sti(n))][:maks]
+    mangler = [r for n, r in unikke.items() if (kun and any(k in n.lower() for k in kun)) or (not kun and (forfra or not os.path.exists(sti(n))))][:maks]
     uden = [n for n in unikke if n not in besk]
     if uden:
         print(f'ADVARSEL: {len(uden)} retter mangler beskrivelse i scripts/billedprompts.json (billedet bliver dårligere): ' + '; '.join(uden[:8]))
