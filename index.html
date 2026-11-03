@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Måltidsjagten — ugens retter ud fra tilbudsaviserne</title>
 <meta name="description" content="Måltidsjagten finder ugens bedste tilbud i Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl og 365discount og foreslår hjemmelavede retter, indkøbsliste og ugeplan.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Måltidsjagten – billig aftensmad ud fra ugens tilbud">
+<meta property="og:description" content="Tilbudsaviser fra 8 supermarkeder samlet. Find hjemmelavede retter, få indkøbsliste og ugeplan – gratis.">
+<meta property="og:image" content="https://www.xn--mltidsjagten-tcb.dk/og-image.jpg">
+<meta property="og:url" content="https://www.xn--mltidsjagten-tcb.dk/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script defer src="/_vercel/insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -133,17 +139,22 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .chip.rest-chip { border-color: rgba(245,158,11,.6); color: var(--amber); }
 .chip.rest-chip.aktiv { background: rgba(245,158,11,.15); }
 .hero { position: relative; border-radius: var(--radius); overflow: hidden; height: 280px; margin-bottom: 20px; background: #0C1120; border: 1px solid var(--border); }
-.hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,17,32,.88) 0%, rgba(12,17,32,.55) 45%, rgba(12,17,32,0) 75%); }
+.hero-mosaik { position: absolute; inset: 0; display: grid; grid-template-columns: 1.15fr 1fr 1fr 1fr; gap: 3px; }
+.hero-mosaik img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,17,32,.96) 0%, rgba(12,17,32,.88) 32%, rgba(12,17,32,.35) 62%, rgba(12,17,32,0) 85%); }
 .hero-tekst { position: absolute; z-index: 1; left: 28px; top: 50%; transform: translateY(-50%); max-width: 520px; }
 .hero-tekst h2 { font-size: 30px; line-height: 1.15; margin-bottom: 10px; }
 .hero-tekst p { margin: 0; font-size: 16px; color: #E5E7EB; }
-@media (max-width: 700px) { .hero { height: 220px; } .hero-tekst { left: 18px; right: 18px; } .hero-tekst h2 { font-size: 22px; } .hero-tekst p { font-size: 14px; } }
+@media (max-width: 700px) { .hero-mosaik { grid-template-columns: .5fr 1fr 1fr; } .hero-mosaik img:first-of-type { display: none; } .hero { height: 220px; } .hero-tekst { left: 18px; right: 18px; } .hero-tekst h2 { font-size: 22px; } .hero-tekst p { font-size: 14px; } }
 .chip small { opacity: .6; margin-left: 4px; }
 .fodnote { font-size: 12px; color: var(--text-3); margin: 14px 0 0; }
 
 .niveauer { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
 .niveau { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 12px 14px; text-align: left; color: var(--text-3); display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; }
+.koek-bil { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin: -2px 2px -2px -4px; }
+.niveau { position: relative; overflow: hidden; isolation: isolate; }
+.niveau::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(19,28,46,.95) 0%, rgba(19,28,46,.78) 55%, rgba(19,28,46,.5) 100%), var(--bg) center / cover; transition: transform .3s; }
+.niveau:hover::before { transform: scale(1.05); }
 .niveau .ikon { grid-row: span 2; font-size: 26px; }
 .niveau strong { color: var(--text-1); font-size: 15px; }
 .niveau small { font-size: 12px; }
@@ -250,6 +261,8 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 <script src="feedback.js"></script>
 <script>
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
+const KOEKKEN_BILLEDE = { dansk: 'flaeskesteg-med-roedkaal-og-brunede-kartofler', italiensk: 'spaghetti-bolognese', amerikansk: 'burgere-med-hjemmelavede-boeffer',
+  asiatisk: 'kylling-i-soed-sur-med-ananas-og-ris', middelhav: 'graesk-salat-med-halloumi-oliven-og-pitabroed', vegetar: 'kikaertecurry-med-kokos-og-ris' };
 const KOEKKENER = {
   dansk: { ikon: '🇩🇰', navn: 'Klassisk dansk' }, italiensk: { ikon: '🇮🇹', navn: 'Italiensk' },
   amerikansk: { ikon: '🍔', navn: 'Amerikansk & Tex-Mex' }, asiatisk: { ikon: '🥢', navn: 'Asiatisk' },
@@ -469,7 +482,12 @@ function renderButikker() {
 
   vis(`
   <section class="hero">
-    <img class="hero-img" src="hero.jpg" alt="" onerror="this.onerror=null;this.src='hero.svg'">
+    <div class="hero-mosaik" aria-hidden="true">
+      <span></span>
+      <img src="grafik/hero-indkoeb.jpg" alt="" width="800" height="800">
+      <img src="grafik/hero-madlavning.jpg" alt="" width="800" height="800">
+      <img src="grafik/hero-bord.jpg" alt="" width="800" height="800">
+    </div>
     <div class="hero-tekst">
       <h2>Billig aftensmad ud fra ugens tilbud</h2>
       <p>Sammenlign 8 butikker, vælg dine retter og få indkøbslisten – klar til at handle.</p>
@@ -550,9 +568,9 @@ function renderRetter() {
     </div>
     ${udloebet(B()) ? '<div class="panel fejl">Denne avis er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
     <div class="niveauer">
-      <button class="niveau ${state.niveau === 'alle' ? 'aktiv' : ''}" data-niveau="alle"><span class="ikon">🍽️</span><strong>Alle retter</strong><small>${antal('alle')} retter</small></button>
+      <button class="niveau ${state.niveau === 'alle' ? 'aktiv' : ''}" data-niveau="alle" style="--bg:url('grafik/hero-bord.jpg')"><span class="ikon">🍽️</span><strong>Alle retter</strong><small>${antal('alle')} retter</small></button>
       ${Object.entries(NIVEAUER).map(([k, n]) => `
-        <button class="niveau ${state.niveau === k ? 'aktiv' : ''}" data-niveau="${k}">
+        <button class="niveau ${state.niveau === k ? 'aktiv' : ''}" data-niveau="${k}" style="--bg:url('grafik/niveau-${k}.jpg')">
           <span class="ikon">${n.ikon}</span><strong>${n.navn}</strong><small>${n.tekst} · ${antal(k)} retter</small>
         </button>`).join('')}
     </div>
@@ -560,7 +578,7 @@ function renderRetter() {
       <button class="chip ${state.koekken === 'alle' ? 'aktiv' : ''}" data-koekken="alle">Alle køkkener</button>
       ${Object.entries(KOEKKENER).map(([k, ko]) => {
         const n = iNiveau.filter(r => r.koekken === k).length;
-        return n ? `<button class="chip ${state.koekken === k ? 'aktiv' : ''}" data-koekken="${k}">${ko.ikon} ${ko.navn} <small>${n}</small></button>` : '';
+        return n ? `<button class="chip ${state.koekken === k ? 'aktiv' : ''}" data-koekken="${k}"><img class="koek-bil" src="billeder/${KOEKKEN_BILLEDE[k]}.jpg" alt="" loading="lazy" width="22" height="22"> ${ko.navn} <small>${n}</small></button>` : '';
       }).join('')}
     </div>
     <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle typer' : KATEGORIER[k]}</button>`).join('')}
