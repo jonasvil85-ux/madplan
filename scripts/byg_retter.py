@@ -28,13 +28,21 @@ FELTER = ['navn', 'maengde', 'enhed', 'basisvare', 'tilbud']
 NIVEAUER = {'student', 'familie', 'weekend'}
 KOEKKENER = ['dansk', 'italiensk', 'amerikansk', 'asiatisk', 'middelhav', 'vegetar']
 MIN_PR_KOEKKEN = 4
-# Retterne skal være hjemmelavede: ingen færdigretter, færdigtilbehør eller færdige saucer/deje
-FORARBEJDET = re.compile(r'flødekartofler|herregårds|kødboller|melboller|panering|paneret|eriks sauce|færdigret|middagsret|'
-                         r'dinner kit|pizzadej|pesto|pastasauce|kopsuppe|snackpot|ristorante|rustica|surdejspizza|'
-                         r'italiensk pizza|æbleskiver|kyllingemarked|kebab|confit|smørrebrød|menu|mortensaften|'
-                         r'frikadeller|lasagne|nuggets|cordon|wok-?mix|færdig|lactofree|laktosefri|smørbar|naturli|margarine|^kærgården|brunede kartofler|kartoffelgratin|kålsalat|'
-                         r'andesauce|risalamande|forårsruller|spring rolls|fyldt pasta|pizzatopping|grande pizza|'
-                         r'tex mex|indbagt|minifrikadeller|kebabbrød|toast|wienerbrød|tærte', re.I)
+# FÆRDIGVARER – tre niveauer:
+#  1) Altid OK: basale halvfabrikata (rødkål/rødbeder på glas, bouillon, ketchup/sennep/remoulade, pasta, ris, brød, wraps,
+#     pizzadej, pesto og pastasauce på glas, konserves, frosne grøntsager, rå kebab-/gullaschkød osv.)
+#  2) I ny og næ (SJAELDEN): frysepizza, paneret fisk/schnitzel, pommes frites – højst MAX_SJAELDEN retter pr. butik
+#  3) Aldrig (FORARBEJDET): ultra-forarbejdede færdigretter og færdigt tilbehør – fx færdige kødboller i karry, lasagne,
+#     middagsretter, nuggets, dinner kits, kopsupper, færdige flødekartofler/gratin, laktosefri, smørbart, plantebaseret
+FORARBEJDET = re.compile(
+    r'færdigret|middagsret|dinner kit|kopsuppe|cup a soup|snackpot|instant|nuggets|cordon|minischnitzel|schnitzelmaker|'
+    r'forårsruller|spring rolls|fyldt pasta|tex ?mex|kødboller|melboller|frikadeller|lasagne|moussaka|gryderet|boller i karry|'
+    r'komplet suppe|specialsuppe|hamburger|færdig|'
+    r'flødekartofler|brunede kartofler|kartoffelgratin|duchesse|glaskartofler|kartofler i glas|kålsalat|'
+    r'æbleskiver|risalamande|confit|smørrebrød|menu|mortensaften|andesauce|kyllingemarked|wok-?mix|indbagt|kebabbrød|toast|wienerbrød|tærte|'
+    r'lactofree|laktosefri|smørbar|naturli|margarine|^kærgården', re.I)
+SJAELDEN = re.compile(r'panering|paneret|ristorante|rustica|surdejspizza|italiensk.*pizza|grande pizza|pizzatopping|pizza|pommes', re.I)
+MAX_SJAELDEN = 2  # retter pr. butik med frysepizza, paneret fisk eller pommes frites
 OMREGN = {'g': ('g', 1), 'kg': ('g', 1000), 'ml': ('ml', 1), 'cl': ('ml', 10), 'l': ('ml', 1000), 'stk': ('stk', 1)}
 # Groft skøn (kr pr. enhed) for ingredienser der IKKE er på tilbud, så retter med få tilbudsvarer
 # ikke ser kunstigt billige ud i prissammenligningen. Basisvarer (salt, olie, mel …) tælles ikke.
@@ -201,6 +209,7 @@ def main():
             fejl.append(f"{butik}: retterne er lavet til avis {kilder[butik]['avis']}, men øjebliksbilledet har {avis_ids}")
             continue
         retter, brugte, navne = [], {}, set()
+        sjaeldne = set()
         for nr, kilderet in enumerate(kilder[butik]['retter'], 1):
             r = udfold(kilderet, bibliotek, fejl, butik)
             if r is None:
@@ -221,8 +230,10 @@ def main():
                         fejl.append(f"{butik}: '{r['navn']}' bruger ugyldigt tilbuds-id {tid}")
                 d['tilbud'] = [t for t in d['tilbud'] if t.startswith(b['prefix']) and t in alle]
                 for t in d['tilbud']:
-                    if FORARBEJDET.search(alle[t]['navn']):
+                    if FORARBEJDET.search(re.split(r' eller |,', alle[t]['navn'])[0]):
                         fejl.append(f"{butik}: '{r['navn']}' bruger færdigvare {t} ({alle[t]['navn'][:40]})")
+                    if SJAELDEN.search(re.split(r' eller |,', alle[t]['navn'])[0]):
+                        sjaeldne.add(r['navn'])
                 if d['tilbud']:
                     t = d['tilbud'][0]
                     brugte[t] = alle[t]
@@ -242,6 +253,8 @@ def main():
                            'pris_tilbud': round(pris, 2), 'pris_oevrigt': round(oevrigt, 2),
                            'pris_i_alt': round(pris + oevrigt, 2), 'pris_forbrug': round(forbrug, 2),
                            'andel_tilbud': round(andel, 2)})
+        if len(sjaeldne) > MAX_SJAELDEN:
+            advarsler.append(f"{butik}: {len(sjaeldne)} retter bruger frysepizza/paneret/pommes (højst {MAX_SJAELDEN} 'i ny og næ'): {', '.join(sorted(sjaeldne))}")
         # Rest-tip: store pakker (efter 4 personers behov bliver >=30 % tilbage) som kun få retter bruger,
         # så brugeren ikke kan bruge resten i en anden ret
         brug = {}

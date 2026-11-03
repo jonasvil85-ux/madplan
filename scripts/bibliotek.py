@@ -1,0 +1,23 @@
+"""Samler opskriftsbiblioteket (bibliotek_1..3)."""
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from bibliotek_1 import RETTER as _1
+from bibliotek_2 import RETTER as _2
+from bibliotek_3 import RETTER as _3
+from bibliotek_typer import TYPER
+
+RETTER = _1 + _2 + _3
+ENHEDER = {'g', 'ml', 'stk', 'spsk', 'tsk', 'fed', 'dåse', 'pakke', 'bundt', 'efter smag'}
+if __name__ == '__main__':
+    import collections, sys
+    sys.stdout.reconfigure(encoding='utf-8')
+    fejl = []
+    navne = collections.Counter(r['navn'] for r in RETTER)
+    for r in RETTER:
+        if navne[r['navn']] > 1: fejl.append('dublet: ' + r['navn'])
+        if not any(i[5] for i in r['ingredienser']): fejl.append('ingen nøgle-ingrediens: ' + r['navn'])
+        for navn, m, e, b, t, k in r['ingredienser']:
+            if e not in ENHEDER: fejl.append(f"{r['navn']}: ukendt enhed {e} ({navn})")
+            if t and t not in TYPER: fejl.append(f"{r['navn']}: ukendt type {t} ({navn})")
+    print(len(RETTER), 'opskrifter', dict(collections.Counter(r['koekken'] for r in RETTER)))
+    print('FEJL:', fejl or 'ingen')
