@@ -348,6 +348,8 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .husstand-kort:hover { border-color: rgba(232,116,59,.5); }
 .husstand-kort.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
+.filtre .husstand-tael, .valg .husstand-tael { margin-top: 0; }
+.husstand-tael .personer-tekst b { color: var(--text-1); font-weight: 600; }
 .tael { display: inline-flex; align-items: center; gap: 8px; }
 @media (max-width: 900px) { .husstand-valg { grid-template-columns: repeat(2, minmax(0, 1fr)); } .husstand-kort.selv { grid-column: 1 / -1; } }
 @media (max-width: 420px) { .husstand-ikon { width: 64px; height: 64px; } .husstand-kort { gap: 9px; } }
@@ -969,11 +971,10 @@ function husstandPanel() {
       </div></div>
   </div>`;
 }
-function husstandKompakt(tekst = 'Regnet for') {
-  const { voksne: v, boern: b } = state;
-  return `<div class="personer husstand-tael" title="Mængder, priser og indkøb regnes for den husstand, du vælger. Et barn tæller som ca. 0,6 voksenportion."><span class="personer-tekst">${tekst}</span>
-    <span class="tael"><button type="button" data-voksne="-1" aria-label="Færre voksne">−</button><span><b>${v}</b> ${v === 1 ? 'voksen' : 'voksne'}</span><button type="button" data-voksne="1" aria-label="Flere voksne">+</button></span>
-    <span class="tael"><button type="button" data-boern="-1" aria-label="Færre børn">−</button><span><b>${b}</b> ${b === 1 ? 'barn' : 'børn'}</span><button type="button" data-boern="1" aria-label="Flere børn">+</button></span></div>`;
+// På retter-siden og indkøbslisten kan husstanden ikke ændres (den er valgt på forsiden) – kun vises, med et link tilbage
+function husstandKompakt() {
+  return `<div class="personer husstand-tael"><span class="personer-tekst">Regnet for <b>${husstandTekst(state.voksne, state.boern)}</b></span>
+    <button type="button" class="chip lille" data-trin="butik" title="Husstanden vælges på forsiden">Skift</button></div>`;
 }
 
 function renderButikker() {
