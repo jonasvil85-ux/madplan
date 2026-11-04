@@ -50,9 +50,15 @@ const DANSK_GRAENSE = src => src
   .replace(/\\b/g, '(?![a-zæøå])');
 const REGLER = GRUPPE_REGLER.map(([g, r]) => [g, new RegExp(DANSK_GRAENSE(r.source), 'i')]);
 
+const VAREGRUPPE_HUKOMMELSE = new Map();  // varegruppe() kaldes tusindvis af gange, når madplanen simuleres
 function varegruppe(navn) {
-  for (const [gruppe, regel] of REGLER) if (regel.test(navn)) return gruppe;
-  return 'Andet';
+  let g = VAREGRUPPE_HUKOMMELSE.get(navn);
+  if (g === undefined) {
+    g = 'Andet';
+    for (const [gruppe, regel] of REGLER) if (regel.test(navn)) { g = gruppe; break; }
+    VAREGRUPPE_HUKOMMELSE.set(navn, g);
+  }
+  return g;
 }
 
 // Katalog med almindelige varer – brugeren kan søge og tilføje dem til indkøbssedlen.

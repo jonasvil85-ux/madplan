@@ -162,6 +162,7 @@ button.slet-valg[hidden] { display: none; }
 .dag-bil-sim { aspect-ratio: 4 / 3; background: var(--bg); }
 .dag-bil-sim img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; min-height: calc(5 * 1.3em + 10px); }
+.dobbelt { display: block; margin-top: 5px; font-size: 11px; font-weight: 500; color: var(--amber); line-height: 1.3; }
 .dag-meta { padding: 0 10px 10px; color: var(--text-3); font-size: 11.5px; }
 .sim-bund { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
 .sim-sum { color: var(--text-2); font-size: 14px; }
@@ -457,7 +458,7 @@ const NIVEAUER = {
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
-const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, personer: 4, voksne: 2, boern: 2,
+const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, personer: 4, voksne: 2, boern: 2, mult: {},
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 // Husstand: voksne + børn. retter.json er skrevet til en familie på 2 voksne + 2 børn (= faktor 1); et barn tæller som 0,6 voksenportion.
@@ -530,7 +531,13 @@ function gendan(gemt) {
   return s;
 }
 const B = () => data.butikker[state.butik];
-const ret = id => B().retter.find(r => r.id === id);
+const RETMAP = new WeakMap();  // opslag på id er hurtigt (simuleringen kalder det tusindvis af gange)
+const ret = id => {
+  const liste = B().retter;
+  let m = RETMAP.get(liste);
+  if (!m) RETMAP.set(liste, m = new Map(liste.map(r => [r.id, r])));
+  return m.get(id);
+};
 const faktor = () => (state.voksne + BARN_VAEGT * state.boern) / (2 + BARN_VAEGT * 2);
 const dato = s => new Date(s.replace(/([+-]\d\d)(\d\d)$/, '$1:$2'));
 const kortDato = s => dato(s).toLocaleDateString('da-DK', { day: 'numeric', month: 'short' });
@@ -592,6 +599,7 @@ async function start() {
     const r = await fetch('/retter.json', { cache: 'no-cache' });
     if (!r.ok) throw new Error(`retter.json HTTP ${r.status}`);
     data = await r.json();
+    INGHUKOMMELSE.clear();
     // Fortsæt hvor brugeren slap: nyeste af det der er gemt på brugeren og på denne enhed
     const lokal = JSON.parse(localStorage.getItem(GEM) || 'null');
     let sky = null;
@@ -718,31 +726,75 @@ function simGruppe(r) {
 const SIM_MAX = { suppe: 1, pasta: 2, tex: 1, fastfood: 1, frikadelle: 2, fisk: 1, vegetar: 1, kylling: 2, svin: 2, okse: 2 };
 const SIM_MAX_VOKSEN = { ...SIM_MAX, suppe: 2, tex: 2, fisk: 2, vegetar: 2 };  // uden børn kan der være lidt mere af det, børn ikke gider
 const simLoft = () => state.boern > 0 ? SIM_MAX : SIM_MAX_VOKSEN;
+let SIM_SPILD = 3, SIM_FORBEDRING = true, SIM_DOBBELT_GRAENSE = 0;  // spildvægt, forbedring ved ombytning, og hvor meget en dobbelt portion mindst skal spare  // vægt på spild i scoren; om sættet forbedres ved at bytte retter
+// Retter, der egner sig til at lave dobbelt portion af og fryse halvdelen: alt, der kan genopvarmes (ikke salater, sprøde retter, pizza, wraps, æggeretter …)
+const IKKE_FRYSEVENLIG = /salat|sprød|pizza|burger|tacos|wrap|quesadilla|fajita|spejlæg|omelet|æggekage|pandekage|tatar|carpaccio|sushi|bowl|toast|sandwich|smørrebrød/i;
+const FRYSEVENLIG = { test: navn => !IKKE_FRYSEVENLIG.test(navn) };
+// Hvilke retter skal laves som dobbelt portion, så resten af pakkerne bliver brugt (og halvdelen fryses)? Kun hvis det sænker pris + spild.
+function fordobl(vt) {
+  const mult = {};
+  const maal = () => { state.valgte = vt.map(r => r.id); state.mult = mult; const t = ugeTalNu(); return t.ialt + SIM_SPILD * t.spild; };
+  let nu = maal();
+  for (const r of vt) {
+    if (r.kategori === 'fisk' || !FRYSEVENLIG.test(r.navn)) continue;
+    mult[r.id] = 2;
+    const ny = maal();
+    if (ny < nu - SIM_DOBBELT_GRAENSE) nu = ny; else delete mult[r.id];
+  }
+  return { ...mult };
+}
+// Samme kød-/fiskepakke i højst tre retter (ellers bliver ugen ensformig)
+let PAKKE_MAX = 3;  // højst så mange retter med den samme kød-/fiskepakke
+const PROTEINGRUPPER = ['Kød & fjerkræ', 'Fisk & skaldyr', 'Pålæg & delikatesse'];
+const proteinNoegler = r => ingForbehandlet(r).filter(x => x.key && PROTEINGRUPPER.includes(varegruppe(x.ing.navn))).map(x => x.key);
 function simuler(k) {
-  // Vælg retter én ad gangen: den næste ret er den, der giver mest smag/tilbud for den ekstra pris – og en ret, der bruger resten af en
-  // pakke, som de valgte retter allerede har købt, bliver billigere. Det giver mindre spild, især for 1-2 personer.
-  const valgt = medButik(k, () => {
+  // 7 retter, der giver mest smag/tilbud for pengene OG mindst muligt spild i pakkerne. Først vælges de én ad gangen (en ret, der bruger resten af en
+  // pakke, som en valgt ret allerede har købt, bliver billigere); derefter forbedres sættet ved at bytte retter ud, så længe den samlede score stiger.
+  // Spild tæller med som ekstra pris, men rester der kan fryses/gemmes tæller kun lidt (REST_VAEGT).
+  const { valgt, mult } = medButik(k, () => {
     const loft = simLoft(), alle = data.butikker[k].retter;
     const smag = new Map(alle.map(r => [r.id, smagScore(r)]));
     const f = Math.max(faktor(), 0.3);
-    const vt = [], antal = {};
+    const tal = sæt => { state.valgte = sæt.map(r => r.id); return ugeTalNu(); };
+    const bedstePaaSmag = udenfor => alle.filter(r => !udenfor.includes(r)).sort((x, y) => smag.get(y.id) - smag.get(x.id));
+    const vt = [], antal = {}, pakkeAntal = {};
     let pris = 0;
     while (vt.length < 7) {
-      const kand = alle.filter(r => !vt.includes(r) && (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2))
-        .sort((x, y) => smag.get(y.id) - smag.get(x.id)).slice(0, 30);
+      const kand = bedstePaaSmag(vt).filter(r => (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2) && proteinNoegler(r).every(n => (pakkeAntal[n] || 0) < PAKKE_MAX)).slice(0, 30);
       if (!kand.length) break;
       let bedst = null, bedstSc = -Infinity, bedstPris = 0;
       for (const r of kand) {
-        state.valgte = [...vt, r].map(x => x.id);
-        const p = ugeTalNu().ialt;
+        const p = tal([...vt, r]).ialt;
         const sc = smag.get(r.id) - (p - pris) / (60 * f);
         if (sc > bedstSc) { bedst = r; bedstSc = sc; bedstPris = p; }
       }
       vt.push(bedst); pris = bedstPris;
       const g = simGruppe(bedst); antal[g] = (antal[g] || 0) + 1;
+      for (const n of proteinNoegler(bedst)) pakkeAntal[n] = (pakkeAntal[n] || 0) + 1;
+    }
+    if (vt.length === 7 && SIM_FORBEDRING) {
+      const overholderLoft = sæt => {
+        const a = {}, pk = {};
+        for (const r of sæt) { const g = simGruppe(r); a[g] = (a[g] || 0) + 1; for (const n of proteinNoegler(r)) pk[n] = (pk[n] || 0) + 1; }
+        return Object.entries(a).every(([g, n]) => n <= (loft[g] ?? 2)) && Object.values(pk).every(n => n <= PAKKE_MAX);
+      };
+      const score = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) - (t.ialt + SIM_SPILD * t.spild) / (60 * f); };
+      let bedstScore = score(vt);
+      for (let runde = 0; runde < 2; runde++) {
+        let forbedret = false;
+        for (let i = 0; i < vt.length; i++) {
+          for (const r of bedstePaaSmag(vt).slice(0, 15)) {
+            const nyt = vt.slice(); nyt[i] = r;
+            if (!overholderLoft(nyt)) continue;
+            const sc = score(nyt);
+            if (sc > bedstScore + 0.01) { vt[i] = r; bedstScore = sc; forbedret = true; }
+          }
+        }
+        if (!forbedret) break;
+      }
     }
     for (const r of alle.slice().sort((x, y) => boernScore(y) - boernScore(x))) { if (vt.length === 7) break; if (!vt.includes(r)) vt.push(r); }  // for få efter loft: fyld op
-    return vt;
+    return { valgt: vt, mult: fordobl(vt) };
   });
   // Læg dem på dagene: fredagsmad (pizza/tacos/burger) om fredagen, de længste retter i weekenden, de hurtigste på hverdage
   const dage = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; });
@@ -754,12 +806,12 @@ function simuler(k) {
   weekend.forEach(i => { ud[i] = rest.shift(); });
   rest.sort((a, b) => a.tid_minutter - b.tid_minutter);
   dage.forEach((d, i) => { if (!ud[i]) ud[i] = rest.shift(); });
-  return dage.map((dato, i) => ({ dato, r: ud[i] }));
+  return dage.map((dato, i) => ({ dato, r: ud[i], mult: mult[ud[i].id] || 1 }));
 }
 function medButik(k, fn) {  // kør en funktion, som om butikken var valgt (priser og tilbud bruger state.butik)
-  const gem = { b: state.butik, v: state.valgte };
-  state.butik = k;
-  try { return fn(); } finally { state.butik = gem.b; state.valgte = gem.v; }
+  const gem = { b: state.butik, v: state.valgte, m: state.mult };
+  state.butik = k; state.mult = {};
+  try { return fn(); } finally { state.butik = gem.b; state.valgte = gem.v; state.mult = gem.m; }
 }
 const simSig = () => `${state.voksne}-${state.boern}`;  // forslag og priser gælder for én husstand ad gangen
 function nulstilSim() { for (const o of [simStd, simPrisCache, simManuel, simAfvist, simFra]) for (const k in o) delete o[k]; }
@@ -792,10 +844,11 @@ function simStandard(k) { const n = k + '|' + simSig(); return simStd[n] = simSt
 function simPlan(k) { return simManuel[k] || simStandard(k); }  // forslaget – eller brugerens egen version, hvis der er byttet
 function simAktive(k) { const fra = simFra[k]; return simPlan(k).filter((x, i) => !fra?.has(i)); }  // dage uden "spiser ude"
 function simAendret(k) { return !!simManuel[k] || !!simFra[k]?.size; }
+const planMult = plan => Object.fromEntries(plan.filter(x => x.mult > 1).map(x => [x.r.id, x.mult]));
 function simPrisPlan(k) {
   if (!simAendret(k)) return simPris(k);
-  const ids = simAktive(k).map(x => x.r.id);
-  return ids.length ? ugePris(k, ids) : { ialt: 0, tilbud: 0, tilovers: 0 };
+  const akt = simAktive(k);
+  return akt.length ? ugePris(k, akt.map(x => x.r.id), planMult(akt)) : { ialt: 0, tilbud: 0, tilovers: 0 };
 }
 function simByt(k, i) {  // skift dag i's ret ud med det næstbedste forslag (aldrig en ret, der allerede er i planen)
   const plan = simPlan(k).map(x => ({ ...x }));
@@ -811,30 +864,61 @@ function simByt(k, i) {  // skift dag i's ret ud med det næstbedste forslag (al
   if (!ny) { simAfvist[k] = new Set([nu.id]); ny = alle.find(r => !brugt.has(r.id)); }  // alle prøvet: start forfra
   if (!ny) return;
   plan[i].r = ny;
+  const m = medButik(k, () => fordobl(plan.map(x => x.r)));  // dobbelt portion afgøres på ny, når en ret er skiftet
+  plan.forEach(x => { x.mult = m[x.r.id] || 1; });
   simManuel[k] = plan;
 }
 function simPris(k) {  // pris for butikkens 7-dages-madplan (cachet pr. husstand)
   const n = k + '|' + simSig();
-  return simPrisCache[n] = simPrisCache[n] || ugePris(k, simStandard(k).map(x => x.r.id));
+  const plan = simStandard(k);
+  return simPrisCache[n] = simPrisCache[n] || ugePris(k, plan.map(x => x.r.id), planMult(plan));
 }
-function ugeTalNu() {  // samlet indkøb af state.valgte i butikken state.butik: hele pakker, delt på tværs af retter
-  const l = byggListe();
-  let tilbud = 0, skoen = 0, tilovers = 0;
-  for (const v of l.tilbud) {
+const INGHUKOMMELSE = new Map();  // ret -> ingredienser (uden basisvarer) med det tilbud, de matcher i butikken
+function ingForbehandlet(r) {
+  const n = state.butik + '|' + r.id;
+  let x = INGHUKOMMELSE.get(n);
+  if (!x) INGHUKOMMELSE.set(n, x = r.ingredienser.filter(i => !i.basisvare).map(ing => ({ ing, key: butiksTilbud(ing)[0] || null, navn: grundNavn(ing.navn) })));
+  return x;
+}
+function ugeTalNu() {  // samlet indkøb af state.valgte i butikken state.butik: hele pakker, delt på tværs af retter (samme regler som indkøbslisten)
+  const f = faktor(), tilb = new Map(), oev = new Map();
+  for (const id of state.valgte) {
+    const mu = f * (state.mult?.[id] || 1);
+    for (const { ing, key, navn } of ingForbehandlet(ret(id))) {
+      const m = ing.maengde * mu;
+      if (key) {
+        let v = tilb.get(key);
+        if (!v) tilb.set(key, v = { key, tilbud: B().tilbud[key], ingNavn: ing.navn, behov: {} });
+        v.behov[ing.enhed] = (v.behov[ing.enhed] || 0) + m;
+      } else {
+        const nk = navn.toLowerCase() + '|' + ing.enhed;
+        let v = oev.get(nk);
+        if (!v) oev.set(nk, v = { navn, enhed: ing.enhed, m: 0 });
+        v.m += m;
+      }
+    }
+  }
+  let tilbud = 0, skoen = 0, tilovers = 0, spild = 0;
+  for (const v of tilb.values()) {
+    v.antal = antalPakker(v.tilbud, v.behov);
+    v.pris = (v.tilbud.pris || 0) * v.antal;
     tilbud += v.pris;
     const r = restAf(v);
-    if (r) tilovers += (v.tilbud.pris || 0) * r.rest / r.pakke;  // værdien af det, der er tilbage af pakkerne
+    if (r) {
+      const vaerdi = (v.tilbud.pris || 0) * r.rest / r.pakke;  // værdien af det, der er tilbage af pakkerne
+      tilovers += vaerdi; spild += vaerdi * REST_VAEGT[restType(v)];
+    }
   }
-  for (const v of l.oevrige) skoen += skoenPris(v.navn, v.m, v.enhed) || 0;
-  return { ialt: tilbud + skoen, tilbud, tilovers };
+  for (const v of oev.values()) skoen += skoenPris(v.navn, v.m, v.enhed) || 0;
+  return { ialt: tilbud + skoen, tilbud, tilovers, spild };
 }
-function ugePris(k, ids) { return medButik(k, () => { state.valgte = ids; return ugeTalNu(); }); }
+function ugePris(k, ids, mult = {}) { return medButik(k, () => { state.valgte = ids; state.mult = mult; return ugeTalNu(); }); }
 function simuleringHtml() {
   if (!simButik) return '';
   const b = data.butikker[simButik], plan = simPlan(simButik);
   const pris = simPrisPlan(simButik);
   const antalDage = simAktive(simButik).length;
-  const kort = plan.map(({ dato, r }, i) => {
+  const kort = plan.map(({ dato, r, mult }, i) => {
     if (simFra[simButik]?.has(i)) {
       return `<div class="dag-kort fravalgt">
       <div class="dag-top"><b>${DAGE[dato.getDay()]}</b><small>${dato.getDate()}/${dato.getMonth() + 1}</small></div>
@@ -848,7 +932,7 @@ function simuleringHtml() {
         <span class="dag-knapper"><button type="button" class="byt-knap" data-sim-byt="${i}" title="Byt ret" aria-label="Byt ${DAGE[dato.getDay()]}s ret">${ikon('refresh')}<span>Byt</span></button>
         <button type="button" class="byt-knap" data-sim-fjern="${i}" title="Fjern dagen (spiser ude)" aria-label="Fjern ${DAGE[dato.getDay()]} – spiser ude">${ikon('minus')}<span>Fjern</span></button></span></div>
       <div class="dag-bil-sim">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="lazy" width="360" height="270">` : ''}</div>
-      <div class="dag-ret">${esc(r.navn)}</div>
+      <div class="dag-ret">${esc(r.navn)}${mult > 1 ? '<span class="dobbelt" title="Retten laves i dobbelt portion, så resten af pakkerne bruges. Frys den ene halvdel til en anden dag.">Lav dobbelt – frys halvdelen</span>' : ''}</div>
       <div class="dag-meta">${r.tid_minutter} min · ca. ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</div>
     </div>`;
   }).join('');
@@ -859,8 +943,8 @@ function simuleringHtml() {
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
       <div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'}
-        ${antalDage ? `<span class="info-i info-venstre" tabindex="0" role="button" aria-label="Om prisen">i<span class="info-tekst" role="tooltip">Regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Du bruger ca. ${kr(Math.round(pris.ialt - pris.tilovers))} af det, du køber; resten er til overs i pakkerne og kan bruges senere eller fryses.</span></span>` : ''}
-        ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud, pris.tilovers)}</div>
+        ${antalDage ? `<span class="info-i info-venstre" tabindex="0" role="button" aria-label="Om prisen">i<span class="info-tekst" role="tooltip">Regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : ''}
+        ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud)}</div>
       <div class="sim-knapper">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb="${simButik}">Læg ${antalDage === plan.length ? 'de 7 retter' : antalDage === 1 ? 'retten' : `de ${antalDage} retter`} i indkøb →</button>` : ''}
         <button type="button" class="knap sekundaer" data-sim-vaelg="${simButik}">Vælg selv retter</button></div>
     </div></div>`;
@@ -1058,7 +1142,7 @@ function byggListe() {
   for (const id of state.valgte) {
     const r = ret(id);
     for (const ing of r.ingredienser) {
-      const m = ing.maengde * faktor();
+      const m = ing.maengde * faktor() * (state.mult?.[id] || 1);  // dobbelt portion = dobbelte mængder
       const match = butiksTilbud(ing);
       if (ing.basisvare) {
         for (const [k, navn] of basisDele(ing.navn)) if (!basis.has(k)) basis.set(k, navn);
@@ -1101,16 +1185,23 @@ function restAf(v) {
 const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${v.tilbud.navn}`;
 
 // Hvad kan man gøre med resten? Kun når det er rimeligt: kød/fisk/brød kan fryses, holdbare varer kan gemmes til næste uge.
-const HOLDBAR_GRUPPER = ['Kolonial', 'Konserves', 'Krydderier & bagning', 'Frost'];
+const HOLDBAR_GRUPPER = ['Kolonial', 'Konserves', 'Krydderier & bagning'];
 const HOLDBART_GROENT = /kartof|løg|gulerod|kål|squash|græskar|pastinak|selleri|rødbede|porre/i;
-function restRaad(v) {
+function restType(v) {
   const g = varegruppe(v.ingNavn);
-  if (['Kød & fjerkræ', 'Fisk & skaldyr', 'Brød & bagværk'].includes(g)) return '<b>kan fryses</b>, hvis den ikke bruges inden for 1-2 dage';
-  if (g === 'Frost') return 'kan blive i fryseren til næste uge';
-  if (HOLDBAR_GRUPPER.includes(g) || (g === 'Frugt & grønt' && HOLDBART_GROENT.test(v.ingNavn))) return '<b>kan gemmes til næste uge</b>';
-  if (g === 'Mejeri, æg & ost') return 'kan ofte gemmes til næste uge – tjek datoen på pakken';
+  if (['Kød & fjerkræ', 'Fisk & skaldyr', 'Brød & bagværk'].includes(g)) return 'frys';
+  if (g === 'Frost') return 'frost';
+  if (HOLDBAR_GRUPPER.includes(g) || (g === 'Frugt & grønt' && HOLDBART_GROENT.test(v.ingNavn))) return 'holdbar';
+  if (g === 'Mejeri, æg & ost') return 'mejeri';
   return '';
 }
+// Hvor meget "tæller" en rest som spild i madplanen? Rester, der kan fryses/gemmes, er næsten ikke spild; friske varer, der bliver dårlige, er.
+const REST_VAEGT = { frys: 0.3, frost: 0.2, holdbar: 0.2, mejeri: 0.5, '': 1 };
+const REST_RAAD = {
+  frys: '<b>kan fryses</b>, hvis den ikke bruges inden for 1-2 dage', frost: 'kan blive i fryseren til næste uge',
+  holdbar: '<b>kan gemmes til næste uge</b>', mejeri: 'kan ofte gemmes til næste uge – tjek datoen på pakken', '': '',
+};
+const restRaad = v => REST_RAAD[restType(v)];
 function restTekst(v) {
   const r = restAf(v);
   if (!r) return '';
@@ -1172,15 +1263,14 @@ function standardValg() {
   [...L.tilbud, ...L.oevrige].forEach(x => { if (!(x.key in state.valgtVare)) state.valgtVare[x.key] = true; });
 }
 
-// Hvor stor en del af indkøbet er tilbud? (diskret bjælke + én linje tekst; evt. hvad der er til overs i pakkerne)
-function andelHtml(tilbud, andet, tilovers = 0) {
+// Hvor stor en del af indkøbet er tilbud? (diskret bjælke + én linje tekst)
+function andelHtml(tilbud, andet) {
   const sum = tilbud + andet;
   if (!sum) return '';
   const pct = Math.round(tilbud / sum * 100);
-  const over = Math.round(tilovers);
   return `<div class="andel" title="Tilbudsvarer = varer, der er på tilbud i butikkens avis. Resten er varer til normalpris, og prisen på dem er et skøn.">
     <div class="andel-bar"><span style="width:${pct}%"></span></div>
-    <div class="andel-tekst"><span><b>${pct} %</b> på tilbud (${kr(Math.round(tilbud))})</span>${over >= 5 ? `<span>ca. ${kr(over)} til overs</span>` : ''}</div>
+    <div class="andel-tekst"><span><b>${pct} %</b> på tilbud (${kr(Math.round(tilbud))})</span></div>
   </div>`;
 }
 
@@ -1378,8 +1468,8 @@ function renderPlan() {
         </summary>
         ${r ? `<div class="opskrift">
           ${r.billede ? `<div class="opskrift-bil"><img src="${esc(r.billede)}" alt="Illustration af ${esc(r.navn)} – sådan kan retten se ud" loading="lazy" width="720" height="540"><span>Illustration – sådan kan retten se ud</span></div>` : ''}
-          <div><h3>Ingredienser (${state.personer} pers.)</h3><ul>${r.ingredienser.map(ing =>
-            `<li>${esc(ingTekst(ing, ing.maengde * faktor()))}</li>`).join('')}</ul></div>
+          <div><h3>Ingredienser (${state.personer} pers.${state.mult?.[r.id] > 1 ? ', dobbelt portion – frys halvdelen' : ''})</h3><ul>${r.ingredienser.map(ing =>
+            `<li>${esc(ingTekst(ing, ing.maengde * faktor() * (state.mult?.[r.id] || 1)))}</li>`).join('')}</ul></div>
           <div><h3>Fremgangsmåde · ${r.tid_minutter} min</h3><ol>${r.fremgangsmaade.map(t => `<li>${esc(t)}</li>`).join('')}</ol></div>
         </div>` : ''}
       </details>`;
@@ -1416,7 +1506,7 @@ document.addEventListener('click', e => {
   else if (d.simuler) simButik = simButik === d.simuler ? null : d.simuler;
   else if (d.simIndkoeb) {
     if (harValg() && !confirm('Du har allerede valgt retter. Vil du erstatte dem med de 7 retter fra madplanen?')) return;
-    state = { ...structuredClone(TOM), ...husstand(state), butik: d.simIndkoeb, valgte: simAktive(d.simIndkoeb).map(x => x.r.id), trin: 'liste' };
+    state = { ...structuredClone(TOM), ...husstand(state), butik: d.simIndkoeb, valgte: simAktive(d.simIndkoeb).map(x => x.r.id), mult: planMult(simAktive(d.simIndkoeb)), trin: 'liste' };
     simButik = null;
   }
   else if (d.simVaelg) {
