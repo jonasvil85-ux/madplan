@@ -254,6 +254,8 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .knap.lille { padding: 6px 12px; font-size: 13px; text-decoration: none; white-space: nowrap; background: #00aeef; }
 .rest { font-size: 12px; color: var(--amber); margin-top: 4px; line-height: 1.8; }
 .chip.lille { padding: 2px 9px; font-size: 12px; }
+.rest-tip { margin-top: 6px; padding: 7px 10px; background: rgba(245,158,11,.07); border: 1px dashed rgba(245,158,11,.35); border-radius: 8px; font-size: 12.5px; color: var(--text-2); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.rest-tip-tekst { color: var(--amber); font-weight: 600; }
 .fod { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); line-height: 1.6; }
 .restmaerke { font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 8px; }
 .ret.bruger-rest { border-color: rgba(245,158,11,.55); }
@@ -1116,9 +1118,10 @@ function restTekst(v) {
   if (!r) return '';
   const forslag = retterTilRest(v, r);
   const frys = FRYS.includes(varegruppe(v.ingNavn)) ? ' · <b>frys resten</b>, hvis den ikke bruges inden for 1-2 dage' : '';
-  return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${frys}${forslag.length
-    ? ` · brug den i: ${forslag.map(f => `<button class="chip lille" data-ret="${esc(f.r.id)}" title="Bruger ca. ${esc(maengde(f.behov, r.enhed, true))}">+ ${esc(f.r.navn)}</button>`).join(' ')}`
-    : ''}</div>`;
+  // Resten står på sin egen linje, og forslagene er tydeligt mærket som en ekstra ret, man kan tilføje (de ændrer ikke selve indkøbslisten)
+  return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${frys}</div>${forslag.length
+    ? `<div class="rest-tip"><span class="rest-tip-tekst">Vil du bruge resten? Tilføj en ekstra ret til ugen:</span>${forslag.map(f => `<button type="button" class="chip lille" data-ret="${esc(f.r.id)}" title="Lægger retten til dine valgte retter og bruger ca. ${esc(maengde(f.behov, r.enhed, true))} af resten">+ ${esc(f.r.navn)}</button>`).join('')}</div>`
+    : ''}`;
 }
 
 function listeLinjer() {
