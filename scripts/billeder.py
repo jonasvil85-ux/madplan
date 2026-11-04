@@ -87,6 +87,10 @@ def main():
     for b in d['butikker'].values():
         for r in b['retter']:
             unikke.setdefault(r['navn'], r)
+    opskr = os.path.join(ROD, 'opskrifter.json')  # biblioteksopskrifterne (kan vælges i madplanen, også selv om ingen butik har dem som egen ret)
+    if os.path.exists(opskr):
+        for r in json.load(open(opskr, encoding='utf-8'))['opskrifter']:
+            unikke.setdefault(r['navn'], r)
     mangler = [r for n, r in unikke.items() if (kun and any(k in n.lower() for k in kun)) or (not kun and (forfra or not os.path.exists(sti(n))))][:maks]
     uden = [n for n in unikke if n not in besk]
     if uden:
