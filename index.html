@@ -334,39 +334,21 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .butikvalg strong { display: block; color: var(--text-1); font-size: 16px; }
 .personer { display: flex; align-items: center; gap: 8px; }
 .personer-tekst { font-size: 13px; color: var(--text-3); margin-right: 2px; }
-.husstand .panel-hoved { align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
-.husstand-valg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.husstand-kort { display: flex; align-items: center; gap: 14px; text-align: left; padding: 10px; background: var(--surface-2); border: 2px solid transparent; border-radius: 14px; color: var(--text-2); cursor: pointer; min-width: 0; }
-.husstand-ikon { width: 84px; height: 84px; border-radius: 12px; overflow: hidden; flex: none; background: #2b2a29; }
-.husstand-ikon img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.45); }
-.husstand-navn { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
-.husstand-navn b { color: var(--text-1); font-size: 15px; }
-.husstand-navn small { color: var(--text-3); font-size: 12px; }
-.husstand-ikon.k-familie img { transform: scale(1.25); }
-.husstand-ikon.k-selv img { transform: scale(1.02); }
-.husstand-kort.selv { cursor: default; }
-.husstand-kort.selv .husstand-navn { gap: 4px; }
-.husstand-kort.selv .husstand-navn > b { margin-bottom: 2px; }
-.husstand-kort.selv .tael .knapper { display: inline-flex; gap: 4px; }
-.husstand-kort.selv .tael { gap: 8px; font-size: 13px; color: var(--text-2); }
-.husstand-kort.selv .tael b { color: var(--text-1); font-size: 13px; }
-.husstand-kort.selv .tael button { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--border); background: var(--surface); color: var(--text-1); cursor: pointer; line-height: 1; padding: 0; }
-.husstand-kort.selv .tael button:hover { border-color: var(--accent); }
-.husstand-kort:hover { border-color: rgba(232,116,59,.5); }
-.husstand-kort.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
+.husstand-lille { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 2px 14px; font-size: 13px; color: var(--text-3); }
+.hl-titel { color: var(--text-2); font-weight: 600; }
+.hl-valg { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.hl-pille { height: 26px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text-2); font-size: 12.5px; cursor: pointer; }
+.hl-pille:hover { border-color: rgba(232,116,59,.5); }
+.hl-pille.aktiv { background: rgba(232,116,59,.16); border-color: var(--accent); color: var(--text-1); }
+.hl-tael { display: inline-flex; align-items: center; gap: 6px; }
+.hl-tekst { display: inline-block; min-width: 62px; text-align: center; }
+.hl-tekst b { color: var(--text-1); font-weight: 600; }
+.hl-tael button { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 1px solid var(--border); background: transparent; color: var(--text-2); font-size: 14px; line-height: 1; cursor: pointer; }
+.hl-tael button:hover { border-color: var(--accent); color: var(--text-1); }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
 .filtre .husstand-tael, .valg .husstand-tael { margin-top: 0; }
 .husstand-tael .personer-tekst b { color: var(--text-1); font-weight: 600; }
 .tael { display: inline-flex; align-items: center; gap: 8px; }
-@media (max-width: 900px) { .husstand-valg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 520px) {
-  .husstand-valg { grid-auto-rows: 1fr; gap: 10px; }
-  .husstand-kort { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px 12px; }
-  .husstand-ikon { width: 44px; height: 44px; }
-  .husstand-kort.selv .husstand-navn { width: 100%; gap: 3px; }
-  .husstand-kort.selv .tael button { width: 24px; height: 24px; }
-}
-@media (max-width: 340px) { .husstand-kort.selv .tael { max-width: 100%; flex-wrap: wrap; gap: 2px 6px; } }
 .personer button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-1); }
 
 .vare { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); }
@@ -1241,24 +1223,18 @@ function simuleringHtml() {
     </div></div>`;
 }
 
-// Vælg husstand: genveje med billeder + tællere for voksne og børn
-function husstandPanel() {
+// Vælg husstand: én lille, diskret linje – tre genveje og tællere for voksne og børn
+function husstandInner() {
   const { voksne: v, boern: b } = state;
-  return `<div class="panel husstand">
-    <div class="panel-hoved"><h2>Hvem skal spise med?</h2></div>
-    <div class="husstand-valg">${HUSSTANDE.map(h => `
-      <button type="button" class="husstand-kort ${h.v === v && h.b === b ? 'aktiv' : ''}" data-husstand="${h.v},${h.b}" aria-pressed="${h.v === v && h.b === b}">
-        <span class="husstand-ikon k-${h.k}"><img src="grafik/husstand-${h.k}.jpg" alt="" width="320" height="320" loading="lazy"></span>
-        <span class="husstand-navn"><b>${h.navn}</b><small>${husstandTekst(h.v, h.b)}</small></span>
-      </button>`).join('')}
-      <div class="husstand-kort selv ${HUSSTANDE.some(h => h.v === v && h.b === b) ? '' : 'aktiv'}">
-        <span class="husstand-ikon k-selv"><img src="grafik/husstand-selv.jpg" alt="" width="320" height="320" loading="lazy"></span>
-        <span class="husstand-navn"><b>Vælg selv</b>
-          <span class="tael"><span class="knapper"><button type="button" data-voksne="-1" aria-label="Færre voksne">−</button><button type="button" data-voksne="1" aria-label="Flere voksne">+</button></span><span><b>${v}</b> ${v === 1 ? 'voksen' : 'voksne'}</span></span>
-          <span class="tael"><span class="knapper"><button type="button" data-boern="-1" aria-label="Færre børn">−</button><button type="button" data-boern="1" aria-label="Flere børn">+</button></span><span><b>${b}</b> ${b === 1 ? 'barn' : 'børn'}</span></span>
-        </span>
-      </div></div>
-  </div>`;
+  const taeller = (nogle, n, ent, fl) => `<span class="hl-tael"><button type="button" data-${nogle}="-1" aria-label="Færre">−</button><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span><button type="button" data-${nogle}="1" aria-label="Flere">+</button></span>`;
+  return `<span class="hl-titel">Hvem skal spise med?</span>
+    <span class="hl-valg">${HUSSTANDE.map(h => `<button type="button" class="hl-pille ${h.v === v && h.b === b ? 'aktiv' : ''}" data-husstand="${h.v},${h.b}" aria-pressed="${h.v === v && h.b === b}" title="${husstandTekst(h.v, h.b)}">${h.navn}</button>`).join('')}</span>
+    ${taeller('voksne', v, 'voksen', 'voksne')}${taeller('boern', b, 'barn', 'børn')}`;
+}
+function husstandPanel() { return `<div class="husstand-lille" id="husstand-plads">${husstandInner()}</div>`; }
+function opdaterHusstand() {  // kun husstandslinjen, prisen og madplanen opdateres (siden står stille)
+  const h = document.getElementById('husstand-plads'); if (h) h.innerHTML = husstandInner();
+  opdaterButik();
 }
 // På retter-siden og indkøbslisten kan husstanden ikke ændres (den er valgt på forsiden) – kun vises, med et link tilbage
 function husstandKompakt() {
@@ -1874,9 +1850,9 @@ document.addEventListener('click', e => {
     state = { ...structuredClone(TOM), ...husstand(state) };
     sletSky();
   }
-  else if (d.husstand) { const [v, b] = d.husstand.split(',').map(Number); saetHusstand(v, b); }
-  else if (d.voksne) saetHusstand(state.voksne + +d.voksne, state.boern);
-  else if (d.boern) saetHusstand(state.voksne, state.boern + +d.boern);
+  else if (d.husstand) { const [v, b] = d.husstand.split(',').map(Number); saetHusstand(v, b); return opdaterHusstand(); }
+  else if (d.voksne) { saetHusstand(state.voksne + +d.voksne, state.boern); return opdaterHusstand(); }
+  else if (d.boern) { saetHusstand(state.voksne, state.boern + +d.boern); return opdaterHusstand(); }
   else if ('handlet' in d) { state.handlet = true; lavPlan(); state.trin = 'plan'; }
   else if ('kopier' in d) return kopierListe();
   // Bevar scroll-position når man blot klikker i en liste
