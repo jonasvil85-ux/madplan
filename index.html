@@ -194,8 +194,6 @@ button.slet-valg[hidden] { display: none; }
 @media (max-width: 760px) { .butik-grid { grid-template-columns: 1fr; } }
 .afkryds { display: none; position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 12px; line-height: 19px; text-align: center; }
 .butik-chip.aktiv .afkryds { display: block; }
-.dag-butik { display: block; margin-top: 4px; font-size: 11px; color: var(--text-2); }
-.dag-butik i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--brand, var(--accent)); margin-right: 5px; }
 .dobbelt { display: block; margin-top: 5px; font-size: 11px; font-weight: 500; color: var(--amber); line-height: 1.3; }
 .dag-meta { padding: 0 10px 10px; color: var(--text-3); font-size: 11.5px; }
 .sim-bund { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
@@ -1202,14 +1200,11 @@ function ugePris(ids, mult = {}, S = null) {  // S = butikkerne, retterne er byg
   const k = () => { state.valgte = ids; state.mult = mult; return ugeTalNu(); };
   return S ? medS(S, k) : medUdvalg(k);
 }
-const retButikker = (r, tv) => [...new Set(r.ingredienser.filter(i => !i.basisvare).map(i => ALLE_TILBUD[i.typ ? tv.get(i.typ + '|' + i.enhed) : butiksTilbud(i)[0]]?.butik).filter(Boolean))];  // butikkerne, en ret handles i (efter planens valg)
 const butikTekst = ks => ks.map(x => data.butikker[x].navn).reduce((t, n, i, a) => t + (i === 0 ? '' : i === a.length - 1 ? ' og ' : ', ') + n, '');
 function simuleringHtml() {
   const k = simK();
   if (!k) return '';
   const plan = simPlan(k), pris = simPrisPlan(k), antalDage = simAktive(k).length;
-  const flere = pris.butikker.length > 1;
-  const tvPlan = medS(plan.S, () => { const akt = simAktive(k); state.valgte = akt.map(x => x.r.id); state.mult = planMult(akt); return typeValg(); });
   const kort = plan.map(({ dato, r, mult }, i) => {
     if (simFra[k]?.has(i)) {
       return `<div class="dag-kort fravalgt">
@@ -1218,14 +1213,14 @@ function simuleringHtml() {
         <button type="button" class="byt-knap udvidet" data-sim-gendan="${i}" aria-label="Tilføj ${DAGE[dato.getDay()]}s ret igen">${ikon('plus')}<span>Tilføj igen</span></button></div>
     </div>`;
     }
-    const kp = kortPriser(r), rb = retButikker(r, tvPlan);
+    const kp = kortPriser(r);
     return `<div class="dag-kort">
       <div class="dag-top"><b>${DAGE[dato.getDay()]}</b><small>${dato.getDate()}/${dato.getMonth() + 1}</small>
         <span class="dag-knapper"><button type="button" class="byt-knap" data-sim-byt="${i}" title="Byt ret" aria-label="Byt ${DAGE[dato.getDay()]}s ret">${ikon('refresh')}<span>Byt</span></button>
         <button type="button" class="byt-knap" data-sim-fjern="${i}" title="Fjern dagen (spiser ude)" aria-label="Fjern ${DAGE[dato.getDay()]} – spiser ude">${ikon('minus')}<span>Fjern</span></button></span></div>
       <div class="dag-bil-sim ${r.billede ? '' : 'ingen'}">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="lazy" width="360" height="270">` : ikon('utensils')}</div>
       <div class="dag-ret">${esc(r.navn)}${mult > 1 ? '<span class="dobbelt" title="Retten laves i dobbelt portion, så resten af pakkerne bruges. Frys den ene halvdel til en anden dag.">Lav dobbelt – frys halvdelen</span>' : ''}</div>
-      <div class="dag-meta">${r.tid_minutter} min · ca. ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.${flere ? `<span class="dag-butik"><i></i>${esc(butikTekst(rb))}</span>` : ''}</div>
+      <div class="dag-meta">${r.tid_minutter} min · ca. ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</div>
     </div>`;
   }).join('');
   return `<div class="panel simulering" id="simulering">
