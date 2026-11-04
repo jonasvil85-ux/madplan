@@ -127,6 +127,7 @@ document.addEventListener('click', async e => {
   if (e.target.id === 'logud') {
     // Valgene ligger også på brugeren – ryd dem på denne enhed, så den næste på computeren ikke kan se dem
     if (typeof GEM !== 'undefined') localStorage.removeItem(GEM);
+    if (typeof HUSSTAND_GEM !== 'undefined') localStorage.removeItem(HUSSTAND_GEM);
     await sb.auth.signOut();
     location.reload();
   }

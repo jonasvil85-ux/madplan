@@ -30,7 +30,7 @@ IKONER = {
     'husstand-enlig': 'One adult person sitting at a small table eating a bowl of pasta, a steaming mug beside the bowl',
     'husstand-par': 'Two adults sitting opposite each other at a small round table with one shared pot of food and two plates',
     'husstand-familie': 'A family of two adults and two small children sitting around a dinner table with a big dish of food in the middle',
-    'husstand-stor': 'A large group of six people, adults and children, seated around a long table full of dishes, lively dinner',
+    'husstand-selv': 'A friendly group of different people of different ages (a grandparent, a parent, a teenager and a small child) standing close together smiling, with a large round plus symbol floating beside them',
 }
 BILLEDER.update(IKONER)
 

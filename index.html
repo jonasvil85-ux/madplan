@@ -333,14 +333,21 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .husstand-navn b { color: var(--text-1); font-size: 15px; }
 .husstand-navn small { color: var(--text-3); font-size: 12px; }
 .husstand-ikon.k-familie img { transform: scale(1.25); }
-.husstand-ikon.k-stor img { transform: scale(1.02); }
+.husstand-ikon.k-selv img { transform: scale(1.02); }
+.husstand-kort.selv { cursor: default; }
+.husstand-kort.selv .husstand-navn { gap: 4px; }
+.husstand-kort.selv .husstand-navn > b { margin-bottom: 2px; }
+.husstand-kort.selv .tael { gap: 6px; font-size: 13px; color: var(--text-2); }
+.husstand-kort.selv .tael b { color: var(--text-1); font-size: 13px; }
+.husstand-kort.selv .tael button { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--border); background: var(--surface); color: var(--text-1); cursor: pointer; line-height: 1; padding: 0; }
+.husstand-kort.selv .tael button:hover { border-color: var(--accent); }
 .husstand-kort:hover { border-color: rgba(232,116,59,.5); }
 .husstand-kort.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
 .tael { display: inline-flex; align-items: center; gap: 8px; }
 .tre-tal { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 12px; color: var(--text-3); }
 .tre-tal b { color: var(--text-2); font-weight: 600; }
-@media (max-width: 900px) { .husstand-valg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .husstand-valg { grid-template-columns: repeat(2, minmax(0, 1fr)); } .husstand-kort.selv { grid-column: 1 / -1; } }
 @media (max-width: 420px) { .husstand-ikon { width: 64px; height: 64px; } .husstand-kort { gap: 9px; } }
 .personer button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-1); }
 
@@ -459,7 +466,7 @@ const husstand = s => ({ voksne: s.voksne, boern: s.boern, personer: s.voksne + 
 const husstandTekst = (v, b) => `${v} ${v === 1 ? 'voksen' : 'voksne'}${b ? ` + ${b} ${b === 1 ? 'barn' : 'børn'}` : ''}`;
 const HUSSTANDE = [
   { k: 'enlig', navn: 'Mig selv', v: 1, b: 0 }, { k: 'par', navn: 'Os to', v: 2, b: 0 },
-  { k: 'familie', navn: 'Familie', v: 2, b: 2 }, { k: 'stor', navn: 'Stor familie', v: 2, b: 4 },
+  { k: 'familie', navn: 'Familie', v: 2, b: 2 },
 ];
 let simButik = null;  // butik hvis 7-dages-simulering vises på forsiden
 let visTop = false;  // 'Værd at køre efter' på butikkortene er skjult som udgangspunkt og vises med én knap
@@ -595,6 +602,10 @@ async function start() {
     }
     const kilde = [lokal, sky].filter(k => k?.state?.valgte?.length).sort((a, b) => (b.tid || 0) - (a.tid || 0))[0];
     if (kilde) state = gendan(kilde);
+    // Husstanden: den senest valgte på brugeren, ellers på enheden (har man valgt den uden at være logget ind, tages den med til brugeren)
+    const lokalH = JSON.parse(localStorage.getItem(HUSSTAND_GEM) || 'null');
+    const brugerH = bruger?.user_metadata?.husstand;
+    if (anvendHusstand(brugerH || lokalH)) { if (bruger && !brugerH && lokalH) gemHusstand(); else localStorage.setItem(HUSSTAND_GEM, JSON.stringify({ voksne: state.voksne, boern: state.boern })); }
     render();
   } catch (e) {
     vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e)}</div>`);
@@ -751,11 +762,29 @@ function medButik(k, fn) {  // kør en funktion, som om butikken var valgt (pris
 }
 const simSig = () => `${state.voksne}-${state.boern}`;  // forslag og priser gælder for én husstand ad gangen
 function nulstilSim() { for (const o of [simStd, simPrisCache, simManuel, simAfvist, simFra]) for (const k in o) delete o[k]; }
+// Husstanden gemmes for sig selv (også uden valgte retter): på enheden og – når man er logget ind – på brugeren (Supabase user_metadata),
+// så man ikke skal vælge den igen næste gang eller på en anden enhed.
+const HUSSTAND_GEM = 'madplan-husstand';
+let husstandTimer = null;
+function anvendHusstand(h) {
+  if (!h || !(h.voksne >= 1) || !(h.boern >= 0)) return false;
+  state.voksne = Math.min(8, Math.floor(h.voksne)); state.boern = Math.min(8, Math.floor(h.boern)); state.personer = state.voksne + state.boern;
+  return true;
+}
+function gemHusstand() {
+  const h = { voksne: state.voksne, boern: state.boern };
+  localStorage.setItem(HUSSTAND_GEM, JSON.stringify(h));
+  if (sb && bruger) {
+    clearTimeout(husstandTimer);
+    husstandTimer = setTimeout(async () => { try { await sb.auth.updateUser({ data: { husstand: h } }); } catch (e) { /* gemmes i det mindste på enheden */ } }, 1200);
+  }
+}
 function saetHusstand(v, b) {
   v = Math.max(1, Math.min(8, v)); b = Math.max(0, Math.min(8, b));
   if (v === state.voksne && b === state.boern) return;
   state.voksne = v; state.boern = b; state.personer = v + b;
   nulstilSim();  // nyt forslag til den nye husstand
+  gemHusstand();
 }
 const simPrisCache = {}, simStd = {}, simManuel = {}, simAfvist = {}, simFra = {};
 function simStandard(k) { const n = k + '|' + simSig(); return simStd[n] = simStd[n] || simuler(k); }
@@ -854,8 +883,14 @@ function husstandPanel() {
       <button type="button" class="husstand-kort ${h.v === v && h.b === b ? 'aktiv' : ''}" data-husstand="${h.v},${h.b}" aria-pressed="${h.v === v && h.b === b}">
         <span class="husstand-ikon k-${h.k}"><img src="grafik/husstand-${h.k}.jpg" alt="" width="320" height="320" loading="lazy"></span>
         <span class="husstand-navn"><b>${h.navn}</b><small>${husstandTekst(h.v, h.b)}</small></span>
-      </button>`).join('')}</div>
-    ${husstandKompakt('Eller vælg selv')}
+      </button>`).join('')}
+      <div class="husstand-kort selv ${HUSSTANDE.some(h => h.v === v && h.b === b) ? '' : 'aktiv'}">
+        <span class="husstand-ikon k-selv"><img src="grafik/husstand-selv.jpg" alt="" width="320" height="320" loading="lazy"></span>
+        <span class="husstand-navn"><b>Vælg selv</b>
+          <span class="tael"><button type="button" data-voksne="-1" aria-label="Færre voksne">−</button><span><b>${v}</b> ${v === 1 ? 'voksen' : 'voksne'}</span><button type="button" data-voksne="1" aria-label="Flere voksne">+</button></span>
+          <span class="tael"><button type="button" data-boern="-1" aria-label="Færre børn">−</button><span><b>${b}</b> ${b === 1 ? 'barn' : 'børn'}</span><button type="button" data-boern="1" aria-label="Flere børn">+</button></span>
+        </span>
+      </div></div>
   </div>`;
 }
 function husstandKompakt(tekst = 'Regnet for') {
