@@ -325,6 +325,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .niveau strong { color: var(--text-1); font-size: 15px; }
 .niveau small { font-size: 12px; }
 .niveau.aktiv { border-color: var(--accent); background: var(--surface-2); }
+.seddel-status + .avis-linje { margin: 2px 4px 12px; }
 .avis-linje { margin: 8px 0 0; font-size: 12.5px; color: var(--text-3); }
 .gode-pct { font-style: normal; color: var(--emerald); font-weight: 600; }
 .tilbudsliste { margin-top: 10px; font-size: 12px; color: var(--text-3); }
@@ -423,6 +424,11 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .katalog-chips .chip.aktiv { background: rgba(232,116,59,.13); }
 .fremskridt { color: var(--accent); font-weight: 600; }
 /* Statuslinjen på indkøbssedlen følger med, når man ruller, så man altid kan se, hvor langt man er */
+.seddel-faner { display: flex; gap: 6px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; }
+.seddel-fane { flex: none; display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text-2); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.seddel-fane small { color: var(--text-3); font-weight: 500; }
+.seddel-fane.aktiv { border-color: var(--accent); background: rgba(232,116,59,.14); color: var(--text-1); }
+.seddel-fane.faerdig small { color: var(--emerald); font-weight: 700; }
 .seddel-status { position: sticky; top: 0; z-index: 25; background: var(--surface); box-shadow: 0 8px 20px rgba(0,0,0,.45); }
 @media (max-width: 700px) { .seddel-status { padding: 12px 14px; } }
 .bar { height: 6px; background: var(--surface-2); border-radius: 99px; margin-top: 10px; overflow: hidden; }
@@ -478,7 +484,7 @@ const NIVEAUER = {
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
-const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, butikValgt: false, personer: 4, voksne: 2, boern: 2, mult: {},
+const TOM = { trin: 'butik', seddelFane: null, niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, butikValgt: false, personer: 4, voksne: 2, boern: 2, mult: {},
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 // Husstand: voksne + børn. retter.json er skrevet til en familie på 2 voksne + 2 børn (= faktor 1); et barn tæller som 0,6 voksenportion.
@@ -1714,13 +1720,23 @@ function seddelLinjer() {
           ...state.ekstra.map(e => ({ key: e.id, navn: e.navn, gruppe: e.gruppe, detalje: '', skoen: skoenPris(e.navn, 0, '', e.gruppe), soeg: soegeord(e.navn) }))];
 }
 
+// Hvilken fane en vare hører til på sedlen: tilbudsvarer i den butik, de er købt i; alt andet (uden tilbud, egne varer) i "andet"
+const seddelFaneAf = (x, brugte) => x.pris && x.butik && brugte.includes(x.butik) ? x.butik : 'andet';
 function renderSeddel() {
   const linjer = seddelLinjer();
   const koebt = linjer.filter(x => state.koebt[x.key]).length;
-  const sum = prisSum(linjer);
   const brugte = valgteButikker();
+  const flere = brugte.length > 1;  // flere butikker: sedlen deles i en fane pr. butik (+ "Øvrige varer")
+  const faner = flere ? [...brugte, 'andet'].filter(f => linjer.some(x => seddelFaneAf(x, brugte) === f)) : [];
+  const fane = faner.includes(state.seddelFane) ? state.seddelFane : faner[0];
+  const synlige = flere ? linjer.filter(x => seddelFaneAf(x, brugte) === fane) : linjer;
   const netbutik = brugte.length === 1 ? NETBUTIKKER[brugte[0]] : null;  // online-indkøb kun, når alt skal købes i én butik
   const online = state.online && netbutik;
+  const faneTekst = f => f === 'andet' ? 'Øvrigt' : data.butikker[f].navn;
+  const faneKnap = f => {
+    const alle = linjer.filter(x => seddelFaneAf(x, brugte) === f), taget = alle.filter(x => state.koebt[x.key]).length;
+    return `<button type="button" class="seddel-fane ${f === fane ? 'aktiv' : ''} ${taget === alle.length ? 'faerdig' : ''}" data-seddelfane="${f}"><span>${esc(faneTekst(f))}</span><small>${taget === alle.length ? '✓' : `${taget}/${alle.length}`}</small></button>`;
+  };
 
   vis(`
     ${netbutik ? `<div class="panel online-boks ${online ? 'aktiv' : ''}">
@@ -1731,21 +1747,19 @@ function renderSeddel() {
            <button class="knap" data-online-til="1">${ikon('cart')} Handl i ${esc(netbutik.navn)}</button>`}
     </div>` : ''}
     <div class="panel seddel-status">
-      <div class="valg" style="justify-content:space-between">
-        <span><b style="color:var(--text-1)">Indkøbsseddel · ${esc(butikTekst(brugte.length ? brugte : [state.butik]))}</b> · ${linjer.length} varer${sum.ialt ? ` · ${prisTekst(sum)}` : ''}</span>
-        <span class="fremskridt">${koebt} af ${linjer.length} i kurven</span>
-      </div>
-      <p class="avis-linje">${(brugte.length ? brugte : [state.butik]).filter(Boolean).map(k => esc(avisTekst(k))).join(' · ')}</p>
+      <div class="valg"><span class="fremskridt">${koebt} af ${linjer.length} i kurven</span></div>
       <div class="bar"><div style="width:${linjer.length ? koebt / linjer.length * 100 : 0}%"></div></div>
+      ${flere ? `<div class="seddel-faner">${faner.map(faneKnap).join('')}</div>` : ''}
     </div>
+    ${(flere ? fane !== 'andet' : brugte.length) && linjer.length ? `<p class="avis-linje">${(flere ? [fane] : brugte).map(k => esc(avisTekst(k))).join(' · ')}</p>` : ''}
     ${linjer.length ? VAREGRUPPER.map(g => {
-      const iGruppe = linjer.filter(x => x.gruppe === g.navn);
+      const iGruppe = synlige.filter(x => x.gruppe === g.navn);
       if (!iGruppe.length) return '';
       return `<div class="panel"><h2>${esc(g.navn)} <span class="detalje">(${iGruppe.length})</span></h2>
         ${iGruppe.map(x => `
           <label class="vare ${state.koebt[x.key] ? 'taget' : ''}">
             <input type="checkbox" data-koebt="${esc(x.key)}" ${state.koebt[x.key] ? 'checked' : ''}>
-            <div class="tekst"><div class="navn">${esc(x.navn)}</div>${x.pris ? `<div class="detalje">På tilbud${brugte.length > 1 && x.butik ? ` i ${esc(data.butikker[x.butik].navn)}` : ''}</div>` : ''}</div>
+            <div class="tekst"><div class="navn">${esc(x.navn)}</div>${x.pris ? '<div class="detalje">På tilbud</div>' : ''}</div>
             ${prisCelle(x)}
             ${online ? `<a class="knap lille" href="${esc(online.url(x.soeg))}" target="_blank" rel="noopener" data-online="${esc(x.key)}">Find ↗</a>` : ''}
           </label>`).join('')}
@@ -1819,12 +1833,16 @@ function kopierListe() {
   const linjer = seddelLinjer();
   const sum = prisSum(linjer);
   const brugte = valgteButikker();
-  const tekst = [`Indkøbsseddel — ${butikTekst(brugte.length ? brugte : [state.butik])} · ca. ${kr(Math.round(sum.ialt))} i alt`,
-    ...(brugte.length ? brugte : [state.butik]).filter(Boolean).map(avisTekst),
-    ...VAREGRUPPER.flatMap(g => {
-      const iGruppe = linjer.filter(x => x.gruppe === g.navn);
-      return iGruppe.length ? ['', g.navn.toUpperCase(), ...iGruppe.map(x => `☐ ${x.navn}${x.pris ? ` (${kr(x.pris)}${brugte.length > 1 && x.butik ? ', ' + data.butikker[x.butik].navn : ''})` : x.skoen ? ` (ca. ${kr(x.skoen)})` : ''}`)] : [];
-    })].join('\n');
+  const flere = brugte.length > 1;
+  const gruppeLinjer = ls => VAREGRUPPER.flatMap(g => {
+    const iGruppe = ls.filter(x => x.gruppe === g.navn);
+    return iGruppe.length ? ['', g.navn.toUpperCase(), ...iGruppe.map(x => `☐ ${x.navn}${x.pris ? ` (${kr(x.pris)})` : x.skoen ? ` (ca. ${kr(x.skoen)})` : ''}`)] : [];
+  });
+  const dele = flere
+    ? [...brugte, 'andet'].map(f => ({ f, ls: linjer.filter(x => seddelFaneAf(x, brugte) === f) })).filter(d => d.ls.length)
+      .flatMap(({ f, ls }) => ['', f === 'andet' ? '=== ØVRIGE VARER ===' : `=== ${data.butikker[f].navn.toUpperCase()} === (${avisTekst(f)})`, ...gruppeLinjer(ls)])
+    : [...(brugte.length ? brugte : [state.butik]).filter(Boolean).map(avisTekst), ...gruppeLinjer(linjer)];
+  const tekst = [`Indkøbsseddel — ${butikTekst(brugte.length ? brugte : [state.butik])} · ca. ${kr(Math.round(sum.ialt))} i alt`, ...dele].join('\n');
   navigator.clipboard.writeText(tekst).then(() => alert('Indkøbssedlen er kopieret'));
 }
 
@@ -1836,7 +1854,7 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.husstandAabn !== undefined) { husstandAaben = !husstandAaben; return husstandLinje(); }
@@ -1859,6 +1877,7 @@ document.addEventListener('click', e => {
     state.trin = 'retter';
   }
   else if ('kunrest' in d) state.kunRest = !state.kunRest;
+  else if (d.seddelfane) state.seddelFane = d.seddelfane;
   else if (d.onlineTil) state.online = d.onlineTil === '1';
   else if (d.online) { state.koebt[d.online] = true; setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 0); return; }
   else if (d.alle) { const [g, bk] = d.alle.split(':'); listeLinjer()[g].filter(x => !bk || x.butik === bk).forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
