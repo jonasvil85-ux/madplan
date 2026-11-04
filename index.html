@@ -161,7 +161,7 @@ button.slet-valg[hidden] { display: none; }
 .dag-top small { color: var(--text-3); font-size: 11px; }
 .dag-bil-sim { aspect-ratio: 4 / 3; background: var(--bg); }
 .dag-bil-sim img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; }
+.dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; min-height: calc(5 * 1.3em + 10px); }
 .dag-meta { padding: 0 10px 10px; color: var(--text-3); font-size: 11.5px; }
 .sim-bund { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
 .sim-sum { color: var(--text-2); font-size: 14px; }
@@ -174,7 +174,7 @@ button.slet-valg[hidden] { display: none; }
   .dag-kort { display: grid; grid-template-columns: 96px 1fr; grid-template-areas: 'bil top' 'bil ret' 'bil meta'; align-items: start; }
   .dag-top { grid-area: top; padding: 10px 12px 2px; justify-content: flex-start; gap: 8px; }
   .dag-bil-sim { grid-area: bil; align-self: stretch; aspect-ratio: auto; min-height: 84px; }
-  .dag-ret { grid-area: ret; padding: 0 12px; flex: none; }
+  .dag-ret { grid-area: ret; padding: 0 12px; flex: none; min-height: 0; }
   .dag-meta { grid-area: meta; padding: 4px 12px 10px; }
   .sim-knapper { width: 100%; } .sim-knapper .knap { flex: 1; }
   .dag-knapper { position: static; margin-left: auto; }
@@ -762,7 +762,7 @@ function simuleringHtml() {
       <div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'} <small>Inkl. varer til normalpris (skøn). 2 voksne og 2 børn; basisvarer som salt og olie er ikke med.</small>
         ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud)}</div>
       <div class="sim-knapper">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb="${simButik}">Læg ${antalDage === plan.length ? 'de 7 retter' : antalDage === 1 ? 'retten' : `de ${antalDage} retter`} i indkøb →</button>` : ''}
-        <button type="button" class="knap sekundaer" data-sim-vaelg="${simButik}">Vælg selv retter i ${esc(b.navn)}</button></div>
+        <button type="button" class="knap sekundaer" data-sim-vaelg="${simButik}">Vælg selv retter</button></div>
     </div></div>`;
 }
 
@@ -1275,6 +1275,7 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-simuler],[data-sim-indkoeb],[data-sim-vaelg],[data-vistop],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
+  const simFoer = simButik;  // var madplanen åben, før dette tryk?
   if (d.koekken) state.koekken = d.koekken;
   else if (d.simByt !== undefined) simByt(simButik, +d.simByt);
   else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; }
@@ -1333,7 +1334,7 @@ document.addEventListener('click', e => {
   if (d.trin || d.gaa || d.butik || d.simIndkoeb || d.simVaelg || 'handlet' in d) window.scrollTo(0, 0);
   else window.scrollTo(0, y);
   if ('egen' in d) document.getElementById('soeg')?.focus();
-  if (d.simuler && simButik) setTimeout(() => document.getElementById('simulering')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  if (d.simuler && simButik && !simFoer) setTimeout(() => document.getElementById('simulering')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
 });
 
 document.addEventListener('change', e => {
