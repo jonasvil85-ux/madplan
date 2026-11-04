@@ -917,6 +917,8 @@ function renderRetter() {
 }
 
 // Saml ingredienser fra valgte retter i én liste for den valgte butik
+// Samme vare uanset "økologiske"/"danske" foran: "æg" og "økologiske æg" skal være én linje på listen
+const grundNavn = n => n.replace(/^(økologiske|økologisk|danske|dansk)\s+/i, '');
 function byggListe() {
   const tilbud = new Map(), oevrige = new Map(), basis = new Map();
   for (const id of state.valgte) {
@@ -925,7 +927,7 @@ function byggListe() {
       const m = ing.maengde * faktor();
       const match = butiksTilbud(ing);
       if (ing.basisvare) {
-        basis.set(ing.navn.toLowerCase(), ing.navn);
+        basis.set(grundNavn(ing.navn).toLowerCase(), grundNavn(ing.navn));
       } else if (match.length) {
         const key = match[0];
         const v = tilbud.get(key) || { key, tilbud: B().tilbud[key], ingNavn: ing.navn, brug: [], behov: {} };
@@ -933,8 +935,8 @@ function byggListe() {
         v.behov[ing.enhed] = (v.behov[ing.enhed] || 0) + m;
         tilbud.set(key, v);
       } else {
-        const key = `${ing.navn.toLowerCase()}|${ing.enhed}`;
-        const v = oevrige.get(key) || { key, navn: ing.navn, enhed: ing.enhed, m: 0, retter: [] };
+        const key = `${grundNavn(ing.navn).toLowerCase()}|${ing.enhed}`;
+        const v = oevrige.get(key) || { key, navn: grundNavn(ing.navn), enhed: ing.enhed, m: 0, retter: [] };
         v.m += m; v.retter.push(r.navn);
         oevrige.set(key, v);
       }
