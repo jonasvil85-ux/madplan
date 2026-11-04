@@ -164,9 +164,6 @@ button.slet-valg[hidden] { display: none; }
 .dag-bil-sim.ingen .ikon-svg { width: 34px; height: 34px; }
 .dag-bil-sim img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; min-height: calc(5 * 1.3em + 10px); }
-.butik-raekke { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px; }
-.butik-raekke h2 { margin: 0; font-size: 17px; }
-.butik-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .butik-chip { position: relative; display: flex; align-items: center; justify-content: center; padding: 4px; background: var(--surface-2); border: 2px solid transparent; border-radius: 13px; cursor: pointer; }
 .butik-chip .logo { width: 62px; height: 36px; padding: 5px 8px; border-radius: 9px; opacity: .55; transition: opacity .12s; }
 .butik-chip .logo.fyldt { width: auto; min-width: 36px; padding: 0; }
@@ -175,20 +172,24 @@ button.slet-valg[hidden] { display: none; }
 .butik-chip.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .bc-navn { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }  /* navnet står i logoet; kun for skærmlæsere */
 .butik-chip.udloebet { opacity: .5; }
-.afkryds { display: none; position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 12px; line-height: 19px; text-align: center; }
-.butik-chip.aktiv .afkryds { display: block; }
-.antal-valg { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
-.antal-valg h3 { margin: 0 0 8px; font-size: 14px; color: var(--text-2); font-weight: 600; }
-.antal-kort { display: flex; flex-wrap: wrap; gap: 10px; }
-.antal-knap { position: relative; flex: 1 1 150px; max-width: 260px; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 14px; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; color: var(--text-1); text-align: left; cursor: pointer; }
-.antal-knap:hover { border-color: rgba(232,116,59,.5); }
+.butik-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 16px 30px; align-items: start; }
+.butik-venstre h2, .butik-hoejre h3 { margin: 0 0 12px; font-size: 16px; line-height: 24px; }
+.butik-hoejre h3 { color: var(--text-2); font-weight: 600; }
+.butik-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.antal-kort { display: flex; flex-direction: column; gap: 8px; }
+.antal-knap { position: relative; display: grid; grid-template-columns: 84px 64px minmax(0, 1fr); align-items: center; gap: 10px; height: 54px; padding: 0 14px; text-align: left; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; color: var(--text-1); cursor: pointer; }
+.antal-knap.tom { opacity: .4; cursor: default; }
+.antal-knap:not(.tom):hover { border-color: rgba(232,116,59,.5); }
 .antal-knap.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .antal-knap b { font-size: 14px; }
-.antal-pris { font-size: 20px; font-weight: 700; line-height: 1.2; }
-.antal-knap small { font-size: 12px; color: var(--text-3); line-height: 1.3; }
+.antal-pris { font-size: 18px; font-weight: 700; }
+.antal-knap small { font-size: 12px; color: var(--text-3); line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .antal-knap em { font-style: normal; color: var(--emerald); font-weight: 600; }
-.anbef { position: absolute; top: -9px; right: 10px; padding: 1px 8px; border-radius: 999px; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 11px; font-weight: 600; }
-.antal-valg .detalje { margin: 8px 0 0; font-size: 12.5px; color: var(--text-3); }
+.anbef { position: absolute; top: -8px; right: 12px; padding: 1px 8px; border-radius: 999px; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 11px; font-weight: 600; }
+.sum-blok { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); min-height: 56px; }
+@media (max-width: 760px) { .butik-grid { grid-template-columns: 1fr; } }
+.afkryds { display: none; position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 12px; line-height: 19px; text-align: center; }
+.butik-chip.aktiv .afkryds { display: block; }
 .dag-butik { display: block; margin-top: 4px; font-size: 11px; color: var(--text-2); }
 .dag-butik i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--brand, var(--accent)); margin-right: 5px; }
 .dobbelt { display: block; margin-top: 5px; font-size: 11px; font-weight: 500; color: var(--amber); line-height: 1.3; }
@@ -463,13 +464,13 @@ const NIVEAUER = {
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
-const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, personer: 4, voksne: 2, boern: 2, mult: {},
+const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, butikValgt: false, personer: 4, voksne: 2, boern: 2, mult: {},
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 // Husstand: voksne + børn. retter.json er skrevet til en familie på 2 voksne + 2 børn (= faktor 1); et barn tæller som 0,6 voksenportion.
 const BARN_VAEGT = 0.6;
 const fraPersoner = p => p <= 1 ? [1, 0] : p === 2 ? [2, 0] : [2, p - 2];  // gamle gemte valg havde kun antal personer
-const husstand = s => ({ voksne: s.voksne, boern: s.boern, personer: s.voksne + s.boern, butikker: (s.butikker || []).slice(), maxButikker: s.maxButikker ?? 0, butik: s.butik });  // det, der bevares, når valg nulstilles
+const husstand = s => ({ voksne: s.voksne, boern: s.boern, personer: s.voksne + s.boern, butikker: (s.butikker || []).slice(), maxButikker: s.maxButikker ?? 0, butik: s.butik, butikValgt: !!s.butikValgt });  // det, der bevares, når valg nulstilles
 const husstandTekst = (v, b) => `${v} ${v === 1 ? 'voksen' : 'voksne'}${b ? ` + ${b} ${b === 1 ? 'barn' : 'børn'}` : ''}`;
 const HUSSTANDE = [
   { k: 'enlig', navn: 'Mig selv', v: 1, b: 0 }, { k: 'par', navn: 'Os to', v: 2, b: 0 },
@@ -682,6 +683,7 @@ async function start() {
     const lokalH = JSON.parse(localStorage.getItem(HUSSTAND_GEM) || 'null');
     const brugerH = bruger?.user_metadata?.husstand;
     if (anvendHusstand(brugerH || lokalH)) gemHusstand(!(bruger && !brugerH && lokalH));  // har man valgt før login, tages valget med til brugeren
+    if (!state.butikker.length && !state.butikValgt) vaelgStandardButik();  // ellers den billigste butik som standard
     render();
   } catch (e) {
     vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e)}</div>`);
@@ -987,11 +989,12 @@ function anvendHusstand(h) {
   state.voksne = Math.min(8, Math.floor(h.voksne)); state.boern = Math.min(8, Math.floor(h.boern)); state.personer = state.voksne + state.boern;
   if (Array.isArray(h.butikker) && h.butikker.length) state.butikker = h.butikker.filter(k => data.butikker[k]);
   if (h.max >= 0) state.maxButikker = Math.min(8, Math.floor(h.max));
+  if (h.valgt) state.butikValgt = true;
   tilpasButikker();
   return true;
 }
 function gemHusstand(kunLokalt = false) {
-  const h = { voksne: state.voksne, boern: state.boern, butikker: state.butikker.slice(), max: state.maxButikker };
+  const h = { voksne: state.voksne, boern: state.boern, butikker: state.butikker.slice(), max: state.maxButikker, valgt: state.butikValgt };
   localStorage.setItem(HUSSTAND_GEM, JSON.stringify(h));
   if (!kunLokalt && sb && bruger) {
     clearTimeout(husstandTimer);
@@ -1023,12 +1026,18 @@ function bedsteKoebButikker(ids) {
   }
   return bedst || ticked.slice(0, Math.max(1, state.maxButikker));
 }
+function vaelgStandardButik() {  // første gang: den butik, der er billigst at handle madplanen i denne uge
+  const alle = Object.keys(data.butikker), aktive = alle.filter(k => !udloebet(data.butikker[k]));
+  const bedst = (aktive.length ? aktive : alle).map(k => ({ k, p: simPris(k + '|1').ialt })).sort((x, y) => x.p - y.p)[0];
+  if (bedst) { state.butikker = [bedst.k]; state.butik = bedst.k; }
+}
 function skiftButik(k) {  // sæt/fjern flueben ved en butik; returnerer false, hvis brugeren fortryder
   if (state.butikker.includes(k)) {
     const n = state.valgte.filter(id => !id.startsWith('mix-') && butikAf(id) === k).length;
     if (n && !confirm(`Du har valgt ${n} ${n === 1 ? 'ret' : 'retter'} fra ${data.butikker[k].navn}. Fjerner du butikken, fjernes de også. Vil du fortsætte?`)) return false;
     state.butikker = state.butikker.filter(x => x !== k);
   } else state.butikker.push(k);
+  state.butikValgt = true;  // brugeren har selv valgt – så vælger siden ikke en standardbutik igen
   state.koebButikker = [];  // retterne bygges på ny til de valgte butikker
   tilpasButikker();
   gemHusstand();
@@ -1216,9 +1225,6 @@ function simuleringHtml() {
       <span class="panel-hoved-hoejre">${simAendret(k) ? `<button type="button" class="chip" data-sim-nulstil="${esc(k)}">Tilbage til forslaget</button>` : ''}</span></div>
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
-      <div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'}
-        ${antalDage ? `<span class="info-i info-venstre" tabindex="0" role="button" aria-label="Om prisen">i<span class="info-tekst" role="tooltip">Regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : ''}
-        ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud)}</div>
       <div class="sim-knapper">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb>Læg ${antalDage === plan.length ? 'de 7 retter' : antalDage === 1 ? 'retten' : `de ${antalDage} retter`} i indkøb →</button>` : ''}
         <button type="button" class="knap sekundaer" data-sim-vaelg>Vælg selv retter</button></div>
     </div></div>`;
@@ -1249,36 +1255,44 @@ function husstandKompakt() {
     <button type="button" class="chip lille" data-trin="butik" title="Husstanden vælges på forsiden">Skift</button></div>`;
 }
 
-function antalValgHtml() {  // "Hvor mange butikker vil du gå ind i?" – kun når der er valgt flere butikker
-  if (state.butikker.length < 2) return '';
-  const m = butikMuligheder(), anb = anbefaletAntal(), aktivN = simStandard(simK()).butikker.length;
-  return `<div class="antal-valg"><h3>Hvor mange butikker vil du gå ind i?</h3>
-    <div class="antal-kort">${m.map(o => {
-      const spar = Math.round(m[0].pris.ialt - o.pris.ialt);
-      return `<button type="button" class="antal-knap ${o.n === aktivN ? 'aktiv' : ''}" data-maxb="${o.n}">
-        ${o.n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}
-        <b>${o.n === 1 ? '1 butik' : o.n + ' butikker'}</b><span class="antal-pris">${kr(Math.round(o.pris.ialt))}</span>
-        <small>${esc(butikTekst(o.plan.butikker))}${o.n > 1 && spar > 0 ? ` <em>−${kr(spar)}</em>` : ''}</small></button>`;
-    }).join('')}</div>
-    ${m.length === 1 ? '<p class="detalje">Flere butikker sparer ikke noget denne uge.</p>' : ''}</div>`;
+// Samlet pris for madplanen – står sammen med anbefalingen, så man ser prisen for det, man har valgt
+function sumHtml() {
+  const k = simK();
+  if (!k) return '<div class="sum-blok"><span class="detalje">Vælg mindst én butik</span></div>';
+  const pris = simPrisPlan(k), antalDage = simAktive(k).length;
+  return `<div class="sum-blok"><div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'}
+    ${antalDage ? `<span class="info-i info-venstre" tabindex="0" role="button" aria-label="Om prisen">i<span class="info-tekst" role="tooltip">Regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : ''}
+    ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud)}</div></div>`;
+}
+function antalValgHtml() {  // højre side: "Hvor mange butikker vil du gå ind i?" (tre faste felter) + samlet pris
+  const ant = state.butikker.length;
+  const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
+  const felter = [1, 2, 3].map(n => {
+    const navn = n === 1 ? '1 butik' : n + ' butikker', o = m.find(x => x.n === n);
+    if (!o) return `<div class="antal-knap tom"><b>${navn}</b><span class="antal-pris">–</span><small></small></div>`;
+    const spar = Math.round(m[0].pris.ialt - o.pris.ialt);
+    return `<button type="button" class="antal-knap ${n === aktivN ? 'aktiv' : ''}" data-maxb="${n}">
+      <b>${navn}</b><span class="antal-pris">${kr(Math.round(o.pris.ialt))}</span>
+      <small>${esc(butikTekst(o.plan.butikker))}${n > 1 && spar > 0 ? ` <em>−${kr(spar)}</em>` : ''}</small>
+      ${n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}</button>`;
+  });
+  return `<h3>Hvor mange butikker vil du gå ind i?</h3><div class="antal-kort">${felter.join('')}</div>${sumHtml()}`;
 }
 function butikPanel() {
   const alle = Object.keys(data.butikker);
-  return `<div class="panel butikpanel">
-    <div class="butik-raekke"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
+  return `<div class="panel butikpanel"><div class="butik-grid">
+    <div class="butik-venstre"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
       <button type="button" class="butik-chip ${valgt ? 'aktiv' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
         ${logo(b)}<span class="bc-navn">${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}</span><i class="afkryds">✓</i>
       </button>`; }).join('')}</div></div>
-    <div id="antal-plads">${antalValgHtml()}</div>
-    <p id="butik-hint" class="detalje" style="margin:12px 0 0" ${state.butikker.length ? 'hidden' : ''}>Vælg mindst én butik</p>
-  </div>`;
+    <div class="butik-hoejre" id="antal-plads">${antalValgHtml()}</div>
+  </div></div>`;
 }
 // Flueben/antal butikker/madplan: opdatér kun det, der ændrer sig (logoerne og siden står stille, og der scrolles ikke)
 function opdaterButik() {
   const y = window.scrollY;
   document.querySelectorAll('.butik-chip').forEach(c => { const v = state.butikker.includes(c.dataset.butikvalg); c.classList.toggle('aktiv', v); c.setAttribute('aria-pressed', String(v)); });
   const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
-  const hint = document.getElementById('butik-hint'); if (hint) hint.hidden = state.butikker.length > 0;
   const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
   opdaterRamme();
   gem();
