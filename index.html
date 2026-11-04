@@ -275,13 +275,20 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .knap.lille { padding: 6px 12px; font-size: 13px; text-decoration: none; white-space: nowrap; background: #00aeef; }
 .rest { font-size: 12px; color: var(--amber); margin-top: 4px; line-height: 1.8; }
 .chip.lille { padding: 2px 9px; font-size: 12px; }
-.fod { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); line-height: 1.6; }
+.fod { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; font-size: 11.5px; color: var(--text-3); opacity: .6; line-height: 1.6; }
+.fod:hover, .fod:focus-within, .fod:has(details[open]) { opacity: .9; }
+.fod summary { cursor: pointer; list-style: none; display: inline; }
+.fod summary::-webkit-details-marker { display: none; }
+.fod summary:hover { text-decoration: underline; }
+.fod details[open] { flex-basis: 100%; order: 3; }
+.fod details[open] summary { margin-bottom: 4px; }
+.fod p { margin: 0; max-width: 70ch; }
+.fod a { color: inherit; text-decoration: none; }
+.fod a:hover { text-decoration: underline; }
 .restmaerke { font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 8px; }
 .ret.bruger-rest { border-color: rgba(245,158,11,.55); }
 .chip.rest-chip { border-color: rgba(245,158,11,.6); color: var(--amber); }
 .chip.rest-chip.aktiv { background: rgba(245,158,11,.15); }
-.opskrift-info { display: flex; align-items: center; gap: 10px; color: var(--text-2); font-size: 13.5px; margin: 2px 0 12px; }
-.opskrift-info .ikon-svg { color: var(--accent); width: 18px; height: 18px; flex: none; }
 .hero-ramme { position: relative; }
 .hero { display: grid; grid-template-columns: minmax(300px, 40%) 1fr; min-height: 270px; border-radius: var(--radius); overflow: hidden; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--border); }
 .hero-tekst { position: relative; z-index: 1; align-self: center; padding: 34px 30px; }
@@ -434,7 +441,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
   <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
-  <footer class="fod">Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn. <a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
+  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
 </div>
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
@@ -1361,11 +1368,6 @@ function renderRetter() {
   const antal = n => retter.filter(r => n === 'alle' || r.niveau === n).length;
 
   vis(`
-    <div class="filtre" style="justify-content:space-between">
-      <span class="butikhoved lille"><span><b style="color:var(--text-1)">${retter.length} retter</b> ud fra ugens tilbud i ${esc(butikTekst(aktivS()))}</span></span>
-      ${husstandKompakt()}
-    </div>
-    <div class="opskrift-info">${ikon('book')}<span>Alle retter har en <b style="color:var(--text-1)">opskrift med mængder og fremgangsmåde</b>. Du ser dem i din ugeplan, når du har lavet en gratis bruger.</span></div>
     ${aktivS().some(k => udloebet(data.butikker[k])) ? '<div class="panel fejl">En af aviserne er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
     <div class="niveauer">
       <button class="niveau ${state.niveau === 'alle' ? 'aktiv' : ''}" data-niveau="alle" style="--bg:url('grafik/hero-bord.jpg')"><span class="ikon">${ikon('utensils')}</span><strong>Alle retter</strong><small>${antal('alle')} retter</small></button>
