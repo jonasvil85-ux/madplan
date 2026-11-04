@@ -335,16 +335,12 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .personer { display: flex; align-items: center; gap: 8px; }
 .personer-tekst { font-size: 13px; color: var(--text-3); margin-right: 2px; }
 .husstand-lille { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 2px 14px; font-size: 13px; color: var(--text-3); }
+.hl-tael { display: inline-flex; align-items: center; height: 32px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); overflow: hidden; }
+.hl-tael button { width: 32px; height: 100%; padding: 0; border: 0; background: transparent; color: var(--text-2); font-size: 17px; line-height: 1; cursor: pointer; transition: background .12s, color .12s; }
+.hl-tael button:hover { background: rgba(232,116,59,.16); color: var(--text-1); }
+.hl-tekst { display: inline-block; min-width: 76px; text-align: center; color: var(--text-2); font-size: 13.5px; white-space: nowrap; }
+.hl-tekst b { color: var(--text-1); font-size: 15px; font-weight: 700; margin-right: 2px; }
 .hl-titel { color: var(--text-2); font-weight: 600; }
-.hl-valg { display: inline-flex; flex-wrap: wrap; gap: 6px; }
-.hl-pille { height: 26px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text-2); font-size: 12.5px; cursor: pointer; }
-.hl-pille:hover { border-color: rgba(232,116,59,.5); }
-.hl-pille.aktiv { background: rgba(232,116,59,.16); border-color: var(--accent); color: var(--text-1); }
-.hl-tael { display: inline-flex; align-items: center; gap: 6px; }
-.hl-tekst { display: inline-block; min-width: 62px; text-align: center; }
-.hl-tekst b { color: var(--text-1); font-weight: 600; }
-.hl-tael button { width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 1px solid var(--border); background: transparent; color: var(--text-2); font-size: 14px; line-height: 1; cursor: pointer; }
-.hl-tael button:hover { border-color: var(--accent); color: var(--text-1); }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
 .filtre .husstand-tael, .valg .husstand-tael { margin-top: 0; }
 .husstand-tael .personer-tekst b { color: var(--text-1); font-weight: 600; }
@@ -1214,7 +1210,7 @@ function simuleringHtml() {
     </div>`;
   }).join('');
   return `<div class="panel simulering" id="simulering">
-    <div class="panel-hoved"><div><h2>7 dages madplan</h2></div>
+    <div class="panel-hoved"><div><h2>Madplan</h2></div>
       <span class="panel-hoved-hoejre">${simAendret(k) ? `<button type="button" class="chip" data-sim-nulstil="${esc(k)}">Tilbage til forslaget</button>` : ''}</span></div>
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
@@ -1226,10 +1222,8 @@ function simuleringHtml() {
 // Vælg husstand: én lille, diskret linje – tre genveje og tællere for voksne og børn
 function husstandInner() {
   const { voksne: v, boern: b } = state;
-  const taeller = (nogle, n, ent, fl) => `<span class="hl-tael"><button type="button" data-${nogle}="-1" aria-label="Færre">−</button><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span><button type="button" data-${nogle}="1" aria-label="Flere">+</button></span>`;
-  return `<span class="hl-titel">Hvem skal spise med?</span>
-    <span class="hl-valg">${HUSSTANDE.map(h => `<button type="button" class="hl-pille ${h.v === v && h.b === b ? 'aktiv' : ''}" data-husstand="${h.v},${h.b}" aria-pressed="${h.v === v && h.b === b}" title="${husstandTekst(h.v, h.b)}">${h.navn}</button>`).join('')}</span>
-    ${taeller('voksne', v, 'voksen', 'voksne')}${taeller('boern', b, 'barn', 'børn')}`;
+  const taeller = (nogle, n, ent, fl) => `<span class="hl-tael" role="group" aria-label="${fl}"><button type="button" data-${nogle}="-1" aria-label="Færre ${fl}">−</button><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span><button type="button" data-${nogle}="1" aria-label="Flere ${fl}">+</button></span>`;
+  return `<span class="hl-titel">Hvem skal spise med?</span>${taeller('voksne', v, 'voksen', 'voksne')}${taeller('boern', b, 'barn', 'børn')}`;
 }
 function husstandPanel() { return `<div class="husstand-lille" id="husstand-plads">${husstandInner()}</div>`; }
 function opdaterHusstand() {  // kun husstandslinjen, prisen og madplanen opdateres (siden står stille)
