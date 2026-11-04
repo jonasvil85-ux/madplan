@@ -1056,6 +1056,14 @@ function renderRetter() {
 // Saml ingredienser fra valgte retter i én liste for den valgte butik
 // Samme vare uanset "økologiske"/"danske" foran: "æg" og "økologiske æg" skal være én linje på listen
 const grundNavn = n => n.replace(/^(økologiske|økologisk|danske|dansk)\s+/i, '');
+// "salt og peber" -> salt + peber, "spidskommen, paprika og oregano" -> tre varer (hver for sig på listen, uden dubletter på tværs af retter).
+// Parenteser ("fajitakrydderi (spidskommen, paprika)") og valg ("honning eller sukker") holdes samlet; "rasp eller hvedemel" = "hvedemel eller rasp".
+function basisDele(navn) {
+  return grundNavn(navn).split(/(?:\s+og\s+|,\s*)(?![^()]*\))/).map(d => d.trim()).filter(Boolean).map(d => {
+    const alt = d.toLowerCase().split(/\s+eller\s+/);
+    return [alt.length > 1 ? alt.sort().join(' eller ') : alt[0], d];
+  });
+}
 function byggListe() {
   const tilbud = new Map(), oevrige = new Map(), basis = new Map();
   for (const id of state.valgte) {
@@ -1064,7 +1072,7 @@ function byggListe() {
       const m = ing.maengde * faktor();
       const match = butiksTilbud(ing);
       if (ing.basisvare) {
-        basis.set(grundNavn(ing.navn).toLowerCase(), grundNavn(ing.navn));
+        for (const [k, navn] of basisDele(ing.navn)) if (!basis.has(k)) basis.set(k, navn);
       } else if (match.length) {
         const key = match[0];
         const v = tilbud.get(key) || { key, tilbud: B().tilbud[key], ingNavn: ing.navn, brug: [], behov: {} };
@@ -1137,7 +1145,7 @@ function listeLinjer() {
       skoen: skoenPris(v.navn, v.m, v.enhed), detalje: esc([...new Set(v.retter)].join(', ')),
     })),
     basis: l.basis.map(([k, navn]) => ({ key: 'b|' + k, navn, gruppe: varegruppe(navn), skoen: skoenPris(navn), soeg: soegeord(navn),
-                                         detalje: 'Basisvare – har du den i skabet?' })),
+                                         detalje: '' })),
   };
 }
 
