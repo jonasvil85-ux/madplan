@@ -122,7 +122,7 @@ document.addEventListener('click', async e => {
   const fane = e.target.closest('[data-login-fane]')?.dataset.loginFane;
   if (fane) return visLogin(fane);
   const aabn = e.target.closest('[data-aabn-login]');
-  if (aabn) { loginEkstra = aabn.dataset.titel === 'Gratis oprettelse resten af 2026' ? { titel: 'Opret gratis bruger', tekst: 'Gratis oprettelse resten af 2026. Gem din madplan og se opskrifterne trin for trin.' } : aabn.dataset.titel ? { titel: aabn.dataset.titel, tekst: 'Din madplan er klar. Opret en gratis bruger, så vi kan gemme den, og du kan se den hver dag i løbet af ugen.' } : {}; return visLogin(aabn.dataset.fane || 'ind'); }
+  if (aabn) { loginEkstra = aabn.dataset.titel ? { titel: aabn.dataset.titel, tekst: 'Din madplan er klar. Opret en gratis bruger, så vi kan gemme den, og du kan se den hver dag i løbet af ugen.' } : {}; return visLogin(aabn.dataset.fane || 'ind'); }
   if (e.target.closest('[data-luk-login]')) return lukLogin();
   if (e.target.id === 'logud') {
     // Valgene ligger også på brugeren – ryd dem på denne enhed, så den næste på computeren ikke kan se dem
