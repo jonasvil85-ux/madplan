@@ -683,7 +683,7 @@ async function start() {
     const lokalH = JSON.parse(localStorage.getItem(HUSSTAND_GEM) || 'null');
     const brugerH = bruger?.user_metadata?.husstand;
     if (anvendHusstand(brugerH || lokalH)) gemHusstand(!(bruger && !brugerH && lokalH));  // har man valgt før login, tages valget med til brugeren
-    if (!state.butikker.length && !state.butikValgt) vaelgStandardButik();  // ellers den billigste butik som standard
+    if (!state.butikker.length) vaelgStandardButik();  // aldrig uden butik: ellers den billigste butik som standard
     render();
   } catch (e) {
     vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e)}</div>`);
@@ -1033,6 +1033,7 @@ function vaelgStandardButik() {  // første gang: den butik, der er billigst at 
 }
 function skiftButik(k) {  // sæt/fjern flueben ved en butik; returnerer false, hvis brugeren fortryder
   if (state.butikker.includes(k)) {
+    if (state.butikker.length <= 1) return false;  // der skal altid være mindst én butik valgt
     const n = state.valgte.filter(id => !id.startsWith('mix-') && butikAf(id) === k).length;
     if (n && !confirm(`Du har valgt ${n} ${n === 1 ? 'ret' : 'retter'} fra ${data.butikker[k].navn}. Fjerner du butikken, fjernes de også. Vil du fortsætte?`)) return false;
     state.butikker = state.butikker.filter(x => x !== k);
