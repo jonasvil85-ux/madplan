@@ -79,8 +79,10 @@ const GRUPPE_PRIS = {
 const OMREGN_SKOEN = { g: ['g', 1], kg: ['g', 1000], ml: ['ml', 1], dl: ['ml', 100], l: ['ml', 1000] };
 
 // Skønnet pris i kr for at købe varen (hele pakker). maengde/enhed kan udelades (= én pakke).
+const SKOEN_OPSLAG = new Map();  // navn -> prisregel (opslaget kører mange gange, når madplanen simuleres)
 function skoenPris(navn, maengde, enhed, gruppe) {
-  const regel = PRISSKOEN.find(([r]) => r.test(navn));
+  if (!SKOEN_OPSLAG.has(navn)) SKOEN_OPSLAG.set(navn, PRISSKOEN.find(([r]) => r.test(navn)) || null);
+  const regel = SKOEN_OPSLAG.get(navn);
   if (!regel) return GRUPPE_PRIS[gruppe || varegruppe(navn)] ?? 25;
   const [, str, pEnhed, pris] = regel;
   if (!maengde || !enhed || enhed === 'efter smag') return pris;
