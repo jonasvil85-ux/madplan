@@ -164,22 +164,6 @@ button.slet-valg[hidden] { display: none; }
 .dag-bil-sim.ingen .ikon-svg { width: 34px; height: 34px; }
 .dag-bil-sim img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; min-height: calc(5 * 1.3em + 10px); }
-.vaerd .panel-hoved { align-items: baseline; }
-.vaerd .detalje { margin: -4px 0 14px; font-size: 13px; color: var(--text-3); }
-.vaerd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; }
-.vaerd-kort { background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
-.vaerd-bil { position: relative; height: 150px; background: #fff; overflow: hidden; }
-.vaerd-bil img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 6px; display: block; }
-.vaerd-pct { position: absolute; top: 8px; left: 8px; background: #10B981; color: #04210f; font-weight: 700; font-size: 12px; padding: 2px 9px; border-radius: 999px; }
-.vaerd-tekst { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.vaerd-kat { color: var(--text-3); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
-.vaerd-navn { color: var(--text-1); font-size: 14px; line-height: 1.3; font-weight: 600; }
-.vaerd-pris { display: flex; align-items: baseline; gap: 8px; margin-top: 4px; }
-.vaerd-pris b { font-size: 20px; color: var(--text-1); }
-.vaerd-pris small { color: var(--emerald); font-size: 12px; font-weight: 600; }
-.vaerd-butik { margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-2); }
-.vaerd-butik i { width: 8px; height: 8px; border-radius: 50%; background: var(--brand, var(--accent)); display: inline-block; }
-@media (max-width: 600px) { .vaerd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .vaerd-pris b { font-size: 18px; } }
 .butik-raekke { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px; }
 .butik-raekke h2 { margin: 0; font-size: 17px; }
 .butik-chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -326,6 +310,8 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .niveau strong { color: var(--text-1); font-size: 15px; }
 .niveau small { font-size: 12px; }
 .niveau.aktiv { border-color: var(--accent); background: var(--surface-2); }
+.avis-linje { margin: 8px 0 0; font-size: 12.5px; color: var(--text-3); }
+.gode-pct { font-style: normal; color: var(--emerald); font-weight: 600; }
 .tilbudsliste { margin-top: 10px; font-size: 12px; color: var(--text-3); }
 .tilbudsliste b { color: var(--emerald); font-weight: 600; }
 
@@ -432,7 +418,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 <div class="wrap">
   <header class="top">
     <h1 class="maerke" aria-label="Måltidsjagten"><svg class="logo-symbol" aria-hidden="true" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="21"/><path d="M32 3v9M32 52v9M3 32h9M52 32h9"/><g transform="translate(32 32) scale(.68) translate(-32 -32)" stroke-width="4.6"><path d="M19 17v8a5 5 0 0 0 10 0v-8M24 17v9M24 30v17"/><path d="M41 47V17c-4 3-5 8-5 13h5"/></g></svg><span class="logo-navn">Måltids<span>jagten</span></span></h1>
-    <div class="topinfo"><div class="aviser" id="aviser"></div><div class="bruger" id="bruger"></div></div>
+    <div class="topinfo"><div class="bruger" id="bruger"></div></div>
   </header>
 
   <div class="nav-raekke">
@@ -489,7 +475,7 @@ const HUSSTANDE = [
   { k: 'enlig', navn: 'Mig selv', v: 1, b: 0 }, { k: 'par', navn: 'Os to', v: 2, b: 0 },
   { k: 'familie', navn: 'Familie', v: 2, b: 2 },
 ];
-let tilbudsliste = null;  // tilbudsliste.json: hver butiks billigste tilbud pr. kategori (bygges af scripts/byg_tilbudsliste.py)
+let tilbudsliste = null;  // tilbudsliste.json: hver butiks billigste tilbud pr. kategori af varer ud over aftensmaden (bygges af scripts/byg_tilbudsliste.py)
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
 let state = { ...structuredClone(TOM) };
 
@@ -664,6 +650,8 @@ function antalPakker(t, behov) {
 
 // Tilbud der matcher en ingrediens i den valgte butik
 const butiksTilbud = ing => ing.tilbud.filter(id => ALLE_TILBUD[id]);  // en ingrediens' tilbud (hver ret har allerede valgt det billigste blandt de valgte butikker)
+// "Netto tilbudsavis gældende 31. okt.–6. nov." – står på indkøbssedlen (ikke i toppen af siden)
+const avisTekst = k => `${data.butikker[k].navn} tilbudsavis gældende ${data.butikker[k].aviser.map(a => `${kortDato(a.fra)}–${kortDato(a.til)}`).join(' og ')}`;
 const udloebet = b => b.aviser.every(a => dato(a.til) < new Date());
 
 // ---------- Indlæsning ----------
@@ -700,13 +688,6 @@ async function start() {
   }
 }
 
-function visAviser() {
-  document.getElementById('aviser').innerHTML = state.butikker.map(k => {
-    const b = data.butikker[k];
-    return `${esc(b.navn)} ${b.aviser.map(a => `${kortDato(a.fra)}–${kortDato(a.til)}`).join(', ')}`;
-  }).join(' · ');
-}
-
 // ---------- Render ----------
 const vis = html => { document.getElementById('indhold').innerHTML = html; };
 
@@ -721,7 +702,6 @@ function opdaterRamme() {  // faneknapper, avisperioder, "Slet valg" og besked o
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
     b.disabled = (b.dataset.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
   });
-  visAviser();
   const nav = document.querySelector('nav.trin'), aktiv = nav?.querySelector('button.aktiv');
   if (aktiv) nav.scrollLeft = aktiv.offsetLeft - (nav.clientWidth - aktiv.offsetWidth) / 2;  // kun sidelæns i fanerne – siden selv scrolles ikke
   document.querySelector('.slet-valg').hidden = !harValg();
@@ -1269,38 +1249,6 @@ function husstandKompakt() {
     <button type="button" class="chip lille" data-trin="butik" title="Husstanden vælges på forsiden">Skift</button></div>`;
 }
 
-// "Værd at overveje": ugens ekstra billige enkelttilbud (sodavand, fløde, smør, kød …), sammenlignet med de andre butikkers tilbud i samme kategori
-function vaerdAtOvervejeHtml() {
-  if (!tilbudsliste?.kategorier?.length) return '';
-  const nu = new Date(), kort = [];
-  for (const kat of tilbudsliste.kategorier) {
-    const gyldige = kat.tilbud.filter(t => data.butikker[t.butik] && (!t.gyldigTil || dato(t.gyldigTil) >= nu));  // sorteret efter pris pr. enhed
-    if (gyldige.length < 3) continue;
-    const mine = state.butikker.length ? gyldige.filter(t => state.butikker.includes(t.butik)) : gyldige;  // kun de afkrydsede butikker (ellers alle)
-    if (!mine.length) continue;
-    const bedst = mine[0], andre = gyldige.filter(t => t.butik !== bedst.butik);  // sammenlignet med de andre butikkers tilbud
-    const eps = andre.map(t => t.ep).sort((x, y) => x - y);
-    const pct = Math.round((1 - bedst.ep / eps[eps.length >> 1]) * 100);  // under de andre butikkers midterste tilbud
-    if (pct >= 15) kort.push({ kat, t: bedst, pct });
-  }
-  kort.sort((x, y) => y.pct - x.pct);
-  if (!kort.length) return '';
-  const ep = (v, e) => `${v.toLocaleString('da-DK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} kr/${e}`;
-  return `<div class="panel vaerd">
-    <div class="panel-hoved"><h2>Værd at overveje denne uge</h2><span class="panel-hoved-hoejre"><span class="info-i info-bred" tabindex="0" role="button" aria-label="Om tilbuddene">i<span class="info-tekst" role="tooltip">Ugens ekstra billige tilbud på varer, mange køber. Vi sammenligner prisen pr. kg, liter eller stk. på tværs af butikkernes tilbud. Procenten viser, hvor meget billigere tilbuddet er end de andre butikkers midterste tilbud. Det er tilbud mod tilbud – ikke mod normalpris.</span></span></span></div>
-    <div class="vaerd-grid">${kort.slice(0, 8).map(({ kat, t, pct }) => {
-      const b = data.butikker[t.butik];
-      return `<div class="vaerd-kort" title="${esc(t.navn)} – ${pct} % billigere end de andre butikkers midterste tilbud">
-        <div class="vaerd-bil">${t.billede ? `<img src="${esc(t.billede)}" alt="" loading="lazy">` : ''}<span class="vaerd-pct">−${pct} %</span></div>
-        <div class="vaerd-tekst"><small class="vaerd-kat">${esc(kat.navn)}</small><b class="vaerd-navn">${esc(kortNavn(t.navn))}</b>
-          <span class="vaerd-pris"><b>${kr(t.pris)}</b><small>${ep(t.ep, kat.enhed)}</small></span>
-          <span class="vaerd-butik" style="--brand:${esc(b.farve || '#10B981')}"><i></i>${esc(b.navn)}</span></div>
-      </div>`;
-    }).join('')}</div>
-  </div>`;
-}
-
-// Hvor vil du handle? Rene flueben (logo + navn, ingen priser) og – ved flere butikker – hvor mange af dem madplanen højst må bruge
 function antalValgHtml() {  // "Hvor mange butikker vil du gå ind i?" – kun når der er valgt flere butikker
   if (state.butikker.length < 2) return '';
   const m = butikMuligheder(), anb = anbefaletAntal(), aktivN = simStandard(simK()).butikker.length;
@@ -1331,7 +1279,7 @@ function opdaterButik() {
   document.querySelectorAll('.butik-chip').forEach(c => { const v = state.butikker.includes(c.dataset.butikvalg); c.classList.toggle('aktiv', v); c.setAttribute('aria-pressed', String(v)); });
   const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
   const hint = document.getElementById('butik-hint'); if (hint) hint.hidden = state.butikker.length > 0;
-  const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml() + vaerdAtOvervejeHtml();
+  const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
   opdaterRamme();
   gem();
   window.scrollTo(0, y);
@@ -1354,7 +1302,7 @@ function renderButikker() {
   </div>
   ${husstandPanel()}
   ${butikPanel()}
-  <div id="sim-plads">${simuleringHtml()}${vaerdAtOvervejeHtml()}</div>`);
+  <div id="sim-plads">${simuleringHtml()}</div>`);
   bund('');
 }
 
@@ -1524,6 +1472,27 @@ function restTekst(v) {
   return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${raad ? ' · ' + raad : ''}</div>`;
 }
 
+// "Gode tilbud i dine butikker": ugens bedste tilbud på ting ud over aftensmaden (sodavand, smør, mælk, vaskepulver, shampoo …) i de butikker, der handles i.
+// Højst ti, en pr. kategori, rangeret efter hvor meget billigere de er end de andre butikkers tilbud (tilbud mod tilbud – ikke mod en normalpris).
+function godeTilbud(paaListen, butikker) {
+  if (!tilbudsliste?.kategorier?.length || !butikker.length) return [];
+  const nu = new Date(), ud = [];
+  for (const kat of tilbudsliste.kategorier) {
+    const gyldige = kat.tilbud.filter(t => data.butikker[t.butik] && (!t.gyldigTil || dato(t.gyldigTil) >= nu));  // sorteret efter pris pr. enhed
+    const mine = gyldige.filter(t => butikker.includes(t.butik) && !paaListen.has(t.kort));
+    if (!mine.length) continue;
+    const bedst = mine.slice().sort((x, y) => (x.ep && y.ep ? x.ep - y.ep : x.ep ? -1 : y.ep ? 1 : x.pris - y.pris))[0];
+    const andre = gyldige.filter(t => t.butik !== bedst.butik && t.ep);
+    let pct = null;
+    if (bedst.ep && andre.length >= 2) { const eps = andre.map(t => t.ep).sort((x, y) => x - y); pct = Math.round((1 - bedst.ep / eps[eps.length >> 1]) * 100); }
+    else if (bedst.forPris) pct = Math.round((1 - bedst.pris / bedst.forPris) * 100);
+    if (pct !== null && pct < 10) continue;  // kun rigtigt gode tilbud
+    ud.push({ kat, t: bedst, pct });
+  }
+  return ud.sort((x, y) => (y.pct ?? 5) - (x.pct ?? 5)).slice(0, 10);
+}
+const epTekst = (v, e) => `${v.toLocaleString('da-DK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} kr/${e}`;
+
 // Alle linjer på indkøbslisten med nøgle, tekst og varegruppe – bruges af både listen og sedlen
 function listeLinjer() {
   const l = byggListe();
@@ -1539,6 +1508,10 @@ function listeLinjer() {
     })),
     basis: l.basis.map(([k, navn]) => ({ key: 'b|' + k, navn, gruppe: varegruppe(navn), skoen: skoenPris(navn), soeg: soegeord(navn),
                                          detalje: '' })),
+    gode: godeTilbud(new Set(l.tilbud.map(v => v.key)), l.tilbud.length ? [...new Set(l.tilbud.map(v => v.butik))] : aktivS()).map(({ kat, t, pct }) => ({
+      key: 'g|' + t.kort, butik: t.butik, navn: kortNavn(t.navn), gruppe: varegruppe(t.navn), pris: t.pris, billede: t.billede, soeg: soegeord(t.navn),
+      detalje: `${esc(kat.navn)} · ${esc(data.butikker[t.butik].navn)}${t.ep ? ' · ' + epTekst(t.ep, kat.enhed) : ''}${pct > 0 ? ` · <em class="gode-pct">−${pct} %</em>` : ''}`,
+    })),
   };
 }
 
@@ -1569,6 +1542,7 @@ function listeSektioner(L) {
   const sek = [...new Set(L.tilbud.map(x => x.butik))].map(bk => ({ id: 'tilbud:' + bk, titel: `På tilbud i ${esc(data.butikker[bk].navn)}`, linjer: L.tilbud.filter(x => x.butik === bk) }));
   if (L.oevrige.length) sek.push({ id: 'oevrige', titel: 'Ikke på tilbud (normalpris)', linjer: L.oevrige });
   if (L.basis.length) sek.push({ id: 'basis', titel: 'Basisvarer – tjek om du har', linjer: L.basis });
+  if (L.gode.length) sek.push({ id: 'gode', titel: 'Gode tilbud i dine butikker', linjer: L.gode, vaelgAlle: false });  // ikke afkrydset som standard
   return sek;
 }
 const valgteButikker = () => [...new Set(byggListe().tilbud.map(v => v.butik))];  // butikkerne, der skal handles i (dem tilbuddene på listen er fra)
@@ -1614,11 +1588,11 @@ function renderListe() {
       </div>
       ${andelListe}
     </div>
-    ${listeSektioner(L).map(({ id, titel, linjer }) => {
+    ${listeSektioner(L).map(({ id, titel, linjer, vaelgAlle }) => {
       const alle = linjer.every(x => state.valgtVare[x.key]);
       return `<div class="panel">
         <div class="sektionshoved"><h2>${titel}</h2>
-          <button class="chip" data-alle="${id}" data-til="${alle ? 0 : 1}">${alle ? 'Fravælg alle' : '✓ Vælg alle'}</button></div>
+          ${vaelgAlle === false ? '' : `<button class="chip" data-alle="${id}" data-til="${alle ? 0 : 1}">${alle ? 'Fravælg alle' : '✓ Vælg alle'}</button>`}</div>
         ${linjer.map(linje).join('')}
       </div>`;
     }).join('')}`);
@@ -1713,6 +1687,7 @@ function renderSeddel() {
         <span><b style="color:var(--text-1)">Indkøbsseddel · ${esc(butikTekst(brugte.length ? brugte : [state.butik]))}</b> · ${linjer.length} varer${sum.ialt ? ` · ${prisTekst(sum)}` : ''}</span>
         <span class="fremskridt">${koebt} af ${linjer.length} i kurven</span>
       </div>
+      <p class="avis-linje">${(brugte.length ? brugte : [state.butik]).filter(Boolean).map(k => esc(avisTekst(k))).join(' · ')}</p>
       <div class="bar"><div style="width:${linjer.length ? koebt / linjer.length * 100 : 0}%"></div></div>
     </div>
     ${linjer.length ? VAREGRUPPER.map(g => {
@@ -1801,6 +1776,7 @@ function kopierListe() {
   const sum = prisSum(linjer);
   const brugte = valgteButikker();
   const tekst = [`Indkøbsseddel — ${butikTekst(brugte.length ? brugte : [state.butik])} · ca. ${kr(Math.round(sum.ialt))} i alt`,
+    ...(brugte.length ? brugte : [state.butik]).filter(Boolean).map(avisTekst),
     ...VAREGRUPPER.flatMap(g => {
       const iGruppe = linjer.filter(x => x.gruppe === g.navn);
       return iGruppe.length ? ['', g.navn.toUpperCase(), ...iGruppe.map(x => `☐ ${x.navn}${x.pris ? ` (${kr(x.pris)}${brugte.length > 1 && x.butik ? ', ' + data.butikker[x.butik].navn : ''})` : x.skoen ? ` (ca. ${kr(x.skoen)})` : ''}`)] : [];
