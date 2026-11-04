@@ -121,7 +121,9 @@ button.slet-valg[hidden] { display: none; }
 .butik-celle { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .butik-celle .butikvalg { flex: 1; }
 .chip.simuler-knap { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 12px; font-size: 14px; font-weight: 600; border-radius: 12px; }
-.chip.simuler-knap .ikon-svg { width: 17px; height: 17px; color: var(--accent); }
+.chip.simuler-knap .ikon-svg { width: 17px; height: 17px; color: var(--accent); flex: none; }
+.chip.simuler-knap .sim-tekst { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.25; text-align: left; }
+.chip.simuler-knap .sim-tekst small { font-weight: 400; color: var(--text-3); font-size: 12px; margin: 0; opacity: 1; }
 .chip.simuler-knap.aktiv { background: rgba(232,116,59,.13); }
 .simulering { scroll-margin-top: 14px; border-color: rgba(232,116,59,.45); }
 .simulering .panel-hoved { align-items: flex-start; }
@@ -658,10 +660,15 @@ function simuler(k) {
   dage.forEach((d, i) => { if (!ud[i]) ud[i] = rest.shift(); });
   return dage.map((dato, i) => ({ dato, r: ud[i] }));
 }
-function medButik(k, fn) {  // kør en funktion, som om butikken var valgt (priser og tilbud bruger state.butik)
-  const gem = { b: state.butik, v: state.valgte };
-  state.butik = k;
-  try { return fn(); } finally { state.butik = gem.b; state.valgte = gem.v; }
+const SIM_PERS = 4;  // 2 voksne + 2 børn – simuleringen bruger altid dette, uanset det antal personer brugeren selv har valgt
+function medButik(k, fn) {  // kør en funktion, som om butikken var valgt (priser og tilbud bruger state.butik og state.personer)
+  const gem = { b: state.butik, v: state.valgte, p: state.personer };
+  state.butik = k; state.personer = SIM_PERS;
+  try { return fn(); } finally { state.butik = gem.b; state.valgte = gem.v; state.personer = gem.p; }
+}
+const simPrisCache = {};
+function simPris(k) {  // pris for butikkens 7-dages-madplan (cachet: retter, tilbud og antal personer er faste)
+  return simPrisCache[k] = simPrisCache[k] || ugePris(k, simuler(k).map(x => x.r.id));
 }
 function ugePris(k, ids) {  // samlet indkøb for flere retter: hele pakker, delt på tværs af retter
   return medButik(k, () => { state.valgte = ids; const L = listeLinjer(); const ps = prisSum([...L.tilbud, ...L.oevrige]); return { ialt: ps.ialt, tilbud: prisSum(L.tilbud).tilbud }; });
@@ -669,7 +676,7 @@ function ugePris(k, ids) {  // samlet indkøb for flere retter: hele pakker, del
 function simuleringHtml() {
   if (!simButik) return '';
   const b = data.butikker[simButik], plan = simuler(simButik);
-  const pris = ugePris(simButik, plan.map(x => x.r.id));
+  const pris = simPris(simButik);
   const kort = plan.map(({ dato, r }) => {
     const kp = medButik(simButik, () => kortPriser(r));
     return `<div class="dag-kort">
@@ -681,11 +688,11 @@ function simuleringHtml() {
   }).join('');
   return `<div class="panel simulering" id="simulering">
     <div class="panel-hoved"><div><h2>7 dages madplan · ${esc(b.navn)}</h2>
-      <p class="detalje">Retter, som børnefamilier typisk er glade for, bygget over ${esc(b.navn)}s tilbud denne uge. Priser for ${state.personer} personer.</p></div>
+      <p class="detalje">Retter, som børnefamilier typisk er glade for, bygget over ${esc(b.navn)}s tilbud denne uge. Regnet for <b>2 voksne og 2 børn</b>.</p></div>
       <button type="button" class="chip" data-simuler="${simButik}" aria-label="Luk madplanen">Luk ✕</button></div>
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
-      <div class="sim-sum">Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${plan.length} retter <small>Heraf tilbudsvarer ${kr(Math.round(pris.tilbud))}, resten er skøn til normalpris. ${state.personer} personer; basisvarer som salt og olie er ikke med.</small></div>
+      <div class="sim-sum">Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${plan.length} retter <small>Heraf tilbudsvarer ${kr(Math.round(pris.tilbud))}, resten er skøn til normalpris. 2 voksne og 2 børn; basisvarer som salt og olie er ikke med.</small></div>
       <div class="sim-knapper"><button type="button" class="knap" data-sim-indkoeb="${simButik}">Læg de 7 retter i indkøb →</button>
         <button type="button" class="knap sekundaer" data-sim-vaelg="${simButik}">Vælg selv retter i ${esc(b.navn)}</button></div>
     </div></div>`;
@@ -697,7 +704,7 @@ function renderButikker() {
   const priser = Object.fromEntries(Object.keys(data.butikker).map(k =>
     [k, Object.fromEntries(Object.keys(NIVEAUER).map(n => [n, prisPrPers(data.butikker[k], n)]))]));
   const billigstPaa = n => Math.min(...aktive.map(k => priser[k][n] ?? Infinity));
-  const samlet = k => Object.values(priser[k]).reduce((s, p) => s + (p ?? 0), 0);
+  const samlet = k => simPris(k).ialt;  // billigste 7-dages madplan til 2 voksne + 2 børn
   const vinder = aktive.length > 1 ? aktive.reduce((a, k) => samlet(k) < samlet(a) ? k : a) : null;
   // Billigste først; butikker med udløbet avis til sidst
   const orden = Object.keys(data.butikker).sort((a, b) =>
@@ -723,10 +730,10 @@ function renderButikker() {
     <div class="saadan-trin"><span class="saadan-nr">3</span><div><b>Få din indkøbsseddel</b><small>Alt, du skal købe, samlet med priser</small></div></div>
     <div class="saadan-trin fremhaevet"><span class="saadan-nr">${ikon('book')}</span><div><b>Få opskrifterne</b><small>Ingredienser og fremgangsmåde i din ugeplan – med gratis bruger</small></div></div>
   </div>
-  <div class="panel"><div class="panel-hoved"><h2>Hvilken tilbudsavis vil du handle efter?</h2><span class="panel-hoved-hoejre"><button type="button" class="chip top-knap ${visTop ? 'aktiv' : ''}" data-vistop aria-pressed="${visTop}">${ikon('flame')} ${visTop ? 'Skjul ugens bedste enkelttilbud' : 'Vis ugens bedste enkelttilbud'}</button><span class="info-i info-bred" tabindex="0" role="button" aria-label="Hvad betyder billigst?">i<span class="info-tekst" role="tooltip"><span class="info-afsnit">Måltidsjagten.dk bruger AI til at finde retter, man kan lave ud fra tilbuddene i hver butiks aktuelle tilbudsavis. Hvilken butik der er billigst, bygger kun på de retter og tilbud, vi viser – ikke på butikkens priser generelt. Andre forhold er ikke med, fx dyrere økologiske varer, kvalitet og lokale tilbud.</span><span class="info-afsnit"><b>Pris pr. person</b> = median for butikkens retter på hvert niveau (4 personer). Tilbudsvarer regnes i hele pakker; varer til normalpris er et groft skøn. Basisvarer som salt, olie og mel er ikke med.</span></span></span></div><div class="butikker">
+  <div class="panel"><div class="panel-hoved"><h2>Hvilken tilbudsavis vil du handle efter?</h2><span class="panel-hoved-hoejre"><button type="button" class="chip top-knap ${visTop ? 'aktiv' : ''}" data-vistop aria-pressed="${visTop}">${ikon('flame')} ${visTop ? 'Skjul ugens bedste enkelttilbud' : 'Vis ugens bedste enkelttilbud'}</button><span class="info-i info-bred" tabindex="0" role="button" aria-label="Hvad betyder billigst?">i<span class="info-tekst" role="tooltip"><span class="info-afsnit">Måltidsjagten.dk bruger AI til at finde retter, man kan lave ud fra tilbuddene i hver butiks aktuelle tilbudsavis. <b>Billigste madplan</b> er den butik, hvor 7 aftensmåltider til 2 voksne og 2 børn bliver billigst ud fra de retter og tilbud, vi viser – ikke den butik, der generelt er billigst. Andre forhold er ikke med, fx dyrere økologiske varer, kvalitet og lokale tilbud.</span><span class="info-afsnit"><b>Pris pr. person</b> = median for butikkens retter på hvert niveau (4 personer). Tilbudsvarer regnes i hele pakker; varer til normalpris er et groft skøn. Basisvarer som salt, olie og mel er ikke med.</span></span></span></div><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
       <div class="butik-celle"><button class="butikvalg ${k === vinder ? 'vinder' : ''} ${k === state.butik ? 'aktiv' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
-        ${k === vinder ? `<span class="billigst">${ikon('trend')} Billigst denne uge</span>` : ''}
+        ${k === vinder ? `<span class="billigst">${ikon('trend')} Billigste madplan</span>` : ''}
         <span class="butikhoved">
           ${logo(b)}
           <span><strong>${esc(b.navn)}</strong>
@@ -737,12 +744,9 @@ function renderButikker() {
         <span class="prisrækker"><small class="prisoverskrift">Pris pr. person</small>${Object.entries(NIVEAUER).map(([n, niv]) => {
           const p = priser[k][n];
           if (p == null) return '';
-          const bedst = aktive.includes(k) && p <= billigstPaa(n) + 0.5;  // under 50 øre = uafgjort
-          const forskel = Math.round(p - billigstPaa(n));
-          return `<span class="prisrække ${bedst ? 'bedst' : ''}">
+          return `<span class="prisrække">
             <span>${ikon(niv.ikon)} ${niv.kort}</span>
             <b>${kr(Math.round(p))}</b>
-            <small>${bedst ? 'billigst' : forskel > 0 ? `+${kr(forskel)}` : ''}</small>
           </span>`;
         }).join('')}</span>
         ${visTop && (b.top || []).length ? `<span class="top3"><small class="prisoverskrift">${ikon('flame')} Værd at køre efter</small>${b.top.slice(0, 3).map(t => `
@@ -752,7 +756,7 @@ function renderButikker() {
               <small>${t.enhedspris ? `<span class="top3-enhed">${esc(t.enhedspris)}</span> · ` : ''}${esc(kortNavn(t.navn))}</small></span>
             <b>${kr(t.pris)}</b>
           </span>`).join('')}</span>` : ''}
-      </button><button type="button" class="chip simuler-knap ${simButik === k ? 'aktiv' : ''}" data-simuler="${k}" aria-expanded="${simButik === k}">${ikon('calendar')} ${simButik === k ? 'Skjul madplanen' : 'Simuler 7 dages madplan'}</button></div>`).join('')}
+      </button><button type="button" class="chip simuler-knap ${simButik === k ? 'aktiv' : ''}" data-simuler="${k}" aria-expanded="${simButik === k}">${ikon('calendar')} <span class="sim-tekst">${simButik === k ? 'Skjul madplanen' : 'Simuler 7 dages madplan'}<small>ca. ${kr(Math.round(simPris(k).ialt))} · 2 voksne + 2 børn</small></span></button></div>`).join('')}
   </div>
   </div>
   ${simuleringHtml()}`);
@@ -1190,7 +1194,7 @@ document.addEventListener('click', e => {
   else if (d.simuler) simButik = simButik === d.simuler ? null : d.simuler;
   else if (d.simIndkoeb) {
     if (harValg() && !confirm('Du har allerede valgt retter. Vil du erstatte dem med de 7 retter fra madplanen?')) return;
-    state = { ...structuredClone(TOM), personer: state.personer, butik: d.simIndkoeb, valgte: simuler(d.simIndkoeb).map(x => x.r.id), trin: 'liste' };
+    state = { ...structuredClone(TOM), personer: SIM_PERS, butik: d.simIndkoeb, valgte: simuler(d.simIndkoeb).map(x => x.r.id), trin: 'liste' };
     simButik = null;
   }
   else if (d.simVaelg) {
