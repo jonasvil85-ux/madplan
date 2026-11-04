@@ -1300,7 +1300,7 @@ function muligPris(o) {  // prisen på et felt: dine egne ændringer (byt/fjern 
   }
   return o.pris;
 }
-function antalValgHtml() {  // højre side: "Hvor mange butikker vil du gå ind i?" – et felt pr. mulighed (1, så 2, så 3 butikker)
+function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i?" – et felt pr. mulighed (1, så 2, så 3 butikker)
   const ant = state.butikker.length;
   const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
   const priser = m.map(muligPris);
@@ -1322,7 +1322,7 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du gå ind 
   const k = simK(), antalDage = k ? simAktive(k).length : 0;
   const info = antalDage ? `<span class="info-i info-panel" tabindex="0" role="button" aria-label="Om priserne">i<span class="info-tekst" role="tooltip">Priserne er for ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}, regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Det overstregede beløb er et skøn over, hvad de samme varer ville koste til normalpris. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : '';
   const indhold = !ant ? '<p class="detalje">Ingen butik valgt endnu</p>' : !antalDage ? '<p class="detalje">Alle dage er fravalgt</p>' : felter.join('');
-  return `<h3>Hvor mange butikker vil du gå ind i? ${info}</h3><div class="antal-kort">${indhold}</div><p class="ubrugt-note">${note}</p>`;
+  return `<h3>Hvor mange butikker vil du handle i? ${info}</h3><div class="antal-kort">${indhold}</div><p class="ubrugt-note">${note}</p>`;
 }
 function butikPanel() {
   const alle = Object.keys(data.butikker), ub = ubrugteButikker();
