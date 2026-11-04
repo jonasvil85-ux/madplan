@@ -929,7 +929,9 @@ function butikMuligheder() {  // [{ n, k, plan, pris }] for 1..3 butikker (en mu
   for (let n = 1; n <= Math.min(3, state.butikker.length); n++) {
     const k = noegleFor(n), plan = simStandard(k);
     if (n > 1 && plan.butikker.length < n) continue;
-    ud.push({ n, k, plan, pris: simPris(k) });
+    const pris = simPris(k);
+    if (ud.length && pris.ialt >= ud[ud.length - 1].pris.ialt - 1) continue;  // en ekstra butik, der ikke gør det billigere, vises ikke
+    ud.push({ n, k, plan, pris });
   }
   return ud;
 }
@@ -966,6 +968,15 @@ function simuler(k) {
   }
   // Ligger flere madplaner inden for TIEBREAK_KR af den billigste, foretrækkes den, der indeholder den billigste enkeltbutik (så anbefalingerne bygger på hinanden:
   // "REMA alene" → "REMA + Netto"), og derefter den med færrest butikker.
+  // Vælges præcis `max` butikker (et felt under "Hvor mange butikker?"), er svaret den bedste madplan med netop så mange butikker – også når den kun sparer lidt
+  const praecis = strikte[max];
+  if (praecis?.length) {
+    const min = Math.min(...praecis.map(p => p.kost));
+    const under = (strikte[max - 1] || []).slice().sort((x, y) => x.kost - y.kost)[0];  // den bedste plan med én butik færre
+    const naer = praecis.filter(p => p.kost <= min + TIEBREAK_KR);
+    const bygger = under ? naer.filter(p => under.butikker.every(b => p.butikker.includes(b))) : [];
+    return (bygger.length ? bygger : naer).sort((x, y) => x.kost - y.kost)[0];
+  }
   const alle = Object.values(strikte).flat();
   if (alle.length) {
     const min = Math.min(...alle.map(p => p.kost));
