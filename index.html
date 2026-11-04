@@ -337,7 +337,8 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .husstand-kort.selv { cursor: default; }
 .husstand-kort.selv .husstand-navn { gap: 4px; }
 .husstand-kort.selv .husstand-navn > b { margin-bottom: 2px; }
-.husstand-kort.selv .tael { gap: 6px; font-size: 13px; color: var(--text-2); }
+.husstand-kort.selv .tael .knapper { display: inline-flex; gap: 4px; }
+.husstand-kort.selv .tael { gap: 8px; font-size: 13px; color: var(--text-2); }
 .husstand-kort.selv .tael b { color: var(--text-1); font-size: 13px; }
 .husstand-kort.selv .tael button { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--border); background: var(--surface); color: var(--text-1); cursor: pointer; line-height: 1; padding: 0; }
 .husstand-kort.selv .tael button:hover { border-color: var(--accent); }
@@ -887,8 +888,8 @@ function husstandPanel() {
       <div class="husstand-kort selv ${HUSSTANDE.some(h => h.v === v && h.b === b) ? '' : 'aktiv'}">
         <span class="husstand-ikon k-selv"><img src="grafik/husstand-selv.jpg" alt="" width="320" height="320" loading="lazy"></span>
         <span class="husstand-navn"><b>Vælg selv</b>
-          <span class="tael"><button type="button" data-voksne="-1" aria-label="Færre voksne">−</button><span><b>${v}</b> ${v === 1 ? 'voksen' : 'voksne'}</span><button type="button" data-voksne="1" aria-label="Flere voksne">+</button></span>
-          <span class="tael"><button type="button" data-boern="-1" aria-label="Færre børn">−</button><span><b>${b}</b> ${b === 1 ? 'barn' : 'børn'}</span><button type="button" data-boern="1" aria-label="Flere børn">+</button></span>
+          <span class="tael"><span class="knapper"><button type="button" data-voksne="-1" aria-label="Færre voksne">−</button><button type="button" data-voksne="1" aria-label="Flere voksne">+</button></span><span><b>${v}</b> ${v === 1 ? 'voksen' : 'voksne'}</span></span>
+          <span class="tael"><span class="knapper"><button type="button" data-boern="-1" aria-label="Færre børn">−</button><button type="button" data-boern="1" aria-label="Flere børn">+</button></span><span><b>${b}</b> ${b === 1 ? 'barn' : 'børn'}</span></span>
         </span>
       </div></div>
   </div>`;
