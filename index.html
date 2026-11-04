@@ -57,7 +57,9 @@ header.top h1.maerke .logo-navn { color: var(--text-1); }
   header.top .topinfo { display: contents; }
   header.top h1.maerke { order: 1; flex: 0 1 auto; min-width: 0; font-size: 19px; gap: 7px; }
   .logo-symbol { width: 28px; height: 28px; }
-  header.top .bruger { order: 2; margin-left: auto; gap: 6px; font-size: 12px; }
+  header.top { position: relative; }
+  header.top #husstand-plads { order: 2; margin-left: auto; position: static; }
+  header.top .bruger { order: 3; margin-left: auto; gap: 6px; font-size: 12px; }
   header.top .bruger .chip { padding: 4px 9px; font-size: 12px; white-space: nowrap; }
   header.top .bruger > span { max-width: 26vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   header.top .aviser { order: 3; flex-basis: 100%; font-size: 12px; }
@@ -255,7 +257,7 @@ button.slet-valg[hidden] { display: none; }
 .butikvalg:has(.info-i:hover), .butikvalg:has(.info-i.aaben), .butikvalg:has(.info-i:focus) { z-index: 50; }
 .butikvalg.vinder { border-color: var(--emerald); }
 .billigst { position: absolute; top: -11px; right: 14px; background: var(--emerald); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
-.topinfo { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.topinfo { display: flex; align-items: center; gap: 10px; }
 .bruger { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-3); }
 .kraever-login nav.trin, .kraever-login #bund { display: none !important; }
 .login-boks { max-width: 400px; margin: 40px auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
@@ -344,15 +346,14 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .butikvalg strong { display: block; color: var(--text-1); font-size: 16px; }
 .personer { display: flex; align-items: center; gap: 8px; }
 .personer-tekst { font-size: 13px; color: var(--text-3); margin-right: 2px; }
-.husstand-lille { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 2px 14px; font-size: 13px; color: var(--text-3); }
-.hl-titel { color: var(--text-2); font-weight: 600; }
 .hl-vaelger { position: relative; }
-.hl-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px 0 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-1); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: border-color .12s, background .12s; }
+.hl-vaelger[hidden] { display: none; }
+.hl-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 13px 0 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-1); font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: border-color .12s, background .12s; }
 .hl-chip:hover, .hl-chip.aaben { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .hl-chip .ikon-svg { width: 17px; height: 17px; color: var(--accent); }
-.hl-pil { width: 6px; height: 6px; margin: -3px 2px 0 1px; border: solid var(--text-2); border-width: 0 2px 2px 0; transform: rotate(45deg); transition: transform .15s, margin .15s; }
-.hl-chip.aaben .hl-pil { transform: rotate(225deg); margin-top: 3px; }
-.hl-pop { position: absolute; z-index: 60; top: calc(100% + 8px); left: 0; width: min(330px, calc(100vw - 40px)); padding: 6px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,.5); }
+.hl-badge { display: none; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--accent-fill); color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; }
+.hl-afsnit { padding: 10px 0 2px; color: var(--text-2); font-size: 13px; font-weight: 600; }
+.hl-pop { position: absolute; z-index: 60; top: calc(100% + 8px); right: 0; width: min(330px, calc(100vw - 40px)); padding: 6px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,.5); }
 .hl-raekke { display: flex; align-items: center; gap: 10px; min-height: 62px; }
 .hl-raekke + .hl-raekke { border-top: 1px solid var(--border); }
 .hl-figurer { flex: 1; min-width: 0; display: flex; align-items: flex-end; gap: 2px; height: 38px; }
@@ -362,11 +363,10 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .hl-flere { align-self: center; margin-left: 4px; font-size: 13px; font-weight: 700; color: var(--text-2); }
 .hl-tekst { min-width: 66px; color: var(--text-3); font-size: 13px; white-space: nowrap; }
 .hl-tekst b { color: var(--text-1); font-weight: 700; font-size: 15px; }
-@media (max-width: 560px) { .hl-vaelger { position: static; } .hl-pop { left: 0; right: 0; width: auto; } }
 .hl-knapper { display: inline-flex; gap: 6px; }
+@media (max-width: 700px) { .hl-chip { padding: 0 9px; gap: 6px; height: 32px; } .hl-chip-tekst { display: none; } .hl-badge { display: inline-block; } .hl-pop { left: 0; right: 0; width: auto; } }
 .hl-knapper button { width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text-1); font-size: 18px; line-height: 1; cursor: pointer; transition: border-color .12s, background .12s; }
 .hl-knapper button:hover { border-color: var(--accent); background: rgba(232,116,59,.16); }
-.hl-titel { color: var(--text-2); font-weight: 600; }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
 .filtre .husstand-tael, .valg .husstand-tael { margin-top: 0; }
 .husstand-tael .personer-tekst b { color: var(--text-1); font-weight: 600; }
@@ -433,7 +433,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 <div class="wrap">
   <header class="top">
     <h1 class="maerke" aria-label="Måltidsjagten"><svg class="logo-symbol" aria-hidden="true" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="21"/><path d="M32 3v9M32 52v9M3 32h9M52 32h9"/><g transform="translate(32 32) scale(.68) translate(-32 -32)" stroke-width="4.6"><path d="M19 17v8a5 5 0 0 0 10 0v-8M24 17v9M24 30v17"/><path d="M41 47V17c-4 3-5 8-5 13h5"/></g></svg><span class="logo-navn">Måltids<span>jagten</span></span></h1>
-    <div class="topinfo"><div class="bruger" id="bruger"></div></div>
+    <div class="topinfo"><div class="hl-vaelger" id="husstand-plads" hidden></div><div class="bruger" id="bruger"></div></div>
   </header>
 
   <div class="nav-raekke">
@@ -714,6 +714,7 @@ function bund(html) {
 }
 
 function opdaterRamme() {  // faneknapper, avisperioder, "Slet valg" og besked om gammel ugeplan
+  husstandLinje();
   document.querySelectorAll('nav.trin button').forEach(b => {
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
     b.disabled = (b.dataset.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && (!state.valgte.length || !state.butikker.length)) || (b.dataset.trin === 'plan' && !state.handlet);
@@ -1244,22 +1245,25 @@ function simuleringHtml() {
     </div></div>`;
 }
 
-// Vælg husstand: én lille, diskret linje – tre genveje og tællere for voksne og børn
+// "Dine valg": et personikon i toppen, der åbner en boks med valg, der gælder hele siden (nu: hvem der skal spise med – senere fx økologi og allergier)
 const FIGUR = '<svg class="hl-figur" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="5.2"/><path d="M1.5 29.5v-5.8a8.5 8.5 0 0 1 17 0v5.8z"/></svg>';
 const FIGUR_TOM = '<svg class="hl-figur tom" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="4.6"/><path d="M2 29v-5.3a8 8 0 0 1 16 0V29z"/></svg>';
 let husstandAaben = false;
-// Ét lille felt ("2 voksne · 2 børn ▾"), der åbner en boks: en figur pr. voksen, en mindre pr. barn, og − / + (flere end fem figurer samles til "+N")
-function husstandInner() {
+function husstandInner() {  // knappen i toppen + boksen (en figur pr. voksen, en mindre pr. barn; flere end fem samles til "+N")
   const { voksne: v, boern: b } = state;
   const figurer = (n, type) => !n && type === 'boern' ? FIGUR_TOM : FIGUR.repeat(Math.min(n, 5)) + (n > 5 ? `<span class="hl-flere">+${n - 5}</span>` : '');
   const raekke = (nogle, n, ent, fl) => `<div class="hl-raekke ${nogle}" role="group" aria-label="${fl}"><span class="hl-figurer">${figurer(n, nogle)}</span><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span><span class="hl-knapper"><button type="button" data-${nogle}="-1" aria-label="Færre ${fl}">−</button><button type="button" data-${nogle}="1" aria-label="Flere ${fl}">+</button></span></div>`;
-  return `<span class="hl-titel">Hvem skal spise med?</span>
-    <span class="hl-vaelger"><button type="button" class="hl-chip ${husstandAaben ? 'aaben' : ''}" data-husstand-aabn aria-expanded="${husstandAaben}" aria-haspopup="true">${ikon('users')}<span>${husstandTekst(v, b).replace(" + ", " · ")}</span><i class="hl-pil" aria-hidden="true"></i></button>
-    ${husstandAaben ? `<div class="hl-pop">${raekke('voksne', v, 'voksen', 'voksne')}${raekke('boern', b, 'barn', 'børn')}</div>` : ''}</span>`;
+  return `<button type="button" class="hl-chip ${husstandAaben ? 'aaben' : ''}" data-husstand-aabn aria-expanded="${husstandAaben}" aria-haspopup="true" aria-label="Dine valg: ${husstandTekst(v, b)}" title="Dine valg">${ikon('users')}<span class="hl-chip-tekst">${husstandTekst(v, b).replace(' + ', ' · ')}</span><span class="hl-badge">${v + b}</span></button>
+    ${husstandAaben ? `<div class="hl-pop"><div class="hl-afsnit">Hvem skal spise med?</div>${raekke('voksne', v, 'voksen', 'voksne')}${raekke('boern', b, 'barn', 'børn')}</div>` : ''}`;
 }
-function husstandPanel() { husstandAaben = false; return `<div class="husstand-lille" id="husstand-plads">${husstandInner()}</div>`; }
-function husstandLinje() { const h = document.getElementById('husstand-plads'); if (h) h.innerHTML = husstandInner(); }
-function opdaterHusstand() {  // kun husstandsfeltet, prisen og madplanen opdateres (siden står stille)
+function husstandLinje() {  // tegner knappen i toppen (kun på forsiden, hvor valget kan ændres)
+  const h = document.getElementById('husstand-plads'); if (!h) return;
+  const synlig = state.trin === 'butik';
+  if (!synlig) husstandAaben = false;
+  h.hidden = !synlig;
+  if (synlig) h.innerHTML = husstandInner();
+}
+function opdaterHusstand() {  // kun knappen, prisen og madplanen opdateres (siden står stille)
   husstandLinje();
   opdaterButik();
 }
@@ -1289,15 +1293,29 @@ function ubrugteButikker() {
   const brugt = new Set(butikMuligheder().flatMap(o => o.plan.butikker));
   return state.butikker.filter(k => !brugt.has(k));
 }
+function muligPris(o) {  // prisen på et felt: dine egne ændringer (byt/fjern dag) tæller med – også for de andre felter, hvis de kan handle de samme retter
+  if (simAendret(o.k)) return simPrisPlan(o.k);
+  const kA = simK();
+  if (kA && kA !== o.k && simAendret(kA)) {
+    const akt = simAktive(kA);
+    if (akt.length && akt.every(x => x.r.id.startsWith('mix-') || o.plan.S.includes(butikAf(x.r.id)))) return ugePris(akt.map(x => x.r.id), planMult(akt), o.plan.S);
+  }
+  return o.pris;
+}
 function antalValgHtml() {  // højre side: "Hvor mange butikker vil du gå ind i?" – et felt pr. mulighed (1, så 2, så 3 butikker)
   const ant = state.butikker.length;
   const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
-  const felter = m.map(o => {
-    const n = o.n, navn = n === 1 ? '1 butik' : n + ' butikker';
-    const spar = Math.round(m[0].pris.ialt - o.pris.ialt);
-    return `<button type="button" class="antal-knap ${n === aktivN ? 'aktiv' : ''}" data-maxb="${n}" ${n > 1 ? `title="${esc(indkoebPrButik(o.plan))}"` : ''}>
-      <b>${navn}</b><span class="antal-pris">${kr(Math.round(o.pris.ialt))}</span>
-      <small>${esc(butikTekst(o.plan.butikker))}${n > 1 && spar > 0 ? ` <em>−${kr(spar)}</em>` : ''}</small>
+  const priser = m.map(muligPris);
+  let sidst = -1;  // et felt, der ikke er billigere end det forrige (efter dine ændringer), vises ikke – undtagen det valgte
+  const felter = m.map((o, i) => {
+    if (i && o.n !== aktivN && priser[i].ialt >= priser[sidst].ialt - 1) return '';
+    sidst = i;
+    const n = o.n, navn = n === 1 ? '1 butik' : n + ' butikker', pr = priser[i];
+    const spar = Math.round(priser[0].ialt - pr.ialt);
+    const plan = simAendret(o.k) ? Object.assign(simAktive(o.k), { S: simPlan(o.k).S }) : o.plan;
+    return `<button type="button" class="antal-knap ${n === aktivN ? 'aktiv' : ''}" data-maxb="${n}" ${n > 1 ? `title="${esc(indkoebPrButik(plan))}"` : ''}>
+      <b>${navn}</b><span class="antal-pris">${kr(Math.round(pr.ialt))}</span>
+      <small>${esc(butikTekst(pr.butikker?.length ? pr.butikker : o.plan.butikker))}${n > 1 && spar > 0 ? ` <em>−${kr(spar)}</em>` : ''}</small>
       ${n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}</button>`;
   });
   // Forklaring på en afkrydset butik, der ikke er med i planen (fast plads, så siden ikke hopper)
@@ -1343,7 +1361,6 @@ function renderButikker() {
     </div>
   </section>
   </div>
-  ${husstandPanel()}
   ${butikPanel()}
   <div id="sim-plads">${simuleringHtml()}</div>`);
   bund('');
@@ -1826,7 +1843,7 @@ function kopierListe() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && husstandAaben) { husstandAaben = false; husstandLinje(); } });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList?.contains('info-i')) { e.preventDefault(); e.target.classList.toggle('aaben'); } });
 document.addEventListener('click', e => {
-  if (husstandAaben && !e.target.closest('.husstand-lille')) { husstandAaben = false; husstandLinje(); }
+  if (husstandAaben && !e.target.closest('#husstand-plads')) { husstandAaben = false; husstandLinje(); }
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
