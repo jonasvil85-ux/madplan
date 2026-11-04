@@ -715,20 +715,24 @@ function bund(html) {
   document.getElementById('bundIndhold').innerHTML = html || '';
 }
 
-function render() {
-  if (state.trin === 'retter' && !state.butik) state.trin = 'butik';  // ingen butik valgt endnu (fx gammel gemt tilstand)
+function opdaterRamme() {  // faneknapper, avisperioder, "Slet valg" og besked om gammel ugeplan
   document.querySelectorAll('nav.trin button').forEach(b => {
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
     b.disabled = (b.dataset.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
   });
   visAviser();
-  document.querySelector('nav.trin button.aktiv')?.scrollIntoView({ inline: 'center', block: 'nearest' });
+  const nav = document.querySelector('nav.trin'), aktiv = nav?.querySelector('button.aktiv');
+  if (aktiv) nav.scrollLeft = aktiv.offsetLeft - (nav.clientWidth - aktiv.offsetWidth) / 2;  // kun sidelæns i fanerne – siden selv scrolles ikke
   document.querySelector('.slet-valg').hidden = !harValg();
   const besked = document.getElementById('uge-besked');
   const foerste = state.plan?.[0]?.dato;
   const gammel = foerste && (Date.now() - new Date(foerste).getTime()) > 6 * 864e5;
   besked.hidden = !gammel;
   if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
+}
+function render() {
+  if (state.trin === 'retter' && !state.butik) state.trin = 'butik';  // ingen butik valgt endnu (fx gammel gemt tilstand)
+  opdaterRamme();
   if (['liste', 'tilfoej', 'seddel', 'plan'].includes(state.trin)) { if (!state.koebButikker.length && state.valgte.length) state.koebButikker = bedsteKoebButikker(state.valgte); standardValg(); }
   ({ butik: renderButikker, retter: renderRetter, liste: renderListe, tilfoej: renderTilfoej,
      seddel: renderSeddel, plan: renderPlan })[state.trin]();
@@ -1268,29 +1272,40 @@ function vaerdAtOvervejeHtml() {
 }
 
 // Hvor vil du handle? Rene flueben (logo + navn, ingen priser) og – ved flere butikker – hvor mange af dem madplanen højst må bruge
+function antalValgHtml() {  // "Hvor mange butikker vil du gå ind i?" – kun når der er valgt flere butikker
+  if (state.butikker.length < 2) return '';
+  const m = butikMuligheder(), anb = anbefaletAntal(), aktivN = simStandard(simK()).butikker.length;
+  return `<div class="antal-valg"><h3>Hvor mange butikker vil du gå ind i?</h3>
+    <div class="antal-kort">${m.map(o => {
+      const spar = Math.round(m[0].pris.ialt - o.pris.ialt);
+      return `<button type="button" class="antal-knap ${o.n === aktivN ? 'aktiv' : ''}" data-maxb="${o.n}">
+        ${o.n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}
+        <b>${o.n === 1 ? '1 butik' : o.n + ' butikker'}</b><span class="antal-pris">${kr(Math.round(o.pris.ialt))}</span>
+        <small>${esc(butikTekst(o.plan.butikker))}${o.n > 1 && spar > 0 ? ` <em>−${kr(spar)}</em>` : ''}</small></button>`;
+    }).join('')}</div>
+    ${m.length === 1 ? '<p class="detalje">Flere butikker sparer ikke noget denne uge.</p>' : ''}</div>`;
+}
 function butikPanel() {
-  const alle = Object.keys(data.butikker), ant = state.butikker.length;
-  let antalValg = '';
-  if (ant > 1) {
-    const m = butikMuligheder(), anb = anbefaletAntal(), aktivN = simStandard(simK()).butikker.length;
-    antalValg = `<div class="antal-valg"><h3>Hvor mange butikker vil du gå ind i?</h3>
-      <div class="antal-kort">${m.map(o => {
-        const spar = Math.round(m[0].pris.ialt - o.pris.ialt);
-        return `<button type="button" class="antal-knap ${o.n === aktivN ? 'aktiv' : ''}" data-maxb="${o.n}">
-          ${o.n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}
-          <b>${o.n === 1 ? '1 butik' : o.n + ' butikker'}</b><span class="antal-pris">${kr(Math.round(o.pris.ialt))}</span>
-          <small>${esc(butikTekst(o.plan.butikker))}${o.n > 1 && spar > 0 ? ` <em>−${kr(spar)}</em>` : ''}</small></button>`;
-      }).join('')}</div>
-      ${m.length === 1 ? '<p class="detalje">Flere butikker sparer ikke noget denne uge.</p>' : ''}</div>`;
-  }
+  const alle = Object.keys(data.butikker);
   return `<div class="panel butikpanel">
     <div class="butik-raekke"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
       <button type="button" class="butik-chip ${valgt ? 'aktiv' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
         ${logo(b)}<span class="bc-navn">${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}</span><i class="afkryds">✓</i>
       </button>`; }).join('')}</div></div>
-    ${antalValg}
-    ${ant ? '' : '<p class="detalje" style="margin:12px 0 0">Vælg mindst én butik</p>'}
+    <div id="antal-plads">${antalValgHtml()}</div>
+    <p id="butik-hint" class="detalje" style="margin:12px 0 0" ${state.butikker.length ? 'hidden' : ''}>Vælg mindst én butik</p>
   </div>`;
+}
+// Flueben/antal butikker/madplan: opdatér kun det, der ændrer sig (logoerne og siden står stille, og der scrolles ikke)
+function opdaterButik() {
+  const y = window.scrollY;
+  document.querySelectorAll('.butik-chip').forEach(c => { const v = state.butikker.includes(c.dataset.butikvalg); c.classList.toggle('aktiv', v); c.setAttribute('aria-pressed', String(v)); });
+  const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
+  const hint = document.getElementById('butik-hint'); if (hint) hint.hidden = state.butikker.length > 0;
+  const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml() + vaerdAtOvervejeHtml();
+  opdaterRamme();
+  gem();
+  window.scrollTo(0, y);
 }
 
 function renderButikker() {
@@ -1310,8 +1325,7 @@ function renderButikker() {
   </div>
   ${husstandPanel()}
   ${butikPanel()}
-  ${simuleringHtml()}
-  ${vaerdAtOvervejeHtml()}`);
+  <div id="sim-plads">${simuleringHtml()}${vaerdAtOvervejeHtml()}</div>`);
   bund('');
 }
 
@@ -1774,14 +1788,13 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
-  const butikFoer = state.butikker.length;  // var der valgt butikker, før dette tryk?
   if (d.koekken) state.koekken = d.koekken;
-  else if (d.simByt !== undefined) simByt(simK(), +d.simByt);
-  else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; }
-  else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); }
-  else if (d.simGendan !== undefined) simFra[simK()]?.delete(+d.simGendan);
-  else if (d.butikvalg) { if (!skiftButik(d.butikvalg)) return; }
-  else if (d.maxb) { state.maxButikker = +d.maxb === anbefaletAntal() ? 0 : +d.maxb; state.koebButikker = []; gemHusstand(); }
+  else if (d.simByt !== undefined) { simByt(simK(), +d.simByt); return opdaterButik(); }
+  else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; return opdaterButik(); }
+  else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); return opdaterButik(); }
+  else if (d.simGendan !== undefined) { simFra[simK()]?.delete(+d.simGendan); return opdaterButik(); }
+  else if (d.butikvalg) { if (!skiftButik(d.butikvalg)) return; return opdaterButik(); }
+  else if (d.maxb) { state.maxButikker = +d.maxb === anbefaletAntal() ? 0 : +d.maxb; state.koebButikker = []; gemHusstand(); return opdaterButik(); }
   else if (d.aktivbutik) state.butik = d.aktivbutik;
   else if ('simIndkoeb' in d) {
     if (harValg() && !confirm('Du har allerede valgt retter. Vil du erstatte dem med de 7 retter fra madplanen?')) return;
@@ -1827,7 +1840,6 @@ document.addEventListener('click', e => {
   if (d.trin || d.gaa || 'simIndkoeb' in d || 'simVaelg' in d || 'handlet' in d) window.scrollTo(0, 0);
   else window.scrollTo(0, y);
   if ('egen' in d) document.getElementById('soeg')?.focus();
-  if (d.butikvalg && butikFoer === 0 && state.butikker.length) setTimeout(() => document.getElementById('simulering')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
 });
 
 document.addEventListener('change', e => {
