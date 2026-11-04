@@ -923,13 +923,13 @@
             "R24"
           ]
         },
-        "fond / sovsejævner": [
-          "R46"
-        ],
         "økologisk smør": {
           "navn": "smør",
           "tilbud": []
-        }
+        },
+        "fond": [
+          "R46"
+        ]
       }
     },
     {
@@ -1164,15 +1164,15 @@
             "R24"
           ]
         },
-        "fond / sovsejævner": [
-          "R46"
-        ],
         "danske æbler": {
           "navn": "æbler",
           "tilbud": [
             "R26"
           ]
-        }
+        },
+        "fond": [
+          "R46"
+        ]
       }
     },
     {
@@ -1218,7 +1218,7 @@
             "R2"
           ]
         },
-        "fond / sovsejævner": [
+        "fond": [
           "R46"
         ]
       }
@@ -1334,9 +1334,6 @@
             "R24"
           ]
         },
-        "fond / sovsejævner": [
-          "R46"
-        ],
         "danske æbler": {
           "navn": "æbler",
           "tilbud": [
@@ -1346,7 +1343,10 @@
         "økologisk smør": {
           "navn": "smør",
           "tilbud": []
-        }
+        },
+        "fond": [
+          "R46"
+        ]
       }
     },
     {
@@ -1374,15 +1374,15 @@
           "navn": "smør",
           "tilbud": []
         },
-        "fond / sovsejævner": [
-          "R46"
-        ],
         "madlavningsfløde": {
           "navn": "piskefløde",
           "tilbud": [
             "R2"
           ]
-        }
+        },
+        "fond": [
+          "R46"
+        ]
       }
     },
     {
@@ -1509,7 +1509,7 @@
             "R2"
           ]
         },
-        "fond / sovsejævner": [
+        "fond": [
           "R46"
         ]
       }
