@@ -254,8 +254,6 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .knap.lille { padding: 6px 12px; font-size: 13px; text-decoration: none; white-space: nowrap; background: #00aeef; }
 .rest { font-size: 12px; color: var(--amber); margin-top: 4px; line-height: 1.8; }
 .chip.lille { padding: 2px 9px; font-size: 12px; }
-.rest-tip { margin-top: 6px; padding: 7px 10px; background: rgba(245,158,11,.07); border: 1px dashed rgba(245,158,11,.35); border-radius: 8px; font-size: 12.5px; color: var(--text-2); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
-.rest-tip-tekst { color: var(--amber); font-weight: 600; }
 .fod { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-3); line-height: 1.6; }
 .restmaerke { font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 8px; }
 .ret.bruger-rest { border-color: rgba(245,158,11,.55); }
@@ -1109,29 +1107,27 @@ function restAf(v) {
   return rest >= pakke * 0.15 && v.tilbud.pris * (rest / pakke) >= 8 ? { rest, enhed: grund, pakke } : null;
 }
 
-// Ikke-valgte retter der kan bruge resten af en pakke (samme tilbudsvare, behov højst resten + 15 %)
-function retterTilRest(v, rest) {
-  return B().retter.filter(r => !state.valgte.includes(r.id)).map(r => {
-    const ings = r.ingredienser.filter(i => butiksTilbud(i)[0] === v.key && i.enhed === rest.enhed);
-    const behov = ings.reduce((s, i) => s + i.maengde * faktor(), 0);
-    return behov && behov <= rest.rest * 1.15 ? { r, behov } : null;
-  }).filter(Boolean).sort((a, b) => b.behov - a.behov).slice(0, 3);
-}
-
 const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${v.tilbud.navn}`;
 
-// Alle linjer på indkøbslisten med nøgle, tekst og varegruppe – bruges af både listen og sedlen
+// Hvad kan man gøre med resten? Kun når det er rimeligt: kød/fisk/brød kan fryses, holdbare varer kan gemmes til næste uge.
+const HOLDBAR_GRUPPER = ['Kolonial', 'Konserves', 'Krydderier & bagning', 'Frost'];
+const HOLDBART_GROENT = /kartof|løg|gulerod|kål|squash|græskar|pastinak|selleri|rødbede|porre/i;
+function restRaad(v) {
+  const g = varegruppe(v.ingNavn);
+  if (['Kød & fjerkræ', 'Fisk & skaldyr', 'Brød & bagværk'].includes(g)) return '<b>kan fryses</b>, hvis den ikke bruges inden for 1-2 dage';
+  if (g === 'Frost') return 'kan blive i fryseren til næste uge';
+  if (HOLDBAR_GRUPPER.includes(g) || (g === 'Frugt & grønt' && HOLDBART_GROENT.test(v.ingNavn))) return '<b>kan gemmes til næste uge</b>';
+  if (g === 'Mejeri, æg & ost') return 'kan ofte gemmes til næste uge – tjek datoen på pakken';
+  return '';
+}
 function restTekst(v) {
   const r = restAf(v);
   if (!r) return '';
-  const forslag = retterTilRest(v, r);
-  const frys = FRYS.includes(varegruppe(v.ingNavn)) ? ' · <b>frys resten</b>, hvis den ikke bruges inden for 1-2 dage' : '';
-  // Resten står på sin egen linje, og forslagene er tydeligt mærket som en ekstra ret, man kan tilføje (de ændrer ikke selve indkøbslisten)
-  return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${frys}</div>${forslag.length
-    ? `<div class="rest-tip"><span class="rest-tip-tekst">Vil du bruge resten? Tilføj en ekstra ret til ugen:</span>${forslag.map(f => `<button type="button" class="chip lille" data-ret="${esc(f.r.id)}" title="Lægger retten til dine valgte retter og bruger ca. ${esc(maengde(f.behov, r.enhed, true))} af resten">+ ${esc(f.r.navn)}</button>`).join('')}</div>`
-    : ''}`;
+  const raad = restRaad(v);
+  return `<div class="rest">Rest ca. ${maengde(r.rest, r.enhed, true)} (${tal(Math.round(r.rest / r.pakke * 100))} % af en pakke)${raad ? ' · ' + raad : ''}</div>`;
 }
 
+// Alle linjer på indkøbslisten med nøgle, tekst og varegruppe – bruges af både listen og sedlen
 function listeLinjer() {
   const l = byggListe();
   return {
