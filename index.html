@@ -793,7 +793,7 @@ function smagScore(r) {  // hvor godt passer retten til husstanden? Børnevenlig
   }
   const sum = (r.pris_tilbud || 0) + (r.pris_oevrigt || 0);
   const tilbudsandel = sum ? (r.pris_tilbud || 0) / sum : 0;  // andel af prisen der er tilbudsvarer
-  return sc + 4 * tilbudsandel;
+  return sc + SIM_TILBUD_VAEGT * tilbudsandel;
 }
 const boernScore = r => smagScore(r) - prisIAlt(r) / 60;  // flere tilbud og lavere pris vinder ved lige point
 function simGruppe(r) {
@@ -809,6 +809,8 @@ function simGruppe(r) {
 const SIM_MAX = { suppe: 1, pasta: 2, tex: 1, fastfood: 1, frikadelle: 2, fisk: 1, vegetar: 1, kylling: 2, svin: 2, okse: 2 };
 const SIM_MAX_VOKSEN = { ...SIM_MAX, suppe: 2, tex: 2, fisk: 2, vegetar: 2 };  // uden børn kan der være lidt mere af det, børn ikke gider
 const simLoft = () => state.boern > 0 ? SIM_MAX : SIM_MAX_VOKSEN;
+let SIM_TILBUD_VAEGT = 1;  // point for en ret, hvis pris udelukkende er tilbudsvarer (lavere = prisen alene styrer valget)
+let SIM_LOKAL_KAND = 30, SIM_RUNDER = 3, SIM_GREEDY_KAND = 30;  // hvor grundigt retter prøves af
 let SIM_SPILD = 3, SIM_FORBEDRING = true, SIM_DOBBELT_GRAENSE = 0;  // spildvægt, forbedring ved ombytning, og hvor meget en dobbelt portion mindst skal spare  // vægt på spild i scoren; om sættet forbedres ved at bytte retter
 // Retter, der egner sig til at lave dobbelt portion af og fryse halvdelen: alt, der kan genopvarmes (ikke salater, sprøde retter, pizza, wraps, æggeretter …)
 const IKKE_FRYSEVENLIG = /salat|sprød|pizza|burger|tacos|wrap|quesadilla|fajita|spejlæg|omelet|æggekage|pandekage|tatar|carpaccio|sushi|bowl|toast|sandwich|smørrebrød/i;
@@ -873,7 +875,7 @@ function simFraButikker(stores) {
     let pris = 0;
     while (vt.length < 7) {
       const kand = paaSmag.filter(r => !vt.includes(r) && !vt.some(x => x.navn === r.navn) && (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2)
-        && proteinNoegler(r).every(n => (pakkeAntal[n] || 0) < PAKKE_MAX)).slice(0, 30);
+        && proteinNoegler(r).every(n => (pakkeAntal[n] || 0) < PAKKE_MAX)).slice(0, SIM_GREEDY_KAND);
       if (!kand.length) break;
       let bedst = null, bedstSc = -Infinity, bedstPris = 0;
       for (const r of kand) {
@@ -893,11 +895,11 @@ function simFraButikker(stores) {
         return Object.entries(a).every(([g, n]) => n <= (loft[g] ?? 2)) && Object.values(pk).every(n => n <= PAKKE_MAX);
       };
       bedstScore = scoreSæt(vt);
-      for (let runde = 0; SIM_FORBEDRING && runde < 2; runde++) {
+      for (let runde = 0; SIM_FORBEDRING && runde < SIM_RUNDER; runde++) {
         let forbedret = false;
         for (let i = 0; i < vt.length; i++) {
           const andre = vt.filter((_, j) => j !== i);
-          for (const r of paaSmag.filter(x => !vt.includes(x) && !andre.some(y => y.navn === x.navn)).slice(0, 15)) {
+          for (const r of paaSmag.filter(x => !vt.includes(x) && !andre.some(y => y.navn === x.navn)).slice(0, SIM_LOKAL_KAND)) {
             const nyt = vt.slice(); nyt[i] = r;
             if (!overholderLoft(nyt)) continue;
             const sc = scoreSæt(nyt);
@@ -944,20 +946,24 @@ function simuler(k) {
   // Den billigste madplan, der bruger højst `max` af de afkrydsede butikker: prøv hver butik alene og kombinationer, og tag den med lavest kost.
   // (Kombinationen er altså aldrig dyrere end den billigste enkeltbutik – kan en ekstra butik ikke gøre det billigere, bruges den ikke.)
   const { stores, max: m } = simValg(k), max = Math.min(m, stores.length);
-  let bedst = null;
-  const proev = delt => { const p = simFraButikker(delt); if (!bedst || p.kost < bedst.kost) bedst = p; };
+  // En madplan tæller kun, hvis den bruger ALLE de butikker, den er bygget til: ellers er retterne valgt ud fra en butiks tilbud, der slet ikke handles i
+  // (og planen kunne vinde over "kun den ene butik" uden at leve op til samme krav).
+  let bedst = null, bedstUanset = null;
+  const proev = delt => {
+    const p = simFraButikker(delt);
+    if (!bedstUanset || p.kost < bedstUanset.kost) bedstUanset = p;
+    if (p.butikker.length >= delt.length && (!bedst || p.kost < bedst.kost)) bedst = p;
+  };
   const kombi = (liste, n) => n === 0 ? [[]] : liste.flatMap((x, i) => kombi(liste.slice(i + 1), n - 1).map(r => [x, ...r]));
-  if (max <= 2) {
-    for (let n = 1; n <= max; n++) kombi(stores, n).forEach(proev);
-  } else {  // tre eller flere: start med den bedste enkeltbutik og tilføj den butik, der forbedrer mest
-    stores.forEach(x => proev([x]));
-    for (let n = 1; n < max; n++) {
-      const nu = bedst;
-      stores.filter(x => !nu.butikker.includes(x)).forEach(x => proev([...nu.butikker, x]));
-      if (bedst === nu) break;
-    }
+  const strikte = {};  // de gyldige madplaner pr. antal butikker
+  const proev2 = delt => { proev(delt); const p = SIM_DEL[sNoegle(delt) + '|' + simSig()]; if (p.butikker.length >= delt.length) (strikte[delt.length] = strikte[delt.length] || []).push(p); };
+  for (let n = 1; n <= Math.min(2, max); n++) kombi(stores, n).forEach(proev2);
+  // tre eller flere: udvid de bedste kombinationer med den butik, der forbedrer mest
+  for (let n = 3; n <= max; n++) {
+    const bedste = (strikte[n - 1] || []).slice().sort((x, y) => x.kost - y.kost).slice(0, 3);
+    for (const pl of bedste) for (const x of stores.filter(y => !pl.butikker.includes(y))) proev2([...pl.butikker, x]);
   }
-  return bedst;
+  return bedst || bedstUanset;
 }
 const simSig = () => `${state.voksne}-${state.boern}`;  // forslag og priser gælder for én husstand ad gangen
 function nulstilSim() { for (const o of [simStd, simPrisCache, simManuel, simAfvist, simFra, SIM_DEL]) for (const k in o) delete o[k]; }
