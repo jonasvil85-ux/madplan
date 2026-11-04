@@ -141,6 +141,9 @@ button.slet-valg[hidden] { display: none; }
 .simulering .panel-hoved { align-items: flex-start; }
 .simulering .panel-hoved h2 { margin: 0 0 3px; }
 .simulering .panel-hoved .detalje { margin: 0; font-size: 13px; color: var(--text-3); }
+.tom-plan { min-height: 420px; }
+.tom-besked { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 300px; color: var(--text-3); font-size: 14px; }
+.tom-besked svg { width: 34px; height: 34px; opacity: .6; }
 .kalender { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
 .andel { margin-top: 10px; max-width: 460px; }
 .andel-bar { height: 5px; border-radius: 99px; background: rgba(255,226,190,.10); overflow: hidden; }
@@ -690,7 +693,7 @@ function bund(html) {
 function opdaterRamme() {  // faneknapper, avisperioder, "Slet valg" og besked om gammel ugeplan
   document.querySelectorAll('nav.trin button').forEach(b => {
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
-    b.disabled = (b.dataset.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && !state.valgte.length) || (b.dataset.trin === 'plan' && !state.handlet);
+    b.disabled = (b.dataset.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && (!state.valgte.length || !state.butikker.length)) || (b.dataset.trin === 'plan' && !state.handlet);
   });
   const nav = document.querySelector('nav.trin'), aktiv = nav?.querySelector('button.aktiv');
   if (aktiv) nav.scrollLeft = aktiv.offsetLeft - (nav.clientWidth - aktiv.offsetWidth) / 2;  // kun sidelæns i fanerne – siden selv scrolles ikke
@@ -702,7 +705,7 @@ function opdaterRamme() {  // faneknapper, avisperioder, "Slet valg" og besked o
   if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
 }
 function render() {
-  if (state.trin === 'retter' && !state.butik) state.trin = 'butik';  // ingen butik valgt endnu (fx gammel gemt tilstand)
+  if ((state.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(state.trin) && !state.butikker.length)) state.trin = 'butik';  // ingen butik valgt endnu (fx gammel gemt tilstand)
   opdaterRamme();
   if (['liste', 'tilfoej', 'seddel', 'plan'].includes(state.trin)) { if (!state.koebButikker.length && state.valgte.length) state.koebButikker = bedsteKoebButikker(state.valgte); standardValg(); }
   ({ butik: renderButikker, retter: renderRetter, liste: renderListe, tilfoej: renderTilfoej,
@@ -1021,9 +1024,8 @@ function vaelgStandardButik() {  // første gang: den butik, der er billigst at 
   const bedst = (aktive.length ? aktive : alle).map(k => ({ k, p: simPris(k + '|1').ialt })).sort((x, y) => x.p - y.p)[0];
   if (bedst) { state.butikker = [bedst.k]; state.butik = bedst.k; }
 }
-function skiftButik(k) {  // sæt/fjern flueben ved en butik; returnerer false, hvis brugeren fortryder
+function skiftButik(k) {  // sæt/fjern flueben ved en butik (også den sidste); returnerer false, hvis brugeren fortryder
   if (state.butikker.includes(k)) {
-    if (state.butikker.length <= 1) return false;  // der skal altid være mindst én butik valgt
     const n = state.valgte.filter(id => !id.startsWith('mix-') && butikAf(id) === k).length;
     if (n && !confirm(`Du har valgt ${n} ${n === 1 ? 'ret' : 'retter'} fra ${data.butikker[k].navn}. Fjerner du butikken, fjernes de også. Vil du fortsætte?`)) return false;
     state.butikker = state.butikker.filter(x => x !== k);
@@ -1189,7 +1191,7 @@ function ugePris(ids, mult = {}, S = null) {  // S = butikkerne, retterne er byg
 const butikTekst = ks => ks.map(x => data.butikker[x].navn).reduce((t, n, i, a) => t + (i === 0 ? '' : i === a.length - 1 ? ' og ' : ', ') + n, '');
 function simuleringHtml() {
   const k = simK();
-  if (!k) return '';
+  if (!k) return `<div class="panel simulering tom-plan" id="simulering"><div class="panel-hoved"><div><h2>Madplan</h2></div></div><div class="tom-besked">${ikon('utensils')}<span>Vælg en butik for at få en madplan</span></div></div>`;
   const plan = simPlan(k), pris = simPrisPlan(k), antalDage = simAktive(k).length;
   const kort = plan.map(({ dato, r, mult }, i) => {
     if (simFra[k]?.has(i)) {
@@ -1239,7 +1241,7 @@ function husstandKompakt() {
 // Samlet pris for madplanen – står sammen med anbefalingen, så man ser prisen for det, man har valgt
 function sumHtml() {
   const k = simK();
-  if (!k) return '<div class="sum-blok"><span class="detalje">Vælg mindst én butik</span></div>';
+  if (!k) return '<div class="sum-blok"><span class="detalje">Ingen butik valgt endnu</span></div>';
   const pris = simPrisPlan(k), antalDage = simAktive(k).length;
   return `<div class="sum-blok"><div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'}
     ${antalDage ? `<span class="info-i info-venstre" tabindex="0" role="button" aria-label="Om prisen">i<span class="info-tekst" role="tooltip">Regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : ''}
