@@ -484,7 +484,7 @@ const NIVEAUER = {
 const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
-const TOM = { trin: 'butik', seddelFane: null, niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, butikValgt: false, personer: 4, voksne: 2, boern: 2, mult: {},
+const TOM = { trin: 'butik', seddelFane: null, sorter: 'niveau', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, butikValgt: false, personer: 4, voksne: 2, boern: 2, mult: {},
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
 // Husstand: voksne + børn. retter.json er skrevet til en familie på 2 voksne + 2 børn (= faktor 1); et barn tæller som 0,6 voksenportion.
@@ -1389,9 +1389,10 @@ function renderRetter() {
   const antalRest = Object.keys(restMap).length;
   if (!antalRest) state.kunRest = false;
   const orden = Object.keys(NIVEAUER);
+  const prPers = new Map(retter.map(r => { const kp = kortPriser(r); return [r.id, kp.indkoeb / kp.pers]; }));  // indkøbspris pr. person (til sortering)
   const iNiveau = retter
     .filter(r => state.niveau === 'alle' || r.niveau === state.niveau)
-    .sort((a, b) => orden.indexOf(a.niveau) - orden.indexOf(b.niveau) || prisIAlt(a) - prisIAlt(b));
+    .sort(state.sorter === 'billigst' ? (a, b) => prPers.get(a.id) - prPers.get(b.id) : (a, b) => orden.indexOf(a.niveau) - orden.indexOf(b.niveau) || prisIAlt(a) - prisIAlt(b));
   const kat = ['alle', ...Object.keys(KATEGORIER).filter(k => iNiveau.some(r => r.kategori === k))];
   if (!kat.includes(state.filter)) state.filter = 'alle';
   const synlige = iNiveau.filter(r => (state.filter === 'alle' || r.kategori === state.filter) && (!state.kunRest || restMap[r.id]) && (state.koekken === 'alle' || r.koekken === state.koekken));
@@ -1414,6 +1415,7 @@ function renderRetter() {
       }).join('')}
     </div>
     <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle typer' : KATEGORIER[k]}</button>`).join('')}
+      <button class="chip sorter-chip ${state.sorter === 'billigst' ? 'aktiv' : ''}" data-sorter aria-pressed="${state.sorter === 'billigst'}">Billigste først</button>
       ${antalRest ? `<button class="chip rest-chip ${state.kunRest ? 'aktiv' : ''}" data-kunrest>${ikon('refresh')} Bruger min rest (${antalRest})</button>` : ''}</div>
     <div class="grid">${synlige.map(r => {
       const tilbudsvarer = r.ingredienser.filter(i => butiksTilbud(i).length);
@@ -1854,7 +1856,7 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.husstandAabn !== undefined) { husstandAaben = !husstandAaben; return husstandLinje(); }
@@ -1878,6 +1880,7 @@ document.addEventListener('click', e => {
   }
   else if ('kunrest' in d) state.kunRest = !state.kunRest;
   else if (d.seddelfane) state.seddelFane = d.seddelfane;
+  else if ('sorter' in d) state.sorter = state.sorter === 'billigst' ? 'niveau' : 'billigst';
   else if (d.onlineTil) state.online = d.onlineTil === '1';
   else if (d.online) { state.koebt[d.online] = true; setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 0); return; }
   else if (d.alle) { const [g, bk] = d.alle.split(':'); listeLinjer()[g].filter(x => !bk || x.butik === bk).forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
