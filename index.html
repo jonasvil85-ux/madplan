@@ -337,12 +337,19 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .butikvalg strong { display: block; color: var(--text-1); font-size: 16px; }
 .personer { display: flex; align-items: center; gap: 8px; }
 .personer-tekst { font-size: 13px; color: var(--text-3); margin-right: 2px; }
-.husstand-lille { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 2px 14px; font-size: 13px; color: var(--text-3); }
-.hl-tael { display: inline-flex; align-items: center; height: 32px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); overflow: hidden; }
-.hl-tael button { width: 32px; height: 100%; padding: 0; border: 0; background: transparent; color: var(--text-2); font-size: 17px; line-height: 1; cursor: pointer; transition: background .12s, color .12s; }
+.husstand-lille { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin: 0 2px 14px; font-size: 13px; color: var(--text-3); }
+.hl-gruppe { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; }
+.hl-tael { display: inline-flex; align-items: center; height: 42px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); overflow: hidden; }
+.hl-tael button { width: 34px; height: 100%; padding: 0; border: 0; background: transparent; color: var(--text-2); font-size: 18px; line-height: 1; cursor: pointer; transition: background .12s, color .12s; }
 .hl-tael button:hover { background: rgba(232,116,59,.16); color: var(--text-1); }
-.hl-tekst { display: inline-block; min-width: 76px; text-align: center; color: var(--text-2); font-size: 13.5px; white-space: nowrap; }
-.hl-tekst b { color: var(--text-1); font-size: 15px; font-weight: 700; margin-right: 2px; }
+.hl-figurer { display: inline-flex; align-items: flex-end; justify-content: center; gap: 1px; min-width: 76px; height: 100%; padding: 0 2px 7px; }
+.hl-figur { width: 15px; height: 23px; fill: var(--accent); flex: none; }
+.boern .hl-figur { width: 12px; height: 18px; fill: var(--amber); }
+.hl-figur.tom { fill: none; stroke: var(--text-3); stroke-width: 1.4; stroke-dasharray: 2.4 2.4; opacity: .55; }
+.hl-flere { align-self: center; margin-left: 3px; font-size: 12px; font-weight: 700; color: var(--text-2); }
+.hl-tekst { color: var(--text-3); font-size: 12.5px; white-space: nowrap; }
+.hl-tekst b { color: var(--text-1); font-weight: 700; }
+@media (max-width: 520px) { .hl-titel { flex-basis: 100%; } .husstand-lille { gap: 6px 14px; } }
 .hl-titel { color: var(--text-2); font-weight: 600; }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
 .filtre .husstand-tael, .valg .husstand-tael { margin-top: 0; }
@@ -1222,10 +1229,13 @@ function simuleringHtml() {
 }
 
 // Vælg husstand: én lille, diskret linje – tre genveje og tællere for voksne og børn
-function husstandInner() {
+const FIGUR = '<svg class="hl-figur" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="5.2"/><path d="M1.5 29.5v-5.8a8.5 8.5 0 0 1 17 0v5.8z"/></svg>';
+const FIGUR_TOM = '<svg class="hl-figur tom" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="4.6"/><path d="M2 29v-5.3a8 8 0 0 1 16 0V29z"/></svg>';
+function husstandInner() {  // små figurer: en pr. voksen og en mindre pr. barn (flere end fem samles til "+N")
   const { voksne: v, boern: b } = state;
-  const taeller = (nogle, n, ent, fl) => `<span class="hl-tael" role="group" aria-label="${fl}"><button type="button" data-${nogle}="-1" aria-label="Færre ${fl}">−</button><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span><button type="button" data-${nogle}="1" aria-label="Flere ${fl}">+</button></span>`;
-  return `<span class="hl-titel">Hvem skal spise med?</span>${taeller('voksne', v, 'voksen', 'voksne')}${taeller('boern', b, 'barn', 'børn')}`;
+  const figurer = (n, type) => !n && type === 'boern' ? FIGUR_TOM : FIGUR.repeat(Math.min(n, 5)) + (n > 5 ? `<span class="hl-flere">+${n - 5}</span>` : '');
+  const gruppe = (nogle, n, ent, fl) => `<span class="hl-gruppe"><span class="hl-tael ${nogle}" role="group" aria-label="${fl}"><button type="button" data-${nogle}="-1" aria-label="Færre ${fl}">−</button><span class="hl-figurer">${figurer(n, nogle)}</span><button type="button" data-${nogle}="1" aria-label="Flere ${fl}">+</button></span><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span></span>`;
+  return `<span class="hl-titel">Hvem skal spise med?</span>${gruppe('voksne', v, 'voksen', 'voksne')}${gruppe('boern', b, 'barn', 'børn')}`;
 }
 function husstandPanel() { return `<div class="husstand-lille" id="husstand-plads">${husstandInner()}</div>`; }
 function opdaterHusstand() {  // kun husstandslinjen, prisen og madplanen opdateres (siden står stille)
