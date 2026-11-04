@@ -44,9 +44,10 @@ Regler for retterne (kommer fra brugeren – følg dem):
 python -I scripts/udvid_retter.py <butik> [<butik> …]          # fylder op til 50 fra scripts/bibliotek_*.py; tilføj --min-tilbud 0.4 for butikker med tynd avis
 python -I scripts/kopier_retter.py kvickly superbrugsen        # KUN når Kvickly er ny – kopierer til SuperBrugsen (samme avis). Gør det efter at kvickly.json er færdig.
 python -I scripts/byg_retter.py                                # validerer og skriver retter.json
+python -I scripts/byg_opskrifter.py                            # opdaterer opskrifter.json (opskriftsbiblioteket koblet på ALLE butikkers tilbud – siden vælger selv billigste tilbud pr. ingrediens blandt brugerens butikker)
 python -I scripts/byg_tilbudsliste.py                          # opdaterer tilbudsliste.json ("Værd at overveje denne uge" på forsiden – hver butiks billigste tilbud pr. kategori)
 ```
-`byg_tilbudsliste.py` læser øjebliksbilledet (scripts/tilbud_snapshot.json) og skal altid køres, når aviser er hentet, så forsidens liste ikke bliver forældet. Den sammenligner tilbud med tilbud og kræver ingen tekst fra dig. `"top"` i butikkens json vises ikke længere på siden (feltet må gerne blive stående).
+`byg_opskrifter.py` og `byg_tilbudsliste.py` læser øjebliksbilledet (scripts/tilbud_snapshot.json) og skal altid køres, når aviser er hentet, så forsidens liste ikke bliver forældet. Den sammenligner tilbud med tilbud og kræver ingen tekst fra dig. `"top"` i butikkens json vises ikke længere på siden (feltet må gerne blive stående).
 `udvid_retter.py` udskriver for hver ny auto-ret hvilket tilbud hver ingrediens er koblet til. GENNEMGÅ listen: hvert tilbud skal give mening i retten.
 Findes en fejlkobling (fx andebryst som kyllingebryst), så ret regexen i `scripts/bibliotek_typer.py` (brug `(?<![a-zæøå])…(?![a-zæøå])` – `\b` virker ikke med æøå)
 eller `IKKE_MAD` i `udvid_retter.py`, og kør igen. Tynde aviser (Kvickly/SuperBrugsen/Lidl) når måske ikke 50 – kvalitet er vigtigere end antal.
