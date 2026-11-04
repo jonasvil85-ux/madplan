@@ -146,7 +146,7 @@ button.slet-valg[hidden] { display: none; }
 .andel-bar { height: 5px; border-radius: 99px; background: rgba(255,226,190,.10); overflow: hidden; }
 .andel-bar span { display: block; height: 100%; background: linear-gradient(90deg, rgba(16,185,129,.55), rgba(16,185,129,.85)); border-radius: 99px; }
 .andel-tekst { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 5px; font-size: 12px; color: var(--text-3); }
-.andel-tekst b { color: var(--text-2); font-weight: 600; }
+.andel-tekst b { color: var(--text-2); font-weight: 600; font-size: inherit; }
 .byt-knap { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; background: transparent; border: 1px solid var(--border); color: var(--text-3); border-radius: 999px; padding: 2px 8px 2px 6px; font-size: 11px; cursor: pointer; }
 .byt-knap .ikon-svg { width: 13px; height: 13px; }
 .byt-knap { padding: 3px 6px; }
@@ -211,6 +211,8 @@ button.slet-valg[hidden] { display: none; }
 .panel-hoved { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .panel-hoved h2 { margin: 0; }
 .info-bred .info-tekst { width: min(340px, 80vw); }
+.info-venstre { margin-left: 6px; }
+.info-venstre .info-tekst { right: auto; left: -6px; width: min(340px, 80vw); font-weight: 400; }
 .info-afsnit { display: block; }
 .info-afsnit + .info-afsnit { margin-top: 9px; padding-top: 9px; border-top: 1px solid rgba(232,116,59,.25); }
 .info-afsnit b { color: var(--text-1); font-weight: 600; }
@@ -346,8 +348,6 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .husstand-kort.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
 .tael { display: inline-flex; align-items: center; gap: 8px; }
-.tre-tal { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 12px; color: var(--text-3); }
-.tre-tal b { color: var(--text-2); font-weight: 600; }
 @media (max-width: 900px) { .husstand-valg { grid-template-columns: repeat(2, minmax(0, 1fr)); } .husstand-kort.selv { grid-column: 1 / -1; } }
 @media (max-width: 420px) { .husstand-ikon { width: 64px; height: 64px; } .husstand-kort { gap: 9px; } }
 .personer button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-1); }
@@ -858,21 +858,12 @@ function simuleringHtml() {
       <span class="panel-hoved-hoejre">${simAendret(simButik) ? `<button type="button" class="chip" data-sim-nulstil="${simButik}">Tilbage til forslaget</button>` : ''}<button type="button" class="chip" data-simuler="${simButik}" aria-label="Luk madplanen">Luk ✕</button></span></div>
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
-      <div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'} <small>Inkl. varer til normalpris (skøn). ${husstandTekst(state.voksne, state.boern)}; basisvarer som salt og olie er ikke med.</small>
-        ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud)}
-        ${treTal(pris)}</div>
+      <div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'}
+        ${antalDage ? `<span class="info-i info-venstre" tabindex="0" role="button" aria-label="Om prisen">i<span class="info-tekst" role="tooltip">Regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Du bruger ca. ${kr(Math.round(pris.ialt - pris.tilovers))} af det, du køber; resten er til overs i pakkerne og kan bruges senere eller fryses.</span></span>` : ''}
+        ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud, pris.tilovers)}</div>
       <div class="sim-knapper">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb="${simButik}">Læg ${antalDage === plan.length ? 'de 7 retter' : antalDage === 1 ? 'retten' : `de ${antalDage} retter`} i indkøb →</button>` : ''}
         <button type="button" class="knap sekundaer" data-sim-vaelg="${simButik}">Vælg selv retter</button></div>
     </div></div>`;
-}
-
-// Tre tal: det du betaler, det du bruger, og det der er til overs i pakkerne (kan bruges i andre retter eller fryses)
-function treTal(p) {
-  if (!p.ialt) return '';
-  const over = Math.round(p.tilovers);
-  return `<div class="tre-tal" title="Tilbudsvarer købes i hele pakker. Det, der er til overs, kan bruges i andre retter eller fryses (hvis varen kan fryses). Prisen på varer uden tilbud er regnet for det, du bruger.">
-    <span>Du betaler <b>ca. ${kr(Math.round(p.ialt))}</b></span><span>bruger ca. ${kr(Math.round(p.ialt - over))}</span>
-    <span>${over >= 5 ? `ca. ${kr(over)} til overs i pakkerne` : 'næsten intet til overs'}</span></div>`;
 }
 
 // Vælg husstand: genveje med billeder + tællere for voksne og børn
@@ -1181,14 +1172,15 @@ function standardValg() {
   [...L.tilbud, ...L.oevrige].forEach(x => { if (!(x.key in state.valgtVare)) state.valgtVare[x.key] = true; });
 }
 
-// Hvor stor en del af indkøbet er tilbud? (diskret bjælke + én linje tekst)
-function andelHtml(tilbud, andet) {
+// Hvor stor en del af indkøbet er tilbud? (diskret bjælke + én linje tekst; evt. hvad der er til overs i pakkerne)
+function andelHtml(tilbud, andet, tilovers = 0) {
   const sum = tilbud + andet;
   if (!sum) return '';
   const pct = Math.round(tilbud / sum * 100);
-  return `<div class="andel" title="Tilbudsvarer = varer, der er på tilbud i butikkens avis. Ikke-tilbudsvarer er varer til normalpris, og prisen på dem er et skøn.">
+  const over = Math.round(tilovers);
+  return `<div class="andel" title="Tilbudsvarer = varer, der er på tilbud i butikkens avis. Resten er varer til normalpris, og prisen på dem er et skøn.">
     <div class="andel-bar"><span style="width:${pct}%"></span></div>
-    <div class="andel-tekst"><span>Tilbudsvarer udgør <b>${kr(Math.round(tilbud))}</b> · ${pct} % af indkøbet</span><span>Ikke-tilbudsvarer udgør ca. ${kr(Math.round(andet))}</span></div>
+    <div class="andel-tekst"><span><b>${pct} %</b> på tilbud (${kr(Math.round(tilbud))})</span>${over >= 5 ? `<span>ca. ${kr(over)} til overs</span>` : ''}</div>
   </div>`;
 }
 
