@@ -589,7 +589,7 @@ function renderButikker() {
   </div>
   <div class="saadan">
     <div class="saadan-trin"><span class="saadan-nr">1</span><div><b>Vælg butik</b><small>Sammenlign 8 tilbudsaviser</small></div></div>
-    <div class="saadan-trin"><span class="saadan-nr">2</span><div><b>Vælg retter</b><small>Ca. ${Math.round(Object.values(data.butikker).reduce((n, b) => n + b.retter.length, 0) / 10) * 10} retter hver uge, bygget over tilbuddene i netop din butik</small></div></div>
+    <div class="saadan-trin"><span class="saadan-nr">2</span><div><b>Vælg retter</b><small>Op til ${Math.max(...Object.values(data.butikker).map(b => b.retter.length))} retter pr. butik hver uge, bygget over tilbuddene i netop din butik</small></div></div>
     <div class="saadan-trin"><span class="saadan-nr">3</span><div><b>Få din indkøbsseddel</b><small>Alt, du skal købe, samlet med priser</small></div></div>
     <div class="saadan-trin fremhaevet"><span class="saadan-nr">${ikon('book')}</span><div><b>Få opskrifterne</b><small>Ingredienser og fremgangsmåde i din ugeplan – med gratis bruger</small></div></div>
   </div>
