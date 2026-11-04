@@ -554,6 +554,7 @@ const B = () => data.butikker[state.butik];
 const butikAf = id => id.slice(0, id.lastIndexOf('-'));  // "netto-12" -> "netto": butiksspecifikke retters id'er er unikke på tværs af butikker ("mix-5" = opskrift fra den fælles tilbudsliste)
 // Fælles tilbudsliste: alle tilbud fra alle butikker (id -> tilbud med .butik). Opskrifterne (opskrifter.json) kobles på den, så hver ingrediens kan købes
 // i den billigste af de valgte butikker – også inden for samme ret.
+let SIM_ELIG_ANDEL = 0.4, SIM_ELIG_NOEGLE = true, SIM_ELIG_MATCH = 0.2;  // hvornår en opskrift tæller som "bygget over tilbud"
 let ALLE_TILBUD = {}, MIXOPSKRIFTER = [], MIXTYPER = {}, LIBNAVNE = new Set(), AKTIV_OVERSTYR = null;
 const MIXHUKOMMELSE = new Map(), POOLHUKOMMELSE = new Map();
 const aktivS = () => AKTIV_OVERSTYR || (state.koebButikker?.length ? state.koebButikker : state.butikker);  // de butikker, der handles i lige nu
@@ -580,7 +581,7 @@ function lavMixRet(o, S) {  // opskrift -> ret, hvor hver ingrediens har det bil
   const tilbud = Object.entries(behov).reduce((sum, [k, bh]) => sum + (ALLE_TILBUD[k].pris || 0) * antalPakker(ALLE_TILBUD[k], bh), 0);
   const andelPris = tilbud + oevrigt ? tilbud / (tilbud + oevrigt) : 0;
   // Som i opskriftsbyggeren: nøgle-ingredienserne skal være på tilbud, og mindst 40 % af prisen skal være tilbudsvarer
-  const ok = ings.every(i => !i.noegle || i.tilbud.length) && andelPris >= 0.4 && matchet / Math.max(1, antal) >= 0.2;
+  const ok = ings.every(i => !SIM_ELIG_NOEGLE || !i.noegle || i.tilbud.length) && andelPris >= SIM_ELIG_ANDEL && matchet / Math.max(1, antal) >= SIM_ELIG_MATCH;
   const niveau = o.niveau === 'student' && (tilbud + oevrigt) / 4 > 35 ? 'familie' : o.niveau;
   return { ...o, niveau, ingredienser: ings, mix: true, ok, pris_tilbud: tilbud, pris_oevrigt: oevrigt, pris_i_alt: tilbud + oevrigt, pris_forbrug: null };
 }
@@ -963,8 +964,19 @@ function simuler(k) {
     const bedste = (strikte[n - 1] || []).slice().sort((x, y) => x.kost - y.kost).slice(0, 3);
     for (const pl of bedste) for (const x of stores.filter(y => !pl.butikker.includes(y))) proev2([...pl.butikker, x]);
   }
+  // Ligger flere madplaner inden for TIEBREAK_KR af den billigste, foretrækkes den, der indeholder den billigste enkeltbutik (så anbefalingerne bygger på hinanden:
+  // "REMA alene" → "REMA + Netto"), og derefter den med færrest butikker.
+  const alle = Object.values(strikte).flat();
+  if (alle.length) {
+    const min = Math.min(...alle.map(p => p.kost));
+    const enkelt = (strikte[1] || []).slice().sort((x, y) => x.kost - y.kost)[0];
+    const naer = alle.filter(p => p.kost <= min + TIEBREAK_KR);
+    const medEnkelt = enkelt ? naer.filter(p => enkelt.butikker.every(b => p.butikker.includes(b))) : [];
+    return (medEnkelt.length ? medEnkelt : naer).sort((x, y) => x.butikker.length - y.butikker.length || x.kost - y.kost)[0];
+  }
   return bedst || bedstUanset;
 }
+const TIEBREAK_KR = 10;
 const simSig = () => `${state.voksne}-${state.boern}`;  // forslag og priser gælder for én husstand ad gangen
 function nulstilSim() { for (const o of [simStd, simPrisCache, simManuel, simAfvist, simFra, SIM_DEL]) for (const k in o) delete o[k]; }
 // Husstand og butikker gemmes for sig selv (også uden valgte retter): på enheden og – når man er logget ind – på brugeren (Supabase user_metadata),
@@ -1113,7 +1125,7 @@ function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (b
     valg.set(e.k, bedst);
   }
   // Forbedring: typer, der vælger samme pakke, deler den – så prøv alternativer for hver type og behold dem, der gør det samlede køb billigere
-  if (!hurtig && S.length > 1 && typer.length) {
+  if (!hurtig && typer.length) {
     const total = () => {
       const per = new Map();
       for (const [key, bh] of fast) per.set(key, { ...bh });
