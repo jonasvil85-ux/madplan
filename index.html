@@ -164,21 +164,24 @@ button.slet-valg[hidden] { display: none; }
 .dag-bil-sim.ingen .ikon-svg { width: 34px; height: 34px; }
 .dag-bil-sim img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; min-height: calc(5 * 1.3em + 10px); }
-.butik-chip { position: relative; display: flex; align-items: center; justify-content: center; padding: 4px; background: var(--surface-2); border: 2px solid transparent; border-radius: 13px; cursor: pointer; }
-.butik-chip .logo { width: 62px; height: 36px; padding: 5px 8px; border-radius: 9px; opacity: .55; transition: opacity .12s; }
+.butik-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px 26px; align-items: start; }
+.butik-venstre h2, .butik-hoejre h3 { margin: 0 0 10px; font-size: 15px; line-height: 22px; }
+.butik-hoejre h3 { color: var(--text-2); font-weight: 600; }
+.butik-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.butik-chip { position: relative; display: flex; align-items: center; justify-content: center; padding: 3px; height: 44px; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; cursor: pointer; }
+.butik-chip .logo { width: 56px; height: 30px; padding: 4px 7px; border-radius: 8px; opacity: .55; transition: opacity .12s; }
+.antal-knap { position: relative; display: grid; grid-template-columns: 84px 64px minmax(0, 1fr); align-items: center; gap: 10px; height: 48px; padding: 0 14px; text-align: left; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; color: var(--text-1); cursor: pointer; }
+.ubrugt-note { margin: 8px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
+.ubrugt-note:empty { display: none; }
+.sum-blok { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+@media (min-width: 761px) { .butik-grid { min-height: 226px; } }
 .butik-chip .logo.fyldt { width: auto; min-width: 36px; padding: 0; }
 .butik-chip:hover .logo, .butik-chip.aktiv .logo { opacity: 1; }
 .butik-chip:hover { border-color: rgba(232,116,59,.5); }
 .butik-chip.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .bc-navn { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }  /* navnet står i logoet; kun for skærmlæsere */
 .butik-chip.udloebet { opacity: .5; }
-.butik-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 16px 30px; align-items: start; }
-.butik-venstre h2, .butik-hoejre h3 { margin: 0 0 12px; font-size: 16px; line-height: 24px; }
-.butik-hoejre h3 { color: var(--text-2); font-weight: 600; }
-.butik-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 .antal-kort { display: flex; flex-direction: column; gap: 8px; }
-.antal-knap { position: relative; display: grid; grid-template-columns: 84px 64px minmax(0, 1fr); align-items: center; gap: 10px; height: 54px; padding: 0 14px; text-align: left; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; color: var(--text-1); cursor: pointer; }
-.antal-knap.tom { opacity: .4; cursor: default; }
 .antal-knap:not(.tom):hover { border-color: rgba(232,116,59,.5); }
 .antal-knap.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .antal-knap b { font-size: 14px; }
@@ -186,11 +189,9 @@ button.slet-valg[hidden] { display: none; }
 .antal-knap small { font-size: 12px; color: var(--text-3); line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .antal-knap em { font-style: normal; color: var(--emerald); font-weight: 600; }
 .anbef { position: absolute; top: -8px; right: 12px; padding: 1px 8px; border-radius: 999px; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 11px; font-weight: 600; }
-.ubrugt-note { margin: 10px 0 0; min-height: 36px; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
 .butik-chip.aktiv.ubrugt { border-style: dashed; border-color: rgba(255,226,190,.4); background: transparent; }
 .butik-chip.ubrugt .afkryds { background: var(--text-3); }
 .butik-chip.ubrugt .logo { opacity: .55; }
-.sum-blok { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); min-height: 56px; }
 @media (max-width: 760px) { .butik-grid { grid-template-columns: 1fr; } }
 .afkryds { display: none; position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 12px; line-height: 19px; text-align: center; }
 .butik-chip.aktiv .afkryds { display: block; }
@@ -1278,12 +1279,11 @@ function ubrugteButikker() {
   const brugt = new Set(butikMuligheder().flatMap(o => o.plan.butikker));
   return state.butikker.filter(k => !brugt.has(k));
 }
-function antalValgHtml() {  // højre side: "Hvor mange butikker vil du gå ind i?" (tre faste felter) + samlet pris
+function antalValgHtml() {  // højre side: "Hvor mange butikker vil du gå ind i?" – et felt pr. mulighed (1, så 2, så 3 butikker)
   const ant = state.butikker.length;
   const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
-  const felter = [1, 2, 3].map(n => {
-    const navn = n === 1 ? '1 butik' : n + ' butikker', o = m.find(x => x.n === n);
-    if (!o) return `<div class="antal-knap tom"><b>${navn}</b><span class="antal-pris">–</span><small></small></div>`;
+  const felter = m.map(o => {
+    const n = o.n, navn = n === 1 ? '1 butik' : n + ' butikker';
     const spar = Math.round(m[0].pris.ialt - o.pris.ialt);
     return `<button type="button" class="antal-knap ${n === aktivN ? 'aktiv' : ''}" data-maxb="${n}" ${n > 1 ? `title="${esc(indkoebPrButik(o.plan))}"` : ''}>
       <b>${navn}</b><span class="antal-pris">${kr(Math.round(o.pris.ialt))}</span>
@@ -1293,7 +1293,7 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du gå ind 
   // Forklaring på en afkrydset butik, der ikke er med i planen (fast plads, så siden ikke hopper)
   const ub = ubrugteButikker(), brugte = ant ? simStandard(simK()).butikker : [];
   const note = ub.length ? `${esc(butikTekst(ub))} er ikke med – det er billigst ${brugte.length === 1 ? 'kun ' : ''}at gå i ${esc(butikTekst(brugte))}.` : '';
-  return `<h3>Hvor mange butikker vil du gå ind i?</h3><div class="antal-kort">${felter.join('')}</div><p class="ubrugt-note">${note}</p>${sumHtml()}`;
+  return `<h3>Hvor mange butikker vil du gå ind i?</h3><div class="antal-kort">${felter.join('')}</div><p class="ubrugt-note">${note}</p>`;
 }
 function butikPanel() {
   const alle = Object.keys(data.butikker), ub = ubrugteButikker();
@@ -1301,7 +1301,7 @@ function butikPanel() {
     <div class="butik-venstre"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
       <button type="button" class="butik-chip ${valgt ? 'aktiv' : ''} ${ub.includes(k) ? 'ubrugt' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${ub.includes(k) ? ' – ikke med i madplanen: det er ikke billigere' : ''}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
         ${logo(b)}<span class="bc-navn">${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}</span><i class="afkryds">✓</i>
-      </button>`; }).join('')}</div></div>
+      </button>`; }).join('')}</div><div id="sum-plads">${sumHtml()}</div></div>
     <div class="butik-hoejre" id="antal-plads">${antalValgHtml()}</div>
   </div></div>`;
 }
@@ -1311,6 +1311,7 @@ function opdaterButik() {
   const ub = ubrugteButikker();
   document.querySelectorAll('.butik-chip').forEach(c => { const k = c.dataset.butikvalg, v = state.butikker.includes(k); c.classList.toggle('aktiv', v); c.classList.toggle('ubrugt', ub.includes(k)); c.setAttribute('aria-pressed', String(v)); });
   const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
+  const sm = document.getElementById('sum-plads'); if (sm) sm.innerHTML = sumHtml();
   const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
   opdaterRamme();
   gem();
