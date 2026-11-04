@@ -816,6 +816,7 @@ let PAKKE_MAX = 3;  // højst så mange retter med den samme kød-/fiskepakke
 const PROTEINGRUPPER = ['Kød & fjerkræ', 'Fisk & skaldyr', 'Pålæg & delikatesse'];
 const proteinNoegler = r => ingForbehandlet(r).filter(x => (x.key || x.typ) && PROTEINGRUPPER.includes(varegruppe(x.ing.navn))).map(x => x.key || 'typ:' + x.typ);
 let SIM_PRIS_DIV = 30;  // hvor mange kr, der svarer til ét 'smagspoint' (lavere = pris vejer tungere)
+const SPILD_I_SAMMENLIGNING = 0.5;  // når butikker/antal butikker sammenlignes, tæller rester kun lidt – den laveste pris vinder
 const STRAF_PR_EKSTRA_BUTIK = 10;  // kr: en ekstra butik koster tid, så den skal spare lidt, før den bruges
 function laegPaaDage(valgt, mult) {  // fredagsmad (pizza/tacos/burger) om fredagen, de længste retter i weekenden, de hurtigste på hverdage
   const dage = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; });
@@ -899,7 +900,7 @@ function simFraButikker(stores) {
   const t = ugePris(valgt.map(r => r.id), mult, stores);
   plan.S = stores;  // butikkerne retterne er bygget til
   plan.butikker = t.butikker;  // de butikker, madplanen faktisk handler i
-  plan.kost = valgt.length === 7 ? t.ialt + SIM_SPILD * t.spild + (t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK : Infinity;  // lavere er bedre
+  plan.kost = valgt.length === 7 ? t.ialt + SPILD_I_SAMMENLIGNING * t.spild + (t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK : Infinity;  // lavere er bedre
   return SIM_DEL[nk] = plan;
 }
 // Valg af butikker: nøglen er "netto+rema|2" = de afkrydsede butikker og højst hvor mange af dem madplanen må bruge
@@ -1005,6 +1006,7 @@ function saetHusstand(v, b) {
   v = Math.max(1, Math.min(8, v)); b = Math.max(0, Math.min(8, b));
   if (v === state.voksne && b === state.boern) return;
   state.voksne = v; state.boern = b; state.personer = v + b;
+  state.maxButikker = 0; state.koebButikker = [];  // antal butikker følger igen anbefalingen
   nulstilSim();  // nyt forslag til den nye husstand
   gemHusstand();
 }
@@ -1038,6 +1040,7 @@ function skiftButik(k) {  // sæt/fjern flueben ved en butik; returnerer false, 
     if (n && !confirm(`Du har valgt ${n} ${n === 1 ? 'ret' : 'retter'} fra ${data.butikker[k].navn}. Fjerner du butikken, fjernes de også. Vil du fortsætte?`)) return false;
     state.butikker = state.butikker.filter(x => x !== k);
   } else state.butikker.push(k);
+  state.maxButikker = 0;  // antal butikker følger igen anbefalingen
   state.butikValgt = true;  // brugeren har selv valgt – så vælger siden ikke en standardbutik igen
   state.koebButikker = [];  // retterne bygges på ny til de valgte butikker
   tilpasButikker();
