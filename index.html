@@ -118,6 +118,39 @@ button.slet-valg[hidden] { display: none; }
 .tag.frisk { color: var(--amber); }
 .tag.pris { color: var(--emerald); font-weight: 600; }
 
+.butik-celle { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.butik-celle .butikvalg { flex: 1; }
+.chip.simuler-knap { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 12px; font-size: 14px; font-weight: 600; border-radius: 12px; }
+.chip.simuler-knap .ikon-svg { width: 17px; height: 17px; color: var(--accent); }
+.chip.simuler-knap.aktiv { background: rgba(232,116,59,.13); }
+.simulering { scroll-margin-top: 14px; border-color: rgba(232,116,59,.45); }
+.simulering .panel-hoved { align-items: flex-start; }
+.simulering .panel-hoved h2 { margin: 0 0 3px; }
+.simulering .panel-hoved .detalje { margin: 0; font-size: 13px; color: var(--text-3); }
+.kalender { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+.dag-kort { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.dag-top { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 10px 6px; }
+.dag-top b { color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: .07em; }
+.dag-top small { color: var(--text-3); font-size: 11px; }
+.dag-bil-sim { aspect-ratio: 4 / 3; background: var(--bg); }
+.dag-bil-sim img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; }
+.dag-meta { padding: 0 10px 10px; color: var(--text-3); font-size: 11.5px; }
+.sim-bund { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.sim-sum { color: var(--text-2); font-size: 14px; }
+.sim-sum b { color: var(--text-1); font-size: 17px; }
+.sim-sum small { display: block; color: var(--text-3); font-size: 12px; margin-top: 2px; }
+.sim-knapper { display: flex; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 1000px) { .kalender { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
+@media (max-width: 600px) {
+  .kalender { grid-template-columns: 1fr; gap: 8px; }
+  .dag-kort { display: grid; grid-template-columns: 96px 1fr; grid-template-areas: 'bil top' 'bil ret' 'bil meta'; align-items: start; }
+  .dag-top { grid-area: top; padding: 10px 12px 2px; justify-content: flex-start; gap: 8px; }
+  .dag-bil-sim { grid-area: bil; align-self: stretch; aspect-ratio: auto; min-height: 84px; }
+  .dag-ret { grid-area: ret; padding: 0 12px; flex: none; }
+  .dag-meta { grid-area: meta; padding: 4px 12px 10px; }
+  .sim-knapper { width: 100%; } .sim-knapper .knap { flex: 1; }
+}
 .butikvalg { position: relative; }
 .butikker { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; padding-top: 8px; }
 .butikker .butikvalg { min-width: 0; }
@@ -368,6 +401,7 @@ const GEM = 'madplan-v3';
 const TOM = { trin: 'butik', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, personer: 4,
               valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
 
+let simButik = null;  // butik hvis 7-dages-simulering vises på forsiden
 let visTop = false;  // 'Værd at køre efter' på butikkortene er skjult som udgangspunkt og vises med én knap
 let data = null;   // retter.json (bygges ugentligt af scripts/byg_retter.py)
 let state = { ...structuredClone(TOM) };
@@ -576,6 +610,87 @@ const logo = b => b.logo
   ? `<span class="logo ${FYLDTE_LOGOER.includes(b.navn) ? 'fyldt' : ''}"><img src="${esc(b.logo)}" alt="${esc(b.navn)}" loading="lazy"></span>`
   : `<span class="logo tekst">${esc(b.navn)}</span>`;
 
+// ---------- Simuler 7 dages madplan (retter børnefamilier typisk er glade for) ----------
+const BOERN_PLUS = [[/bolognese/, 6], [/tacos?\b/, 6], [/pizza/, 5], [/frikadell/, 5], [/kødboller|kødsauce/, 5], [/burger/, 5], [/lasagne/, 5], [/mac and cheese/, 5],
+  [/hakkebøf/, 4], [/carbonara/, 4], [/pølse|hotdog/, 3], [/quesadilla/, 4], [/kyllingeoverlår|kyllingelår|kyllingeunderlår|kyllingelårfilet/, 3], [/wraps/, 3],
+  [/fiskefrikadelle|laksefrikadelle|tunfrikadelle/, 3], [/biksemad/, 3], [/sød-sur/, 2], [/kylling/, 2], [/æggekage/, 2], [/pasta|fettuccine|penne/, 2],
+  [/stegt flæsk|flæskesteg/, 2], [/risotto/, 1], [/chili con carne/, 1], [/kartof/, 1]];
+const BOERN_MINUS = [[/blåskimmel/, 5], [/kæber/, 4], [/lammekølle/, 4], [/kalveculotte|kalvemedaljon|schnitzel/, 3], [/\band\b|andebryst|andelår|helstegt and/, 3],
+  [/oliven|kapers|ansjos/, 3], [/kålnudler|grønkål/, 3], [/svamp|portobello|champignon/, 2], [/chili(?! con carne)/, 2], [/\btun\b/, 1], [/rejer/, 2],
+  [/kikærte|linse/, 1], [/hokkaido|græskar/, 1], [/selleri|pastinak/, 1], [/shakshuka|koreansk|satay/, 2], [/rødvin/, 3],
+  [/entrecote|oksefilet|tyndstegsfilet|tykstegs|roastbeef|oksemedaljon|culotte/, 2], [/suppe/, 1]];
+function boernScore(r) {
+  const n = r.navn.toLowerCase();
+  let sc = BOERN_PLUS.reduce((a, [re, w]) => a + (re.test(n) ? w : 0), 0) - BOERN_MINUS.reduce((a, [re, w]) => a + (re.test(n) ? w : 0), 0);
+  if (r.niveau === 'weekend') sc -= 2;
+  return sc - prisIAlt(r) / 4 / 15;  // billigere retter vinder ved lige point
+}
+function simGruppe(r) {
+  const n = r.navn.toLowerCase();
+  if (r.kategori === 'fisk') return 'fisk';
+  if (/suppe/.test(n)) return 'suppe';
+  if (/pasta|spaghetti|fettuccine|penne|carbonara|lasagne|mac and cheese|nudler/.test(n)) return 'pasta';
+  if (/tacos|wraps|quesadilla|fajitas|pita/.test(n)) return 'tex';
+  if (/burger|pizza|hotdog/.test(n)) return 'fastfood';
+  if (/frikadell|kødboll|hakkebøf/.test(n)) return 'frikadelle';
+  return r.kategori;
+}
+const SIM_MAX = { suppe: 1, pasta: 2, tex: 1, fastfood: 1, frikadelle: 2, fisk: 1, vegetar: 1, kylling: 2, svin: 2, okse: 2 };
+function simuler(k) {
+  const retter = data.butikker[k].retter.slice().sort((a, b) => boernScore(b) - boernScore(a));
+  const valgt = [], antal = {};
+  for (const r of retter) {
+    if (valgt.length === 7) break;
+    const g = simGruppe(r);
+    if ((antal[g] || 0) >= (SIM_MAX[g] ?? 2)) continue;
+    valgt.push(r); antal[g] = (antal[g] || 0) + 1;
+  }
+  for (const r of retter) { if (valgt.length === 7) break; if (!valgt.includes(r)) valgt.push(r); }  // for få efter loft: fyld op
+  // Læg dem på dagene: fredagsmad (pizza/tacos/burger) om fredagen, de længste retter i weekenden, de hurtigste på hverdage
+  const dage = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; });
+  const ud = new Array(7).fill(null), rest = valgt.slice();
+  const fre = dage.findIndex(d => d.getDay() === 5);
+  if (fre >= 0) { const f = rest.find(r => /pizza|tacos|burger|wraps|quesadilla/i.test(r.navn)); if (f) { ud[fre] = f; rest.splice(rest.indexOf(f), 1); } }
+  const weekend = dage.map((d, i) => [d, i]).filter(([d, i]) => (d.getDay() === 0 || d.getDay() === 6) && !ud[i]).map(([, i]) => i);
+  rest.sort((a, b) => b.tid_minutter - a.tid_minutter);
+  weekend.forEach(i => { ud[i] = rest.shift(); });
+  rest.sort((a, b) => a.tid_minutter - b.tid_minutter);
+  dage.forEach((d, i) => { if (!ud[i]) ud[i] = rest.shift(); });
+  return dage.map((dato, i) => ({ dato, r: ud[i] }));
+}
+function medButik(k, fn) {  // kør en funktion, som om butikken var valgt (priser og tilbud bruger state.butik)
+  const gem = { b: state.butik, v: state.valgte };
+  state.butik = k;
+  try { return fn(); } finally { state.butik = gem.b; state.valgte = gem.v; }
+}
+function ugePris(k, ids) {  // samlet indkøb for flere retter: hele pakker, delt på tværs af retter
+  return medButik(k, () => { state.valgte = ids; const L = listeLinjer(); const ps = prisSum([...L.tilbud, ...L.oevrige]); return { ialt: ps.ialt, tilbud: prisSum(L.tilbud).tilbud }; });
+}
+function simuleringHtml() {
+  if (!simButik) return '';
+  const b = data.butikker[simButik], plan = simuler(simButik);
+  const pris = ugePris(simButik, plan.map(x => x.r.id));
+  const kort = plan.map(({ dato, r }) => {
+    const kp = medButik(simButik, () => kortPriser(r));
+    return `<div class="dag-kort">
+      <div class="dag-top"><b>${DAGE[dato.getDay()]}</b><small>${dato.getDate()}/${dato.getMonth() + 1}</small></div>
+      <div class="dag-bil-sim">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="lazy" width="360" height="270">` : ''}</div>
+      <div class="dag-ret">${esc(r.navn)}</div>
+      <div class="dag-meta">${r.tid_minutter} min · ca. ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</div>
+    </div>`;
+  }).join('');
+  return `<div class="panel simulering" id="simulering">
+    <div class="panel-hoved"><div><h2>7 dages madplan · ${esc(b.navn)}</h2>
+      <p class="detalje">Retter, som børnefamilier typisk er glade for, bygget over ${esc(b.navn)}s tilbud denne uge. Priser for ${state.personer} personer.</p></div>
+      <button type="button" class="chip" data-simuler="${simButik}" aria-label="Luk madplanen">Luk ✕</button></div>
+    <div class="kalender">${kort}</div>
+    <div class="sim-bund">
+      <div class="sim-sum">Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${plan.length} retter <small>Heraf tilbudsvarer ${kr(Math.round(pris.tilbud))}, resten er skøn til normalpris. ${state.personer} personer; basisvarer som salt og olie er ikke med.</small></div>
+      <div class="sim-knapper"><button type="button" class="knap" data-sim-indkoeb="${simButik}">Læg de 7 retter i indkøb →</button>
+        <button type="button" class="knap sekundaer" data-sim-vaelg="${simButik}">Vælg selv retter i ${esc(b.navn)}</button></div>
+    </div></div>`;
+}
+
 function renderButikker() {
   // Sammenlign kun butikker med gyldig avis
   const aktive = Object.keys(data.butikker).filter(k => !udloebet(data.butikker[k]));
@@ -610,7 +725,7 @@ function renderButikker() {
   </div>
   <div class="panel"><div class="panel-hoved"><h2>Hvilken tilbudsavis vil du handle efter?</h2><span class="panel-hoved-hoejre"><button type="button" class="chip top-knap ${visTop ? 'aktiv' : ''}" data-vistop aria-pressed="${visTop}">${ikon('flame')} ${visTop ? 'Skjul ugens bedste enkelttilbud' : 'Vis ugens bedste enkelttilbud'}</button><span class="info-i info-bred" tabindex="0" role="button" aria-label="Hvad betyder billigst?">i<span class="info-tekst" role="tooltip"><span class="info-afsnit">Måltidsjagten.dk bruger AI til at finde retter, man kan lave ud fra tilbuddene i hver butiks aktuelle tilbudsavis. Hvilken butik der er billigst, bygger kun på de retter og tilbud, vi viser – ikke på butikkens priser generelt. Andre forhold er ikke med, fx dyrere økologiske varer, kvalitet og lokale tilbud.</span><span class="info-afsnit"><b>Pris pr. person</b> = median for butikkens retter på hvert niveau (4 personer). Tilbudsvarer regnes i hele pakker; varer til normalpris er et groft skøn. Basisvarer som salt, olie og mel er ikke med.</span></span></span></div><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
-      <button class="butikvalg ${k === vinder ? 'vinder' : ''} ${k === state.butik ? 'aktiv' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
+      <div class="butik-celle"><button class="butikvalg ${k === vinder ? 'vinder' : ''} ${k === state.butik ? 'aktiv' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
         ${k === vinder ? `<span class="billigst">${ikon('trend')} Billigst denne uge</span>` : ''}
         <span class="butikhoved">
           ${logo(b)}
@@ -637,9 +752,10 @@ function renderButikker() {
               <small>${t.enhedspris ? `<span class="top3-enhed">${esc(t.enhedspris)}</span> · ` : ''}${esc(kortNavn(t.navn))}</small></span>
             <b>${kr(t.pris)}</b>
           </span>`).join('')}</span>` : ''}
-      </button>`).join('')}
+      </button><button type="button" class="chip simuler-knap ${simButik === k ? 'aktiv' : ''}" data-simuler="${k}" aria-expanded="${simButik === k}">${ikon('calendar')} ${simButik === k ? 'Skjul madplanen' : 'Simuler 7 dages madplan'}</button></div>`).join('')}
   </div>
-  </div>`);
+  </div>
+  ${simuleringHtml()}`);
   bund('');
 }
 
@@ -1067,10 +1183,23 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-vistop],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-simuler],[data-sim-indkoeb],[data-sim-vaelg],[data-vistop],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.koekken) state.koekken = d.koekken;
+  else if (d.simuler) simButik = simButik === d.simuler ? null : d.simuler;
+  else if (d.simIndkoeb) {
+    if (harValg() && !confirm('Du har allerede valgt retter. Vil du erstatte dem med de 7 retter fra madplanen?')) return;
+    state = { ...structuredClone(TOM), personer: state.personer, butik: d.simIndkoeb, valgte: simuler(d.simIndkoeb).map(x => x.r.id), trin: 'liste' };
+    simButik = null;
+  }
+  else if (d.simVaelg) {
+    if (state.butik !== d.simVaelg) {
+      if (harValg() && !confirm('Du har valgt retter fra en anden butik. Hvis du skifter, nulstilles dine valg. Vil du skifte?')) return;
+      state = { ...structuredClone(TOM), personer: state.personer, butik: d.simVaelg, trin: 'retter' };
+    } else state.trin = 'retter';
+    simButik = null;
+  }
   else if ('vistop' in d) visTop = !visTop;
   else if ('kunrest' in d) state.kunRest = !state.kunRest;
   else if (d.onlineTil) state.online = d.onlineTil === '1';
@@ -1108,9 +1237,10 @@ document.addEventListener('click', e => {
   // Bevar scroll-position når man blot klikker i en liste
   const y = window.scrollY;
   render();
-  if (d.trin || d.gaa || d.butik || 'handlet' in d) window.scrollTo(0, 0);
+  if (d.trin || d.gaa || d.butik || d.simIndkoeb || d.simVaelg || 'handlet' in d) window.scrollTo(0, 0);
   else window.scrollTo(0, y);
   if ('egen' in d) document.getElementById('soeg')?.focus();
+  if (d.simuler && simButik) setTimeout(() => document.getElementById('simulering')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
 });
 
 document.addEventListener('change', e => {
