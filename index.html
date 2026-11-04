@@ -344,19 +344,28 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .butikvalg strong { display: block; color: var(--text-1); font-size: 16px; }
 .personer { display: flex; align-items: center; gap: 8px; }
 .personer-tekst { font-size: 13px; color: var(--text-3); margin-right: 2px; }
-.husstand-lille { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin: 0 2px 14px; font-size: 13px; color: var(--text-3); }
-.hl-gruppe { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; }
-.hl-tael { display: inline-flex; align-items: center; height: 42px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); overflow: hidden; }
-.hl-tael button { width: 34px; height: 100%; padding: 0; border: 0; background: transparent; color: var(--text-2); font-size: 18px; line-height: 1; cursor: pointer; transition: background .12s, color .12s; }
-.hl-tael button:hover { background: rgba(232,116,59,.16); color: var(--text-1); }
-.hl-figurer { display: inline-flex; align-items: flex-end; justify-content: center; gap: 1px; min-width: 76px; height: 100%; padding: 0 2px 7px; }
-.hl-figur { width: 15px; height: 23px; fill: var(--accent); flex: none; }
-.boern .hl-figur { width: 12px; height: 18px; fill: var(--amber); }
+.husstand-lille { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 2px 14px; font-size: 13px; color: var(--text-3); }
+.hl-titel { color: var(--text-2); font-weight: 600; }
+.hl-vaelger { position: relative; }
+.hl-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px 0 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-1); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: border-color .12s, background .12s; }
+.hl-chip:hover, .hl-chip.aaben { border-color: var(--accent); background: rgba(232,116,59,.12); }
+.hl-chip .ikon-svg { width: 17px; height: 17px; color: var(--accent); }
+.hl-pil { width: 6px; height: 6px; margin: -3px 2px 0 1px; border: solid var(--text-2); border-width: 0 2px 2px 0; transform: rotate(45deg); transition: transform .15s, margin .15s; }
+.hl-chip.aaben .hl-pil { transform: rotate(225deg); margin-top: 3px; }
+.hl-pop { position: absolute; z-index: 60; top: calc(100% + 8px); left: 0; width: min(330px, calc(100vw - 40px)); padding: 6px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,.5); }
+.hl-raekke { display: flex; align-items: center; gap: 10px; min-height: 62px; }
+.hl-raekke + .hl-raekke { border-top: 1px solid var(--border); }
+.hl-figurer { flex: 1; min-width: 0; display: flex; align-items: flex-end; gap: 2px; height: 38px; }
+.hl-figur { width: 22px; height: 33px; fill: var(--accent); flex: none; }
+.boern .hl-figur { width: 17px; height: 26px; fill: var(--amber); }
 .hl-figur.tom { fill: none; stroke: var(--text-3); stroke-width: 1.4; stroke-dasharray: 2.4 2.4; opacity: .55; }
-.hl-flere { align-self: center; margin-left: 3px; font-size: 12px; font-weight: 700; color: var(--text-2); }
-.hl-tekst { color: var(--text-3); font-size: 12.5px; white-space: nowrap; }
-.hl-tekst b { color: var(--text-1); font-weight: 700; }
-@media (max-width: 520px) { .hl-titel { flex-basis: 100%; } .husstand-lille { gap: 6px 14px; } }
+.hl-flere { align-self: center; margin-left: 4px; font-size: 13px; font-weight: 700; color: var(--text-2); }
+.hl-tekst { min-width: 66px; color: var(--text-3); font-size: 13px; white-space: nowrap; }
+.hl-tekst b { color: var(--text-1); font-weight: 700; font-size: 15px; }
+@media (max-width: 560px) { .hl-vaelger { position: static; } .hl-pop { left: 0; right: 0; width: auto; } }
+.hl-knapper { display: inline-flex; gap: 6px; }
+.hl-knapper button { width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text-1); font-size: 18px; line-height: 1; cursor: pointer; transition: border-color .12s, background .12s; }
+.hl-knapper button:hover { border-color: var(--accent); background: rgba(232,116,59,.16); }
 .hl-titel { color: var(--text-2); font-weight: 600; }
 .husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
 .filtre .husstand-tael, .valg .husstand-tael { margin-top: 0; }
@@ -1238,15 +1247,20 @@ function simuleringHtml() {
 // Vælg husstand: én lille, diskret linje – tre genveje og tællere for voksne og børn
 const FIGUR = '<svg class="hl-figur" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="5.2"/><path d="M1.5 29.5v-5.8a8.5 8.5 0 0 1 17 0v5.8z"/></svg>';
 const FIGUR_TOM = '<svg class="hl-figur tom" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="4.6"/><path d="M2 29v-5.3a8 8 0 0 1 16 0V29z"/></svg>';
-function husstandInner() {  // små figurer: en pr. voksen og en mindre pr. barn (flere end fem samles til "+N")
+let husstandAaben = false;
+// Ét lille felt ("2 voksne · 2 børn ▾"), der åbner en boks: en figur pr. voksen, en mindre pr. barn, og − / + (flere end fem figurer samles til "+N")
+function husstandInner() {
   const { voksne: v, boern: b } = state;
   const figurer = (n, type) => !n && type === 'boern' ? FIGUR_TOM : FIGUR.repeat(Math.min(n, 5)) + (n > 5 ? `<span class="hl-flere">+${n - 5}</span>` : '');
-  const gruppe = (nogle, n, ent, fl) => `<span class="hl-gruppe"><span class="hl-tael ${nogle}" role="group" aria-label="${fl}"><button type="button" data-${nogle}="-1" aria-label="Færre ${fl}">−</button><span class="hl-figurer">${figurer(n, nogle)}</span><button type="button" data-${nogle}="1" aria-label="Flere ${fl}">+</button></span><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span></span>`;
-  return `<span class="hl-titel">Hvem skal spise med?</span>${gruppe('voksne', v, 'voksen', 'voksne')}${gruppe('boern', b, 'barn', 'børn')}`;
+  const raekke = (nogle, n, ent, fl) => `<div class="hl-raekke ${nogle}" role="group" aria-label="${fl}"><span class="hl-figurer">${figurer(n, nogle)}</span><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span><span class="hl-knapper"><button type="button" data-${nogle}="-1" aria-label="Færre ${fl}">−</button><button type="button" data-${nogle}="1" aria-label="Flere ${fl}">+</button></span></div>`;
+  return `<span class="hl-titel">Hvem skal spise med?</span>
+    <span class="hl-vaelger"><button type="button" class="hl-chip ${husstandAaben ? 'aaben' : ''}" data-husstand-aabn aria-expanded="${husstandAaben}" aria-haspopup="true">${ikon('users')}<span>${husstandTekst(v, b).replace(" + ", " · ")}</span><i class="hl-pil" aria-hidden="true"></i></button>
+    ${husstandAaben ? `<div class="hl-pop">${raekke('voksne', v, 'voksen', 'voksne')}${raekke('boern', b, 'barn', 'børn')}</div>` : ''}</span>`;
 }
-function husstandPanel() { return `<div class="husstand-lille" id="husstand-plads">${husstandInner()}</div>`; }
-function opdaterHusstand() {  // kun husstandslinjen, prisen og madplanen opdateres (siden står stille)
-  const h = document.getElementById('husstand-plads'); if (h) h.innerHTML = husstandInner();
+function husstandPanel() { husstandAaben = false; return `<div class="husstand-lille" id="husstand-plads">${husstandInner()}</div>`; }
+function husstandLinje() { const h = document.getElementById('husstand-plads'); if (h) h.innerHTML = husstandInner(); }
+function opdaterHusstand() {  // kun husstandsfeltet, prisen og madplanen opdateres (siden står stille)
+  husstandLinje();
   opdaterButik();
 }
 // På retter-siden og indkøbslisten kan husstanden ikke ændres (den er valgt på forsiden) – kun vises, med et link tilbage
@@ -1809,15 +1823,18 @@ function kopierListe() {
 }
 
 // ---------- Hændelser ----------
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && husstandAaben) { husstandAaben = false; husstandLinje(); } });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList?.contains('info-i')) { e.preventDefault(); e.target.classList.toggle('aaben'); } });
 document.addEventListener('click', e => {
+  if (husstandAaben && !e.target.closest('.husstand-lille')) { husstandAaben = false; husstandLinje(); }
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
-  if (d.koekken) state.koekken = d.koekken;
+  if (d.husstandAabn !== undefined) { husstandAaben = !husstandAaben; return husstandLinje(); }
+  else if (d.koekken) state.koekken = d.koekken;
   else if (d.simByt !== undefined) { simByt(simK(), +d.simByt); return opdaterButik(); }
   else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; return opdaterButik(); }
   else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); return opdaterButik(); }
