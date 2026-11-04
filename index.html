@@ -120,11 +120,23 @@ button.slet-valg[hidden] { display: none; }
 
 .butik-celle { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .butik-celle .butikvalg { flex: 1; }
-.chip.simuler-knap { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 12px; font-size: 14px; font-weight: 600; border-radius: 12px; }
-.chip.simuler-knap .ikon-svg { width: 17px; height: 17px; color: var(--accent); flex: none; }
-.chip.simuler-knap .sim-tekst { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.25; text-align: left; }
-.chip.simuler-knap .sim-tekst small { font-weight: 400; color: var(--text-3); font-size: 12px; margin: 0; opacity: 1; }
-.chip.simuler-knap.aktiv { background: rgba(232,116,59,.13); }
+.sim-hint { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+.sim-hint .ikon-svg { width: 17px; height: 17px; color: var(--accent); flex: none; }
+.sim-hint .sim-tekst { display: flex; flex-direction: column; line-height: 1.25; font-size: 13.5px; font-weight: 600; color: var(--text-1); }
+.sim-hint .sim-tekst small { font-weight: 400; color: var(--text-3); font-size: 12px; }
+.butikvalg { cursor: pointer; }
+.butikvalg.aktiv .sim-hint .sim-tekst { color: var(--accent); }
+.dag-kort { position: relative; }
+.dag-knapper { position: absolute; top: 36px; right: 6px; z-index: 2; display: inline-flex; gap: 4px; }
+.dag-knapper .byt-knap { margin-left: 0; background: rgba(21,16,12,.8); border-color: rgba(255,226,190,.28); color: var(--text-2); }
+.dag-knapper .byt-knap:hover, .dag-knapper .byt-knap:focus-visible { background: rgba(21,16,12,.95); }
+.dag-kort.fravalgt { border-style: dashed; background: transparent; }
+.dag-kort.fravalgt .dag-top b { color: var(--text-3); }
+.dag-fra { flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; padding: 14px 10px 14px; }
+.dag-fra b { color: var(--text-2); font-size: 14px; }
+.dag-fra span { color: var(--text-3); font-size: 12px; line-height: 1.35; }
+.dag-fra .byt-knap { margin: 8px 0 0; }
+.byt-knap.udvidet span { display: inline; }
 .simulering { scroll-margin-top: 14px; border-color: rgba(232,116,59,.45); }
 .simulering .panel-hoved { align-items: flex-start; }
 .simulering .panel-hoved h2 { margin: 0 0 3px; }
@@ -165,6 +177,11 @@ button.slet-valg[hidden] { display: none; }
   .dag-ret { grid-area: ret; padding: 0 12px; flex: none; }
   .dag-meta { grid-area: meta; padding: 4px 12px 10px; }
   .sim-knapper { width: 100%; } .sim-knapper .knap { flex: 1; }
+  .dag-knapper { position: static; margin-left: auto; }
+  .dag-knapper .byt-knap { background: transparent; }
+  .dag-kort.fravalgt { display: flex; }
+  .dag-kort.fravalgt .dag-top { padding: 10px 12px 0; }
+  .dag-fra { padding: 4px 12px 12px; }
 }
 .butikvalg { position: relative; }
 .butikker { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; padding-top: 8px; }
@@ -681,10 +698,16 @@ function medButik(k, fn) {  // kør en funktion, som om butikken var valgt (pris
   state.butik = k; state.personer = SIM_PERS;
   try { return fn(); } finally { state.butik = gem.b; state.valgte = gem.v; state.personer = gem.p; }
 }
-const simPrisCache = {}, simStd = {}, simManuel = {}, simAfvist = {};
+const simPrisCache = {}, simStd = {}, simManuel = {}, simAfvist = {}, simFra = {};
 function simStandard(k) { return simStd[k] = simStd[k] || simuler(k); }
 function simPlan(k) { return simManuel[k] || simStandard(k); }  // forslaget – eller brugerens egen version, hvis der er byttet
-function simPrisPlan(k) { return simManuel[k] ? ugePris(k, simManuel[k].map(x => x.r.id)) : simPris(k); }
+function simAktive(k) { const fra = simFra[k]; return simPlan(k).filter((x, i) => !fra?.has(i)); }  // dage uden "spiser ude"
+function simAendret(k) { return !!simManuel[k] || !!simFra[k]?.size; }
+function simPrisPlan(k) {
+  if (!simAendret(k)) return simPris(k);
+  const ids = simAktive(k).map(x => x.r.id);
+  return ids.length ? ugePris(k, ids) : { ialt: 0, tilbud: 0 };
+}
 function simByt(k, i) {  // skift dag i's ret ud med det næstbedste forslag (aldrig en ret, der allerede er i planen)
   const plan = simPlan(k).map(x => ({ ...x }));
   const nu = plan[i].r;
@@ -711,11 +734,20 @@ function simuleringHtml() {
   if (!simButik) return '';
   const b = data.butikker[simButik], plan = simPlan(simButik);
   const pris = simPrisPlan(simButik);
+  const antalDage = simAktive(simButik).length;
   const kort = plan.map(({ dato, r }, i) => {
+    if (simFra[simButik]?.has(i)) {
+      return `<div class="dag-kort fravalgt">
+      <div class="dag-top"><b>${DAGE[dato.getDay()]}</b><small>${dato.getDate()}/${dato.getMonth() + 1}</small></div>
+      <div class="dag-fra"><b>Fravalgt</b><span>Spiser ude eller er ikke hjemme</span>
+        <button type="button" class="byt-knap udvidet" data-sim-gendan="${i}" aria-label="Tilføj ${DAGE[dato.getDay()]}s ret igen">${ikon('plus')}<span>Tilføj igen</span></button></div>
+    </div>`;
+    }
     const kp = medButik(simButik, () => kortPriser(r));
     return `<div class="dag-kort">
       <div class="dag-top"><b>${DAGE[dato.getDay()]}</b><small>${dato.getDate()}/${dato.getMonth() + 1}</small>
-        <button type="button" class="byt-knap" data-sim-byt="${i}" title="Byt ret" aria-label="Byt ${DAGE[dato.getDay()]}s ret">${ikon('refresh')}<span>Byt</span></button></div>
+        <span class="dag-knapper"><button type="button" class="byt-knap" data-sim-byt="${i}" title="Byt ret" aria-label="Byt ${DAGE[dato.getDay()]}s ret">${ikon('refresh')}<span>Byt</span></button>
+        <button type="button" class="byt-knap" data-sim-fjern="${i}" title="Fjern dagen (spiser ude)" aria-label="Fjern ${DAGE[dato.getDay()]} – spiser ude">${ikon('minus')}<span>Fjern</span></button></span></div>
       <div class="dag-bil-sim">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="lazy" width="360" height="270">` : ''}</div>
       <div class="dag-ret">${esc(r.navn)}</div>
       <div class="dag-meta">${r.tid_minutter} min · ca. ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</div>
@@ -723,13 +755,13 @@ function simuleringHtml() {
   }).join('');
   return `<div class="panel simulering" id="simulering">
     <div class="panel-hoved"><div><h2>7 dages madplan · ${esc(b.navn)}</h2>
-      <p class="detalje">Retter, som børnefamilier typisk er glade for, bygget over ${esc(b.navn)}s tilbud denne uge. Regnet for <b>2 voksne og 2 børn</b>.</p></div>
-      <span class="panel-hoved-hoejre">${simManuel[simButik] ? `<button type="button" class="chip" data-sim-nulstil="${simButik}">Tilbage til forslaget</button>` : ''}<button type="button" class="chip" data-simuler="${simButik}" aria-label="Luk madplanen">Luk ✕</button></span></div>
+      <p class="detalje">Retter, som børnefamilier typisk er glade for, bygget over ${esc(b.navn)}s tilbud denne uge. Regnet for <b>2 voksne og 2 børn</b>. Byt en ret, eller fjern en dag, hvis I spiser ude.</p></div>
+      <span class="panel-hoved-hoejre">${simAendret(simButik) ? `<button type="button" class="chip" data-sim-nulstil="${simButik}">Tilbage til forslaget</button>` : ''}<button type="button" class="chip" data-simuler="${simButik}" aria-label="Luk madplanen">Luk ✕</button></span></div>
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
-      <div class="sim-sum">Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${plan.length} retter <small>Inkl. varer til normalpris (skøn). 2 voksne og 2 børn; basisvarer som salt og olie er ikke med.</small>
+      <div class="sim-sum">${antalDage ? `Samlet indkøb ca. <b>${kr(Math.round(pris.ialt))}</b> til ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}` : 'Alle dage er fravalgt'} <small>Inkl. varer til normalpris (skøn). 2 voksne og 2 børn; basisvarer som salt og olie er ikke med.</small>
         ${andelHtml(pris.tilbud, pris.ialt - pris.tilbud)}</div>
-      <div class="sim-knapper"><button type="button" class="knap" data-sim-indkoeb="${simButik}">Læg de 7 retter i indkøb →</button>
+      <div class="sim-knapper">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb="${simButik}">Læg ${antalDage === plan.length ? 'de 7 retter' : antalDage === 1 ? 'retten' : `de ${antalDage} retter`} i indkøb →</button>` : ''}
         <button type="button" class="knap sekundaer" data-sim-vaelg="${simButik}">Vælg selv retter i ${esc(b.navn)}</button></div>
     </div></div>`;
 }
@@ -768,7 +800,7 @@ function renderButikker() {
   </div>
   <div class="panel"><div class="panel-hoved"><h2>Hvilken tilbudsavis vil du handle efter?</h2><span class="panel-hoved-hoejre"><button type="button" class="chip top-knap ${visTop ? 'aktiv' : ''}" data-vistop aria-pressed="${visTop}">${ikon('flame')} ${visTop ? 'Skjul ugens bedste enkelttilbud' : 'Vis ugens bedste enkelttilbud'}</button><span class="info-i info-bred" tabindex="0" role="button" aria-label="Hvad betyder billigst?">i<span class="info-tekst" role="tooltip"><span class="info-afsnit">Måltidsjagten.dk bruger AI til at finde retter, man kan lave ud fra tilbuddene i hver butiks aktuelle tilbudsavis. <b>Billigste madplan</b> er den butik, hvor 7 aftensmåltider til 2 voksne og 2 børn bliver billigst ud fra de retter og tilbud, vi viser – ikke den butik, der generelt er billigst. Andre forhold er ikke med, fx dyrere økologiske varer, kvalitet og lokale tilbud.</span><span class="info-afsnit"><b>Pris pr. person</b> = median for butikkens retter på hvert niveau (4 personer). Tilbudsvarer regnes i hele pakker; varer til normalpris er et groft skøn. Basisvarer som salt, olie og mel er ikke med.</span></span></span></div><div class="butikker">
     ${orden.map(k => [k, data.butikker[k]]).map(([k, b]) => `
-      <div class="butik-celle"><button class="butikvalg ${k === vinder ? 'vinder' : ''} ${k === state.butik ? 'aktiv' : ''}" data-butik="${k}" style="--brand:${esc(b.farve || '#10B981')}">
+      <div class="butik-celle"><button class="butikvalg ${k === vinder ? 'vinder' : ''} ${simButik === k ? 'aktiv' : ''}" data-simuler="${k}" aria-expanded="${simButik === k}" style="--brand:${esc(b.farve || '#10B981')}">
         ${k === vinder ? `<span class="billigst">${ikon('trend')} Billigste madplan</span>` : ''}
         <span class="butikhoved">
           ${logo(b)}
@@ -792,7 +824,8 @@ function renderButikker() {
               <small>${t.enhedspris ? `<span class="top3-enhed">${esc(t.enhedspris)}</span> · ` : ''}${esc(kortNavn(t.navn))}</small></span>
             <b>${kr(t.pris)}</b>
           </span>`).join('')}</span>` : ''}
-      </button><button type="button" class="chip simuler-knap ${simButik === k ? 'aktiv' : ''}" data-simuler="${k}" aria-expanded="${simButik === k}">${ikon('calendar')} <span class="sim-tekst">${simButik === k ? 'Skjul madplanen' : 'Simuler 7 dages madplan'}<small>ca. ${kr(Math.round(simPris(k).ialt))} · 2 voksne + 2 børn</small></span></button></div>`).join('')}
+        <span class="sim-hint">${ikon('calendar')} <span class="sim-tekst">${simButik === k ? 'Viser madplanen nedenfor' : 'Se 7 dages madplan'}<small>ca. ${kr(Math.round(simPris(k).ialt))} · 2 voksne + 2 børn</small></span></span>
+      </button></div>`).join('')}
   </div>
   </div>
   ${simuleringHtml()}`);
@@ -1009,9 +1042,9 @@ function andelHtml(tilbud, andet) {
   const sum = tilbud + andet;
   if (!sum) return '';
   const pct = Math.round(tilbud / sum * 100);
-  return `<div class="andel" title="Tilbudsvarer = varer, der er på tilbud i butikkens avis. Resten er varer til normalpris (skøn).">
+  return `<div class="andel" title="Tilbudsvarer = varer, der er på tilbud i butikkens avis. Ikke-tilbudsvarer er varer til normalpris, og prisen på dem er et skøn.">
     <div class="andel-bar"><span style="width:${pct}%"></span></div>
-    <div class="andel-tekst"><span>Tilbud <b>${kr(Math.round(tilbud))}</b> · ${pct} % af indkøbet</span><span>Normalpris (skøn) ${kr(Math.round(andet))}</span></div>
+    <div class="andel-tekst"><span>Tilbudsvarer udgør <b>${kr(Math.round(tilbud))}</b> · ${pct} % af indkøbet</span><span>Ikke-tilbudsvarer udgør ca. ${kr(Math.round(andet))}</span></div>
   </div>`;
 }
 
@@ -1237,16 +1270,18 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-sim-byt],[data-sim-nulstil],[data-simuler],[data-sim-indkoeb],[data-sim-vaelg],[data-vistop],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-simuler],[data-sim-indkoeb],[data-sim-vaelg],[data-vistop],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-butik],[data-skift],[data-personer],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if (d.koekken) state.koekken = d.koekken;
   else if (d.simByt !== undefined) simByt(simButik, +d.simByt);
-  else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; }
+  else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; }
+  else if (d.simFjern !== undefined) { (simFra[simButik] = simFra[simButik] || new Set()).add(+d.simFjern); }
+  else if (d.simGendan !== undefined) simFra[simButik]?.delete(+d.simGendan);
   else if (d.simuler) simButik = simButik === d.simuler ? null : d.simuler;
   else if (d.simIndkoeb) {
     if (harValg() && !confirm('Du har allerede valgt retter. Vil du erstatte dem med de 7 retter fra madplanen?')) return;
-    state = { ...structuredClone(TOM), personer: SIM_PERS, butik: d.simIndkoeb, valgte: simPlan(d.simIndkoeb).map(x => x.r.id), trin: 'liste' };
+    state = { ...structuredClone(TOM), personer: SIM_PERS, butik: d.simIndkoeb, valgte: simAktive(d.simIndkoeb).map(x => x.r.id), trin: 'liste' };
     simButik = null;
   }
   else if (d.simVaelg) {
