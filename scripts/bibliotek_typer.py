@@ -75,7 +75,7 @@ TYPER = {
     'creme_fraiche': (r'creme fraiche', r'lactofree|laktosefri'),
     'skyr':          (r'skyr', r''),
     'yoghurt':       (r'yoghurt|græsk inspireret', r'drik|frugt|müsli|yoggi|lactofree|laktosefri|cheasy|protein|jordbær|blåbær|vanilje|smag|ymer'),
-    'smor':          (r'\bsmør\b|smør$|^smør', r'smørbar|lactofree|laktosefri|naturli|kærgården|peanut|margarine|flydende|becel|pålæg|smørrebrød|croissant'),
+    'smor':          (r'\bsmør\b|smør$|^smør|lurpak', r'smørbar|lactofree|laktosefri|naturli|kærgården|peanut|margarine|flydende|becel|pålæg|smørrebrød|croissant'),
     'mozzarella': (r'mozzarella', r''),
     'revet_ost':     (r'revet|pizzatopping', r'laktosefri'),
     'feta':          (r'feta', r''),

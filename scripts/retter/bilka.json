@@ -1459,23 +1459,22 @@
       "auto": true
     },
     {
-      "navn": "Risotto med kylling og champignon",
-      "beskrivelse": "Cremet risotto med møre kyllingestykker, champignon og parmesan.",
+      "navn": "Kylling og porre i fløde med pasta",
+      "beskrivelse": "Cremet pasta med kyllingestrimler, porre og smeltet ost.",
       "kategori": "kylling",
       "koekken": "italiensk",
-      "tid_minutter": 40,
+      "tid_minutter": 30,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog 1 liter vand op med bouillon, og hold den varm. Skær kyllingen i tern, og brun den i smør. Tag den op.",
-        "Svits hakket løg og champignon i skiver, tilsæt risene, og rør rundt et minut.",
-        "Tilsæt bouillon, en øse ad gangen, under omrøring, til risene er møre og cremede (ca. 20 minutter).",
-        "Vend kylling og revet Grana Padano i, og smag til med salt og peber."
+        "Kog pastaen. Steg kyllingestrimler i olie, og tilsæt porre i ringe.",
+        "Hæld fløden over, og lad det simre i 5 minutter. Smag til med salt og peber.",
+        "Vend pasta og ost i, til osten smelter."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
           "kyllingebryst",
-          400,
+          500,
           "g",
           0,
           [
@@ -1483,46 +1482,39 @@
           ]
         ],
         [
-          "risottoris eller kogt ris",
-          300,
+          "pasta",
+          400,
           "g",
           0,
+          []
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
           [
-            "B109"
+            "B127"
           ]
         ],
         [
-          "champignon",
-          250,
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "revet ost",
+          100,
           "g",
           0,
           []
         ],
         [
-          "Grana Padano",
-          60,
-          "g",
-          0,
-          []
-        ],
-        [
-          "løg",
+          "olie",
           1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          1,
-          []
-        ],
-        [
-          "hønsebouillon",
-          2,
-          "stk",
+          "spsk",
           1,
           []
         ],
@@ -1530,6 +1522,13 @@
           "salt og peber",
           0,
           "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
           1,
           []
         ]
@@ -1708,22 +1707,23 @@
       "auto": true
     },
     {
-      "navn": "Kylling og porre i fløde med pasta",
-      "beskrivelse": "Cremet pasta med kyllingestrimler, porre og smeltet ost.",
+      "navn": "Risotto med kylling og champignon",
+      "beskrivelse": "Cremet risotto med møre kyllingestykker, champignon og parmesan.",
       "kategori": "kylling",
       "koekken": "italiensk",
-      "tid_minutter": 30,
+      "tid_minutter": 40,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog pastaen. Steg kyllingestrimler i olie, og tilsæt porre i ringe.",
-        "Hæld fløden over, og lad det simre i 5 minutter. Smag til med salt og peber.",
-        "Vend pasta og ost i, til osten smelter."
+        "Kog 1 liter vand op med bouillon, og hold den varm. Skær kyllingen i tern, og brun den i smør. Tag den op.",
+        "Svits hakket løg og champignon i skiver, tilsæt risene, og rør rundt et minut.",
+        "Tilsæt bouillon, en øse ad gangen, under omrøring, til risene er møre og cremede (ca. 20 minutter).",
+        "Vend kylling og revet Grana Padano i, og smag til med salt og peber."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
           "kyllingebryst",
-          500,
+          400,
           "g",
           0,
           [
@@ -1731,39 +1731,46 @@
           ]
         ],
         [
-          "pasta",
-          400,
+          "risottoris eller kogt ris",
+          300,
           "g",
           0,
-          []
-        ],
-        [
-          "porrer",
-          2,
-          "stk",
-          0,
           [
-            "B127"
+            "B109"
           ]
         ],
         [
-          "madlavningsfløde",
-          200,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          100,
+          "champignon",
+          250,
           "g",
           0,
           []
         ],
         [
-          "olie",
+          "Grana Padano",
+          60,
+          "g",
+          0,
+          []
+        ],
+        [
+          "løg",
           1,
-          "spsk",
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hønsebouillon",
+          2,
+          "stk",
           1,
           []
         ],
@@ -1771,13 +1778,6 @@
           "salt og peber",
           0,
           "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
           1,
           []
         ]
@@ -2440,7 +2440,7 @@
           "smør",
           40,
           "g",
-          1,
+          0,
           []
         ],
         [
@@ -2755,7 +2755,7 @@
           "smør",
           30,
           "g",
-          1,
+          0,
           []
         ],
         [

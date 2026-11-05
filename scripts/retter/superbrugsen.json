@@ -2040,7 +2040,7 @@
           "smør",
           30,
           "g",
-          1,
+          0,
           []
         ],
         [
@@ -2048,82 +2048,6 @@
           2,
           "stk",
           1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Mac and cheese med bacon",
-      "beskrivelse": "Pasta i cremet ostesauce med sprød bacon – nem og mættende.",
-      "kategori": "svin",
-      "koekken": "amerikansk",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog pastaen. Kom broccoli i buketter i gryden de sidste 3 minutter.",
-        "Smelt smør, rør mel i, og spæd med mælk til en jævn sauce. Rør osten i, til den er smeltet.",
-        "Steg bacon sprødt.",
-        "Vend pasta og broccoli i saucen, og top med bacon. Bag evt. 10 minutter ved 200 °C for en gylden top."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "bacon i tern",
-          200,
-          "g",
-          0,
-          [
-            "S99"
-          ]
-        ],
-        [
-          "pasta",
-          400,
-          "g",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "mælk",
-          500,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "smør",
-          40,
-          "g",
-          1,
-          []
-        ],
-        [
-          "hvedemel",
-          40,
-          "g",
-          1,
-          []
-        ],
-        [
-          "broccoli",
-          1,
-          "stk",
-          0,
           []
         ],
         [
@@ -2888,7 +2812,7 @@
           "smør",
           30,
           "g",
-          1,
+          0,
           []
         ],
         [
@@ -2958,7 +2882,7 @@
           "smør",
           30,
           "g",
-          1,
+          0,
           []
         ],
         [
@@ -3028,6 +2952,89 @@
           "smør",
           30,
           "g",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Helstegt kylling med kartofler og sovs",
+      "beskrivelse": "Sprød helstegt kylling med ovnkartofler og hjemmelavet sovs.",
+      "kategori": "kylling",
+      "koekken": "dansk",
+      "tid_minutter": 100,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Varm ovnen op til 200 grader. Gnid kyllingen med smør, salt og peber, og læg den i et fad med løg og gulerødder.",
+        "Steg i 70-80 minutter, til saften er klar. Tilsæt kartofler i både de sidste 45 minutter.",
+        "Hæld stegefonden i en gryde med bouillon og mel, og kog den til sovs.",
+        "Skær kyllingen ud, og server med kartofler og sovs."
+      ],
+      "niveau": "weekend",
+      "ingredienser": [
+        [
+          "hel kylling",
+          1500,
+          "g",
+          0,
+          [
+            "S89"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          []
+        ],
+        [
+          "gulerødder",
+          3,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
           1,
           []
         ],

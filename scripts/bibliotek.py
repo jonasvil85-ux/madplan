@@ -8,6 +8,11 @@ from bibliotek_4 import RETTER as _4
 from bibliotek_typer import TYPER
 
 RETTER = _1 + _2 + _3 + _4
+# Smør til sovs, mos og stegning (mindst 30 g) er en rigtig vare, der kan være på tilbud (fx Lurpak) – kun mindre klatter er basisvarer
+SMOER_MIN = 30
+for _r in RETTER:
+    _r['ingredienser'] = [(n, m, e, 0, t, k) if n == 'smør' and t == 'smor' and m >= SMOER_MIN and b else (n, m, e, b, t, k)
+                          for (n, m, e, b, t, k) in _r['ingredienser']]
 ENHEDER = {'g', 'ml', 'stk', 'spsk', 'tsk', 'fed', 'dåse', 'pakke', 'bundt', 'efter smag'}
 if __name__ == '__main__':
     import collections, sys
