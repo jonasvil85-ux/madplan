@@ -631,7 +631,9 @@ function pool(S) {  // retterne man kan vælge mellem, når man handler i S: ops
   const nk = sNoegle(S);
   let p = POOLHUKOMMELSE.get(nk);
   if (!p) {
-    const alle = [...mixFor(S).liste.filter(r => r.ok), ...S.flatMap(k => data.butikker[k].retter.filter(r => !LIBNAVNE.has(r.navn)))];
+    const mix = mixFor(S).liste.filter(r => r.ok), mixNavne = new Set(mix.map(r => r.navn));
+    // En butiks egen ret, der hedder det samme som en biblioteksopskrift, erstattes af biblioteksversionen (som vælger det billigste tilbud blandt butikkerne) – men kun hvis den kan laves til tilbud
+    const alle = [...mix, ...S.flatMap(k => data.butikker[k].retter.filter(r => !LIBNAVNE.has(r.navn) || !mixNavne.has(r.navn)))];
     const bedst = new Map();  // samme ret hos flere butikker vises kun én gang: den billigste udgave
     for (const r of alle) { const x = bedst.get(r.navn); if (!x || prisIAlt(r) < prisIAlt(x)) bedst.set(r.navn, r); }
     POOLHUKOMMELSE.set(nk, p = alle.filter(r => bedst.get(r.navn) === r));
