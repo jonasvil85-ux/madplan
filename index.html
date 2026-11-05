@@ -279,13 +279,24 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .chip.lille { padding: 2px 9px; font-size: 12px; }
 .fod { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; font-size: 11.5px; color: var(--text-3); opacity: .6; line-height: 1.6; }
 .fod:hover, .fod:focus-within, .fod:has(details[open]) { opacity: .9; }
+#intro { position: fixed; inset: 0; z-index: 300; }
+.intro-hul { position: fixed; border-radius: 14px; outline: 2px solid var(--accent); box-shadow: 0 0 0 100vmax rgba(10,7,5,.8); pointer-events: none; transition: left .25s, top .25s, width .25s, height .25s; }
+.intro-kort { position: fixed; width: min(330px, calc(100vw - 24px)); padding: 14px 16px 14px; background: var(--surface-2); border: 1px solid rgba(232,116,59,.55); border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,.55); }
+.intro-kort small { color: var(--text-3); font-size: 12px; }
+.intro-kort b { display: block; margin: 2px 0 4px; font-size: 16px; color: var(--text-1); }
+.intro-kort p { margin: 0 0 12px; color: var(--text-2); font-size: 14px; line-height: 1.45; }
+.intro-knapper { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.intro-spring { border: 0; background: none; color: var(--text-3); font-size: 13px; cursor: pointer; padding: 6px 2px; }
+.intro-spring:hover { color: var(--text-1); text-decoration: underline; }
 .fod summary { cursor: pointer; list-style: none; display: inline; }
 .fod summary::-webkit-details-marker { display: none; }
 .fod summary:hover { text-decoration: underline; }
 .fod details[open] { flex-basis: 100%; order: 3; }
 .fod details[open] summary { margin-bottom: 4px; }
 .fod p { margin: 0; max-width: 70ch; }
-.fod a { color: inherit; text-decoration: none; }
+.fod a, .fod-knap { color: inherit; text-decoration: none; }
+.fod-knap { padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
+.fod-knap:hover { text-decoration: underline; }
 .fod a:hover { text-decoration: underline; }
 .restmaerke { font-size: 12px; font-weight: 600; color: var(--amber); margin-bottom: 8px; }
 .ret.bruger-rest { border-color: rgba(245,158,11,.55); }
@@ -456,7 +467,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
   <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
-  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
+  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
 </div>
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
@@ -705,6 +716,7 @@ async function start() {
     if (anvendHusstand(brugerH || lokalH)) gemHusstand(!(bruger && !brugerH && lokalH));  // har man valgt før login, tages valget med til brugeren
     if (!state.butikker.length) vaelgStandardButik();  // aldrig uden butik: ellers den billigste butik som standard
     render();
+    if (state.trin === 'butik' && !introSet() && !lokalH && !brugerH && !harValg()) setTimeout(() => introVis(0), 900);  // første besøg: kort rundvisning
   } catch (e) {
     vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e)}</div>`);
   }
@@ -996,7 +1008,7 @@ const simSig = () => `${state.voksne}-${state.boern}`;  // forslag og priser gæ
 function nulstilSim() { for (const o of [simStd, simPrisCache, simManuel, simAfvist, simFra, SIM_DEL]) for (const k in o) delete o[k]; }
 // Husstand og butikker gemmes for sig selv (også uden valgte retter): på enheden og – når man er logget ind – på brugeren (Supabase user_metadata),
 // så man ikke skal vælge dem igen næste gang eller på en anden enhed.
-const HUSSTAND_GEM = 'madplan-husstand';
+const HUSSTAND_GEM = 'madplan-husstand', INTRO_GEM = 'madplan-intro';
 let husstandTimer = null;
 function tilpasButikker() {  // holder valgte retter, ugeplan og aktiv butik i trit med de afkrydsede butikker
   const ok = new Set(state.butikker), gyldigId = id => id.startsWith('mix-') || ok.has(butikAf(id));
@@ -1012,11 +1024,12 @@ function anvendHusstand(h) {
   if (Array.isArray(h.butikker) && h.butikker.length) state.butikker = h.butikker.filter(k => data.butikker[k]);
   if (h.max >= 0) state.maxButikker = Math.min(8, Math.floor(h.max));
   if (h.valgt) state.butikValgt = true;
+  if (h.intro) localStorage.setItem(INTRO_GEM, '1');  // rundvisningen er set (også på en anden enhed)
   tilpasButikker();
   return true;
 }
 function gemHusstand(kunLokalt = false) {
-  const h = { voksne: state.voksne, boern: state.boern, butikker: state.butikker.slice(), max: state.maxButikker, valgt: state.butikValgt };
+  const h = { voksne: state.voksne, boern: state.boern, butikker: state.butikker.slice(), max: state.maxButikker, valgt: state.butikValgt, intro: introSet() ? 1 : 0 };
   localStorage.setItem(HUSSTAND_GEM, JSON.stringify(h));
   if (!kunLokalt && sb && bruger) {
     clearTimeout(husstandTimer);
@@ -1849,6 +1862,65 @@ function kopierListe() {
   navigator.clipboard.writeText(tekst).then(() => alert('Indkøbssedlen er kopieret'));
 }
 
+// ---------- Rundvisning første gang: fremhæver et område ad gangen med få ord ----------
+const INTRO_TRIN = [
+  { sel: '#husstand-plads', titel: 'Hvem skal spise med?', tekst: 'Vælg her, hvor mange voksne og børn I er. Så passer mængder og priser til jer.' },
+  { sel: '.butik-chips', titel: 'Vælg dine butikker', tekst: 'Tryk på de butikker, du vil have tilbud fra. Du kan vælge flere.' },
+  { sel: '#antal-plads', titel: 'Hvor mange butikker?', tekst: 'Se, hvad ugens mad koster, hvis du handler i 1, 2 eller 3 butikker. Tryk på det felt, du vil bruge.' },
+  { sel: '#sim-plads .dag-kort', titel: 'Din madplan', tekst: 'Her er ugens retter. Tryk Byt for en anden ret, eller Fjern, hvis du spiser ude den dag.' },
+  { sel: '[data-sim-indkoeb]', titel: 'Klar til at handle?', tekst: 'Tryk her, når du er tilfreds – så laver vi indkøbssedlen til dig.' },
+];
+let introNr = -1;
+const introSet = () => !!localStorage.getItem(INTRO_GEM);
+function introLuk() {
+  document.getElementById('intro')?.remove();
+  document.body.style.overflow = '';
+  window.removeEventListener('resize', introPlacer);
+  introNr = -1;
+  if (!introSet()) { localStorage.setItem(INTRO_GEM, '1'); gemHusstand(); }  // vises kun første gang (følger også brugeren)
+}
+function introPlacer() {
+  const ov = document.getElementById('intro'); if (!ov) return;
+  const el = document.querySelector(INTRO_TRIN[introNr].sel); if (!el) return;
+  const r = el.getBoundingClientRect(), hul = ov.querySelector('.intro-hul'), kort = ov.querySelector('.intro-kort'), pad = 6;
+  Object.assign(hul.style, { left: r.left - pad + 'px', top: r.top - pad + 'px', width: r.width + 2 * pad + 'px', height: r.height + 2 * pad + 'px' });
+  const kw = kort.offsetWidth, kh = kort.offsetHeight, hoej = innerHeight;
+  let top = r.bottom + pad + 12;
+  if (top + kh > hoej - 8) top = r.top - pad - 12 - kh;  // ikke plads under: over området
+  if (top < 8) top = Math.max(8, hoej - kh - 12);        // et meget højt område: kortet nederst
+  Object.assign(kort.style, { top: top + 'px', left: Math.min(Math.max(12, r.left), innerWidth - kw - 12) + 'px' });
+}
+function introVis(nr) {
+  if (nr >= INTRO_TRIN.length) return introLuk();
+  const t = INTRO_TRIN[nr], el = document.querySelector(t.sel);
+  if (!el || el.closest('[hidden]')) return introVis(nr + 1);  // området findes ikke lige nu: spring til næste
+  introNr = nr;
+  let ov = document.getElementById('intro');
+  if (!ov) {
+    ov = document.createElement('div'); ov.id = 'intro'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'Rundvisning');
+    ov.innerHTML = '<div class="intro-hul"></div><div class="intro-kort"></div>';
+    document.body.appendChild(ov); document.body.style.overflow = 'hidden';
+    window.addEventListener('resize', introPlacer);
+  }
+  const sidste = nr === INTRO_TRIN.length - 1;
+  ov.querySelector('.intro-kort').innerHTML = `<small>${nr + 1} af ${INTRO_TRIN.length}</small><b>${t.titel}</b><p>${t.tekst}</p>
+    <div class="intro-knapper">${sidste ? '<span></span>' : '<button type="button" class="intro-spring" data-intro-luk>Spring over</button>'}<button type="button" class="knap" data-intro-naeste>${sidste ? 'Kom i gang' : 'Næste'}</button></div>`;
+  const r0 = el.getBoundingClientRect(), hoej = innerHeight, kortH = 190;
+  const maal = Math.max(60, (hoej - Math.min(r0.height + kortH + 14, hoej)) / 2);  // området og kortet skal begge kunne ses
+  window.scrollTo(0, Math.max(0, window.scrollY + r0.top - maal));
+  requestAnimationFrame(() => { introPlacer(); ov.querySelector('[data-intro-naeste]').focus({ preventScroll: true }); });
+}
+function introStart() {
+  if (state.trin !== 'butik') { state.trin = 'butik'; render(); }
+  window.scrollTo(0, 0);
+  setTimeout(() => introVis(0), 80);
+}
+document.addEventListener('keydown', e => {
+  if (introNr < 0) return;
+  if (e.key === 'Escape') introLuk();
+  else if (e.key === 'ArrowRight' || e.key === 'Enter') { e.preventDefault(); introVis(introNr + 1); }
+});
+
 // ---------- Hændelser ----------
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && husstandAaben) { husstandAaben = false; husstandLinje(); } });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList?.contains('info-i')) { e.preventDefault(); e.target.classList.toggle('aaben'); } });
@@ -1857,10 +1929,13 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
   if (!t || t.disabled) return;
   const d = t.dataset;
-  if (d.husstandAabn !== undefined) { husstandAaben = !husstandAaben; return husstandLinje(); }
+  if ('intro' in d) { return introStart(); }
+  else if ('introNaeste' in d) { return introVis(introNr + 1); }
+  else if ('introLuk' in d) { return introLuk(); }
+  else if (d.husstandAabn !== undefined) { husstandAaben = !husstandAaben; return husstandLinje(); }
   else if (d.koekken) state.koekken = d.koekken;
   else if (d.simByt !== undefined) { simByt(simK(), +d.simByt); return opdaterButik(); }
   else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; return opdaterButik(); }
