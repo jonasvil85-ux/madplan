@@ -48,6 +48,13 @@ python -I scripts/byg_opskrifter.py                            # opdaterer opskr
 python -I scripts/byg_tilbudsliste.py                          # opdaterer tilbudsliste.json ("Gode tilbud i dine butikker" nederst på indkøbslisten: sodavand, smør, mælk, vaskemiddel, shampoo … – ikke aftensmad)
 ```
 `byg_opskrifter.py` og `byg_tilbudsliste.py` læser øjebliksbilledet (scripts/tilbud_snapshot.json) og skal altid køres, når aviser er hentet, så forsidens liste ikke bliver forældet. Den sammenligner tilbud med tilbud og kræver ingen tekst fra dig. `"top"` i butikkens json vises ikke længere på siden (feltet må gerne blive stående).
+**MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har ca. 125 opskrifter (bibliotek_1..4).
+Når en butik ikke når 50 med standardindstillingerne, så prøv i denne rækkefølge (stop, når der er 50):
+1. `python -I scripts/udvid_retter.py <butik> --min-tilbud 0.3` (flere retter med færre tilbudsvarer)
+2. `... --max-noegle 6` eller 8 (lad ét tilbud, fx kyllingebryst, indgå i flere retter) og `--max-dansk 30` (flere danske retter)
+3. Mangler der stadig retter (typisk SPAR og 365discount med tynde aviser): skriv de manglende retter i hånden i `scripts/retter/<butik>.json` ud fra butikkens tilbud (varierede køkkener, hovedingrediens på tilbud) og kør `udvid_retter.py` igen – de håndskrevne retter bevares.
+Husk at kopiere Kvickly → SuperBrugsen bagefter (`kopier_retter.py`), og at skrive en engelsk billedbeskrivelse til hver ny ret (`billedprompts.json`), før `billeder.py` køres.
+
 `udvid_retter.py` udskriver for hver ny auto-ret hvilket tilbud hver ingrediens er koblet til. GENNEMGÅ listen: hvert tilbud skal give mening i retten.
 Findes en fejlkobling (fx andebryst som kyllingebryst), så ret regexen i `scripts/bibliotek_typer.py` (brug `(?<![a-zæøå])…(?![a-zæøå])` – `\b` virker ikke med æøå)
 eller `IKKE_MAD` i `udvid_retter.py`, og kør igen. Tynde aviser (Kvickly/SuperBrugsen/Lidl) når måske ikke 50 – kvalitet er vigtigere end antal.

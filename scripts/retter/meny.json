@@ -2886,42 +2886,27 @@
       "koekken": "dansk"
     },
     {
-      "navn": "Laks i fad med tomater, oliven og kartofler",
-      "beskrivelse": "Laks bagt på tomat og oliven – en nem middelhavsret i ét fad.",
-      "kategori": "fisk",
+      "navn": "Græsk kylling i fad med squash og feta",
+      "beskrivelse": "Kylling, kartofler, squash og tomater bagt sammen under smuldret feta.",
+      "kategori": "kylling",
       "koekken": "middelhav",
-      "tid_minutter": 40,
-      "spis_tidligt": true,
+      "tid_minutter": 55,
+      "spis_tidligt": false,
       "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Kog kartoflerne møre, og skær dem i skiver.",
-        "Læg kartofler, halverede tomater og oliven i et fad, og vend med olie, hvidløg, krydderier og salt.",
-        "Læg laksen ovenpå, og pres citron over. Bag i 12-15 minutter.",
-        "Server direkte fra fadet."
+        "Tænd ovnen på 200 °C. Skær kartofler i både og squash i stykker, vend med olie, oregano og salt, og bag 20 minutter.",
+        "Tilsæt kylling i store stykker og halverede tomater, og pres citronsaft over.",
+        "Bag 20 minutter, drys med smuldret feta, og bag 5-10 minutter mere."
       ],
-      "niveau": "weekend",
+      "niveau": "familie",
       "ingredienser": [
         [
-          "laksefilet",
+          "kyllingebryst",
           600,
           "g",
           0,
           [
-            "M21"
+            "M17"
           ]
-        ],
-        [
-          "tomater",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "oliven",
-          70,
-          "g",
-          0,
-          []
         ],
         [
           "kartofler",
@@ -2933,6 +2918,27 @@
           ]
         ],
         [
+          "squash",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tomater",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "feta",
+          150,
+          "g",
+          0,
+          []
+        ],
+        [
           "citron",
           1,
           "stk",
@@ -2940,15 +2946,8 @@
           []
         ],
         [
-          "hvidløg",
+          "tørret oregano",
           2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "tørret timian eller oregano",
-          1,
           "tsk",
           1,
           []
@@ -3064,7 +3063,7 @@
           "g",
           0,
           [
-            "M45"
+            "M17"
           ]
         ],
         [
@@ -3124,84 +3123,68 @@
       "auto": true
     },
     {
-      "navn": "Moussaka med hakket oksekød og squash",
-      "beskrivelse": "Græsk ovnret med kødsauce, skiver af squash og en cremet toplag af ost.",
-      "kategori": "okse",
+      "navn": "Laks i fad med tomater, oliven og kartofler",
+      "beskrivelse": "Laks bagt på tomat og oliven – en nem middelhavsret i ét fad.",
+      "kategori": "fisk",
       "koekken": "middelhav",
-      "tid_minutter": 80,
-      "spis_tidligt": false,
+      "tid_minutter": 40,
+      "spis_tidligt": true,
       "fremgangsmaade": [
-        "Skær squash i skiver, og steg dem lysebrune i olie.",
-        "Brun kødet med hakket løg, tilsæt tomater, kanel og oregano, og lad det simre i 20 minutter.",
-        "Lav en hvid sauce af smør, mel og mælk, og rør halvdelen af osten i.",
-        "Lag squash og kødsauce i et fad, hæld saucen over, drys med ost, og bag ved 200 °C i 30 minutter."
+        "Tænd ovnen på 200 °C. Kog kartoflerne møre, og skær dem i skiver.",
+        "Læg kartofler, halverede tomater og oliven i et fad, og vend med olie, hvidløg, krydderier og salt.",
+        "Læg laksen ovenpå, og pres citron over. Bag i 12-15 minutter.",
+        "Server direkte fra fadet."
       ],
-      "niveau": "familie",
+      "niveau": "weekend",
       "ingredienser": [
         [
-          "hakket oksekød",
-          500,
+          "laksefilet",
+          600,
           "g",
           0,
           [
-            "M107"
+            "M21"
           ]
         ],
         [
-          "squash",
-          2,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "hakkede tomater",
-          2,
-          "dåse",
-          0,
-          [
-            "M153"
-          ]
-        ],
-        [
-          "mælk",
-          400,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          100,
+          "tomater",
+          300,
           "g",
           0,
           []
         ],
         [
-          "løg",
+          "oliven",
+          70,
+          "g",
+          0,
+          []
+        ],
+        [
+          "kartofler",
+          800,
+          "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "citron",
           1,
           "stk",
           0,
           []
         ],
         [
-          "smør",
-          40,
-          "g",
-          1,
-          [
-            "M87"
-          ]
-        ],
-        [
-          "hvedemel",
-          40,
-          "g",
-          1,
+          "hvidløg",
+          2,
+          "fed",
+          0,
           []
         ],
         [
-          "kanel og oregano",
+          "tørret timian eller oregano",
           1,
           "tsk",
           1,
@@ -3502,32 +3485,39 @@
       "auto": true
     },
     {
-      "navn": "Fiskesuppe med laks, tomat og kartofler",
-      "beskrivelse": "Cremet middelhavsinspireret suppe med laks, tomat og kartofler.",
-      "kategori": "fisk",
+      "navn": "Moussaka med hakket oksekød og squash",
+      "beskrivelse": "Græsk ovnret med kødsauce, skiver af squash og en cremet toplag af ost.",
+      "kategori": "okse",
       "koekken": "middelhav",
-      "tid_minutter": 35,
-      "spis_tidligt": true,
+      "tid_minutter": 80,
+      "spis_tidligt": false,
       "fremgangsmaade": [
-        "Svits hakket løg, porre og hvidløg i olie. Tilsæt kartofler i tern, tomater, bouillon og 8 dl vand, og kog i 15 minutter.",
-        "Rør fløden i, og smag til.",
-        "Skær laksen i tern, og lad den trække i den varme suppe i 4-5 minutter.",
-        "Drys med hakket dild."
+        "Skær squash i skiver, og steg dem lysebrune i olie.",
+        "Brun kødet med hakket løg, tilsæt tomater, kanel og oregano, og lad det simre i 20 minutter.",
+        "Lav en hvid sauce af smør, mel og mælk, og rør halvdelen af osten i.",
+        "Lag squash og kødsauce i et fad, hæld saucen over, drys med ost, og bag ved 200 °C i 30 minutter."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "laksefilet",
-          400,
+          "hakket oksekød",
+          500,
           "g",
           0,
           [
-            "M21"
+            "M107"
           ]
         ],
         [
+          "squash",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
           "hakkede tomater",
-          1,
+          2,
           "dåse",
           0,
           [
@@ -3535,18 +3525,16 @@
           ]
         ],
         [
-          "kartofler",
-          500,
-          "g",
+          "mælk",
+          400,
+          "ml",
           0,
-          [
-            "M115"
-          ]
+          []
         ],
         [
-          "piskefløde",
-          200,
-          "ml",
+          "revet ost",
+          100,
+          "g",
           0,
           []
         ],
@@ -3558,31 +3546,26 @@
           []
         ],
         [
-          "porre",
+          "smør",
+          40,
+          "g",
           1,
-          "stk",
-          0,
+          [
+            "M87"
+          ]
+        ],
+        [
+          "hvedemel",
+          40,
+          "g",
+          1,
           []
         ],
         [
-          "fiskebouillon eller hønsebouillon",
-          2,
-          "stk",
+          "kanel og oregano",
           1,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "frisk dild eller persille",
+          "tsk",
           1,
-          "bundt",
-          0,
           []
         ],
         [
@@ -3697,45 +3680,113 @@
       "auto": true
     },
     {
-      "navn": "Chili con carne med ris",
-      "beskrivelse": "Krydret gryde med hakket oksekød, kidneybønner og tomat – serveret med ris og creme fraiche.",
-      "kategori": "okse",
+      "navn": "Kyllingeburgere med coleslaw",
+      "beskrivelse": "Sprøde kyllingebøffer i burgerbolle med hjemmelavet coleslaw.",
+      "kategori": "kylling",
       "koekken": "amerikansk",
-      "tid_minutter": 45,
+      "tid_minutter": 35,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Brun kødet med hakket løg og hvidløg i olie.",
-        "Tilsæt krydderier og tomatpuré, og steg et minut.",
-        "Hæld tomater og afdryppede bønner i, og lad det simre i 25 minutter. Kog risene imens.",
-        "Smag til, og server med ris og creme fraiche."
+        "Skær kyllingebrysterne i to tynde bøffer. Vend dem i mel, sammenpisket æg og lidt salt.",
+        "Steg bøfferne gyldne i olie, ca. 4 minutter på hver side.",
+        "Riv kål og gulerødder, og vend med mayonnaise til coleslaw.",
+        "Fyld burgerbollerne med kylling og coleslaw."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "hakket oksekød",
-          500,
+          "kyllingebryst",
+          600,
           "g",
           0,
           [
-            "M107"
+            "M17"
           ]
         ],
         [
-          "kidneybønner",
-          2,
-          "dåse",
+          "burgerboller",
+          4,
+          "stk",
           0,
           [
-            "M156"
+            "M10"
           ]
         ],
         [
-          "hakkede tomater",
+          "hvidkål",
+          300,
+          "g",
+          0,
+          []
+        ],
+        [
+          "gulerødder",
           2,
-          "dåse",
+          "stk",
+          0,
+          []
+        ],
+        [
+          "mayonnaise",
+          100,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "æg",
+          1,
+          "stk",
           0,
           [
-            "M153"
+            "M19"
+          ]
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Kylling tikka masala med ris",
+      "beskrivelse": "Mild, cremet indisk kyllingeret med tomat og krydderier.",
+      "kategori": "kylling",
+      "koekken": "asiatisk",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Vend kyllingestrimler i yoghurt og halvdelen af garam masala, og lad dem stå 15 minutter.",
+        "Steg hakket løg og hvidløg, og tilsæt resten af krydderiet. Tilsæt tomater og fløde, og lad saucen simre i 10 minutter.",
+        "Brun kyllingen i en anden pande, og kom den i saucen. Kog risene, og server."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "kyllingebryst",
+          600,
+          "g",
+          0,
+          [
+            "M17"
           ]
         ],
         [
@@ -3746,19 +3797,40 @@
           []
         ],
         [
-          "creme fraiche",
-          200,
-          "g",
+          "hakkede tomater",
+          1,
+          "dåse",
           0,
           [
-            "M71"
+            "M153"
           ]
         ],
         [
+          "yoghurt naturel",
+          150,
+          "g",
+          0,
+          []
+        ],
+        [
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          []
+        ],
+        [
           "løg",
-          2,
+          1,
           "stk",
           0,
+          []
+        ],
+        [
+          "garam masala",
+          2,
+          "spsk",
+          1,
           []
         ],
         [
@@ -3766,20 +3838,6 @@
           2,
           "fed",
           0,
-          []
-        ],
-        [
-          "tomatpuré",
-          2,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "chilikrydderi og spidskommen",
-          2,
-          "tsk",
-          1,
           []
         ],
         [
@@ -3800,23 +3858,23 @@
       "auto": true
     },
     {
-      "navn": "Laks med soja og honning, ris og broccoli",
-      "beskrivelse": "Mørbagt laks med blank sojaglasur, serveret med ris og dampet broccoli.",
+      "navn": "Fiskesuppe med laks, tomat og kartofler",
+      "beskrivelse": "Cremet middelhavsinspireret suppe med laks, tomat og kartofler.",
       "kategori": "fisk",
-      "koekken": "asiatisk",
-      "tid_minutter": 30,
+      "koekken": "middelhav",
+      "tid_minutter": 35,
       "spis_tidligt": true,
       "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Rør soja, honning, revet ingefær og hvidløg til en glasur.",
-        "Læg laksen i et fad, pensl den med glasuren, og bag i 12-15 minutter.",
-        "Kog risene, og damp eller kog broccolien i 3 minutter.",
-        "Server laksen med ris, broccoli og resten af glasuren."
+        "Svits hakket løg, porre og hvidløg i olie. Tilsæt kartofler i tern, tomater, bouillon og 8 dl vand, og kog i 15 minutter.",
+        "Rør fløden i, og smag til.",
+        "Skær laksen i tern, og lad den trække i den varme suppe i 4-5 minutter.",
+        "Drys med hakket dild."
       ],
-      "niveau": "weekend",
+      "niveau": "familie",
       "ingredienser": [
         [
           "laksefilet",
-          600,
+          400,
           "g",
           0,
           [
@@ -3824,38 +3882,49 @@
           ]
         ],
         [
-          "ris",
-          300,
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "kartofler",
+          500,
           "g",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "piskefløde",
+          200,
+          "ml",
           0,
           []
         ],
         [
-          "broccoli",
+          "løg",
           1,
           "stk",
           0,
           []
         ],
         [
-          "sojasauce",
-          3,
-          "spsk",
+          "porre",
           1,
-          []
-        ],
-        [
-          "honning",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "frisk ingefær",
-          20,
-          "g",
+          "stk",
           0,
+          []
+        ],
+        [
+          "fiskebouillon eller hønsebouillon",
+          2,
+          "stk",
+          1,
           []
         ],
         [
@@ -3866,80 +3935,10 @@
           []
         ],
         [
-          "olie",
+          "frisk dild eller persille",
           1,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Græsk kylling i fad med squash og feta",
-      "beskrivelse": "Kylling, kartofler, squash og tomater bagt sammen under smuldret feta.",
-      "kategori": "kylling",
-      "koekken": "middelhav",
-      "tid_minutter": 55,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Skær kartofler i både og squash i stykker, vend med olie, oregano og salt, og bag 20 minutter.",
-        "Tilsæt kylling i store stykker og halverede tomater, og pres citronsaft over.",
-        "Bag 20 minutter, drys med smuldret feta, og bag 5-10 minutter mere."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          600,
-          "g",
+          "bundt",
           0,
-          [
-            "M45"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "M115"
-          ]
-        ],
-        [
-          "squash",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "tomater",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "feta",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "tørret oregano",
-          2,
-          "tsk",
-          1,
           []
         ],
         [
@@ -4223,51 +4222,52 @@
       "auto": true
     },
     {
-      "navn": "Stegt ris med æg og bacon",
-      "beskrivelse": "Fantastisk restemad: kold ris stegt med æg, bacon og grøntsager.",
-      "kategori": "svin",
-      "koekken": "asiatisk",
-      "tid_minutter": 20,
+      "navn": "Fyldte kartofler med hakket oksekød og ost",
+      "beskrivelse": "Bagte kartofler fyldt med krydret kød og smeltet ost.",
+      "kategori": "okse",
+      "koekken": "amerikansk",
+      "tid_minutter": 60,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog risene, og lad dem køle af (eller brug rester fra dagen før).",
-        "Steg bacon sprødt, og tilsæt løg og revet gulerod.",
-        "Skub til side, og rør æggene sammen på panden.",
-        "Tilsæt ris, ærter og soja, og steg 5 minutter, til alt er varmt og lidt sprødt."
+        "Bag kartoflerne ved 200 grader i 50 minutter.",
+        "Brun kød og hakket løg med paprika. Tilsæt tomater, og lad det simre i 10 minutter.",
+        "Skær kartoflerne op, fyld dem med kødsovs og ost, og gratinér i 5 minutter."
       ],
-      "niveau": "student",
+      "niveau": "familie",
       "ingredienser": [
         [
-          "bacon i tern",
-          200,
+          "hakket oksekød",
+          500,
           "g",
           0,
           [
-            "M64"
+            "M107"
           ]
         ],
         [
-          "ris (gerne kogt dagen før)",
-          300,
+          "kartofler (store)",
+          4,
+          "stk",
+          0,
+          [
+            "M115"
+          ]
+        ],
+        [
+          "revet ost",
+          150,
           "g",
           0,
           []
         ],
         [
-          "æg",
-          3,
-          "stk",
-          0,
-          [
-            "M19"
-          ]
-        ],
-        [
-          "gulerødder",
+          "hakkede tomater",
           1,
-          "stk",
+          "dåse",
           0,
-          []
+          [
+            "M153"
+          ]
         ],
         [
           "løg",
@@ -4277,9 +4277,152 @@
           []
         ],
         [
-          "frosne ærter",
+          "paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Minestrone med bønner og pasta",
+      "beskrivelse": "Tyk grøntsagssuppe med bønner og små pastaskeller.",
+      "kategori": "vegetar",
+      "koekken": "italiensk",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Steg grøntsager i tern i olie. Tilsæt tomater, bouillon og 1 liter vand.",
+        "Kog i 20 minutter, og tilsæt bønner og pasta. Kog yderligere 8 minutter.",
+        "Server med revet ost."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          [
+            "M153"
+          ]
+        ],
+        [
+          "kidneybønner",
+          1,
+          "dåse",
+          0,
+          [
+            "M156"
+          ]
+        ],
+        [
+          "gulerødder",
+          3,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "selleri",
+          2,
+          "stk",
+          0,
+          [
+            "M134"
+          ]
+        ],
+        [
+          "pasta",
           150,
           "g",
+          0,
+          [
+            "M92"
+          ]
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "Grana Padano",
+          40,
+          "g",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Laks med soja og honning, ris og broccoli",
+      "beskrivelse": "Mørbagt laks med blank sojaglasur, serveret med ris og dampet broccoli.",
+      "kategori": "fisk",
+      "koekken": "asiatisk",
+      "tid_minutter": 30,
+      "spis_tidligt": true,
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Rør soja, honning, revet ingefær og hvidløg til en glasur.",
+        "Læg laksen i et fad, pensl den med glasuren, og bag i 12-15 minutter.",
+        "Kog risene, og damp eller kog broccolien i 3 minutter.",
+        "Server laksen med ris, broccoli og resten af glasuren."
+      ],
+      "niveau": "weekend",
+      "ingredienser": [
+        [
+          "laksefilet",
+          600,
+          "g",
+          0,
+          [
+            "M21"
+          ]
+        ],
+        [
+          "ris",
+          300,
+          "g",
+          0,
+          []
+        ],
+        [
+          "broccoli",
+          1,
+          "stk",
           0,
           []
         ],
@@ -4288,6 +4431,27 @@
           3,
           "spsk",
           1,
+          []
+        ],
+        [
+          "honning",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "frisk ingefær",
+          20,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
           []
         ],
         [
@@ -4321,7 +4485,7 @@
           "g",
           0,
           [
-            "M45"
+            "M17"
           ]
         ],
         [
@@ -4381,171 +4545,6 @@
           "salt og peber",
           0,
           "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Mac and cheese med bacon",
-      "beskrivelse": "Pasta i cremet ostesauce med sprød bacon – nem og mættende.",
-      "kategori": "svin",
-      "koekken": "amerikansk",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog pastaen. Kom broccoli i buketter i gryden de sidste 3 minutter.",
-        "Smelt smør, rør mel i, og spæd med mælk til en jævn sauce. Rør osten i, til den er smeltet.",
-        "Steg bacon sprødt.",
-        "Vend pasta og broccoli i saucen, og top med bacon. Bag evt. 10 minutter ved 200 °C for en gylden top."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "bacon i tern",
-          200,
-          "g",
-          0,
-          [
-            "M64"
-          ]
-        ],
-        [
-          "pasta",
-          400,
-          "g",
-          0,
-          [
-            "M92"
-          ]
-        ],
-        [
-          "revet ost",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "mælk",
-          500,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "smør",
-          40,
-          "g",
-          1,
-          [
-            "M87"
-          ]
-        ],
-        [
-          "hvedemel",
-          40,
-          "g",
-          1,
-          []
-        ],
-        [
-          "broccoli",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Stegte nudler med kylling og grønt",
-      "beskrivelse": "Nudler vendt med kylling, æg og knasende grøntsager – klar på 25 minutter.",
-      "kategori": "kylling",
-      "koekken": "asiatisk",
-      "tid_minutter": 25,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog nudlerne, og skyl dem kolde. Skær kyllingen i strimler, og steg den gennem. Tag den op.",
-        "Steg løg, gulerod i stave og kål i strimler 3-4 minutter.",
-        "Skub grøntsagerne til side, og rør æggene sammen på panden.",
-        "Vend nudler, kylling og sojasauce i, og server."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          400,
-          "g",
-          0,
-          [
-            "M45"
-          ]
-        ],
-        [
-          "nudler",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "gulerødder",
-          2,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "spidskål eller hvidkål",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "æg",
-          2,
-          "stk",
-          0,
-          [
-            "M19"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "sojasauce",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
           1,
           []
         ]

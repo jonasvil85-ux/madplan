@@ -2707,23 +2707,22 @@
       "auto": true
     },
     {
-      "navn": "Burgere med hjemmelavede bøffer",
-      "beskrivelse": "Saftige bøffer af hakket oksekød i boller med ost, løg og dressing.",
+      "navn": "Fyldte kartofler med hakket oksekød og ost",
+      "beskrivelse": "Bagte kartofler fyldt med krydret kød og smeltet ost.",
       "kategori": "okse",
       "koekken": "amerikansk",
-      "tid_minutter": 35,
+      "tid_minutter": 60,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Form kødet til 4 bøffer, og krydr med salt og peber.",
-        "Steg dem på en varm pande 3-4 minutter på hver side. Læg ost på de sidste minutter.",
-        "Rist bollerne kort, og skær løg og tomat i skiver.",
-        "Byg burgerne med dressing af ketchup og remoulade, salat, bøf, tomat og løg."
+        "Bag kartoflerne ved 200 grader i 50 minutter.",
+        "Brun kød og hakket løg med paprika. Tilsæt tomater, og lad det simre i 10 minutter.",
+        "Skær kartoflerne op, fyld dem med kødsovs og ost, og gratinér i 5 minutter."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
           "hakket oksekød",
-          600,
+          500,
           "g",
           0,
           [
@@ -2731,20 +2730,27 @@
           ]
         ],
         [
-          "burgerboller",
-          4,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "skiveost",
+          "kartofler (store)",
           4,
           "stk",
           0,
           [
-            "R56"
+            "R35"
           ]
+        ],
+        [
+          "revet ost",
+          150,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          []
         ],
         [
           "løg",
@@ -2754,31 +2760,17 @@
           []
         ],
         [
-          "tomat",
+          "paprika",
           2,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "salat",
+          "tsk",
           1,
-          "stk",
-          0,
           []
         ],
         [
-          "ketchup",
-          4,
+          "olie",
+          1,
           "spsk",
-          0,
-          []
-        ],
-        [
-          "remoulade",
-          4,
-          "spsk",
-          0,
+          1,
           []
         ],
         [
@@ -3056,79 +3048,74 @@
       "auto": true
     },
     {
-      "navn": "Bagte kartofler med chili og ost",
-      "beskrivelse": "Store ovnkartofler fyldt med chili con carne-kød, ost og creme fraiche.",
-      "kategori": "okse",
+      "navn": "Kyllingeburgere med coleslaw",
+      "beskrivelse": "Sprøde kyllingebøffer i burgerbolle med hjemmelavet coleslaw.",
+      "kategori": "kylling",
       "koekken": "amerikansk",
-      "tid_minutter": 75,
+      "tid_minutter": 35,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Prik kartoflerne, gnid dem med olie og salt, og bag dem i ca. 60 minutter.",
-        "Brun kødet med hakket løg, tilsæt krydderier, tomater og bønner, og lad det simre i 20 minutter.",
-        "Skær et kryds i kartoflerne, og tryk dem op.",
-        "Fyld med chili, ost og en klat creme fraiche."
+        "Skær kyllingebrysterne i to tynde bøffer. Vend dem i mel, sammenpisket æg og lidt salt.",
+        "Steg bøfferne gyldne i olie, ca. 4 minutter på hver side.",
+        "Riv kål og gulerødder, og vend med mayonnaise til coleslaw.",
+        "Fyld burgerbollerne med kylling og coleslaw."
       ],
-      "niveau": "student",
+      "niveau": "familie",
       "ingredienser": [
         [
-          "hakket oksekød",
-          400,
+          "kyllingebryst",
+          600,
           "g",
           0,
           [
-            "R40"
+            "R43"
           ]
         ],
         [
-          "kartofler (store)",
-          1200,
-          "g",
-          0,
-          [
-            "R35"
-          ]
-        ],
-        [
-          "hakkede tomater",
-          1,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "kidneybønner",
-          1,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "creme fraiche",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
+          "burgerboller",
+          4,
           "stk",
           0,
           []
         ],
         [
-          "chilikrydderi og spidskommen",
+          "hvidkål",
+          300,
+          "g",
+          0,
+          [
+            "R34"
+          ]
+        ],
+        [
+          "gulerødder",
           2,
-          "tsk",
+          "stk",
+          0,
+          []
+        ],
+        [
+          "mayonnaise",
+          100,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
           1,
           []
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          0,
+          [
+            "R12"
+          ]
         ],
         [
           "olie",
@@ -3412,22 +3399,22 @@
       "auto": true
     },
     {
-      "navn": "Wraps med kyllingestrimler og coleslaw",
-      "beskrivelse": "Sprøde kyllingestrimler i wraps med cremet coleslaw og ost.",
+      "navn": "Kylling og porre i fløde med pasta",
+      "beskrivelse": "Cremet pasta med kyllingestrimler, porre og smeltet ost.",
       "kategori": "kylling",
-      "koekken": "amerikansk",
-      "tid_minutter": 25,
+      "koekken": "italiensk",
+      "tid_minutter": 30,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Skær kyllingen i strimler, vend dem i krydderier, og steg dem gennem i olie.",
-        "Snit hvidkålen fint, riv gulerod, og vend med creme fraiche, salt og peber.",
-        "Varm wraps, og fyld dem med kylling, coleslaw og ost."
+        "Kog pastaen. Steg kyllingestrimler i olie, og tilsæt porre i ringe.",
+        "Hæld fløden over, og lad det simre i 5 minutter. Smag til med salt og peber.",
+        "Vend pasta og ost i, til osten smelter."
       ],
       "niveau": "student",
       "ingredienser": [
         [
           "kyllingebryst",
-          450,
+          500,
           "g",
           0,
           [
@@ -3435,32 +3422,23 @@
           ]
         ],
         [
-          "wraps",
-          1,
-          "pakke",
+          "pasta",
+          400,
+          "g",
           0,
           []
         ],
         [
-          "hvidkål",
-          250,
-          "g",
-          0,
-          [
-            "R34"
-          ]
-        ],
-        [
-          "gulerødder",
-          1,
+          "porrer",
+          2,
           "stk",
           0,
           []
         ],
         [
-          "creme fraiche",
-          150,
-          "g",
+          "madlavningsfløde",
+          200,
+          "ml",
           0,
           []
         ],
@@ -3472,7 +3450,234 @@
           []
         ],
         [
-          "paprika og hvidløgspulver",
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Cheeseburger-pasta med hakket oksekød",
+      "beskrivelse": "One-pot pasta med kød, tomat og ost – børnenes favorit.",
+      "kategori": "okse",
+      "koekken": "amerikansk",
+      "tid_minutter": 30,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Brun kød og løg i olie. Tilsæt tomater, bouillon og 6 dl vand.",
+        "Kom pastaen i, og lad den simre under omrøring i 12 minutter.",
+        "Rør ost i, til den smelter."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "hakket oksekød",
+          500,
+          "g",
+          0,
+          [
+            "R40"
+          ]
+        ],
+        [
+          "pasta",
+          350,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          []
+        ],
+        [
+          "revet ost",
+          150,
+          "g",
+          0,
+          []
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Sticky ribs med ris og agurk",
+      "beskrivelse": "Møre ribs i sød-salt glasur med ris og frisk agurk.",
+      "kategori": "svin",
+      "koekken": "asiatisk",
+      "tid_minutter": 90,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Bag ribs tildækket med folie ved 160 grader i 1,5 time.",
+        "Rør soja, honning, hvidløg og ingefær sammen, og pensl ribs. Bag 15 minutter uden folie.",
+        "Kog risene, og server ribs med ris og agurk."
+      ],
+      "niveau": "weekend",
+      "ingredienser": [
+        [
+          "spareribs",
+          1100,
+          "g",
+          0,
+          [
+            "R32"
+          ]
+        ],
+        [
+          "ris",
+          300,
+          "g",
+          0,
+          []
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "soja",
+          4,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "honning",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "hvidløg",
+          3,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "ingefær",
+          1,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Græsk kylling i fad med squash og feta",
+      "beskrivelse": "Kylling, kartofler, squash og tomater bagt sammen under smuldret feta.",
+      "kategori": "kylling",
+      "koekken": "middelhav",
+      "tid_minutter": 55,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Skær kartofler i både og squash i stykker, vend med olie, oregano og salt, og bag 20 minutter.",
+        "Tilsæt kylling i store stykker og halverede tomater, og pres citronsaft over.",
+        "Bag 20 minutter, drys med smuldret feta, og bag 5-10 minutter mere."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "kyllingebryst",
+          600,
+          "g",
+          0,
+          [
+            "R43"
+          ]
+        ],
+        [
+          "kartofler",
+          800,
+          "g",
+          0,
+          [
+            "R35"
+          ]
+        ],
+        [
+          "squash",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tomater",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "feta",
+          150,
+          "g",
+          0,
+          []
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tørret oregano",
           2,
           "tsk",
           1,
@@ -3483,6 +3688,168 @@
           1,
           "spsk",
           1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Kartoffelgratin med ost og grøn salat",
+      "beskrivelse": "Cremet kartoffelgratin med ost og frisk salat.",
+      "kategori": "vegetar",
+      "koekken": "vegetar",
+      "tid_minutter": 70,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Skær kartofler i tynde skiver, og læg dem lagvis i et smurt fad med hvidløg, salt og peber.",
+        "Hæld fløde over, og drys med ost. Bag ved 180 grader i 50-60 minutter.",
+        "Server med grøn salat."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R35"
+          ]
+        ],
+        [
+          "piskefløde",
+          300,
+          "ml",
+          0,
+          [
+            "R2"
+          ]
+        ],
+        [
+          "revet ost",
+          120,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "salat",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Burgere med hjemmelavede bøffer",
+      "beskrivelse": "Saftige bøffer af hakket oksekød i boller med ost, løg og dressing.",
+      "kategori": "okse",
+      "koekken": "amerikansk",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Form kødet til 4 bøffer, og krydr med salt og peber.",
+        "Steg dem på en varm pande 3-4 minutter på hver side. Læg ost på de sidste minutter.",
+        "Rist bollerne kort, og skær løg og tomat i skiver.",
+        "Byg burgerne med dressing af ketchup og remoulade, salat, bøf, tomat og løg."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "hakket oksekød",
+          600,
+          "g",
+          0,
+          [
+            "R40"
+          ]
+        ],
+        [
+          "burgerboller",
+          4,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "skiveost",
+          4,
+          "stk",
+          0,
+          [
+            "R56"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tomat",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "salat",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "ketchup",
+          4,
+          "spsk",
+          0,
+          []
+        ],
+        [
+          "remoulade",
+          4,
+          "spsk",
+          0,
           []
         ],
         [
@@ -3583,101 +3950,17 @@
       "auto": true
     },
     {
-      "navn": "Græsk kylling i fad med squash og feta",
-      "beskrivelse": "Kylling, kartofler, squash og tomater bagt sammen under smuldret feta.",
+      "navn": "Couscous med kylling og ovnbagte grøntsager",
+      "beskrivelse": "Let og farverigt: kylling over couscous med squash, peberfrugt og citron.",
       "kategori": "kylling",
       "koekken": "middelhav",
-      "tid_minutter": 55,
+      "tid_minutter": 35,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Skær kartofler i både og squash i stykker, vend med olie, oregano og salt, og bag 20 minutter.",
-        "Tilsæt kylling i store stykker og halverede tomater, og pres citronsaft over.",
-        "Bag 20 minutter, drys med smuldret feta, og bag 5-10 minutter mere."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          600,
-          "g",
-          0,
-          [
-            "R43"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "R35"
-          ]
-        ],
-        [
-          "squash",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "tomater",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "feta",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "tørret oregano",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Fajitas med kylling og peberfrugt",
-      "beskrivelse": "Stegte kyllingestrimler og farverige grøntsager i lune wraps med creme fraiche.",
-      "kategori": "kylling",
-      "koekken": "amerikansk",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Skær kylling, peberfrugt og løg i strimler. Vend kyllingen i krydderiet og olie.",
-        "Steg kyllingen gennem på en varm pande. Tag den op, og steg grøntsagerne 4-5 minutter.",
-        "Varm wraps, og mos avocadoen med salt.",
-        "Fyld wraps med kylling, grønt, avocado, ost og creme fraiche."
+        "Tænd ovnen på 200 °C. Skær grøntsager i stykker, vend med olie, krydderier og salt, og bag 25 minutter.",
+        "Steg kyllingen i strimler i olie, til den er gennemstegt.",
+        "Overhæld couscous med kogende vand (samme mængde), og lad den trække 5 minutter.",
+        "Bland alt, og pres citronsaft over."
       ],
       "niveau": "familie",
       "ingredienser": [
@@ -3691,15 +3974,22 @@
           ]
         ],
         [
-          "wraps",
+          "couscous",
+          300,
+          "g",
+          0,
+          []
+        ],
+        [
+          "squash",
           1,
-          "pakke",
+          "stk",
           0,
           []
         ],
         [
           "peberfrugt",
-          3,
+          2,
           "stk",
           0,
           [
@@ -3708,36 +3998,22 @@
         ],
         [
           "løg",
-          2,
+          1,
           "stk",
           0,
           []
         ],
         [
-          "creme fraiche",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          100,
-          "g",
-          0,
-          []
-        ],
-        [
-          "avocado",
-          2,
+          "citron",
+          1,
           "stk",
           0,
           []
         ],
         [
-          "fajitakrydderi (spidskommen, paprika, hvidløgspulver)",
+          "spidskommen og paprika",
           2,
-          "spsk",
+          "tsk",
           1,
           []
         ],
@@ -3957,26 +4233,26 @@
       "auto": true
     },
     {
-      "navn": "Stegt laks med persillesovs og kartofler",
-      "beskrivelse": "Sprødt stegt laks med klassisk persillesovs og kogte kartofler.",
-      "kategori": "fisk",
+      "navn": "Karbonader med løgsovs og kartofler",
+      "beskrivelse": "Saftige karbonader af hakket svinekød med brun løgsovs.",
+      "kategori": "svin",
       "koekken": "dansk",
-      "tid_minutter": 35,
-      "spis_tidligt": true,
+      "tid_minutter": 45,
+      "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog kartoflerne. Lav persillesovs: Smelt 30 g smør, rør mel i, og spæd med mælk til en jævn sauce. Rør hakket persille i, og smag til.",
-        "Krydr laksen med salt og peber, og steg den på skindsiden i smør i 4-5 minutter. Vend, og steg 1-2 minutter.",
-        "Server med kartofler, persillesovs og citron."
+        "Bland fars med æg, rasp, salt og peber, og form karbonader. Steg dem i smør, 5 minutter på hver side.",
+        "Steg løg i skiver, drys mel over, og tilsæt bouillon og vand til en sovs. Kog kartoflerne.",
+        "Server karbonader med løgsovs og kartofler."
       ],
-      "niveau": "weekend",
+      "niveau": "familie",
       "ingredienser": [
         [
-          "laksefilet",
+          "hakket svinekød",
           600,
           "g",
           0,
           [
-            "R42"
+            "R41"
           ]
         ],
         [
@@ -3989,38 +4265,47 @@
           ]
         ],
         [
-          "mælk",
-          400,
-          "ml",
+          "løg",
+          2,
+          "stk",
           0,
           []
         ],
         [
-          "frisk persille",
+          "æg",
           1,
-          "bundt",
+          "stk",
           0,
+          [
+            "R12"
+          ]
+        ],
+        [
+          "rasp",
+          3,
+          "spsk",
+          1,
           []
         ],
         [
-          "smør",
-          50,
-          "g",
+          "bouillon",
+          1,
+          "stk",
           1,
           []
         ],
         [
           "hvedemel",
-          30,
-          "g",
+          2,
+          "spsk",
           1,
           []
         ],
         [
-          "citron",
+          "smør",
+          30,
+          "g",
           1,
-          "stk",
-          0,
           []
         ],
         [
@@ -4029,91 +4314,11 @@
           "efter smag",
           1,
           []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Flæskesteg med rødkål og brunede kartofler",
-      "beskrivelse": "Sprød svær, hjemmelavet rødkål og brunede kartofler – julestemning hele året.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 130,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Gnid sværen med groft salt, og stik laurbærblade i ridserne. Steg stegen på en rist over en bradepande med vand i 1½ time. Skru op til 250 °C til sidst for sprød svær.",
-        "Rødkål: Kog snittet rødkål med æbler i tern, eddike, 50 g sukker, 1 dl vand og salt i ca. 1 time.",
-        "Kog kartoflerne. Smelt resten af sukkeret til karamel, tilsæt smør, og vend kartoflerne i.",
-        "Lav sovs af skyen, og server."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "flæskesteg",
-          1500,
-          "g",
-          0,
-          [
-            "R50"
-          ]
         ],
         [
-          "rødkål (frisk eller på glas)",
+          "sort peber",
           1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "R35"
-          ]
-        ],
-        [
-          "æbler",
-          2,
-          "stk",
-          0,
-          [
-            "R37"
-          ]
-        ],
-        [
-          "eddike",
-          100,
-          "ml",
-          1,
-          []
-        ],
-        [
-          "sukker",
-          125,
-          "g",
-          1,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          1,
-          []
-        ],
-        [
-          "laurbærblade",
-          3,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "groft salt",
-          2,
-          "spsk",
+          "tsk",
           1,
           []
         ]

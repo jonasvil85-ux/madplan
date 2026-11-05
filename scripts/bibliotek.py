@@ -4,9 +4,10 @@ _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
 from bibliotek_1 import RETTER as _1
 from bibliotek_2 import RETTER as _2
 from bibliotek_3 import RETTER as _3
+from bibliotek_4 import RETTER as _4
 from bibliotek_typer import TYPER
 
-RETTER = _1 + _2 + _3
+RETTER = _1 + _2 + _3 + _4
 ENHEDER = {'g', 'ml', 'stk', 'spsk', 'tsk', 'fed', 'dåse', 'pakke', 'bundt', 'efter smag'}
 if __name__ == '__main__':
     import collections, sys

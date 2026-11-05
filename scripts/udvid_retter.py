@@ -5,7 +5,7 @@ retter hvor hovedingrediensen ikke er på tilbud, og vælger de bedste (flest ti
 køkken får mindst 5 retter. Valgte retter skrives ind i scripts/retter/<butik>.json med "auto": true.
 Kør igen for at genskabe dem (tidligere auto-retter fjernes først).
 
-Brug:  python -I scripts/udvid_retter.py netto [--til 50] [--min-koekken 5] [--min-tilbud 0.5]  (min. andel af retters pris der er tilbudsvarer)
+Brug:  python -I scripts/udvid_retter.py netto [--til 50] [--min-koekken 5] [--min-tilbud 0.5] [--max-noegle 5] [--max-dansk 26]  (min. andel af retters pris der er tilbudsvarer)
        python -I scripts/udvid_retter.py alle        (alle butikker undtagen superbrugsen, som kopieres fra kvickly)
 GENNEMGÅ altid udskriften: hvert tilbud skal give mening i retten (ingen sød yoghurt i suppe osv.).
 """
@@ -175,6 +175,9 @@ def main():
     til = int(args[args.index('--til') + 1]) if '--til' in args else 50
     min_k = int(args[args.index('--min-koekken') + 1]) if '--min-koekken' in args else 5
     min_t = float(args[args.index('--min-tilbud') + 1]) if '--min-tilbud' in args else 0.5
+    global MAX_PR_NOEGLETILBUD, MAX_PR_KOEKKEN
+    if '--max-dansk' in args: MAX_PR_KOEKKEN = {'dansk': int(args[args.index('--max-dansk') + 1])}  # tynde aviser: flere danske retter
+    if '--max-noegle' in args: MAX_PR_NOEGLETILBUD = int(args[args.index('--max-noegle') + 1])  # tynde aviser: lad ét tilbud (fx kyllingebryst) indgå i flere retter
     butikker = [a for a in args if a in BUTIKKER or a == 'alle']
     if butikker == ['alle'] or not butikker:
         butikker = [b for b in BUTIKKER if b != 'superbrugsen']
