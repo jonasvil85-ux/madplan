@@ -17,7 +17,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Måltidsjagten">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script defer src="/_vercel/insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -480,7 +485,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
   <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
-  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
+  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl eller 365discount. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><button type="button" class="fod-knap" id="installer" hidden>Installér som app</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
 </div>
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
@@ -733,6 +738,7 @@ async function start() {
     const brugerH = bruger?.user_metadata?.husstand;
     if (anvendHusstand(brugerH || lokalH)) gemHusstand(!(bruger && !brugerH && lokalH));  // har man valgt før login, tages valget med til brugeren
     if (!state.butikker.length) vaelgStandardButik();  // aldrig uden butik: ellers den billigste butik som standard
+    if (new URLSearchParams(location.search).get('trin') === 'seddel' && state.valgte.length && state.butikker.length) state.trin = 'seddel';  // genvej fra appikonet
     render();
     if (state.trin === 'butik' && !introSet() && !lokalH && !brugerH && !harValg()) setTimeout(() => introVis(0), 900);  // første besøg: kort rundvisning
   } catch (e) {
@@ -2083,6 +2089,24 @@ document.addEventListener('keydown', e => {
     render();
     document.getElementById('soeg')?.focus();
   }
+});
+
+// ---------- App: kan installeres på hjemmeskærmen og virker uden net (indkøbssedlen i butikken) ----------
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => { /* siden virker også uden */ }));
+}
+let installerHaendelse = null;
+const erApp = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const erIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installerHaendelse = e; const k = document.getElementById('installer'); if (k && !erApp()) k.hidden = false; });
+window.addEventListener('appinstalled', () => { installerHaendelse = null; const k = document.getElementById('installer'); if (k) k.hidden = true; });
+document.addEventListener('DOMContentLoaded', () => {
+  const k = document.getElementById('installer'); if (!k || erApp()) return;
+  if (erIos()) k.hidden = false;  // iPhone/iPad: ingen automatisk dialog – vis en vejledning i stedet
+  k.addEventListener('click', async () => {
+    if (installerHaendelse) { installerHaendelse.prompt(); await installerHaendelse.userChoice.catch(() => {}); installerHaendelse = null; k.hidden = true; }
+    else alert('Tryk på Del-knappen i Safari (firkanten med en pil op), og vælg "Føj til hjemmeskærm". Så åbner Måltidsjagten som en app.');
+  });
 });
 
 startAuth(start);  // login først (hvis Supabase er sat op i auth.js), derefter siden

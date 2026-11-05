@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "name": "Måltidsjagten",
+  "short_name": "Måltidsjagten",
+  "description": "Ugens tilbud fra 8 supermarkeder bliver til en madplan og en indkøbsseddel – til de laveste priser.",
+  "lang": "da",
+  "dir": "ltr",
+  "start_url": "/?kilde=app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#15100C",
+  "theme_color": "#15100C",
+  "categories": ["food", "shopping", "lifestyle"],
+  "icons": [
+    { "src": "/ikoner/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/ikoner/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/ikoner/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/ikoner/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Min indkøbsseddel", "short_name": "Seddel", "url": "/?trin=seddel&kilde=app", "icons": [{ "src": "/ikoner/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
