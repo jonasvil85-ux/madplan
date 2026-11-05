@@ -164,24 +164,24 @@ button.slet-valg[hidden] { display: none; }
 .dag-top { gap: 6px; }
 .dag-top small { margin-right: 2px; }
 .dag-kort { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-.dag-top { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 10px 6px; }
+.dag-top { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 10px 5px; }
 .dag-top b { color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: .07em; }
 .dag-top small { color: var(--text-3); font-size: 11px; }
-.dag-bil-sim { aspect-ratio: 4 / 3; background: var(--bg); }
+.dag-bil-sim { aspect-ratio: 3 / 2; background: var(--bg); }
 .dag-bil-sim.ingen { display: grid; place-items: center; background: linear-gradient(135deg, #2b211a, #1a1512); color: var(--text-3); }
 .dag-bil-sim.ingen .ikon-svg { width: 34px; height: 34px; }
 .dag-bil-sim img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.dag-ret { padding: 8px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; flex: 1; min-height: calc(5 * 1.3em + 10px); }
+.dag-ret { padding: 7px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; }
 .butik-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px 26px; align-items: start; }
 .butik-venstre h2, .butik-hoejre h3 { margin: 0 0 10px; font-size: 15px; line-height: 22px; }
 .butik-hoejre h3 { color: var(--text-2); font-weight: 600; }
 .butik-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
-.butik-chip { position: relative; display: flex; align-items: center; justify-content: center; padding: 3px; height: 44px; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; cursor: pointer; }
-.butik-chip .logo { width: 56px; height: 30px; padding: 4px 7px; border-radius: 8px; opacity: .55; transition: opacity .12s; }
-.antal-knap { position: relative; display: grid; grid-template-columns: 84px 92px minmax(0, 1fr); align-items: center; gap: 10px; min-height: 58px; padding: 7px 14px; text-align: left; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; color: var(--text-1); cursor: pointer; }
-.ubrugt-note { margin: 8px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
+.butik-chip { position: relative; display: flex; align-items: center; justify-content: center; padding: 2px; height: 38px; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; cursor: pointer; }
+.butik-chip .logo { width: 50px; height: 26px; padding: 3px 6px; border-radius: 8px; opacity: .55; transition: opacity .12s; }
+.antal-knap { position: relative; display: grid; grid-template-columns: 84px 92px minmax(0, 1fr); align-items: center; gap: 10px; min-height: 50px; padding: 5px 13px; text-align: left; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; color: var(--text-1); cursor: pointer; }
+.ubrugt-note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
 .ubrugt-note:empty { display: none; }
-@media (min-width: 761px) { .butik-grid { min-height: 265px; } }
+@media (min-width: 761px) { .butik-grid { min-height: 200px; } }
 .butik-chip .logo.fyldt { width: auto; min-width: 36px; padding: 0; }
 .butik-chip:hover .logo, .butik-chip.aktiv .logo { opacity: 1; }
 .butik-chip:hover { border-color: rgba(232,116,59,.5); }
@@ -192,7 +192,7 @@ button.slet-valg[hidden] { display: none; }
 .antal-knap:not(.tom):hover { border-color: rgba(232,116,59,.5); }
 .antal-knap.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
 .antal-knap b { font-size: 14px; }
-.antal-pris { display: flex; flex-direction: column; font-size: 18px; font-weight: 700; line-height: 1.15; white-space: nowrap; }
+.antal-pris { display: flex; flex-direction: column; font-size: 17px; font-weight: 700; line-height: 1.15; white-space: nowrap; }
 .antal-foer { font-size: 12px; font-weight: 500; color: var(--text-3); opacity: .6; text-decoration-thickness: 1px; }
 .antal-knap small { font-size: 13px; color: var(--text-2); line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 @media (max-width: 520px) { .antal-knap { grid-template-columns: 76px 74px minmax(0, 1fr); gap: 6px; padding: 7px 10px; } .antal-knap small { -webkit-line-clamp: 3; } }
@@ -204,7 +204,7 @@ button.slet-valg[hidden] { display: none; }
 .afkryds { display: none; position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 12px; line-height: 19px; text-align: center; }
 .butik-chip.aktiv .afkryds { display: block; }
 .dobbelt { display: block; margin-top: 5px; font-size: 11px; font-weight: 500; color: var(--amber); line-height: 1.3; }
-.dag-meta { padding: 0 10px 10px; color: var(--text-3); font-size: 11.5px; }
+.dag-meta { padding: 0 10px 9px; color: var(--text-3); font-size: 11.5px; }
 .sim-bund { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
 .sim-knapper { display: flex; gap: 10px; flex-wrap: wrap; }
 @media (max-width: 1000px) { .kalender { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
@@ -1290,7 +1290,7 @@ function simuleringHtml() {
         <button type="button" class="byt-knap" data-sim-fjern="${i}" title="Fjern dagen (spiser ude)" aria-label="Fjern ${DAGE[dato.getDay()]} – spiser ude">${ikon('minus')}<span>Fjern</span></button></span></div>
       <div class="dag-bil-sim ${r.billede ? '' : 'ingen'}">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="lazy" width="360" height="270">` : ikon('utensils')}</div>
       <div class="dag-ret">${esc(r.navn)}${mult > 1 ? '<span class="dobbelt" title="Retten laves i dobbelt portion, så resten af pakkerne bruges. Frys den ene halvdel til en anden dag.">Lav dobbelt – frys halvdelen</span>' : ''}</div>
-      <div class="dag-meta">${r.tid_minutter} min · ca. ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</div>
+      <div class="dag-meta" title="Ca. pris pr. person">${r.tid_minutter} min · ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</div>
     </div>`;
   }).join('');
   return `<div class="panel simulering" id="simulering">
@@ -1346,6 +1346,10 @@ function muligPris(o) {  // prisen på et felt: dine egne ændringer (byt/fjern 
   }
   return o.pris;
 }
+function ubrugtNote() {  // forklaring på en afkrydset butik, der ikke er med i planen (under logoerne)
+  const ant = state.butikker.length, ub = ubrugteButikker(), brugte = ant ? simStandard(simK()).butikker : [];
+  return ub.length ? `${esc(butikTekst(ub))} er ikke med – det er billigst ${brugte.length === 1 ? 'kun ' : ''}at gå i ${esc(butikTekst(brugte))}.` : '';
+}
 function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i?" – et felt pr. mulighed (1, så 2, så 3 butikker)
   const ant = state.butikker.length;
   const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
@@ -1362,13 +1366,10 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i
       <small>${esc(butikTekst(pr.butikker?.length ? pr.butikker : o.plan.butikker))}</small>
       ${n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}</button>`;
   });
-  // Forklaring på en afkrydset butik, der ikke er med i planen (fast plads, så siden ikke hopper)
-  const ub = ubrugteButikker(), brugte = ant ? simStandard(simK()).butikker : [];
-  const note = ub.length ? `${esc(butikTekst(ub))} er ikke med – det er billigst ${brugte.length === 1 ? 'kun ' : ''}at gå i ${esc(butikTekst(brugte))}.` : '';
   const k = simK(), antalDage = k ? simAktive(k).length : 0;
   const info = antalDage ? `<span class="info-i info-panel" tabindex="0" role="button" aria-label="Om priserne">i<span class="info-tekst" role="tooltip">Priserne er for ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}, regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Det overstregede beløb er et skøn over, hvad de samme varer ville koste til normalpris. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : '';
   const indhold = !ant ? '<p class="detalje">Ingen butik valgt endnu</p>' : !antalDage ? '<p class="detalje">Alle dage er fravalgt</p>' : felter.join('');
-  return `<h3>Hvor mange butikker vil du handle i? ${info}</h3><div class="antal-kort">${indhold}</div><p class="ubrugt-note">${note}</p>`;
+  return `<h3>Hvor mange butikker vil du handle i? ${info}</h3><div class="antal-kort">${indhold}</div>`;
 }
 function butikPanel() {
   const alle = Object.keys(data.butikker), ub = ubrugteButikker();
@@ -1376,7 +1377,7 @@ function butikPanel() {
     <div class="butik-venstre"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
       <button type="button" class="butik-chip ${valgt ? 'aktiv' : ''} ${ub.includes(k) ? 'ubrugt' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${ub.includes(k) ? ' – ikke med i madplanen: det er ikke billigere' : ''}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
         ${logo(b)}<span class="bc-navn">${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}</span><i class="afkryds">✓</i>
-      </button>`; }).join('')}</div></div>
+      </button>`; }).join('')}</div><p class="ubrugt-note" id="note-plads">${ubrugtNote()}</p></div>
     <div class="butik-hoejre" id="antal-plads">${antalValgHtml()}</div>
   </div></div>`;
 }
@@ -1386,6 +1387,7 @@ function opdaterButik(anker) {  // anker: vælger for det element, der skal bliv
   const ub = ubrugteButikker();
   document.querySelectorAll('.butik-chip').forEach(c => { const k = c.dataset.butikvalg, v = state.butikker.includes(k); c.classList.toggle('aktiv', v); c.classList.toggle('ubrugt', ub.includes(k)); c.setAttribute('aria-pressed', String(v)); });
   const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
+  const np = document.getElementById('note-plads'); if (np) np.innerHTML = ubrugtNote();
   const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
   opdaterRamme();
   gem();
