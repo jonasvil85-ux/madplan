@@ -846,7 +846,7 @@ function fordobl(vt) {
 let PAKKE_MAX = 3;  // højst så mange retter med den samme kød-/fiskepakke
 const PROTEINGRUPPER = ['Kød & fjerkræ', 'Fisk & skaldyr', 'Pålæg & delikatesse'];
 const proteinNoegler = r => ingForbehandlet(r).filter(x => (x.key || x.typ) && PROTEINGRUPPER.includes(varegruppe(x.ing.navn))).map(x => x.key || 'typ:' + x.typ);
-let SIM_PRIS_DIV = 30;  // hvor mange kr, der svarer til ét 'smagspoint' (lavere = pris vejer tungere)
+let SIM_PRIS_DIV = 20;  // hvor mange kr (pr. 4 personer), der svarer til ét 'smagspoint' (lavere = pris vejer tungere)
 const SPILD_I_SAMMENLIGNING = 0.5;  // når butikker/antal butikker sammenlignes, tæller rester kun lidt – den laveste pris vinder
 const STRAF_PR_EKSTRA_BUTIK = 10;  // kr: en ekstra butik koster tid, så den skal spare lidt, før den bruges
 function laegPaaDage(valgt, mult) {  // fredagsmad (pizza/tacos/burger) om fredagen, de længste retter i weekenden, de hurtigste på hverdage
@@ -886,21 +886,34 @@ function simFraButikker(stores) {
       return t;
     };
     const scoreSæt = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) - (t.ialt + SIM_SPILD * t.spild + t.straf) / (SIM_PRIS_DIV * f); };
-    const vt = [], antal = {}, pakkeAntal = {};
-    let pris = 0;
-    while (vt.length < 7) {
-      const kand = paaSmag.filter(r => !vt.includes(r) && !vt.some(x => x.navn === r.navn) && (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2)
-        && proteinNoegler(r).every(n => (pakkeAntal[n] || 0) < PAKKE_MAX)).slice(0, SIM_GREEDY_KAND);
-      if (!kand.length) break;
-      let bedst = null, bedstSc = -Infinity, bedstPris = 0;
-      for (const r of kand) {
-        const t = tal([...vt, r], true), p = t.ialt + t.straf;
-        const sc = smag.get(r.id) - (p - pris) / (SIM_PRIS_DIV * f);
-        if (sc > bedstSc) { bedst = r; bedstSc = sc; bedstPris = p; }
+    // Ét udgangspunkt vælges ret for ret efter smag minus pris (div = hvor tungt prisen vejer). To udgangspunkter prøves (prisen vejer lidt mindre og lidt mere end i scoren), og det med den bedste score forbedres bagefter –
+    // så søgningen ikke sætter sig fast på en dyr uge, når en meget billigere næsten er lige så god.
+    const bygGreedy = (div, antalKand = SIM_GREEDY_KAND) => {
+      const vt = [], antal = {}, pakkeAntal = {};
+      let pris = 0;
+      while (vt.length < 7) {
+        const kand = paaSmag.filter(r => !vt.includes(r) && !vt.some(x => x.navn === r.navn) && (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2)
+          && proteinNoegler(r).every(n => (pakkeAntal[n] || 0) < PAKKE_MAX)).slice(0, antalKand);
+        if (!kand.length) break;
+        let bedst = null, bedstSc = -Infinity, bedstPris = 0;
+        for (const r of kand) {
+          const t = tal([...vt, r], true), p = t.ialt + t.straf;
+          const sc = smag.get(r.id) - (p - pris) / (div * f);
+          if (sc > bedstSc) { bedst = r; bedstSc = sc; bedstPris = p; }
+        }
+        vt.push(bedst); pris = bedstPris;
+        const g = simGruppe(bedst); antal[g] = (antal[g] || 0) + 1;
+        for (const n of proteinNoegler(bedst)) pakkeAntal[n] = (pakkeAntal[n] || 0) + 1;
       }
-      vt.push(bedst); pris = bedstPris;
-      const g = simGruppe(bedst); antal[g] = (antal[g] || 0) + 1;
-      for (const n of proteinNoegler(bedst)) pakkeAntal[n] = (pakkeAntal[n] || 0) + 1;
+      return vt;
+    };
+    let vt = bygGreedy(SIM_PRIS_DIV * 1.5);
+    if (SIM_FORBEDRING) {
+      let bedstSc = vt.length === 7 ? scoreSæt(vt) : -Infinity;
+      for (const [mul, kand] of [[1, 15], [0.5, 15]]) {  // hurtige ekstra udgangspunkter med færre kandidater
+        const ny = bygGreedy(SIM_PRIS_DIV * mul, kand);
+        if (ny.length === 7) { const sc = scoreSæt(ny); if (sc > bedstSc) { vt = ny; bedstSc = sc; } }
+      }
     }
     let bedstScore = -Infinity;
     if (vt.length === 7) {
