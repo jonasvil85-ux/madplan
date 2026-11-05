@@ -942,6 +942,16 @@ function fordobl(vt) {
   }
   return { ...mult };
 }
+// To retter er næsten samme ret, når alle ordene i den ene (mindst to) også står i den anden – fx "Biksemad med spejlæg" og "Biksemad med spejlæg og rødbeder".
+// De må ikke begge være med i samme uge.
+const NAVN_STOP = new Set(['og', 'med', 'i', 'af', 'på', 'til', 'fra', 'en', 'et']);
+const NAVNORD = new Map();
+const navnOrd = navn => NAVNORD.get(navn) || NAVNORD.set(navn, new Set(navn.toLowerCase().split(/[^a-zæøå0-9]+/).filter(o => o.length > 1 && !NAVN_STOP.has(o)))).get(navn);
+const ensRet = (a, b) => {
+  if (a.navn === b.navn) return true;
+  const x = navnOrd(a.navn), y = navnOrd(b.navn), [lille, stor] = x.size <= y.size ? [x, y] : [y, x];
+  return lille.size >= 2 && [...lille].every(o => stor.has(o));
+};
 // Samme kød-/fiskepakke i højst tre retter (ellers bliver ugen ensformig)
 let PAKKE_MAX = 3;  // højst så mange retter med den samme kød-/fiskepakke
 const PROTEINGRUPPER = ['Kød & fjerkræ', 'Fisk & skaldyr', 'Pålæg & delikatesse'];
@@ -995,7 +1005,7 @@ function simFraButikker(stores) {
       const vt = [], antal = {}, pakkeAntal = {};
       let pris = 0;
       while (vt.length < 7) {
-        const kand = paaSmag.filter(r => !vt.includes(r) && !vt.some(x => x.navn === r.navn) && (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2)
+        const kand = paaSmag.filter(r => !vt.includes(r) && !vt.some(x => ensRet(x, r)) && (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2)
           && proteinNoegler(r).every(n => (pakkeAntal[n] || 0) < PAKKE_MAX)).slice(0, antalKand);
         if (!kand.length) break;
         let bedst = null, bedstSc = -Infinity, bedstPris = 0;
@@ -1030,7 +1040,7 @@ function simFraButikker(stores) {
         let forbedret = false;
         for (let i = 0; i < vt.length; i++) {
           const andre = vt.filter((_, j) => j !== i);
-          for (const r of paaSmag.filter(x => !vt.includes(x) && !andre.some(y => y.navn === x.navn)).slice(0, SIM_LOKAL_KAND)) {
+          for (const r of paaSmag.filter(x => !vt.includes(x) && !andre.some(y => ensRet(y, x))).slice(0, SIM_LOKAL_KAND)) {
             const nyt = vt.slice(); nyt[i] = r;
             if (!overholderLoft(nyt)) continue;
             const sc = scoreSæt(nyt);
@@ -1229,11 +1239,11 @@ function simByt(k, i) {  // skift dag i's ret ud med det næstbedste forslag (al
   const nu = plan[i].r;
   const afvist = simAfvist[k] = simAfvist[k] || new Set();
   afvist.add(nu.id);
-  const brugt = new Set(plan.map(x => x.r.id)), navne = new Set(plan.map(x => x.r.navn));
+  const brugt = new Set(plan.map(x => x.r.id)), ensMedPlan = r => plan.some(x => ensRet(x.r, r));
   const alle = medS(plan.S, () => pool(plan.S).slice()).sort((a, b) => boernScore(b) - boernScore(a));
   const antal = {};
   plan.forEach((x, j) => { if (j !== i) antal[simGruppe(x.r)] = (antal[simGruppe(x.r)] || 0) + 1; });
-  const kand = alle.filter(r => !brugt.has(r.id) && !afvist.has(r.id) && !navne.has(r.navn));
+  const kand = alle.filter(r => !brugt.has(r.id) && !afvist.has(r.id) && !ensMedPlan(r));
   // Den nye ret: blandt de bedste kandidater den, der giver mest smag for den ekstra pris i hele ugens indkøb
   const f = Math.max(faktor(), 0.3);
   const egnede = kand.filter(r => (antal[simGruppe(r)] || 0) < (simLoft()[simGruppe(r)] ?? 2)).slice(0, 12);
@@ -1244,7 +1254,7 @@ function simByt(k, i) {  // skift dag i's ret ud med det næstbedste forslag (al
     if (sc > nyScore) { ny = r; nyScore = sc; }
   }
   ny = ny || kand[0];
-  if (!ny) { simAfvist[k] = new Set([nu.id]); ny = alle.find(r => !brugt.has(r.id) && !navne.has(r.navn)); }  // alle prøvet: start forfra
+  if (!ny) { simAfvist[k] = new Set([nu.id]); ny = alle.find(r => !brugt.has(r.id) && !ensMedPlan(r)); }  // alle prøvet: start forfra
   if (!ny) return;
   plan[i].r = ny;
   const m = medS(plan.S, () => fordobl(plan.map(x => x.r)));  // dobbelt portion afgøres på ny, når en ret er skiftet

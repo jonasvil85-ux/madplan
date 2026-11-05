@@ -56,7 +56,7 @@ DETALJER = [
     (r'risotto', 'Creamy Italian risotto with a glossy texture, served in a shallow bowl with parmesan'),
     (r'parmigiana', 'Italian chicken parmigiana: golden breaded cutlet covered in tomato sauce and melted mozzarella with basil'),
     # amerikansk
-    (r'burger', 'Homemade burger in a toasted bun with a juicy patty, melted cheese, lettuce and tomato, served on a wooden board'),
+    (r'burger(?!-?pasta)', 'Homemade burger in a toasted bun with a juicy patty, melted cheese, lettuce and tomato, served on a wooden board'),
     (r'tacos|fajita|burrito|quesadilla|wraps', 'Tex-Mex dish with warm tortillas, seasoned filling, fresh salad, tomato and sour cream'),
     (r'mac and cheese', 'Creamy baked macaroni and cheese with a golden cheesy crust and crispy bacon'),
     (r'chili', 'Hearty chili con carne in a bowl with rice, topped with sour cream and chopped chili'),
