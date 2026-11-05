@@ -181,7 +181,6 @@ button.slet-valg[hidden] { display: none; }
 .antal-knap { position: relative; display: grid; grid-template-columns: 84px 92px minmax(0, 1fr); align-items: center; gap: 10px; min-height: 50px; padding: 5px 13px; text-align: left; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; color: var(--text-1); cursor: pointer; }
 .ubrugt-note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
 .ubrugt-note:empty { display: none; }
-@media (min-width: 761px) { .butik-grid { min-height: 200px; } }
 .butik-chip .logo.fyldt { width: auto; min-width: 36px; padding: 0; }
 .butik-chip:hover .logo, .butik-chip.aktiv .logo { opacity: 1; }
 .butik-chip:hover { border-color: rgba(232,116,59,.5); }
@@ -203,6 +202,22 @@ button.slet-valg[hidden] { display: none; }
 @media (max-width: 760px) { .butik-grid { grid-template-columns: 1fr; } }
 .afkryds { display: none; position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 12px; line-height: 19px; text-align: center; }
 .butik-chip.aktiv .afkryds { display: block; }
+@media (min-width: 761px) {
+  .butikpanel { padding: 14px 18px; }
+  .butik-grid { gap: 0 26px; }
+  .butik-venstre h2, .butik-hoejre h3 { display: flex; align-items: center; height: 22px; margin: 0 0 8px !important; line-height: 22px; }
+  .butik-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 36px; gap: 6px; }  /* tre rækker à 36 px = de tre felter til højre */
+  .butik-chip { height: 36px; }
+  .butik-chip .logo { height: 24px; padding: 3px 6px; }
+  .antal-kort { gap: 6px; min-height: 120px; }
+  .antal-knap { height: 36px; min-height: 0; padding: 2px 12px; grid-template-columns: 84px 128px minmax(0, 1fr); }
+  .antal-pris { flex-direction: row; align-items: baseline; gap: 7px; font-size: 16px; }
+  .antal-foer { font-size: 12px; }
+  .antal-knap small { -webkit-line-clamp: 1; }
+  .anbef { top: -7px; }
+  .ubrugt-note { grid-column: 1 / -1; margin: 8px 0 0; min-height: 17px; }
+  .ubrugt-note:empty { display: block; }  /* fast plads til én linje, så madplanen ikke hopper */
+}
 .dobbelt { display: block; margin-top: 5px; font-size: 11px; font-weight: 500; color: var(--amber); line-height: 1.3; }
 .dag-meta { padding: 0 10px 9px; color: var(--text-3); font-size: 11.5px; }
 .sim-bund { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
@@ -1379,8 +1394,9 @@ function butikPanel() {
     <div class="butik-venstre"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
       <button type="button" class="butik-chip ${valgt ? 'aktiv' : ''} ${ub.includes(k) ? 'ubrugt' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${ub.includes(k) ? ' – ikke med i madplanen: det er ikke billigere' : ''}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
         ${logo(b)}<span class="bc-navn">${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}</span><i class="afkryds">✓</i>
-      </button>`; }).join('')}</div><p class="ubrugt-note" id="note-plads">${ubrugtNote()}</p></div>
+      </button>`; }).join('')}</div></div>
     <div class="butik-hoejre" id="antal-plads">${antalValgHtml()}</div>
+    <p class="ubrugt-note" id="note-plads">${ubrugtNote()}</p>
   </div></div>`;
 }
 // Flueben/antal butikker/madplan: opdatér kun det, der ændrer sig (logoerne og siden står stille, og der scrolles ikke)
