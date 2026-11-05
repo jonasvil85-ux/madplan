@@ -198,6 +198,11 @@ def main():
     alle = {t['kort']: t for t in data['tilbud']}
     fejl, ud = [], {}
     bibliotek = {r['navn']: r for k in kilder.values() for r in k['retter'] if 'som' not in r}
+    # Faste skabeloner (originale ingrediensnavne), så "som"-henvisninger ikke brydes, når en butiks retter skiftes ud
+    skab = os.path.join(ROD, 'scripts', 'retter_skabeloner.json')
+    if os.path.exists(skab):
+        with open(skab, encoding='utf-8') as f:
+            bibliotek.update({r['navn']: r for r in json.load(f)})
 
     for butik, b in BUTIKKER.items():
         if butik not in kilder:
