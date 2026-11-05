@@ -355,8 +355,6 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .butikvalg { flex: 1; min-width: 200px; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; padding: 14px; text-align: left; color: var(--text-2); }
 .butikvalg.aktiv { border-color: var(--accent); }
 .butikvalg strong { display: block; color: var(--text-1); font-size: 16px; }
-.personer { display: flex; align-items: center; gap: 8px; }
-.personer-tekst { font-size: 13px; color: var(--text-3); margin-right: 2px; }
 .hl-vaelger { position: relative; }
 .hl-vaelger[hidden] { display: none; }
 .hl-chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 13px 0 11px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-1); font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: border-color .12s, background .12s; }
@@ -378,11 +376,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 @media (max-width: 700px) { .hl-chip { padding: 0 9px; gap: 6px; height: 32px; } .hl-chip-tekst { display: none; } .hl-badge { display: inline-block; } .hl-pop { left: 0; right: 0; width: auto; } }
 .hl-knapper button { width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text-1); font-size: 18px; line-height: 1; cursor: pointer; transition: border-color .12s, background .12s; }
 .hl-knapper button:hover { border-color: var(--accent); background: rgba(232,116,59,.16); }
-.husstand-tael { margin-top: 14px; flex-wrap: wrap; gap: 8px 18px; }
-.filtre .husstand-tael, .valg .husstand-tael { margin-top: 0; }
-.husstand-tael .personer-tekst b { color: var(--text-1); font-weight: 600; }
 .tael { display: inline-flex; align-items: center; gap: 8px; }
-.personer button { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-1); }
 
 .vare { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); }
 .vare:last-child { border-bottom: 0; }
@@ -1287,11 +1281,6 @@ function opdaterHusstand() {  // kun knappen, prisen og madplanen opdateres (sid
   husstandLinje();
   opdaterButik();
 }
-// På retter-siden og indkøbslisten kan husstanden ikke ændres (den er valgt på forsiden) – kun vises, med et link tilbage
-function husstandKompakt() {
-  return `<div class="personer husstand-tael"><span class="personer-tekst">Regnet for <b>${husstandTekst(state.voksne, state.boern)}</b></span>
-    <button type="button" class="chip lille" data-trin="butik" title="Husstanden vælges på forsiden">Skift</button></div>`;
-}
 
 function indkoebPrButik(plan) {  // "Netto: pasta, ost · Lidl: ..." – hvad der købes i hver butik i en madplan
   const m = medS(plan.S, () => { state.valgte = plan.map(x => x.r.id); state.mult = planMult(plan); return byggListe().tilbud; });
@@ -1653,7 +1642,6 @@ function renderListe() {
     <div class="panel">
       <div class="valg" style="justify-content:space-between">
         <span>Kryds af, hvad du skal købe i <b style="color:var(--text-1)">${esc(butikTekst(valgteButikker().length ? valgteButikker() : [state.butik]))}</b>. Fjern fluebenet ved det, du allerede har.</span>
-        ${husstandKompakt()}
       </div>
       ${andelListe}
     </div>
