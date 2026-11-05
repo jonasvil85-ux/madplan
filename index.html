@@ -500,7 +500,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
   <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
-  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount, SPAR eller Min Købmand. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><button type="button" class="fod-knap" id="installer" hidden>Installér som app</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
+  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount, SPAR eller Min Købmand. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er estimerede normalpriser.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><button type="button" class="fod-knap" id="installer" hidden>Installér som app</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
 </div>
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
@@ -1435,12 +1435,12 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i
     const plan = simAendret(o.k) ? Object.assign(simAktive(o.k), { S: simPlan(o.k).S }) : o.plan;
     const foer = normalpris - pr.ialt >= 10 ? Math.round(normalpris) : 0;  // hvad varerne ville koste uden tilbud (skøn)
     return `<button type="button" class="antal-knap ${n === aktivN ? 'aktiv' : ''}" data-maxb="${n}" ${n > 1 ? `title="${esc(indkoebPrButik(plan))}"` : ''}>
-      <b>${navn}</b><span class="antal-pris">${foer ? `<s class="antal-foer" title="Skønnet pris for ugens madplan, hvis ingen varer var på tilbud – ens for 1, 2 og 3 butikker">${kr(foer)}</s>` : ''}<span>${kr(Math.round(pr.ialt))}</span></span>
+      <b>${navn}</b><span class="antal-pris">${foer ? `<s class="antal-foer" title="Estimeret normalpris for ugens madplan, hvis ingen varer var på tilbud – ens for 1, 2 og 3 butikker">${kr(foer)}</s>` : ''}<span>${kr(Math.round(pr.ialt))}</span></span>
       <small>${esc(butikTekst(pr.butikker?.length ? pr.butikker : o.plan.butikker))}</small>
       ${n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}</button>`;
   });
   const k = simK(), antalDage = k ? simAktive(k).length : 0;
-  const info = antalDage ? `<span class="info-i info-panel" tabindex="0" role="button" aria-label="Om priserne">i<span class="info-tekst" role="tooltip">Priserne er for ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}, regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er et skøn til normalpris. Basisvarer som salt og olie er ikke med. Det overstregede beløb er et skøn over, hvad de samme varer ville koste til normalpris. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : '';
+  const info = antalDage ? `<span class="info-i info-panel" tabindex="0" role="button" aria-label="Om priserne">i<span class="info-tekst" role="tooltip">Priserne er for ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}, regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er en estimeret normalpris (ikke en aktuel butikspris). Basisvarer som salt og olie er ikke med. Det overstregede beløb er et skøn over, hvad de samme varer ville koste til normalpris. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : '';
   const indhold = !ant ? '<p class="detalje">Ingen butik valgt endnu</p>' : !antalDage ? '<p class="detalje">Alle dage er fravalgt</p>' : felter.join('');
   return `<h3>Hvor mange butikker vil du handle i? ${info}</h3><div class="antal-kort">${indhold}</div>`;
 }
@@ -1720,12 +1720,12 @@ const prisTekst = ({ tilbud, skoen, ialt }) =>
   skoen ? `ca. ${kr(Math.round(ialt))} i alt <small>(tilbud ${kr(tilbud)} + ca. ${kr(Math.round(skoen))} øvrige)</small>`
         : tilbud ? `${kr(tilbud)} i alt` : '';
 const prisCelle = x => x.pris ? `<div class="pris">${kr(x.pris)}</div>`
-                     : x.skoen ? `<div class="pris skoen" title="Skønnet normalpris">ca. ${kr(x.skoen)}</div>` : '';
+                     : x.skoen ? `<div class="pris skoen" title="Estimeret normalpris – ikke en aktuel butikspris">ca. ${kr(x.skoen)}</div>` : '';
 
 // Sektioner på indkøbslisten: tilbud pr. butik (retter kan komme fra flere butikker), så varer til normalpris og basisvarer
 function listeSektioner(L) {
   const sek = [...new Set(L.tilbud.map(x => x.butik))].map(bk => ({ id: 'tilbud:' + bk, titel: `På tilbud i ${esc(data.butikker[bk].navn)}`, linjer: L.tilbud.filter(x => x.butik === bk) }));
-  if (L.oevrige.length) sek.push({ id: 'oevrige', titel: 'Ikke på tilbud (normalpris)', linjer: L.oevrige });
+  if (L.oevrige.length) sek.push({ id: 'oevrige', titel: 'Ikke på tilbud (estimeret normalpris)', linjer: L.oevrige });
   if (L.basis.length) sek.push({ id: 'basis', titel: 'Basisvarer – tjek om du har', linjer: L.basis });
   for (const [k, titel] of Object.entries(EKSTRA_TITLER)) if (L[k]?.length) sek.push({ id: k, titel, linjer: L[k], vaelgAlle: false });  // ikke afkrydset som standard
   return sek;
@@ -1745,7 +1745,7 @@ function andelHtml(tilbud, andet) {
   const sum = tilbud + andet;
   if (!sum) return '';
   const pct = Math.round(tilbud / sum * 100);
-  return `<div class="andel" title="Tilbudsvarer = varer, der er på tilbud i butikkens avis. Resten er varer til normalpris, og prisen på dem er et skøn.">
+  return `<div class="andel" title="Tilbudsvarer = varer, der er på tilbud i butikkens avis. Resten er varer uden tilbud, og prisen på dem er en estimeret normalpris.">
     <div class="andel-bar"><span style="width:${pct}%"></span></div>
     <div class="andel-tekst"><span><b>${pct} %</b> af varerne på tilbud (${kr(Math.round(tilbud))})</span></div>
   </div>`;
