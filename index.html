@@ -996,11 +996,29 @@ function simuler(k) {
   const kombi = (liste, n) => n === 0 ? [[]] : liste.flatMap((x, i) => kombi(liste.slice(i + 1), n - 1).map(r => [x, ...r]));
   const strikte = {};  // de gyldige madplaner pr. antal butikker
   const proev2 = delt => { proev(delt); const p = SIM_DEL[sNoegle(delt) + '|' + simSig()]; if (p.butikker.length >= delt.length) (strikte[delt.length] = strikte[delt.length] || []).push(p); };
+  // De samme retter, men nu må en ekstra butik også bruges: den tager de varer, hvor den er billigst (også når det kun sparer lidt). Bliver planen billigere, er den en gyldig
+  // plan med én butik mere – og så ser man, hvad den ekstra butik giver, selv om det er lidt.
+  const udvidPlan = (pl, S) => {
+    const t = ugePris(pl.map(x => x.r.id), planMult(pl), S);
+    const plan = medS(S, () => pl.map(x => ({ ...x, r: ret(x.r.id) || x.r })));
+    plan.S = S; plan.butikker = t.butikker;
+    plan.kost = t.ialt + SPILD_I_SAMMENLIGNING * t.spild + (t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK;
+    return plan;
+  };
+  const udvid = n => {
+    const bedste = (strikte[n - 1] || []).slice().sort((x, y) => x.kost - y.kost).slice(0, 3);
+    for (const pl of bedste) for (const x of stores.filter(y => !pl.butikker.includes(y))) {
+      const p = udvidPlan(pl, [...pl.butikker, x].sort());
+      if (p.butikker.length >= n) (strikte[n] = strikte[n] || []).push(p);
+    }
+  };
   for (let n = 1; n <= Math.min(2, max); n++) kombi(stores, n).forEach(proev2);
+  if (max >= 2) udvid(2);
   // tre eller flere: udvid de bedste kombinationer med den butik, der forbedrer mest
   for (let n = 3; n <= max; n++) {
     const bedste = (strikte[n - 1] || []).slice().sort((x, y) => x.kost - y.kost).slice(0, 3);
     for (const pl of bedste) for (const x of stores.filter(y => !pl.butikker.includes(y))) proev2([...pl.butikker, x]);
+    udvid(n);
   }
   // Ligger flere madplaner inden for TIEBREAK_KR af den billigste, foretrækkes den, der indeholder den billigste enkeltbutik (så anbefalingerne bygger på hinanden:
   // "REMA alene" → "REMA + Netto"), og derefter den med færrest butikker.
