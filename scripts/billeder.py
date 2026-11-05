@@ -2,6 +2,7 @@
 
 Brug:  python -I scripts/billeder.py            (retter i retter.json der mangler billede – højst 60 pr. kørsel som standard)
        python -I scripts/billeder.py --maks 20  (højst 20 nye billeder i denne kørsel)
+       python -I scripts/billeder.py --koekken dansk --maks 130 [--aeldre-end "2026-11-05 14:00"]  (lav alle retter i et køkken om med den nye stil)
 Kræver miljøvariablen CLOUDFLARE_API_TOKEN (nøgle med Workers AI-adgang) – den må ikke stå i koden eller sendes i chatten.
 Billeder gemmes som billeder/<navn-som-slug>.jpg (720×540, ca. 50 KB). Eksisterende billeder genbruges, så kørslen kan
 gentages: den stopper pænt, når dagens gratis grænse er nået, og fortsætter næste dag.
@@ -16,6 +17,8 @@ KONTO = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '38253a60db8406866eb2a255247002d
 MODEL = '@cf/black-forest-labs/flux-1-schnell'
 # Stilen er neutral: beskrivelsen af retten angiver selv kar, tilbehør og køkken (fad, tallerken, skål, dansk, asiatisk …)
 STIL = 'Appetizing food photography, freshly cooked homemade dish, natural daylight, rustic table, realistic, high detail, no text'
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from billedstil import byg_prompt  # noqa: E402
 BESKRIVELSER = os.path.join(ROD, 'scripts', 'billedprompts.json')  # {rettens navn: engelsk beskrivelse af den færdige ret}
 
 
@@ -35,12 +38,12 @@ def sti(navn):
 
 
 def prompt(r, besk=None):
-    """Foretræk en håndskrevet engelsk beskrivelse af den færdige ret (billedmodellen forstår ikke danske retnavne
-    som 'stuvet hvidkål'). Uden beskrivelse bruges retnavn + hovedingredienser, men det giver oftere skæve billeder."""
+    """Faglig beskrivelse af retten (billedstil.py: hvordan fx stegt flæsk, medister og frikadeller ser ud) + køkkenstil + nordisk fotostil.
+    Uden beskrivelse bruges retnavn + hovedingredienser, men det giver oftere skæve billeder."""
     if besk and r['navn'] in besk:
-        return f"{besk[r['navn']]}. {STIL}"
+        return byg_prompt(r['navn'], r.get('koekken'), besk[r['navn']])
     hoved = [i['navn'] for i in r['ingredienser'] if not i.get('basisvare')][:5]
-    return f"{r['navn']}. Main ingredients: {', '.join(hoved)}. {STIL}"
+    return byg_prompt(r['navn'], r.get('koekken'), f"{r['navn']}. Main ingredients: {', '.join(hoved)}")
 
 
 class GraenseNaaet(Exception):
@@ -81,6 +84,11 @@ def main():
     maks = int(sys.argv[sys.argv.index('--maks') + 1]) if '--maks' in sys.argv else 60
     forfra = '--forfra' in sys.argv  # lav alle billeder om (også dem der findes)
     kun = [x.strip().lower() for x in sys.argv[sys.argv.index('--kun') + 1].split(';')] if '--kun' in sys.argv else None  # kun retter hvis navn indeholder en af disse tekster (laves altid forfra)
+    koekken = sys.argv[sys.argv.index('--koekken') + 1].lower() if '--koekken' in sys.argv else None  # lav alle retter i dette køkken om
+    aeldre = None
+    if '--aeldre-end' in sys.argv:  # kun billeder, der er ældre end dette tidspunkt (ÅÅÅÅ-MM-DD TT:MM) – så en afbrudt kørsel kan genoptages
+        import datetime
+        aeldre = datetime.datetime.fromisoformat(sys.argv[sys.argv.index('--aeldre-end') + 1]).timestamp()
     besk = beskrivelser()
     d = json.load(open(os.path.join(ROD, 'retter.json'), encoding='utf-8'))
     unikke = {}
@@ -91,7 +99,13 @@ def main():
     if os.path.exists(opskr):
         for r in json.load(open(opskr, encoding='utf-8'))['opskrifter']:
             unikke.setdefault(r['navn'], r)
-    mangler = [r for n, r in unikke.items() if (kun and any(k in n.lower() for k in kun)) or (not kun and (forfra or not os.path.exists(sti(n))))][:maks]
+    def skal_laves(n, r):
+        if koekken:
+            return r.get('koekken') == koekken and (aeldre is None or not os.path.exists(sti(n)) or os.path.getmtime(sti(n)) < aeldre)
+        if kun:
+            return any(k in n.lower() for k in kun)
+        return forfra or not os.path.exists(sti(n))
+    mangler = [r for n, r in unikke.items() if skal_laves(n, r)][:maks]
     uden = [n for n in unikke if n not in besk]
     if uden:
         print(f'ADVARSEL: {len(uden)} retter mangler beskrivelse i scripts/billedprompts.json (billedet bliver dårligere): ' + '; '.join(uden[:8]))

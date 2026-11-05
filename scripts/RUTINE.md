@@ -1,6 +1,6 @@
 # Daglig opdatering af Madplan (kører automatisk kl. 06 som Claude-rutine i skyen)
 
-Siden madplan-blue.vercel.app viser ugens tilbudsaviser fra 9 butikker og ca. 50 hjemmelavede retter pr. butik, bygget
+Siden madplan-blue.vercel.app viser ugens tilbudsaviser fra 9 butikker (10 kæder) og ca. 50 hjemmelavede retter pr. butik, bygget
 ud fra butikkens egne tilbud. Vercel deployer automatisk, når `main` på GitHub opdateres.
 
 ## Trin 0 – Skal der gøres noget?
@@ -17,7 +17,7 @@ python -I scripts/tilbud.py <butik> [<butik> …] > tilbud.txt
 Det opdaterer `scripts/tilbud_snapshot.json` for de nævnte butikker og skriver tilbudslisten (id | navn | pris | mængde | beskrivelse).
 ID'erne (N1, M1 …) gælder KUN for dette øjebliksbillede. Kør derfor aldrig `tilbud.py` igen for samme butik i samme kørsel
 (rækkefølgen er ustabil, og retterne ville pege på forkerte varer). Gør du det alligevel: `git checkout HEAD -- scripts/tilbud_snapshot.json` og start forfra.
-Butikker: netto, meny, bilka, rema, kvickly, superbrugsen, lidl, 365, spar (SPAR har en tynd madavis – kvalitet før antal; `udvid_retter.py spar --min-tilbud 0.4`). Kvickly og SuperBrugsen har samme avis (se trin 3).
+Butikker: netto, meny, bilka, rema, kvickly, lidl, 365, spar, minkoebmand. Kvickly og SuperBrugsen er EN samlet butik ("kvickly" = Kvickly / SuperBrugsen): `tilbud.py` beholder kun tilbud, der gælder begge kæder, så `kopier_retter.py` og `retter/superbrugsen.json` er ikke længere i brug (SPAR har en tynd madavis – kvalitet før antal; `udvid_retter.py spar --min-tilbud 0.4`). Kvickly og SuperBrugsen har samme avis (se trin 3).
 
 ## Trin 2 – Skriv retter til hver ny butik
 Udskift ALLE ikke-auto retter i `scripts/retter/<butik>.json` (de gamle peger på sidste uges id'er og er ugyldige) og opdatér `"avis"`
@@ -42,7 +42,6 @@ Regler for retterne (kommer fra brugeren – følg dem):
 ## Trin 3 – Udvid til 50 og byg
 ```
 python -I scripts/udvid_retter.py <butik> [<butik> …]          # fylder op til 50 fra scripts/bibliotek_*.py; tilføj --min-tilbud 0.4 for butikker med tynd avis
-python -I scripts/kopier_retter.py kvickly superbrugsen        # KUN når Kvickly er ny – kopierer til SuperBrugsen (samme avis). Gør det efter at kvickly.json er færdig.
 python -I scripts/byg_retter.py                                # validerer og skriver retter.json
 python -I scripts/byg_opskrifter.py                            # opdaterer opskrifter.json (opskriftsbiblioteket koblet på ALLE butikkers tilbud – siden vælger selv billigste tilbud pr. ingrediens blandt brugerens butikker)
 python -I scripts/byg_tilbudsliste.py                          # opdaterer tilbudsliste.json ("Gode tilbud i dine butikker" nederst på indkøbslisten: sodavand, smør, mælk, vaskemiddel, shampoo … – ikke aftensmad)
@@ -57,7 +56,7 @@ Når en butik ikke når 50 med standardindstillingerne, så prøv i denne række
 1. `python -I scripts/udvid_retter.py <butik> --min-tilbud 0.3` (flere retter med færre tilbudsvarer)
 2. `... --max-noegle 6` eller 8 (lad ét tilbud, fx kyllingebryst, indgå i flere retter) og `--max-dansk 30` (flere danske retter)
 3. Mangler der stadig retter (typisk SPAR og 365discount med tynde aviser): skriv de manglende retter i hånden i `scripts/retter/<butik>.json` ud fra butikkens tilbud (varierede køkkener, hovedingrediens på tilbud) og kør `udvid_retter.py` igen – de håndskrevne retter bevares.
-Husk at kopiere Kvickly → SuperBrugsen bagefter (`kopier_retter.py`), og at skrive en engelsk billedbeskrivelse til hver ny ret (`billedprompts.json`), før `billeder.py` køres.
+Husk at skrive en engelsk billedbeskrivelse til hver ny ret (`billedprompts.json`), før `billeder.py` køres.
 
 `udvid_retter.py` udskriver for hver ny auto-ret hvilket tilbud hver ingrediens er koblet til. GENNEMGÅ listen: hvert tilbud skal give mening i retten.
 Findes en fejlkobling (fx andebryst som kyllingebryst), så ret regexen i `scripts/bibliotek_typer.py` (brug `(?<![a-zæøå])…(?![a-zæøå])` – `\b` virker ikke med æøå)

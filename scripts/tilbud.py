@@ -19,11 +19,12 @@ BUTIKKER = {
     'meny':         {'navn': 'MENY',         'dealerId': '267e1m', 'prefix': 'M'},
     'bilka':        {'navn': 'Bilka',        'dealerId': '93f13',  'prefix': 'B'},
     'rema':         {'navn': 'REMA 1000',    'dealerId': '11deC',  'prefix': 'R'},
-    'kvickly':      {'navn': 'Kvickly',      'dealerId': 'c1edq',  'prefix': 'K'},
-    'superbrugsen': {'navn': 'SuperBrugsen', 'dealerId': '0b1e8',  'prefix': 'S'},
+    # Kvickly og SuperBrugsen (Coop) har næsten samme avis: én samlet butik med de tilbud, der gælder begge steder (samme tekst og pris)
+    'kvickly':      {'navn': 'Kvickly / SuperBrugsen', 'dealerId': 'c1edq', 'prefix': 'K', 'sammen_med': '0b1e8'},
     'lidl':         {'navn': 'Lidl',         'dealerId': '71c90',  'prefix': 'L'},
     '365':          {'navn': '365discount',  'dealerId': 'DWZE1w', 'prefix': 'D'},
     'spar':         {'navn': 'SPAR',         'dealerId': '88ddE',  'prefix': 'P'},
+    'minkoebmand':  {'navn': 'Min Købmand',  'dealerId': '603dfL', 'prefix': 'X'},
 }
 # Kun den ugentlige madavis ("Uge 45", "Netto uge 45", "Lidl avis (uge 45)" …)
 UGEAVIS = re.compile(r'uge\s*\d+', re.I)
@@ -44,6 +45,14 @@ def tid(s):
 
 def fmt(v):
     return str(int(v)) if float(v).is_integer() else str(v)
+
+
+def find_aviser_dealer(dealer_id):
+    nu = datetime.now(timezone.utc)
+    kat = [c for c in hent(f"{API}/catalogs?dealer_ids={dealer_id}&limit=24")
+           if c['offer_count'] > 0 and UGEAVIS.search(c.get('label') or '')
+           and not IKKE_MAD.search(c.get('label') or '') and tid(c['run_till']) >= nu]
+    return [c for c in kat if tid(c['run_from']) <= nu] or sorted(kat, key=lambda c: tid(c['run_from']))[:1]
 
 
 def find_aviser(key):
@@ -81,10 +90,25 @@ def hent_butik(key):
                 })
             if len(side) < 100:
                 break
+    if b.get('sammen_med'):  # behold kun tilbud, der også findes (samme tekst og pris) i den anden kædes avis
+        andre = set()
+        for avis in find_aviser_dealer(b['sammen_med']):
+            for offset in range(0, 1500, 100):
+                side = hent(f"{API}/offers?catalog_id={avis['id']}&limit=100&offset={offset}")
+                andre |= {((o.get('heading') or '').strip().lower(), (o.get('pricing') or {}).get('price')) for o in side}
+                if len(side) < 100:
+                    break
+        faelles = [t for t in tilbud if (t['navn'].lower(), t['pris']) in andre]
+        if andre and len(faelles) >= 0.5 * len(tilbud):
+            print(f"{b['navn']}: {len(faelles)} af {len(tilbud)} tilbud gælder begge kæder", file=sys.stderr)
+            tilbud = faelles
+        else:
+            print(f"ADVARSEL {b['navn']}: den anden kædes avis passer ikke (fælles {len(faelles)} af {len(tilbud)}) – bruger alle tilbud", file=sys.stderr)
     tilbud.sort(key=lambda t: (t['side'], t['navn'], t['id']))  # så stabilt som muligt
     tilbud = [{**t, 'kort': f"{b['prefix']}{n + 1}"} for n, t in enumerate(tilbud)]
     dealer = hent(f"{API}/dealers/{b['dealerId']}")
-    info = {'navn': b['navn'], 'logo': dealer.get('logo'), 'farve': '#' + (dealer.get('color') or '10B981'), 'aviser': [{'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
+    logo2 = hent(f"{API}/dealers/{b['sammen_med']}").get('logo') if b.get('sammen_med') else None
+    info = {'navn': b['navn'], 'logo': dealer.get('logo'), 'logo2': logo2, 'farve': '#' + (dealer.get('color') or '10B981'), 'aviser': [{'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
     return info, tilbud
 
 

@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#15100C">
 <title>Måltidsjagten — ugens retter ud fra tilbudsaviserne</title>
-<meta name="description" content="Måltidsjagten finder ugens bedste tilbud i Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount og SPAR og foreslår hjemmelavede retter med opskrifter, indkøbsliste og ugeplan.">
+<meta name="description" content="Måltidsjagten finder ugens bedste tilbud i Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount, SPAR og Min Købmand og foreslår hjemmelavede retter med opskrifter, indkøbsliste og ugeplan.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Savner du inspiration til aftensmaden? | Måltidsjagten">
-<meta property="og:description" content="Vi gør ugens tilbud fra 9 supermarkeder til opskrifter med pris pr. person, indkøbsseddel og ugeplan.">
+<meta property="og:description" content="Vi gør ugens tilbud fra 10 supermarkeder til opskrifter med pris pr. person, indkøbsseddel og ugeplan.">
 <meta property="og:image" content="https://www.xn--mltidsjagten-tcb.dk/og-image.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -187,6 +187,8 @@ button.slet-valg[hidden] { display: none; }
 .ubrugt-note { margin: 10px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
 .ubrugt-note:empty { display: none; }
 .butik-chip .logo.fyldt { width: auto; min-width: 36px; padding: 0; }
+.logo.dobbelt { width: auto !important; padding: 0 !important; background: transparent; box-shadow: none; gap: 4px; }
+.logo.dobbelt img { height: 24px; width: auto; max-width: none; border-radius: 6px; }
 .butik-chip:hover .logo, .butik-chip.aktiv .logo { opacity: 1; }
 .butik-chip:hover { border-color: rgba(232,116,59,.5); }
 .butik-chip.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
@@ -485,7 +487,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
   <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
-  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount eller SPAR. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><button type="button" class="fod-knap" id="installer" hidden>Installér som app</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
+  <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount, SPAR eller Min Købmand. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er skøn.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><button type="button" class="fod-knap" id="installer" hidden>Installér som app</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
 </div>
 
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
@@ -569,12 +571,16 @@ const gem = () => {
   if (sb && bruger && harValg()) { clearTimeout(skyTimer); skyTimer = setTimeout(gemSky, 1200); }
 };
 // Gendan gemte valg: behold kun det, der stadig passer til ugens retter
+const BUTIK_ALIAS = { superbrugsen: 'kvickly' };  // SuperBrugsen er samlet med Kvickly (samme avis)
+const medAlias = ks => [...new Set((ks || []).map(k => BUTIK_ALIAS[k] || k))];
 function gendan(gemt) {
   const s = { ...structuredClone(TOM), ...gemt.state };
   if (gemt.state?.voksne == null) [s.voksne, s.boern] = fraPersoner(gemt.state?.personer ?? 4);
   s.personer = s.voksne + s.boern;
   if (!gemt.state?.butikker?.length && s.butik) s.butikker = [s.butik];  // gamle valg havde kun én butik
-  s.butikker = (s.butikker || []).filter(k => data.butikker[k]);
+  s.butikker = medAlias(s.butikker).filter(k => data.butikker[k]);
+  if (BUTIK_ALIAS[s.butik]) s.butik = BUTIK_ALIAS[s.butik];
+  s.koebButikker = medAlias(s.koebButikker);
   if (!s.butikker.includes(s.butik)) s.butik = s.butikker[0] || null;
   const b = s.butik && data.butikker[s.butik];
   if (!b) return { ...structuredClone(TOM), ...husstand(s) };
@@ -813,7 +819,9 @@ const kortNavn = n => {
 // Kædens logo i en hvid "chip", så alle logoer står pænt på den mørke baggrund
 // Logoer med egen farvet baggrund (firkanter) vises direkte; skrift-logoer (gennemsigtige) ligger på en blød lys flade
 const FYLDTE_LOGOER = ['Kvickly', 'SuperBrugsen', 'Lidl', '365discount'];
-const logo = b => b.logo
+const logo = b => b.logo && b.logo2
+  ? `<span class="logo dobbelt" title="${esc(b.navn)}"><img src="${esc(b.logo)}" alt="" loading="lazy"><img src="${esc(b.logo2)}" alt="" loading="lazy"></span>`
+  : b.logo
   ? `<span class="logo ${FYLDTE_LOGOER.includes(b.navn) ? 'fyldt' : ''}"><img src="${esc(b.logo)}" alt="${esc(b.navn)}" loading="lazy"></span>`
   : `<span class="logo tekst">${esc(b.navn)}</span>`;
 
@@ -1082,7 +1090,7 @@ function tilpasButikker() {  // holder valgte retter, ugeplan og aktiv butik i t
 function anvendHusstand(h) {
   if (!h || !(h.voksne >= 1) || !(h.boern >= 0)) return false;
   state.voksne = Math.min(8, Math.floor(h.voksne)); state.boern = Math.min(8, Math.floor(h.boern)); state.personer = state.voksne + state.boern;
-  if (Array.isArray(h.butikker) && h.butikker.length) state.butikker = h.butikker.filter(k => data.butikker[k]);
+  if (Array.isArray(h.butikker) && h.butikker.length) state.butikker = medAlias(h.butikker).filter(k => data.butikker[k]);
   if (h.max >= 0) state.maxButikker = Math.min(8, Math.floor(h.max));
   if (h.valgt) state.butikValgt = true;
   if (h.intro) localStorage.setItem(INTRO_GEM, '1');  // rundvisningen er set (også på en anden enhed)
