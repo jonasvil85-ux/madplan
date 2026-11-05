@@ -131,7 +131,8 @@ button.slet-valg[hidden] { display: none; }
 .dag-kort { position: relative; }
 .dag-knapper { position: absolute; top: 36px; right: 6px; z-index: 2; display: inline-flex; gap: 4px; }
 .dag-knapper .byt-knap { margin-left: 0; background: rgba(21,16,12,.8); border-color: rgba(255,226,190,.28); color: var(--text-2); }
-.dag-knapper .byt-knap:hover, .dag-knapper .byt-knap:focus-visible { background: rgba(21,16,12,.95); }
+@media (hover: hover) { .dag-knapper .byt-knap:hover { background: rgba(21,16,12,.95); } }
+.dag-knapper .byt-knap:focus-visible { background: rgba(21,16,12,.95); }
 .dag-kort.fravalgt { border-style: dashed; background: transparent; }
 .dag-kort.fravalgt .dag-top b { color: var(--text-3); }
 .dag-fra { flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; padding: 14px 10px 14px; }
@@ -140,7 +141,7 @@ button.slet-valg[hidden] { display: none; }
 .dag-fra .byt-knap { margin: 8px 0 0; }
 .byt-knap.udvidet span { display: inline; }
 .simulering { scroll-margin-top: 14px; border-color: rgba(232,116,59,.45); }
-.simulering .panel-hoved { align-items: flex-start; }
+.simulering .panel-hoved { align-items: center; min-height: 34px; }  /* fast højde, så overskriften ikke hopper, når 'Tilbage til forslaget' kommer frem */
 .simulering .panel-hoved h2 { margin: 0 0 3px; }
 .simulering .panel-hoved .detalje { margin: 0; font-size: 13px; color: var(--text-3); }
 .tom-plan { min-height: 420px; }
@@ -157,7 +158,9 @@ button.slet-valg[hidden] { display: none; }
 .byt-knap { padding: 3px 6px; }
 .byt-knap span { display: none; }
 @media (max-width: 600px) { .byt-knap { padding: 3px 10px 3px 8px; font-size: 12px; } .byt-knap span { display: inline; } }
-.byt-knap:hover, .byt-knap:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+@media (hover: hover) { .byt-knap:hover { border-color: var(--accent); color: var(--accent); } }
+.byt-knap:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+.byt-knap { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .dag-top { gap: 6px; }
 .dag-top small { margin-right: 2px; }
 .dag-kort { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
@@ -240,6 +243,7 @@ button.slet-valg[hidden] { display: none; }
 .info-i:hover, .info-i:focus-visible, .info-i.aaben { background: var(--accent-fill); border-color: var(--accent-fill); color: #fff; outline: none; }
 .panel-hoved-hoejre { display: flex; align-items: center; gap: 10px; flex: none; }
 @media (max-width: 700px) { .panel-hoved { flex-wrap: wrap; } .panel-hoved-hoejre { width: 100%; justify-content: space-between; } }
+@media (max-width: 700px) { .simulering .panel-hoved { flex-wrap: nowrap; } .simulering .panel-hoved-hoejre { width: auto; } }
 .panel-hoved { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .panel-hoved h2 { margin: 0; }
 .info-bred .info-tekst { width: min(340px, 80vw); }
@@ -1337,15 +1341,16 @@ function butikPanel() {
   </div></div>`;
 }
 // Flueben/antal butikker/madplan: opdatér kun det, der ændrer sig (logoerne og siden står stille, og der scrolles ikke)
-function opdaterButik() {
-  const y = window.scrollY;
+function opdaterButik(anker) {  // anker: vælger for det element, der skal blive stående det samme sted på skærmen (fx dagkortet, man trykkede på)
+  const y = window.scrollY, foer = anker ? document.querySelector(anker)?.getBoundingClientRect().top : undefined;
   const ub = ubrugteButikker();
   document.querySelectorAll('.butik-chip').forEach(c => { const k = c.dataset.butikvalg, v = state.butikker.includes(k); c.classList.toggle('aktiv', v); c.classList.toggle('ubrugt', ub.includes(k)); c.setAttribute('aria-pressed', String(v)); });
   const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
   const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
   opdaterRamme();
   gem();
-  window.scrollTo(0, y);
+  const nu = foer !== undefined ? document.querySelector(anker)?.getBoundingClientRect().top : undefined;
+  window.scrollTo(0, nu !== undefined ? y + nu - foer : y);
 }
 
 function renderButikker() {
@@ -1942,10 +1947,10 @@ document.addEventListener('click', e => {
   else if ('introLuk' in d) { return introLuk(); }
   else if (d.husstandAabn !== undefined) { husstandAaben = !husstandAaben; return husstandLinje(); }
   else if (d.koekken) state.koekken = d.koekken;
-  else if (d.simByt !== undefined) { simByt(simK(), +d.simByt); return opdaterButik(); }
+  else if (d.simByt !== undefined) { simByt(simK(), +d.simByt); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simByt + 1})`); }
   else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; return opdaterButik(); }
-  else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); return opdaterButik(); }
-  else if (d.simGendan !== undefined) { simFra[simK()]?.delete(+d.simGendan); return opdaterButik(); }
+  else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simFjern + 1})`); }
+  else if (d.simGendan !== undefined) { simFra[simK()]?.delete(+d.simGendan); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simGendan + 1})`); }
   else if (d.butikvalg) { if (!skiftButik(d.butikvalg)) return; return opdaterButik(); }
   else if (d.maxb) { state.maxButikker = +d.maxb === anbefaletAntal() ? 0 : +d.maxb; state.koebButikker = []; gemHusstand(); return opdaterButik(); }
   else if (d.aktivbutik) state.butik = d.aktivbutik;
