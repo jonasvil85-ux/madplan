@@ -202,6 +202,7 @@ button.slet-valg[hidden] { display: none; }
 .butik-chip .logo.fyldt { width: auto; min-width: 36px; padding: 0; }
 .logo.dobbelt { width: auto !important; padding: 0 !important; background: transparent; box-shadow: none; gap: 4px; }
 .logo.dobbelt img { height: 24px; width: auto; max-width: none; border-radius: 6px; }
+@media (max-width: 760px) { .butik-chip .logo.dobbelt { width: 100% !important; height: auto; gap: 3px; } .butik-chip .logo.dobbelt img { width: calc(50% - 1.5px); height: auto; max-width: 100%; border-radius: 4px; } }  /* Kvickly og SuperBrugsen små side om side i én almindelig boks */
 .butik-chip:hover .logo, .butik-chip.aktiv .logo { opacity: 1; }
 .butik-chip:hover { border-color: rgba(232,116,59,.5); }
 .butik-chip.aktiv { border-color: var(--accent); background: rgba(232,116,59,.12); }
@@ -219,7 +220,7 @@ button.slet-valg[hidden] { display: none; }
 .butik-chip.aktiv.ubrugt { border-style: dashed; border-color: rgba(255,226,190,.4); background: transparent; }
 .butik-chip.ubrugt .afkryds { background: var(--text-3); }
 .butik-chip.ubrugt .logo { opacity: .55; }
-@media (max-width: 760px) { .butik-grid { grid-template-columns: 1fr; } .butik-chips { grid-auto-flow: dense; } .butik-chip.bred { grid-column: span 2; } }  /* to logoer (Kvickly / SuperBrugsen) fylder to felter på mobilen */
+@media (max-width: 760px) { .butik-grid { grid-template-columns: 1fr; } }
 .afkryds { display: none; position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-fill); color: #fff; font-style: normal; font-size: 12px; line-height: 19px; text-align: center; }
 .butik-chip.aktiv .afkryds { display: block; }
 @media (min-width: 761px) {
@@ -1462,7 +1463,7 @@ function butikPanel() {
   const alle = Object.keys(data.butikker), ub = ubrugteButikker();
   return `<div class="panel butikpanel"><div class="butik-grid">
     <div class="butik-venstre"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
-      <button type="button" class="butik-chip ${b.logo2 ? 'bred' : ''} ${valgt ? 'aktiv' : ''} ${ub.includes(k) ? 'ubrugt' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${ub.includes(k) ? ' – ikke med i madplanen: det er ikke billigere' : ''}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
+      <button type="button" class="butik-chip ${valgt ? 'aktiv' : ''} ${ub.includes(k) ? 'ubrugt' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${ub.includes(k) ? ' – ikke med i madplanen: det er ikke billigere' : ''}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
         ${logo(b)}<span class="bc-navn">${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}</span><i class="afkryds">✓</i>
       </button>`; }).join('')}</div></div>
     <div class="butik-hoejre" id="antal-plads">${antalValgHtml()}</div>
