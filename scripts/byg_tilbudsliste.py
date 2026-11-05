@@ -87,7 +87,8 @@ def byg_grupper(data):
                 n = pr_butik[(t['butik'], g)] = pr_butik.get((t['butik'], g), 0) + 1
                 if n <= 30:
                     grupper[g].append({'butik': t['butik'], 'kort': t['kort'], 'navn': t['navn'], 'pris': t['pris'], 'forPris': t.get('forPris'), 'maengde': t.get('maengde'),
-                                       'enhed': t.get('enhed'), 'billede': t.get('billede'), 'gyldigTil': t.get('gyldigTil'), 'under': under, 'noegle': noegle(t['navn'])})
+                                       'enhed': t.get('enhed'), 'billede': t.get('billede'), 'gyldigTil': t.get('gyldigTil'), 'under': under, 'noegle': noegle(t['navn']),
+                                       'note': (re.search(r'pr\. (100 g|kg|stk|liter|l)', t.get('beskrivelse') or '', re.I) or [None])[0]})
                 break  # højst én gruppe pr. vare
     return grupper
 

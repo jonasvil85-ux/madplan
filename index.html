@@ -1694,7 +1694,7 @@ function listeLinjer() {
       const g = ekstraTilbud(new Set(l.tilbud.map(v => v.key)), l.tilbud.length ? [...new Set(l.tilbud.map(v => v.butik))] : aktivS());
       return Object.fromEntries(Object.keys(EKSTRA_TITLER).map(k => [k, (g[k] || []).map(t => ({
         key: 'g|' + t.kort, butik: t.butik, navn: kortNavn(t.navn), gruppe: varegruppe(t.navn), pris: t.pris, billede: t.billede, soeg: soegeord(t.navn),
-        detalje: `${esc(t.under)} · ${esc(data.butikker[t.butik].navn)}`,
+        detalje: `${esc(t.under)} · ${esc(data.butikker[t.butik].navn)}${t.note ? ' · ' + esc(t.note.toLowerCase()) : ''}`,
       }))]));
     })(),
   };
