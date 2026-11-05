@@ -279,7 +279,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .chip.lille { padding: 2px 9px; font-size: 12px; }
 .fod { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; font-size: 11.5px; color: var(--text-3); opacity: .6; line-height: 1.6; }
 .fod:hover, .fod:focus-within, .fod:has(details[open]) { opacity: .9; }
-#intro { position: fixed; inset: 0; z-index: 300; }
+#intro { position: fixed; inset: 0; z-index: 300; touch-action: none; }
 .intro-hul { position: fixed; border-radius: 14px; outline: 2px solid var(--accent); box-shadow: 0 0 0 100vmax rgba(10,7,5,.8); pointer-events: none; transition: left .25s, top .25s, width .25s, height .25s; }
 .intro-kort { position: fixed; width: min(330px, calc(100vw - 24px)); padding: 14px 16px 14px; background: var(--surface-2); border: 1px solid rgba(232,116,59,.55); border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,.55); }
 .intro-kort small { color: var(--text-3); font-size: 12px; }
@@ -1871,12 +1871,12 @@ const INTRO_TRIN = [
   { sel: '[data-sim-indkoeb]', titel: 'Klar til at handle?', tekst: 'Tryk her, når du er tilfreds – så laver vi indkøbssedlen til dig.' },
   { sel: '[data-sim-vaelg]', titel: 'Vil du vælge selv?', tekst: 'Tryk her for at se alle retter og selv vælge dem, du har lyst til. Du kan sortere dem efter pris.' },
 ];
-let introNr = -1;
+let introNr = -1, introRamme = 0, introSkrol = 0;
 const introSet = () => !!localStorage.getItem(INTRO_GEM);
 function introLuk() {
   document.getElementById('intro')?.remove();
-  document.body.style.overflow = '';
   window.removeEventListener('resize', introPlacer);
+  cancelAnimationFrame(introRamme); clearInterval(introSkrol);
   introNr = -1;
   if (!introSet()) { localStorage.setItem(INTRO_GEM, '1'); gemHusstand(); }  // vises kun første gang (følger også brugeren)
 }
@@ -1900,16 +1900,27 @@ function introVis(nr) {
   if (!ov) {
     ov = document.createElement('div'); ov.id = 'intro'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'Rundvisning');
     ov.innerHTML = '<div class="intro-hul"></div><div class="intro-kort"></div>';
-    document.body.appendChild(ov); document.body.style.overflow = 'hidden';
+    document.body.appendChild(ov);
+    for (const h of ['wheel', 'touchmove']) ov.addEventListener(h, e => e.preventDefault(), { passive: false });  // siden bag rundvisningen står stille
     window.addEventListener('resize', introPlacer);
   }
   const sidste = nr === INTRO_TRIN.length - 1;
   ov.querySelector('.intro-kort').innerHTML = `<small>${nr + 1} af ${INTRO_TRIN.length}</small><b>${t.titel}</b><p>${t.tekst}</p>
     <div class="intro-knapper">${sidste ? '<span></span>' : '<button type="button" class="intro-spring" data-intro-luk>Spring over</button>'}<button type="button" class="knap" data-intro-naeste>${sidste ? 'Kom i gang' : 'Næste'}</button></div>`;
-  const r0 = el.getBoundingClientRect(), hoej = innerHeight, kortH = 190;
-  const maal = Math.max(60, (hoej - Math.min(r0.height + kortH + 14, hoej)) / 2);  // området og kortet skal begge kunne ses
-  window.scrollTo(0, Math.max(0, window.scrollY + r0.top - maal));
-  requestAnimationFrame(() => { introPlacer(); ov.querySelector('[data-intro-naeste]').focus({ preventScroll: true }); });
+  // Scroll hen til området. Billeder og indhold kan stadig indlæses (siden skifter højde), så der scrolles igen et par gange, og rammen følger området hele tiden
+  const skrol = () => {
+    const e = document.querySelector(t.sel); if (!e || introNr !== nr) return;
+    const r0 = e.getBoundingClientRect(), hoej = innerHeight, kortH = 190;
+    const maal = Math.max(60, (hoej - Math.min(r0.height + kortH + 14, hoej)) / 2);  // området og kortet skal begge kunne ses
+    if (Math.abs(r0.top - maal) > 24 || r0.bottom > hoej - 8) window.scrollTo(0, Math.max(0, window.scrollY + r0.top - maal));
+  };
+  skrol();
+  clearInterval(introSkrol); let n = 0;
+  introSkrol = setInterval(() => { skrol(); if (++n >= 8) clearInterval(introSkrol); }, 250);
+  cancelAnimationFrame(introRamme);
+  const foelg = () => { if (introNr < 0) return; introPlacer(); introRamme = requestAnimationFrame(foelg); };
+  foelg();
+  requestAnimationFrame(() => ov.querySelector('[data-intro-naeste]').focus({ preventScroll: true }));
 }
 function introStart() {
   if (state.trin !== 'butik') { state.trin = 'butik'; render(); }
