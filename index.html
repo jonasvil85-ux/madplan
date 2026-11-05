@@ -1354,15 +1354,17 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i
   const ant = state.butikker.length;
   const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
   const priser = m.map(muligPris);
+  const refI = Math.max(0, m.findIndex(o => o.n === aktivN));  // det overstregede beløb er ens på alle felter: normalprisen for den madplan, der vises nedenunder
+  const normalpris = priser[refI] ? priser[refI].ialt + priser[refI].spar : 0;
   let sidst = -1;  // et felt, der ikke er billigere end det forrige (efter dine ændringer), vises ikke – undtagen det valgte
   const felter = m.map((o, i) => {
     if (i && o.n !== aktivN && priser[i].ialt >= priser[sidst].ialt - 1) return '';
     sidst = i;
     const n = o.n, navn = n === 1 ? '1 butik' : n + ' butikker', pr = priser[i];
     const plan = simAendret(o.k) ? Object.assign(simAktive(o.k), { S: simPlan(o.k).S }) : o.plan;
-    const foer = pr.spar >= 10 ? Math.round(pr.ialt + pr.spar) : 0;  // hvad de samme varer ville koste til normalpris (skøn)
+    const foer = normalpris - pr.ialt >= 10 ? Math.round(normalpris) : 0;  // hvad varerne ville koste uden tilbud (skøn)
     return `<button type="button" class="antal-knap ${n === aktivN ? 'aktiv' : ''}" data-maxb="${n}" ${n > 1 ? `title="${esc(indkoebPrButik(plan))}"` : ''}>
-      <b>${navn}</b><span class="antal-pris">${foer ? `<s class="antal-foer" title="Skønnet normalpris for de samme varer">${kr(foer)}</s>` : ''}<span>${kr(Math.round(pr.ialt))}</span></span>
+      <b>${navn}</b><span class="antal-pris">${foer ? `<s class="antal-foer" title="Skønnet pris for ugens madplan, hvis ingen varer var på tilbud – ens for 1, 2 og 3 butikker">${kr(foer)}</s>` : ''}<span>${kr(Math.round(pr.ialt))}</span></span>
       <small>${esc(butikTekst(pr.butikker?.length ? pr.butikker : o.plan.butikker))}</small>
       ${n === anb && m.length > 1 ? '<i class="anbef">Anbefalet</i>' : ''}</button>`;
   });
