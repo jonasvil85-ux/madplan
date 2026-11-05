@@ -1,6 +1,6 @@
 # Daglig opdatering af Madplan (kører automatisk kl. 06 som Claude-rutine i skyen)
 
-Siden madplan-blue.vercel.app viser ugens tilbudsaviser fra 8 butikker og ca. 50 hjemmelavede retter pr. butik, bygget
+Siden madplan-blue.vercel.app viser ugens tilbudsaviser fra 9 butikker og ca. 50 hjemmelavede retter pr. butik, bygget
 ud fra butikkens egne tilbud. Vercel deployer automatisk, når `main` på GitHub opdateres.
 
 ## Trin 0 – Skal der gøres noget?
@@ -17,7 +17,7 @@ python -I scripts/tilbud.py <butik> [<butik> …] > tilbud.txt
 Det opdaterer `scripts/tilbud_snapshot.json` for de nævnte butikker og skriver tilbudslisten (id | navn | pris | mængde | beskrivelse).
 ID'erne (N1, M1 …) gælder KUN for dette øjebliksbillede. Kør derfor aldrig `tilbud.py` igen for samme butik i samme kørsel
 (rækkefølgen er ustabil, og retterne ville pege på forkerte varer). Gør du det alligevel: `git checkout HEAD -- scripts/tilbud_snapshot.json` og start forfra.
-Butikker: netto, meny, bilka, rema, kvickly, superbrugsen, lidl, 365. Kvickly og SuperBrugsen har samme avis (se trin 3).
+Butikker: netto, meny, bilka, rema, kvickly, superbrugsen, lidl, 365, spar (SPAR har en tynd madavis – kvalitet før antal; `udvid_retter.py spar --min-tilbud 0.4`). Kvickly og SuperBrugsen har samme avis (se trin 3).
 
 ## Trin 2 – Skriv retter til hver ny butik
 Udskift ALLE ikke-auto retter i `scripts/retter/<butik>.json` (de gamle peger på sidste uges id'er og er ugyldige) og opdatér `"avis"`

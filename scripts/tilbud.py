@@ -23,6 +23,7 @@ BUTIKKER = {
     'superbrugsen': {'navn': 'SuperBrugsen', 'dealerId': '0b1e8',  'prefix': 'S'},
     'lidl':         {'navn': 'Lidl',         'dealerId': '71c90',  'prefix': 'L'},
     '365':          {'navn': '365discount',  'dealerId': 'DWZE1w', 'prefix': 'D'},
+    'spar':         {'navn': 'SPAR',         'dealerId': '88ddE',  'prefix': 'P'},
 }
 # Kun den ugentlige madavis ("Uge 45", "Netto uge 45", "Lidl avis (uge 45)" …)
 UGEAVIS = re.compile(r'uge\s*\d+', re.I)

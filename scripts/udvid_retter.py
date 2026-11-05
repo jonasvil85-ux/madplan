@@ -31,6 +31,10 @@ IKKE_MAD = re.compile(r"test|maske|mask|collagen|shampoo|vitamin|lotion|parfum
                       r"foder|gel|creme|serum|plaster|tablet|medicin|pastel|pastis", re.I)
 
 
+# Typer, hvor tilbuddets BESKRIVELSE (ikke kun navnet) afgør, om det passer (navnet er fx bare "Rana Pasta" eller "Arla Yoghurt")
+BESKRIVELSE_EKSKL = {'yoghurt': r'pære|banan|jordbær|blåbær|vanilje|mango|fersken|skovbær|frugt', 'pasta': r'tortell|ravioli|fyldt|gnocchi'}
+
+
 def forste(navn):
     return re.split(r' eller |,', navn)[0].lower()
 
@@ -42,6 +46,8 @@ def kandidater(tilbud, typ):
         f = forste(t['navn'])
         if not t.get('pris') or BR.FORARBEJDET.search(f) or IKKE_MAD.search(f):
             continue
+        if typ in BESKRIVELSE_EKSKL and re.search(BESKRIVELSE_EKSKL[typ], (t.get('beskrivelse') or '').split('.')[0].lower()):
+            continue  # fx sød yoghurt (pære/banan) til naturel-yoghurt, eller fyldt pasta (tortellini) til pasta
         if re.search(inkl, f) and not (ekskl and re.search(ekskl, f)):
             ud.append(t)
     return ud
