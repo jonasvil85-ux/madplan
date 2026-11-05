@@ -111,33 +111,6 @@
       "koekken": "dansk"
     },
     {
-      "som": "Hokkaidosuppe med lunt brød",
-      "tilbud": {
-        "økologisk hokkaido-græskar": {
-          "navn": "Änglamark økologisk hokkaido",
-          "tilbud": [
-            "S63"
-          ]
-        },
-        "Milbona madlavningsjævner": {
-          "navn": "AMA madlavning",
-          "tilbud": [
-            "S39"
-          ],
-          "maengde": 330
-        },
-        "Schulstad Signaturbrød": {
-          "navn": "Schulstad levebrød",
-          "tilbud": [
-            "S21"
-          ]
-        }
-      },
-      "erstat": {
-        "madlavningsjævneren": "madlavningsfløden"
-      }
-    },
-    {
       "navn": "Pasta med kylling og portobello i flødesauce",
       "beskrivelse": "Kyllingestrimler og kraftige portobellosvampe i cremet sauce – hurtig hverdagspasta.",
       "niveau": "student",
@@ -621,25 +594,6 @@
       }
     },
     {
-      "som": "Helstegt kylling med rodfrugter",
-      "tilbud": {
-        "hel kylling": {
-          "navn": "Xtra! hel kylling",
-          "tilbud": [
-            "S89"
-          ]
-        },
-        "gulerødder": {
-          "navn": "økologiske pastinakker",
-          "tilbud": [
-            "S64"
-          ],
-          "maengde": 500,
-          "enhed": "g"
-        }
-      }
-    },
-    {
       "som": "Mørbradgryde med porrer og ris",
       "tilbud": {
         "svinemørbrad": {
@@ -764,12 +718,7 @@
           "navn": "piskefløde",
           "tilbud": []
         },
-        "skiveost": {
-          "navn": "Riberhus havarti",
-          "tilbud": [
-            "S94"
-          ]
-        }
+        "revet ost": []
       }
     },
     {
@@ -975,29 +924,6 @@
           "navn": "piskefløde",
           "tilbud": []
         }
-      }
-    },
-    {
-      "som": "Andebryst med druesauce og ovnbagte rodfrugter",
-      "tilbud": {
-        "ferske andebryst": {
-          "navn": "andebryst",
-          "tilbud": [
-            "S34"
-          ],
-          "maengde": 780
-        },
-        "gulerødder": {
-          "navn": "økologiske pastinakker",
-          "tilbud": [
-            "S64"
-          ],
-          "maengde": 500,
-          "enhed": "g"
-        }
-      },
-      "erstat": {
-        "gulerødder": "pastinakker"
       }
     },
     {
@@ -1580,6 +1506,61 @@
       "koekken": "vegetar"
     },
     {
+      "som": "Kyllingesalat med spidskål, mango og avocado",
+      "tilbud": {
+        "Madværket kyllingeinderfilet": [
+          "S84"
+        ],
+        "spidskål": [
+          "S44"
+        ],
+        "Schulstad Signaturbrød": [
+          "S21"
+        ]
+      }
+    },
+    {
+      "som": "Svinemørbrad i bacon med hasselbackkartofler",
+      "tilbud": {
+        "svinemørbrad": [
+          "S1"
+        ],
+        "bacon i skiver": [
+          "S99"
+        ]
+      }
+    },
+    {
+      "som": "Kyllingebryst i fad med rød peber og kartofler",
+      "tilbud": {
+        "kyllingebrystfilet": [
+          "S84"
+        ],
+        "skyr": [
+          "S22"
+        ]
+      }
+    },
+    {
+      "som": "Hokkaidosuppe med lunt brød",
+      "tilbud": {
+        "økologisk hokkaido-græskar": [
+          "S63"
+        ],
+        "Schulstad Signaturbrød": [
+          "S21"
+        ]
+      }
+    },
+    {
+      "som": "Hjemmelavet kødsovs med spaghetti",
+      "tilbud": {
+        "hakket oksekød": [
+          "S157"
+        ]
+      }
+    },
+    {
       "navn": "Cheeseburger-pasta med hakket oksekød",
       "beskrivelse": "One-pot pasta med kød, tomat og ost – børnenes favorit.",
       "kategori": "okse",
@@ -1983,84 +1964,6 @@
       "auto": true
     },
     {
-      "navn": "Risotto med kylling og champignon",
-      "beskrivelse": "Cremet risotto med møre kyllingestykker, champignon og parmesan.",
-      "kategori": "kylling",
-      "koekken": "italiensk",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog 1 liter vand op med bouillon, og hold den varm. Skær kyllingen i tern, og brun den i smør. Tag den op.",
-        "Svits hakket løg og champignon i skiver, tilsæt risene, og rør rundt et minut.",
-        "Tilsæt bouillon, en øse ad gangen, under omrøring, til risene er møre og cremede (ca. 20 minutter).",
-        "Vend kylling og revet Grana Padano i, og smag til med salt og peber."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          400,
-          "g",
-          0,
-          [
-            "S84"
-          ]
-        ],
-        [
-          "risottoris eller kogt ris",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "champignon",
-          250,
-          "g",
-          0,
-          [
-            "S43"
-          ]
-        ],
-        [
-          "Grana Padano",
-          60,
-          "g",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hønsebouillon",
-          2,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
       "navn": "Stegte nudler med kylling og grønt",
       "beskrivelse": "Nudler vendt med kylling, æg og knasende grøntsager – klar på 25 minutter.",
       "kategori": "kylling",
@@ -2310,42 +2213,44 @@
       "auto": true
     },
     {
-      "navn": "Pasta carbonara",
-      "beskrivelse": "Cremet pasta uden fløde – kun æg, sprød bacon og parmesan. Klar på 20 minutter.",
-      "kategori": "svin",
+      "navn": "Risotto med kylling og champignon",
+      "beskrivelse": "Cremet risotto med møre kyllingestykker, champignon og parmesan.",
+      "kategori": "kylling",
       "koekken": "italiensk",
-      "tid_minutter": 20,
+      "tid_minutter": 40,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog pastaen i saltet vand, og gem en kop af kogevandet.",
-        "Steg bacon sprødt med det knuste hvidløg, og tag panden af varmen.",
-        "Pisk æg med revet ost og masser af peber.",
-        "Vend pastaen i baconpanden, og rør ægblandingen i med lidt kogevand til en cremet sauce. Server straks."
+        "Kog 1 liter vand op med bouillon, og hold den varm. Skær kyllingen i tern, og brun den i smør. Tag den op.",
+        "Svits hakket løg og champignon i skiver, tilsæt risene, og rør rundt et minut.",
+        "Tilsæt bouillon, en øse ad gangen, under omrøring, til risene er møre og cremede (ca. 20 minutter).",
+        "Vend kylling og revet Grana Padano i, og smag til med salt og peber."
       ],
-      "niveau": "student",
+      "niveau": "familie",
       "ingredienser": [
         [
-          "bacon i tern",
+          "kyllingebryst",
+          400,
+          "g",
+          0,
+          [
+            "S84"
+          ]
+        ],
+        [
+          "risottoris eller kogt ris",
+          300,
+          "g",
+          0,
+          []
+        ],
+        [
+          "champignon",
           250,
           "g",
           0,
           [
-            "S99"
+            "S43"
           ]
-        ],
-        [
-          "pasta",
-          400,
-          "g",
-          0,
-          []
-        ],
-        [
-          "æg",
-          4,
-          "stk",
-          0,
-          []
         ],
         [
           "Grana Padano",
@@ -2355,16 +2260,30 @@
           []
         ],
         [
-          "hvidløg",
+          "løg",
           1,
-          "fed",
+          "stk",
           0,
           []
         ],
         [
-          "sort peber",
+          "smør",
+          30,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hønsebouillon",
+          2,
+          "stk",
           1,
-          "tsk",
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
           1,
           []
         ]
@@ -2440,26 +2359,27 @@
       "auto": true
     },
     {
-      "navn": "Kylling og porre i fløde med pasta",
-      "beskrivelse": "Cremet pasta med kyllingestrimler, porre og smeltet ost.",
-      "kategori": "kylling",
+      "navn": "Pasta carbonara",
+      "beskrivelse": "Cremet pasta uden fløde – kun æg, sprød bacon og parmesan. Klar på 20 minutter.",
+      "kategori": "svin",
       "koekken": "italiensk",
-      "tid_minutter": 30,
+      "tid_minutter": 20,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog pastaen. Steg kyllingestrimler i olie, og tilsæt porre i ringe.",
-        "Hæld fløden over, og lad det simre i 5 minutter. Smag til med salt og peber.",
-        "Vend pasta og ost i, til osten smelter."
+        "Kog pastaen i saltet vand, og gem en kop af kogevandet.",
+        "Steg bacon sprødt med det knuste hvidløg, og tag panden af varmen.",
+        "Pisk æg med revet ost og masser af peber.",
+        "Vend pastaen i baconpanden, og rør ægblandingen i med lidt kogevand til en cremet sauce. Server straks."
       ],
       "niveau": "student",
       "ingredienser": [
         [
-          "kyllingebryst",
-          500,
+          "bacon i tern",
+          250,
           "g",
           0,
           [
-            "S84"
+            "S99"
           ]
         ],
         [
@@ -2470,38 +2390,24 @@
           []
         ],
         [
-          "porrer",
-          2,
+          "æg",
+          4,
           "stk",
           0,
           []
         ],
         [
-          "madlavningsfløde",
-          200,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          100,
+          "Grana Padano",
+          60,
           "g",
           0,
           []
         ],
         [
-          "olie",
+          "hvidløg",
           1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
+          "fed",
           0,
-          "efter smag",
-          1,
           []
         ],
         [
@@ -2659,6 +2565,81 @@
           "olie",
           1,
           "spsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Kylling og porre i fløde med pasta",
+      "beskrivelse": "Cremet pasta med kyllingestrimler, porre og smeltet ost.",
+      "kategori": "kylling",
+      "koekken": "italiensk",
+      "tid_minutter": 30,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog pastaen. Steg kyllingestrimler i olie, og tilsæt porre i ringe.",
+        "Hæld fløden over, og lad det simre i 5 minutter. Smag til med salt og peber.",
+        "Vend pasta og ost i, til osten smelter."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "kyllingebryst",
+          500,
+          "g",
+          0,
+          [
+            "S84"
+          ]
+        ],
+        [
+          "pasta",
+          400,
+          "g",
+          0,
+          []
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "revet ost",
+          100,
+          "g",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
           1,
           []
         ]
@@ -2953,89 +2934,6 @@
           30,
           "g",
           0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Helstegt kylling med kartofler og sovs",
-      "beskrivelse": "Sprød helstegt kylling med ovnkartofler og hjemmelavet sovs.",
-      "kategori": "kylling",
-      "koekken": "dansk",
-      "tid_minutter": 100,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Varm ovnen op til 200 grader. Gnid kyllingen med smør, salt og peber, og læg den i et fad med løg og gulerødder.",
-        "Steg i 70-80 minutter, til saften er klar. Tilsæt kartofler i både de sidste 45 minutter.",
-        "Hæld stegefonden i en gryde med bouillon og mel, og kog den til sovs.",
-        "Skær kyllingen ud, og server med kartofler og sovs."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "hel kylling",
-          1500,
-          "g",
-          0,
-          [
-            "S89"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          []
-        ],
-        [
-          "gulerødder",
-          3,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "løg",
-          2,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvedemel",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "bouillon",
-          1,
-          "stk",
-          1,
           []
         ],
         [

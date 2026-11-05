@@ -855,13 +855,11 @@
           ]
         ],
         [
-          "skiveost",
+          "revet ost",
           150,
           "g",
           0,
-          [
-            "B200"
-          ]
+          []
         ],
         [
           "smør (kold)",
@@ -1382,6 +1380,194 @@
       "koekken": "italiensk"
     },
     {
+      "som": "Æbleflæsk med rugbrød",
+      "tilbud": {
+        "Bornholmergrisen stegeflæsk": [
+          "B129"
+        ],
+        "økologiske æbler": [
+          "B128"
+        ],
+        "Schulstad Signaturbrød": [
+          "B203"
+        ]
+      }
+    },
+    {
+      "som": "Ribbensteg med rødkål og brunede kartofler",
+      "tilbud": {
+        "ribbensteg": [
+          "B12"
+        ],
+        "rødkål (frisk)": [
+          "B96"
+        ],
+        "kartofler": [
+          "B99"
+        ],
+        "æbler": [
+          "B128"
+        ]
+      }
+    },
+    {
+      "som": "Brunchtallerken med bacon, æg og ovnkartofler",
+      "tilbud": {
+        "bacon i skiver": [
+          "B169"
+        ],
+        "æg": [
+          "B36"
+        ],
+        "kartofler": [
+          "B99"
+        ],
+        "Schulstad brød": [
+          "B203"
+        ]
+      }
+    },
+    {
+      "som": "Mørbradgryde med porrer og ris",
+      "tilbud": {
+        "svinemørbrad": [
+          "B64"
+        ],
+        "porrer": [
+          "B127"
+        ],
+        "jasminris": [
+          "B109"
+        ]
+      }
+    },
+    {
+      "som": "Økologiske oksefiletbøffer med flødeporrer",
+      "tilbud": {
+        "økologiske oksefiletbøffer": [
+          "B10"
+        ],
+        "porrer": [
+          "B127"
+        ],
+        "friske kartofler": [
+          "B99"
+        ]
+      }
+    },
+    {
+      "som": "Svinemørbrad i bacon med hasselbackkartofler",
+      "tilbud": {
+        "svinemørbrad": [
+          "B64"
+        ],
+        "bacon i skiver": [
+          "B169"
+        ],
+        "kartofler": [
+          "B99"
+        ]
+      }
+    },
+    {
+      "som": "Mørksej i fad med flødekål og kartofler",
+      "tilbud": {
+        "mørksejfilet": [
+          "B168"
+        ],
+        "piskefløde": [
+          "B107"
+        ],
+        "kartofler": [
+          "B99"
+        ]
+      }
+    },
+    {
+      "som": "Kylling- og græskarsuppe med lunt brød",
+      "tilbud": {
+        "Coop kylling i tern": [
+          "B25"
+        ],
+        "Änglamark økologisk hokkaido": [
+          "B124"
+        ],
+        "Schulstad levebrød": [
+          "B203"
+        ]
+      }
+    },
+    {
+      "som": "Hokkaidosuppe med lunt brød",
+      "tilbud": {
+        "økologisk hokkaido-græskar": [
+          "B124"
+        ],
+        "danske kartofler": [
+          "B99"
+        ],
+        "Schulstad Signaturbrød": [
+          "B203"
+        ]
+      }
+    },
+    {
+      "som": "Ovnstegte kyllingelår med kartofler og gulerødder",
+      "tilbud": {
+        "kyllingeover- eller underlår": [
+          "B174"
+        ],
+        "Alexandra kartofler": [
+          "B99"
+        ],
+        "gulerødder": [
+          "B125"
+        ]
+      }
+    },
+    {
+      "som": "Gammeldags brun kødsovs med kartofler og gulerødder",
+      "tilbud": {
+        "hakket oksekød 4-7 %": [
+          "B8"
+        ],
+        "Alexandra kartofler": [
+          "B99"
+        ],
+        "gulerødder": [
+          "B125"
+        ]
+      }
+    },
+    {
+      "som": "Hjemmelavet kebab i madbrød med hvidløgsdressing",
+      "tilbud": {
+        "oksekød i tern": [
+          "B131"
+        ],
+        "madbrød": [
+          "B203"
+        ],
+        "gulerødder": [
+          "B125"
+        ],
+        "rødkål (frisk)": [
+          "B96"
+        ]
+      }
+    },
+    {
+      "som": "Stuvet hvidkål med medister og kartofler",
+      "tilbud": {
+        "medister": [
+          "B69"
+        ],
+        "kartofler": [
+          "B99"
+        ]
+      }
+    },
+    {
       "navn": "Fyldte kartofler med hakket oksekød og ost",
       "beskrivelse": "Bagte kartofler fyldt med krydret kød og smeltet ost.",
       "kategori": "okse",
@@ -1440,6 +1626,93 @@
           "tsk",
           1,
           []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Kyllingeburgere med coleslaw",
+      "beskrivelse": "Sprøde kyllingebøffer i burgerbolle med hjemmelavet coleslaw.",
+      "kategori": "kylling",
+      "koekken": "amerikansk",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Skær kyllingebrysterne i to tynde bøffer. Vend dem i mel, sammenpisket æg og lidt salt.",
+        "Steg bøfferne gyldne i olie, ca. 4 minutter på hver side.",
+        "Riv kål og gulerødder, og vend med mayonnaise til coleslaw.",
+        "Fyld burgerbollerne med kylling og coleslaw."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "kyllingebryst",
+          600,
+          "g",
+          0,
+          [
+            "B25"
+          ]
+        ],
+        [
+          "burgerboller",
+          4,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidkål",
+          300,
+          "g",
+          0,
+          []
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "B125"
+          ]
+        ],
+        [
+          "mayonnaise",
+          100,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          0,
+          [
+            "B36"
+          ]
         ],
         [
           "olie",
@@ -1536,156 +1809,60 @@
       "auto": true
     },
     {
-      "navn": "Kyllingeburgere med coleslaw",
-      "beskrivelse": "Sprøde kyllingebøffer i burgerbolle med hjemmelavet coleslaw.",
-      "kategori": "kylling",
+      "navn": "Cheeseburger-pasta med hakket oksekød",
+      "beskrivelse": "One-pot pasta med kød, tomat og ost – børnenes favorit.",
+      "kategori": "okse",
       "koekken": "amerikansk",
-      "tid_minutter": 35,
+      "tid_minutter": 30,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Skær kyllingebrysterne i to tynde bøffer. Vend dem i mel, sammenpisket æg og lidt salt.",
-        "Steg bøfferne gyldne i olie, ca. 4 minutter på hver side.",
-        "Riv kål og gulerødder, og vend med mayonnaise til coleslaw.",
-        "Fyld burgerbollerne med kylling og coleslaw."
+        "Brun kød og løg i olie. Tilsæt tomater, bouillon og 6 dl vand.",
+        "Kom pastaen i, og lad den simre under omrøring i 12 minutter.",
+        "Rør ost i, til den smelter."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "kyllingebryst",
-          600,
+          "hakket oksekød",
+          500,
           "g",
           0,
           [
-            "B25"
+            "B8"
           ]
         ],
         [
-          "burgerboller",
-          4,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "hvidkål",
-          300,
+          "pasta",
+          350,
           "g",
           0,
           []
         ],
         [
-          "gulerødder",
-          2,
-          "stk",
-          0,
-          [
-            "B125"
-          ]
-        ],
-        [
-          "mayonnaise",
-          100,
-          "ml",
+          "hakkede tomater",
+          1,
+          "dåse",
           0,
           []
         ],
         [
-          "hvedemel",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "æg",
-          1,
-          "stk",
-          0,
-          [
-            "B36"
-          ]
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Græsk kylling i fad med squash og feta",
-      "beskrivelse": "Kylling, kartofler, squash og tomater bagt sammen under smuldret feta.",
-      "kategori": "kylling",
-      "koekken": "middelhav",
-      "tid_minutter": 55,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Skær kartofler i både og squash i stykker, vend med olie, oregano og salt, og bag 20 minutter.",
-        "Tilsæt kylling i store stykker og halverede tomater, og pres citronsaft over.",
-        "Bag 20 minutter, drys med smuldret feta, og bag 5-10 minutter mere."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          600,
-          "g",
-          0,
-          [
-            "B25"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "B99"
-          ]
-        ],
-        [
-          "squash",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "tomater",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "feta",
+          "revet ost",
           150,
           "g",
           0,
           []
         ],
         [
-          "citron",
+          "løg",
           1,
           "stk",
           0,
           []
         ],
         [
-          "tørret oregano",
-          2,
-          "tsk",
+          "bouillon",
+          1,
+          "stk",
           1,
           []
         ],
@@ -1785,48 +1962,137 @@
       "auto": true
     },
     {
-      "navn": "Cheeseburger-pasta med hakket oksekød",
-      "beskrivelse": "One-pot pasta med kød, tomat og ost – børnenes favorit.",
-      "kategori": "okse",
+      "navn": "Wraps med kyllingestrimler og coleslaw",
+      "beskrivelse": "Sprøde kyllingestrimler i wraps med cremet coleslaw og ost.",
+      "kategori": "kylling",
       "koekken": "amerikansk",
-      "tid_minutter": 30,
+      "tid_minutter": 25,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Brun kød og løg i olie. Tilsæt tomater, bouillon og 6 dl vand.",
-        "Kom pastaen i, og lad den simre under omrøring i 12 minutter.",
-        "Rør ost i, til den smelter."
+        "Skær kyllingen i strimler, vend dem i krydderier, og steg dem gennem i olie.",
+        "Snit hvidkålen fint, riv gulerod, og vend med creme fraiche, salt og peber.",
+        "Varm wraps, og fyld dem med kylling, coleslaw og ost."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "hakket oksekød",
-          500,
+          "kyllingebryst",
+          450,
           "g",
           0,
           [
-            "B8"
+            "B25"
           ]
         ],
         [
-          "pasta",
-          350,
+          "wraps",
+          1,
+          "pakke",
+          0,
+          []
+        ],
+        [
+          "hvidkål",
+          250,
           "g",
           0,
           []
         ],
         [
-          "hakkede tomater",
+          "gulerødder",
           1,
-          "dåse",
+          "stk",
+          0,
+          [
+            "B125"
+          ]
+        ],
+        [
+          "creme fraiche",
+          150,
+          "g",
           0,
           []
         ],
         [
           "revet ost",
-          150,
+          100,
           "g",
           0,
           []
+        ],
+        [
+          "paprika og hvidløgspulver",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Kyllingekarry med kokosmælk og ris",
+      "beskrivelse": "Mild og cremet karry med kylling, gulerødder og løg i kokosmælk.",
+      "kategori": "kylling",
+      "koekken": "asiatisk",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog risene. Skær kylling i tern, og brun den i olie. Tag den op.",
+        "Svits løg, gulerødder i skiver, hvidløg, ingefær og karry i 3 minutter.",
+        "Tilsæt kokosmælk og kylling, og lad det simre i 15 minutter.",
+        "Smag til med salt, og server med ris."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "kyllingebryst",
+          600,
+          "g",
+          0,
+          [
+            "B25"
+          ]
+        ],
+        [
+          "kokosmælk",
+          400,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "ris",
+          300,
+          "g",
+          0,
+          [
+            "B109"
+          ]
+        ],
+        [
+          "gulerødder",
+          3,
+          "stk",
+          0,
+          [
+            "B125"
+          ]
         ],
         [
           "løg",
@@ -1836,9 +2102,23 @@
           []
         ],
         [
-          "bouillon",
-          1,
-          "stk",
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "frisk ingefær",
+          20,
+          "g",
+          0,
+          []
+        ],
+        [
+          "karry",
+          2,
+          "spsk",
           1,
           []
         ],
@@ -2025,27 +2305,27 @@
       "auto": true
     },
     {
-      "navn": "Kyllingepasta med spinat og fløde",
-      "beskrivelse": "Saftig kylling og frisk spinat i en let flødesauce med hvidløg.",
-      "kategori": "kylling",
+      "navn": "Pasta carbonara",
+      "beskrivelse": "Cremet pasta uden fløde – kun æg, sprød bacon og parmesan. Klar på 20 minutter.",
+      "kategori": "svin",
       "koekken": "italiensk",
-      "tid_minutter": 30,
+      "tid_minutter": 20,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog pastaen. Skær kyllingen i strimler, og steg den gylden i olie.",
-        "Tilsæt hakket hvidløg og fløde, og lad det koge ind i et par minutter.",
-        "Vend spinaten i, til den falder sammen, og smag til med salt og peber.",
-        "Bland med pastaen, og top med revet Grana Padano."
+        "Kog pastaen i saltet vand, og gem en kop af kogevandet.",
+        "Steg bacon sprødt med det knuste hvidløg, og tag panden af varmen.",
+        "Pisk æg med revet ost og masser af peber.",
+        "Vend pastaen i baconpanden, og rør ægblandingen i med lidt kogevand til en cremet sauce. Server straks."
       ],
-      "niveau": "familie",
+      "niveau": "student",
       "ingredienser": [
         [
-          "kyllingebryst",
-          500,
+          "bacon i tern",
+          250,
           "g",
           0,
           [
-            "B25"
+            "B169"
           ]
         ],
         [
@@ -2056,46 +2336,32 @@
           []
         ],
         [
-          "frisk spinat",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "piskefløde",
-          250,
-          "ml",
+          "æg",
+          4,
+          "stk",
           0,
           [
-            "B107"
+            "B36"
           ]
         ],
         [
           "Grana Padano",
-          50,
+          60,
           "g",
           0,
           []
         ],
         [
           "hvidløg",
-          2,
+          1,
           "fed",
           0,
           []
         ],
         [
-          "olie",
+          "sort peber",
           1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
+          "tsk",
           1,
           []
         ]
@@ -2454,504 +2720,6 @@
           "salt og peber",
           0,
           "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Pasta carbonara",
-      "beskrivelse": "Cremet pasta uden fløde – kun æg, sprød bacon og parmesan. Klar på 20 minutter.",
-      "kategori": "svin",
-      "koekken": "italiensk",
-      "tid_minutter": 20,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog pastaen i saltet vand, og gem en kop af kogevandet.",
-        "Steg bacon sprødt med det knuste hvidløg, og tag panden af varmen.",
-        "Pisk æg med revet ost og masser af peber.",
-        "Vend pastaen i baconpanden, og rør ægblandingen i med lidt kogevand til en cremet sauce. Server straks."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "bacon i tern",
-          250,
-          "g",
-          0,
-          [
-            "B169"
-          ]
-        ],
-        [
-          "pasta",
-          400,
-          "g",
-          0,
-          []
-        ],
-        [
-          "æg",
-          4,
-          "stk",
-          0,
-          [
-            "B36"
-          ]
-        ],
-        [
-          "Grana Padano",
-          60,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          1,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Bagte kartofler med chili og ost",
-      "beskrivelse": "Store ovnkartofler fyldt med chili con carne-kød, ost og creme fraiche.",
-      "kategori": "okse",
-      "koekken": "amerikansk",
-      "tid_minutter": 75,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Prik kartoflerne, gnid dem med olie og salt, og bag dem i ca. 60 minutter.",
-        "Brun kødet med hakket løg, tilsæt krydderier, tomater og bønner, og lad det simre i 20 minutter.",
-        "Skær et kryds i kartoflerne, og tryk dem op.",
-        "Fyld med chili, ost og en klat creme fraiche."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "hakket oksekød",
-          400,
-          "g",
-          0,
-          [
-            "B8"
-          ]
-        ],
-        [
-          "kartofler (store)",
-          1200,
-          "g",
-          0,
-          [
-            "B99"
-          ]
-        ],
-        [
-          "hakkede tomater",
-          1,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "kidneybønner",
-          1,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "creme fraiche",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "chilikrydderi og spidskommen",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Stegt ris med æg og bacon",
-      "beskrivelse": "Fantastisk restemad: kold ris stegt med æg, bacon og grøntsager.",
-      "kategori": "svin",
-      "koekken": "asiatisk",
-      "tid_minutter": 20,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog risene, og lad dem køle af (eller brug rester fra dagen før).",
-        "Steg bacon sprødt, og tilsæt løg og revet gulerod.",
-        "Skub til side, og rør æggene sammen på panden.",
-        "Tilsæt ris, ærter og soja, og steg 5 minutter, til alt er varmt og lidt sprødt."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "bacon i tern",
-          200,
-          "g",
-          0,
-          [
-            "B169"
-          ]
-        ],
-        [
-          "ris (gerne kogt dagen før)",
-          300,
-          "g",
-          0,
-          [
-            "B109"
-          ]
-        ],
-        [
-          "æg",
-          3,
-          "stk",
-          0,
-          [
-            "B36"
-          ]
-        ],
-        [
-          "gulerødder",
-          1,
-          "stk",
-          0,
-          [
-            "B125"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "frosne ærter",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "sojasauce",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Kartoffelgratin med ost og grøn salat",
-      "beskrivelse": "Cremet kartoffelgratin med ost og frisk salat.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 70,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Skær kartofler i tynde skiver, og læg dem lagvis i et smurt fad med hvidløg, salt og peber.",
-        "Hæld fløde over, og drys med ost. Bag ved 180 grader i 50-60 minutter.",
-        "Server med grøn salat."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "B99"
-          ]
-        ],
-        [
-          "piskefløde",
-          300,
-          "ml",
-          0,
-          [
-            "B107"
-          ]
-        ],
-        [
-          "revet ost",
-          120,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "salat",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Koreansk-inspireret oksekødsbowl",
-      "beskrivelse": "Krydret hakket oksekød over ris med agurk, gulerod og spejlæg.",
-      "kategori": "okse",
-      "koekken": "asiatisk",
-      "tid_minutter": 25,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog risene. Brun kødet i olie med hvidløg og ingefær.",
-        "Tilsæt soja og honning, og lad det stege ind til det er blankt.",
-        "Skær agurk og gulerod i tynde stave. Steg æggene som spejlæg.",
-        "Anret ris, kød, grønt og et spejlæg i dybe skåle."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "hakket oksekød",
-          500,
-          "g",
-          0,
-          [
-            "B8"
-          ]
-        ],
-        [
-          "ris",
-          300,
-          "g",
-          0,
-          [
-            "B109"
-          ]
-        ],
-        [
-          "agurk",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "gulerødder",
-          2,
-          "stk",
-          0,
-          [
-            "B125"
-          ]
-        ],
-        [
-          "æg",
-          4,
-          "stk",
-          0,
-          [
-            "B36"
-          ]
-        ],
-        [
-          "sojasauce",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "honning eller sukker",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "frisk ingefær",
-          20,
-          "g",
-          0,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Wok med oksekød, broccoli og nudler",
-      "beskrivelse": "Hurtig wok med mørt oksekød, sprød broccoli og nudler i sojasauce.",
-      "kategori": "okse",
-      "koekken": "asiatisk",
-      "tid_minutter": 25,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog nudlerne efter anvisningen. Skær oksekødet i tynde strimler.",
-        "Steg kødet i olie på høj varme i små portioner. Tag det op.",
-        "Steg broccoli i buketter, gulerod i stave, løg, hvidløg og ingefær 4 minutter.",
-        "Vend kød, nudler og sojasauce i, og steg et minut mere."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "oksekød i tern eller strimler",
-          500,
-          "g",
-          0,
-          [
-            "B131"
-          ]
-        ],
-        [
-          "nudler",
-          250,
-          "g",
-          0,
-          [
-            "B214"
-          ]
-        ],
-        [
-          "broccoli",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "gulerødder",
-          2,
-          "stk",
-          0,
-          [
-            "B125"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "frisk ingefær",
-          20,
-          "g",
-          0,
-          []
-        ],
-        [
-          "sojasauce",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
           1,
           []
         ]

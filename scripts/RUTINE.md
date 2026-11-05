@@ -48,6 +48,10 @@ python -I scripts/byg_opskrifter.py                            # opdaterer opskr
 python -I scripts/byg_tilbudsliste.py                          # opdaterer tilbudsliste.json ("Gode tilbud i dine butikker" nederst på indkøbslisten: sodavand, smør, mælk, vaskemiddel, shampoo … – ikke aftensmad)
 ```
 `byg_opskrifter.py` og `byg_tilbudsliste.py` læser øjebliksbilledet (scripts/tilbud_snapshot.json) og skal altid køres, når aviser er hentet, så forsidens liste ikke bliver forældet. Den sammenligner tilbud med tilbud og kræver ingen tekst fra dig. `"top"` i butikkens json vises ikke længere på siden (feltet må gerne blive stående).
+**Håndskrevne retter først (brugerens ønske):** Kør `python -I scripts/genbrug_retter.py <butik> --op-til 45` (evt. `--min-andel 0.5`), som genbruger de håndskrevne opskrifter (scripts/retter_skabeloner.json) med butikkens egne tilbud
+som "som"-referencer, FØR du kører udvid_retter.py. Skriv desuden gerne nye håndskrevne retter af de bedste tilbud (fx kød, and, laks, smør, frisk rødkål, appelsiner).
+Brug IKKE skiveost i madlavningen – brug en blok ost (cheddar, Danbo, Castello, skæreost) eller revet ost.
+
 **MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har ca. 125 opskrifter (bibliotek_1..4).
 Når en butik ikke når 50 med standardindstillingerne, så prøv i denne rækkefølge (stop, når der er 50):
 1. `python -I scripts/udvid_retter.py <butik> --min-tilbud 0.3` (flere retter med færre tilbudsvarer)

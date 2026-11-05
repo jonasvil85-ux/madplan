@@ -117,7 +117,7 @@ RETTER = [
     # ---------------- AMERIKANSK & TEX-MEX ----------------
     R("Burgere med hjemmelavede bøffer", "Saftige bøffer af hakket oksekød i boller med ost, løg og dressing.",
       'familie', 'okse', 'amerikansk', 35,
-      [('hakket oksekød', 600, 'g', 0, 'hakket_okse', 1), ('burgerboller', 4, 'stk', 0, 'burgerboller', 0), ('skiveost', 4, 'stk', 0, 'skiveost', 0),
+      [('hakket oksekød', 600, 'g', 0, 'hakket_okse', 1), ('burgerboller', 4, 'stk', 0, 'burgerboller', 0), ('revet ost eller cheddar', 100, 'g', 0, 'revet_ost', 0),
        ('løg', 1, 'stk', 0, 'loeg', 0), ('tomat', 2, 'stk', 0, 'tomater', 0), ('salat', 1, 'stk', 0, '', 0), ('ketchup', 4, 'spsk', 0, '', 0), ('remoulade', 4, 'spsk', 0, '', 0), SALT],
       ["Form kødet til 4 bøffer, og krydr med salt og peber.",
        "Steg dem på en varm pande 3-4 minutter på hver side. Læg ost på de sidste minutter.",
