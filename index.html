@@ -704,7 +704,7 @@ function rund(m, enhed, tilListe = false) {
       return Math.max(trin, Math.round(m / trin) * trin);
     }
     case 'stk': return tilListe ? Math.ceil(m - 1e-9) : (m < 1 ? Math.max(0.25, Math.round(m * 4) / 4) : Math.round(m * 2) / 2);
-    case 'dåse': case 'pakke': return Math.ceil(m - 0.1);
+    case 'dåse': case 'glas': case 'pakke': return Math.ceil(m - 0.1);
     case 'bundt': case 'fed': return Math.max(1, Math.round(m));
     case 'spsk': case 'tsk': case 'dl': return Math.max(0.5, Math.round(m * 2) / 2);
     default: return Math.round(m * 10) / 10;
@@ -760,13 +760,18 @@ function antalPakker(t, behov) {
   const dele = String(t.maengde || '').split('-').map(parseFloat);
   const str = dele.reduce((a, b) => a + b, 0) / dele.length;
   const [enhed, gange] = OMREGN[t.enhed] || [];
-  let n = Math.ceil((behov.dåse || 0) + (behov.pakke || 0));
+  let n = Math.ceil((behov.dåse || 0) + (behov.glas || 0) + (behov.pakke || 0));
   // Opskrifters mængder er cirka: mangler der under 15 % af en pakke, købes der ikke en ekstra
   if (str && enhed && behov[enhed]) n = Math.max(n, Math.ceil(behov[enhed] / (str * gange) - PAKKE_TOLERANCE));
   return Math.max(1, n);
 }
 
 // Tilbud der matcher en ingrediens i den valgte butik
+let TYPFRANAVN = new Map();  // 'hakkede tomater|dåse' -> 'hakkede_tomater' (fra opskriftsbiblioteket)
+const typNoegle = ing => `${grundNavn(ing.navn).toLowerCase()}|${ing.enhed}`;
+// Typen styrer, hvilket tilbud en ingrediens får blandt ALLE de valgte butikker. Butikkernes egne retter har kun deres egen butiks tilbud,
+// så uden en type kunne en Lidl-ret ikke bruge Nettos tilbud på de samme hakkede tomater, og varen stod både som tilbud og uden tilbud.
+const typFor = ing => ing.typ || (butiksTilbud(ing).length ? null : TYPFRANAVN.get(typNoegle(ing)) || null);
 const butiksTilbud = ing => ing.tilbud.filter(id => ALLE_TILBUD[id]);  // en ingrediens' tilbud (hver ret har allerede valgt det billigste blandt de valgte butikker)
 // "Netto tilbudsavis gældende 31. okt.–6. nov." – står på indkøbssedlen (ikke i toppen af siden)
 const avisTekst = k => `${data.butikker[k].navn} tilbudsavis gældende ${data.butikker[k].aviser.map(a => `${kortDato(a.fra)}–${kortDato(a.til)}`).join(' og ')}`;
@@ -781,7 +786,10 @@ async function start() {
     INGHUKOMMELSE = new WeakMap(); MIXHUKOMMELSE.clear(); POOLHUKOMMELSE.clear();
     try {  // opskrifterne bygget over den fælles tilbudsliste (uden dem bruges kun butikkernes egne retter)
       const o = await fetch('/opskrifter.json', { cache: 'no-cache' });
-      if (o.ok) { const od = await o.json(); MIXOPSKRIFTER = od.opskrifter; MIXTYPER = od.typer || {}; LIBNAVNE = new Set(od.opskrifter.map(x => x.navn)); ALLE_TILBUD = { ...od.tilbud }; }
+      if (o.ok) { const od = await o.json(); MIXOPSKRIFTER = od.opskrifter; MIXTYPER = od.typer || {}; LIBNAVNE = new Set(od.opskrifter.map(x => x.navn)); ALLE_TILBUD = { ...od.tilbud };
+        TYPFRANAVN = new Map(); const mange = new Set();
+        for (const o2 of od.opskrifter) for (const i of o2.ingredienser) if (i.typ && !i.basisvare) { const k = typNoegle(i); if (TYPFRANAVN.has(k) && TYPFRANAVN.get(k) !== i.typ) mange.add(k); TYPFRANAVN.set(k, i.typ); }
+        for (const k of mange) TYPFRANAVN.delete(k); }
     } catch (e) { /* uden opskrifter.json bruges kun butikkernes egne retter */ }
     for (const [k, b] of Object.entries(data.butikker)) for (const [id, t] of Object.entries(b.tilbud || {})) ALLE_TILBUD[id] = { ...t, butik: k };
     try { const t = await fetch('/tilbudsliste.json', { cache: 'no-cache' }); if (t.ok) tilbudsliste = await t.json(); } catch (e) { /* uden listen vises "Værd at overveje" bare ikke */ }
@@ -1251,11 +1259,13 @@ function simPris(k) {  // pris for 7-dages-madplanen for dette udvalg af butikke
 let INGHUKOMMELSE = new WeakMap();  // ret -> ingredienser (uden basisvarer) med det tilbud, de matcher
 function ingForbehandlet(r) {
   let x = INGHUKOMMELSE.get(r);
-  if (!x) INGHUKOMMELSE.set(r, x = r.ingredienser.filter(i => !i.basisvare).map(ing => ({ ing, typ: ing.typ || null, key: ing.typ ? null : (butiksTilbud(ing)[0] || null), navn: grundNavn(ing.navn) })));
+  if (!x) INGHUKOMMELSE.set(r, x = r.ingredienser.filter(i => !i.basisvare).map(ing => { const typ = typFor(ing); return { ing, typ, key: typ ? null : (butiksTilbud(ing)[0] || null), navn: grundNavn(ing.navn) }; }));
   return x;
 }
 // For hver ingrediens-type i de valgte retter (fx hakket oksekød): det billigste tilbud blandt butikkerne for den SAMLEDE mængde i ugen – eller null,
 // hvis normalprisen er billigere. Så deler retterne pakker, og hver type købes i den butik, hvor den er billigst (kartofler i Bilka, sovs i Netto …).
+const TILBUD_TOLERANCE = 1.25;  // et tilbud må koste op til 25 % mere end det estimerede normalpris og stadig vælges
+const tilbudPris = (id, e) => (ALLE_TILBUD[id].pris || 0) * antalPakker(ALLE_TILBUD[id], { [e.enhed]: e.m });
 function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (bruges, når mange retter prøves af)
   const S = aktivS(), f = faktor(), behov = new Map(), fast = new Map();
   for (const id of state.valgte) {
@@ -1278,7 +1288,7 @@ function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (b
   const valg = new Map();
   // Start: det billigste tilbud for hver type for sig (eller normalpris)
   for (const e of typer) {
-    let bedst = null, bedstPris = e.skoen;
+    let bedst = null, bedstPris = e.skoen * TILBUD_TOLERANCE;
     for (const id of e.kand) {
       const t = ALLE_TILBUD[id], pr = (t.pris || 0) * antalPakker(t, { [e.enhed]: e.m });
       if (pr < bedstPris) { bedst = id; bedstPris = pr; }
@@ -1305,6 +1315,7 @@ function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (b
         const nu = valg.get(e.k);
         for (const c of [null, ...e.kand]) {
           if (c === valg.get(e.k)) continue;
+          if (c === null && nu && tilbudPris(nu, e) < e.skoen * TILBUD_TOLERANCE) continue;  // et tilbud, der er tæt på skønnet, springes ikke over
           const gem = valg.get(e.k);
           valg.set(e.k, c);
           const t = total();
@@ -1600,7 +1611,8 @@ function byggListe() {
     const r = ret(id);
     for (const ing of r.ingredienser) {
       const m = ing.maengde * faktor() * (state.mult?.[id] || 1);  // dobbelt portion = dobbelte mængder
-      const match = ing.typ ? (tv.get(ing.typ + '|' + ing.enhed) ? [tv.get(ing.typ + '|' + ing.enhed)] : []) : butiksTilbud(ing);
+      const typ = typFor(ing);
+      const match = typ ? (tv.get(typ + '|' + ing.enhed) ? [tv.get(typ + '|' + ing.enhed)] : []) : butiksTilbud(ing);
       if (ing.basisvare) {
         for (const [k, navn] of basisDele(ing.navn)) if (!basis.has(k)) basis.set(k, navn);
       } else if (match.length) {

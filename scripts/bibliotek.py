@@ -13,7 +13,7 @@ SMOER_MIN = 30
 for _r in RETTER:
     _r['ingredienser'] = [(n, m, e, 0, t, k) if n == 'smør' and t == 'smor' and m >= SMOER_MIN and b else (n, m, e, b, t, k)
                           for (n, m, e, b, t, k) in _r['ingredienser']]
-ENHEDER = {'g', 'ml', 'stk', 'spsk', 'tsk', 'fed', 'dåse', 'pakke', 'bundt', 'efter smag'}
+ENHEDER = {'g', 'ml', 'stk', 'spsk', 'tsk', 'fed', 'dåse', 'glas', 'pakke', 'bundt', 'efter smag'}
 if __name__ == '__main__':
     import collections, sys
     sys.stdout.reconfigure(encoding='utf-8')

@@ -58,7 +58,7 @@ NORMALPRIS_VARE = [
     (r'\bris\b|jasminris', {'g': 0.025}), (r'rasp|hvedemel', {'g': 0.02}), (r'salat', {'stk': 12}),
     (r'ingefær', {'g': 0.06}), (r'dild|persille|purløg|rosmarin|timian|koriander|estragon', {'bundt': 12}),
 ]
-NORMALPRIS = {'g': 0.06, 'ml': 0.025, 'dl': 2.5, 'stk': 6, 'dåse': 9, 'pakke': 20, 'bundt': 15,
+NORMALPRIS = {'g': 0.06, 'ml': 0.025, 'dl': 2.5, 'stk': 6, 'dåse': 9, 'glas': 14, 'pakke': 20, 'bundt': 15,
               'fed': 1, 'spsk': 2, 'tsk': 1, 'efter smag': 0}
 
 
@@ -101,7 +101,7 @@ def forbrugs_andel(t, behov):
     except ValueError:
         return float(antal_pakker(t, behov))
     enhed, gange = OMREGN.get(t.get('enhed'), (None, None))
-    andele = [behov.get('dåse', 0) + behov.get('pakke', 0)]
+    andele = [behov.get('dåse', 0) + behov.get('glas', 0) + behov.get('pakke', 0)]
     if stoerrelse and enhed and behov.get(enhed):
         andele.append(behov[enhed] / (stoerrelse * gange))
     return max(max(andele), 0.05)
@@ -116,7 +116,7 @@ def antal_pakker(t, behov):
     except ValueError:
         stoerrelse = 0
     enhed, gange = OMREGN.get(t.get('enhed'), (None, None))
-    n = math.ceil(behov.get('dåse', 0) + behov.get('pakke', 0))
+    n = math.ceil(behov.get('dåse', 0) + behov.get('glas', 0) + behov.get('pakke', 0))
     if stoerrelse and enhed and behov.get(enhed):
         n = max(n, math.ceil(behov[enhed] / (stoerrelse * gange) - 0.15))  # samme 15 % tolerance som index.html
     return max(1, n)

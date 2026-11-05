@@ -133,7 +133,7 @@ RETTER = [
       ["Skær kartofler og pølser i skiver. Steg løg og kartofler i olie til de er gyldne.", "Tilsæt pølserne og tomaterne, og lad retten simre i 10 minutter.", "Smag til med salt og peber."],
       "Pan dish with sliced sausages, potatoes and tomato sauce in a skillet"),
     r("Biksemad med spejlæg og rødbeder", "Klassisk biksemad med stegte kartofler, pølser og spejlæg.", 'student', 'svin', 'dansk', 30,
-      [('pølser', 400, 'g', 0, 'polser', 1), ('kartofler', 800, 'g', 0, 'kartofler', 0), ('løg', 2, 'stk', 0, 'loeg', 0), ('æg', 4, 'stk', 0, 'aeg', 0), ('rødbeder', 1, 'pakke', 0, '', 0), SMOER, SALT, PEBER],
+      [('pølser', 400, 'g', 0, 'polser', 1), ('kartofler', 800, 'g', 0, 'kartofler', 0), ('løg', 2, 'stk', 0, 'loeg', 0), ('æg', 4, 'stk', 0, 'aeg', 0), ('syltede rødbeder', 1, 'glas', 0, '', 0), SMOER, SALT, PEBER],
       ["Kog kartoflerne, og skær dem i tern sammen med pølserne.", "Steg løg, kartofler og pølser gyldne i smør.", "Steg spejlæg, og server biksemaden med æg og rødbeder."],
       "Danish biksemad with fried potatoes and sausage topped with a fried egg and pickled beetroot"),
     r("Sticky ribs med ris og agurk", "Møre ribs i sød-salt glasur med ris og frisk agurk.", 'weekend', 'svin', 'asiatisk', 90,
