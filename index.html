@@ -610,7 +610,12 @@ function mixFor(S) {  // alle opskrifter som retter for butikkerne S (cachet)
 function pool(S) {  // retterne man kan vælge mellem, når man handler i S: opskrifter med tilbud i S + butikkernes egne retter
   const nk = sNoegle(S);
   let p = POOLHUKOMMELSE.get(nk);
-  if (!p) POOLHUKOMMELSE.set(nk, p = [...mixFor(S).liste.filter(r => r.ok), ...S.flatMap(k => data.butikker[k].retter.filter(r => !LIBNAVNE.has(r.navn)))]);
+  if (!p) {
+    const alle = [...mixFor(S).liste.filter(r => r.ok), ...S.flatMap(k => data.butikker[k].retter.filter(r => !LIBNAVNE.has(r.navn)))];
+    const bedst = new Map();  // samme ret hos flere butikker vises kun én gang: den billigste udgave
+    for (const r of alle) { const x = bedst.get(r.navn); if (!x || prisIAlt(r) < prisIAlt(x)) bedst.set(r.navn, r); }
+    POOLHUKOMMELSE.set(nk, p = alle.filter(r => bedst.get(r.navn) === r));
+  }
   return p;
 }
 const medS = (S, fn) => {  // kør en beregning, som om man handlede i butikkerne S (og med et midlertidigt udvalg af retter)
