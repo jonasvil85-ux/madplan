@@ -822,10 +822,11 @@ function simGruppe(r) {
   if (/pasta|spaghetti|fettuccine|penne|carbonara|lasagne|mac and cheese|nudler/.test(n)) return 'pasta';
   if (/tacos|wraps|quesadilla|fajitas|pita/.test(n)) return 'tex';
   if (/burger|pizza|hotdog/.test(n)) return 'fastfood';
+  if (/hakkebøf/.test(n)) return 'hakkebøf';  // højst én hakkebøf-ret om ugen
   if (/frikadell|kødboll|hakkebøf/.test(n)) return 'frikadelle';
   return r.kategori;
 }
-const SIM_MAX = { suppe: 1, pasta: 2, tex: 1, fastfood: 1, frikadelle: 2, fisk: 1, vegetar: 1, kylling: 2, svin: 2, okse: 2 };
+const SIM_MAX = { suppe: 1, pasta: 2, tex: 1, fastfood: 1, hakkebøf: 1, frikadelle: 2, fisk: 1, vegetar: 1, kylling: 2, svin: 2, okse: 2 };
 const SIM_MAX_VOKSEN = { ...SIM_MAX, suppe: 2, tex: 2, fisk: 2, vegetar: 2 };  // uden børn kan der være lidt mere af det, børn ikke gider
 const simLoft = () => state.boern > 0 ? SIM_MAX : SIM_MAX_VOKSEN;
 let SIM_TILBUD_VAEGT = 1;  // point for en ret, hvis pris udelukkende er tilbudsvarer (lavere = prisen alene styrer valget)
@@ -851,7 +852,8 @@ function fordobl(vt) {
 let PAKKE_MAX = 3;  // højst så mange retter med den samme kød-/fiskepakke
 const PROTEINGRUPPER = ['Kød & fjerkræ', 'Fisk & skaldyr', 'Pålæg & delikatesse'];
 const proteinNoegler = r => ingForbehandlet(r).filter(x => (x.key || x.typ) && PROTEINGRUPPER.includes(varegruppe(x.ing.navn))).map(x => x.key || 'typ:' + x.typ);
-let SIM_PRIS_DIV = 20;  // hvor mange kr (pr. 4 personer), der svarer til ét 'smagspoint' (lavere = pris vejer tungere)
+let SIM_SMAG_LOFT = 5, SIM_MIN_BOERN = 3, SIM_TILBUD_PLAN = 15;  // loft for børnepoint (mere end 'rigtig børnevenlig' giver ikke ekstra), mindste børnepoint for en ret, og point for ugens andel tilbudsvarer
+let SIM_PRIS_DIV = 12;  // hvor mange kr (pr. 4 personer), der svarer til ét 'smagspoint' (lavere = pris vejer tungere)
 const SPILD_I_SAMMENLIGNING = 0.5;  // når butikker/antal butikker sammenlignes, tæller rester kun lidt – den laveste pris vinder
 const STRAF_PR_EKSTRA_BUTIK = 10;  // kr: en ekstra butik koster tid, så den skal spare lidt, før den bruges
 function laegPaaDage(valgt, mult) {  // fredagsmad (pizza/tacos/burger) om fredagen, de længste retter i weekenden, de hurtigste på hverdage
@@ -880,8 +882,10 @@ function simFraButikker(stores) {
   if (SIM_DEL[nk]) return SIM_DEL[nk];
   const { valgt, mult } = medS(stores, () => {
     const loft = simLoft(), f = Math.max(faktor(), 0.3);
-    const alle = pool(stores);
-    const smag = new Map(alle.map(r => [r.id, smagScore(r)]));
+    const alle0 = pool(stores);
+    // Med børn: kun retter, børn gider (mindst 25, så der er noget at vælge imellem – ellers de 25 mest børnevenlige)
+    const alle = state.boern > 0 ? alle0.slice().sort((x, y) => smagScore(y) - smagScore(x)).filter((r, i) => i < 25 || smagScore(r) >= SIM_MIN_BOERN) : alle0;
+    const smag = new Map(alle.map(r => [r.id, Math.min(smagScore(r), SIM_SMAG_LOFT)]));
     const vaerdi = r => smag.get(r.id) - prisIAlt(r) * faktor() / (SIM_PRIS_DIV * f);  // smag minus rettens egen pris: de billige retter må med i udvalget
     const paaSmag = alle.slice().sort((x, y) => vaerdi(y) - vaerdi(x));
     const tal = (sæt, hurtig = false) => {
@@ -890,7 +894,7 @@ function simFraButikker(stores) {
       t.straf = Math.max(0, t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK;
       return t;
     };
-    const scoreSæt = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) - (t.ialt + SIM_SPILD * t.spild + t.straf) / (SIM_PRIS_DIV * f); };
+    const scoreSæt = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) + SIM_TILBUD_PLAN * (t.ialt ? t.tilbud / t.ialt : 0) - (t.ialt + SIM_SPILD * t.spild + t.straf) / (SIM_PRIS_DIV * f); };
     // Ét udgangspunkt vælges ret for ret efter smag minus pris (div = hvor tungt prisen vejer). To udgangspunkter prøves (prisen vejer lidt mindre og lidt mere end i scoren), og det med den bedste score forbedres bagefter –
     // så søgningen ikke sætter sig fast på en dyr uge, når en meget billigere næsten er lige så god.
     const bygGreedy = (div, antalKand = SIM_GREEDY_KAND) => {
