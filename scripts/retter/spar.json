@@ -479,6 +479,265 @@
       ]
     },
     {
+      "navn": "Helstegt and med æbler, svesker og rødkål",
+      "beskrivelse": "Klassisk helstegt and fyldt med æbler og svesker, serveret med rødkål, kartofler og brun sovs.",
+      "niveau": "weekend",
+      "kategori": "and",
+      "koekken": "dansk",
+      "tid_minutter": 150,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "and (hel)",
+          3000,
+          "g",
+          0,
+          [
+            "P4"
+          ]
+        ],
+        [
+          "æbler",
+          4,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "svesker",
+          150,
+          "g",
+          0,
+          []
+        ],
+        [
+          "rødkål (frisk eller på glas)",
+          720,
+          "g",
+          0,
+          [
+            "P1"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          []
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          1,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tø anden op i køleskabet dagen før. Varm ovnen op til 180 grader.",
+        "Skær æbler i både, og fyld anden med æbler og svesker. Gnid den med salt og peber.",
+        "Steg anden på rist over en bradepande i ca. 2 timer, og hæld fedtet fra løbende.",
+        "Kog kartoflerne, og varm rødkålen. Lav sovs af stegefonden, bouillon og lidt mel.",
+        "Skær anden ud, og server med sovs, kartofler og rødkål."
+      ]
+    },
+    {
+      "navn": "Oksecuvette med bagte kartofler og bearnaisesauce",
+      "beskrivelse": "Mør oksecuvette stegt rosa og serveret med bagte kartofler og cremet bearnaisesauce.",
+      "niveau": "weekend",
+      "kategori": "okse",
+      "koekken": "dansk",
+      "tid_minutter": 70,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "oksecuvette",
+          800,
+          "g",
+          0,
+          [
+            "P22"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          []
+        ],
+        [
+          "bearnaisesauce",
+          1,
+          "pakke",
+          0,
+          []
+        ],
+        [
+          "smør",
+          40,
+          "g",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          1,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Varm ovnen op til 160 grader. Brun cuvetten på alle sider i smør og olie, og krydr med salt og peber.",
+        "Steg den i ovnen til en kernetemperatur på 56-58 grader, ca. 40 minutter. Lad den hvile 10 minutter.",
+        "Skær kartoflerne i både, og bag dem ved 200 grader i ca. 35 minutter.",
+        "Lav bearnaisesauce efter anvisningen, og skær kødet i skiver. Server det hele sammen."
+      ]
+    },
+    {
+      "navn": "Wienerschnitzel med citron, kartofler og ærter",
+      "beskrivelse": "Møre kalveschnitzler, brunet i smør og serveret med citron, kartofler og grønne ærter.",
+      "niveau": "weekend",
+      "kategori": "okse",
+      "koekken": "dansk",
+      "tid_minutter": 35,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "wienerschnitzler af kalv",
+          700,
+          "g",
+          0,
+          [
+            "P23"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          []
+        ],
+        [
+          "grønne ærter",
+          300,
+          "g",
+          0,
+          []
+        ],
+        [
+          "citron",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          50,
+          "g",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Kog kartoflerne. Varm ærterne i lidt vand.",
+        "Steg schnitzlerne i smør ved middel varme, ca. 3-4 minutter på hver side.",
+        "Skær citronerne i både, og server til schnitzel, kartofler og ærter."
+      ]
+    },
+    {
+      "navn": "Entrecote med bagte kartofler og salat",
+      "beskrivelse": "Saftig entrecote stegt på panden og serveret med bagte kartofler og en frisk salat.",
+      "niveau": "weekend",
+      "kategori": "okse",
+      "koekken": "dansk",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "ingredienser": [
+        [
+          "entrecote",
+          800,
+          "g",
+          0,
+          [
+            "P26"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          []
+        ],
+        [
+          "salat",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          40,
+          "g",
+          1,
+          []
+        ],
+        [
+          "olie",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          1,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "fremgangsmaade": [
+        "Tag kødet ud af køleskabet i god tid. Skær kartofler i både, og bag dem ved 200 grader i ca. 35 minutter.",
+        "Steg entrecoten i varm pande med olie og smør, ca. 3 minutter på hver side. Lad den hvile 5 minutter.",
+        "Server med kartofler og salat."
+      ]
+    },
+    {
       "navn": "Hakkebøf med bløde løg og kartofler",
       "beskrivelse": "Klassisk hakkebøf med bløde løg, brun sovs og kartofler.",
       "kategori": "okse",
