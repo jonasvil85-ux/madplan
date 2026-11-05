@@ -1264,7 +1264,8 @@ function ingForbehandlet(r) {
 }
 // For hver ingrediens-type i de valgte retter (fx hakket oksekød): det billigste tilbud blandt butikkerne for den SAMLEDE mængde i ugen – eller null,
 // hvis normalprisen er billigere. Så deler retterne pakker, og hver type købes i den butik, hvor den er billigst (kartofler i Bilka, sovs i Netto …).
-const TILBUD_TOLERANCE = 1.25;  // et tilbud må koste op til 25 % mere end det estimerede normalpris og stadig vælges
+const NORMAL_SKAL_VAERE_BILLIGERE = 0.30;  // normalprisen skal være mindst 30 % billigere end tilbuddet, før den vælges frem for tilbuddet
+const TILBUD_TOLERANCE = 1 / (1 - NORMAL_SKAL_VAERE_BILLIGERE);  // = tilbuddet må koste op til ca. 43 % mere end det estimerede normalpris og stadig vælges
 const tilbudPris = (id, e) => (ALLE_TILBUD[id].pris || 0) * antalPakker(ALLE_TILBUD[id], { [e.enhed]: e.m });
 function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (bruges, når mange retter prøves af)
   const S = aktivS(), f = faktor(), behov = new Map(), fast = new Map();
