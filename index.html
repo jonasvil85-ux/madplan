@@ -1795,6 +1795,7 @@ function renderPlanLaast() {
   vis(`<div class="panel plan-laast">
     <h2>Din madplan er klar</h2>
     <p>For at vise din madplan og dine opskrifter (ingredienser og fremgangsmåde for hver ret) skal du først oprette en gratis bruger. Så kan vi gemme din madplan, og du kan logge ind og se den hver dag i løbet af ugen – også på telefonen.</p>
+    <p>Din <b>indkøbsseddel</b> og dine øvrige valg bliver også gemt på brugeren: de varer, du har krydset af, dine egne varer, antal personer og de butikker, du har valgt. Så kan du åbne sedlen på telefonen i butikken, og alt står, som du efterlod det – det gør handleoplevelsen nem.</p>
     ${billeder.length ? `<div class="laast-billeder">${billeder.map(b => `<img src="${esc(b)}" alt="" loading="lazy">`).join('')}</div>` : ''}
     <div class="gem-knapper">
       <button class="knap" data-aabn-login data-fane="opret" data-titel="Se din madplan og dine opskrifter">Opret gratis bruger</button>
