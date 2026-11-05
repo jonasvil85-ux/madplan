@@ -1,6 +1,7 @@
 // Ensartede stregikoner (24×24, i stil med Lucide, ISC-licens) i stedet for emojis, som ser forskellige ud på hver enhed.
 // Brug: ikon('trash') giver en inline-SVG, der arver tekstfarven og skalerer med skriftstørrelsen (.ikon-svg i index.html).
 const IKON_STIEN = {
+  liste: '<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/>',
   trash: '<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6"/><path d="M14 10v6"/>',
   cap: '<path d="M22 10v6"/><path d="M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
   users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',

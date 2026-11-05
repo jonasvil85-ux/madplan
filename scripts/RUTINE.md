@@ -46,6 +46,7 @@ python -I scripts/byg_retter.py                                # validerer og sk
 python -I scripts/byg_opskrifter.py                            # opdaterer opskrifter.json (opskriftsbiblioteket koblet på ALLE butikkers tilbud – siden vælger selv billigste tilbud pr. ingrediens blandt brugerens butikker)
 python -I scripts/byg_tilbudsliste.py                          # opdaterer tilbudsliste.json ("Gode tilbud i dine butikker" nederst på indkøbslisten: sodavand, smør, mælk, vaskemiddel, shampoo … – ikke aftensmad)
 ```
+`byg_tilbudsliste.py` bygger også de fire grupper nederst på indkøbslisten: Weekenden (slik, sodavand, chips, is/kager), Madpakken (brød, pålæg, ost, frugt), Morgenmad og Frokost – op til 10 pr. gruppe, hver vare kun i én gruppe, uden alkohol (reglerne står i GRUPPER i scripts/byg_tilbudsliste.py).
 `byg_opskrifter.py` og `byg_tilbudsliste.py` læser øjebliksbilledet (scripts/tilbud_snapshot.json) og skal altid køres, når aviser er hentet, så forsidens liste ikke bliver forældet. Den sammenligner tilbud med tilbud og kræver ingen tekst fra dig. `"top"` i butikkens json vises ikke længere på siden (feltet må gerne blive stående).
 **Håndskrevne retter først (brugerens ønske):** Kør `python -I scripts/genbrug_retter.py <butik> --op-til 45` (evt. `--min-andel 0.5`), som genbruger de håndskrevne opskrifter (scripts/retter_skabeloner.json) med butikkens egne tilbud
 som "som"-referencer, FØR du kører udvid_retter.py. Skriv desuden gerne nye håndskrevne retter af de bedste tilbud (fx kød, and, laks, smør, frisk rødkål, appelsiner).

@@ -43,6 +43,55 @@ KATEGORIER = {
 }
 
 
+# ---- Fire grupper til indkøbslisten: weekenden, madpakken, morgenmad og frokost (hver vare i højst én gruppe) ----
+# (gruppe, underkategori, regex på tilbuddets navn). Første match vinder, så en vare aldrig står i to grupper. Alkohol og ikke-mad udelukkes.
+ALKOHOL = re.compile(r'(?<![a-zæøå])(vin|rødvin|hvidvin|rosé|øl|pilsner|cider|vodka|gin|whisky|rom|likør|baileys|aquavit|bitter|spiritus|champagne|prosecco|gløgg|hvidtøl|julebryg|påskebryg)(?![a-zæøå])|'
+                     r'heineken|carlsberg|tuborg classic|royal export|jacobsen|grimbergen|1664|cuvée|shiraz|chardonnay|riesling|appassi|moscato|zinfandel|sauvignon|ripasso|merlot|gammel dansk|underberg|beefeater|absolut|ballantine|captain morgan|o\.p\. anderson|sælges kun i hele rammer|aus\b|today.s special|tendida', re.I)
+IKKE_MAD_LISTE = re.compile(r'vask|toilet|køkkenrulle|opvask|duracell|batteri|lyskæde|bloklys|fyrfadslys|stearin|kalenderlys|\bled\b|tena\b|libresse|bleer|tandpasta|colgate|shampoo|hundemad|kattemad|sheba|cesar|'
+                         r'julekalender|nivea|deodorant|energi|red bull|monster|ikke egnet til børn|biotex|ajax|klorin|fairy|libero|dun-let|kaffemaskine|gave|legetøj|naturli|lactofree|laktosefri|pizzadej|dejli', re.I)
+GRUPPER = [
+    ('weekend', 'Slik', r'slik|haribo|lakrids|vingummi|bolsjer|skumfidus|mentos|snebolde|julepose|spangsberg|nørregade|(?<![a-zæøå])toms|marabou|ritter sport|kinder|guldæske|anthon berg|konfekt|marcipan|karamel|bland selv|fazer|cloetta|chokolade(?!mælk)'),
+    ('weekend', 'Sodavand', r'sodavand|cola|pepsi|fanta|sprite|faxe kondi|schweppes|tuborg squash|ramlösa|fuze|mirinda|ribena|saftevand|ice tea|nestea|limonade|(?<![a-zæøå])squash|fun eller scoop'),
+    ('weekend', 'Chips og snacks', r'chips|snacks(?! pot)|popcorn|peanuts|saltstænger|(?<![a-zæøå])nødder|nachos|ostepops|kims|tortilla chips'),
+    ('weekend', 'Is og kager', r'(?<![a-zæøå])is(?![a-zæøå])|ice cream|magnum|ben & jerry|hansens|risalamande|dessert|budding|kage(?![a-zæøå])|kager|cookies|kiks|småkager|donuts|muffin|æbleskiver|wienerbrød|brownie'),
+    ('madpakke', 'Pålæg', r'pålæg|leverpostej|rullepølse|hamburgerryg|spegepølse|salami|skinke(?!steg)|postej|k-salat|pålægssalat|pålægschokolade|kødpølse|kalkunbacon|den grønne slagter'),
+    ('madpakke', 'Brød', r'rugbrød|franskbrød|toastbrød|(?<![a-zæøå])brød(?![a-zæøå])|boller|rundstykker|knækbrød|wasa|baguette|pitabrød|hvedebrød|levain|limpan|schulstad|pågen|kohberg'),
+    ('madpakke', 'Ost', r'skiveost|skæreost|smørbar|danbo|havarti|castello|philadelphia|klovborg|cheasy|mammen|riberhus|osteskiver|flødeost|first price skiveost'),
+    ('madpakke', 'Frugt og drikke', r'æble|banan|appelsin|clementin|mandarin|druer|pærer|kiwi|blåbær|figner|rosiner|juice|smoothie|kakaomælk|cocio|matilde|müslibar|corny|granolabar'),
+    ('morgenmad', 'Morgenmad', r'havregryn|müsli|granola|cornflakes|cheerios|grød|(?<![a-zæøå])havre|morgenmad|rice krispies|crunchy|kellogg'),
+    ('morgenmad', 'Mejeri', r'yoghurt|skyr|ymer|(?<![a-zæøå])mælk|letmælk|minimælk|kærnemælk|tykmælk|kefir|hytteost|cultura|yoggi|a38'),
+    ('morgenmad', 'Smør og smørepålæg', r'(?<![a-zæøå])smør(?![a-zæøå])|lurpak|kærgården|marmelade|syltetøj|honning|nutella|nougat|peanutbutter|nøddesmør'),
+    ('morgenmad', 'Kaffe og te', r'kaffe|nescafé|(?<![a-zæøå])bki|karat|merrild|gevalia|lavazza|(?<![a-zæøå])te(?![a-zæøå])|pickwick|lipton'),
+    ('morgenmad', 'Æg', r'(?<![a-zæøå])æg(?![a-zæøå])|frilandsæg|skrabeæg'),
+    ('frokost', 'Suppe', r'suppe'),
+    ('frokost', 'Hurtig frokost', r'nudler|snack pot|noodles|spaghetteria|middagsret|færdigret|knorr retter|steff houlberg maxi|indbagt|tarteletter|wraps|sandwich|bagel|pizza|ristorante|tærte|quiche'),
+    ('frokost', 'Fisk og salat', r'(?<![a-zæøå])tun(?![a-zæøå])|makrel|sild|rejesalat|hønsesalat|salat(?![a-zæøå])|dressing|mayonnaise|remoulade'),
+]
+TITLER = {'weekend': 'Weekenden', 'madpakke': 'Madpakken', 'morgenmad': 'Morgenmad', 'frokost': 'Frokost'}
+
+
+def noegle(navn):
+    """Samme vare i flere butikker får samme nøgle (ordene i det første produkt, sorteret)."""
+    forste = re.split(r',| eller | og ', navn)[0].lower()
+    return ' '.join(sorted(set(re.findall(r'[a-zæøå]{3,}', forste))))
+
+
+def byg_grupper(data):
+    grupper = {g: [] for g in TITLER}
+    pr_butik = {}
+    for t in sorted(data['tilbud'], key=lambda x: x['pris'] or 0):
+        if not t.get('pris') or ALKOHOL.search(t['navn']) or IKKE_MAD_LISTE.search(t['navn']):
+            continue
+        for g, under, mønster in GRUPPER:
+            if re.search(mønster, t['navn'], re.I):
+                n = pr_butik[(t['butik'], g)] = pr_butik.get((t['butik'], g), 0) + 1
+                if n <= 30:
+                    grupper[g].append({'butik': t['butik'], 'kort': t['kort'], 'navn': t['navn'], 'pris': t['pris'], 'forPris': t.get('forPris'), 'maengde': t.get('maengde'),
+                                       'enhed': t.get('enhed'), 'billede': t.get('billede'), 'gyldigTil': t.get('gyldigTil'), 'under': under, 'noegle': noegle(t['navn'])})
+                break  # højst én gruppe pr. vare
+    return grupper
+
+
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     data = laes_snapshot()
@@ -68,10 +117,11 @@ def main():
                         'enhed': t.get('enhed'), 'ep': round(ep, 2) if ep else None, 'billede': t.get('billede'), 'gyldigTil': t.get('gyldigTil')}
                        for _, ep, t in sorted(bedst.values(), key=lambda x: x[0])],
         })
-    ud = {'genereret': datetime.datetime.now().astimezone().isoformat(timespec='seconds'), 'kategorier': kategorier}
+    grupper = byg_grupper(data)
+    ud = {'genereret': datetime.datetime.now().astimezone().isoformat(timespec='seconds'), 'kategorier': kategorier, 'grupper': grupper}
     with open(UD, 'w', encoding='utf-8') as f:
         json.dump(ud, f, ensure_ascii=False, separators=(',', ':'))
-    print(f'tilbudsliste.json skrevet: {len(kategorier)} kategorier')
+    print(f'tilbudsliste.json skrevet: {len(kategorier)} kategorier og grupperne ' + ', '.join(f'{TITLER[g]} {len(v)}' for g, v in grupper.items()))
     for k in kategorier:
         a = k['tilbud'][0]
         print(f"  {k['navn']:18} {len(k['tilbud'])} butikker, billigst {a['butik']:12} {a['pris']:g} kr  {a['navn'][:46]}")
