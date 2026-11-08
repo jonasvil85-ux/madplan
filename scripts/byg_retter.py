@@ -37,10 +37,10 @@ MIN_PR_KOEKKEN = 4
 #     middagsretter, nuggets, dinner kits, kopsupper, færdige flødekartofler/gratin, laktosefri, smørbart, plantebaseret
 FORARBEJDET = re.compile(
     r'færdigret|middagsret|dinner kit|kopsuppe|cup a soup|snackpot|instant|nuggets|cordon|minischnitzel|schnitzelmaker|'
-    r'forårsruller|spring rolls|fyldt pasta|tex ?mex|kødboller|melboller|frikadeller|lasagne|moussaka|gryderet|boller i karry|'
+    r'forårsruller|spring rolls|fyldt pasta|tex ?mex(?![ -]*tortilla)|kødboller|melboller|frikadeller|lasagne|moussaka|gryderet|boller i karry|'
     r'komplet suppe|specialsuppe|hamburger|færdig|'
     r'flødekartofler|brunede kartofler|kartoffelgratin|duchesse|glaskartofler|kartofler i glas|kålsalat|'
-    r'æbleskiver|risalamande|confit|smørrebrød|menu|mortensaften|andesauce|kyllingemarked|wok-?mix|indbagt|kebabbrød|toast|wienerbrød|tærte|'
+    r'æbleskiver|risalamande|confit|smørrebrød|menu|mortensaften|andesauce|kyllingemarked|wok-?mix|indbagt|kebabbrød|toast|wienerbrød|tærte(?!dej)|'
     r'lactofree|laktosefri|smørbar|naturli|margarine|^kærgården', re.I)
 SJAELDEN = re.compile(r'panering|paneret|ristorante|rustica|surdejspizza|italiensk.*pizza|grande pizza|pizzatopping|pizza|pommes', re.I)
 MAX_SJAELDEN = 2  # retter pr. butik med frysepizza, paneret fisk eller pommes frites

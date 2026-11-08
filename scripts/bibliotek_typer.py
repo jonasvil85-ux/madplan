@@ -22,7 +22,7 @@ TYPER = {
     'moerbrad':      (r'mørbrad', r'kalv|lam'),
     'medister':      (r'medister', r'røget'),
     'polser':        (r'grillpølser|pølser', r'brunch|kylling|bacon|røget|salami|chorizo|spege|vin'),
-    'spareribs':     (r'spareribs|(?<![a-zæøå])ribs(?![a-zæøå])', r'gelé|gele|ribsgel'),
+    'spareribs':     (r'spareribs|(?<![a-zæøå])ribs(?![a-zæøå])', r'gelé|gele|ribsgel|inspireret|marineret'),
     'oksebof':       (r'entrecote|ribeye|tyndstegsfilet|oksefilet|steak|tykstegsbøf|tykstegbøf|culotte|inderlår|roastbeef|bøffer af okse', r'hakket|burger|gullasch|kalv|kartofler|med kartof|(?<![a-zæøå])lam|lamme'),
     'okse_tern':     (r'gullasch|okse i tern|oksekød i tern|okseklump|bankekød|stroganoff|oksekæber', r''),
     'laks':          (r'laks', r'røget|gravad|snitter|pålæg|vildlaks|varm|kold|ketalaks|rogn'),
