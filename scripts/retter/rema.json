@@ -3994,7 +3994,7 @@
           "g",
           0,
           [
-            "R129"
+            "R130"
           ]
         ],
         [
@@ -4511,22 +4511,23 @@
       "auto": true
     },
     {
-      "navn": "Brændende kærlighed",
-      "beskrivelse": "Dansk klassiker: kartoffelmos med sprød bacon og glaserede løg.",
+      "navn": "Stegt ris med æg og bacon",
+      "beskrivelse": "Fantastisk restemad: kold ris stegt med æg, bacon og grøntsager.",
       "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 40,
+      "koekken": "asiatisk",
+      "tid_minutter": 20,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog kartoflerne møre, og mos dem med smør, mælk og salt.",
-        "Steg bacon sprødt, og tag det op. Svits løg i skiver i baconfedtet, til de er bløde og gyldne.",
-        "Anret mosen med bacon og løg ovenpå."
+        "Kog risene, og lad dem køle af (eller brug rester fra dagen før).",
+        "Steg bacon sprødt, og tilsæt løg og revet gulerod.",
+        "Skub til side, og rør æggene sammen på panden.",
+        "Tilsæt ris, ærter og soja, og steg 5 minutter, til alt er varmt og lidt sprødt."
       ],
       "niveau": "student",
       "ingredienser": [
         [
           "bacon i tern",
-          300,
+          200,
           "g",
           0,
           [
@@ -4534,39 +4535,53 @@
           ]
         ],
         [
-          "kartofler",
-          1000,
+          "ris (gerne kogt dagen før)",
+          300,
           "g",
           0,
-          [
-            "R20"
-          ]
+          []
         ],
         [
-          "løg",
-          2,
+          "æg",
+          3,
           "stk",
           0,
           []
         ],
         [
-          "mælk",
-          150,
-          "ml",
+          "gulerødder",
+          1,
+          "stk",
+          0,
+          [
+            "R120"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
           0,
           []
         ],
         [
-          "smør",
-          50,
+          "frosne ærter",
+          150,
           "g",
           0,
           []
         ],
         [
-          "salt og peber",
-          0,
-          "efter smag",
+          "sojasauce",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
           1,
           []
         ]
@@ -4730,6 +4745,69 @@
           "sort peber",
           1,
           "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Brændende kærlighed",
+      "beskrivelse": "Dansk klassiker: kartoffelmos med sprød bacon og glaserede løg.",
+      "kategori": "svin",
+      "koekken": "dansk",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog kartoflerne møre, og mos dem med smør, mælk og salt.",
+        "Steg bacon sprødt, og tag det op. Svits løg i skiver i baconfedtet, til de er bløde og gyldne.",
+        "Anret mosen med bacon og løg ovenpå."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "bacon i tern",
+          300,
+          "g",
+          0,
+          [
+            "R4"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "R20"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "mælk",
+          150,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "smør",
+          50,
+          "g",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
           1,
           []
         ]
@@ -5114,7 +5192,7 @@
           "g",
           0,
           [
-            "R46"
+            "R4"
           ]
         ],
         [

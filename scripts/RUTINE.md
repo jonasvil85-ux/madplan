@@ -61,6 +61,7 @@ som "som"-referencer, FØR du kører udvid_retter.py. Skriv desuden gerne nye h�
 Brug IKKE skiveost i madlavningen – brug en blok ost (cheddar, Danbo, Castello, skæreost) eller revet ost.
 
 **Flest mulige tilbud i brug:** `udvid_retter.py` kan bruge ALLE varer i et tilbud med flere ("Grønlandske rejer, kold- eller varmrøget laks" er både rejer og laks; siden viser den vare, retten bruger), og vælger retter, der bringer tilbud i brug, som ingen valgt ret bruger endnu (`NYE_TILBUD_BONUS`).
+En opskrift kan optræde med op til 4 forskellige tilbud som nøgle-ingrediens (højst 1,8 gange så dyrt som det billigste), så en vare med mange tilbud (fx 10 andetilbud) ikke altid bruger det billigste; kun én udgave pr. opskrift vælges (`MAX_VARIANTER`, `VARIANT_PRIS`).
 Kør den med `--til 70` for at få op til 70 retter pr. butik: `python -I scripts/udvid_retter.py <butik> … --til 70`. Mangler biblioteket opskrifter til en vare, der ofte er på tilbud, så tilføj en type i `bibliotek_typer.py` og retter i `bibliotek_5.py` (kør derefter `byg_bibliotek4.py`, som skriver billedbeskrivelserne). Tjek altid udskriften: en ny type må ikke ramme ikke-mad (fx det engelske ord "and" i en vinetiket).
 
 **MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har ca. 156 opskrifter (bibliotek_1..5).

@@ -46,7 +46,7 @@ TYPER = {
     'soede_kartofler': (r'søde kartofler|sød kartoffel|søde kartoffel', r'chips|pommes|frost|fries|bagte|fyldte'),
     'camembert':     (r'camembert|(?<![a-zæøå])brie(?![a-zæøå])', r'pålæg|smelte|chips|salat'),
     # Grønt og frugt
-    'kartofler':     (r'kartofler', r'flødekartofler|brunede|glas|chips|gratin|pommes|duchesse|søde|frost|nemme|bagte|bøffer|tyksteg|oksetyksteg'),
+    'kartofler':     (r'kartofler', r'flødekartofler|brunede|glas|chips|franske|gratin|pommes|duchesse|søde|frost|nemme|bagte|bøffer|tyksteg|oksetyksteg'),
     'loeg': (r'(?<![a-zæøå])løg(?![a-zæøå])', r'forårs|rød|syltede|pølse'),
     'gulerod':       (r'gulerødder', r''),
     'porre':         (r'porre', r''),

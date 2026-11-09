@@ -22,6 +22,8 @@ RETTER_MAPPE = os.path.join(ROD, 'scripts', 'retter')
 MAX_PR_KOEKKEN = {'dansk': 26}
 STANDARD_MAX = 13
 MAX_PR_NOEGLETILBUD = 5
+MAX_VARIANTER = 4   # en opskrift kan komme i op til så mange udgaver med hver sit tilbud som nøgle-ingrediens (kun én udgave vælges)
+VARIANT_PRIS = 1.8  # en udgave må koste højst så meget mere end den billigste (+ 15 kr)
 NYE_TILBUD_BONUS = 0.05  # pr. tilbud, retten bruger, som ingen valgt ret bruger endnu (højst 4 tæller): flest mulige af ugens tilbud kommer i brug
 
 
@@ -66,7 +68,9 @@ def vaelg_bedste(kand, maengde, enhed):
     return min(kand, key=lambda t: (pris(t), t['pris']))
 
 
-def lav_ret(butik, tilbud, opskrift):
+def lav_ret(butik, tilbud, opskrift, rang=0):
+    """rang 0: nøgle-ingrediensen får butikkens billigste tilbud. rang 1, 2 …: det næstbilligste osv. (højst VARIANT_PRIS gange så dyrt),
+    så en vare med mange tilbud (fx 10 andetilbud) ikke kun bruger det billigste."""
     prefix = BUTIKKER[butik]['prefix']
     ings, behov, matchet, ialt, noegler = [], {}, 0, 0, set()
     for navn, m, e, basis, typ, noegle in opskrift['ingredienser']:
@@ -74,7 +78,15 @@ def lav_ret(butik, tilbud, opskrift):
         if typ:
             kand = kandidater(tilbud, typ)
             if kand:
-                b = vaelg_bedste(kand, m, e)
+                if noegle and rang:
+                    pr = lambda t: t['pris'] * BR.antal_pakker(t, {e: m})
+                    rk = sorted(kand, key=lambda t: (pr(t), t['pris']))
+                    rk = [t for t in rk if pr(t) <= VARIANT_PRIS * pr(rk[0]) + 15]
+                    if rang >= len(rk):
+                        return None
+                    b = rk[rang]
+                else:
+                    b = vaelg_bedste(kand, m, e)
                 ids = [b['kort']]
                 if noegle:
                     noegler.add(b['kort'])
@@ -128,9 +140,12 @@ def kor(butik, til=50, min_k=5, min_tilbud=0.5):
     for o in BIB:
         if o['navn'] in navne:
             continue
-        c = lav_ret(butik, tilbud, o)
-        if c and c['andel_pris'] >= min_tilbud and c['andel'] >= 0.2:
-            kandid.append(c)
+        for rang in range(MAX_VARIANTER):
+            c = lav_ret(butik, tilbud, o, rang)
+            if not c:
+                break
+            if c['andel_pris'] >= min_tilbud and c['andel'] >= 0.2:
+                kandid.append(c)
     kandid.sort(key=lambda c: (-c['andel_pris'], c['pr_person']))
     valgt, brugt_noegle = [], {}
     brugt_tilbud = set()  # alle tilbud, de valgte retter bruger – nye retter belønnes for at bringe flere af ugens tilbud i brug
@@ -142,7 +157,7 @@ def kor(butik, til=50, min_k=5, min_tilbud=0.5):
         return antal[k] + sum(1 for c in valgt if c['koekken'] == k)
 
     def kan(c):
-        return c not in valgt and antal_k(c['koekken']) < max_k(c['koekken']) and \
+        return c not in valgt and all(c['navn'] != v['navn'] for v in valgt) and antal_k(c['koekken']) < max_k(c['koekken']) and \
             all(brugt_noegle.get(n, 0) < MAX_PR_NOEGLETILBUD for n in c['noegler'])
 
     def tag(c):

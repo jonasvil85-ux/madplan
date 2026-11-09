@@ -396,40 +396,65 @@
       "auto": true
     },
     {
-      "navn": "Laks med soja og honning, ris og broccoli",
-      "beskrivelse": "Mørbagt laks med blank sojaglasur, serveret med ris og dampet broccoli.",
-      "kategori": "fisk",
+      "navn": "Stegt ris med æg og bacon",
+      "beskrivelse": "Fantastisk restemad: kold ris stegt med æg, bacon og grøntsager.",
+      "kategori": "svin",
       "koekken": "asiatisk",
-      "tid_minutter": 30,
-      "spis_tidligt": true,
+      "tid_minutter": 20,
+      "spis_tidligt": false,
       "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Rør soja, honning, revet ingefær og hvidløg til en glasur.",
-        "Læg laksen i et fad, pensl den med glasuren, og bag i 12-15 minutter.",
-        "Kog risene, og damp eller kog broccolien i 3 minutter.",
-        "Server laksen med ris, broccoli og resten af glasuren."
+        "Kog risene, og lad dem køle af (eller brug rester fra dagen før).",
+        "Steg bacon sprødt, og tilsæt løg og revet gulerod.",
+        "Skub til side, og rør æggene sammen på panden.",
+        "Tilsæt ris, ærter og soja, og steg 5 minutter, til alt er varmt og lidt sprødt."
       ],
-      "niveau": "weekend",
+      "niveau": "student",
       "ingredienser": [
         [
-          "laksefilet",
-          600,
+          "bacon i tern",
+          200,
           "g",
           0,
           [
-            "P27"
+            "P48"
           ]
         ],
         [
-          "ris",
+          "ris (gerne kogt dagen før)",
           300,
           "g",
           0,
           []
         ],
         [
-          "broccoli",
+          "æg",
+          3,
+          "stk",
+          0,
+          [
+            "P22"
+          ]
+        ],
+        [
+          "gulerødder",
           1,
           "stk",
+          0,
+          [
+            "P9"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "frosne ærter",
+          150,
+          "g",
           0,
           []
         ],
@@ -438,27 +463,6 @@
           3,
           "spsk",
           1,
-          []
-        ],
-        [
-          "honning",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "frisk ingefær",
-          20,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
           []
         ],
         [
@@ -579,7 +583,7 @@
           "g",
           0,
           [
-            "P98"
+            "P48"
           ]
         ],
         [
@@ -702,27 +706,27 @@
       "auto": true
     },
     {
-      "navn": "Koreansk-inspireret oksekødsbowl",
-      "beskrivelse": "Krydret hakket oksekød over ris med agurk, gulerod og spejlæg.",
-      "kategori": "okse",
+      "navn": "Laks med soja og honning, ris og broccoli",
+      "beskrivelse": "Mørbagt laks med blank sojaglasur, serveret med ris og dampet broccoli.",
+      "kategori": "fisk",
       "koekken": "asiatisk",
-      "tid_minutter": 25,
-      "spis_tidligt": false,
+      "tid_minutter": 30,
+      "spis_tidligt": true,
       "fremgangsmaade": [
-        "Kog risene. Brun kødet i olie med hvidløg og ingefær.",
-        "Tilsæt soja og honning, og lad det stege ind til det er blankt.",
-        "Skær agurk og gulerod i tynde stave. Steg æggene som spejlæg.",
-        "Anret ris, kød, grønt og et spejlæg i dybe skåle."
+        "Tænd ovnen på 200 °C. Rør soja, honning, revet ingefær og hvidløg til en glasur.",
+        "Læg laksen i et fad, pensl den med glasuren, og bag i 12-15 minutter.",
+        "Kog risene, og damp eller kog broccolien i 3 minutter.",
+        "Server laksen med ris, broccoli og resten af glasuren."
       ],
-      "niveau": "familie",
+      "niveau": "weekend",
       "ingredienser": [
         [
-          "hakket oksekød",
-          500,
+          "laksefilet",
+          600,
           "g",
           0,
           [
-            "P14"
+            "P27"
           ]
         ],
         [
@@ -733,29 +737,11 @@
           []
         ],
         [
-          "agurk",
+          "broccoli",
           1,
           "stk",
           0,
           []
-        ],
-        [
-          "gulerødder",
-          2,
-          "stk",
-          0,
-          [
-            "P9"
-          ]
-        ],
-        [
-          "æg",
-          4,
-          "stk",
-          0,
-          [
-            "P22"
-          ]
         ],
         [
           "sojasauce",
@@ -765,23 +751,23 @@
           []
         ],
         [
-          "honning eller sukker",
-          1,
+          "honning",
+          2,
           "spsk",
           1,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
           []
         ],
         [
           "frisk ingefær",
           20,
           "g",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
           0,
           []
         ],
@@ -988,7 +974,7 @@
           "stk",
           0,
           [
-            "P4"
+            "P32"
           ]
         ],
         [
@@ -1037,48 +1023,46 @@
       "auto": true
     },
     {
-      "navn": "Stegt ris med æg og bacon",
-      "beskrivelse": "Fantastisk restemad: kold ris stegt med æg, bacon og grøntsager.",
-      "kategori": "svin",
+      "navn": "Koreansk-inspireret oksekødsbowl",
+      "beskrivelse": "Krydret hakket oksekød over ris med agurk, gulerod og spejlæg.",
+      "kategori": "okse",
       "koekken": "asiatisk",
-      "tid_minutter": 20,
+      "tid_minutter": 25,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog risene, og lad dem køle af (eller brug rester fra dagen før).",
-        "Steg bacon sprødt, og tilsæt løg og revet gulerod.",
-        "Skub til side, og rør æggene sammen på panden.",
-        "Tilsæt ris, ærter og soja, og steg 5 minutter, til alt er varmt og lidt sprødt."
+        "Kog risene. Brun kødet i olie med hvidløg og ingefær.",
+        "Tilsæt soja og honning, og lad det stege ind til det er blankt.",
+        "Skær agurk og gulerod i tynde stave. Steg æggene som spejlæg.",
+        "Anret ris, kød, grønt og et spejlæg i dybe skåle."
       ],
-      "niveau": "student",
+      "niveau": "familie",
       "ingredienser": [
         [
-          "bacon i tern",
-          200,
+          "hakket oksekød",
+          500,
           "g",
           0,
           [
-            "P98"
+            "P14"
           ]
         ],
         [
-          "ris (gerne kogt dagen før)",
+          "ris",
           300,
           "g",
           0,
           []
         ],
         [
-          "æg",
-          3,
+          "agurk",
+          1,
           "stk",
           0,
-          [
-            "P22"
-          ]
+          []
         ],
         [
           "gulerødder",
-          1,
+          2,
           "stk",
           0,
           [
@@ -1086,24 +1070,40 @@
           ]
         ],
         [
-          "løg",
-          1,
+          "æg",
+          4,
           "stk",
           0,
-          []
-        ],
-        [
-          "frosne ærter",
-          150,
-          "g",
-          0,
-          []
+          [
+            "P22"
+          ]
         ],
         [
           "sojasauce",
           3,
           "spsk",
           1,
+          []
+        ],
+        [
+          "honning eller sukker",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "frisk ingefær",
+          20,
+          "g",
+          0,
           []
         ],
         [
@@ -1238,7 +1238,7 @@
           "g",
           0,
           [
-            "P44"
+            "P32"
           ]
         ],
         [
@@ -1660,7 +1660,7 @@
           "g",
           0,
           [
-            "P44"
+            "P32"
           ]
         ],
         [
@@ -2133,6 +2133,72 @@
       "auto": true
     },
     {
+      "navn": "Helstegt and med æbler og svesker",
+      "beskrivelse": "Søndagsmad: en hel and fyldt med æbler og svesker, med rødkål og kartofler.",
+      "kategori": "and",
+      "koekken": "dansk",
+      "tid_minutter": 150,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Salt anden, og fyld den med skårne æbler og svesker.",
+        "Steg den ved 175 grader i ca. 2 timer, og øs fedtet af undervejs.",
+        "Varm rødkålen, og kog kartoflerne.",
+        "Skær anden i stykker, og server med rødkål, kartofler og sauce af stegefonden."
+      ],
+      "niveau": "weekend",
+      "ingredienser": [
+        [
+          "hel and",
+          2500,
+          "g",
+          0,
+          [
+            "P1"
+          ]
+        ],
+        [
+          "æbler",
+          4,
+          "stk",
+          0,
+          [
+            "P7"
+          ]
+        ],
+        [
+          "svesker",
+          100,
+          "g",
+          0,
+          []
+        ],
+        [
+          "rødkål",
+          500,
+          "g",
+          0,
+          []
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "P44"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
       "navn": "Helstegt kylling med kartofler og sovs",
       "beskrivelse": "Sprød helstegt kylling med ovnkartofler og hjemmelavet sovs.",
       "kategori": "kylling",
@@ -2461,60 +2527,77 @@
       "auto": true
     },
     {
-      "navn": "Helstegt and med æbler og svesker",
-      "beskrivelse": "Søndagsmad: en hel and fyldt med æbler og svesker, med rødkål og kartofler.",
-      "kategori": "and",
-      "koekken": "dansk",
-      "tid_minutter": 150,
+      "navn": "Hjemmelavet pizza med bacon og peberfrugt",
+      "beskrivelse": "Pizza på hjemmelavet dej med tomatsauce, mozzarella, bacon og peberfrugt.",
+      "kategori": "svin",
+      "koekken": "italiensk",
+      "tid_minutter": 90,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Salt anden, og fyld den med skårne æbler og svesker.",
-        "Steg den ved 175 grader i ca. 2 timer, og øs fedtet af undervejs.",
-        "Varm rødkålen, og kog kartoflerne.",
-        "Skær anden i stykker, og server med rødkål, kartofler og sauce af stegefonden."
+        "Rør gær ud i 3 dl lunkent vand, og ælt det sammen med mel, 3 spsk olie og 1 tsk salt. Lad dejen hæve under et viskestykke i 1 time.",
+        "Tænd ovnen på 250 °C. Rør tomater med oregano og salt til en sauce.",
+        "Del dejen i to, rul den tyndt ud, og fordel saucen. Top med mozzarella, bacon og peberfrugt i strimler.",
+        "Bag i 10-12 minutter, til kanten er gylden."
       ],
-      "niveau": "weekend",
+      "niveau": "student",
       "ingredienser": [
         [
-          "hel and",
-          2500,
-          "g",
-          0,
-          [
-            "P1"
-          ]
-        ],
-        [
-          "æbler",
-          4,
-          "stk",
-          0,
-          [
-            "P7"
-          ]
-        ],
-        [
-          "svesker",
-          100,
-          "g",
-          0,
-          []
-        ],
-        [
-          "rødkål",
+          "hvedemel",
           500,
           "g",
+          1,
+          []
+        ],
+        [
+          "gær",
+          25,
+          "g",
+          1,
+          []
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
           0,
           []
         ],
         [
-          "kartofler",
-          1000,
+          "mozzarella",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "bacon i tern",
+          150,
           "g",
           0,
           [
-            "P44"
+            "P48"
           ]
+        ],
+        [
+          "peberfrugt",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tørret oregano",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
         ],
         [
           "salt og peber",
@@ -2670,6 +2753,69 @@
       "auto": true
     },
     {
+      "navn": "Brændende kærlighed",
+      "beskrivelse": "Dansk klassiker: kartoffelmos med sprød bacon og glaserede løg.",
+      "kategori": "svin",
+      "koekken": "dansk",
+      "tid_minutter": 40,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog kartoflerne møre, og mos dem med smør, mælk og salt.",
+        "Steg bacon sprødt, og tag det op. Svits løg i skiver i baconfedtet, til de er bløde og gyldne.",
+        "Anret mosen med bacon og løg ovenpå."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "bacon i tern",
+          300,
+          "g",
+          0,
+          [
+            "P98"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "P44"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "mælk",
+          150,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "smør",
+          50,
+          "g",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
       "navn": "Shakshuka med feta og brød",
       "beskrivelse": "Æg pocheret i en krydret tomatsauce med peberfrugt – serveres med brød.",
       "kategori": "vegetar",
@@ -2762,82 +2908,85 @@
       "auto": true
     },
     {
-      "navn": "Hjemmelavet pizza med bacon og peberfrugt",
-      "beskrivelse": "Pizza på hjemmelavet dej med tomatsauce, mozzarella, bacon og peberfrugt.",
+      "navn": "Kartoffel-baconsuppe med brød",
+      "beskrivelse": "Cremet kartoffelsuppe toppet med sprød bacon.",
       "kategori": "svin",
-      "koekken": "italiensk",
-      "tid_minutter": 90,
+      "koekken": "dansk",
+      "tid_minutter": 40,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Rør gær ud i 3 dl lunkent vand, og ælt det sammen med mel, 3 spsk olie og 1 tsk salt. Lad dejen hæve under et viskestykke i 1 time.",
-        "Tænd ovnen på 250 °C. Rør tomater med oregano og salt til en sauce.",
-        "Del dejen i to, rul den tyndt ud, og fordel saucen. Top med mozzarella, bacon og peberfrugt i strimler.",
-        "Bag i 10-12 minutter, til kanten er gylden."
+        "Steg bacon sprødt, og tag det op. Steg løg og porre i fedtet.",
+        "Tilsæt kartofler i tern, bouillon og 6 dl vand. Kog i 20 minutter, og blend suppen med mælken.",
+        "Smag til, og server med bacon og rugbrød."
       ],
       "niveau": "student",
       "ingredienser": [
         [
-          "hvedemel",
-          500,
-          "g",
-          1,
-          []
-        ],
-        [
-          "gær",
-          25,
-          "g",
-          1,
-          []
-        ],
-        [
-          "hakkede tomater",
-          1,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "mozzarella",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
           "bacon i tern",
-          150,
+          200,
           "g",
           0,
           [
-            "P98"
+            "P48"
           ]
         ],
         [
-          "peberfrugt",
+          "kartofler",
+          800,
+          "g",
+          0,
+          [
+            "P44"
+          ]
+        ],
+        [
+          "løg",
           1,
           "stk",
           0,
           []
         ],
         [
-          "tørret oregano",
+          "porrer",
           1,
-          "tsk",
+          "stk",
+          0,
+          []
+        ],
+        [
+          "rugbrød",
+          1,
+          "stk",
+          0,
+          [
+            "P19"
+          ]
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
           1,
           []
         ],
         [
-          "olie",
-          1,
-          "spsk",
-          1,
+          "mælk",
+          300,
+          "ml",
+          0,
           []
         ],
         [
           "salt og peber",
           0,
           "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
           1,
           []
         ]
@@ -2902,155 +3051,6 @@
           "salt og peber",
           0,
           "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Brændende kærlighed",
-      "beskrivelse": "Dansk klassiker: kartoffelmos med sprød bacon og glaserede løg.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog kartoflerne møre, og mos dem med smør, mælk og salt.",
-        "Steg bacon sprødt, og tag det op. Svits løg i skiver i baconfedtet, til de er bløde og gyldne.",
-        "Anret mosen med bacon og løg ovenpå."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "bacon i tern",
-          300,
-          "g",
-          0,
-          [
-            "P98"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "P44"
-          ]
-        ],
-        [
-          "løg",
-          2,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "mælk",
-          150,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "smør",
-          50,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Kartoffel-baconsuppe med brød",
-      "beskrivelse": "Cremet kartoffelsuppe toppet med sprød bacon.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Steg bacon sprødt, og tag det op. Steg løg og porre i fedtet.",
-        "Tilsæt kartofler i tern, bouillon og 6 dl vand. Kog i 20 minutter, og blend suppen med mælken.",
-        "Smag til, og server med bacon og rugbrød."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "bacon i tern",
-          200,
-          "g",
-          0,
-          [
-            "P98"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "P44"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "porrer",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "rugbrød",
-          1,
-          "stk",
-          0,
-          [
-            "P19"
-          ]
-        ],
-        [
-          "bouillon",
-          1,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "mælk",
-          300,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
           1,
           []
         ]
@@ -3424,153 +3424,6 @@
           "salt og peber",
           0,
           "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Medister med stuvet spidskål og kartofler",
-      "beskrivelse": "Stegt medister med cremet stuvet spidskål og kartofler.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog kartoflerne. Steg medisteren i 15-20 minutter.",
-        "Skær spidskålen i strimler, og kog den i 5 minutter. Lav en hvid sauce af smør, mel og mælk, og vend kålen i. Smag til med muskat og salt.",
-        "Server medisteren med stuvet kål og kartofler."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "medister",
-          600,
-          "g",
-          0,
-          [
-            "P48"
-          ]
-        ],
-        [
-          "spidskål",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "P44"
-          ]
-        ],
-        [
-          "mælk",
-          400,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvedemel",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "muskatnød",
-          1,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Medisterpølse med kartoffelmos og rødkål",
-      "beskrivelse": "Saftig medister med cremet mos og søde rødkål.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog kartoflerne møre. Varm rødkålen op.",
-        "Steg medisteren ved middel varme i 15-20 minutter.",
-        "Mos kartoflerne med smør og varm mælk. Server alt sammen."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "medister",
-          700,
-          "g",
-          0,
-          [
-            "P48"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "P44"
-          ]
-        ],
-        [
-          "rødkål",
-          1,
-          "pakke",
-          0,
-          []
-        ],
-        [
-          "mælk",
-          100,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
           1,
           []
         ]
