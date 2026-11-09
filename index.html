@@ -782,6 +782,28 @@ html body #fb-fod a { color: var(--text-1); }
 /* ===== LOGO-EKSEMPEL: lidt farve i logoet (sekundærfarven), orange er stadig kun til valg. Fjern denne blok for et helt neutralt logo ===== */
 .logo-symbol { color: var(--sek); }
 header.top h1.maerke .logo-navn span { color: var(--sek); }
+
+/* ===== MOBIL: madplanen, ugeplanen og kategorierne er hver én række, man stryger i, i stedet for en lang liste ===== */
+@media (max-width: 600px) {
+  .kalender { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .kalender::-webkit-scrollbar, .niveauer.katraekke::-webkit-scrollbar { display: none; }
+  .simulering .kalender { margin: 0 -18px; padding: 0 18px 6px; }
+  .ugeplan-valg .kalender { margin: 0 -16px; padding: 0 16px 6px; }
+  .kalender > .dag-kort { flex: 0 0 150px; display: flex; flex-direction: column; scroll-snap-align: start; }
+  .kalender .dag-top { padding: 7px 10px 5px; }
+  .kalender .dag-bil-sim { aspect-ratio: 3 / 2; min-height: 0; align-self: auto; }
+  .kalender .dag-ret { padding: 7px 10px 2px; flex: 1; }
+  .kalender .dag-meta { padding: 0 10px 9px; }
+  .kalender .dag-knapper { position: absolute; top: 36px; right: 6px; margin-left: 0; }
+  .kalender .dag-knapper .byt-knap { background: rgba(255,255,255,.9); padding: 3px 6px; }
+  .kalender .dag-knapper .byt-knap span { display: none; }
+  .kalender .dag-kort.fravalgt .dag-top { padding: 7px 10px 5px; }
+  .kalender .dag-fra { padding: 10px; }
+  .niveauer.katraekke { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; margin: 0 -20px 12px; padding: 0 20px 4px; }
+  .niveau.kat { flex: 0 0 150px; scroll-snap-align: start; min-height: 104px; }
+  .sim-valg { flex-direction: row; flex-wrap: nowrap; width: 100%; }
+  .sim-valg .knap { flex: 1; padding: 13px 8px; font-size: 14.5px; white-space: nowrap; }
+}
 </style>
 </head>
 <body>
