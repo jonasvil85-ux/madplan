@@ -27,8 +27,9 @@ BUTIKKER = {
     'minkoebmand':  {'navn': 'Min Købmand',  'dealerId': '603dfL', 'prefix': 'X'},
 }
 # Kun den ugentlige madavis ("Uge 45", "Netto uge 45", "Lidl avis (uge 45)" …)
-UGEAVIS = re.compile(r'uge\s*\d+', re.I)
-IKKE_MAD = re.compile(r'nonfood|vin|søndag|magasin|katalog', re.I)
+# Ugeavisen kendes på et ugenummer (1-53) i navnet – uanset præfiks: "Uge 46", "SPAR uge 46", "Netto AU46". Årstal (2026) passerer ikke.
+UGEAVIS = re.compile(r'(?<!\d)(?:[1-9]|[1-4]\d|5[0-3])(?!\d)')
+IKKE_MAD = re.compile(r'nonfood|vin|søndag|magasin|katalog|premium', re.I)
 SNAPSHOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tilbud_snapshot.json')
 ENHEDER = {'pcs': 'stk', 'g': 'g', 'kg': 'kg', 'ml': 'ml', 'cl': 'cl', 'l': 'l'}
 
