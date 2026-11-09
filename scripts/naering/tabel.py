@@ -36,6 +36,7 @@ REGLER = [
     # krydderurter m.m. ignoreres i IGNORER; her kun varer med næring
     (r'søde kartofler|sød kartoffel', 'soed_kartoffel', U(stk=200)),
     (r'kartof|bagekartof', 'kartoffel', U(stk=150)),
+    (r'ristede løg', 'hvedemel', U(spsk=6, faktor=1.3)),
     (r'skalotte|rødløg|forårsløg|\bløg\b|^løg', 'loeg', U(stk=110)),
     (r'hvidløg', 'hvidloeg', U(fed=3, stk=40)),
     (r'smør\b|kærgården', 'smoer', U()),

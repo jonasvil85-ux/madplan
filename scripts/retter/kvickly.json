@@ -3609,18 +3609,18 @@
       "auto": true
     },
     {
-      "navn": "Flæskestegssandwich med rødkål og sennep",
-      "beskrivelse": "Sprød ristet sandwich med skiver af nystegt flæskesteg, rødkål og sennep.",
+      "navn": "Flæskestegssandwich med rødkål og agurkesalat",
+      "beskrivelse": "Sprød flæskesteg i bolle med rødkål, agurkesalat, remoulade og ristede løg – som på en dansk sandwichbar.",
       "kategori": "svin",
       "koekken": "dansk",
       "tid_minutter": 90,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Tag flæskestegen ud af køleskabet 30 minutter før. Rids svær og kød, og gnid med salt og peber.",
-        "Steg flæskestegen i ovnen ved 200 grader i 20 minutter, skru ned på 160 grader, og steg videre, til kernetemperaturen er 70 grader (ca. 1 time). Lad den hvile 15 minutter, og skær den i tynde skiver (den kan også steges dagen før).",
-        "Varm rødkålen. Smør rugbrødsskiverne med sennep, og læg flæskesteg og rødkål imellem.",
-        "Steg sandwichene gyldne i smør på en pande.",
-        "Server med skiver af agurk."
+        "Tag flæskestegen ud af køleskabet 30 minutter før. Rids sværen med en skarp kniv, og gnid den med salt og peber.",
+        "Steg flæskestegen i ovnen ved 200 grader i 20 minutter, skru ned på 160 grader, og steg videre, til kernetemperaturen er 70 grader (ca. 1 time). Skru op på 250 grader eller grill de sidste 10 minutter, så sværen bliver sprød. Lad den hvile 15 minutter (den kan også steges dagen før).",
+        "Skær agurken i tynde skiver, og vend den med eddike, sukker og salt. Lad den stå 15 minutter, og pres væden fra. Varm rødkålen.",
+        "Skær kødet i tynde skiver, og skær sværen i stykker. Rist bollerne i ovnen eller på en pande.",
+        "Smør bollerne med remoulade, og læg flæskesteg, rødkål, agurkesalat og ristede løg i. Læg et stykke sprød svær ovenpå."
       ],
       "niveau": "familie",
       "ingredienser": [
@@ -3634,13 +3634,11 @@
           ]
         ],
         [
-          "rugbrød",
-          1,
+          "burgerboller",
+          4,
           "stk",
           0,
-          [
-            "K119"
-          ]
+          []
         ],
         [
           "rødkål",
@@ -3652,16 +3650,9 @@
           ]
         ],
         [
-          "sennep",
-          2,
+          "remoulade",
+          4,
           "spsk",
-          1,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
           0,
           []
         ],
@@ -3670,6 +3661,27 @@
           1,
           "stk",
           0,
+          []
+        ],
+        [
+          "ristede løg",
+          3,
+          "spsk",
+          0,
+          []
+        ],
+        [
+          "eddike",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "tsk",
+          1,
           []
         ],
         [
