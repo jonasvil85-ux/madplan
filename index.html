@@ -1092,8 +1092,10 @@ const typNoegle = ing => `${grundNavn(ing.navn).toLowerCase()}|${ing.enhed}`;
 const typFor = ing => ing.typ || (butiksTilbud(ing).length ? null : TYPFRANAVN.get(typNoegle(ing)) || null);
 const butiksTilbud = ing => ing.tilbud.filter(id => ALLE_TILBUD[id]);  // en ingrediens' tilbud (hver ret har allerede valgt det billigste blandt de valgte butikker)
 // "Netto tilbudsavis gældende 31. okt.–6. nov." – står på indkøbssedlen (ikke i toppen af siden)
-const avisTekst = k => `${data.butikker[k].navn} tilbudsavis gældende ${data.butikker[k].aviser.map(a => `${kortDato(a.fra)}–${kortDato(a.til)}`).join(' og ')}`;
-const udloebet = b => b.aviser.every(a => dato(a.til) < new Date());
+// Ugeaviserne bestemmer perioden og udløbet; faste madaviser (fx Lidls "Fast lav pris", gyldig til nytår) tæller ikke med, ellers ville ugeavisens udløb ikke kunne ses
+const ugeAviser = b => { const u = b.aviser.filter(a => !a.fast); return u.length ? u : b.aviser; };
+const avisTekst = k => `${data.butikker[k].navn} tilbudsavis gældende ${ugeAviser(data.butikker[k]).map(a => `${kortDato(a.fra)}–${kortDato(a.til)}`).join(' og ')}`;
+const udloebet = b => ugeAviser(b).every(a => dato(a.til) < new Date());
 
 // ---------- Indlæsning ----------
 async function start() {

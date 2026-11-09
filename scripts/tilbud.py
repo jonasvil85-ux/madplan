@@ -26,10 +26,34 @@ BUTIKKER = {
     'spar':         {'navn': 'SPAR',         'dealerId': '88ddE',  'prefix': 'P'},
     'minkoebmand':  {'navn': 'Min Købmand',  'dealerId': '603dfL', 'prefix': 'X'},
 }
-# Kun den ugentlige madavis ("Uge 45", "Netto uge 45", "Lidl avis (uge 45)" …)
-# Ugeavisen kendes på et ugenummer (1-53) i navnet – uanset præfiks: "Uge 46", "SPAR uge 46", "Netto AU46". Årstal (2026) passerer ikke.
+# Aviser med mad: ugeavisen ("Uge 46", "Netto AU46", "Lidl avis (uge 46)" …) PLUS alle andre aviser, der indeholder mad (fx Lidls "Fast lav pris i Lidl" og Bilkas "Salling Princip").
+# Ugeavisen kendes på et ugenummer (1-53) i navnet – uanset præfiks. Årstal (2026) passerer ikke.
 UGEAVIS = re.compile(r'(?<!\d)(?:[1-9]|[1-4]\d|5[0-3])(?!\d)')
-IKKE_MAD = re.compile(r'nonfood|vin|søndag|magasin|katalog|premium', re.I)
+# Aviser, der aldrig er mad: nonfood, vin/alkohol, magasiner, kataloger, legetøj, gaver, elektronik, menuer – og Premium, som kun gentager tilbud fra hovedavisen
+IKKE_MAD = re.compile(r'nonfood|(?<![a-zæøå])vin(?![a-zæøå])|vinkatalog|søndag|magasin|katalog|premium|trend|gave|indstik|legetøj|beauty|prosonic|elektronik|ud af huset|madskole|opskrift', re.I)
+# En avis, der ikke er en ugeavis, skal mindst have denne andel mad i sine tilbud (de første 100 tjekkes), før den tages med
+MADORD = re.compile(
+    r'kød|kylling|okse|gris|svin|flæsk|bacon|pølse|medister|skinke|laks|fisk|rejer|sild|torsk|ørred|\bost\b|ost\b|mælk|yoghurt|skyr|fløde|smør|\bæg\b|brød|rundstykk|bolle|pasta|spaghetti|ris\b|nudler|mel\b|sukker|'
+    r'kaffe|juice|saft|sodavand|cola|chips|slik|chokolade|kiks|kage|pizza|suppe|sauce|ketchup|sennep|mayo|olie|eddike|grønt|frugt|æble|appelsin|banan|kartof|løg|gulerod|tomat|agurk|salat|avocado|bønner|'
+    r'nødder|mandler|müsli|havre|marmelade|honning|pålæg|and\b|confit|pancetta|guanciale|parmigiano|salsiccia|grød|dej|tærte|burger|wrap|pita|sirup|dadler|figner|asparges|pommes|is\b', re.I)
+MIN_MADANDEL = 0.35
+_MADAVIS = {}  # katalog-id -> er mad (så en avis kun tjekkes én gang pr. kørsel)
+
+
+def er_madavis(c):
+    """Ugeaviser tages altid med; andre aviser kun hvis navnet ikke afslører nonfood, og de mindst MIN_MADANDEL af tilbuddene ligner mad."""
+    label = c.get('label') or ''
+    if IKKE_MAD.search(label):
+        return False
+    if UGEAVIS.search(label):
+        return True
+    if c['id'] not in _MADAVIS:
+        side = hent(f"{API}/offers?catalog_id={c['id']}&limit=100")
+        mad = sum(1 for o in side if MADORD.search(o.get('heading') or ''))
+        _MADAVIS[c['id']] = bool(side) and mad / len(side) >= MIN_MADANDEL
+    return _MADAVIS[c['id']]
+
+
 SNAPSHOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tilbud_snapshot.json')
 ENHEDER = {'pcs': 'stk', 'g': 'g', 'kg': 'kg', 'ml': 'ml', 'cl': 'cl', 'l': 'l'}
 
@@ -49,22 +73,17 @@ def fmt(v):
 
 
 def find_aviser_dealer(dealer_id):
+    """De aviser med mad, der gælder nu for en kæde – eller den næste ugeavis, der starter, hvis ingen gælder endnu."""
     nu = datetime.now(timezone.utc)
-    kat = [c for c in hent(f"{API}/catalogs?dealer_ids={dealer_id}&limit=24")
-           if c['offer_count'] > 0 and UGEAVIS.search(c.get('label') or '')
-           and not IKKE_MAD.search(c.get('label') or '') and tid(c['run_till']) >= nu]
-    return [c for c in kat if tid(c['run_from']) <= nu] or sorted(kat, key=lambda c: tid(c['run_from']))[:1]
+    kat = [c for c in hent(f"{API}/catalogs?dealer_ids={dealer_id}&limit=48")
+           if c['offer_count'] > 0 and tid(c['run_till']) >= nu and er_madavis(c)]
+    gaelder = [c for c in kat if tid(c['run_from']) <= nu]
+    return gaelder or sorted(kat, key=lambda c: tid(c['run_from']))[:1]
 
 
 def find_aviser(key):
-    """De ugeaviser der gælder nu for butikken (eller den næste der starter) – uden at hente selve tilbuddene."""
-    b = BUTIKKER[key]
-    nu = datetime.now(timezone.utc)
-    kat = [c for c in hent(f"{API}/catalogs?dealer_ids={b['dealerId']}&limit=24")
-           if c['offer_count'] > 0 and UGEAVIS.search(c.get('label') or '')
-           and not IKKE_MAD.search(c.get('label') or '') and tid(c['run_till']) >= nu]
-    # Foretræk avisen der gælder nu; ellers den næste der starter
-    return [c for c in kat if tid(c['run_from']) <= nu] or sorted(kat, key=lambda c: tid(c['run_from']))[:1]
+    """De aviser med mad, der gælder nu for butikken (ugeavisen og evt. faste madaviser) – uden at hente selve tilbuddene."""
+    return find_aviser_dealer(BUTIKKER[key]['dealerId'])
 
 
 def hent_butik(key):
@@ -91,6 +110,16 @@ def hent_butik(key):
                 })
             if len(side) < 100:
                 break
+    set_ = set()  # samme vare til samme pris i flere aviser (fx hovedavis og fast-lav-pris-avis) vises kun én gang
+    unikke = []
+    for t in tilbud:
+        k = (t['navn'].lower(), t['pris'], t['maengde'], t['enhed'])
+        if k not in set_:
+            set_.add(k)
+            unikke.append(t)
+    if len(unikke) != len(tilbud):
+        print(f"{b['navn']}: {len(tilbud) - len(unikke)} dubletter mellem aviserne fjernet", file=sys.stderr)
+    tilbud = unikke
     if b.get('sammen_med'):  # behold kun tilbud, der også findes (samme tekst og pris) i den anden kædes avis
         andre = set()
         for avis in find_aviser_dealer(b['sammen_med']):
@@ -109,7 +138,7 @@ def hent_butik(key):
     tilbud = [{**t, 'kort': f"{b['prefix']}{n + 1}"} for n, t in enumerate(tilbud)]
     dealer = hent(f"{API}/dealers/{b['dealerId']}")
     logo2 = hent(f"{API}/dealers/{b['sammen_med']}").get('logo') if b.get('sammen_med') else None
-    info = {'navn': b['navn'], 'logo': dealer.get('logo'), 'logo2': logo2, 'farve': '#' + (dealer.get('color') or '10B981'), 'aviser': [{'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
+    info = {'navn': b['navn'], 'logo': dealer.get('logo'), 'logo2': logo2, 'farve': '#' + (dealer.get('color') or '10B981'), 'aviser': [{'fast': not UGEAVIS.search(a['label'] or ''), 'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
     return info, tilbud
 
 
