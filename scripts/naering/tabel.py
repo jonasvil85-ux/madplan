@@ -54,6 +54,7 @@ REGLER = [
     (r'creme fraiche', 'cremefraiche', U(ml=1.0, spsk=15)),
     (r'skyr|græsk yoghurt|græsk(?!ar)', 'skyr', U(spsk=15)),
     (r'yoghurt', 'yoghurt', U(spsk=15, ml=1.03)),
+    (r'kalkunbryst|kalkunfilet|hakket kalkun|kalkunkød', 'kyllingebryst', U()),
     (r'kyllingebryst|kyllingebrystfilet|kylling i tern|kyllingestrimler|kyllingespyd|kyllingefilet', 'kyllingebryst', U()),
     (r'kyllingelårfilet|kyllingeinderfilet|hakket kylling|hakket dansk kylling|kyllingekød|kyllingefilet', 'kyllingelaar', U()),
     (r'kyllingeover|kyllingeunder|kyllingelår|stegeben|kyllingeben|kyllingevinger', 'kyllingelaar', U(spild=0.65)),

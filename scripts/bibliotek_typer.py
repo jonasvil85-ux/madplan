@@ -35,7 +35,7 @@ TYPER = {
     'osso_buco':     (r'osso buco', r''),
     'kalvegryde':    (r'kalvegrydesteg|grydesteg.{0,20}kalv|kalv.{0,20}grydesteg|kalvekød i tern|kalv.{0,12}tern|kalveskank|kalvekølle|kalvebov|kalvecuvette', r'hakket|pålæg|leverpostej|osso'),
     'kalvekotelet':  (r'kalvekotelet|kalveculotte|kalvefilet|kalvemørbrad|kalveentrecote|koteletter af dansk kalv|koteletter af kalv', r'paneret|wiener|pålæg'),
-    'roastbeef':     (r'roastbeef|tykstegsmedaljon|tykstegsfilet|mørbrad af okse|oksemørbrad|filet af okse', r'pålæg|sandwich|salat|skiver|pålægs'),
+    'roastbeef':     (r'roastbeef|tykstegsmedaljon|tykstegsfilet|mørbrad af okse|oksemørbrad|filet af okse', r'pålæg|sandwich|salat|skiver|pålægs|platte|plade'),
     'nakkefilet':    (r'nakkefilet|nakkesteg|svinenakke|nakkekam|svinemedaljon', r'pålæg|gyros|marineret'),
     'roeget_laks':   (r'røget laks|gravad laks|varmrøget laks|koldrøget laks|røget.{0,12}laks|gravad.{0,8}laks|laks i skiver|sockeye', r'pålæg|salat|rogn|pålægs|pate|paté|smelte'),
     'kalkun':        (r'kalkunbryst|kalkunfilet|kalkunbrystfilet|hakket kalkun|kalkunkød|kalkunhakkebøf|kalkunsteak', r'pålæg|pålægs|pølse|bacon|spege|skiver'),

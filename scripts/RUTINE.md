@@ -64,7 +64,9 @@ Brug IKKE skiveost i madlavningen – brug en blok ost (cheddar, Danbo, Castello
 En opskrift kan optræde med op til 4 forskellige tilbud som nøgle-ingrediens (højst 1,8 gange så dyrt som det billigste), så en vare med mange tilbud (fx 10 andetilbud) ikke altid bruger det billigste; kun én udgave pr. opskrift vælges (`MAX_VARIANTER`, `VARIANT_PRIS`).
 Kør den med `--til 70` for at få op til 70 retter pr. butik: `python -I scripts/udvid_retter.py <butik> … --til 70`. Mangler biblioteket opskrifter til en vare, der ofte er på tilbud, så tilføj en type i `bibliotek_typer.py` og retter i `bibliotek_5.py` (kør derefter `byg_bibliotek4.py`, som skriver billedbeskrivelserne). Tjek altid udskriften: en ny type må ikke ramme ikke-mad (fx det engelske ord "and" i en vinetiket).
 
-**MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har ca. 156 opskrifter (bibliotek_1..5).
+**MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har 175 opskrifter (bibliotek_1..6). bibliotek_6 er proteinrige retter til kategorien Fitness (kylling, kalkun, torsk, laks, rejer, tun, skyr, hytteost, æg, magert oksekød); nye opskrifter: skriv dem i bibliotek_N.py, tilføj i bibliotek.py og byg_bibliotek4.py, kør byg_bibliotek4.py → byg_opskrifter.py → billeder.py → byg_opskrifter.py. Mængder i 'stk' = hele stykker (rugbrød skrives som 1 'pakke', ikke 8 'stk').
+
+**Kombination:** vælger brugeren flere butikker, vælger siden for hver ingrediens det billigste tilbud blandt dem (lavMixRet). Kategorien Kombination (kategorier.js, kombiInfo) viser retter, der bruger tilbud fra mindst to butikker og enten kun kan laves sådan eller er mindst 5 kr billigere end i den billigste enkeltbutik.
 Når en butik ikke når 50 med standardindstillingerne, så prøv i denne rækkefølge (stop, når der er 50):
 1. `python -I scripts/udvid_retter.py <butik> --min-tilbud 0.3` (flere retter med færre tilbudsvarer)
 2. `... --max-noegle 6` eller 8 (lad ét tilbud, fx kyllingebryst, indgå i flere retter) og `--max-dansk 30` (flere danske retter)

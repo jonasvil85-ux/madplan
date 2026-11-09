@@ -64,10 +64,12 @@ RETTER = [
       "Pan-fried veal chops with golden butter-fried potatoes and fresh cucumber salad on a plate"),
 
     # ---------------- ROASTBEEF / OKSEMØRBRAD ----------------
-    r("Roastbeef med kartoffelsalat og remoulade", "Kold roastbeef i skiver med hjemmelavet kartoffelsalat og remoulade.", 'familie', 'okse', 'dansk', 35,
+    r("Roastbeef med kartoffelsalat og remoulade", "Nystegt roastbeef i skiver med hjemmelavet kartoffelsalat og remoulade.", 'familie', 'okse', 'dansk', 70,
       [('roastbeef', 700, 'g', 0, 'roastbeef', 1), ('kartofler', 1000, 'g', 0, 'kartofler', 0), ('creme fraiche', 200, 'g', 0, 'creme_fraiche', 0), LOEG,
-       ('remoulade', 4, 'spsk', 0, '', 0), ('purløg', 1, 'bundt', 0, '', 0), SALT],
-      ["Kog kartoflerne, lad dem køle, og skær dem i tern.", "Rør creme fraiche med fintsnittet løg og purløg, og vend den med kartoflerne.",
+       ('remoulade', 4, 'spsk', 0, '', 0), ('purløg', 1, 'bundt', 0, '', 0), OLIE, SALT],
+      ["Tag roastbeefen ud af køleskabet 30 minutter før. Krydr med salt og peber, og brun den 2 minutter på hver side i en varm pande med olie.",
+       "Steg den i ovnen ved 160 grader i 25-35 minutter, til kernetemperaturen er 55 grader. Lad den hvile 15 minutter under folie (den kan godt steges i forvejen og afkøles).",
+       "Kog kartoflerne, lad dem køle, og skær dem i tern.", "Rør creme fraiche med fintsnittet løg og purløg, og vend den med kartoflerne.",
        "Skær roastbeefen i tynde skiver, og server med kartoffelsalat og remoulade."],
       "Thin slices of pink roast beef with potato salad and a spoon of remoulade on a plate"),
     r("Mørbrad af okse med flødesauce og ovnkartofler", "Mør oksemørbrad med flødesauce og ovnbagte kartofler.", 'weekend', 'okse', 'dansk', 50,
@@ -76,10 +78,12 @@ RETTER = [
       ["Skær kartoflerne i både, og bag dem i ovnen ved 220 grader i 35 minutter.", "Brun mørbraden i smør på alle sider, og steg den videre i ovnen til den er rosa (kerne 55 grader).",
        "Svits svampene i panden, og kog dem med fløde og bouillon til en sauce.", "Lad kødet hvile, skær det i skiver, og server med sauce og kartofler."],
       "Sliced beef tenderloin medium-rare with creamy mushroom sauce and roasted potato wedges on a plate"),
-    r("Wraps med roastbeef, avocado og creme fraiche", "Hurtige wraps med tynde skiver roastbeef, avocado og cremet fyld.", 'student', 'okse', 'amerikansk', 20,
+    r("Wraps med roastbeef, avocado og creme fraiche", "Hurtige wraps med tynde skiver roastbeef, avocado og cremet fyld.", 'familie', 'okse', 'amerikansk', 55,
       [('roastbeef', 400, 'g', 0, 'roastbeef', 1), ('tortillas', 8, 'stk', 0, 'wraps', 0), ('avocado', 2, 'stk', 0, 'avocado', 0), ('creme fraiche', 150, 'g', 0, 'creme_fraiche', 0),
-       ('agurk', 1, 'stk', 0, 'agurk', 0), SALT],
-      ["Skær roastbeef i strimler, avocado i skiver og agurk i stave.", "Smør tortillaerne med creme fraiche.", "Fyld med roastbeef, avocado og agurk, og rul dem sammen."],
+       ('agurk', 1, 'stk', 0, 'agurk', 0), OLIE, SALT],
+      ["Tag roastbeefen ud af køleskabet 30 minutter før. Krydr med salt og peber, og brun den 2 minutter på hver side i en varm pande med olie.",
+       "Steg den i ovnen ved 160 grader i 25-35 minutter, til kernetemperaturen er 55 grader. Lad den hvile 15 minutter under folie (den kan godt steges i forvejen og afkøles).",
+       "Skær roastbeefen i strimler, avocado i skiver og agurk i stave.", "Smør tortillaerne med creme fraiche.", "Fyld med roastbeef, avocado og agurk, og rul dem sammen."],
       "Tortilla wraps filled with thin roast beef slices, avocado and cucumber, cut in half on a wooden board"),
 
     # ---------------- NAKKEFILET ----------------

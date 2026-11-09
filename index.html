@@ -657,15 +657,15 @@ html body #fb-fod a { color: var(--text-1); }
 .fit-linje { display: flex; justify-content: space-between; margin: 8px 0 10px; font-size: 12px; color: var(--text-3); }
 
 /* ===== Kategorirække i "Vælg retter" ===== */
-.niveauer.katraekke { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+.niveauer.katraekke { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 12px; margin-bottom: 12px; }
 .niveau.kat { grid-template-columns: 1fr; row-gap: 8px; align-items: start; padding: 14px; min-height: 132px; }
 .niveau.kat .ikon { grid-row: auto; width: 38px; height: 38px; }
 .niveau.kat .ikon .ikon-svg { width: 20px; height: 20px; }
 .niveau.kat strong { font-size: 16px; }
 .niveau.kat small { line-height: 1.35; color: var(--text-2); }
 .niveau.kat small b { color: var(--text-1); font-weight: 600; }
-@media (max-width: 900px) { .niveauer.katraekke { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .niveauer.katraekke { grid-template-columns: repeat(2, minmax(0, 1fr)); } .niveau.kat { min-height: 120px; } }
+@media (max-width: 900px) { .niveauer.katraekke { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .niveauer.katraekke { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); } .niveau.kat { min-height: 120px; } }
 
 /* ===== Din uge (under kategorierne i "Vælg retter") ===== */
 .ugeplan-valg { margin-bottom: 16px; }
@@ -731,6 +731,9 @@ html body #fb-fod a { color: var(--text-1); }
 .rolig { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; font-size: 13.5px; }
 .rolig .pris { color: var(--text-2); font-weight: 600; }
 .rolig .tilb { display: inline-flex; align-items: center; gap: 6px; color: var(--emerald-dk); font-size: 13px; font-weight: 600; }
+.kombi-linje { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12.5px; font-weight: 600; color: var(--sek); min-width: 0; }
+.kombi-linje svg { width: 13px; height: 13px; flex: none; }
+.kombi-linje span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rolig .tilb i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--emerald); }
 .bil-maerke { font-size: 9px; opacity: .75; }
 .forklar span { color: var(--text-2); }
@@ -1866,7 +1869,7 @@ function renderRetter() {
   if (!antalRest) state.kunRest = false;
   const orden = Object.keys(NIVEAUER);
   const prPers = new Map(retter.map(r => { const kp = kortPriser(r); return [r.id, kp.indkoeb / kp.pers]; }));  // indkøbspris pr. person (til sortering)
-  const valgtKat = KATEGORIER_VALG.some(c => c.k === state.koekken) ? state.koekken : 'alle';  // kategorien (state.koekken gemmer valget)
+  const valgtKat = KATEGORIER_VALG.some(c => c.k === state.koekken && (!c.kunFlere || aktivS().length > 1)) ? state.koekken : 'alle';  // kategorien (state.koekken gemmer valget)
   const synlige = retter.filter(r => katIKat(r, valgtKat, prPers) && (!state.kunRest || restMap[r.id])).sort(katSort(valgtKat, prPers));
 
   vis(`

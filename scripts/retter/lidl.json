@@ -3259,17 +3259,19 @@
     },
     {
       "navn": "Flæskestegssandwich med rødkål og sennep",
-      "beskrivelse": "Sprød ristet sandwich med skiver af flæskesteg, rødkål og sennep.",
+      "beskrivelse": "Sprød ristet sandwich med skiver af nystegt flæskesteg, rødkål og sennep.",
       "kategori": "svin",
       "koekken": "dansk",
-      "tid_minutter": 20,
+      "tid_minutter": 90,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Smør brødet med sennep, og læg flæskesteg og rødkål imellem.",
+        "Tag flæskestegen ud af køleskabet 30 minutter før. Rids svær og kød, og gnid med salt og peber.",
+        "Steg flæskestegen i ovnen ved 200 grader i 20 minutter, skru ned på 160 grader, og steg videre, til kernetemperaturen er 70 grader (ca. 1 time). Lad den hvile 15 minutter, og skær den i tynde skiver (den kan også steges dagen før).",
+        "Varm rødkålen. Smør rugbrødsskiverne med sennep, og læg flæskesteg og rødkål imellem.",
         "Steg sandwichene gyldne i smør på en pande.",
         "Server med skiver af agurk."
       ],
-      "niveau": "student",
+      "niveau": "familie",
       "ingredienser": [
         [
           "flæskesteg",
@@ -3322,6 +3324,13 @@
           [
             "L1"
           ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
         ]
       ],
       "auto": true

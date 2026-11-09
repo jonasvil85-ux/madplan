@@ -1433,10 +1433,12 @@
       "beskrivelse": "Hurtige wraps med tynde skiver roastbeef, avocado og cremet fyld.",
       "kategori": "okse",
       "koekken": "amerikansk",
-      "tid_minutter": 20,
+      "tid_minutter": 55,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Skær roastbeef i strimler, avocado i skiver og agurk i stave.",
+        "Tag roastbeefen ud af køleskabet 30 minutter før. Krydr med salt og peber, og brun den 2 minutter på hver side i en varm pande med olie.",
+        "Steg den i ovnen ved 160 grader i 25-35 minutter, til kernetemperaturen er 55 grader. Lad den hvile 15 minutter under folie (den kan godt steges i forvejen og afkøles).",
+        "Skær roastbeefen i strimler, avocado i skiver og agurk i stave.",
         "Smør tortillaerne med creme fraiche.",
         "Fyld med roastbeef, avocado og agurk, og rul dem sammen."
       ],
@@ -1483,6 +1485,13 @@
           "salt og peber",
           0,
           "efter smag",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
           1,
           []
         ]
@@ -2072,12 +2081,14 @@
     },
     {
       "navn": "Roastbeef med kartoffelsalat og remoulade",
-      "beskrivelse": "Kold roastbeef i skiver med hjemmelavet kartoffelsalat og remoulade.",
+      "beskrivelse": "Nystegt roastbeef i skiver med hjemmelavet kartoffelsalat og remoulade.",
       "kategori": "okse",
       "koekken": "dansk",
-      "tid_minutter": 35,
+      "tid_minutter": 70,
       "spis_tidligt": false,
       "fremgangsmaade": [
+        "Tag roastbeefen ud af køleskabet 30 minutter før. Krydr med salt og peber, og brun den 2 minutter på hver side i en varm pande med olie.",
+        "Steg den i ovnen ved 160 grader i 25-35 minutter, til kernetemperaturen er 55 grader. Lad den hvile 15 minutter under folie (den kan godt steges i forvejen og afkøles).",
         "Kog kartoflerne, lad dem køle, og skær dem i tern.",
         "Rør creme fraiche med fintsnittet løg og purløg, og vend den med kartoflerne.",
         "Skær roastbeefen i tynde skiver, og server med kartoffelsalat og remoulade."
@@ -2134,6 +2145,13 @@
           "salt og peber",
           0,
           "efter smag",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
           1,
           []
         ]
