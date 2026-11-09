@@ -73,6 +73,11 @@ def main():
     for navn, butikker in [(BUTIKKER[b]['navn'], [b]) for b in BUTIKKER] + [('ALLE butikker', list(BUTIKKER))]:
         ok = sum(1 for r in opskrifter if all(any(udvalgte[i]['butik'] in butikker for i in ing['tilbud']) for ing in r['ingredienser'] if ing['noegle']))
         print(f'  {navn:14} {ok:3d} af {len(opskrifter)} opskrifter har alle nøgle-ingredienser på tilbud')
+    try:  # oplysninger til indkøbssedlen om, hvilken vare i et tilbud med flere ('koteletter, stegeflæsk eller …') retten bruger (retter.json og opskrifter.json)
+        import tilfoej_varianter
+        tilfoej_varianter.main()
+    except Exception as e:
+        print(f'ADVARSEL: varianter blev ikke tilføjet ({type(e).__name__}: {e})')
     try:  # næringsindhold pr. ret (kategorien Fitness på siden): kræver retter.json og opskrifter.json, så det kører her, efter byg_retter.py
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'naering'))
         import byg_naering

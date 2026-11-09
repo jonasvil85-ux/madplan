@@ -66,6 +66,8 @@ Kør den med `--til 70` for at få op til 70 retter pr. butik: `python -I script
 
 **MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har 175 opskrifter (bibliotek_1..6). bibliotek_6 er proteinrige retter til kategorien Fitness (kylling, kalkun, torsk, laks, rejer, tun, skyr, hytteost, æg, magert oksekød); nye opskrifter: skriv dem i bibliotek_N.py, tilføj i bibliotek.py og byg_bibliotek4.py, kør byg_bibliotek4.py → byg_opskrifter.py → billeder.py → byg_opskrifter.py. Mængder i 'stk' = hele stykker (rugbrød skrives som 1 'pakke', ikke 8 'stk').
 
+**Tilbud med flere varer** ("Coop koteletter, stegeflæsk, nakkekoteletter eller filet a la mørbrad"): indkøbssedlen skriver kun den vare, retten bruger. Det klarer `scripts/tilfoej_varianter.py` (kører automatisk sidst i byg_opskrifter.py): den gemmer i retter.json/opskrifter.json, hvilke dele af overskriften der passer til ingrediensens type (`vt` på tilbud, `ty` på butiksretternes ingredienser), og tilbudVariant() i index.html bruger det. Ret typerne i bibliotek_typer.py, hvis en forkert vare vises.
+
 **Kombination:** vælger brugeren flere butikker, vælger siden for hver ingrediens det billigste tilbud blandt dem (lavMixRet). Kategorien Kombination (kategorier.js, kombiInfo) viser retter, der bruger tilbud fra mindst to butikker og enten kun kan laves sådan eller er mindst 5 kr billigere end i den billigste enkeltbutik.
 Når en butik ikke når 50 med standardindstillingerne, så prøv i denne rækkefølge (stop, når der er 50):
 1. `python -I scripts/udvid_retter.py <butik> --min-tilbud 0.3` (flere retter med færre tilbudsvarer)

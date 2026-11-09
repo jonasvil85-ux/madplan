@@ -3834,20 +3834,20 @@
     },
     {
       "navn": "Svinekød i soja med ris og broccoli",
-      "beskrivelse": "Hurtig wok med svinemørbrad, soja og broccoli.",
+      "beskrivelse": "Hurtig wok med nakkekoteletter i strimler, soja og broccoli.",
       "kategori": "svin",
       "koekken": "asiatisk",
       "tid_minutter": 30,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog risene. Skær mørbraden i strimler, og steg den i olie.",
+        "Kog risene. Skær nakkekoteletterne (uden ben) i strimler, og steg dem i olie, til de er gennemstegte.",
         "Tilsæt broccoli, hvidløg og ingefær, og steg 4 minutter.",
         "Hæld soja og lidt vand over, og lad det simre 2 minutter. Server med ris."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "svinemørbrad",
+          "nakkekoteletter",
           500,
           "g",
           0,
@@ -5003,9 +5003,7 @@
           600,
           "g",
           0,
-          [
-            "D22"
-          ]
+          []
         ],
         [
           "bacon i skiver",
@@ -5720,9 +5718,7 @@
           700,
           "g",
           0,
-          [
-            "D22"
-          ]
+          []
         ],
         [
           "kartofler",
