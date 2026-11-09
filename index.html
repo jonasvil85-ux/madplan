@@ -804,6 +804,11 @@ header.top h1.maerke .logo-navn span { color: var(--sek); }
   .sim-valg { flex-direction: row; flex-wrap: nowrap; width: 100%; }
   .sim-valg .knap { flex: 1; padding: 13px 8px; font-size: 14.5px; white-space: nowrap; }
 }
+
+/* Samme sidebredde på alle trin: rullebjælken fylder altid plads, så logoet ikke hopper, når et trin er kort nok til at slippe for den */
+html { scrollbar-gutter: stable; }
+@supports not (scrollbar-gutter: stable) { html { overflow-y: scroll; } }
+.hero-tekst { padding: 4px 0; }  /* overskriften på forsiden står på linje med logoet og panelerne */
 </style>
 </head>
 <body>
