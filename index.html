@@ -2425,10 +2425,16 @@ document.addEventListener('click', e => {
   else if (d.maxb) { state.maxButikker = +d.maxb === anbefaletAntal() ? 0 : +d.maxb; state.koebButikker = []; gemHusstand(); return opdaterButik(); }
   else if (d.aktivbutik) state.butik = d.aktivbutik;
   else if ('simIndkoeb' in d) {
-    if (harValg() && !confirm('Du har allerede valgt retter. Vil du erstatte dem med de 7 retter fra madplanen?')) return;
-    const k = simK(), akt = simAktive(k);
-    const S = simPlan(k).S;
-    state = { ...structuredClone(TOM), ...husstand(state), butik: S[0], koebButikker: S.slice(), valgte: akt.map(x => x.r.id), mult: planMult(akt), trin: 'liste' };
+    const k = simK(), akt = simAktive(k), S = simPlan(k).S, planIds = akt.map(x => x.r.id);
+    const samme = state.valgte.length === planIds.length && planIds.every(id => state.valgte.includes(id));  // listen er allerede bygget af det samme forslag
+    if (samme) {
+      Object.assign(state, { butik: S[0], koebButikker: S.slice(), mult: planMult(akt), trin: 'liste' });  // behold ekstra varer og afkrydsninger
+    } else {
+      // spørg kun, når der er noget at miste, og sig hvad det er
+      const dele = [state.valgte.length && `${state.valgte.length} ${state.valgte.length === 1 ? 'valgt ret' : 'valgte retter'}`, state.ekstra.length && `${state.ekstra.length} ekstra ${state.ekstra.length === 1 ? 'vare' : 'varer'}`, state.handlet && 'afkrydsninger på indkøbssedlen'].filter(Boolean);
+      if (dele.length && !confirm(`Din gemte indkøbsliste (${dele.join(', ')}) bliver erstattet af forslaget med ${planIds.length} ${planIds.length === 1 ? 'ret' : 'retter'}. Vil du fortsætte?`)) return;
+      state = { ...structuredClone(TOM), ...husstand(state), butik: S[0], koebButikker: S.slice(), valgte: planIds, mult: planMult(akt), trin: 'liste' };
+    }
   }
   else if ('simVaelg' in d) {
     if (!state.butikker.includes(state.butik)) state.butik = state.butikker[0];
