@@ -5,7 +5,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bibliotek_4 import EN as EN4
 from bibliotek_5 import EN as EN5
 from bibliotek_6 import EN as EN6
-EN = {**EN4, **EN5, **EN6}
+from bibliotek_7 import EN as EN7
+EN = {**EN4, **EN5, **EN6, **EN7}
 
 STI = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'billedprompts.json')
 d = json.load(open(STI, encoding='utf-8'))
