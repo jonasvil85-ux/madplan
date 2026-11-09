@@ -128,6 +128,10 @@ def laes_kilder():
         butik = os.path.splitext(os.path.basename(sti))[0]
         with open(sti, encoding='utf-8') as f:
             kilder[butik] = json.load(f)
+        for r in kilder[butik].get('retter', []):
+            if r.get('ingredienser'):
+                import rettelser
+                rettelser.anvend_kilde(r)  # redaktionelle rettelser (scripts/rettelser.json)
     return kilder
 
 

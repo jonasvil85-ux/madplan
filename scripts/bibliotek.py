@@ -15,6 +15,8 @@ SMOER_MIN = 30
 for _r in RETTER:
     _r['ingredienser'] = [(n, m, e, 0, t, k) if n == 'smør' and t == 'smor' and m >= SMOER_MIN and b else (n, m, e, b, t, k)
                           for (n, m, e, b, t, k) in _r['ingredienser']]
+import rettelser as _rettelser
+_rettelser.anvend_bibliotek(RETTER)  # redaktionelle rettelser (scripts/rettelser.json) gælder også ved ugentlig genbygning
 ENHEDER = {'g', 'ml', 'stk', 'spsk', 'tsk', 'fed', 'dåse', 'glas', 'pakke', 'bundt', 'efter smag'}
 if __name__ == '__main__':
     import collections, sys
