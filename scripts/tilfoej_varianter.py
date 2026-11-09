@@ -11,9 +11,11 @@ import json, os, re, sys
 HER = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HER)
 from bibliotek_typer import TYPER  # noqa: E402
-from udvid_retter import varer_i, BESKRIVELSE_EKSKL, BR, IKKE_MAD  # noqa: E402
+from udvid_retter import varer_i, BESKRIVELSE_EKSKL, BR, IKKE_MAD, uden_krav  # noqa: E402
 
 ROD = os.path.dirname(HER)
+SMAG = re.compile(r'vanilje|jordbær|blåbær|banan|pære|mango|fersken|hindbær|skovbær|frugt')
+BESKR = {}  # (butik, navn) -> beskrivelse fra avisdataene (opskrifter.json har ikke beskrivelserne)
 
 
 def passer(typ, tekst):
@@ -23,16 +25,27 @@ def passer(typ, tekst):
 
 def tilbuds_vt(t):
     """{type: [delnumre]} for et tilbud (samme regler som kandidater() i udvid_retter.py)."""
+    if not t.get('beskrivelse'):
+        t = {**t, 'beskrivelse': BESKR.get((t.get('butik'), t.get('navn')), '')}
     dele = varer_i(t.get('navn') or '')
     beskr = ((t.get('beskrivelse') or '').split('.')[0]).lower()
     ud = {}
     for typ in TYPER:
-        if typ in BESKRIVELSE_EKSKL and re.search(BESKRIVELSE_EKSKL[typ], beskr):
+        if uden_krav(typ, t) or (typ in BESKRIVELSE_EKSKL and re.search(BESKRIVELSE_EKSKL[typ], beskr)):
             continue
         idx = [i for i, f in enumerate(dele) if not (BR.FORARBEJDET.search(f) or IKKE_MAD.search(f)) and passer(typ, f)]
         if idx:
             ud[typ] = idx
     return ud
+
+
+def nat(t):
+    """Skyr/yoghurt-tilbud med flere smagsvarianter, hvor naturel er en af dem: indkøbssedlen skriver "(naturel)"."""
+    tekst = ((t.get('navn') or '') + ' ' + (t.get('beskrivelse') or BESKR.get((t.get('butik'), t.get('navn')), ''))).lower()
+    if re.search(r'skyr|yoghurt', tekst) and re.search(r'natur', tekst) and SMAG.search(tekst):
+        t['nat'] = 1
+    else:
+        t.pop('nat', None)
 
 
 def ingrediens_typer(navn):
@@ -43,6 +56,8 @@ def ingrediens_typer(navn):
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     sti_r, sti_o = os.path.join(ROD, 'retter.json'), os.path.join(ROD, 'opskrifter.json')
+    for x in json.load(open(os.path.join(HER, 'tilbud_snapshot.json'), encoding='utf-8'))['tilbud']:
+        BESKR.setdefault((x['butik'], x['navn']), x.get('beskrivelse') or '')
     r = json.load(open(sti_r, encoding='utf-8'))
     antal_vt = antal_ty = 0
     for b in r['butikker'].values():
@@ -50,6 +65,7 @@ def main():
             vt = tilbuds_vt(t)
             if vt: t['vt'] = vt; antal_vt += 1
             else: t.pop('vt', None)
+            nat(t)
         for ret in b['retter']:
             for i in ret['ingredienser']:
                 ty = ingrediens_typer(i['navn'])
@@ -62,6 +78,7 @@ def main():
         vt = tilbuds_vt(t)
         if vt: t['vt'] = vt; antal_o += 1
         else: t.pop('vt', None)
+        nat(t)
     json.dump(o, open(sti_o, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     print(f'varianter: {antal_vt} tilbud i retter.json, {antal_o} i opskrifter.json, {antal_ty} ingredienser med typer')
 

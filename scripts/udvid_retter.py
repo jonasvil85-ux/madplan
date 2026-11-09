@@ -35,6 +35,14 @@ IKKE_MAD = re.compile(r"test|maske|mask|collagen|shampoo|vitamin|lotion|parfum
 
 
 # Typer, hvor tilbuddets BESKRIVELSE (ikke kun navnet) afgør, om det passer (navnet er fx bare "Rana Pasta" eller "Arla Yoghurt")
+# Skyr og yoghurt må kun bruges i madretter, hvis avisen UDTRYKKELIGT siger, at den er naturel/græsk/tyrkisk. Står der ingenting (fx "Cheasy skyr"), er det ofte en sødet udgave med frugt eller vanilje,
+# og så er det bedre at bruge normalpris end at anbefale det forkerte produkt.
+KRAEV_BESKRIVELSE = {'skyr': r'natur|græsk|tyrkisk|islandsk', 'yoghurt': r'natur|græsk|tyrkisk'}
+def uden_krav(typ, t):
+    """True, hvis typen kræver en bekræftelse i avisen (naturel …), og tilbuddet ikke har den."""
+    return typ in KRAEV_BESKRIVELSE and not re.search(KRAEV_BESKRIVELSE[typ], ((t.get('navn') or '') + ' ' + (t.get('beskrivelse') or '')).lower())
+
+
 BESKRIVELSE_EKSKL = {'yoghurt': r'pære|banan|jordbær|blåbær|vanilje|mango|fersken|skovbær|frugt', 'pasta': r'tortell|ravioli|fyldt|gnocchi'}
 
 
@@ -50,6 +58,8 @@ def kandidater(tilbud, typ):
     for t in tilbud:
         if not t.get('pris'):
             continue
+        if uden_krav(typ, t):
+            continue  # skyr/yoghurt uden "naturel" i avisen kan være sødet
         if typ in BESKRIVELSE_EKSKL and re.search(BESKRIVELSE_EKSKL[typ], (t.get('beskrivelse') or '').split('.')[0].lower()):
             continue  # fx sød yoghurt (pære/banan) til naturel-yoghurt, eller fyldt pasta (tortellini) til pasta
         for f in varer_i(t['navn']):  # tilbuddet kan bruges, hvis NOGEN af varerne i overskriften passer til typen (siden viser den vare, retten bruger)

@@ -1981,7 +1981,7 @@ function tilbudVariant(navn, ingNavne, typer, vt) {  // typer/vt: byggeren ved, 
   if (v.some(x => x.startsWith('-') || x.endsWith('-'))) return navn;  // forkortelser som "varmrøget-" og "-bacon" giver ikke mening alene: så står overskriften, som den er
   return v.length === 1 ? v[0] : v.slice(0, -1).join(', ') + ' eller ' + v[v.length - 1];
 }
-const tilbudsOverskrift = v => tilbudVariant(v.tilbud.navn, v.ingNavne || [v.ingNavn], v.ingTyper, v.tilbud.vt);
+const tilbudsOverskrift = v => { const n = tilbudVariant(v.tilbud.navn, v.ingNavne || [v.ingNavn], v.ingTyper, v.tilbud.vt); return v.tilbud.nat && !/natur/i.test(n) ? n + ' (naturel)' : n; };  // flere smagsvarianter (fx jordbær, naturel, vanilje): retten skal bruge naturel
 const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${tilbudsOverskrift(v)}`;
 
 // Hvad kan man gøre med resten? Kun når det er rimeligt: kød/fisk/brød kan fryses, holdbare varer kan gemmes til næste uge.
