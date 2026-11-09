@@ -22,6 +22,7 @@ RETTER_MAPPE = os.path.join(ROD, 'scripts', 'retter')
 MAX_PR_KOEKKEN = {'dansk': 26}
 STANDARD_MAX = 13
 MAX_PR_NOEGLETILBUD = 5
+NYE_TILBUD_BONUS = 0.05  # pr. tilbud, retten bruger, som ingen valgt ret bruger endnu (højst 4 tæller): flest mulige af ugens tilbud kommer i brug
 
 
 # Ikke-mad (og drikkevarer), som aldrig må kobles til en ingrediens, selv om navnet ligner en madvare
@@ -35,21 +36,26 @@ IKKE_MAD = re.compile(r"test|maske|mask|collagen|shampoo|vitamin|lotion|parfum
 BESKRIVELSE_EKSKL = {'yoghurt': r'pære|banan|jordbær|blåbær|vanilje|mango|fersken|skovbær|frugt', 'pasta': r'tortell|ravioli|fyldt|gnocchi'}
 
 
-def forste(navn):
-    return re.split(r' eller |,', navn)[0].lower()
+def varer_i(navn):
+    """Alle varer i en tilbudsoverskrift: \"Grønlandske rejer, kold- eller varmrøget laks\" er både rejer og laks."""
+    dele = [d.strip() for d in re.split(r'\s*,\s*|\s+eller\s+', navn.lower()) if d.strip()]
+    return dele or [navn.lower()]
 
 
 def kandidater(tilbud, typ):
     inkl, ekskl = TYPER[typ]
     ud = []
     for t in tilbud:
-        f = forste(t['navn'])
-        if not t.get('pris') or BR.FORARBEJDET.search(f) or IKKE_MAD.search(f):
+        if not t.get('pris'):
             continue
         if typ in BESKRIVELSE_EKSKL and re.search(BESKRIVELSE_EKSKL[typ], (t.get('beskrivelse') or '').split('.')[0].lower()):
             continue  # fx sød yoghurt (pære/banan) til naturel-yoghurt, eller fyldt pasta (tortellini) til pasta
-        if re.search(inkl, f) and not (ekskl and re.search(ekskl, f)):
-            ud.append(t)
+        for f in varer_i(t['navn']):  # tilbuddet kan bruges, hvis NOGEN af varerne i overskriften passer til typen (siden viser den vare, retten bruger)
+            if BR.FORARBEJDET.search(f) or IKKE_MAD.search(f):
+                continue
+            if re.search(inkl, f) and not (ekskl and re.search(ekskl, f)):
+                ud.append(t)
+                break
     return ud
 
 
@@ -127,6 +133,7 @@ def kor(butik, til=50, min_k=5, min_tilbud=0.5):
             kandid.append(c)
     kandid.sort(key=lambda c: (-c['andel_pris'], c['pr_person']))
     valgt, brugt_noegle = [], {}
+    brugt_tilbud = set()  # alle tilbud, de valgte retter bruger – nye retter belønnes for at bringe flere af ugens tilbud i brug
 
     def max_k(k):
         return MAX_PR_KOEKKEN.get(k, STANDARD_MAX)
@@ -140,6 +147,7 @@ def kor(butik, til=50, min_k=5, min_tilbud=0.5):
 
     def tag(c):
         valgt.append(c)
+        brugt_tilbud.update(c['behov'])
         for n in c['noegler']:
             brugt_noegle[n] = brugt_noegle.get(n, 0) + 1
 
@@ -155,7 +163,7 @@ def kor(butik, til=50, min_k=5, min_tilbud=0.5):
         raest = [c for c in kandid if kan(c)]
         if not raest:
             break
-        tag(min(raest, key=lambda c: (-(c['andel_pris'] - 0.03 * antal_k(c['koekken'])), c['pr_person'])))
+        tag(min(raest, key=lambda c: (-(c['andel_pris'] - 0.03 * antal_k(c['koekken']) + NYE_TILBUD_BONUS * min(4, len(set(c['behov']) - brugt_tilbud))), c['pr_person'])))
 
     d['retter'] = [r for r in d['retter'] if not r.get('auto')] + [c['ret'] for c in valgt]
     open(os.path.join(RETTER_MAPPE, f'{butik}.json'), 'w', encoding='utf-8').write(json.dumps(d, ensure_ascii=False, indent=2) + '\n')

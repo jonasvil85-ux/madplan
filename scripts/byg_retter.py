@@ -237,9 +237,10 @@ def main():
                         fejl.append(f"{butik}: '{r['navn']}' bruger ugyldigt tilbuds-id {tid}")
                 d['tilbud'] = [t for t in d['tilbud'] if t.startswith(b['prefix']) and t in alle]
                 for t in d['tilbud']:
-                    if FORARBEJDET.search(re.split(r' eller |,', alle[t]['navn'])[0]):
+                    alt = [a.strip() for a in re.split(r'\s*,\s*| eller ', alle[t]['navn']) if a.strip()] or [alle[t]['navn']]
+                    if all(FORARBEJDET.search(a) for a in alt):  # først når ALLE varer i tilbuddet er færdigvarer (et tilbud kan have flere varer; retten bruger én af dem)
                         fejl.append(f"{butik}: '{r['navn']}' bruger færdigvare {t} ({alle[t]['navn'][:40]})")
-                    if SJAELDEN.search(re.split(r' eller |,', alle[t]['navn'])[0]):
+                    if all(SJAELDEN.search(a) for a in alt):
                         sjaeldne.add(r['navn'])
                 if d['tilbud']:
                     t = d['tilbud'][0]

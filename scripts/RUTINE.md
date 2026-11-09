@@ -60,7 +60,10 @@ python -I scripts/naering/byg_naering.py                       # næringsindhold
 som "som"-referencer, FØR du kører udvid_retter.py. Skriv desuden gerne nye håndskrevne retter af de bedste tilbud (fx kød, and, laks, smør, frisk rødkål, appelsiner).
 Brug IKKE skiveost i madlavningen – brug en blok ost (cheddar, Danbo, Castello, skæreost) eller revet ost.
 
-**MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har ca. 125 opskrifter (bibliotek_1..4).
+**Flest mulige tilbud i brug:** `udvid_retter.py` kan bruge ALLE varer i et tilbud med flere ("Grønlandske rejer, kold- eller varmrøget laks" er både rejer og laks; siden viser den vare, retten bruger), og vælger retter, der bringer tilbud i brug, som ingen valgt ret bruger endnu (`NYE_TILBUD_BONUS`).
+Kør den med `--til 70` for at få op til 70 retter pr. butik: `python -I scripts/udvid_retter.py <butik> … --til 70`. Mangler biblioteket opskrifter til en vare, der ofte er på tilbud, så tilføj en type i `bibliotek_typer.py` og retter i `bibliotek_5.py` (kør derefter `byg_bibliotek4.py`, som skriver billedbeskrivelserne). Tjek altid udskriften: en ny type må ikke ramme ikke-mad (fx det engelske ord "and" i en vinetiket).
+
+**MÅL: HVER BUTIK SKAL HAVE MINDST 50 RETTER hver uge** (tallet står i udskriften: `X eksisterende + Y nye = N`). Opskriftsbiblioteket har ca. 156 opskrifter (bibliotek_1..5).
 Når en butik ikke når 50 med standardindstillingerne, så prøv i denne rækkefølge (stop, når der er 50):
 1. `python -I scripts/udvid_retter.py <butik> --min-tilbud 0.3` (flere retter med færre tilbudsvarer)
 2. `... --max-noegle 6` eller 8 (lad ét tilbud, fx kyllingebryst, indgå i flere retter) og `--max-dansk 30` (flere danske retter)
