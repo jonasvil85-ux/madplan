@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#15100C">
+<meta name="theme-color" content="#F8F5F0">
 <title>Måltidsjagten — ugens retter ud fra tilbudsaviserne</title>
 <meta name="description" content="Måltidsjagten finder ugens bedste tilbud i Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount, SPAR og Min Købmand og foreslår hjemmelavede retter med opskrifter, indkøbsliste og ugeplan.">
 <meta property="og:type" content="website">
@@ -492,6 +492,296 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 @media (max-width: 700px) { .seddel-status { padding: 12px 14px; } }
 .bar { height: 6px; background: var(--surface-2); border-radius: 99px; margin-top: 10px; overflow: hidden; }
 .bar div { height: 100%; background: var(--accent); transition: width .2s; }
+/* ===== LYST TEMA =====
+   Idé: lys, varm baggrund og hvide flader. Orange (--valgt) bruges KUN til det, man har valgt (aktiv fane, valgt butik/ret/chip, afkrydsning).
+   Alt, der før var orange uden at være et valg (logo, overskrifter, ikoner, knapper, mærkater), er nu neutralt blæk/grå. */
+:root {
+  --bg: #F8F5F0;
+  --surface: #FFFFFF;
+  --surface-2: #F1ECE4;
+  --border: rgba(60,45,30,.14);
+  --text-1: #1F1A16;
+  --text-2: #40372F;
+  --text-3: #7A6F64;
+  --accent: #3A322B;        /* neutralt blæk (var tidligere orange) */
+  --accent-dk: #1F1A16;
+  --valgt: #E8743B;         /* kun til valg */
+  --valgt-fill: #C9561E;
+  --valgt-tint: rgba(232,116,59,.10);
+  --emerald: #0E9F6E;
+  --emerald-dk: #047857;
+  --amber: #B45309;
+  --red: #DC2626;
+  --netto: #8A6D00;
+  --meny: #C21E3A;
+  --skygge: 0 1px 2px rgba(60,40,20,.06), 0 4px 14px rgba(60,40,20,.05);
+}
+body { background: var(--bg); }
+.tag.meny { color: var(--meny); }
+
+/* bløde flader i stedet for mørke */
+.panel, .ret, .hero, .butikvalg, .dag-kort, .ing-kort, .vare, .seddel-fane { box-shadow: var(--skygge); }
+.dag-kort { background: var(--surface); }
+.hero { background: var(--surface); }
+.hero-tekst h2 span { color: var(--text-3); }
+.bund { background: rgba(248,245,240,.94); }
+.bund, .tilfoej-top, .seddel-status { box-shadow: 0 -6px 20px rgba(60,40,20,.07); }
+.tilfoej-top, .seddel-status { box-shadow: 0 8px 20px rgba(60,40,20,.08); }
+.andel-bar { background: rgba(60,45,30,.08); }
+.dag-bil-sim.ingen { background: linear-gradient(135deg, #EFE8DD, #E6DDCF); }
+.bil { background: linear-gradient(135deg, var(--surface-2), #E6DDCF); }
+
+/* knapper og mærkater: neutralt blæk */
+.knap { background: #2B241E; color: #fff; }
+.knap:hover { background: #000; }
+.anbef, .hl-badge { background: #2B241E; color: #fff; }
+.niveau .ikon { background: var(--surface-2); color: var(--text-2); }
+.info-i { border-color: var(--text-3); background: var(--surface-2); color: var(--text-2); }
+.info-i:hover, .info-i:focus-visible, .info-i.aaben { background: #2B241E; border-color: #2B241E; color: #fff; }
+.info-afsnit + .info-afsnit { border-top-color: var(--border); }
+.simulering { border-color: rgba(60,45,30,.28); }
+.spinner { border-top-color: var(--accent); }
+.bar div { background: var(--accent); }
+
+/* hover: neutral kant (ikke orange) */
+.butik-chip:hover, .antal-knap:not(.tom):hover, .chip.koekken-knap:hover { border-color: rgba(60,45,30,.38); }
+.hl-chip:hover, .hl-chip.aaben, .hl-knapper button:hover { border-color: var(--text-3); background: var(--surface-2); }
+@media (hover: hover) { .byt-knap:hover, .ing-knap:hover { border-color: var(--text-3); color: var(--text-1); } }
+.byt-knap:focus-visible, .ing-knap:focus-visible { border-color: var(--text-3); color: var(--text-1); }
+
+/* knapper oven på billeder */
+.dag-knapper .byt-knap, .bil .ing-knap { background: rgba(255,255,255,.9); border-color: rgba(60,45,30,.2); color: var(--text-2); }
+@media (hover: hover) { .dag-knapper .byt-knap:hover { background: #fff; } }
+.dag-knapper .byt-knap:focus-visible { background: #fff; }
+
+/* pop-op, rundvisning og hjælpebokse */
+#ing-pop, .info-tekst, .intro-kort, #inst-band, .inst-boks { background: #fff; border-color: var(--border); box-shadow: 0 12px 30px rgba(60,40,20,.18); }
+.intro-hul { outline-color: var(--text-1); box-shadow: 0 0 0 100vmax rgba(31,26,22,.55); }
+.inst-boks .inst-obs { background: var(--surface-2); }
+#inst-band .inst-ja, .inst-boks .inst-ok { background: #2B241E; }
+.uge-besked { background: #FFF4D6; border-color: #F0D78A; color: #6B4E00; }
+.uge-besked button { border-color: #D9B756; color: #6B4E00; }
+.ing-tilbud { background: rgba(14,159,110,.12); color: var(--emerald-dk); }
+
+/* ===== ORANGE = VALGT ===== */
+nav.trin button.aktiv { background: var(--valgt-fill); border-color: var(--valgt-fill); color: #fff; }
+.chip.aktiv, .chip.valgt-chip { border-color: var(--valgt); color: var(--text-1); background: var(--valgt-tint); }
+.ret.valgt { border-color: var(--valgt); box-shadow: 0 0 0 1px var(--valgt) inset; }
+.ret.valgt::after, .afkryds { background: var(--valgt-fill); }
+.butik-chip.aktiv, .antal-knap.aktiv { border-color: var(--valgt); background: var(--valgt-tint); }
+.butikvalg.aktiv { border-color: var(--valgt); }
+.butikvalg.aktiv .sim-hint .sim-tekst { color: var(--text-1); }
+.niveau.aktiv, .seddel-fane.aktiv { border-color: var(--valgt); }
+.seddel-fane.aktiv { background: var(--valgt-tint); }
+.chip.koekken-knap.aktiv { background: var(--valgt-tint); border-color: var(--valgt); }
+.chip.koekken-knap.aktiv .koek-bil { border-color: var(--valgt); }
+.katalog-chips .chip.aktiv { background: var(--valgt-tint); }
+.vare.valgt { background: var(--valgt-tint); }
+.vare input { accent-color: var(--valgt); }
+.butik-chip.aktiv.ubrugt { border-color: rgba(60,45,30,.35); background: transparent; }
+
+/* ===== ret til efter første gennemsyn ===== */
+/* butikkasser: hvide med fuldt synlige logoer, så det ikke ligner "slukket" */
+.butik-chip, .antal-knap { background: var(--surface); border-color: var(--border); }
+.butik-chip .logo { opacity: 1; background: var(--surface-2); }
+.butik-chip.udloebet { opacity: .6; }
+.butik-chip.aktiv, .antal-knap.aktiv { border-color: var(--valgt); background: var(--valgt-tint); }
+.butik-chip.aktiv .logo { background: #fff; }
+.butik-chip.ubrugt .logo { opacity: .6; }
+.butik-chip.ubrugt .afkryds { background: var(--text-3); }
+/* ingrediensknappen på dagskortene: lys i stedet for mørk cirkel */
+.ing-knap { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
+/* feedback-knap og -panel (indsprøjtet af feedback.js): neutral knap, lyst panel */
+html body #fb-knap { background: #2B241E; box-shadow: 0 6px 18px rgba(60,40,20,.28); }
+html body #fb-panel { background: #fff; border-color: var(--border); box-shadow: 0 12px 40px rgba(60,40,20,.2); }
+html body #fb-top { background: var(--surface-2); border-bottom-color: var(--border); color: var(--text-1); }
+html body .fb-bot { background: var(--surface-2); color: var(--text-1); }
+html body .fb-dig { background: #2B241E; color: #fff; }
+html body .fb-valg button { background: #fff; border-color: var(--border); color: var(--text-2); }
+html body .fb-valg button:hover { border-color: var(--text-3); color: var(--text-1); }
+html body #fb-form, html body #fb-fod { background: var(--surface-2); border-top-color: var(--border); }
+html body #fb-felt { background: #fff; color: var(--text-1); border-color: var(--border); }
+html body #fb-send { background: #2B241E; }
+html body #fb-fod a { color: var(--text-1); }
+
+/* niveau-kortene (billede med overlay): lyst overlay i stedet for mørkt, så teksten er mørk og læsbar */
+.niveau::before { background: linear-gradient(90deg, rgba(255,255,255,.97) 0%, rgba(255,255,255,.88) 52%, rgba(255,255,255,.55) 100%), var(--bg) center / cover; }
+.niveau { color: var(--text-3); }
+.niveau.aktiv { background: var(--surface); }
+/* indkøbsliste: kun afkrydsningsfeltet er orange – rækkerne farves ikke */
+.vare { box-shadow: none; }
+.vare.valgt { background: transparent; }
+
+/* ===== Madplan: forslag eller vælg selv ===== */
+.forslag-maerke { display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); font-size: 12px; font-weight: 600; letter-spacing: .02em; vertical-align: 3px; }
+.sim-intro { margin: 4px 0 0; max-width: 640px; font-size: 14.5px; color: var(--text-2); line-height: 1.5; }
+.sim-intro b { color: var(--text-1); font-weight: 600; }
+.tekstlink { padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--text-1); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(60,45,30,.4); cursor: pointer; }
+.tekstlink:hover { text-decoration-color: var(--text-1); }
+.simulering .panel-hoved { align-items: flex-start; margin-bottom: 18px; }
+.sim-tip { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 12px 2px 0; font-size: 12.5px; color: var(--text-3); }
+.sim-tip span { display: inline-flex; align-items: center; gap: 6px; }
+.sim-tip .ikon-svg { width: 14px; height: 14px; }
+.sim-valg { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sim-valg .knap { padding: 13px 22px; }
+.sim-valg .knap.sekundaer { background: #fff; color: var(--text-1); border: 1.5px solid rgba(60,45,30,.35); padding: 11.5px 20.5px; }
+.sim-valg .knap.sekundaer:hover { border-color: var(--text-1); background: var(--surface-2); }
+.sim-eller { font-size: 13px; color: var(--text-3); }
+.sim-note { margin: 10px 0 0; font-size: 12.5px; color: var(--text-3); }
+@media (max-width: 700px) {
+  .sim-valg { flex-direction: column; align-items: stretch; gap: 8px; }
+  .sim-valg .knap { width: 100%; }
+  .sim-eller { text-align: center; }
+  .sim-note { text-align: center; }
+}
+
+/* ===== Fitness i "Vælg retter" ===== */
+:root { --c-prot: #E8743B; --c-kulh: #F2C16B; --c-fedt: #A89A8B; }
+.chip.koekken-knap .fit-ikon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--surface-2); border: 2px solid var(--border); color: var(--text-2); flex: none; }
+.chip.koekken-knap .fit-ikon .ikon-svg { width: 18px; height: 18px; vertical-align: 0; }
+.chip.koekken-knap.aktiv .fit-ikon { border-color: var(--valgt); }
+.fitinfo { margin: 0 0 14px; padding: 10px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); color: var(--text-2); font-size: 14px; }
+.fitinfo b { color: var(--text-1); }
+.ret.fit h3 { line-height: 1.3; height: 2.6em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 8px; }
+.ret.fit .fithoved { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.ret.fit .fithoved .stor { color: var(--text-1); font-size: 24px; font-weight: 700; line-height: 1; }
+.ret.fit .fithoved .stor small { font-size: 14px; font-weight: 600; color: var(--c-prot); }
+.ret.fit .fithoved .kcal { color: var(--text-3); font-size: 13px; }
+.energi { display: flex; height: 12px; border-radius: 99px; overflow: hidden; background: var(--surface-2); }
+.energi i { display: block; height: 100%; }
+.energi .p { background: var(--c-prot); } .energi .k { background: var(--c-kulh); } .energi .f { background: var(--c-fedt); }
+.forklar { display: flex; justify-content: space-between; gap: 6px; margin-top: 8px; font-size: 12px; color: var(--text-3); white-space: nowrap; }
+.forklar span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+.forklar .p::before { background: var(--c-prot); } .forklar .k::before { background: var(--c-kulh); } .forklar .f::before { background: var(--c-fedt); }
+.forklar b { color: var(--text-1); font-weight: 600; }
+.fit-linje { display: flex; justify-content: space-between; margin: 8px 0 10px; font-size: 12px; color: var(--text-3); }
+
+/* ===== Kategorirække i "Vælg retter" ===== */
+.niveauer.katraekke { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+.niveau.kat { grid-template-columns: 1fr; row-gap: 8px; align-items: start; padding: 14px; min-height: 132px; }
+.niveau.kat .ikon { grid-row: auto; width: 38px; height: 38px; }
+.niveau.kat .ikon .ikon-svg { width: 20px; height: 20px; }
+.niveau.kat strong { font-size: 16px; }
+.niveau.kat small { line-height: 1.35; color: var(--text-2); }
+.niveau.kat small b { color: var(--text-1); font-weight: 600; }
+@media (max-width: 900px) { .niveauer.katraekke { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .niveauer.katraekke { grid-template-columns: repeat(2, minmax(0, 1fr)); } .niveau.kat { min-height: 120px; } }
+
+/* ===== Din uge (under kategorierne i "Vælg retter") ===== */
+.ugeplan-valg { margin-bottom: 16px; }
+.ugeplan-valg .panel-hoved { margin-bottom: 14px; }
+.ugeplan-valg .sim-intro { margin-top: 2px; font-size: 13.5px; color: var(--text-3); }
+.ugetal { flex: none; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); font-size: 12.5px; font-weight: 600; color: var(--text-2); }
+.ugeplan-valg .dag-kort.fravalgt { background: transparent; box-shadow: none; }
+.ude-knap { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 3px 9px 3px 7px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text-3); font-size: 12px; cursor: pointer; }
+.ude-knap .ikon-svg { width: 13px; height: 13px; }
+.ude-knap:hover { border-color: var(--text-3); color: var(--text-1); }
+.dag-ude { padding: 0 10px 10px; margin-top: auto; }
+.dag-ude .ude-knap { margin-top: 0; }
+.ugeplan-valg .dag-fra { padding-bottom: 14px; }
+
+/* ======================================================================
+   MIDDELVEJ: korte tekster er tilbage, men dæmpede. Færre mærkater, ingen store tekstblokke
+   ====================================================================== */
+.fod { opacity: .7; }
+
+/* forsiden: kun overskriften, uden billedbanner og brødtekst */
+.hero { display: block; min-height: 0; margin-bottom: 14px; border: 0; background: none; box-shadow: none; overflow: visible; }
+.hero-mosaik, .hero-tekst p { display: none; }
+.hero-tekst { padding: 4px 2px; }
+.hero-tekst h2 { font-size: 26px; margin: 0; }
+
+/* overskrifter i paneler: mindre og dæmpede */
+.butik-venstre h2, .butik-hoejre h3, .simulering .panel-hoved h2, .ugeplan-valg h2 { font-size: 15px; font-weight: 600; color: var(--text-2); }
+.sim-undertekst { margin: 2px 0 0; font-size: 13px; color: var(--text-3); }
+.simulering .panel-hoved { margin-bottom: 14px; }
+.dag-fra { align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.ude-ikon { color: var(--text-3); opacity: .55; }
+.ude-ikon .ikon-svg { width: 24px; height: 24px; vertical-align: 0; }
+.ude-tekst, .tom-tekst { font-size: 12.5px; color: var(--text-3); }
+
+/* kategorikort: ikon, navn, kort linje og antal */
+.niveau.kat { position: relative; min-height: 112px; grid-template-columns: 1fr; row-gap: 4px; align-items: start; padding: 14px; }
+.niveau.kat .ikon { grid-row: auto; width: 36px; height: 36px; margin-bottom: 4px; }
+.niveau.kat .ikon .ikon-svg { width: 19px; height: 19px; }
+.niveau.kat strong { font-size: 16px; }
+.niveau.kat small { font-size: 12.5px; color: var(--text-2); line-height: 1.3; }
+.antal-pille { position: absolute; top: 10px; right: 10px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,.88); color: var(--text-2); font-size: 12px; font-style: normal; font-weight: 600; }
+.fitinfo { margin: 0 0 12px; font-size: 13px; color: var(--text-3); }
+
+/* ugeplan under kategorierne */
+.ugeplan-valg { padding: 14px 16px 16px; }
+.ugeplan-valg .panel-hoved { margin-bottom: 12px; }
+.ugetal { flex: none; font-size: 12.5px; font-weight: 600; color: var(--text-3); }
+.ude-knap { display: inline-flex; align-items: center; gap: 5px; margin: 0; padding: 3px 9px 3px 7px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text-3); font-size: 12px; cursor: pointer; }
+.ude-knap .ikon-svg { width: 13px; height: 13px; vertical-align: 0; }
+.ude-knap:hover { border-color: var(--text-3); color: var(--text-1); }
+.dag-ude { padding: 6px 10px 10px; margin-top: auto; }
+.ugeplan-valg .dag-fra { padding: 6px 10px 14px; min-height: 90px; }
+.rest-raekke { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.rest-tekst { font-size: 12.5px; color: var(--text-3); }
+.rest-ret { position: relative; width: 54px; height: 40px; padding: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--surface-2); cursor: pointer; }
+.rest-ret img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rest-ret span { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(255,255,255,.7); color: var(--text-1); font-weight: 700; opacity: 0; }
+.rest-ret:hover span { opacity: 1; }
+
+/* retkort: billede, navn, kort beskrivelse og én linje med tid, pris og tilbud */
+.ret h3 { margin-bottom: 4px; }
+.ret .besk { margin: 0 0 8px; font-size: 13.5px; color: var(--text-3); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.rolig { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; font-size: 13.5px; }
+.rolig .pris { color: var(--text-2); font-weight: 600; }
+.rolig .tilb { display: inline-flex; align-items: center; gap: 6px; color: var(--emerald-dk); font-size: 13px; font-weight: 600; }
+.rolig .tilb i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--emerald); }
+.bil-maerke { font-size: 9px; opacity: .75; }
+.forklar span { color: var(--text-2); }
+.forklar b { font-weight: 700; color: var(--text-1); }
+.ret.fit .fithoved .stor small { margin-left: 0; }
+.ret.fit .forklar { white-space: nowrap; }
+
+/* ======================================================================
+   FARVELOGIK
+   PRIMÆR   = orange: KUN det, der er valgt (aktivt trin, valgt butik/kategori/ret, afkrydsning)
+   SEKUNDÆR = dæmpet grøn-blå: tilbud, priser og fitness-data (protein)
+   RESTEN   = neutralt (varm hvid, blæk, grå) – og billeder
+   ====================================================================== */
+:root {
+  --sek: #3E6B66;           /* sekundær */
+  --sek-dk: #2F5753;
+  --sek-lys: #A9C5C0;       /* lysere trin af sekundær */
+  --sek-sand: #D9D1C6;      /* neutral sand til det mindst vigtige */
+  --emerald: var(--sek);    /* alt, der før var grønt (tilbud, priser, "billigst") */
+  --emerald-dk: var(--sek-dk);
+  --amber: #8A7C6A;         /* før gul/orange advarselsfarve: nu neutral varm grå */
+  --red: #B4443C;
+  --netto: var(--text-2);
+  --meny: var(--text-2);
+  --c-prot: var(--sek);
+  --c-kulh: var(--sek-lys);
+  --c-fedt: var(--sek-sand);
+}
+.andel-bar span { background: linear-gradient(90deg, rgba(62,107,102,.5), rgba(62,107,102,.85)); }
+.ing-tilbud { background: rgba(62,107,102,.12); color: var(--sek-dk); }
+.ret.bruger-rest { border-color: var(--border); }
+.chip.rest-chip { border-color: var(--border); color: var(--text-2); }
+.chip.rest-chip.aktiv { border-color: var(--valgt); background: var(--valgt-tint); color: var(--text-1); }
+.boern .hl-figur { fill: var(--text-3); }
+.butikker .butikvalg { box-shadow: none; padding-top: 14px; }
+.butikker .butikvalg:hover { border-color: var(--text-3); }
+.uge-besked { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
+.uge-besked button { border-color: var(--border); color: var(--text-2); }
+
+/* fitness-søjlen: kraftig protein-del, tyndere kulhydrat og fedt, små mellemrum, kun sekundærfarven i trin */
+.energi { height: 12px; gap: 3px; align-items: center; overflow: visible; background: transparent; border-radius: 0; }
+.energi i { border-radius: 99px; }
+.energi .p { height: 12px; }
+.energi .k, .energi .f { height: 6px; }
+.ret.fit .fithoved .stor { font-weight: 800; letter-spacing: -.02em; }
+.ret.fit .fithoved .stor small { color: var(--sek); font-weight: 700; }
+.forklar span:first-child { color: var(--sek-dk); }
+
+/* ===== LOGO-EKSEMPEL: lidt farve i logoet (sekundærfarven), orange er stadig kun til valg. Fjern denne blok for et helt neutralt logo ===== */
+.logo-symbol { color: var(--sek); }
+header.top h1.maerke .logo-navn span { color: var(--sek); }
 </style>
 </head>
 <body>
@@ -525,6 +815,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 <script src="varer.js"></script>
 <script src="auth.js"></script>
 <script src="pris.js"></script>
+<script src="kategorier.js"></script>
 <script src="feedback.js"></script>
 <script>
 const KATEGORIER = { kylling: 'Kylling', okse: 'Okse', svin: 'Svin', fisk: 'Fisk', and: 'And', vegetar: 'Vegetar', andet: 'Andet' };
@@ -793,6 +1084,7 @@ async function start() {
     } catch (e) { /* uden opskrifter.json bruges kun butikkernes egne retter */ }
     for (const [k, b] of Object.entries(data.butikker)) for (const [id, t] of Object.entries(b.tilbud || {})) ALLE_TILBUD[id] = { ...t, butik: k };
     try { const t = await fetch('/tilbudsliste.json', { cache: 'no-cache' }); if (t.ok) tilbudsliste = await t.json(); } catch (e) { /* uden listen vises "Værd at overveje" bare ikke */ }
+    try { const nr = await fetch('/naering.json', { cache: 'no-cache' }); window.NAERING = nr.ok ? await nr.json() : {}; if (window.NAERING._genereret !== data.genereret) window.NAERING = {}; /* forældede tal ville sidde på forkerte retter */ } catch (e) { window.NAERING = {}; /* uden tal findes kategorien Fitness ikke */ }
     // Fortsæt hvor brugeren slap: nyeste af det der er gemt på brugeren og på denne enhed
     const lokal = JSON.parse(localStorage.getItem(GEM) || 'null');
     let sky = null;
@@ -1402,12 +1694,12 @@ function simuleringHtml() {
     </div>`;
   }).join('');
   return `<div class="panel simulering" id="simulering">
-    <div class="panel-hoved"><div><h2>Madplan</h2></div>
+    <div class="panel-hoved"><div><h2>Madplan</h2><p class="sim-undertekst">Brug forslaget, byt en ret &ndash; eller vælg selv.</p></div>
       <span class="panel-hoved-hoejre">${simAendret(k) ? `<button type="button" class="chip" data-sim-nulstil="${esc(k)}">Tilbage til forslaget</button>` : ''}</span></div>
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
-      <div class="sim-knapper">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb>Læg ${antalDage === plan.length ? 'de 7 retter' : antalDage === 1 ? 'retten' : `de ${antalDage} retter`} i indkøb →</button>` : ''}
-        <button type="button" class="knap sekundaer" data-sim-vaelg>Vælg selv retter</button></div>
+      <div class="sim-valg">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb>Brug ${antalDage === plan.length ? 'forslaget' : 'planen'} &rarr;</button>` : ''}
+        <button type="button" class="knap sekundaer" data-sim-vaelg>Vælg selv</button></div>
     </div></div>`;
 }
 
@@ -1513,11 +1805,6 @@ function renderButikker() {
     <div class="hero-tekst">
       <h2>Aftensmad <span>ud fra ugens tilbud</span></h2>
     </div>
-    <div class="hero-mosaik" aria-hidden="true">
-      <img src="grafik/hero-indkoeb.jpg" alt="" width="800" height="800">
-      <img src="grafik/hero-madlavning.jpg" alt="" width="800" height="800">
-      <img src="grafik/hero-bord.jpg" alt="" width="800" height="800">
-    </div>
   </section>
   </div>
   ${butikPanel()}
@@ -1550,54 +1837,25 @@ function renderRetter() {
   if (!antalRest) state.kunRest = false;
   const orden = Object.keys(NIVEAUER);
   const prPers = new Map(retter.map(r => { const kp = kortPriser(r); return [r.id, kp.indkoeb / kp.pers]; }));  // indkøbspris pr. person (til sortering)
-  const iNiveau = retter
-    .filter(r => state.niveau === 'alle' || r.niveau === state.niveau)
-    .sort(state.sorter === 'billigst' ? (a, b) => prPers.get(a.id) - prPers.get(b.id) : (a, b) => orden.indexOf(a.niveau) - orden.indexOf(b.niveau) || prisIAlt(a) - prisIAlt(b));
-  const kat = ['alle', ...Object.keys(KATEGORIER).filter(k => iNiveau.some(r => r.kategori === k))];
-  if (!kat.includes(state.filter)) state.filter = 'alle';
-  const synlige = iNiveau.filter(r => (state.filter === 'alle' || r.kategori === state.filter) && (!state.kunRest || restMap[r.id]) && (state.koekken === 'alle' || r.koekken === state.koekken));
-  const antal = n => retter.filter(r => n === 'alle' || r.niveau === n).length;
+  const valgtKat = KATEGORIER_VALG.some(c => c.k === state.koekken) ? state.koekken : 'alle';  // kategorien (state.koekken gemmer valget)
+  const synlige = retter.filter(r => katIKat(r, valgtKat, prPers) && (!state.kunRest || restMap[r.id])).sort(katSort(valgtKat, prPers));
 
   vis(`
     ${aktivS().some(k => udloebet(data.butikker[k])) ? '<div class="panel fejl">En af aviserne er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
-    <div class="niveauer">
-      <button class="niveau ${state.niveau === 'alle' ? 'aktiv' : ''}" data-niveau="alle" style="--bg:url('grafik/hero-bord.jpg')"><span class="ikon">${ikon('utensils')}</span><strong>Alle retter</strong><small>${antal('alle')} retter</small></button>
-      ${Object.entries(NIVEAUER).map(([k, n]) => `
-        <button class="niveau ${state.niveau === k ? 'aktiv' : ''}" data-niveau="${k}" style="--bg:url('grafik/niveau-${k}.jpg')">
-          <span class="ikon">${ikon(n.ikon)}</span><strong>${n.navn}</strong><small>${n.tekst} · ${antal(k)} retter</small>
-        </button>`).join('')}
-    </div>
-    <div class="filtre koekkenrække">
-      <button class="chip ${state.koekken === 'alle' ? 'aktiv' : ''}" data-koekken="alle">Alle køkkener</button>
-      ${Object.entries(KOEKKENER).map(([k, ko]) => {
-        const n = iNiveau.filter(r => r.koekken === k).length;
-        return n ? `<button class="chip koekken-knap ${state.koekken === k ? 'aktiv' : ''}" data-koekken="${k}"><img class="koek-bil" src="billeder/${KOEKKEN_BILLEDE[k]}.jpg" alt="" loading="lazy" width="34" height="34"><span>${ko.navn}</span><small>${n}</small></button>` : '';
-      }).join('')}
-    </div>
-    <div class="filtre">${kat.map(k => `<button class="chip ${state.filter === k ? 'aktiv' : ''}" data-filter="${k}">${k === 'alle' ? 'Alle typer' : KATEGORIER[k]}</button>`).join('')}
-      <button class="chip sorter-chip ${state.sorter === 'billigst' ? 'aktiv' : ''}" data-sorter aria-pressed="${state.sorter === 'billigst'}">Billigste først</button>
-      ${antalRest ? `<button class="chip rest-chip ${state.kunRest ? 'aktiv' : ''}" data-kunrest>${ikon('refresh')} Bruger min rest (${antalRest})</button>` : ''}</div>
+    ${katRaekke(retter, prPers, valgtKat)}
+    ${antalRest ? `<div class="filtre"><button class="chip rest-chip ${state.kunRest ? 'aktiv' : ''}" data-kunrest>${ikon('refresh')} Bruger min rest (${antalRest})</button></div>` : ''}
+    ${ugeplanValg(retter)}
+    ${valgtKat === 'fitness' ? FITNESS_INFO : ''}
     <div class="grid">${synlige.map(r => {
       const tilbudsvarer = r.ingredienser.filter(i => butiksTilbud(i).length);
       const restTil = restMap[r.id] || [];
       const kp = kortPriser(r);
       return `
-        <div class="ret ${state.valgte.includes(r.id) ? 'valgt' : ''} ${restTil.length ? 'bruger-rest' : ''}" data-ret="${r.id}">
+        <div class="ret ${valgtKat === 'fitness' ? 'fit' : ''} ${state.valgte.includes(r.id) ? 'valgt' : ''} ${restTil.length ? 'bruger-rest' : ''}" data-ret="${r.id}">
           <div class="bil">${r.billede ? `<img src="${esc(r.billede)}" alt="Illustration af ${esc(r.navn)}" loading="lazy" width="720" height="540"><span class="bil-maerke">Illustration</span>` : `<span class="bil-ikon">${ikon('utensils')}</span>`}${ingKnap(r.id)}</div>
           ${restTil.length ? `<div class="restmaerke">${ikon('refresh')} Bruger din rest: ${restTil.map(x => `ca. ${esc(maengde(x.behov, x.enhed, true))} ${esc(x.navn)}`).join(', ')}</div>` : ''}
           <h3>${esc(r.navn)}</h3>
-          <p>${esc(r.beskrivelse)}</p>
-          <div class="meta">
-            <span class="tag">${NIVEAUER[r.niveau].navn}</span>
-            <span class="tag">${KATEGORIER[r.kategori]}</span>
-            ${r.koekken && KOEKKENER[r.koekken] ? `<span class="tag tag-koekken"><img class="koek-bil lille" src="billeder/${KOEKKEN_BILLEDE[r.koekken]}.jpg" alt="" loading="lazy" width="18" height="18"> ${KOEKKENER[r.koekken].navn}</span>` : ''}
-            <span class="tag">${r.tid_minutter} min</span>
-            <span class="tag pris" title="Indkøb = hele pakker + skøn for øvrige varer. Forbrug = kun det retten bruger. Regnet for ${kp.pers} personer.">Indkøb ca. ${kr(Math.round(kp.indkoeb))} · ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</span>
-            ${kp.forbrug ? `<span class="tag">Forbrug ca. ${kr(Math.round(kp.forbrug))}</span>` : ''}
-            <span class="tag">${tilbudsvarer.length} varer på tilbud</span>
-            ${r.spis_tidligt ? '<span class="tag frisk">Spis tidligt</span>' : ''}
-          </div>
-          ${tilbudsvarer.length ? `<div class="tilbudsliste"><b>På tilbud:</b> ${tilbudsvarer.map(i => esc(i.navn) + (aktivS().length > 1 ? ` <small>(${esc(data.butikker[ALLE_TILBUD[butiksTilbud(i)[0]].butik].navn)})</small>` : '')).join(', ')}</div>` : ''}
+          ${valgtKat === 'fitness' ? fitnessKortHtml(r, kp, tilbudsvarer) : retKortHtml(r, kp, tilbudsvarer)}
         </div>`;
     }).join('')}</div>`);
 
@@ -2022,7 +2280,7 @@ const INTRO_TRIN = [
   { sel: '#antal-plads', titel: 'Hvor mange butikker?', tekst: 'Se, hvad ugens mad koster, hvis du handler i 1, 2 eller 3 butikker. Tryk på det felt, du vil bruge.' },
   { sel: '#sim-plads .dag-kort', titel: 'Din madplan', tekst: 'Her er ugens retter. Tryk Byt for en anden ret, eller Fjern, hvis du spiser ude den dag.' },
   { sel: '[data-sim-indkoeb]', side: 'over', titel: 'Klar til at handle?', tekst: 'Tryk her, når du er tilfreds – så laver vi indkøbssedlen til dig.' },
-  { sel: '[data-sim-vaelg]', side: 'over', titel: 'Vil du vælge selv?', tekst: 'Tryk her for at se alle retter og selv vælge dem, du har lyst til. Du kan sortere dem efter pris.' },
+  { sel: '[data-sim-vaelg]', side: 'over', titel: 'Vil du vælge selv?', tekst: 'Tryk her for at se alle retter og selv vælge dem, du har lyst til. Brug kategorierne øverst, fx Budget eller Fitness.' },
 ];
 let introNr = -1, introRamme = 0, introSkrol = 0, introSide = 'under';
 const introSet = () => !!localStorage.getItem(INTRO_GEM);

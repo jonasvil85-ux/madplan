@@ -1,0 +1,725 @@
+{
+ "kilde": "USDA FoodData Central, SR Legacy (2018), pr. 100 g rå vare",
+ "foedevarer": {
+  "loeg": {
+   "fdc_id": "170000",
+   "beskrivelse": "Onions, raw",
+   "fedt": 0.1,
+   "kulhydrat": 9.34,
+   "kcal": 40.0,
+   "protein": 1.1
+  },
+  "hvidloeg": {
+   "fdc_id": "169230",
+   "beskrivelse": "Garlic, raw",
+   "kulhydrat": 33.06,
+   "kcal": 149.0,
+   "protein": 6.36,
+   "fedt": 0.5
+  },
+  "smoer": {
+   "fdc_id": "173410",
+   "beskrivelse": "Butter, salted",
+   "kcal": 717.0,
+   "fedt": 81.11,
+   "kulhydrat": 0.06,
+   "protein": 0.85
+  },
+  "olie": {
+   "fdc_id": "171413",
+   "beskrivelse": "Oil, olive, salad or cooking",
+   "fedt": 100.0,
+   "kulhydrat": 0.0,
+   "kcal": 884.0,
+   "protein": 0.0
+  },
+  "hvedemel": {
+   "fdc_id": "168894",
+   "beskrivelse": "Wheat flour, white, all-purpose, enriched, bleached",
+   "protein": 10.33,
+   "fedt": 0.98,
+   "kulhydrat": 76.31,
+   "kcal": 364.0
+  },
+  "majsstivelse": {
+   "fdc_id": "169698",
+   "beskrivelse": "Cornstarch",
+   "fedt": 0.05,
+   "kulhydrat": 91.27,
+   "kcal": 381.0,
+   "protein": 0.26
+  },
+  "kartoffel": {
+   "fdc_id": "170026",
+   "beskrivelse": "Potatoes, flesh and skin, raw",
+   "fedt": 0.09,
+   "kcal": 77.0,
+   "protein": 2.05,
+   "kulhydrat": 17.49
+  },
+  "soed_kartoffel": {
+   "fdc_id": "168482",
+   "beskrivelse": "Sweet potato, raw, unprepared (Includes foods for USDA's Food Distribution Program)",
+   "kulhydrat": 20.12,
+   "kcal": 86.0,
+   "fedt": 0.05,
+   "protein": 1.57
+  },
+  "gulerod": {
+   "fdc_id": "170393",
+   "beskrivelse": "Carrots, raw",
+   "protein": 0.93,
+   "fedt": 0.24,
+   "kulhydrat": 9.58,
+   "kcal": 41.0
+  },
+  "aeg": {
+   "fdc_id": "171287",
+   "beskrivelse": "Egg, whole, raw, fresh",
+   "kcal": 143.0,
+   "protein": 12.56,
+   "fedt": 9.51,
+   "kulhydrat": 0.72
+  },
+  "tomat_knust": {
+   "fdc_id": "170501",
+   "beskrivelse": "Tomatoes, crushed, canned",
+   "fedt": 0.28,
+   "kulhydrat": 7.29,
+   "kcal": 32.0,
+   "protein": 1.64
+  },
+  "tomat": {
+   "fdc_id": "170457",
+   "beskrivelse": "Tomatoes, red, ripe, raw, year round average",
+   "kulhydrat": 3.89,
+   "kcal": 18.0,
+   "fedt": 0.2,
+   "protein": 0.88
+  },
+  "tomatpure": {
+   "fdc_id": "170459",
+   "beskrivelse": "Tomato products, canned, paste, without salt added (Includes foods for USDA's Food Distribution Program)",
+   "kulhydrat": 18.91,
+   "kcal": 82.0,
+   "fedt": 0.47,
+   "protein": 4.32
+  },
+  "maelk": {
+   "fdc_id": "171265",
+   "beskrivelse": "Milk, whole, 3.25% milkfat, with added vitamin D",
+   "fedt": 3.25,
+   "kulhydrat": 4.8,
+   "kcal": 61.0,
+   "protein": 3.15
+  },
+  "kokosmaelk": {
+   "fdc_id": "170173",
+   "beskrivelse": "Nuts, coconut milk, canned (liquid expressed from grated meat and water)",
+   "fedt": 21.33,
+   "kulhydrat": 2.81,
+   "kcal": 197.0,
+   "protein": 2.02
+  },
+  "piskeflode": {
+   "fdc_id": "170859",
+   "beskrivelse": "Cream, fluid, heavy whipping",
+   "fedt": 36.08,
+   "kcal": 340.0,
+   "protein": 2.84,
+   "kulhydrat": 2.84
+  },
+  "flode_let": {
+   "fdc_id": "171255",
+   "beskrivelse": "Cream, fluid, half and half",
+   "protein": 3.13,
+   "fedt": 11.5,
+   "kulhydrat": 4.3,
+   "kcal": 131.0
+  },
+  "cremefraiche": {
+   "fdc_id": "171257",
+   "beskrivelse": "Cream, sour, cultured",
+   "protein": 2.44,
+   "fedt": 19.35,
+   "kulhydrat": 4.63,
+   "kcal": 198.0
+  },
+  "skyr": {
+   "fdc_id": "170894",
+   "beskrivelse": "Yogurt, Greek, plain, nonfat (Includes foods for USDA's Food Distribution Program)",
+   "protein": 10.19,
+   "fedt": 0.39,
+   "kulhydrat": 3.6,
+   "kcal": 59.0
+  },
+  "yoghurt": {
+   "fdc_id": "171284",
+   "beskrivelse": "Yogurt, plain, whole milk",
+   "kcal": 61.0,
+   "protein": 3.47,
+   "fedt": 3.25,
+   "kulhydrat": 4.66
+  },
+  "kyllingebryst": {
+   "fdc_id": "171077",
+   "beskrivelse": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw",
+   "fedt": 2.62,
+   "kcal": 120.0,
+   "protein": 22.5,
+   "kulhydrat": 0.0
+  },
+  "kyllingelaar": {
+   "fdc_id": "173619",
+   "beskrivelse": "Chicken, broilers or fryers, leg, meat only, raw",
+   "kulhydrat": 0.0,
+   "kcal": 120.0,
+   "protein": 19.16,
+   "fedt": 4.22
+  },
+  "hel_kylling": {
+   "fdc_id": "171447",
+   "beskrivelse": "Chicken, broilers or fryers, meat and skin, raw",
+   "protein": 18.6,
+   "fedt": 15.06,
+   "kulhydrat": 0.0,
+   "kcal": 215.0
+  },
+  "hakket_okse_95": {
+   "fdc_id": "171790",
+   "beskrivelse": "Beef, ground, 95% lean meat / 5% fat, raw",
+   "protein": 21.41,
+   "fedt": 5.0,
+   "kulhydrat": 0.0,
+   "kcal": 137.0
+  },
+  "hakket_okse_85": {
+   "fdc_id": "171796",
+   "beskrivelse": "Beef, ground, 85% lean meat / 15% fat, raw (Includes foods for USDA's Food Distribution Program)",
+   "fedt": 15.0,
+   "protein": 18.59,
+   "kulhydrat": 0.0,
+   "kcal": 215.0
+  },
+  "hakket_okse_90": {
+   "fdc_id": "174030",
+   "beskrivelse": "Beef, ground, 90% lean meat / 10% fat, raw",
+   "fedt": 10.0,
+   "kulhydrat": 0.0,
+   "protein": 20.0,
+   "kcal": 176.0
+  },
+  "moerbrad": {
+   "fdc_id": "168312",
+   "beskrivelse": "Pork, fresh, loin, tenderloin, separable lean and fat, raw",
+   "protein": 20.65,
+   "fedt": 3.53,
+   "kulhydrat": 0.0,
+   "kcal": 120.0
+  },
+  "koteletter": {
+   "fdc_id": "167839",
+   "beskrivelse": "Pork, fresh, loin, top loin (chops), boneless, separable lean and fat, raw",
+   "fedt": 6.94,
+   "kulhydrat": 0.0,
+   "protein": 21.55,
+   "kcal": 155.0
+  },
+  "nakke": {
+   "fdc_id": "167843",
+   "beskrivelse": "Pork, fresh, shoulder, whole, separable lean and fat, raw",
+   "fedt": 17.99,
+   "kulhydrat": 0.0,
+   "kcal": 236.0,
+   "protein": 17.18
+  },
+  "flaesk": {
+   "fdc_id": "167812",
+   "beskrivelse": "Pork, fresh, belly, raw",
+   "fedt": 53.01,
+   "kulhydrat": 0.0,
+   "kcal": 518.0,
+   "protein": 9.34
+  },
+  "bacon": {
+   "fdc_id": "168277",
+   "beskrivelse": "Pork, cured, bacon, unprepared",
+   "protein": 13.66,
+   "fedt": 37.13,
+   "kulhydrat": 0.0,
+   "kcal": 393.0
+  },
+  "polse": {
+   "fdc_id": "172964",
+   "beskrivelse": "Frankfurter, pork",
+   "fedt": 23.68,
+   "kulhydrat": 0.28,
+   "kcal": 269.0,
+   "protein": 12.81
+  },
+  "oksebof": {
+   "fdc_id": "171804",
+   "beskrivelse": "Beef, top sirloin, steak, separable lean only, trimmed to 1/8\" fat, select, raw",
+   "protein": 22.27,
+   "fedt": 3.54,
+   "kulhydrat": 0.0,
+   "kcal": 127.0
+  },
+  "laks": {
+   "fdc_id": "175167",
+   "beskrivelse": "Fish, salmon, Atlantic, farmed, raw",
+   "kcal": 208.0,
+   "fedt": 13.42,
+   "protein": 20.42,
+   "kulhydrat": 0.0
+  },
+  "roeget_laks": {
+   "fdc_id": "173687",
+   "beskrivelse": "Fish, salmon, chinook, smoked",
+   "fedt": 4.32,
+   "kulhydrat": 0.0,
+   "kcal": 117.0,
+   "protein": 18.28
+  },
+  "rejer": {
+   "fdc_id": "175179",
+   "beskrivelse": "Crustaceans, shrimp, raw",
+   "fedt": 0.51,
+   "kulhydrat": 0.0,
+   "kcal": 85.0,
+   "protein": 20.1
+  },
+  "torsk": {
+   "fdc_id": "171955",
+   "beskrivelse": "Fish, cod, Atlantic, raw",
+   "kcal": 82.0,
+   "protein": 17.81,
+   "fedt": 0.67,
+   "kulhydrat": 0.0
+  },
+  "sild": {
+   "fdc_id": "175118",
+   "beskrivelse": "Fish, herring, Atlantic, pickled",
+   "protein": 14.19,
+   "fedt": 18.0,
+   "kulhydrat": 9.64,
+   "kcal": 262.0
+  },
+  "tun": {
+   "fdc_id": "175158",
+   "beskrivelse": "Fish, tuna, white, canned in water, drained solids",
+   "protein": 23.62,
+   "fedt": 2.97,
+   "kulhydrat": 0.0,
+   "kcal": 128.0
+  },
+  "and": {
+   "fdc_id": "172408",
+   "beskrivelse": "Duck, domesticated, meat and skin, raw",
+   "protein": 11.49,
+   "fedt": 39.34,
+   "kulhydrat": 0.0,
+   "kcal": 404.0
+  },
+  "hakket_kalv": {
+   "fdc_id": "175290",
+   "beskrivelse": "Veal, ground, raw",
+   "kulhydrat": 0.0,
+   "protein": 18.58,
+   "kcal": 197.0,
+   "fedt": 13.06
+  },
+  "lam": {
+   "fdc_id": "172486",
+   "beskrivelse": "Lamb, leg, shank half, separable lean only, trimmed to 1/4\" fat, choice, raw",
+   "protein": 20.52,
+   "fedt": 4.19,
+   "kulhydrat": 0.0,
+   "kcal": 125.0
+  },
+  "ris": {
+   "fdc_id": "168877",
+   "beskrivelse": "Rice, white, long-grain, regular, raw, enriched",
+   "fedt": 0.66,
+   "kulhydrat": 79.95,
+   "kcal": 365.0,
+   "protein": 7.13
+  },
+  "pasta": {
+   "fdc_id": "169736",
+   "beskrivelse": "Pasta, dry, enriched",
+   "kulhydrat": 74.67,
+   "kcal": 371.0,
+   "fedt": 1.51,
+   "protein": 13.04
+  },
+  "nudler": {
+   "fdc_id": "169731",
+   "beskrivelse": "Noodles, egg, dry, enriched",
+   "kulhydrat": 71.27,
+   "kcal": 384.0,
+   "protein": 14.16,
+   "fedt": 4.44
+  },
+  "couscous": {
+   "fdc_id": "169699",
+   "beskrivelse": "Couscous, dry",
+   "protein": 12.76,
+   "fedt": 0.64,
+   "kulhydrat": 77.43,
+   "kcal": 376.0
+  },
+  "hvedebroed": {
+   "fdc_id": "172686",
+   "beskrivelse": "Bread, wheat",
+   "protein": 10.67,
+   "fedt": 4.53,
+   "kulhydrat": 47.54,
+   "kcal": 274.0
+  },
+  "rugbroed": {
+   "fdc_id": "172684",
+   "beskrivelse": "Bread, rye",
+   "kcal": 259.0,
+   "protein": 8.5,
+   "fedt": 3.3,
+   "kulhydrat": 48.3
+  },
+  "pita": {
+   "fdc_id": "174915",
+   "beskrivelse": "Bread, pita, white, enriched",
+   "fedt": 1.2,
+   "kulhydrat": 55.7,
+   "kcal": 275.0,
+   "protein": 9.1
+  },
+  "tortilla": {
+   "fdc_id": "167535",
+   "beskrivelse": "Tortillas, ready-to-bake or -fry, flour, shelf stable",
+   "fedt": 7.58,
+   "kulhydrat": 49.27,
+   "kcal": 297.0,
+   "protein": 8.01
+  },
+  "cheddar": {
+   "fdc_id": "170899",
+   "beskrivelse": "Cheese, cheddar, sharp, sliced",
+   "protein": 24.25,
+   "fedt": 33.82,
+   "kulhydrat": 2.13,
+   "kcal": 410.0
+  },
+  "parmesan": {
+   "fdc_id": "170848",
+   "beskrivelse": "Cheese, parmesan, hard",
+   "fedt": 25.0,
+   "protein": 35.75,
+   "kulhydrat": 3.22,
+   "kcal": 392.0
+  },
+  "mozzarella": {
+   "fdc_id": "170847",
+   "beskrivelse": "Cheese, mozzarella, part skim milk",
+   "kcal": 254.0,
+   "fedt": 15.92,
+   "protein": 24.26,
+   "kulhydrat": 2.77
+  },
+  "feta": {
+   "fdc_id": "173420",
+   "beskrivelse": "Cheese, feta",
+   "fedt": 21.49,
+   "kulhydrat": 3.88,
+   "kcal": 265.0,
+   "protein": 14.21
+  },
+  "floedeost": {
+   "fdc_id": "173418",
+   "beskrivelse": "Cheese, cream",
+   "protein": 6.15,
+   "fedt": 34.44,
+   "kulhydrat": 5.52,
+   "kcal": 350.0
+  },
+  "gouda": {
+   "fdc_id": "171241",
+   "beskrivelse": "Cheese, gouda",
+   "kcal": 356.0,
+   "protein": 24.94,
+   "fedt": 27.44,
+   "kulhydrat": 2.22
+  },
+  "hytteost": {
+   "fdc_id": "172182",
+   "beskrivelse": "Cheese, cottage, lowfat, 2% milkfat",
+   "fedt": 2.27,
+   "kulhydrat": 4.76,
+   "kcal": 81.0,
+   "protein": 10.45
+  },
+  "agurk": {
+   "fdc_id": "168409",
+   "beskrivelse": "Cucumber, with peel, raw",
+   "kulhydrat": 3.63,
+   "kcal": 15.0,
+   "fedt": 0.11,
+   "protein": 0.65
+  },
+  "broccoli": {
+   "fdc_id": "170379",
+   "beskrivelse": "Broccoli, raw",
+   "kulhydrat": 6.64,
+   "kcal": 34.0,
+   "fedt": 0.37,
+   "protein": 2.82
+  },
+  "squash": {
+   "fdc_id": "169291",
+   "beskrivelse": "Squash, summer, zucchini, includes skin, raw",
+   "fedt": 0.32,
+   "kulhydrat": 3.11,
+   "kcal": 17.0,
+   "protein": 1.21
+  },
+  "peberfrugt": {
+   "fdc_id": "170108",
+   "beskrivelse": "Peppers, sweet, red, raw",
+   "kcal": 26.0,
+   "kulhydrat": 6.03,
+   "protein": 0.99,
+   "fedt": 0.3
+  },
+  "porre": {
+   "fdc_id": "169246",
+   "beskrivelse": "Leeks, (bulb and lower leaf-portion), raw",
+   "kcal": 61.0,
+   "fedt": 0.3,
+   "protein": 1.5,
+   "kulhydrat": 14.15
+  },
+  "kaal": {
+   "fdc_id": "169975",
+   "beskrivelse": "Cabbage, raw",
+   "fedt": 0.1,
+   "kulhydrat": 5.8,
+   "kcal": 25.0,
+   "protein": 1.28
+  },
+  "roedkaal": {
+   "fdc_id": "169977",
+   "beskrivelse": "Cabbage, red, raw",
+   "kulhydrat": 7.37,
+   "kcal": 31.0,
+   "fedt": 0.16,
+   "protein": 1.43
+  },
+  "champignon": {
+   "fdc_id": "169251",
+   "beskrivelse": "Mushrooms, white, raw",
+   "fedt": 0.34,
+   "protein": 3.09,
+   "kulhydrat": 3.26,
+   "kcal": 22.0
+  },
+  "spinat": {
+   "fdc_id": "168462",
+   "beskrivelse": "Spinach, raw",
+   "protein": 2.86,
+   "fedt": 0.39,
+   "kulhydrat": 3.63,
+   "kcal": 23.0
+  },
+  "salat": {
+   "fdc_id": "169249",
+   "beskrivelse": "Lettuce, green leaf, raw",
+   "kulhydrat": 2.87,
+   "kcal": 15.0,
+   "protein": 1.36,
+   "fedt": 0.15
+  },
+  "groenkaal": {
+   "fdc_id": "168421",
+   "beskrivelse": "Kale, raw",
+   "protein": 2.92,
+   "fedt": 1.49,
+   "kulhydrat": 4.42,
+   "kcal": 35.0
+  },
+  "pastinak": {
+   "fdc_id": "170417",
+   "beskrivelse": "Parsnips, raw",
+   "kulhydrat": 17.99,
+   "kcal": 75.0,
+   "protein": 1.2,
+   "fedt": 0.3
+  },
+  "roedbede": {
+   "fdc_id": "170480",
+   "beskrivelse": "Beets, pickled, canned, solids and liquids",
+   "protein": 0.8,
+   "fedt": 0.08,
+   "kulhydrat": 16.28,
+   "kcal": 65.0
+  },
+  "selleri": {
+   "fdc_id": "169988",
+   "beskrivelse": "Celery, raw",
+   "kcal": 14.0,
+   "kulhydrat": 2.97,
+   "fedt": 0.17,
+   "protein": 0.69
+  },
+  "graeskar": {
+   "fdc_id": "168448",
+   "beskrivelse": "Pumpkin, raw",
+   "kulhydrat": 6.5,
+   "kcal": 26.0,
+   "fedt": 0.1,
+   "protein": 1.0
+  },
+  "aeble": {
+   "fdc_id": "171688",
+   "beskrivelse": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+   "kulhydrat": 13.81,
+   "kcal": 52.0,
+   "fedt": 0.17,
+   "protein": 0.26
+  },
+  "avocado": {
+   "fdc_id": "171705",
+   "beskrivelse": "Avocados, raw, all commercial varieties",
+   "protein": 2.0,
+   "fedt": 14.66,
+   "kulhydrat": 8.53,
+   "kcal": 160.0
+  },
+  "havregryn": {
+   "fdc_id": "172989",
+   "beskrivelse": "Cereals, QUAKER, Quick Oats, Dry",
+   "protein": 13.7,
+   "fedt": 6.87,
+   "kulhydrat": 68.18,
+   "kcal": 371.0
+  },
+  "kikaerter": {
+   "fdc_id": "175206",
+   "beskrivelse": "Chickpeas (garbanzo beans, bengal gram), mature seeds, canned, solids and liquids",
+   "fedt": 1.95,
+   "kulhydrat": 13.49,
+   "kcal": 88.0,
+   "protein": 4.92
+  },
+  "citron": {
+   "fdc_id": "167746",
+   "beskrivelse": "Lemons, raw, without peel",
+   "protein": 1.1,
+   "fedt": 0.3,
+   "kulhydrat": 9.32,
+   "kcal": 29.0
+  },
+  "aerter": {
+   "fdc_id": "170016",
+   "beskrivelse": "Peas, green, frozen, unprepared (Includes foods for USDA's Food Distribution Program)",
+   "fedt": 0.4,
+   "kulhydrat": 13.62,
+   "kcal": 77.0,
+   "protein": 5.22
+  },
+  "majs": {
+   "fdc_id": "169216",
+   "beskrivelse": "Corn, sweet, yellow, canned, vacuum pack, regular pack",
+   "fedt": 0.5,
+   "kulhydrat": 19.44,
+   "kcal": 79.0,
+   "protein": 2.41
+  },
+  "oliven": {
+   "fdc_id": "169094",
+   "beskrivelse": "Olives, ripe, canned (small-extra large)",
+   "protein": 0.84,
+   "fedt": 10.9,
+   "kulhydrat": 6.04,
+   "kcal": 116.0
+  },
+  "kidney": {
+   "fdc_id": "174285",
+   "beskrivelse": "Beans, kidney, red, mature seeds, canned, drained solids",
+   "fedt": 1.05,
+   "kulhydrat": 21.49,
+   "kcal": 124.0,
+   "protein": 7.98
+  },
+  "linser": {
+   "fdc_id": "172420",
+   "beskrivelse": "Lentils, raw",
+   "fedt": 1.06,
+   "protein": 24.63,
+   "kulhydrat": 63.35,
+   "kcal": 352.0
+  },
+  "ingefaer": {
+   "fdc_id": "169231",
+   "beskrivelse": "Ginger root, raw",
+   "fedt": 0.75,
+   "protein": 1.82,
+   "kulhydrat": 17.77,
+   "kcal": 80.0
+  },
+  "sukker": {
+   "fdc_id": "169655",
+   "beskrivelse": "Sugars, granulated",
+   "protein": 0.0,
+   "fedt": 0.0,
+   "kcal": 387.0,
+   "kulhydrat": 99.98
+  },
+  "honning": {
+   "fdc_id": "169640",
+   "beskrivelse": "Honey",
+   "protein": 0.3,
+   "fedt": 0.0,
+   "kulhydrat": 82.4,
+   "kcal": 304.0
+  },
+  "ketchup": {
+   "fdc_id": "168556",
+   "beskrivelse": "Catsup",
+   "protein": 1.04,
+   "fedt": 0.1,
+   "kulhydrat": 27.4,
+   "kcal": 101.0
+  },
+  "sennep": {
+   "fdc_id": "172234",
+   "beskrivelse": "Mustard, prepared, yellow",
+   "protein": 3.74,
+   "fedt": 3.34,
+   "kulhydrat": 5.83,
+   "kcal": 60.0
+  },
+  "mayo": {
+   "fdc_id": "171009",
+   "beskrivelse": "Salad dressing, mayonnaise, regular",
+   "protein": 0.96,
+   "fedt": 74.85,
+   "kulhydrat": 0.57,
+   "kcal": 680.0
+  },
+  "soja": {
+   "fdc_id": "174277",
+   "beskrivelse": "Soy sauce made from soy and wheat (shoyu)",
+   "fedt": 0.57,
+   "kulhydrat": 4.93,
+   "protein": 8.14,
+   "kcal": 53.0
+  },
+  "hakket_gris": {
+   "fdc_id": "167902+169190",
+   "beskrivelse": "Pork, fresh, ground, raw + Pork, ground, 96% lean / 4% fat, raw (middelværdi)",
+   "kcal": 192.0,
+   "protein": 18.99,
+   "fedt": 12.6,
+   "kulhydrat": 0.1
+  }
+ }
+}

@@ -2,3 +2,10 @@ node_modules/
 .vercel/
 .env*
 __pycache__/
+
+# lokale design-eksperimenter (ikke en del af siden)
+scripts/naering/forside_*
+scripts/naering/byg_forside_demo.py
+scripts/naering/demo_skabelon.html
+scripts/naering/naering_demo.html
+scripts/naering/naering.json

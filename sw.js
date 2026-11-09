@@ -3,14 +3,14 @@
 //  - Data (retter.json osv.) og siden selv hentes ALTID fra nettet først, så ugens nye tilbud aldrig er forældede; kun uden net bruges den sidste gemte kopi.
 //  - Billeder og grafik hentes fra gemmen først (de ændrer sig sjældent) og opdateres i baggrunden.
 //  - Kun adresser på samme domæne gemmes. Login (Supabase) og andre eksterne kald røres aldrig.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const SKAL = `maaltidsjagten-skal-${VERSION}`;      // siden og scripts
 const DATA = `maaltidsjagten-data-${VERSION}`;      // JSON-filer
 const BILLEDER = `maaltidsjagten-billeder-${VERSION}`;
 
-const FORUD = ['/', '/ikoner.js', '/varer.js', '/pris.js', '/auth.js', '/feedback.js', '/manifest.webmanifest', '/ikoner/icon-192.png', '/favicon.svg'];
+const FORUD = ['/', '/ikoner.js', '/varer.js', '/pris.js', '/kategorier.js', '/auth.js', '/feedback.js', '/manifest.webmanifest', '/ikoner/icon-192.png', '/favicon.svg'];
 
-const FORUD_DATA = ['/retter.json', '/opskrifter.json', '/tilbudsliste.json'];  // hentes med det samme, så appen kan åbnes uden net allerede efter første besøg
+const FORUD_DATA = ['/retter.json', '/opskrifter.json', '/tilbudsliste.json', '/naering.json'];  // hentes med det samme, så appen kan åbnes uden net allerede efter første besøg
 
 self.addEventListener('install', e => {
   e.waitUntil((async () => {
