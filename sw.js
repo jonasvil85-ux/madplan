@@ -3,7 +3,7 @@
 //  - Data (retter.json osv.) og siden selv hentes ALTID fra nettet først, så ugens nye tilbud aldrig er forældede; kun uden net bruges den sidste gemte kopi.
 //  - Billeder og grafik hentes fra gemmen først (de ændrer sig sjældent) og opdateres i baggrunden.
 //  - Kun adresser på samme domæne gemmes. Login (Supabase) og andre eksterne kald røres aldrig.
-const VERSION = 'v2';
+const VERSION = 'v3';  // hæv tallet, når gamle gemte kopier skal slettes hos alle (siden genindlæser sig selv, når den nye version overtager)
 const SKAL = `maaltidsjagten-skal-${VERSION}`;      // siden og scripts
 const DATA = `maaltidsjagten-data-${VERSION}`;      // JSON-filer
 const BILLEDER = `maaltidsjagten-billeder-${VERSION}`;

@@ -2513,6 +2513,9 @@ document.addEventListener('keydown', e => {
 
 // ---------- App: kan installeres på hjemmeskærmen og virker uden net (indkøbssedlen i butikken) ----------
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  const havdeStyring = !!navigator.serviceWorker.controller;  // kun en opdatering, hvis en gammel version styrede siden (ikke første besøg)
+  let genindlaest = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (havdeStyring && !genindlaest) { genindlaest = true; location.reload(); } });  // ny version overtog: hent siden og dataene forfra
   window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => { /* siden virker også uden */ }));
 }
 let installerHaendelse = null;
