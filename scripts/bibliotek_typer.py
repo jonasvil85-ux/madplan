@@ -78,6 +78,7 @@ TYPER = {
     'nudler':        (r'nudler|udon|ramen', r'kopnudler|instant'),
     'wraps': (r'(?<![a-zæøå])wraps?(?![a-zæøå])|tortilla', r'mask|collagen|night|ansigt|hud'),
     'pita':          (r'pita', r''),
+    'baguette':      (r'baguette|ciabatta|(?<![a-zæøå])flute|hvedebrød|landbrød|franskbrød', r'rugbrød|knæk|brioche|burger|hotdog|toast|wienerbrød|boller|pizza|croissant|pulled|duck|sandwich|(?<![a-zæøå])med(?![a-zæøå])'),
     'burgerboller':  (r'burgerboller|hotdogbrød|brioche|burger', r'bøf|boost|hamburger'),
     'braed': (r'brød|rugbrød|baguette|levebrød|madbrød', r'knæk|ølands|brioche|fastfood|hotdog|burger|crackers|hamburger|julekage|honning|morgenbrød|fladbrød|wiener|flute|marcipan|anthon|bananbrød|peberkage'),
     'rugbroed':      (r'rugbrød|signatur', r'knæk|chips'),

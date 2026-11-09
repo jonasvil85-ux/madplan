@@ -207,6 +207,10 @@ def main():
     if os.path.exists(skab):
         with open(skab, encoding='utf-8') as f:
             bibliotek.update({r['navn']: r for r in json.load(f)})
+        import rettelser
+        for r in bibliotek.values():
+            if r.get('ingredienser'):
+                rettelser.anvend_kilde(r)  # redaktionelle rettelser gælder også skabelonerne, som "som"-retterne bygges af
 
     for butik, b in BUTIKKER.items():
         if butik not in kilder:

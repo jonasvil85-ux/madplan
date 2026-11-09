@@ -18,6 +18,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "andebryst",
+   "kartofler",
+   "appelsiner",
+   "smør",
+   "mælk"
   ]
  },
  "Andebryst med appelsinsauce og sødkartoffelmos": {
@@ -39,6 +46,11 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "andebryst",
+   "appelsiner",
+   "søde kartofler"
   ]
  },
  "Andebryst med druesauce og ovnbagte rodfrugter": {
@@ -60,6 +72,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "andebryst",
+   "røde druer",
+   "lammefjordskartofler",
+   "gulerødder",
+   "æbler",
+   "løg"
   ]
  },
  "Andelår i ovn med rødkål og kartofler": {
@@ -80,6 +100,12 @@
     "maengde": 20,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "andelår",
+   "rødkål",
+   "kartofler",
+   "æbler"
   ]
  },
  "BBQ-koteletter med majskolber og kartoffelbåde": {
@@ -104,6 +130,13 @@
     "maengde": 4,
     "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "svinekoteletter",
+   "kartofler",
+   "ketchup",
+   "agurk",
+   "creme fraiche"
   ]
  },
  "BBQ-kyllingelår fra ovnen med coleslaw": {
@@ -131,6 +164,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingelår",
+   "kartofler",
+   "hvidkål",
+   "gulerødder",
+   "creme fraiche",
+   "ketchup"
   ]
  },
  "BBQ-kyllingelår med coleslaw og kartofler": {
@@ -152,6 +193,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingelår",
+   "BBQ-sauce",
+   "kartofler",
+   "gulerødder",
+   "hvidkål",
+   "mayonnaise"
   ]
  },
  "Bacon-broccoli-tærte med æg": {
@@ -169,6 +218,13 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "butterdej",
+   "bacon",
+   "broccoli",
+   "æg",
+   "piskefløde"
   ]
  },
  "Bagt camembert med æbler og rugbrød": {
@@ -191,6 +247,12 @@
     "maengde": 1,
     "enhed": "pakke"
    }
+  ],
+  "_ref": [
+   "camembert",
+   "æbler",
+   "rugbrød",
+   "valnødder"
   ]
  },
  "Bagt camembert med æbler og valnødder": {
@@ -207,10 +269,25 @@
     "maengde": 500,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "camembert",
+   "æbler",
+   "valnødder",
+   "brød"
   ]
  },
  "Bagt æggekage med spinat, peberfrugt og ost": {
-  "tid_minutter": 55
+  "tid_minutter": 55,
+  "_ref": [
+   "æg",
+   "frisk spinat",
+   "peberfrugt",
+   "revet ost",
+   "kartofler",
+   "mælk",
+   "løg"
+  ]
  },
  "Bagte søde kartofler med bønner, avocado og hytteost": {
   "fremgangsmaade": [
@@ -240,6 +317,12 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "søde kartofler",
+   "kidneybønner",
+   "avocado",
+   "hytteost"
   ]
  },
  "Biksemad med spejlæg og rødbeder": {
@@ -249,20 +332,21 @@
    "Steg hakket løg og kartoffeltern i resten af smørret i 10-12 minutter, til de er gyldne. Vend pølserne i, og smag til med salt og peber.",
    "Steg spejlæg, og server biksemaden med æg og rødbeder."
   ],
-  "tid_minutter": 40
+  "tid_minutter": 40,
+  "_ref": [
+   "pølser",
+   "kartofler",
+   "løg",
+   "æg",
+   "syltede rødbeder",
+   "smør"
+  ]
  },
  "Blomkålssuppe med brød og ost": {
   "fremgangsmaade": [
    "Hak løget, og svits det i 20 g smør i 3-4 minutter uden at brune. Tilsæt blomkål i buketter, kartofler i tern, bouillon og 6 dl vand, og kog 20 minutter, til alt er meget mørt.",
    "Blend suppen med mælken, varm den igennem uden at koge, og smag til med salt, peber og lidt muskat.",
    "Server med rugbrød og revet ost drysset ovenpå."
-  ],
-  "maengder": [
-   {
-    "ingrediens": "rugbrød",
-    "maengde": 1,
-    "enhed": "pakke"
-   }
   ],
   "tilfoej_basis": [
    {
@@ -275,6 +359,23 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "_ref": [
+   "blomkål",
+   "kartofler",
+   "løg",
+   "mælk",
+   "rugbrød",
+   "revet ost"
   ]
  },
  "Broccoligratin med ost og kartofler": {
@@ -284,7 +385,14 @@
    "Lag kartofler og broccoli i et smurt fad, hæld saucen over, og drys med ost.",
    "Dæk med folie, og bag 25 minutter. Tag folien af, og bag 20 minutter mere, til kartoflerne er møre, og osten er gylden."
   ],
-  "tid_minutter": 60
+  "tid_minutter": 60,
+  "_ref": [
+   "broccoli",
+   "kartofler",
+   "madlavningsfløde",
+   "revet ost",
+   "hvidløg"
+  ]
  },
  "Broccolisuppe med ost og brød": {
   "fremgangsmaade": [
@@ -292,13 +400,6 @@
    "Tilsæt broccoli i buketter, og kog 5-6 minutter mere, til den er mør, men stadig grøn.",
    "Blend suppen med flødeosten, og smag til med salt, peber og lidt muskat.",
    "Server med rugbrød."
-  ],
-  "maengder": [
-   {
-    "ingrediens": "rugbrød",
-    "maengde": 1,
-    "enhed": "pakke"
-   }
   ],
   "tilfoej_basis": [
    {
@@ -311,6 +412,22 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "_ref": [
+   "broccoli",
+   "kartofler",
+   "løg",
+   "flødeost",
+   "rugbrød"
   ]
  },
  "Burgere med hjemmelavede bøffer": {
@@ -326,6 +443,16 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "burgerboller",
+   "revet ost eller cheddar",
+   "løg",
+   "tomat",
+   "salat",
+   "ketchup",
+   "remoulade"
   ]
  },
  "Burritos med hakket okse, avocado og creme fraiche": {
@@ -342,6 +469,15 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød 4-7%",
+   "tortillas",
+   "avocado",
+   "creme fraiche 5%",
+   "løg",
+   "hvidløg",
+   "majs"
   ]
  },
  "Bønnechili med ris og creme fraiche": {
@@ -358,6 +494,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kidneybønner",
+   "hakkede tomater",
+   "ris",
+   "peberfrugt",
+   "løg",
+   "creme fraiche",
+   "hvidløg"
   ]
  },
  "Caprese-pasta med mozzarella og cherrytomater": {
@@ -374,6 +519,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "pasta",
+   "cherrytomater",
+   "mozzarella",
+   "hvidløg",
+   "frisk basilikum"
   ]
  },
  "Champignonrisotto med forårsløg": {
@@ -394,6 +546,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "champignon",
+   "risottoris",
+   "forårsløg",
+   "piskefløde",
+   "grøntsagsbouillon"
   ]
  },
  "Cheeseburger-pasta med hakket okse": {
@@ -415,6 +574,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød 8-12%",
+   "pasta",
+   "revet mozzarella",
+   "ketchup",
+   "løg",
+   "hakkede tomater"
   ]
  },
  "Cheeseburgere med hjemmelavede bøffer og cheddar": {
@@ -431,6 +598,16 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød 4-7%",
+   "burgerboller",
+   "cheddar",
+   "rucola",
+   "tomat",
+   "rødløg",
+   "ketchup",
+   "mayonnaise"
   ]
  },
  "Chili con carne med kidneybønner og ris": {
@@ -463,6 +640,14 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "kidneybønner",
+   "jasminris",
+   "hakkede tomater",
+   "løg",
+   "hvidløg"
   ]
  },
  "Chili con carne med magert oksekød og bønner": {
@@ -485,6 +670,15 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "kidneybønner",
+   "hakkede tomater",
+   "majs",
+   "ris",
+   "løg",
+   "hvidløg"
   ]
  },
  "Couscous med kylling og ovnbagte grøntsager": {
@@ -500,6 +694,14 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "couscous",
+   "squash",
+   "peberfrugt",
+   "løg",
+   "citron"
   ]
  },
  "Cremet laksepasta med forårsløg og citron": {
@@ -509,6 +711,13 @@
    "Skær laksen i tern, krydr med salt, og steg i olie 2-3 minutter, til den er let stegt udenpå. Tag den op.",
    "Tilsæt forårsløg, fløde, citronsaft og -skal, og lad det simre 3-4 minutter, til saucen er let tyknet.",
    "Vend pasta og laks i saucen, og tynd evt. med lidt kogevand. Smag til med salt og peber."
+  ],
+  "_ref": [
+   "laksefilet",
+   "piskefløde",
+   "forårsløg",
+   "pasta",
+   "økologiske citroner"
   ]
  },
  "Dansk gullasch med gulerødder og kartofler": {
@@ -532,6 +741,13 @@
     "maengde": 2,
     "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "gullasch",
+   "gulerødder",
+   "løg",
+   "kartofler",
+   "oksebouillon"
   ]
  },
  "Falafler af kikærter i pita med tzatziki": {
@@ -547,6 +763,15 @@
     "maengde": 4,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kikærter",
+   "pitabrød",
+   "yoghurt naturel",
+   "agurk",
+   "tomater",
+   "løg",
+   "hvidløg"
   ]
  },
  "Fasanbryst med æbler og fløde": {
@@ -555,6 +780,13 @@
    "Kog kartoflerne i letsaltet vand (ca. 20 minutter).",
    "Skær æblerne i både, og steg dem gyldne i panden i 3-4 minutter. Tilsæt fløde, bouillon og 1 dl vand, og kog ind til en sauce i ca. 5 minutter. Smag til.",
    "Skær fasanbrystet i skiver, og server med kartofler og sauce."
+  ],
+  "_ref": [
+   "fasanbryst",
+   "kartofler",
+   "æbler",
+   "piskefløde",
+   "smør"
   ]
  },
  "Fisk i tomatsauce med kapers og kartofler": {
@@ -571,6 +803,15 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "fiskefilet",
+   "hakkede tomater",
+   "oliven",
+   "kartofler",
+   "løg",
+   "hvidløg",
+   "citron"
   ]
  },
  "Fiskefileter i ovn med pastinak og skyrdressing": {
@@ -580,6 +821,13 @@
     "maengde": 600,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "Hirtshals store fiskefileter",
+   "økologiske pastinakker",
+   "Thise økologisk skyr",
+   "kartofler",
+   "citron"
   ]
  },
  "Fiskefrikadeller af torsk med citronremoulade": {
@@ -597,6 +845,14 @@
     "maengde": 800,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "torskefilet",
+   "æg",
+   "mælk",
+   "løg",
+   "økologiske citroner",
+   "remoulade"
   ]
  },
  "Fiskegratin med broccoli og ris": {
@@ -620,6 +876,13 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hvid fisk (fx torsk/sej)",
+   "broccoli",
+   "ris",
+   "madlavningsfløde",
+   "revet ost"
   ]
  },
  "Flanksteak med ovnbagte søde kartofler og hvidløgsskyr": {
@@ -640,6 +903,12 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "marineret flanksteak",
+   "søde kartofler",
+   "skyr",
+   "hvidløg"
   ]
  },
  "Flæskesteg med rødkål og brunede kartofler": {
@@ -661,6 +930,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "flæskesteg",
+   "rødkål (frisk eller på glas)",
+   "kartofler",
+   "æbler",
+   "smør"
   ]
  },
  "Flæskesteg med rødkål og kartofler": {
@@ -682,6 +958,11 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "krogmodnet flæskesteg",
+   "babykartofler",
+   "rødkål"
   ]
  },
  "Frikadeller af gris og kalv med kartoffelmos": {
@@ -692,10 +973,26 @@
    "Mos kartoflerne med smør, resten af mælken og salt.",
    "Sovs: Rør 1 spsk mel i pandefonden, og hæld 4 dl vand med bouillonterningen i under omrøring. Lad den koge 5 minutter, og smag til med salt og peber.",
    "Server frikadeller med mos og sovs."
+  ],
+  "_ref": [
+   "hakket grise- og kalvekød",
+   "kartofler",
+   "løg",
+   "æg",
+   "mælk",
+   "smør"
   ]
  },
  "Frikadeller af svin og kalv med kartofler og rødkål": {
-  "beskrivelse": "Saftige, hjemmerørte frikadeller med varm rødkål og kartofler."
+  "beskrivelse": "Saftige, hjemmerørte frikadeller med varm rødkål og kartofler.",
+  "_ref": [
+   "hakket svine- og kalvekød",
+   "løg",
+   "æg",
+   "mælk",
+   "kartofler",
+   "rødkål på glas"
+  ]
  },
  "Frikadeller med kartofler og hvidkålssalat": {
   "fremgangsmaade": [
@@ -716,6 +1013,15 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket svinekød",
+   "kartofler",
+   "hvidkål",
+   "æg",
+   "løg",
+   "mælk",
+   "smør"
   ]
  },
  "Fyldt squash med ris og cheddar": {
@@ -739,6 +1045,14 @@
     "maengde": 150,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "squash",
+   "cheddar",
+   "ris",
+   "løg",
+   "hakkede tomater",
+   "hvidløg"
   ]
  },
  "Fyldte kartofler med hakket oksekød og ost": {
@@ -753,6 +1067,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "kartofler (store)",
+   "revet ost",
+   "hakkede tomater",
+   "løg"
   ]
  },
  "Fyldte peberfrugter med hakket okse og ris": {
@@ -774,6 +1095,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød 16-20%",
+   "rød peberfrugt",
+   "ris",
+   "revet mozzarella",
+   "løg",
+   "hakkede tomater"
   ]
  },
  "Fyldte søde kartofler med bønner og avocado": {
@@ -789,6 +1118,12 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "søde kartofler",
+   "kidneybønner",
+   "avocado",
+   "skyr"
   ]
  },
  "Gochujang-bøffer med kimchi og ris": {
@@ -798,6 +1133,14 @@
    "Steg bøfferne ved middel varme 4-5 minutter pr. side, til de er gennemstegte. Pensl med resten af gochujang-saucen de sidste 2 minutter.",
    "Skær agurk i tynde skiver.",
    "Server bøfferne på ris med kimchi, agurk og resten af forårsløgene."
+  ],
+  "_ref": [
+   "hakket oksekød 16-20%",
+   "gochujang-sauce",
+   "kimchi",
+   "ris",
+   "forårsløg",
+   "agurk"
   ]
  },
  "Græsk salat med kylling og pitabrød": {
@@ -818,6 +1161,16 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "feta",
+   "tomater",
+   "agurk",
+   "oliven",
+   "pitabrød",
+   "rødløg",
+   "citron"
   ]
  },
  "Græske frikadeller med tzatziki": {
@@ -827,6 +1180,16 @@
    "Steg dem gyldne i olie, 3-4 minutter på hver side, til de er gennemstegte.",
    "Tzatziki: Riv agurken, pres væden ud, og rør med yoghurt, 1 presset fed hvidløg, 1 tsk olie og salt.",
    "Varm pitabrødene, og server med frikadeller, tomat og tzatziki."
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "pitabrød",
+   "yoghurt naturel",
+   "agurk",
+   "æg",
+   "løg",
+   "tomater",
+   "hvidløg"
   ]
  },
  "Græske kødboller med tzatziki og squash": {
@@ -843,6 +1206,17 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket svine- og kalvekød",
+   "creme fraiche 5%",
+   "squash",
+   "agurk",
+   "ris",
+   "løg",
+   "hvidløg",
+   "tørret oregano",
+   "citron"
   ]
  },
  "Grøntsagsfrikadeller med kartofler og tzatziki": {
@@ -859,6 +1233,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "gulerødder",
+   "Alexandra kartofler",
+   "økologiske æg",
+   "græsk yoghurt",
+   "agurk",
+   "smør",
+   "hvidløg"
   ]
  },
  "Gule ærter med flæsk og pølse": {
@@ -868,6 +1251,14 @@
    "Tag flæsket op, og skær det i skiver. Tilsæt gulerødder, selleri og løg i tern, og kog 20 minutter.",
    "Varm pølserne i suppen de sidste 10 minutter. Smag til med salt og peber.",
    "Server suppen med flæsk, pølser og sennep."
+  ],
+  "_ref": [
+   "flæsk i skiver",
+   "gule ærter",
+   "gulerødder",
+   "selleri",
+   "løg",
+   "pølser"
   ]
  },
  "Gulerodssuppe med ingefær og fløde": {
@@ -877,6 +1268,14 @@
    "Blend suppen glat, og rør fløden i.",
    "Smag til med salt og peber.",
    "Server med ristet brød."
+  ],
+  "_ref": [
+   "gulerødder",
+   "løg",
+   "ingefær",
+   "piskefløde",
+   "grøntsagsbouillon",
+   "brød"
   ]
  },
  "Hakkebøf med bløde løg og kartofler": {
@@ -893,6 +1292,12 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "kartofler",
+   "løg",
+   "smør"
   ]
  },
  "Hakkebøf med bløde løg, kartofler og gulerødder": {
@@ -916,6 +1321,13 @@
     "maengde": 500,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "hakket oksekød 4-7%",
+   "løg",
+   "kartofler",
+   "gulerødder",
+   "oksebouillon"
   ]
  },
  "Helstegt and med rødkål og kartofler": {
@@ -933,6 +1345,12 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "fritgående and",
+   "babykartofler",
+   "rødkål",
+   "appelsiner"
   ]
  },
  "Helstegt and med æbler og svesker": {
@@ -949,6 +1367,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hel and",
+   "æbler",
+   "svesker",
+   "rødkål",
+   "kartofler"
   ]
  },
  "Helstegt and med æbler, svesker og rødkål": {
@@ -959,6 +1384,15 @@
    "Rødkål: Snit rødkålen, og kog den under låg med 2 æbler, eddike, sukker, 1 dl vand og salt i ca. 1 time.",
    "Kog kartoflerne. Lad anden hvile 15 minutter under staniol.",
    "Afskum fedtet fra stegefonden, og kog fonden op med fond og fløde til sovs. Server det hele med fyldet."
+  ],
+  "_ref": [
+   "hel and",
+   "æbler",
+   "svesker",
+   "kartofler",
+   "piskefløde",
+   "fond",
+   "rødkål (frisk)"
   ]
  },
  "Helstegt kylling med kartofler og sovs": {
@@ -968,6 +1402,13 @@
    "Tag kyllingen op, og lad den hvile 10 minutter under staniol.",
    "Sovs: Hæld stegefonden fra fadet i en gryde (øs fedtet af), og tilsæt 4 dl vand og bouillon. Rør melet ud i 1 dl koldt vand, pisk det i, og lad sovsen koge 5 minutter. Smag til med salt og peber.",
    "Skær kyllingen ud, og server med kartofler og sovs."
+  ],
+  "_ref": [
+   "hel kylling",
+   "kartofler",
+   "gulerødder",
+   "løg",
+   "smør"
   ]
  },
  "Hjemmelavet kartoffel-broccoligratin": {
@@ -976,6 +1417,13 @@
    "Varm madlavningsjævner med knust hvidløg, muskat, salt og peber.",
    "Lag kartofler og broccoli i et fad, og hæld saucen over. Dæk med folie.",
    "Bag 35 minutter under folie. Tag folien af, drys med ost, og bag 15 minutter mere, til kartoflerne er møre, og osten er gylden."
+  ],
+  "_ref": [
+   "danske kartofler",
+   "broccoli",
+   "Milbona madlavningsjævner",
+   "revet ost",
+   "hvidløg"
   ]
  },
  "Hjemmelavet kebab i madbrød med hvidløgsdressing": {
@@ -998,6 +1446,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "oksekød i tern",
+   "madbrød",
+   "skyr",
+   "gulerødder",
+   "rødkål (frisk)",
+   "løg",
+   "hvidløg"
   ]
  },
  "Hjemmelavet pizza med bacon og peberfrugt": {
@@ -1007,6 +1464,12 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakkede tomater",
+   "mozzarella",
+   "bacon i tern",
+   "peberfrugt"
   ]
  },
  "Hjemmelavet pizza med chorizo og peberfrugt": {
@@ -1023,6 +1486,14 @@
     "maengde": 800,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "pizzadej",
+   "revet mozzarella",
+   "chorizo",
+   "rød peberfrugt",
+   "champignon",
+   "tørret oregano"
   ]
  },
  "Hjemmelavet pizza med hakket okse og rucola": {
@@ -1049,6 +1520,15 @@
     "maengde": 300,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "pizzadej",
+   "hakket oksekød 4-7%",
+   "tomatpuré",
+   "revet ost",
+   "rucola",
+   "løg",
+   "tørret oregano"
   ]
  },
  "Hjemmelavet pizza med salsiccia og ost": {
@@ -1065,6 +1545,13 @@
     "maengde": 0.25,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "pizzadej",
+   "salsiccia",
+   "revet ost",
+   "hakkede tomater",
+   "løg"
   ]
  },
  "Hjemmerullede kødboller i tomatsauce med pasta": {
@@ -1075,6 +1562,15 @@
    "Svits resten af løget og hvidløget, tilsæt tomater og oregano, og læg kødbollerne i saucen.",
    "Lad det simre under låg i 15 minutter, til kødbollerne er gennemkogte. Kog pastaen imens.",
    "Server med pasta og revet hård ost."
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "æg",
+   "økologisk pasta",
+   "hakkede tomater",
+   "Castello hård ost",
+   "løg",
+   "hvidløg"
   ]
  },
  "Hotdogs med stegte pølser og hjemmelavet remoulade-dressing": {
@@ -1108,6 +1604,14 @@
     "maengde": 4,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "grillpølser",
+   "hotdogbrød",
+   "agurk",
+   "løg",
+   "ketchup",
+   "sennep"
   ]
  },
  "Kalkunbryst i fad med broccoli og ris": {
@@ -1123,6 +1627,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kalkunbrystfilet",
+   "broccoli",
+   "ris",
+   "madlavningsfløde",
+   "revet ost"
   ]
  },
  "Kalkunbryst med ovnbagte grøntsager": {
@@ -1132,7 +1643,14 @@
    "Bag i yderligere 30-35 minutter, til kernetemperaturen er 72 °C, og kødet er gennemstegt. Tilsæt broccoli de sidste 8 minutter.",
    "Lad kødet hvile 10 minutter under staniol, og skær det i skiver."
   ],
-  "tid_minutter": 55
+  "tid_minutter": 55,
+  "_ref": [
+   "kalkunbryst",
+   "kartofler",
+   "gulerødder",
+   "broccoli",
+   "hvidløg"
+  ]
  },
  "Kalkunburgere med coleslaw": {
   "fremgangsmaade": [
@@ -1161,6 +1679,14 @@
     "maengde": 0.25,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket kalkunkød",
+   "burgerboller",
+   "hvidkål",
+   "gulerødder",
+   "creme fraiche",
+   "æg"
   ]
  },
  "Kalkunfrikadeller med kartofler og broccoli": {
@@ -1176,6 +1702,13 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket kalkun",
+   "æg",
+   "kartofler",
+   "broccoli",
+   "løg"
   ]
  },
  "Kalvekoteletter med smørstegte kartofler og salat": {
@@ -1191,6 +1724,12 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kalvekoteletter",
+   "kartofler",
+   "agurk",
+   "smør"
   ]
  },
  "Kamkoteletter med æblemos og gulerødder": {
@@ -1207,6 +1746,12 @@
     "maengde": 800,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "kamkoteletter",
+   "æbler",
+   "gulerødder",
+   "kartofler"
   ]
  },
  "Karbonader med løgsovs og kartofler": {
@@ -1224,6 +1769,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket svinekød",
+   "kartofler",
+   "løg",
+   "æg",
+   "smør"
   ]
  },
  "Kartoffelgratin med ost og grøn salat": {
@@ -1252,6 +1804,14 @@
     "maengde": 400,
     "enhed": "ml"
    }
+  ],
+  "_ref": [
+   "kartofler",
+   "piskefløde",
+   "revet ost",
+   "hvidløg",
+   "salat",
+   "smør"
   ]
  },
  "Kartoffelrösti med æg, avocado og rucola": {
@@ -1262,7 +1822,15 @@
    "Skær avocado i skiver, og drys med salt og peber.",
    "Top rösti med æg, avocado, rucola og creme fraiche."
   ],
-  "tid_minutter": 35
+  "tid_minutter": 35,
+  "_ref": [
+   "kartofler",
+   "æg",
+   "avocado",
+   "rucola",
+   "løg",
+   "creme fraiche 5%"
+  ]
  },
  "Kokossuppe med rejer og nudler": {
   "fremgangsmaade": [
@@ -1283,6 +1851,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "rejer",
+   "kokosmælk",
+   "nudler",
+   "champignon",
+   "citron",
+   "hvidløg",
+   "frisk ingefær"
   ]
  },
  "Koldrøget laks med spinatpasta og citron": {
@@ -1291,6 +1868,14 @@
    "Kog fløden op med revet citronskal, og vend spinaten i, til den falder sammen.",
    "Vend pastaen i saucen, og tilsæt lidt pastavand, hvis den er for tyk. Smag til med citronsaft, salt og peber.",
    "Anret med koldrøget laks i strimler og revet hård ost."
+  ],
+  "_ref": [
+   "røget laks",
+   "økologisk pasta",
+   "frisk spinat",
+   "piskefløde",
+   "Castello hård ost",
+   "citron"
   ]
  },
  "Koreansk-inspireret oksekødsbowl": {
@@ -1307,6 +1892,15 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "ris",
+   "agurk",
+   "gulerødder",
+   "æg",
+   "hvidløg",
+   "frisk ingefær"
   ]
  },
  "Krondyrfilet med rødbeder og kartoffelmos": {
@@ -1330,6 +1924,13 @@
     "maengde": 600,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "krondyrfilet",
+   "kartofler",
+   "rødbeder på glas",
+   "mælk",
+   "rucola"
   ]
  },
  "Krondyrgryde med rodfrugter": {
@@ -1378,6 +1979,14 @@
     "maengde": 2,
     "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "krondyrkød i tern",
+   "pastinakker",
+   "gulerødder",
+   "løg",
+   "kartofler",
+   "smør"
   ]
  },
  "Krondyrgryde med rodfrugter og kartofler": {
@@ -1406,6 +2015,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "krondyrkød i tern",
+   "gulerødder",
+   "kartofler",
+   "løg",
+   "hvidløg",
+   "oksefond",
+   "laurbærblade"
   ]
  },
  "Kylling gyros i pita med tzatziki": {
@@ -1420,10 +2038,25 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "pitabrød",
+   "yoghurt naturel",
+   "agurk",
+   "tomater",
+   "hvidløg"
   ]
  },
  "Kylling i karry med ris og æble": {
-  "beskrivelse": "Dansk kylling i karry med sødmen fra æble, serveret med ris."
+  "beskrivelse": "Dansk kylling i karry med sødmen fra æble, serveret med ris.",
+  "_ref": [
+   "kyllingebryst",
+   "ris",
+   "løg",
+   "æbler",
+   "madlavningsfløde"
+  ]
  },
  "Kylling i kokoskarry med søde kartofler og jasminris": {
   "fremgangsmaade": [
@@ -1444,6 +2077,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingeoverlår",
+   "kokosmælk",
+   "søde kartofler",
+   "jasminris",
+   "løg",
+   "hvidløg",
+   "frisk ingefær"
   ]
  },
  "Kylling i flødesauce med spinat og pasta": {
@@ -1453,6 +2095,14 @@
    "Tilsæt hvidløg og fløde, og lad det koge lidt ind.",
    "Vend spinaten i, til den falder sammen, og smag til med salt og peber.",
    "Vend pastaen i, og top med revet hård ost."
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "økologisk pasta",
+   "frisk spinat",
+   "piskefløde",
+   "Castello hård ost",
+   "hvidløg"
   ]
  },
  "Kylling parmigiana": {
@@ -1468,6 +2118,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "hakkede tomater",
+   "mozzarella",
+   "pasta",
+   "løg",
+   "hvidløg"
   ]
  },
  "Kylling satay med peanutsauce og ris": {
@@ -1488,6 +2146,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "peanutbutter",
+   "kokosmælk",
+   "ris",
+   "agurk"
   ]
  },
  "Kylling teriyaki med ris og broccoli": {
@@ -1495,6 +2160,12 @@
    "Kog risene. Skær kyllingen i strimler, og steg den i olie 5-6 minutter, til den er gennemstegt.",
    "Rør soja, honning, hvidløg, ingefær og 1 dl vand sammen, og hæld det over kyllingen. Lad det koge ind i 3-4 minutter til en blank sauce.",
    "Damp broccolien i 3 minutter. Server kyllingen med ris og broccoli."
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "ris",
+   "broccoli",
+   "hvidløg"
   ]
  },
  "Kylling tikka masala med ris": {
@@ -1515,6 +2186,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "ris",
+   "hakkede tomater",
+   "yoghurt naturel",
+   "madlavningsfløde",
+   "løg",
+   "hvidløg"
   ]
  },
  "Kylling- og græskarsuppe med lunt brød": {
@@ -1524,6 +2204,13 @@
    "Blend halvdelen af suppen, så den bliver cremet. Varm imens brødet i ovnen ved 180 °C i 5 minutter.",
    "Kom kyllingen tilbage, og lad suppen simre 5-6 minutter, til kyllingen er gennemstegt.",
    "Smag til med salt og peber, og server med det lune brød."
+  ],
+  "_ref": [
+   "Coop kylling i tern",
+   "Änglamark økologisk hokkaido",
+   "økologiske pastinakker",
+   "Schulstad levebrød",
+   "løg"
   ]
  },
  "Kylling-karry med squash og ris": {
@@ -1533,6 +2220,14 @@
    "Tilsæt kyllingetern, og brun dem.",
    "Tilsæt 1,5 dl vand og squash i tern, og lad det simre 10 minutter, til kyllingen er gennemstegt.",
    "Tag gryden af varmen, og rør creme fraiche i uden at lade den koge. Smag til med salt, og server med ris."
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "squash",
+   "creme fraiche 5%",
+   "ris",
+   "løg",
+   "hvidløg"
   ]
  },
  "Kyllingebryst med flødekartofler og grønne bønner": {
@@ -1542,6 +2237,14 @@
    "Færdiggør kyllingen i ovnen ved 180 °C i 15 minutter, til kernetemperaturen er 75 °C. Lad den hvile 5 minutter.",
    "Kog bønnerne 4 minutter. Kog stegepanden ud med fond og 1,5 dl vand til en sauce, og lad den koge ind i 3-4 minutter.",
    "Server kyllingen i skiver med flødekartofler, bønner og sauce."
+  ],
+  "_ref": [
+   "Gestus kyllingebrystfilet",
+   "økologiske kartofler",
+   "madlavningsfløde",
+   "økologiske bønner",
+   "fond",
+   "hvidløg"
   ]
  },
  "Kyllingeburgere med coleslaw": {
@@ -1569,6 +2272,14 @@
     "maengde": 3,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "burgerboller",
+   "hvidkål",
+   "gulerødder",
+   "mayonnaise",
+   "æg"
   ]
  },
  "Kyllingebryst med champignon i flødesauce": {
@@ -1576,6 +2287,14 @@
    "Kog kartoflerne i letsaltet vand i 20 minutter. Krydr kyllingen med salt og peber, og steg den i smør 4 minutter på hver side. Tag den af panden.",
    "Steg champignonerne med hvidløg i panden, til de er gyldne. Tilsæt fløden, og lad saucen simre i 5 minutter.",
    "Kom kyllingen tilbage i saucen, og lad den simre 8-10 minutter, til den er gennemstegt (75 °C). Smag til med salt og peber. Server med kartofler."
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "champignon",
+   "piskefløde",
+   "kartofler",
+   "smør",
+   "hvidløg"
   ]
  },
  "Kyllingefrikadeller med kartofler og agurkesalat": {
@@ -1585,6 +2304,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket kylling",
+   "kartofler",
+   "agurk",
+   "løg",
+   "æg",
+   "mælk",
+   "smør"
   ]
  },
  "Kyllingefrikadeller med kartofler og rødkålssalat": {
@@ -1601,6 +2329,16 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket kyllingekød",
+   "æg",
+   "løg",
+   "kartofler",
+   "rødkål (frisk)",
+   "æbler",
+   "skyr",
+   "mælk"
   ]
  },
  "Kyllingefrikadeller med tzatziki og kartofler": {
@@ -1631,6 +2369,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket kylling",
+   "æg",
+   "kartofler",
+   "skyr",
+   "agurk",
+   "hvidløg"
   ]
  },
  "Kyllingelår med chorizo og kartofler i fad": {
@@ -1647,6 +2393,14 @@
     "maengde": 2,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingeoverlår",
+   "Aalbæk chorizo",
+   "Alexandra kartofler",
+   "gulerødder",
+   "græsk yoghurt",
+   "hvidløg"
   ]
  },
  "Kyllingelårfilet i pitabrød med hvidløgsskyr": {
@@ -1672,6 +2426,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingelårfilet",
+   "pitabrød",
+   "skyr",
+   "agurk",
+   "tomater",
+   "rødløg",
+   "hvidløg"
   ]
  },
  "Kyllingesalat med hytteost og avocado": {
@@ -1686,6 +2449,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "hytteost",
+   "avocado",
+   "cherrytomater",
+   "agurk",
+   "citron"
   ]
  },
  "Kyllingesalat med mango, agurk og lunt brød": {
@@ -1696,6 +2467,15 @@
    "Varm brødet i ovnen ved 180 °C i 5-8 minutter.",
    "Bland salat, mango, agurk og gulerod, og læg kyllingen ovenpå.",
    "Server med dressing og lunt brød."
+  ],
+  "_ref": [
+   "Xtra! kyllingeinderfilet",
+   "mango",
+   "agurk",
+   "gulerødder",
+   "græsk yoghurt",
+   "Schulstad Signaturbrød",
+   "salat"
   ]
  },
  "Kyllingesalat med spidskål, mango og avocado": {
@@ -1704,6 +2484,15 @@
    "Snit spidskålen fint, og skær mango og avocado i tern.",
    "Vend kål, mango, avocado og tomater med limesaft, 1 spsk olie og salt.",
    "Læg kyllingen ovenpå, og server med brød."
+  ],
+  "_ref": [
+   "Madværket kyllingeinderfilet",
+   "spidskål",
+   "ready to eat mango",
+   "avocado",
+   "daddelcherrytomater",
+   "Schulstad Signaturbrød",
+   "lime eller citron"
   ]
  },
  "Kyllingespyd i pita med tzatziki": {
@@ -1718,6 +2507,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingespyd",
+   "pitabrød",
+   "skyr",
+   "agurk",
+   "tomater",
+   "hvidløg"
   ]
  },
  "Kyllingesuppe med porre og gulerødder": {
@@ -1732,6 +2529,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "porrer",
+   "gulerødder",
+   "selleri",
+   "pasta"
   ]
  },
  "Kyllingesuppe med selleri og melboller": {
@@ -1742,6 +2546,16 @@
    "Skær resten af sellerien i små tern, og kom dem sammen med gulerødder og porre i skiver i suppen. Kog 10 minutter.",
    "Sæt melboller i suppen med to teskeer, og lad dem trække ved svag varme i 5-8 minutter, til de er hævede og faste. Tilsæt kyllingekødet.",
    "Smag til med salt og peber, og drys med persille."
+  ],
+  "_ref": [
+   "hel kylling",
+   "æg",
+   "smør",
+   "knoldselleri",
+   "Asia cubes",
+   "frisk persille",
+   "gulerødder",
+   "porre"
   ]
  },
  "Kyllingetacos med avocado og creme fraiche": {
@@ -1756,6 +2570,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebrystfilet",
+   "avocado",
+   "creme fraiche",
+   "tortillas",
+   "tomater"
   ]
  },
  "Kyllingewraps med tzatziki og salatmix": {
@@ -1765,6 +2586,15 @@
    "Varm tortillas.",
    "Fyld med kylling, salatmix og tzatziki.",
    "Rul sammen, og server."
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "tortillas",
+   "salatmix",
+   "creme fraiche 5%",
+   "agurk",
+   "hvidløg",
+   "citron"
   ]
  },
  "Kålrouletter i flødesauce med kartofler": {
@@ -1782,6 +2612,15 @@
     "maengde": 20,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "hakket grisekød",
+   "hvidkål",
+   "piskefløde",
+   "lammefjordskartofler",
+   "fond",
+   "æg",
+   "løg"
   ]
  },
  "Kødsovs med spaghetti og parmesan": {
@@ -1797,6 +2636,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket svinekød",
+   "pasta",
+   "hakkede tomater",
+   "løg",
+   "gulerødder",
+   "Grana Padano"
   ]
  },
  "Laks med avocadosalsa og rucola": {
@@ -1813,6 +2660,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "laksefilet",
+   "avocado",
+   "rucola",
+   "rødløg",
+   "citron",
+   "kartofler"
   ]
  },
  "Laks med soja og honning, ris og broccoli": {
@@ -1822,6 +2677,13 @@
    "Kog risene, og damp eller kog broccolien i 3 minutter.",
    "Kog glasuren i kasserollen op i 1-2 minutter, til den er let sirupsagtig.",
    "Server laksen med ris, broccoli og den kogte glasur."
+  ],
+  "_ref": [
+   "laksefilet",
+   "ris",
+   "broccoli",
+   "frisk ingefær",
+   "hvidløg"
   ]
  },
  "Laksebowl med avocado, agurk og jasminris": {
@@ -1837,6 +2699,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "laksefilet",
+   "avocado",
+   "jasminris",
+   "agurk",
+   "lime"
   ]
  },
  "Lammeculotte med citron og cherrytomater": {
@@ -1847,6 +2716,14 @@
    "Gnid lammet med 2 spsk olie, hvidløg, oregano, salt og peber. Brun det 2-3 minutter på hver side på en varm pande.",
    "Sænk ovnen til 180 °C. Læg lammet ovenpå kartoflerne, og kom citron i både i fadet. Steg 20 minutter, tilsæt cherrytomaterne, og steg 5-10 minutter mere, til kernetemperaturen er 58-62 °C (medium) eller 70 °C (gennemstegt).",
    "Lad lammet hvile 10 minutter under folie, og skær det i skiver."
+  ],
+  "_ref": [
+   "lammeculotte",
+   "cherrytomater",
+   "økologiske citroner",
+   "kartofler",
+   "tørret oregano",
+   "hvidløg"
   ]
  },
  "Lammegryde med bønner og tomat": {
@@ -1869,6 +2746,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "lammekød",
+   "hakkede tomater",
+   "kikærter",
+   "løg",
+   "hvidløg"
   ]
  },
  "Lammekølle med rosmarin og ovnkartofler": {
@@ -1885,6 +2769,12 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "lammekølle",
+   "kartofler",
+   "hvidløg",
+   "rosmarin"
   ]
  },
  "Lasagne fra bunden": {
@@ -1893,6 +2783,16 @@
    "Smelt smør, rør mel i, og spæd med mælk til en jævn hvid sauce. Smag til med salt og peber.",
    "Lag kødsovs, lasagneplader og hvid sauce i et fad, og slut med hvid sauce og revet mozzarella.",
    "Bag ved 200 °C i ca. 35 minutter, til toppen er gylden. Lad hvile 10 minutter før servering."
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "lasagneplader",
+   "hakkede tomater",
+   "mælk",
+   "mozzarella",
+   "løg",
+   "gulerødder",
+   "smør"
   ]
  },
  "Lasagne med oksekød": {
@@ -1903,6 +2803,17 @@
    "Lag kødsauce, lasagneplader og hvid sauce i et fad. Slut med hvid sauce.",
    "Top med mozzarella og revet hård ost.",
    "Bag ved 200 °C i ca. 35 minutter, til toppen er gylden. Lad hvile 10 minutter før servering."
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "hakkede tomater",
+   "tomatpuré",
+   "løg",
+   "gulerødder",
+   "mælk",
+   "mozzarella",
+   "Castello hård ost",
+   "lasagneplader"
   ]
  },
  "Løgtærte med bacon og cheddar": {
@@ -1913,6 +2824,14 @@
    "Pisk æg og creme fraiche sammen med salt og peber, og hæld i formen.",
    "Drys med revet cheddar.",
    "Bag i 30 minutter, til fyldet er stivnet og gyldent."
+  ],
+  "_ref": [
+   "butterdej",
+   "bacon i tern",
+   "æg",
+   "creme fraiche 5%",
+   "cheddar",
+   "løg"
   ]
  },
  "Minestrone med bønner og pasta": {
@@ -1927,6 +2846,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakkede tomater",
+   "kidneybønner",
+   "gulerødder",
+   "selleri",
+   "pasta",
+   "Grana Padano"
   ]
  },
  "Moussaka med hakket oksekød og squash": {
@@ -1942,6 +2869,15 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "squash",
+   "hakkede tomater",
+   "mælk",
+   "revet ost",
+   "løg",
+   "smør"
   ]
  },
  "Mørbrad af okse med flødesauce og ovnkartofler": {
@@ -1957,6 +2893,13 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "mørbrad af okse",
+   "kartofler",
+   "piskefløde",
+   "champignon",
+   "smør"
   ]
  },
  "Mørbrad med baconsvøb og kartofler": {
@@ -1965,6 +2908,13 @@
    "Kog kartoflerne.",
    "Sovs: Svits hakket løg i smør, rør mel i, og spæd med stegefond og ca. 4 dl vand med bouillon. Kog 5 minutter, og smag til med salt og peber.",
    "Skær kødet i skiver, og server med sovs og kartofler."
+  ],
+  "_ref": [
+   "svinemørbrad",
+   "bacon i skiver",
+   "kartofler",
+   "løg",
+   "smør"
   ]
  },
  "Mørbradgryde med champignon og kartofler": {
@@ -1980,6 +2930,13 @@
     "maengde": 1,
     "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "svinemørbrad",
+   "champignon",
+   "piskefløde",
+   "kartofler",
+   "smør"
   ]
  },
  "Nakkefilet i fad med sennepssauce og babykartofler": {
@@ -1997,6 +2954,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "nakkefilet",
+   "babykartofler",
+   "creme fraiche",
+   "porrer",
+   "grov sennep"
   ]
  },
  "Nakkefilet i fad med sennepssauce og kartofler": {
@@ -2005,6 +2969,13 @@
    "Skær nakkefileten i skiver, krydr med salt og peber, og brun dem hurtigt i smør. Læg dem i et ildfast fad med skiveskåret løg og kartoflerne.",
    "Rør fløde med sennep, og hæld over.",
    "Bag ved 200 grader i 35 minutter, til kartoflerne er møre og kødet er gennemstegt."
+  ],
+  "_ref": [
+   "nakkefilet",
+   "kartofler",
+   "madlavningsfløde",
+   "løg",
+   "smør"
   ]
  },
  "Nakkefilet med rødkål og kartofler": {
@@ -2014,6 +2985,12 @@
    "Varm rødkålen op, og kog kartoflerne.",
    "Sovs: Pisk melet ud i lidt koldt vand, og rør det i stegefonden sammen med bouillon og ca. 4 dl vand. Kog 5 minutter, og smag til.",
    "Skær kødet i skiver, og server med rødkål, kartofler og sovs."
+  ],
+  "_ref": [
+   "nakkefilet",
+   "rødkål",
+   "kartofler",
+   "smør"
   ]
  },
  "Nakkesteaks med coleslaw og ovnkartofler": {
@@ -2039,6 +3016,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "nakkefilet",
+   "hvidkål",
+   "gulerødder",
+   "creme fraiche",
+   "kartofler"
   ]
  },
  "Oksebøffer med champignonsovs og kartofler": {
@@ -2053,6 +3037,13 @@
     "maengde": 1,
     "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "oksebøffer",
+   "champignon",
+   "piskefløde",
+   "kartofler",
+   "smør"
   ]
  },
  "Oksegryde med rodfrugter og kartofler": {
@@ -2067,6 +3058,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "oksekød i tern",
+   "gulerødder",
+   "pastinakker",
+   "kartofler",
+   "løg",
+   "tomatpuré"
   ]
  },
  "Oksestrimler med peberfrugt og ris": {
@@ -2075,6 +3074,13 @@
    "Steg kødet i en meget varm pande i omgange, og tag det op.",
    "Steg løg, peberfrugt og broccoli 4-5 minutter, og kom kødet tilbage med sojasauce.",
    "Server med ris."
+  ],
+  "_ref": [
+   "oksekød i strimler",
+   "peberfrugt",
+   "ris",
+   "løg",
+   "broccoli"
   ]
  },
  "Oksetyndstegsfilet med svampesauce og hasselbackkartofler": {
@@ -2084,6 +3090,15 @@
    "Sæt filetten i ovnen ved siden af kartoflerne de sidste 20-30 minutter (afhænger af tykkelsen), til kernetemperaturen er 55 grader. Dæk med folie, og lad den hvile 10-15 minutter.",
    "Steg champignon i skiver på panden, tilsæt fløde og fond, og lad saucen koge ind.",
    "Skær kødet i skiver, og server med svampesauce og hasselbackkartofler."
+  ],
+  "_ref": [
+   "Freygaard oksetyndstegsfilet",
+   "økologiske kartofler",
+   "madlavningsfløde",
+   "økologisk smør",
+   "Fond du Chef",
+   "frisk timian",
+   "champignon"
   ]
  },
  "Osso buco med tomat og ris": {
@@ -2099,6 +3114,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "osso buco",
+   "hakkede tomater",
+   "gulerødder",
+   "løg",
+   "selleri",
+   "ris"
   ]
  },
  "Ovnbagt blomkål med feta og kikærter": {
@@ -2107,10 +3130,23 @@
    "Bag ved 220 grader i 25 minutter. Drys med smuldret feta de sidste 5 minutter.",
    "Overhæld couscous med samme mængde kogende, saltet vand (ca. 3 dl), dæk til, og lad den trække 5 minutter. Fluf med en gaffel.",
    "Server blomkål og kikærter over couscousen."
+  ],
+  "_ref": [
+   "blomkål",
+   "kikærter",
+   "feta",
+   "couscous"
   ]
  },
  "Ovnbagt græskar med feta og couscous": {
-  "beskrivelse": "Sødt bagt græskar med salt feta, rødløg og citronet couscous."
+  "beskrivelse": "Sødt bagt græskar med salt feta, rødløg og citronet couscous.",
+  "_ref": [
+   "græskar (hokkaido)",
+   "feta",
+   "couscous",
+   "citron",
+   "rødløg"
+  ]
  },
  "Ovnbagt laks med citron og broccoli": {
   "fremgangsmaade": [
@@ -2120,7 +3156,14 @@
    "Bag 12-15 minutter, til laksen netop kan skilles i flager.",
    "Server med både af den anden citron."
   ],
-  "tid_minutter": 40
+  "tid_minutter": 40,
+  "_ref": [
+   "laksefilet",
+   "broccoli",
+   "økologiske citroner",
+   "kartofler",
+   "hvidløg"
+  ]
  },
  "Ovnbagt laks med porre og kartofler": {
   "fremgangsmaade": [
@@ -2129,7 +3172,14 @@
    "Bag 30 minutter, til kartoflerne er næsten møre.",
    "Krydr laksen med salt og peber, læg den ovenpå, og bag uden folie 12-15 minutter, til den netop kan skilles i flager."
   ],
-  "tid_minutter": 55
+  "tid_minutter": 55,
+  "_ref": [
+   "laksefilet",
+   "porrer",
+   "kartofler",
+   "madlavningsfløde",
+   "smør"
+  ]
  },
  "Ovnbagt pasta med broccoli og mozzarella": {
   "fremgangsmaade": [
@@ -2145,6 +3195,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "pasta",
+   "broccoli",
+   "revet mozzarella",
+   "piskefløde",
+   "hakkede tomater",
+   "hvidløg"
   ]
  },
  "Ovnbagt torsk med broccoli og kartofler": {
@@ -2161,6 +3219,12 @@
     "maengde": 40,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "torskefilet",
+   "kartofler",
+   "broccoli",
+   "citron"
   ]
  },
  "Ovnbagte kyllingelår med rodfrugter": {
@@ -2169,6 +3233,13 @@
    "Læg kyllingelårene ovenpå, og drys dem med salt og peber.",
    "Bag i 45-50 minutter, til kyllingen er gylden og gennemstegt (kernetemperatur mindst 75 °C, saften skal være klar).",
    "Server direkte fra fadet."
+  ],
+  "_ref": [
+   "kyllingelår",
+   "kartofler",
+   "gulerødder",
+   "pastinakker",
+   "hvidløg"
   ]
  },
  "Ovnbagte søde kartofler med feta og spinat": {
@@ -2189,6 +3260,12 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "søde kartofler",
+   "feta",
+   "frisk spinat",
+   "rødløg"
   ]
  },
  "Ovnstegt kylling med gulerødder og kartofler": {
@@ -2199,7 +3276,15 @@
    "Bag 20-25 minutter mere, til kyllingen er gennemstegt (kernetemperatur 75 °C), og grøntsagerne er gyldne.",
    "Lad kyllingen hvile 5 minutter, og server direkte fra fadet."
   ],
-  "tid_minutter": 55
+  "tid_minutter": 55,
+  "_ref": [
+   "kyllingebryst",
+   "kartofler",
+   "gulerødder",
+   "løg",
+   "hvidløg",
+   "tørret timian"
+  ]
  },
  "Ovnstegt roastbeef med ovnkartofler og remoulade": {
   "fremgangsmaade": [
@@ -2209,6 +3294,12 @@
    "Tag roastbeefen ud, og lad den hvile 10 minutter under folie. Skru imens ovnen op på 220 °C, så kartoflerne bliver sprøde.",
    "Steg svampene i skiver på panden i lidt olie 5-6 minutter, og krydr med salt og peber.",
    "Skær kødet i tynde skiver, og server med kartofler, svampe og remoulade."
+  ],
+  "_ref": [
+   "PremiuM roastbeef",
+   "Coop portobellosvampe",
+   "Graasten remoulade",
+   "kartofler"
   ]
  },
  "Pasta carbonara med bacon og æg": {
@@ -2217,6 +3308,12 @@
    "Steg baconen sprød på en pande, og tag panden af varmen.",
    "Pisk æg og ost sammen med masser af peber.",
    "Vend den varme pasta i baconpanden (uden varme), og rør ægge-osteblandingen i med lidt pastavand, så saucen bliver cremet. Server straks."
+  ],
+  "_ref": [
+   "spaghetti",
+   "bacon i skiver",
+   "æg",
+   "revet hård ost"
   ]
  },
  "Pasta med hakket grisekød, squash og cherrytomater": {
@@ -2226,6 +3323,14 @@
    "Tilsæt squash i tern, og steg 5 minutter. Tilsæt halverede tomater, og steg 3-4 minutter, til de begynder at falde sammen.",
    "Vend pastaen og lidt kogevand i, og smag til med salt og peber.",
    "Drys med revet ost."
+  ],
+  "_ref": [
+   "hakket grisekød",
+   "økologisk pasta",
+   "squash",
+   "daddelcherrytomater",
+   "skæreost",
+   "hvidløg"
   ]
  },
  "Pasta med laks, creme fraiche og spinat": {
@@ -2241,6 +3346,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "pasta",
+   "laksefilet",
+   "creme fraiche",
+   "frisk spinat",
+   "citron"
   ]
  },
  "Pasta med pølser, peberfrugt og cherrytomater": {
@@ -2257,6 +3369,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "pølser",
+   "pasta",
+   "rød peberfrugt",
+   "cherrytomater",
+   "hvidløg"
   ]
  },
  "Pasta med salsiccia og mascarponesauce": {
@@ -2272,10 +3391,25 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "penne",
+   "salsiccia",
+   "mascarpone pastasauce",
+   "løg",
+   "hvidløg"
   ]
  },
  "Pasta med tun, tomat og oliven": {
-  "beskrivelse": "Hurtig skabsmad med tun, tomatsauce og oliven."
+  "beskrivelse": "Hurtig skabsmad med tun, tomatsauce og oliven.",
+  "_ref": [
+   "tun",
+   "pasta",
+   "hakkede tomater",
+   "oliven",
+   "løg",
+   "hvidløg"
+  ]
  },
  "Pulled pork-burgere med BBQ-sauce og coleslaw": {
   "fremgangsmaade": [
@@ -2297,6 +3431,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "skinkeculotte",
+   "burgerboller",
+   "BBQ-sauce",
+   "hvidkål",
+   "gulerødder",
+   "mayonnaise"
   ]
  },
  "Pølseret med kartofler og tomatsovs": {
@@ -2312,6 +3454,12 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "pølser",
+   "kartofler",
+   "hakkede tomater",
+   "løg"
   ]
  },
  "Ribbenssteg med rødkål og kartofler": {
@@ -2321,6 +3469,13 @@
    "Tag stegen ud, og lad den hvile 10 minutter under folie.",
    "Sovs: svits hakket løg i smørret i en gryde, og rør melet i. Tilsæt stegeskyen fra bradepanden (skum fedtet af), 3 dl vand og fløden, og kog 5 minutter. Smag til med salt og peber.",
    "Skær i skiver, og server med kartofler, rødkål og sovs."
+  ],
+  "_ref": [
+   "ovnklar ribbenssteg",
+   "kartofler",
+   "rødkål på glas",
+   "løg",
+   "fløde"
   ]
  },
  "Ribbensteg med rødkål og brunede kartofler": {
@@ -2337,6 +3492,13 @@
     "maengde": 20,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "ribbensteg",
+   "rødkål (frisk)",
+   "kartofler",
+   "æbler",
+   "løg"
   ]
  },
  "Ribeye med svampe og pommes frites": {
@@ -2360,6 +3522,13 @@
     "maengde": 800,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "ribeyesteak",
+   "champignon",
+   "pommes frites",
+   "hvidløg",
+   "rucola"
   ]
  },
  "Risotto med kylling og champignon": {
@@ -2368,6 +3537,14 @@
    "Svits hakket løg og champignon i skiver i resten af smørret i 5 minutter, tilsæt risene, og rør rundt 1 minut.",
    "Tilsæt bouillon, en øse ad gangen, under omrøring, til risene er møre og cremede (ca. 20 minutter).",
    "Vend kyllingen og revet Grana Padano i, varm det igennem 2 minutter, og smag til med salt og peber."
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "risottoris eller kogt ris",
+   "champignon",
+   "Grana Padano",
+   "løg",
+   "smør"
   ]
  },
  "Roastbeef med kartoffelsalat og remoulade": {
@@ -2384,6 +3561,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "roastbeef",
+   "kartofler",
+   "creme fraiche",
+   "løg",
+   "remoulade",
+   "purløg"
   ]
  },
  "Rugbrød med røget laks og rørt æggesalat": {
@@ -2394,6 +3579,14 @@
     "maengde": 1,
     "enhed": "pakke"
    }
+  ],
+  "_ref": [
+   "røget laks",
+   "rugbrød",
+   "æg",
+   "creme fraiche",
+   "citron",
+   "purløg"
   ]
  },
  "Rösti med spejlæg og spinat": {
@@ -2410,6 +3603,13 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kartofler",
+   "æg",
+   "frisk spinat",
+   "løg",
+   "smør"
   ]
  },
  "Shakshuka med røde snackpebre og pitabrød": {
@@ -2435,6 +3635,14 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "æg",
+   "røde snackpebre",
+   "pitabrød",
+   "hakkede tomater",
+   "løg",
+   "hvidløg"
   ]
  },
  "Shakshuka med æg og cherrytomater": {
@@ -2444,6 +3652,14 @@
    "Lav huller i saucen, og slå æggene ud.",
    "Dæk med låg, og lad dem stivne 6 minutter.",
    "Server med brød."
+  ],
+  "_ref": [
+   "æg",
+   "cherrytomater",
+   "rød peberfrugt",
+   "løg",
+   "hvidløg",
+   "brød"
   ]
  },
  "Skipperlabskovs": {
@@ -2467,6 +3683,12 @@
     "maengde": 3,
     "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "oksekød i tern",
+   "kartofler",
+   "løg",
+   "rugbrød"
   ]
  },
  "Skyrmarineret kylling med agurkesalat": {
@@ -2482,6 +3704,15 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "skyr",
+   "agurk",
+   "pitabrød",
+   "cherrytomater",
+   "citron",
+   "hvidløg"
   ]
  },
  "Spaghetti bolognese med champignon og gulerødder": {
@@ -2498,6 +3729,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød 8-12%",
+   "champignon",
+   "gulerødder",
+   "løg",
+   "hvidløg",
+   "hakkede tomater",
+   "spaghetti"
   ]
  },
  "Spaghetti bolognese med hakket gris og kalv": {
@@ -2538,6 +3778,15 @@
     "maengde": 400,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "hakket gris og kalv",
+   "spaghetti",
+   "hakkede tomater",
+   "løg",
+   "gulerødder",
+   "hvidløg",
+   "tomatpuré"
   ]
  },
  "Spareribs med ovnkartofler og coleslaw": {
@@ -2559,6 +3808,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "spareribs",
+   "kartofler",
+   "hvidkål",
+   "gulerødder",
+   "creme fraiche",
+   "ketchup"
   ]
  },
  "Sprød havrekylling med kartofler og gulerødder": {
@@ -2570,7 +3827,14 @@
    "Bag kyllingen ved 200 °C i 15-18 minutter, til den er gylden og gennemstegt (kernetemperatur 75 °C).",
    "Server kylling med kartofler og gulerødder."
   ],
-  "tid_minutter": 50
+  "tid_minutter": 50,
+  "_ref": [
+   "kyllingeinderfilet",
+   "havregryn",
+   "æg",
+   "kartofler",
+   "gulerødder"
+  ]
  },
  "Sprøde andelår med flødekartofler og rødkål": {
   "fremgangsmaade": [
@@ -2580,6 +3844,16 @@
    "Flødekartofler: Skær kartoflerne i tynde skiver. Varm mælk, flødeost og knust hvidløg sammen, og smag til med salt og peber. Læg kartoflerne i et fad, og hæld flødeblandingen over.",
    "Sæt fadet med kartofler i ovnen ved siden af lårene, når lårene har stegt i 35 minutter. Kartoflerne bager i ca. 55 minutter.",
    "Skru op til 220 °C de sidste 10 minutter, til skindet er sprødt og kartoflerne gyldne. Server andelår med flødekartofler, rødkål og frisk æble i tern."
+  ],
+  "_ref": [
+   "ferske andelår",
+   "kartofler",
+   "flødeost",
+   "mælk",
+   "rødkål (frisk)",
+   "æbler",
+   "løg",
+   "hvidløg"
   ]
  },
  "Squashfritter med yoghurtdip": {
@@ -2607,6 +3881,13 @@
     "maengde": 3,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "squash",
+   "æg",
+   "revet ost",
+   "yoghurt naturel",
+   "kartofler"
   ]
  },
  "Steaks af okseinderlår med blåskimmelsauce": {
@@ -2623,6 +3904,14 @@
     "maengde": 1,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "Freygaard steak af okseinderlår",
+   "Saint Agur blåskimmelost",
+   "madlavningsfløde",
+   "økologiske kartofler",
+   "frisk persille",
+   "økologisk smør"
   ]
  },
  "Stegt flæsk med persillesovs og kartofler": {
@@ -2632,6 +3921,13 @@
    "Smelt smør, rør mel i, og spæd lidt ad gangen med mælk til en jævn sauce. Lad den simre 5 minutter under omrøring.",
    "Rør hakket persille i, og smag til med salt og peber.",
    "Server flæsk med persillesovs og kartofler."
+  ],
+  "_ref": [
+   "flæsk i skiver",
+   "kartofler",
+   "mælk",
+   "persille",
+   "smør"
   ]
  },
  "Stegt ris med rejer og æg": {
@@ -2655,6 +3951,13 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "rejer",
+   "ris",
+   "æg",
+   "peberfrugt",
+   "ærter"
   ]
  },
  "Stegte nudler med kylling og grønt": {
@@ -2670,6 +3973,15 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "nudler",
+   "gulerødder",
+   "spidskål eller hvidkål",
+   "æg",
+   "løg",
+   "hvidløg"
   ]
  },
  "Sticky kylling med ris og squash": {
@@ -2693,6 +4005,13 @@
     "maengde": 3,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "squash",
+   "ris",
+   "hvidløg",
+   "ingefær"
   ]
  },
  "Sticky ribs med ris og agurk": {
@@ -2725,6 +4044,12 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "spareribs",
+   "ris",
+   "agurk",
+   "hvidløg"
   ]
  },
  "Stuvet grønkål med medister og kartofler": {
@@ -2741,6 +4066,13 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "medister",
+   "økologisk dansk grønkål",
+   "danske kartofler",
+   "mælk",
+   "smør"
   ]
  },
  "Sødkartoffelsuppe med kokosmælk": {
@@ -2761,6 +4093,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "søde kartofler",
+   "kokosmælk",
+   "løg",
+   "frisk ingefær",
+   "brød"
   ]
  },
  "Sødkartoffelsuppe med kokosmælk og ristet brød": {
@@ -2786,6 +4125,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "søde kartofler",
+   "kokosmælk",
+   "brød",
+   "løg",
+   "hvidløg",
+   "frisk ingefær"
   ]
  },
  "Tacos med hakket grisekød og avocado": {
@@ -2808,10 +4155,30 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket grisekød",
+   "tortilla wraps",
+   "taco-krydderi",
+   "hakkede tomater",
+   "avocado",
+   "skæreost",
+   "skyr",
+   "løg"
   ]
  },
  "Tacos med hakket oksekød": {
-  "beskrivelse": "Krydret kød i wraps med tomat, agurk, ost og creme fraiche."
+  "beskrivelse": "Krydret kød i wraps med tomat, agurk, ost og creme fraiche.",
+  "_ref": [
+   "hakket oksekød",
+   "wraps",
+   "hakkede tomater",
+   "revet ost",
+   "creme fraiche",
+   "tomat",
+   "agurk",
+   "løg"
+  ]
  },
  "Tomatsuppe med mozzarella og brød": {
   "fremgangsmaade": [
@@ -2831,6 +4198,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakkede tomater",
+   "mozzarella",
+   "brød",
+   "løg",
+   "gulerødder",
+   "hvidløg"
   ]
  },
  "Torsk i tomatsauce med kikærter og spinat": {
@@ -2846,6 +4221,15 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "torskefilet",
+   "hakkede tomater",
+   "kikærter",
+   "spinat",
+   "ris",
+   "løg",
+   "hvidløg"
   ]
  },
  "Tunfrikadeller med kartofler og skyrdressing": {
@@ -2865,14 +4249,20 @@
     "ingrediens": "peber",
     "maengde": 0.5,
     "enhed": "tsk"
-   }
-  ],
-  "maengder": [
+   },
    {
     "ingrediens": "rasp",
     "maengde": 6,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "tun i vand",
+   "kartofler",
+   "æg",
+   "skyr",
+   "citron",
+   "smør"
   ]
  },
  "Ungarsk gullasch med pasta": {
@@ -2895,6 +4285,13 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "oksekød i tern",
+   "peberfrugt",
+   "løg",
+   "hakkede tomater",
+   "pasta"
   ]
  },
  "Wok med hakket kylling, snackpebre og jasminris": {
@@ -2915,6 +4312,14 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "hakket kyllingekød",
+   "røde snackpebre",
+   "jasminris",
+   "løg",
+   "hvidløg",
+   "frisk ingefær"
   ]
  },
  "Wok med paneer, broccoli og peberfrugt": {
@@ -2923,6 +4328,13 @@
    "Skær paneer i tern, og steg dem i halvdelen af olien i 4-5 minutter, til de er gyldne. Tag dem op.",
    "Steg broccoli i små buketter, peberfrugt i strimler og hvidløg i resten af olien i 5 minutter.",
    "Vend nudler, paneer og sojasauce i, og server."
+  ],
+  "_ref": [
+   "paneer",
+   "broccoli",
+   "rød peberfrugt",
+   "nudler",
+   "hvidløg"
   ]
  },
  "Wraps med kyllingestrimler og coleslaw": {
@@ -2942,6 +4354,14 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "wraps",
+   "hvidkål",
+   "gulerødder",
+   "creme fraiche",
+   "revet ost"
   ]
  },
  "Wraps med roastbeef, avocado og creme fraiche": {
@@ -2960,6 +4380,13 @@
     "maengde": 1,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "roastbeef",
+   "tortillas",
+   "avocado",
+   "creme fraiche",
+   "agurk"
   ]
  },
  "Æggekage med bacon og champignon": {
@@ -2969,6 +4396,14 @@
    "Pisk æg, mælk, salt og peber, og hæld over svampene. Drys baconen ovenpå.",
    "Lad æggekagen stivne under låg ved lav varme i 8-10 minutter, til æggemassen er helt fast.",
    "Server med rugbrød."
+  ],
+  "_ref": [
+   "æg",
+   "bacon",
+   "champignon",
+   "forårsløg",
+   "mælk",
+   "rugbrød"
   ]
  },
  "Æggekage med bacon, kartofler og porre": {
@@ -2977,7 +4412,15 @@
    "Steg porre i smør i 4-5 minutter. Pisk æg og mælk sammen med salt og peber.",
    "Fordel bacon, porre og kartofler i et smurt ovnfad, og hæld æggeblandingen over. Bag ved 200 °C i 25-30 minutter, til æggekagen er fast og gylden."
   ],
-  "tid_minutter": 45
+  "tid_minutter": 45,
+  "_ref": [
+   "bacon i tern",
+   "æg",
+   "kartofler",
+   "porrer",
+   "mælk",
+   "smør"
+  ]
  },
  "Økologisk flæskesteg med rødkål og brunede kartofler": {
   "fremgangsmaade": [
@@ -3000,6 +4443,14 @@
     "maengde": 0.5,
     "enhed": "tsk"
    }
+  ],
+  "_ref": [
+   "flæskesteg af økologisk frilandsgris",
+   "økologiske kartofler",
+   "fond",
+   "danske æbler",
+   "økologisk smør",
+   "rødkål (frisk)"
   ]
  },
  "Økologiske hakkebøffer med blåskimmelsauce": {
@@ -3009,6 +4460,15 @@
    "Steg bøfferne i smør ved middel-høj varme 4-5 minutter på hver side, til de er gennemstegte (kernetemperatur 72 °C, ingen rosa kød). Lad dem hvile 3 minutter.",
    "Smelt Saint Agur og flødeost med mælken på panden til en cremet sauce.",
    "Server bøfferne med sauce, kartofler og agurkesalat."
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "Saint Agur",
+   "flødeost",
+   "mælk",
+   "lammefjordskartofler",
+   "agurk",
+   "smør"
   ]
  },
  "Økologiske oksefiletbøffer med flødeporrer": {
@@ -3026,29 +4486,58 @@
     "maengde": 3,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "økologiske oksefiletbøffer",
+   "porrer",
+   "flødeost",
+   "friske kartofler"
   ]
  },
  "Kartoffel-baconsuppe med brød": {
   "maengder": [
    {
-    "ingrediens": "rugbrød",
-    "maengde": 1,
-    "enhed": "pakke"
-   },
-   {
     "ingrediens": "bouillon",
     "maengde": 2,
     "enhed": "stk"
    }
+  ],
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "_ref": [
+   "bacon i tern",
+   "kartofler",
+   "løg",
+   "porrer",
+   "rugbrød",
+   "mælk"
   ]
  },
  "Kartoffel-sellerisuppe med sprød bacon": {
-  "maengder": [
+  "skift": [
    {
-    "ingrediens": "rugbrød",
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
     "maengde": 1,
-    "enhed": "pakke"
+    "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "knoldselleri",
+   "lammefjordskartofler",
+   "røget skinke eller bacon",
+   "Asia cubes",
+   "madlavningsfløde",
+   "rugbrød",
+   "løg"
   ]
  },
  "Kylling i karry med blomkål og ris": {
@@ -3058,6 +4547,14 @@
     "maengde": 400,
     "enhed": "ml"
    }
+  ],
+  "_ref": [
+   "kyllingebryst",
+   "blomkål",
+   "kokosmælk",
+   "ris",
+   "løg",
+   "hvidløg"
   ]
  },
  "Rejesalat med avocado og brød": {
@@ -3067,6 +4564,14 @@
     "maengde": 1,
     "enhed": "pakke"
    }
+  ],
+  "_ref": [
+   "rejer",
+   "avocado",
+   "rugbrød",
+   "citron",
+   "creme fraiche",
+   "dild"
   ]
  },
  "Pasta med rejer, citron og hvidløg": {
@@ -3076,6 +4581,14 @@
     "maengde": 400,
     "enhed": "g"
    }
+  ],
+  "_ref": [
+   "rejer",
+   "pasta",
+   "piskefløde",
+   "citron",
+   "hvidløg",
+   "frisk persille"
   ]
  },
  "Stegte pitabrød fyldt med krydret hakket kød": {
@@ -3092,6 +4605,19 @@
     "maengde": 2,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "hakket oksekød",
+   "pitabrød",
+   "løg",
+   "persille",
+   "spidskommen",
+   "paprika",
+   "skyr",
+   "agurk",
+   "cherrytomater",
+   "hvidløg",
+   "olie"
   ]
  },
  "Ovnbagt fish and chips med ærtemos og remoulade": {
@@ -3109,6 +4635,17 @@
     "maengde": 6,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "torskefilet",
+   "kartofler",
+   "ærter",
+   "rasp",
+   "æg",
+   "hvedemel",
+   "remoulade",
+   "citron",
+   "olie"
   ]
  },
  "Bøfsalat med bagte tomater og sennepsdressing": {
@@ -3126,6 +4663,17 @@
     "maengde": 7,
     "enhed": "spsk"
    }
+  ],
+  "_ref": [
+   "oksebøffer",
+   "cherrytomater",
+   "rucola",
+   "rødløg",
+   "kartofler",
+   "sennep",
+   "eddike",
+   "honning",
+   "olie"
   ]
  },
  "Pasta med squash, parmesan og citron": {
@@ -3144,6 +4692,54 @@
     "maengde": 2,
     "enhed": "stk"
    }
+  ],
+  "_ref": [
+   "squash",
+   "pasta",
+   "parmesan",
+   "smør",
+   "hvidløg",
+   "citron",
+   "basilikum",
+   "olie"
+  ]
+ },
+ "Grønkålssuppe med sprødt flæsk": {
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "_ref": [
+   "økologisk dansk grønkål",
+   "danske kartofler",
+   "flæsk i skiver",
+   "løg",
+   "rugbrød"
+  ]
+ },
+ "Shakshuka med feta og kikærter": {
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "_ref": [
+   "æg",
+   "hakkede tomater",
+   "kikærter",
+   "feta",
+   "peberfrugt",
+   "løg",
+   "rugbrød"
   ]
  }
 }

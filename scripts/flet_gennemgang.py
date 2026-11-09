@@ -6,7 +6,7 @@ Skriver også <mappe>/laeseliste.md: retter, hvor gennemgangen er i tvivl (bruge
 import glob, json, os, sys
 
 HER = os.path.dirname(os.path.abspath(__file__))
-TILLADT = ('fremgangsmaade', 'tid_minutter', 'beskrivelse', 'niveau', 'koekken', 'maengder', 'tilfoej_basis', 'tilfoej_vare')
+TILLADT = ('fremgangsmaade', 'tid_minutter', 'beskrivelse', 'niveau', 'koekken', 'maengder', 'tilfoej_basis', 'tilfoej_vare', 'skift')
 
 
 def main():
