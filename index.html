@@ -1908,7 +1908,8 @@ function byggListe() {
         for (const [k, navn] of basisDele(ing.navn)) if (!basis.has(k)) basis.set(k, navn);
       } else if (match.length) {
         const key = match[0];
-        const v = tilbud.get(key) || { key, butik: ALLE_TILBUD[key].butik, tilbud: ALLE_TILBUD[key], ingNavn: ing.navn, brug: [], behov: {} };
+        const v = tilbud.get(key) || { key, butik: ALLE_TILBUD[key].butik, tilbud: ALLE_TILBUD[key], ingNavn: ing.navn, ingNavne: new Set(), brug: [], behov: {} };
+        v.ingNavne.add(ing.navn);
         v.brug.push(`${ingTekst(ing, m)} (${r.navn})`);
         v.behov[ing.enhed] = (v.behov[ing.enhed] || 0) + m;
         tilbud.set(key, v);
@@ -1942,7 +1943,34 @@ function restAf(v) {
   return rest >= pakke * 0.15 && v.tilbud.pris * (rest / pakke) >= 8 ? { rest, enhed: grund, pakke } : null;
 }
 
-const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${v.tilbud.navn}`;
+// En tilbudsoverskrift kan dække flere varer til samme pris ("Coop koteletter, stegeflæsk, nakkekoteletter eller filet a la mørbrad med gyros/hvidløg").
+// Listen skal sige, hvad man skal købe: kun de varianter, der passer til det, retterne bruger. Passer ingen, eller passer alle, står overskriften, som den er.
+const VARIANT_STOP = new Set(['økologiske', 'økologisk', 'danske', 'dansk', 'friske', 'frisk', 'fersk', 'store', 'små', 'uden', 'med', 'til']);
+const variantOrd = s => s.toLowerCase().split(/[^a-zæøå]+/).filter(w => w.length >= 4 && !VARIANT_STOP.has(w));
+// To ord hører sammen, hvis de er ens, hvis det ene (mindst 8 bogstaver) ligger i det andet (lårfilet i kyllingelårfilet), eller hvis de deler en lang stamme (koteletter i svinekoteletter og nakkekoteletter).
+// Korte stammer som "kylling" tæller ikke.
+const variantFaelles = (a, b) => {
+  if (a === b) return true;
+  const [lille, stor] = a.length <= b.length ? [a, b] : [b, a];
+  if (lille.length >= 8 && stor.includes(lille)) return true;
+  for (let l = lille.length; l >= 9; l--) for (let i = 0; i + l <= lille.length; i++) if (stor.includes(lille.slice(i, i + l))) return true;
+  return false;
+};
+function tilbudVariant(navn, ingNavne) {
+  const dele = navn.split(/\s*,\s*|\s+eller\s+/i).map(x => x.trim()).filter(Boolean);
+  if (dele.length < 2) return navn;
+  const delOrd = dele.map(variantOrd), valgt = new Set();
+  for (const ing of ingNavne) {  // pr. ingrediens: de varianter, der passer bedst (så to retter med hver sin vare i samme tilbud begge får deres)
+    const ord = variantOrd(ing), point = delOrd.map(o => ord.filter(b => o.some(x => variantFaelles(b, x))).length), maks = Math.max(...point);
+    if (maks) point.forEach((pt, i) => { if (pt === maks) valgt.add(i); });
+  }
+  if (!valgt.size || valgt.size === dele.length) return navn;
+  const v = dele.filter((_, i) => valgt.has(i));
+  if (v.some(x => x.startsWith('-') || x.endsWith('-'))) return navn;  // forkortelser som "varmrøget-" og "-bacon" giver ikke mening alene: så står overskriften, som den er
+  return v.length === 1 ? v[0] : v.slice(0, -1).join(', ') + ' eller ' + v[v.length - 1];
+}
+const tilbudsOverskrift = v => tilbudVariant(v.tilbud.navn, v.ingNavne || [v.ingNavn]);
+const tilbudsNavn = v => `${v.antal > 1 ? v.antal + ' × ' : ''}${tilbudsOverskrift(v)}`;
 
 // Hvad kan man gøre med resten? Kun når det er rimeligt: kød/fisk/brød kan fryses, holdbare varer kan gemmes til næste uge.
 const HOLDBAR_GRUPPER = ['Kolonial', 'Konserves', 'Krydderier & bagning'];
@@ -2000,7 +2028,7 @@ function listeLinjer() {
     tilbud: l.tilbud.map(v => ({
       key: 't|' + v.key, butik: v.butik, navn: tilbudsNavn(v), gruppe: varegruppe(v.ingNavn), pris: v.pris, billede: v.tilbud.billede,
       soeg: soegeord(v.tilbud.navn), restHtml: restTekst(v),
-      detalje: `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}${v.brug.length > 1 ? `I alt ca. ${samletBehov(v.behov)} · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
+      detalje: `${tilbudsOverskrift(v) !== v.tilbud.navn ? esc('Avisen: ' + v.tilbud.navn) + ' · ' : ''}${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}${v.brug.length > 1 ? `I alt ca. ${samletBehov(v.behov)} · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
     })),
     oevrige: l.oevrige.map(v => ({
       key: 'o|' + v.key, navn: `${maengde(v.m, v.enhed, true)} ${v.navn}`.trim(), gruppe: varegruppe(v.navn), soeg: soegeord(v.navn),
