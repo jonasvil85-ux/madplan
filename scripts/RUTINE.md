@@ -11,8 +11,8 @@ Sidste linje er `NYE: <butikker>` eller `NYE: ingen`. Ved `ingen` → STOP uden 
 Hvis scriptet ikke kan nå Tjek (exit-kode 2 eller fejlbeskeder for alle butikker), så stop og skriv det i din slutrapport.
 
 ## Hvilke aviser tages med
-Ugeavisen (har et ugenummer i navnet) og alle andre aviser hos butikken, der indeholder MAD, fx Lidls "Fast lav pris i Lidl" og Bilkas "Salling Princip" (se `find_aviser` i `scripts/tilbud.py`).
-Aviser, der aldrig er mad, tages ikke med: nonfood, vin, magasiner, kataloger, legetøj, gaver, elektronik og menuer, og Premium-aviser, der kun gentager hovedavisen. Andre aviser skal have mindst 35 % mad i tilbuddene.
+Ugeavisen (har et ugenummer i navnet) og alle andre aviser hos butikken, der indeholder MAD, fx Lidls "Fast lav pris i Lidl" (se `find_aviser` i `scripts/tilbud.py`).
+Aviser, der aldrig er mad, tages ikke med: nonfood, vin, magasiner, kataloger, legetøj, gaver, elektronik og menuer, Premium-aviser, der kun gentager hovedavisen, og produktkataloger uden tilbud (Salling Princip). Andre aviser skal have mindst 35 % mad i tilbuddene.
 Samme vare til samme pris i flere aviser tælles kun én gang. Faste aviser (gyldige længe) er markeret `fast` og tæller ikke med i periode og udløb; kun ugeavisen gør det.
 Ændrer en butiks udvalg af aviser sig uden at ugeavisen er ny, flytter alle tilbuds-id'er sig: kør `python -I scripts/remap_ider.py <butik>` efter `tilbud.py`, så retterne flyttes til de nye id'er i stedet for at blive skrevet forfra.
 

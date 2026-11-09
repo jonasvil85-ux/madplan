@@ -30,7 +30,7 @@ BUTIKKER = {
 # Ugeavisen kendes på et ugenummer (1-53) i navnet – uanset præfiks. Årstal (2026) passerer ikke.
 UGEAVIS = re.compile(r'(?<!\d)(?:[1-9]|[1-4]\d|5[0-3])(?!\d)')
 # Aviser, der aldrig er mad: nonfood, vin/alkohol, magasiner, kataloger, legetøj, gaver, elektronik, menuer – og Premium, som kun gentager tilbud fra hovedavisen
-IKKE_MAD = re.compile(r'nonfood|(?<![a-zæøå])vin(?![a-zæøå])|vinkatalog|søndag|magasin|katalog|premium|trend|gave|indstik|legetøj|beauty|prosonic|elektronik|ud af huset|madskole|opskrift', re.I)
+IKKE_MAD = re.compile(r'nonfood|(?<![a-zæøå])vin(?![a-zæøå])|vinkatalog|søndag|magasin|katalog|premium|trend|gave|indstik|legetøj|beauty|prosonic|elektronik|ud af huset|madskole|opskrift|princip', re.I)  # Salling Princip er en produktkatalog med almindelige priser, ikke tilbud
 # En avis, der ikke er en ugeavis, skal mindst have denne andel mad i sine tilbud (de første 100 tjekkes), før den tages med
 MADORD = re.compile(
     r'kød|kylling|okse|gris|svin|flæsk|bacon|pølse|medister|skinke|laks|fisk|rejer|sild|torsk|ørred|\bost\b|ost\b|mælk|yoghurt|skyr|fløde|smør|\bæg\b|brød|rundstykk|bolle|pasta|spaghetti|ris\b|nudler|mel\b|sukker|'
