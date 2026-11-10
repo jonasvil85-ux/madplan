@@ -87,7 +87,7 @@ eller `IKKE_MAD` i `udvid_retter.py`, og kør igen. Tynde aviser (Kvickly/SuperB
 
 **Billeder (valgfrit trin, kun hvis miljøvariablen `CLOUDFLARE_API_TOKEN` findes):** Billedmodellen forstår ikke danske retnavne, så hver ret skal have en kort ENGELSK beskrivelse af, hvordan den færdige ret ser ud på tallerkenen
 (fx "Danish stewed white cabbage in a creamy white sauce, served with fried brown medister sausage slices and boiled potatoes"). Skriv beskrivelsen til hver NY ret i `scripts/billedprompts.json` (nøgle = rettens præcise navn) – scriptet advarer om retter uden. Kør derefter `python -I scripts/billeder.py` FØR `byg_retter.py`. `--forfra` laver alle billeder om. Den laver et illustrationsbillede til hver ny ret
-(Cloudflare Workers AI, Flux Schnell, gratis daglig grænse), gemmer det i `billeder/` (ca. 60 KB pr. stk.) og springer retter over, der allerede har et. Når den daglige gratis grænse er nået, stopper den
+(Cloudflare Workers AI, FLUX.2 klein 4b (ca. 0,001 USD pr. billede; skiftet fra flux-1-schnell 10/11-2026, fordi den følger beskrivelsen langt bedre)), gemmer det i `billeder/` (ca. 60 KB pr. stk.) og springer retter over, der allerede har et. Når den daglige gratis grænse er nået, stopper den
 uden fejl – resten tages næste dag. Findes nøglen ikke (eller kan `api.cloudflare.com` ikke nås), så spring trinnet over; retter uden billede viser et køkkenikon. `byg_retter.py` sætter selv feltet `billede`. `billeder.py` laver også billeder til biblioteksopskrifterne i `opskrifter.json` (de kan vælges i madplanen) – kør det FØR `byg_opskrifter.py`, som sætter `billede`, når filen findes. Alle 74 opskrifter har billede; en ret uden billede vises med et køkkenikon.
 Husk at committe de nye filer i `billeder/`.
 
