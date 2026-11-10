@@ -1017,16 +1017,16 @@ const tal = v => (+v.toFixed(2)).toLocaleString('da-DK');
 
 // Pæne mængder: ingen "1,25 bundt dild" eller "281 g bønner".
 // tilListe = indkøb (stk rundes op til hele), ellers opskrift (stk må være ¼/½).
-const HELE_STK = /bolle|brød|baguette|ciabatta|pita|wrap|tortilla|pølse|(^|\s)æg|bøf|kotelet|filet|bryst|lår|frikadelle|rundstykke|skive|bagel|taco|spyd|burger/i;  // kan ikke deles: aldrig 2½ burgerboller
+const DELBAR_STK = /kål|græskar|melon|squash|aubergine|selleri|knold|ananas/i;  // store ting, man naturligt bruger en halv af; alt andet i stk er hele (aldrig 2½ æg eller ¾ avocado)
 function rund(m, enhed, tilListe = false, navn = '') {
   if (!m) return 0;
-  if (enhed === 'stk' && !tilListe && HELE_STK.test(navn)) return Math.max(1, Math.round(m));
+  if (enhed === 'stk' && !tilListe && !DELBAR_STK.test(navn)) return Math.max(1, Math.round(m));
   switch (enhed) {
     case 'g': case 'ml': {
       const trin = m < 50 ? 5 : m < 250 ? 25 : m < 1000 ? 50 : 100;
       return Math.max(trin, Math.round(m / trin) * trin);
     }
-    case 'stk': return tilListe ? Math.ceil(m - 1e-9) : (m < 1 ? Math.max(0.25, Math.round(m * 4) / 4) : Math.round(m * 2) / 2);
+    case 'stk': return tilListe ? Math.ceil(m - 1e-9) : Math.max(0.5, Math.round(m * 2) / 2);
     case 'dåse': case 'glas': case 'pakke': return Math.ceil(m - 0.1);
     case 'bundt': case 'fed': return Math.max(1, Math.round(m));
     case 'spsk': case 'tsk': case 'dl': return Math.max(0.5, Math.round(m * 2) / 2);
