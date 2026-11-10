@@ -32,6 +32,7 @@ DETALJER = [
     (r'forloren hare', 'Danish forloren hare: a sliced oval meatloaf roll wrapped in crispy bacon, golden-brown, with brown gravy, boiled potatoes and red cabbage'),
     (r'hakkebøf', 'Danish hakkebøf med bløde løg: a thick rounded pan-fried beef patty topped with a heap of soft golden caramelised onions in glossy brown gravy, with boiled potatoes'),
     (r'karbonade', 'Danish karbonader: round pan-fried pork patties with brown onion gravy and boiled potatoes'),
+    (r'brun kødsovs', 'Danish gammeldags brun kødsovs: a plate of whole boiled potatoes and boiled carrot pieces with a thick brown gravy of crumbled browned minced beef and onion spooned over, plain and homely'),
     (r'biksemad', 'Danish biksemad: fried diced potatoes and small meat pieces with onion, topped with a sunny-side-up fried egg, with pickled beetroot slices and parsley'),
     (r'brændende kærlighed', 'Danish brændende kærlighed: fluffy mashed potatoes topped with crispy fried bacon pieces and golden fried onions, with pickled beetroot on the side'),
     (r'æggekage', 'Danish æggekage: a thick golden baked egg cake cut in pieces with crispy bacon, served with tomato slices and dark rye bread'),
@@ -50,7 +51,7 @@ DETALJER = [
     (r'laks|fisk i fad|ovnbagt fisk|torsk|sej', 'Pan-seared or baked fish fillet, flaky and moist, with lemon, fresh dill and boiled potatoes'),
     # italiensk
     (r'carbonara', 'Italian spaghetti carbonara: glossy creamy egg sauce coating the spaghetti, crispy bacon pieces, lots of black pepper and pecorino'),
-    (r'bolognese|kødsovs', 'Italian spaghetti with a rich slow-cooked meat ragù, topped with freshly grated parmesan and a basil leaf'),
+    (r'bolognese|(?<!brun )kødsovs', 'Italian spaghetti with a rich slow-cooked meat ragù, topped with freshly grated parmesan and a basil leaf'),
     (r'lasagne', 'Italian lasagne in a baking dish, layered pasta with meat ragù and bubbling golden cheese, a square portion lifted out'),
     (r'pizza', 'Italian homemade pizza with a thin crust with blistered golden edges, melted cheese and toppings'),
     (r'risotto', 'Creamy Italian risotto with a glossy texture, served in a shallow bowl with parmesan'),
