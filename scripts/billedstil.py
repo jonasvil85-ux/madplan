@@ -35,22 +35,22 @@ DETALJER = [
     (r'brun kødsovs', 'Danish gammeldags brun kødsovs: a plate of whole boiled potatoes and boiled carrot pieces with a thick brown gravy of crumbled browned minced beef and onion spooned over, plain and homely'),
     (r'biksemad', 'Danish biksemad: fried diced potatoes and small meat pieces with onion, topped with a sunny-side-up fried egg, with pickled beetroot slices and parsley'),
     (r'brændende kærlighed', 'Danish brændende kærlighed: fluffy mashed potatoes topped with crispy fried bacon pieces and golden fried onions, with pickled beetroot on the side'),
-    (r'æggekage', 'Danish æggekage: a thick golden baked egg cake cut in pieces with crispy bacon, served with tomato slices and dark rye bread'),
+    (r'æggekage', 'Danish æggekage: a thick golden baked egg cake cut in pieces, served with dark rye bread'),
     (r'stuvet|stuvede', 'Danish stuvet kål: soft cabbage in a creamy white sauce with nutmeg, served with fried sausage and boiled potatoes'),
     (r'skipperlabskovs', 'Danish skipperlabskovs: thick beef and potato stew served with rye bread and pickled beetroot'),
     (r'gule ærter', 'Danish yellow pea soup (gule ærter) with pieces of pork and sausage in a deep bowl, mustard on the side'),
     (r'rugbrød|smørrebrød|madder', 'Danish smørrebrød: open-faced sandwiches on slices of dark rye bread, neatly garnished'),
-    (r'kartoffel.*suppe|suppe', 'Creamy soup in a deep white bowl, topped with garnish, served with dark rye bread'),
+    (r'kartoffel.*suppe|suppe', 'Creamy soup in a deep white bowl, topped with a simple garnish, with a slice of bread on the side'),
     (r'helstegt and|and med|andebryst|andelår', 'Danish roast duck with golden crispy skin, apples and prunes, served with red cabbage, caramelised potatoes and brown gravy'),
     (r'helstegt kylling|hel kylling', 'Whole roasted chicken with golden crispy skin on a platter with roasted potatoes and carrots, gravy on the side'),
     (r'kylling i karry', 'Danish kylling i karry: chicken pieces in a creamy yellow curry sauce with apple, served with white rice'),
     (r'koteletter|svinekotelet', 'Pan-fried golden pork chops with creamy gravy, served with boiled potatoes'),
-    (r'mørbrad', 'Sliced pork tenderloin, pink and juicy, with gravy and boiled potatoes'),
+    (r'mørbrad', 'Pan-fried pork tenderloin medallions, fully cooked through, juicy, with gravy'),
     (r'bøffer? med champignonsovs|champignonsovs', 'Danish bøf med champignonsovs: whole pan-fried beef steaks, evenly browned and cooked through (not sliced, no raw meat visible), covered with a creamy light-brown mushroom sauce with sliced champignons, served with boiled potatoes and parsley'),
     (r'oksegryde|gullasch', 'Slow-cooked beef stew with tender chunks of meat and root vegetables in a rich brown sauce'),
     (r'nakkesteak|nakkefilet', 'Pan-fried pork neck steaks, golden brown and fully cooked through (pork is never pink inside)'),
     (r'entrecote|oksebøf|steak|cuvette|schnitzel', 'Pan-seared steak with a browned crust'),  # tilbehør og sovs står i rettens egen beskrivelse (billedprompts.json)
-    (r'laks|fisk i fad|ovnbagt fisk|torsk|sej', 'Pan-seared or baked fish fillet, flaky and moist, with lemon, fresh dill and boiled potatoes'),
+    (r'^(?!.*(pasta|wrap|salat|suppe|tærte|burger)).*(laks|fisk i fad|ovnbagt fisk|torsk|sej)', 'Pan-seared or baked fish fillet, flaky and moist, with lemon, fresh dill and boiled potatoes'),
     # italiensk
     (r'carbonara', 'Italian spaghetti carbonara: glossy creamy egg sauce coating the spaghetti, crispy bacon pieces, lots of black pepper and pecorino'),
     (r'bolognese|(?<!brun )kødsovs', 'Italian spaghetti with a rich slow-cooked meat ragù, topped with freshly grated parmesan and a basil leaf'),
@@ -60,7 +60,7 @@ DETALJER = [
     (r'parmigiana', 'Italian chicken parmigiana: golden breaded cutlet covered in tomato sauce and melted mozzarella with basil'),
     # amerikansk
     (r'burger(?!-?pasta)', 'Homemade burger in a toasted bun with a juicy patty, melted cheese, lettuce and tomato, served on a wooden board'),
-    (r'tacos|fajita|burrito|quesadilla|wraps', 'Tex-Mex dish with warm tortillas, seasoned filling, fresh salad, tomato and sour cream'),
+    (r'tacos|fajita|burrito|quesadilla|wraps', 'Tex-Mex dish with warm soft tortillas and a seasoned filling'),
     (r'mac and cheese', 'Creamy baked macaroni and cheese with a golden cheesy crust and crispy bacon'),
     (r'chili', 'Hearty chili con carne in a bowl with rice, topped with sour cream and chopped chili'),
     (r'ribs|spareribs', 'Sticky glazed pork ribs, glossy dark brown, with corn and coleslaw'),
@@ -69,7 +69,7 @@ DETALJER = [
     (r'wok|nudler|stegt ris|teriyaki|satay|koreansk', 'Asian stir-fry in a bowl with vegetables and meat, glossy sauce, chopsticks on the side'),
     (r'karry|tikka|kokos', 'Creamy curry in a bowl with tender pieces and rice, garnished with fresh coriander'),
     # middelhav
-    (r'gyros|pita|tzatziki|falafel', 'Greek dish with warm pita bread, tzatziki, tomato, cucumber and feta, served on a stoneware plate'),
+    (r'gyros|pita|tzatziki|falafel', 'Greek-style dish with warm pita bread and creamy white tzatziki, served on a stoneware plate'),
     (r'shakshuka|moussaka|couscous|halloumi', 'Mediterranean dish in a skillet or baking dish with tomatoes, herbs and olive oil'),
 ]
 
