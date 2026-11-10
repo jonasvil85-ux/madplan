@@ -13,10 +13,10 @@ STIL_NORDISK = ('Editorial cookbook food photograph in a modern Nordic style: so
 
 STIL_KOEKKEN = {
     'dansk': 'Traditional Danish home cooking (dansk husmandskost) on a plain white porcelain plate, generous honest portion, with fresh green parsley',
-    'italiensk': 'Authentic Italian dish: fresh basil, freshly grated parmesan, glossy olive oil, rustic stoneware bowl or plate',
+    'italiensk': 'Italian home-style dish on a rustic stoneware bowl or plate',
     'amerikansk': 'American comfort food, generous and casual, served on a wooden board or simple plate',
-    'asiatisk': 'Asian home-style dish served in a bowl with chopsticks, garnished with spring onion and sesame seeds',
-    'middelhav': 'Mediterranean dish with olive oil, lemon, fresh herbs and feta, served on a stoneware plate',
+    'asiatisk': 'Asian home-style dish served in a bowl',
+    'middelhav': 'Mediterranean home-style dish with a light sheen of olive oil, served on a stoneware plate',
     'vegetar': 'Colourful vegetarian dish with fresh vegetables and herbs',
 }
 
@@ -69,7 +69,7 @@ DETALJER = [
     (r'wok|nudler|stegt ris|teriyaki|satay|koreansk', 'Asian stir-fry in a bowl with vegetables and meat, glossy sauce, chopsticks on the side'),
     (r'karry|tikka|kokos', 'Creamy curry in a bowl with tender pieces and rice, garnished with fresh coriander'),
     # middelhav
-    (r'gyros|pita|tzatziki|falafel|græsk', 'Greek dish with warm pita bread, tzatziki, tomato, cucumber and feta, served on a stoneware plate'),
+    (r'gyros|pita|tzatziki|falafel', 'Greek dish with warm pita bread, tzatziki, tomato, cucumber and feta, served on a stoneware plate'),
     (r'shakshuka|moussaka|couscous|halloumi', 'Mediterranean dish in a skillet or baking dish with tomatoes, herbs and olive oil'),
 ]
 
