@@ -46,6 +46,7 @@ DETALJER = [
     (r'kylling i karry', 'Danish kylling i karry: chicken pieces in a creamy yellow curry sauce with apple, served with white rice'),
     (r'koteletter|svinekotelet', 'Pan-fried golden pork chops with creamy gravy, served with boiled potatoes'),
     (r'mørbrad', 'Sliced pork tenderloin, pink and juicy, with gravy and boiled potatoes'),
+    (r'bøffer? med champignonsovs|champignonsovs', 'Danish bøf med champignonsovs: whole pan-fried beef steaks, evenly browned and cooked through (not sliced, no raw meat visible), covered with a creamy light-brown mushroom sauce with sliced champignons, served with boiled potatoes and parsley'),
     (r'oksegryde|gullasch', 'Slow-cooked beef stew with tender chunks of meat and root vegetables in a rich brown sauce'),
     (r'entrecote|oksebøf|steak|cuvette|schnitzel', 'Pan-seared steak sliced to show a pink centre, with baked potato wedges and sauce'),
     (r'laks|fisk i fad|ovnbagt fisk|torsk|sej', 'Pan-seared or baked fish fillet, flaky and moist, with lemon, fresh dill and boiled potatoes'),
