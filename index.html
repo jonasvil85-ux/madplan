@@ -23,7 +23,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Måltidsjagten">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="canonical" href="https://www.xn--mltidsjagten-tcb.dk/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Måltidsjagten","url":"https://www.xn--mltidsjagten-tcb.dk/","inLanguage":"da","applicationCategory":"LifestyleApplication","operatingSystem":"Web","description":"Ugens tilbud fra 10 supermarkeder bliver til en madplan med opskrifter, pris pr. person og indkøbsseddel.","offers":{"@type":"Offer","price":"0","priceCurrency":"DKK"}}</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -809,6 +813,66 @@ header.top h1.maerke .logo-navn span { color: var(--sek); }
 }
 
 /* Samme sidebredde på alle trin: rullebjælken fylder altid plads, så logoet ikke hopper, når et trin er kort nok til at slippe for den */
+/* mens madplanen regnes ud: dæmpet og uden tryk, med en smal stribe der løber */
+#antal-plads, #sim-plads, #note-plads { transition: opacity .12s; }
+.beregner { opacity: .45; pointer-events: none; }
+#sim-plads { position: relative; }
+#sim-plads.beregner::before { content: ''; position: absolute; z-index: 3; left: 14px; right: 14px; top: 0; height: 3px; border-radius: 3px; background: linear-gradient(90deg, transparent, var(--text-1), transparent); background-size: 40% 100%; background-repeat: no-repeat; animation: loeber 1s linear infinite; }
+@keyframes loeber { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+
+/* ===== Finpudsning ===== */
+/* tastatur: tydelig ramme om det, der har fokus */
+button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--text-1); outline-offset: 2px; }
+.kun-lille { display: none; }
+/* madplanens dagkort: tid og pris står nederst på samme linje i alle kort; ingrediensknappen ligger på billedet (som på retkortene), så navnet ikke knækker */
+.dag-kort .dag-meta { margin-top: auto; padding-top: 4px; }
+.dag-bil-sim { position: relative; }
+.dag-bil-sim .ing-knap { position: absolute; right: 6px; bottom: 6px; margin: 0; background: rgba(255,255,255,.9); border-color: rgba(60,45,30,.2); }
+.flere-hint { margin: 2px 2px 0; font-size: 12.5px; line-height: 1.4; color: var(--text-3); }
+/* lille besked nederst (fx "Indkøbssedlen er kopieret") */
+#besked { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); z-index: 250; transform: translate(-50%, 8px); max-width: calc(100vw - 32px); padding: 10px 16px; border-radius: 999px; background: #2B241E; color: #fff; font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(60,40,20,.25); opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s; }
+#besked.vis { opacity: 1; transform: translate(-50%, 0); }
+.bund { padding-bottom: max(14px, env(safe-area-inset-bottom)); }  /* iPhone: fri af stregen nederst */
+.status .knap { margin-top: 14px; }
+.status small { display: block; margin-top: 8px; font-size: 12px; }
+@media (max-width: 700px) {
+  /* "Slet valg" som lille ikon på linje med fanerne i stedet for en række for sig selv */
+  .nav-raekke { flex-wrap: wrap; column-gap: 8px; }
+  nav.trin { flex: 1 1 0; }
+  .nav-hoejre { display: contents; }
+  button.slet-valg:not([hidden]) { display: inline-grid; place-items: center; flex: none; width: 38px; height: 38px; padding: 0; font-size: 0; }
+  button.slet-valg .ikon-svg { width: 17px; height: 17px; }
+  .sky-status { order: 5; flex-basis: 100%; text-align: right; font-size: 11.5px; }
+  .sky-status:empty { display: none; }
+}
+@media (max-width: 600px) {
+  .kun-stor { display: none; }
+  .kun-lille { display: inline; }
+  /* bundlinjen: én linje, korte knapper */
+  .bund { padding: 10px 14px max(10px, env(safe-area-inset-bottom)); }
+  .bund .wrap > span { min-width: 0; font-size: 14px; line-height: 1.3; }
+  .bund .knap { flex: none; white-space: nowrap; padding: 12px 16px; }
+  #bundIndhold small { display: none; }
+  /* indkøbslisten: navn og pris øverst, forklaringen i fuld bredde under billedet (i stedet for en smal spalte) */
+  .liste-vare { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; column-gap: 10px; row-gap: 3px; align-items: center; }
+  .liste-vare .tekst { display: contents; }
+  .liste-vare input { grid-column: 1; grid-row: 1; margin-top: 0; }
+  .liste-vare img { grid-column: 2; grid-row: 1; width: 44px; height: 44px; }
+  .liste-vare .navn { grid-column: 3; grid-row: 1; line-height: 1.3; }
+  .liste-vare:not(:has(img)) .navn { grid-column: 2 / 4; }
+  .liste-vare .pris { grid-column: 4; grid-row: 1; }
+  .liste-vare .detalje, .liste-vare .rest { grid-column: 2 / -1; line-height: 1.45; }
+  .liste-vare .rest { margin-top: 0; }
+}
+/* udskrift: kun indholdet (indkøbsseddel og opskrifter) */
+@media print {
+  .topinfo, .nav-raekke, .bund, .fod, #fb-knap, #fb-panel, #inst-band, #besked, .online-boks, #uge-besked, .dag-pil { display: none !important; }
+  body { background: #fff; }
+  .wrap { max-width: none; padding: 0; }
+  .panel, .dag { box-shadow: none; break-inside: avoid; }
+  .seddel-status { position: static; }
+  .opskrift-bil { max-width: 260px; }
+}
 html { scrollbar-gutter: stable; }
 @supports not (scrollbar-gutter: stable) { html { overflow-y: scroll; } }
 .hero-tekst { padding: 4px 0; }  /* overskriften på forsiden står på linje med logoet og panelerne */
@@ -830,7 +894,7 @@ html { scrollbar-gutter: stable; }
     <button data-trin="seddel">5. Indkøbsseddel</button>
     <button data-trin="plan">6. Ugeplan med opskrifter</button>
   </nav>
-    <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden><svg class="ikon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6"/><path d="M14 10v6"/></svg> Slet valg</button></span>
+    <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden title="Slet valg" aria-label="Slet valg"><svg class="ikon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6"/><path d="M14 10v6"/></svg> Slet valg</button></span>
   </div>
   <div id="uge-besked" class="uge-besked" hidden></div>
 
@@ -838,6 +902,7 @@ html { scrollbar-gutter: stable; }
   <footer class="fod"><details><summary>Om Måltidsjagten</summary><p>Måltidsjagten er et uafhængigt projekt og er ikke tilknyttet Netto, MENY, Bilka, REMA 1000, Kvickly, SuperBrugsen, Lidl, 365discount, SPAR eller Min Købmand. Tilbud er fra butikkernes offentlige tilbudsaviser. Priser er vejledende og kan afvige i den enkelte butik. Priser på varer uden tilbud er estimerede normalpriser.</p></details><button type="button" class="fod-knap" data-intro>Rundvisning</button><button type="button" class="fod-knap" id="installer" hidden>Installér som app</button><a href="/privatlivspolitik.html">Privatlivspolitik</a></footer>
 </div>
 
+<noscript><p style="max-width:560px;margin:40px auto;padding:0 20px;font-family:system-ui,sans-serif">Måltidsjagten laver ugens madplan ud fra supermarkedernes tilbudsaviser. Siden kræver JavaScript – slå det til i din browser for at bruge den.</p></noscript>
 <div class="bund skjult" id="bund"><div class="wrap" id="bundIndhold"></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -947,7 +1012,7 @@ const butikAf = id => id.slice(0, id.lastIndexOf('-'));  // "netto-12" -> "netto
 // i den billigste af de valgte butikker – også inden for samme ret.
 let SIM_ELIG_ANDEL = 0.4, SIM_ELIG_NOEGLE = true, SIM_ELIG_MATCH = 0.2;  // hvornår en opskrift tæller som "bygget over tilbud"
 let ALLE_TILBUD = {}, MIXOPSKRIFTER = [], MIXTYPER = {}, LIBNAVNE = new Set(), AKTIV_OVERSTYR = null;
-const MIXHUKOMMELSE = new Map(), POOLHUKOMMELSE = new Map();
+const MIXHUKOMMELSE = new Map(), POOLHUKOMMELSE = new Map(), KANDHUKOMMELSE = new Map();
 const aktivS = () => AKTIV_OVERSTYR || (state.koebButikker?.length ? state.koebButikker : state.butikker);  // de butikker, der handles i lige nu
 const sNoegle = S => S.slice().sort().join('+');
 function lavMixRet(o, S) {  // opskrift -> ret, hvor hver ingrediens har det billigste tilbud blandt butikkerne S
@@ -1080,8 +1145,8 @@ const OMREGN = { g: ['g', 1], kg: ['g', 1000], ml: ['ml', 1], cl: ['ml', 10], l:
 const PAKKE_TOLERANCE = 0.15;
 function antalPakker(t, behov) {
   // Interval (fx "100-400 g") -> brug midten
-  const dele = String(t.maengde || '').split('-').map(parseFloat);
-  const str = dele.reduce((a, b) => a + b, 0) / dele.length;
+  let str = t._str;  // læses kun én gang pr. tilbud (funktionen kaldes mange tusinde gange, når madplanen findes)
+  if (str === undefined) { const dele = String(t.maengde || '').split('-').map(parseFloat); str = t._str = dele.reduce((a, b) => a + b, 0) / dele.length; }
   const [enhed, gange] = OMREGN[t.enhed] || [];
   let n = Math.ceil((behov.dåse || 0) + (behov.glas || 0) + (behov.pakke || 0));
   // Opskrifters mængder er cirka: mangler der under 15 % af en pakke, købes der ikke en ekstra
@@ -1103,22 +1168,30 @@ const avisTekst = k => `${data.butikker[k].navn} tilbudsavis gældende ${ugeAvis
 const udloebet = b => ugeAviser(b).every(a => dato(a.til) < new Date());
 
 // ---------- Indlæsning ----------
+// De fire datafiler hentes samtidig og allerede mens login tjekkes – ikke én ad gangen bagefter
+let FORHENT = null;
+function forhent() {
+  FORHENT = Object.fromEntries(['retter', 'opskrifter', 'tilbudsliste', 'naering'].map(n => {
+    const lo = fetch(`/${n}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject(new Error(`${n}.json HTTP ${r.status}`)));
+    lo.catch(() => {});  // fejlen håndteres i start()
+    return [n, lo];
+  }));
+}
 async function start() {
   try {
-    const r = await fetch('/retter.json', { cache: 'no-cache' });
-    if (!r.ok) throw new Error(`retter.json HTTP ${r.status}`);
-    data = await r.json();
-    INGHUKOMMELSE = new WeakMap(); MIXHUKOMMELSE.clear(); POOLHUKOMMELSE.clear();
+    if (!FORHENT) forhent();
+    const hentet = FORHENT; FORHENT = null;
+    data = await hentet.retter;
+    INGHUKOMMELSE = new WeakMap(); MIXHUKOMMELSE.clear(); POOLHUKOMMELSE.clear(); KANDHUKOMMELSE.clear();
     try {  // opskrifterne bygget over den fælles tilbudsliste (uden dem bruges kun butikkernes egne retter)
-      const o = await fetch('/opskrifter.json', { cache: 'no-cache' });
-      if (o.ok) { const od = await o.json(); MIXOPSKRIFTER = od.opskrifter; MIXTYPER = od.typer || {}; LIBNAVNE = new Set(od.opskrifter.map(x => x.navn)); ALLE_TILBUD = { ...od.tilbud };
+      { const od = await hentet.opskrifter; MIXOPSKRIFTER = od.opskrifter; MIXTYPER = od.typer || {}; LIBNAVNE = new Set(od.opskrifter.map(x => x.navn)); ALLE_TILBUD = { ...od.tilbud };
         TYPFRANAVN = new Map(); const mange = new Set();
         for (const o2 of od.opskrifter) for (const i of o2.ingredienser) if (i.typ && !i.basisvare) { const k = typNoegle(i); if (TYPFRANAVN.has(k) && TYPFRANAVN.get(k) !== i.typ) mange.add(k); TYPFRANAVN.set(k, i.typ); }
         for (const k of mange) TYPFRANAVN.delete(k); }
     } catch (e) { /* uden opskrifter.json bruges kun butikkernes egne retter */ }
     for (const [k, b] of Object.entries(data.butikker)) for (const [id, t] of Object.entries(b.tilbud || {})) ALLE_TILBUD[id] = { ...t, butik: k };
-    try { const t = await fetch('/tilbudsliste.json', { cache: 'no-cache' }); if (t.ok) tilbudsliste = await t.json(); } catch (e) { /* uden listen vises "Værd at overveje" bare ikke */ }
-    try { const nr = await fetch('/naering.json', { cache: 'no-cache' }); window.NAERING = nr.ok ? await nr.json() : {}; if (window.NAERING._genereret !== data.genereret) window.NAERING = {}; /* forældede tal ville sidde på forkerte retter */ } catch (e) { window.NAERING = {}; /* uden tal findes kategorien Fitness ikke */ }
+    try { tilbudsliste = await hentet.tilbudsliste; } catch (e) { /* uden listen vises "Værd at overveje" bare ikke */ }
+    try { window.NAERING = await hentet.naering; if (window.NAERING._genereret !== data.genereret) window.NAERING = {}; /* forældede tal ville sidde på forkerte retter */ } catch (e) { window.NAERING = {}; /* uden tal findes kategorien Fitness ikke */ }
     // Fortsæt hvor brugeren slap: nyeste af det der er gemt på brugeren og på denne enhed
     const lokal = JSON.parse(localStorage.getItem(GEM) || 'null');
     let sky = null;
@@ -1136,10 +1209,11 @@ async function start() {
     if (anvendHusstand(brugerH || lokalH)) gemHusstand(!(bruger && !brugerH && lokalH));  // har man valgt før login, tages valget med til brugeren
     if (!state.butikker.length) vaelgStandardButik();  // aldrig uden butik: ellers den billigste butik som standard
     if (new URLSearchParams(location.search).get('trin') === 'seddel' && state.valgte.length && state.butikker.length) state.trin = 'seddel';  // genvej fra appikonet
+    if (state.trin === 'butik' && state.butikker.length > 1) await varmOp();  // flere butikker gemt fra sidst: regn i bidder, mens "Henter …" stadig vises
     render();
     if (state.trin === 'butik' && !introSet() && !lokalH && !brugerH && !harValg()) setTimeout(() => introVis(0), 900);  // første besøg: kort rundvisning
   } catch (e) {
-    vis(`<div class="status fejl">Noget gik galt: ${esc(e.message || e)}</div>`);
+    vis(`<div class="status">Vi kunne ikke hente ugens tilbud. Tjek din forbindelse, og prøv igen.<br><button type="button" class="knap" data-proev-igen>Prøv igen</button><small>${esc(e.message || e)}</small></div>`);
   }
 }
 
@@ -1152,11 +1226,29 @@ function bund(html) {
   document.getElementById('bundIndhold').innerHTML = html || '';
 }
 
+const trinLaast = t => (t === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(t) && (!state.valgte.length || !state.butikker.length)) || (t === 'plan' && !state.handlet);
+// Browserens/telefonens tilbage-knap går ét trin tilbage på siden (i stedet for at forlade den)
+let histTrin = null, fraHistorik = false;
+function historik() {
+  if (histTrin === state.trin) return;
+  try { history[histTrin === null || fraHistorik ? 'replaceState' : 'pushState']({ trin: state.trin }, ''); } catch (e) { /* fx i en indlejret visning */ }
+  histTrin = state.trin;
+}
+window.addEventListener('popstate', e => {
+  const t = e.state?.trin;
+  if (!t || !data || t === state.trin) return;
+  if (introNr >= 0) introLuk();
+  state.trin = trinLaast(t) ? 'butik' : t;
+  fraHistorik = true;
+  try { render(); } finally { fraHistorik = false; }
+  window.scrollTo(0, 0);
+});
 function opdaterRamme() {  // faneknapper, avisperioder, "Slet valg" og besked om gammel ugeplan
   husstandLinje();
   document.querySelectorAll('nav.trin button').forEach(b => {
     b.classList.toggle('aktiv', b.dataset.trin === state.trin);
-    b.disabled = (b.dataset.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(b.dataset.trin) && (!state.valgte.length || !state.butikker.length)) || (b.dataset.trin === 'plan' && !state.handlet);
+    if (b.dataset.trin === state.trin) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    b.disabled = trinLaast(b.dataset.trin);
   });
   const nav = document.querySelector('nav.trin'), aktiv = nav?.querySelector('button.aktiv');
   if (aktiv) nav.scrollLeft = aktiv.offsetLeft - (nav.clientWidth - aktiv.offsetWidth) / 2;  // kun sidelæns i fanerne – siden selv scrolles ikke
@@ -1173,6 +1265,7 @@ function render() {
   if (['liste', 'tilfoej', 'seddel', 'plan'].includes(state.trin)) { if (!state.koebButikker.length && state.valgte.length) state.koebButikker = bedsteKoebButikker(state.valgte); standardValg(); }
   ({ butik: renderButikker, retter: renderRetter, liste: renderListe, tilfoej: renderTilfoej,
      seddel: renderSeddel, plan: renderPlan })[state.trin]();
+  historik();
   gem();
 }
 
@@ -1411,7 +1504,8 @@ const effMax = () => state.butikker.length <= 1 ? 1 : state.maxButikker >= 1 ? M
 const simNoegle = () => noegleFor(effMax());
 const simK = () => state.butikker.length ? simNoegle() : null;
 function simValg(k) { const [dele, max] = k.split('|'); return { stores: dele ? dele.split('+') : [], max: +max || 1 }; }
-function simuler(k) {
+function simuler(k) { const it = simulerTrin(k); let r; while (!(r = it.next()).done); return r.value; }
+function* simulerTrin(k) {  // generator: holder pause (yield) efter hver delberegning, så siden kan følge med, mens der regnes (se varmOp)
   // Den billigste madplan, der bruger højst `max` af de afkrydsede butikker: prøv hver butik alene og kombinationer, og tag den med lavest kost.
   // (Kombinationen er altså aldrig dyrere end den billigste enkeltbutik – kan en ekstra butik ikke gøre det billigere, bruges den ikke.)
   const { stores, max: m } = simValg(k), max = Math.min(m, stores.length);
@@ -1442,12 +1536,12 @@ function simuler(k) {
       if (p.butikker.length >= n) (strikte[n] = strikte[n] || []).push(p);
     }
   };
-  for (let n = 1; n <= Math.min(2, max); n++) kombi(stores, n).forEach(proev2);
+  for (let n = 1; n <= Math.min(2, max); n++) for (const delt of kombi(stores, n)) { proev2(delt); yield; }
   if (max >= 2) udvid(2);
   // tre eller flere: udvid de bedste kombinationer med den butik, der forbedrer mest
   for (let n = 3; n <= max; n++) {
     const bedste = (strikte[n - 1] || []).slice().sort((x, y) => x.kost - y.kost).slice(0, 3);
-    for (const pl of bedste) for (const x of stores.filter(y => !pl.butikker.includes(y))) proev2([...pl.butikker, x]);
+    for (const pl of bedste) for (const x of stores.filter(y => !pl.butikker.includes(y))) { proev2([...pl.butikker, x]); yield; }
     udvid(n);
   }
   // Ligger flere madplaner inden for TIEBREAK_KR af den billigste, foretrækkes den, der indeholder den billigste enkeltbutik (så anbefalingerne bygger på hinanden:
@@ -1549,6 +1643,41 @@ function skiftButik(k) {  // sæt/fjern flueben ved en butik (også den sidste);
   return true;
 }
 const simPrisCache = {}, simStd = {}, simManuel = {}, simAfvist = {}, simFra = {};
+// Madplanerne for de afkrydsede butikker regnes ud i små bidder med pauser imellem, så siden ikke fryser, mens der regnes (mange butikker = mange kombinationer).
+// Resultatet lægges i simStd, hvor resten af siden finder det. Returnerer false, hvis et nyere valg har overhalet beregningen.
+let varmNr = 0;
+const pusterum = () => new Promise(r => setTimeout(r, 0));
+const manglerSim = () => { for (let n = 1; n <= Math.min(3, state.butikker.length); n++) if (!simStd[noegleFor(n) + '|' + simSig()]) return true; return false; };
+async function varmOp() {
+  const nr = ++varmNr, sig = simSig(), valgt = state.butikker.join('+');
+  let t = performance.now();
+  for (let n = 1; n <= Math.min(3, state.butikker.length); n++) {
+    const k = noegleFor(n), nk = k + '|' + sig;
+    if (simStd[nk]) continue;
+    const it = simulerTrin(k);
+    let r;
+    while (!(r = it.next()).done) {
+      if (performance.now() - t < 40) continue;
+      await pusterum();
+      if (nr !== varmNr || simSig() !== sig || state.butikker.join('+') !== valgt) return false;
+      t = performance.now();
+    }
+    simStd[nk] = r.value;
+  }
+  return true;
+}
+// Flueben og personer vises med det samme; priser og madplan dæmpes, mens der regnes, og tegnes så
+async function opdaterButikRoligt() {
+  document.querySelectorAll('.butik-chip').forEach(c => { const v = state.butikker.includes(c.dataset.butikvalg); c.classList.toggle('aktiv', v); c.classList.remove('ubrugt'); c.setAttribute('aria-pressed', String(v)); });
+  if (!manglerSim()) return opdaterButik();
+  const dele = ['antal-plads', 'sim-plads', 'note-plads'].map(id => document.getElementById(id)).filter(Boolean);
+  dele.forEach(el => el.classList.add('beregner'));
+  document.getElementById('sim-plads')?.setAttribute('aria-busy', 'true');
+  await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)));  // lad fluebenet blive tegnet først
+  if (!(await varmOp())) return;  // et nyere valg er i gang – det tegner siden
+  document.getElementById('sim-plads')?.removeAttribute('aria-busy');
+  if (state.trin === 'butik') opdaterButik();
+}
 function simStandard(k) { const n = k + '|' + simSig(); return simStd[n] = simStd[n] || simuler(k); }
 function simPlan(k) { return simManuel[k] || simStandard(k); }  // forslaget – eller brugerens egen version, hvis der er byttet
 function simAktive(k) { const fra = simFra[k]; return simPlan(k).filter((x, i) => !fra?.has(i)); }  // dage uden "spiser ude"
@@ -1604,7 +1733,12 @@ const NORMAL_SKAL_VAERE_BILLIGERE = 0.30;  // normalprisen skal være mindst 30 
 const TILBUD_TOLERANCE = 1 / (1 - NORMAL_SKAL_VAERE_BILLIGERE);  // = tilbuddet må koste op til ca. 43 % mere end det estimerede normalpris og stadig vælges
 const tilbudPris = (id, e) => (ALLE_TILBUD[id].pris || 0) * antalPakker(ALLE_TILBUD[id], { [e.enhed]: e.m });
 function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (bruges, når mange retter prøves af)
-  const S = aktivS(), f = faktor(), behov = new Map(), fast = new Map();
+  const S = aktivS(), f = faktor(), behov = new Map(), fast = new Map(), sk = sNoegle(S) + '|';
+  const kandFor = typ => {  // tilbuddene på en type i butikkerne S (ens hver gang – huskes)
+    let kd = KANDHUKOMMELSE.get(sk + typ);
+    if (!kd) KANDHUKOMMELSE.set(sk + typ, kd = (MIXTYPER[typ] || []).filter(id2 => ALLE_TILBUD[id2] && S.includes(ALLE_TILBUD[id2].butik)));
+    return kd;
+  };
   for (const id of state.valgte) {
     const mu = f * (state.mult?.[id] || 1);
     for (const { ing, typ, key, navn } of ingForbehandlet(ret(id))) {
@@ -1612,7 +1746,7 @@ function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (b
       if (typ) {
         const k = typ + '|' + ing.enhed;
         let e = behov.get(k);
-        if (!e) behov.set(k, e = { k, typ, enhed: ing.enhed, m: 0, navn, kand: (MIXTYPER[typ] || []).filter(id2 => ALLE_TILBUD[id2] && S.includes(ALLE_TILBUD[id2].butik)) });
+        if (!e) behov.set(k, e = { k, typ, enhed: ing.enhed, m: 0, navn, kand: kandFor(typ) });
         e.m += m;
       } else if (key) {  // butikkernes egne retter har faste tilbud
         const b = fast.get(key) || fast.set(key, {}).get(key);
@@ -1634,31 +1768,34 @@ function typeValg(hurtig = false) {  // hurtig: spring forbedringsrunden over (b
   }
   // Forbedring: typer, der vælger samme pakke, deler den – så prøv alternativer for hver type og behold dem, der gør det samlede køb billigere
   if (!hurtig && typer.length) {
-    const total = () => {
-      const per = new Map();
-      for (const [key, bh] of fast) per.set(key, { ...bh });
-      let sum = 0;
-      for (const e of typer) {
-        const id = valg.get(e.k);
-        if (id) { const bh = per.get(id) || per.set(id, {}).get(id); bh[e.enhed] = (bh[e.enhed] || 0) + e.m; } else sum += e.skoen;
-      }
-      for (const [id, bh] of per) { const t = ALLE_TILBUD[id]; sum += (t.pris || 0) * antalPakker(t, bh); }
-      return sum;
+    // Skifter en type tilbud, ændres kun prisen på de to pakker, den flytter imellem – så kun de regnes om (ikke hele købet)
+    const brugere = new Map();  // tilbud -> de typer (nr. i typer), der har valgt det
+    typer.forEach((e, i) => { const id = valg.get(e.k); if (id) (brugere.get(id) || brugere.set(id, []).get(id)).push(i); });
+    const pakkePris = (id, uden = -1, med = -1) => {  // prisen for et tilbud, evt. uden/med én bestemt type
+      const u = brugere.get(id) || [], f0 = fast.get(id);
+      const ix = med >= 0 ? [...u, med].sort((a, b) => a - b) : u;
+      const bh = f0 ? { ...f0 } : {};
+      let nogen = !!f0;
+      for (const i of ix) { if (i === uden) continue; const e = typer[i]; bh[e.enhed] = (bh[e.enhed] || 0) + e.m; nogen = true; }
+      return nogen ? (ALLE_TILBUD[id].pris || 0) * antalPakker(ALLE_TILBUD[id], bh) : 0;
     };
-    let bedstTotal = total();
     for (let runde = 0; runde < 2; runde++) {
       let aendret = false;
-      for (const e of typer) {
+      typer.forEach((e, i) => {
         const nu = valg.get(e.k);
         for (const c of [null, ...e.kand]) {
-          if (c === valg.get(e.k)) continue;
+          const a = valg.get(e.k);
+          if (c === a) continue;
           if (c === null && nu && tilbudPris(nu, e) < e.skoen * TILBUD_TOLERANCE) continue;  // et tilbud, der er tæt på skønnet, springes ikke over
-          const gem = valg.get(e.k);
-          valg.set(e.k, c);
-          const t = total();
-          if (t < bedstTotal - 0.01) { bedstTotal = t; aendret = true; } else valg.set(e.k, gem);
+          const foer = (a ? pakkePris(a) : e.skoen) + (c ? pakkePris(c) : 0);
+          const efter = (a ? pakkePris(a, i) : 0) + (c ? pakkePris(c, -1, i) : e.skoen);
+          if (efter < foer - 0.01) {
+            if (a) { const u = brugere.get(a); u.splice(u.indexOf(i), 1); }
+            if (c) { const u = brugere.get(c) || brugere.set(c, []).get(c); u.push(i); u.sort((x, y) => x - y); }
+            valg.set(e.k, c); aendret = true;
+          }
         }
-      }
+      });
       if (!aendret) break;
     }
   }
@@ -1722,8 +1859,8 @@ function simuleringHtml() {
       <div class="dag-top"><b>${DAGE[dato.getDay()]}</b><small>${dato.getDate()}/${dato.getMonth() + 1}</small>
         <span class="dag-knapper"><button type="button" class="byt-knap" data-sim-byt="${i}" title="Byt ret" aria-label="Byt ${DAGE[dato.getDay()]}s ret">${ikon('refresh')}<span>Byt</span></button>
         <button type="button" class="byt-knap" data-sim-fjern="${i}" title="Fjern dagen (spiser ude)" aria-label="Fjern ${DAGE[dato.getDay()]} – spiser ude">${ikon('minus')}<span>Fjern</span></button></span></div>
-      <div class="dag-bil-sim ${r.billede ? '' : 'ingen'}">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="lazy" width="360" height="270">` : ikon('utensils')}</div>
-      <div class="dag-ret">${esc(r.navn)} ${ingKnap(r.id, i)}${mult > 1 ? '<span class="dobbelt" title="Retten laves i dobbelt portion, så resten af pakkerne bruges. Frys den ene halvdel til en anden dag.">Lav dobbelt – frys halvdelen</span>' : ''}</div>
+      <div class="dag-bil-sim ${r.billede ? '' : 'ingen'}">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="${i < 4 ? 'eager' : 'lazy'}" width="360" height="270">` : ikon('utensils')}${ingKnap(r.id, i)}</div>
+      <div class="dag-ret">${esc(r.navn)}${mult > 1 ? '<span class="dobbelt" title="Retten laves i dobbelt portion, så resten af pakkerne bruges. Frys den ene halvdel til en anden dag.">Lav dobbelt – frys halvdelen</span>' : ''}</div>
       <div class="dag-meta" title="Ca. pris pr. person">${r.tid_minutter} min · ${kr(Math.round(kp.indkoeb / kp.pers))}/pers.</div>
     </div>`;
   }).join('');
@@ -1757,7 +1894,7 @@ function husstandLinje() {  // tegner knappen i toppen (kun på forsiden, hvor v
 }
 function opdaterHusstand() {  // kun knappen, prisen og madplanen opdateres (siden står stille)
   husstandLinje();
-  opdaterButik();
+  opdaterButikRoligt();
 }
 
 function indkoebPrButik(plan) {  // "Netto: pasta, ost · Lidl: ..." – hvad der købes i hver butik i en madplan
@@ -1804,7 +1941,8 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i
   });
   const k = simK(), antalDage = k ? simAktive(k).length : 0;
   const info = antalDage ? `<span class="info-i info-panel" tabindex="0" role="button" aria-label="Om priserne">i<span class="info-tekst" role="tooltip">Priserne er for ${antalDage} ${antalDage === 1 ? 'ret' : 'retter'}, regnet for ${husstandTekst(state.voksne, state.boern)}. Tilbudsvarer købes i hele pakker, og varer uden tilbud er en estimeret normalpris (ikke en aktuel butikspris). Basisvarer som salt og olie er ikke med. Det overstregede beløb er et skøn over, hvad de samme varer ville koste til normalpris. Retterne er valgt, så resten af pakkerne bruges mest muligt, og nogle laves i dobbelt portion, så halvdelen kan fryses.</span></span>` : '';
-  const indhold = !ant ? '<p class="detalje">Ingen butik valgt endnu</p>' : !antalDage ? '<p class="detalje">Alle dage er fravalgt</p>' : felter.join('');
+  const indhold = !ant ? '<p class="detalje">Ingen butik valgt endnu</p>' : !antalDage ? '<p class="detalje">Alle dage er fravalgt</p>'
+    : felter.join('') + (ant === 1 ? '<p class="flere-hint">Kryds flere butikker af, så ser du, om det kan betale sig at handle i to.</p>' : '');
   return `<h3>Hvor mange butikker vil du handle i? ${info}</h3><div class="antal-kort">${indhold}</div>`;
 }
 function butikPanel() {
@@ -1826,6 +1964,7 @@ function opdaterButik(anker) {  // anker: vælger for det element, der skal bliv
   const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
   const np = document.getElementById('note-plads'); if (np) np.innerHTML = ubrugtNote();
   const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
+  document.querySelectorAll('.beregner').forEach(el => el.classList.remove('beregner'));
   opdaterRamme();
   gem();
   const nu = foer !== undefined ? document.querySelector(anker)?.getBoundingClientRect().top : undefined;
@@ -2118,7 +2257,7 @@ function renderListe() {
   const andelListe = andelHtml(prisSum(L.tilbud.filter(x => state.valgtVare[x.key])).tilbud, prisSum([...L.oevrige, ...L.basis].filter(x => state.valgtVare[x.key])).skoen);
 
   const linje = x => `
-    <label class="vare ${state.valgtVare[x.key] ? 'valgt' : ''}">
+    <label class="vare liste-vare ${state.valgtVare[x.key] ? 'valgt' : ''}">
       <input type="checkbox" data-vaelg="${esc(x.key)}" ${state.valgtVare[x.key] ? 'checked' : ''}>
       ${x.billede ? `<img src="${esc(x.billede)}" alt="" loading="lazy">` : ''}
       <div class="tekst"><div class="navn">${esc(x.navn)}</div><div class="detalje">${x.detalje}</div>${x.restHtml || ''}</div>
@@ -2142,7 +2281,7 @@ function renderListe() {
     }).join('')}`);
 
   bund(`<span>${antalValgt} varer valgt${sum.ialt ? ` · ${prisTekst(sum)}` : ''}</span>
-        <button class="knap" data-gaa="tilfoej" ${antalValgt ? '' : 'disabled'}>Videre: tilføj flere varer →</button>`);
+        <button class="knap" data-gaa="tilfoej" ${antalValgt ? '' : 'disabled'}>Videre<span class="kun-stor">: tilføj flere varer</span> →</button>`);
 }
 
 // ---------- Tilføj varer (katalog + egne varer) ----------
@@ -2256,8 +2395,8 @@ function renderSeddel() {
       </div>`;
     }).join('') : '<div class="panel"><p>Sedlen er tom – gå tilbage og vælg varer.</p></div>'}`);
 
-  bund(`<button class="knap sekundaer" data-kopier>Kopiér seddel</button>
-        <button class="knap" data-handlet>Jeg har handlet → ugeplan</button>`);
+  bund(`<button class="knap sekundaer" data-kopier>${kanDele() ? 'Del' : 'Kopiér'}<span class="kun-stor"> seddel</span></button>
+        <button class="knap" data-handlet>Jeg har handlet →<span class="kun-stor"> ugeplan</span></button>`);
 }
 
 function lavPlan() {
@@ -2317,10 +2456,21 @@ function renderPlan() {
         </div>` : ''}
       </details>`;
   }).join(''));
-  bund(`<button class="knap sekundaer" data-forfra>Start forfra</button><span></span>`);
+  bund(`<button class="knap sekundaer" data-forfra>Start forfra</button><button class="knap sekundaer" data-udskriv>Udskriv<span class="kun-stor"> ugeplanen</span></button>`);
 }
 
-function kopierListe() {
+// Lille besked nederst på skærmen, der forsvinder af sig selv
+let beskedTimer = null;
+function besked(tekst) {
+  let el = document.getElementById('besked');
+  if (!el) { el = document.createElement('div'); el.id = 'besked'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+  el.textContent = tekst;
+  requestAnimationFrame(() => el.classList.add('vis'));
+  clearTimeout(beskedTimer); beskedTimer = setTimeout(() => el.classList.remove('vis'), 2600);
+}
+const kanDele = () => !!navigator.share && matchMedia('(pointer: coarse)').matches;  // telefon/tablet: del sedlen (sms, Messenger, noter …); computer: kopiér
+
+async function kopierListe() {
   const linjer = seddelLinjer();
   const sum = prisSum(linjer);
   const brugte = valgteButikker();
@@ -2334,7 +2484,12 @@ function kopierListe() {
       .flatMap(({ f, ls }) => ['', f === 'andet' ? '=== ØVRIGE VARER ===' : `=== ${data.butikker[f].navn.toUpperCase()} === (${avisTekst(f)})`, ...gruppeLinjer(ls)])
     : [...(brugte.length ? brugte : [state.butik]).filter(Boolean).map(avisTekst), ...gruppeLinjer(linjer)];
   const tekst = [`Indkøbsseddel — ${butikTekst(brugte.length ? brugte : [state.butik])} · ca. ${kr(Math.round(sum.ialt))} i alt`, ...dele].join('\n');
-  navigator.clipboard.writeText(tekst).then(() => alert('Indkøbssedlen er kopieret'));
+  if (kanDele()) {
+    try { await navigator.share({ title: 'Indkøbsseddel fra Måltidsjagten', text: tekst }); return; }
+    catch (e) { if (e?.name === 'AbortError') return; /* ellers: kopiér i stedet */ }
+  }
+  try { await navigator.clipboard.writeText(tekst); besked('Indkøbssedlen er kopieret'); }
+  catch (e) { besked('Sedlen kunne ikke kopieres her'); }
 }
 
 // ---------- Rundvisning første gang: fremhæver et område ad gangen med få ord ----------
@@ -2422,7 +2577,7 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken]');
+  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken],[data-udskriv]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if ('ing' in d) { e.stopPropagation(); const pop = document.getElementById('ing-pop'); if (pop && pop.style.display === 'block' && ingKilde === t && !pop.dataset.fast) return ingSkjul(); return ingVis(t, false); }
@@ -2435,7 +2590,7 @@ document.addEventListener('click', e => {
   else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; return opdaterButik(); }
   else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simFjern + 1})`); }
   else if (d.simGendan !== undefined) { simFra[simK()]?.delete(+d.simGendan); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simGendan + 1})`); }
-  else if (d.butikvalg) { if (!skiftButik(d.butikvalg)) return; return opdaterButik(); }
+  else if (d.butikvalg) { if (!skiftButik(d.butikvalg)) return; return opdaterButikRoligt(); }
   else if (d.maxb) { state.maxButikker = +d.maxb === anbefaletAntal() ? 0 : +d.maxb; state.koebButikker = []; gemHusstand(); return opdaterButik(); }
   else if (d.aktivbutik) state.butik = d.aktivbutik;
   else if ('simIndkoeb' in d) {
@@ -2484,6 +2639,7 @@ document.addEventListener('click', e => {
   else if (d.boern) { saetHusstand(state.voksne, state.boern + +d.boern); return opdaterHusstand(); }
   else if ('handlet' in d) { state.handlet = true; lavPlan(); state.trin = 'plan'; }
   else if ('kopier' in d) return kopierListe();
+  else if ('udskriv' in d) return window.print();
   // Bevar scroll-position når man blot klikker i en liste
   const y = window.scrollY;
   render();
@@ -2567,6 +2723,9 @@ document.addEventListener('DOMContentLoaded', () => {
   k.addEventListener('click', installerNu);
 });
 
+document.addEventListener('click', e => { if (e.target.closest('[data-proev-igen]')) { vis('<div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div>'); start(); } });
+window.addEventListener('beforeprint', () => document.querySelectorAll('details.dag').forEach(d => { d.open = true; }));  // alle opskrifter med på udskriften
+forhent();
 startAuth(start);  // login først (hvis Supabase er sat op i auth.js), derefter siden
 </script>
 </body>
