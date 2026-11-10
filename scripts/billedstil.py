@@ -7,6 +7,15 @@ Tilføj nye retter øverst i DETALJER (første match vinder). Retter uden match 
 import re
 
 # Fælles nordisk gastronomisk fotostil (New Nordic): blødt dagslys, lyst træ, hør, enkelt hvidt porcelæn, reduceret anretning
+STIL_NORDISK = ('Editorial cookbook food photograph in a modern Nordic style: soft natural window daylight, light oak table, simple matte white porcelain, '
+                'tight close framing so the dish fills most of the frame, generous heaped portion on a plate just big enough for it, rich natural colours, glossy and appetizing, '
+                'shallow depth of field, shot from a 45 degree angle, realistic, freshly cooked, no text, no people, no hands')
+
+STIL_KOEKKEN): dansk ser dansk ud, italiensk ser italiensk ud osv. – alt sammen i en moderne nordisk fotostil.
+Tilføj nye retter øverst i DETALJER (første match vinder). Retter uden match får deres håndskrevne beskrivelse fra billedprompts.json."""
+import re
+
+# Fælles nordisk gastronomisk fotostil (New Nordic): blødt dagslys, lyst træ, hør, enkelt hvidt porcelæn, reduceret anretning
 STIL_NORDISK = ('Editorial cookbook food photograph in a modern Nordic style: soft natural window daylight, light oak table, muted linen cloth, '
                 'simple matte white porcelain, restrained honest plating, shallow depth of field, shot from a 45 degree angle, '
                 'realistic, appetizing, freshly cooked, no text, no people, no hands')
