@@ -432,11 +432,13 @@
  },
  "Burgere med hjemmelavede bøffer": {
   "fremgangsmaade": [
-   "Form kødet til 4 flade bøffer (ca. 2 cm tykke og lidt bredere end bollerne), og tryk en lille fordybning i midten. Krydr med salt og peber lige før stegning.",
+   "Tænd ovnen på 220 grader. Skær kartoflerne i både, vend dem med 2 spsk olie og salt, og bag dem i 30-35 minutter, til de er gyldne og møre. Vend dem halvvejs.",
+   "Form kødet til lige så mange flade bøffer, som der er burgerboller (ca. 2 cm tykke og lidt bredere end bollerne), og tryk en lille fordybning i midten. Krydr med salt og peber lige før stegning.",
    "Steg bøfferne på en varm pande med 1 spsk olie 4-5 minutter på hver side, til de er gennemstegte (kernetemperatur 72 °C). Læg osten på bøfferne de sidste 1-2 minutter.",
    "Rist bollerne kort, og skær løg og tomat i skiver.",
-   "Byg burgerne med dressing af ketchup og remoulade, salat, bøf, tomat og løg."
+   "Byg burgerne med dressing af ketchup og remoulade, salat, bøf, tomat og løg. Server med de bagte kartoffelbåde."
   ],
+  "tid_minutter": 40,
   "tilfoej_basis": [
    {
     "ingrediens": "olie",
@@ -586,16 +588,25 @@
  },
  "Cheeseburgere med hjemmelavede bøffer og cheddar": {
   "fremgangsmaade": [
-   "Form 4 flade bøffer af kødet (ca. 2 cm tykke), og krydr kraftigt med salt og peber lige før stegning.",
+   "Tænd ovnen på 220 grader. Skær kartoflerne i både, vend dem med 2 spsk olie og salt, og bag dem i 30-35 minutter, til de er gyldne og møre. Vend dem halvvejs.",
+   "Form kødet til lige så mange flade bøffer, som der er burgerboller (ca. 2 cm tykke), og krydr kraftigt med salt og peber lige før stegning.",
    "Steg bøfferne i 1 spsk olie 3-4 minutter pr. side på en rygende varm pande, til de er gennemstegte (kernetemperatur 72 °C). Læg cheddarskiver på de sidste minutter.",
    "Rist bollerne på snitfladen.",
    "Smør bunden med mayo og ketchup, og læg rucola, tomat, løg og bøf på.",
-   "Sæt toppen på, og server straks."
+   "Sæt toppen på, og server straks med de bagte kartoffelbåde."
+  ],
+  "tid_minutter": 40,
+  "tilfoej_vare": [
+   {
+    "ingrediens": "kartofler",
+    "maengde": 800,
+    "enhed": "g"
+   }
   ],
   "tilfoej_basis": [
    {
     "ingrediens": "olie",
-    "maengde": 1,
+    "maengde": 3,
     "enhed": "spsk"
    }
   ],
@@ -4495,6 +4506,13 @@
   ]
  },
  "Kartoffel-baconsuppe med brød": {
+  "fremgangsmaade": [
+   "Skær løg og porre i tynde skiver, og skær kartoflerne i små tern.",
+   "Steg bacon sprødt i en stor gryde, og tag det op. Svits løg og porre i baconfedtet i 4-5 minutter, til de er bløde.",
+   "Tilsæt kartofler, bouillon og 6 dl vand. Kog i 20 minutter, til kartoflerne er møre.",
+   "Blend suppen med mælken, og smag til med salt og peber.",
+   "Server med den sprøde bacon og baguette."
+  ],
   "maengder": [
    {
     "ingrediens": "bouillon",
