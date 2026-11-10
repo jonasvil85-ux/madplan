@@ -48,7 +48,8 @@ DETALJER = [
     (r'mørbrad', 'Sliced pork tenderloin, pink and juicy, with gravy and boiled potatoes'),
     (r'bøffer? med champignonsovs|champignonsovs', 'Danish bøf med champignonsovs: whole pan-fried beef steaks, evenly browned and cooked through (not sliced, no raw meat visible), covered with a creamy light-brown mushroom sauce with sliced champignons, served with boiled potatoes and parsley'),
     (r'oksegryde|gullasch', 'Slow-cooked beef stew with tender chunks of meat and root vegetables in a rich brown sauce'),
-    (r'entrecote|oksebøf|steak|cuvette|schnitzel', 'Pan-seared steak sliced to show a pink centre, with baked potato wedges and sauce'),
+    (r'nakkesteak|nakkefilet', 'Pan-fried pork neck steaks, golden brown and fully cooked through (pork is never pink inside)'),
+    (r'entrecote|oksebøf|steak|cuvette|schnitzel', 'Pan-seared steak with a browned crust'),  # tilbehør og sovs står i rettens egen beskrivelse (billedprompts.json)
     (r'laks|fisk i fad|ovnbagt fisk|torsk|sej', 'Pan-seared or baked fish fillet, flaky and moist, with lemon, fresh dill and boiled potatoes'),
     # italiensk
     (r'carbonara', 'Italian spaghetti carbonara: glossy creamy egg sauce coating the spaghetti, crispy bacon pieces, lots of black pepper and pecorino'),
