@@ -4590,6 +4590,22 @@
    "citron",
    "creme fraiche",
    "dild"
+  ],
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "tid_minutter": 20,
+  "fremgangsmaade": [
+   "Rør creme fraiche med citronsaft, dild og salt til en dressing.",
+   "Skær avocado i tern, og vend den med rejerne og dressingen.",
+   "Skær baguetten i skiver, og rist dem i ovnen ved 200 grader i 5-6 minutter, til de er gyldne (eller i brødristeren).",
+   "Server salaten med den ristede baguette."
   ]
  },
  "Pasta med rejer, citron og hvidløg": {
@@ -4758,6 +4774,42 @@
    "peberfrugt",
    "løg",
    "rugbrød"
+  ]
+ },
+ "Rejesalat med avocado og æg": {
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "fremgangsmaade": [
+   "Hårdkog æggene i 9 minutter, og skær dem i både.",
+   "Skær avocado og agurk i tern.",
+   "Rør skyr med citronsaft, salt og peber til en dressing.",
+   "Skær baguetten i skiver, og rist dem i ovnen ved 200 grader i 5-6 minutter, til de er gyldne (eller i brødristeren).",
+   "Vend rejer, avocado, agurk og dressing, læg æg ovenpå, og server med den ristede baguette."
+  ]
+ },
+ "Tunsalat med æg og kikærter": {
+  "skift": [
+   {
+    "fra": "rugbrød",
+    "til": "baguette",
+    "type": "baguette",
+    "maengde": 1,
+    "enhed": "stk"
+   }
+  ],
+  "fremgangsmaade": [
+   "Hårdkog æggene i 9 minutter, og skær dem i både.",
+   "Skyl kikærterne, og skær agurk og tomater i stykker.",
+   "Vend tun, kikærter, grønt og æg med olie, citronsaft, salt og peber.",
+   "Skær baguetten i skiver, og rist dem i ovnen ved 200 grader i 5-6 minutter, til de er gyldne (eller i brødristeren).",
+   "Server salaten med den ristede baguette."
   ]
  }
 }
