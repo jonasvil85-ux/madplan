@@ -1,4 +1,4 @@
-"""Lav illustrationsbilleder til retterne med Cloudflare Workers AI (Flux Schnell, gratis grænse pr. dag).
+"""Lav illustrationsbilleder til retterne med Cloudflare Workers AI (FLUX.2 klein 4b).
 
 Brug:  python -I scripts/billeder.py            (retter i retter.json der mangler billede – højst 60 pr. kørsel som standard)
        python -I scripts/billeder.py --maks 20  (højst 20 nye billeder i denne kørsel)
@@ -14,8 +14,9 @@ from concurrent.futures import ThreadPoolExecutor
 ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAPPE = os.path.join(ROD, 'billeder')
 KONTO = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '38253a60db8406866eb2a255247002d5')
-MODEL = '@cf/black-forest-labs/flux-1-schnell'
+MODEL = '@cf/black-forest-labs/flux-2-klein-4b'  # FLUX.2 klein: følger beskrivelsen langt bedre end flux-1-schnell (afprøvet 10/11-2026), ca. 0,001 USD pr. billede
 # Stilen er neutral: beskrivelsen af retten angiver selv kar, tilbehør og køkken (fad, tallerken, skål, dansk, asiatisk …)
+GRAENSE = 'maaltidsjagten-billede-graense'
 STIL = 'Appetizing food photography, freshly cooked homemade dish, natural daylight, rustic table, realistic, high detail, no text'
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from billedstil import byg_prompt  # noqa: E402
@@ -53,8 +54,9 @@ class GraenseNaaet(Exception):
 def lav(navn, tekst, nøgle):
     req = urllib.request.Request(
         f'https://api.cloudflare.com/client/v4/accounts/{KONTO}/ai/run/{MODEL}',
-        data=json.dumps({'prompt': tekst, 'steps': 6}).encode(),
-        headers={'Authorization': 'Bearer ' + nøgle, 'Content-Type': 'application/json'})
+        data=b''.join(f'--{GRAENSE}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode()
+                      for k, v in {'prompt': tekst, 'width': '1024', 'height': '768'}.items()) + f'--{GRAENSE}--\r\n'.encode(),
+        headers={'Authorization': 'Bearer ' + nøgle, 'Content-Type': f'multipart/form-data; boundary={GRAENSE}'})  # FLUX.2-modellerne tager multipart, ikke JSON
     try:
         with urllib.request.urlopen(req, timeout=180) as r:
             d = json.load(r)

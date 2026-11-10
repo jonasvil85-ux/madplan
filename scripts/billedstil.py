@@ -73,6 +73,8 @@ DETALJER = [
     (r'shakshuka|moussaka|couscous|halloumi', 'Mediterranean dish in a skillet or baking dish with tomatoes, herbs and olive oil'),
 ]
 
+FAGLIGE = next(i for i, (m, _) in enumerate(DETALJER) if m.startswith('rugbrød'))  # de første regler (til og med gule ærter) forklarer danske retter, modellen ikke kender
+
 
 def detalje(navn):
     n = navn.lower()
@@ -84,9 +86,11 @@ def detalje(navn):
 
 def byg_prompt(navn, koekken, besk=None):
     """Den samlede prompt: faglig beskrivelse (eller den håndskrevne), køkkenstil og nordisk fotostil."""
-    kerne = detalje(navn)
-    if kerne and besk:
-        kerne = f'{kerne}. Dish: {besk}'
-    elif not kerne:
-        kerne = besk or navn
+    # Har retten sin egen beskrivelse (billedprompts.json), er det den, der bestemmer, hvad der ligger på tallerkenen. Kun de faglige forklaringer af danske retter
+    # (FAGLIGE: hvordan stegt flæsk, medister, biksemad … ser ud) lægges foran. De generelle regler og køkkenstilen bruges kun til retter uden beskrivelse –
+    # ellers digter de tilbehør til, som ikke er i opskriften (rødkål til en wok med and, persille på alt dansk).
+    if besk:
+        faglig = next((t for m, t in DETALJER[:FAGLIGE] if re.search(m, navn.lower())), None)
+        return f'{faglig + ". Dish: " if faglig else ""}{besk}. {STIL_NORDISK}'
+    kerne = detalje(navn) or navn
     return f'{kerne}. {STIL_KOEKKEN.get(koekken, "")}. {STIL_NORDISK}'
