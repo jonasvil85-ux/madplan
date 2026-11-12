@@ -930,7 +930,7 @@ const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'L�
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
 const TOM = { trin: 'butik', seddelFane: null, sorter: 'niveau', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, butikValgt: false, personer: 4, voksne: 2, boern: 2, mult: {},
-              valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [] };
+              valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [], dagPlads: {} };
 
 // Husstand: voksne + børn. retter.json er skrevet til en familie på 2 voksne + 2 børn (= faktor 1); et barn tæller som 0,6 voksenportion.
 const BARN_VAEGT = 0.6;
@@ -2602,14 +2602,15 @@ document.addEventListener('click', e => {
   else if (d.aktivbutik) state.butik = d.aktivbutik;
   else if ('simIndkoeb' in d) {
     const k = simK(), akt = simAktive(k), S = simPlan(k).S, planIds = akt.map(x => x.r.id);
+    const dagPlads = Object.fromEntries(simPlan(k).map((x, i) => [x.r.id, i]).filter(([, i]) => !simFra[k]?.has(i)));  // retterne bliver på forslagets dage (en fravalgt dag bliver tom)
     const samme = state.valgte.length === planIds.length && planIds.every(id => state.valgte.includes(id));  // listen er allerede bygget af det samme forslag
     if (samme) {
-      Object.assign(state, { butik: S[0], koebButikker: S.slice(), mult: planMult(akt), trin: 'liste' });  // behold ekstra varer og afkrydsninger
+      Object.assign(state, { butik: S[0], koebButikker: S.slice(), mult: planMult(akt), dagPlads, trin: 'liste' });  // behold ekstra varer og afkrydsninger
     } else {
       // spørg kun, når der er noget at miste, og sig hvad det er
       const dele = [state.valgte.length && `${state.valgte.length} ${state.valgte.length === 1 ? 'valgt ret' : 'valgte retter'}`, state.ekstra.length && `${state.ekstra.length} ekstra ${state.ekstra.length === 1 ? 'vare' : 'varer'}`, state.handlet && 'afkrydsninger på indkøbssedlen'].filter(Boolean);
       if (dele.length && !confirm(`Din gemte indkøbsliste (${dele.join(', ')}) bliver erstattet af forslaget med ${planIds.length} ${planIds.length === 1 ? 'ret' : 'retter'}. Vil du fortsætte?`)) return;
-      state = { ...structuredClone(TOM), ...husstand(state), butik: S[0], koebButikker: S.slice(), valgte: planIds, mult: planMult(akt), trin: 'liste' };
+      state = { ...structuredClone(TOM), ...husstand(state), butik: S[0], koebButikker: S.slice(), valgte: planIds, mult: planMult(akt), dagPlads, trin: 'liste' };
     }
   }
   else if ('simVaelg' in d) {
@@ -2683,6 +2684,13 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
   const havdeStyring = !!navigator.serviceWorker.controller;  // kun en opdatering, hvis en gammel version styrede siden (ikke første besøg)
   let genindlaest = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (havdeStyring && !genindlaest) { genindlaest = true; location.reload(); } });  // ny version overtog: hent siden og dataene forfra
+  // Fik siden en gemt kopi af tilbuddene (langsomt net), og nyere data er hentet bagefter: genindlæs én gang, så ugens nye retter og aviser vises (valget er gemt)
+  navigator.serviceWorker.addEventListener('message', ev => {
+    if (ev.data?.type !== 'data-nyt' || genindlaest) return;
+    try { const sidst = +sessionStorage.getItem('madplan-data-nyt') || 0; if (Date.now() - sidst < 60000) return; sessionStorage.setItem('madplan-data-nyt', String(Date.now())); } catch (err) { /* uden lager: genindlæs alligevel */ }
+    genindlaest = true; location.reload();
+  });
+  try { navigator.serviceWorker.startMessages?.(); } catch (err) { /* ældre browsere */ }  // beskeder fra arbejderen står ellers i kø, når der lyttes med addEventListener
   window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => { /* siden virker også uden */ }));
 }
 let installerHaendelse = null;

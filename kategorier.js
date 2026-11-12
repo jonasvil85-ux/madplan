@@ -108,11 +108,32 @@ document.addEventListener('click', e => {
   try { localStorage.setItem('madplan-ude', JSON.stringify([...UGE_UDE])); } catch (err) { /* uden lager */ }
   const y = window.scrollY; render(); window.scrollTo(0, y);
 });
+// Hver valgt ret har sin egen dag (state.dagPlads: ret-id -> dagsindeks, 0 = i dag). Fjernes en ret, bliver dagen stående tom – de andre retter rykker ikke.
+// En ny ret tager den første tomme dag. Sættes en dag til "ikke hjemme", flytter retten dér til næste tomme dag (ellers står den under "Ud over ugen").
+function dagFordeling(valgte) {
+  const plads = state.dagPlads = state.dagPlads || {};
+  const ids = new Set(valgte.map(r => r.id)), optaget = new Set(), flyttet = {};
+  for (const id of Object.keys(plads)) {
+    const i = plads[id];
+    if (!ids.has(id) || !Number.isInteger(i) || i < 0 || i > 6 || optaget.has(i)) { delete plads[id]; continue; }
+    if (UGE_UDE.has(i)) { flyttet[id] = i; delete plads[id]; continue; }
+    optaget.add(i);
+  }
+  for (const r of valgte) {
+    if (r.id in plads) continue;
+    const start = flyttet[r.id] ?? 0;
+    for (let k = 0; k < 7; k++) {
+      const i = (start + k) % 7;
+      if (!UGE_UDE.has(i) && !optaget.has(i)) { plads[r.id] = i; optaget.add(i); break; }
+    }
+  }
+  return plads;
+}
 function ugeplanValg(retter) {
   const valgte = state.valgte.map(id => retter.find(r => r.id === id)).filter(Boolean);
   const dage = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; });
   const hjemme = 7 - UGE_UDE.size;
-  let n = 0;  // næste valgte ret
+  const plads = dagFordeling(valgte), efterDag = new Map(valgte.filter(r => r.id in plads).map(r => [plads[r.id], r]));
   const kort = dage.map((d, i) => {
     const hoved = `<div class="dag-top"><b>${DAGE[d.getDay()]}</b><small>${d.getDate()}/${d.getMonth() + 1}</small></div>`;
     const ude = `<button type="button" class="ude-knap" data-ude="${i}" title="Ikke hjemme">${ikon('ude')}<span>Ikke hjemme</span></button>`;
@@ -120,7 +141,7 @@ function ugeplanValg(retter) {
       return `<div class="dag-kort fravalgt">${hoved}<div class="dag-fra"><span class="ude-ikon">${ikon('ude')}</span><span class="ude-tekst">Ikke hjemme</span>
         <button type="button" class="byt-knap udvidet" data-ude="${i}" title="Hjemme igen">${ikon('plus')}<span>Hjemme igen</span></button></div></div>`;
     }
-    const r = valgte[n++];
+    const r = efterDag.get(i);
     if (!r) return `<div class="dag-kort fravalgt">${hoved}<div class="dag-fra"><span class="tom-tekst">Ingen ret</span>${ude}</div></div>`;
     return `<div class="dag-kort">${hoved}<span class="dag-knapper"><button type="button" class="byt-knap" data-ret="${esc(r.id)}" title="Fjern retten" aria-label="Fjern ${esc(r.navn)}">${ikon('minus')}</button></span>
       <div class="dag-bil-sim ${r.billede ? '' : 'ingen'}">${r.billede ? `<img src="${esc(r.billede)}" alt="" loading="lazy" width="360" height="270">` : ikon('utensils')}</div>
@@ -128,9 +149,9 @@ function ugeplanValg(retter) {
       <div class="dag-ude">${ude}</div>
     </div>`;
   }).join('');
-  const rest = valgte.slice(hjemme);  // retter ud over ugen: små billeder, tryk for at fjerne
+  const rest = valgte.filter(r => !(r.id in plads));  // retter ud over ugen: små billeder, tryk for at fjerne
   return `<div class="panel ugeplan-valg">
-    <div class="panel-hoved"><h2>Din uge</h2><span class="ugetal">${Math.min(valgte.length, hjemme)} af ${hjemme} dage</span></div>
+    <div class="panel-hoved"><h2>Din uge</h2><span class="ugetal">${efterDag.size} af ${hjemme} dage</span></div>
     <div class="kalender">${kort}</div>
     ${rest.length ? `<div class="rest-raekke"><span class="rest-tekst">Ud over ugen:</span>${rest.map(r => `<button type="button" class="rest-ret" data-ret="${esc(r.id)}" title="${esc(r.navn)} – tryk for at fjerne">${r.billede ? `<img src="${esc(r.billede)}" alt="">` : ''}<span>×</span></button>`).join('')}</div>` : ''}
   </div>`;
