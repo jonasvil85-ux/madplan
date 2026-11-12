@@ -2111,12 +2111,19 @@ const variantFaelles = (a, b) => {
 function tilbudVariant(navn, ingNavne, typer, vt) {  // typer/vt: byggeren ved, hvilke dele af overskriften der passer til ingrediensens type (bruges, når ordene ikke afslører det: flæskesteg ~ ribbensteg)
   const dele = navn.split(/\s*,\s*|\s+eller\s+/i).map(x => x.trim()).filter(Boolean);
   if (dele.length < 2) return navn;
-  const delOrd = dele.map(variantOrd), valgt = new Set();
+  const delOrd = dele.map(variantOrd);
+  let valgt = new Set();
   for (const ing of ingNavne) {  // pr. ingrediens: de varianter, der passer bedst (så to retter med hver sin vare i samme tilbud begge får deres)
     const ord = variantOrd(ing), point = delOrd.map(o => ord.filter(b => o.some(x => variantFaelles(b, x))).length), maks = Math.max(...point);
     if (maks) point.forEach((pt, i) => { if (pt === maks) valgt.add(i); });
   }
-  if (!valgt.size && vt && typer) for (const ty of typer) for (const i of vt[ty] || []) if (i < dele.length) valgt.add(i);
+  const fraType = () => { const v = new Set(); if (vt && typer) for (const ty of typer) for (const i of vt[ty] || []) if (i < dele.length) v.add(i); return v; };
+  if (!valgt.size) valgt = fraType();
+  else if (valgt.size === dele.length && !dele.some(d => (d.match(/[a-zæøå]{3,}/gi) || []).length < 2)) {
+    // Uafgjort (ordet "hakket" står i alle delene): byggerens oplysning om ingrediensens type afgør – men ikke når en del er et brudstykke som "i tern" eller "gravad-"
+    const v = fraType();
+    if (v.size && v.size < dele.length) valgt = v;
+  }
   if (!valgt.size || valgt.size === dele.length) return navn;
   const v = dele.filter((_, i) => valgt.has(i));
   if (v.some(x => x.startsWith('-') || x.endsWith('-'))) return navn;  // forkortelser som "varmrøget-" og "-bacon" giver ikke mening alene: så står overskriften, som den er

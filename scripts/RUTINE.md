@@ -37,6 +37,9 @@ Butikker: netto, meny, bilka, rema, kvickly, lidl, 365, spar, minkoebmand. Kvick
 Rutinen kan ikke lave billeder (CLOUDFLARE_API_TOKEN findes kun på Jonas' pc). Nye retter får derfor intet billedfelt, og siden viser et gaffelikon. Byggeren advarer: "N retter har ikke noget billede endnu".
 Lokalt: skriv en beskrivelse til hver ny ret i `scripts/billedprompts.json`, kør `python -I scripts/billeder.py`, gennemse på oversigtsark, og kør derefter `byg_retter.py` + `byg_opskrifter.py` IGEN (billedfeltet sættes først, når filen findes) før commit.
 
+## Rækkefølge ved bygning – VIGTIGT
+Kør ALTID `byg_retter.py` og derefter `byg_opskrifter.py` (den kører `tilfoej_varianter.py`, som lægger `vt`/`ty` i retter.json). Et ekstra `byg_retter.py` alene (fx som test) overskriver retter.json UDEN disse felter, og så viser indkøbslisten hele tilbudsteksten ("Coop hakket okse/grøn, hakket gris & kalv … eller hakket kylling") i stedet for den vare, retten skal bruge. Brugte du byg_retter.py som test: `git checkout -- retter.json` eller kør byg_opskrifter.py bagefter. Tæl efter før commit: retter.json skal have ca. 275 tilbud med `vt`.
+
 ## Trin 2 – Skriv retter til hver ny butik
 Udskift ALLE ikke-auto retter i `scripts/retter/<butik>.json` (de gamle peger på sidste uges id'er og er ugyldige) og opdatér `"avis"`
 til det nye katalog-id (står i `tilbud.txt` overskriften) og `"top"` til de 3 bedste tilbud (`{"id": "N7", "hvorfor": "…"}`).
