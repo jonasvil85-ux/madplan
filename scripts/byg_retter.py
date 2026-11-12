@@ -316,6 +316,9 @@ def main():
             rest_tips.append(f"{info['navn']}: for få retter i køkken (min {MIN_PR_KOEKKEN}): {', '.join(mangler_k)}")
         print(f"\n{info['navn']}: {len(retter)} retter, {len(brugte)} forskellige tilbudsvarer, "
               f"gns. {round(sum(r['andel_tilbud'] for r in retter) / max(1, len(retter)) * 100)}% tilbud")
+        uden_billede = [r['navn'] for r in retter if not r.get('billede')]
+        if uden_billede:  # siden viser et gaffelikon i stedet for billede – lav dem med billeder.py og kør byg_retter.py + byg_opskrifter.py igen
+            advarsler.append(f"{info['navn']}: {len(uden_billede)} retter har ikke noget billede endnu (billeder.py, derefter byg_retter.py igen): " + '; '.join(uden_billede[:4]) + (' …' if len(uden_billede) > 4 else ''))
         print('  køkkener: ' + ', '.join(f'{k} {n}' for k, n in antal_k.items()))
         for niv in ('student', 'familie', 'weekend'):
             rr = [r for r in retter if r['niveau'] == niv]
