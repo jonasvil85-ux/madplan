@@ -29,8 +29,8 @@ BUTIKKER = {
 # Aviser med mad: ugeavisen ("Uge 46", "Netto AU46", "Lidl avis (uge 46)" …) PLUS alle andre aviser, der indeholder mad (fx Lidls "Fast lav pris i Lidl" og Bilkas "Salling Princip").
 # Ugeavisen kendes på et ugenummer (1-53) i navnet – uanset præfiks. Årstal (2026) passerer ikke.
 UGEAVIS = re.compile(r'(?<!\d)(?:[1-9]|[1-4]\d|5[0-3])(?!\d)')
-# Aviser, der aldrig er mad: nonfood, vin/alkohol, magasiner, kataloger, legetøj, gaver, elektronik, menuer – og Premium, som kun gentager tilbud fra hovedavisen
-IKKE_MAD = re.compile(r'nonfood|(?<![a-zæøå])vin(?![a-zæøå])|vinkatalog|søndag|magasin|katalog|premium|trend|gave|indstik|legetøj|beauty|prosonic|elektronik|ud af huset|madskole|opskrift|princip', re.I)  # Salling Princip er en produktkatalog med almindelige priser, ikke tilbud
+# Aviser, der aldrig er mad (eller er dubletter af ugeavisen: Lidls weekendavis har de samme tilbud): nonfood, vin/alkohol, magasiner, kataloger, legetøj, gaver, elektronik, menuer – og Premium, som kun gentager tilbud fra hovedavisen
+IKKE_MAD = re.compile(r'weekendavis|nonfood|(?<![a-zæøå])vin(?![a-zæøå])|vinkatalog|søndag|magasin|katalog|premium|trend|gave|indstik|legetøj|beauty|prosonic|elektronik|ud af huset|madskole|opskrift|princip', re.I)  # Salling Princip er en produktkatalog med almindelige priser, ikke tilbud
 # En avis, der ikke er en ugeavis, skal mindst have denne andel mad i sine tilbud (de første 100 tjekkes), før den tages med
 MADORD = re.compile(
     r'kød|kylling|okse|gris|svin|flæsk|bacon|pølse|medister|skinke|laks|fisk|rejer|sild|torsk|ørred|\bost\b|ost\b|mælk|yoghurt|skyr|fløde|smør|\bæg\b|brød|rundstykk|bolle|pasta|spaghetti|ris\b|nudler|mel\b|sukker|'
@@ -59,7 +59,8 @@ ENHEDER = {'pcs': 'stk', 'g': 'g', 'kg': 'kg', 'ml': 'ml', 'cl': 'cl', 'l': 'l'}
 
 
 def hent(url):
-    req = urllib.request.Request(url, headers={'Accept': 'application/json'})
+    # Tjek afviser kald uden User-Agent (401 siden 12/11-2026); vi identificerer os ærligt som siden
+    req = urllib.request.Request(url, headers={'Accept': 'application/json', 'User-Agent': 'Maaltidsjagten/1.0 (+https://xn--mltidsjagten-tcb.dk)'})
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.load(r)
 
