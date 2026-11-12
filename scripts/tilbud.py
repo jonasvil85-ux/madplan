@@ -29,8 +29,50 @@ BUTIKKER = {
 # Aviser med mad: ugeavisen ("Uge 46", "Netto AU46", "Lidl avis (uge 46)" …) PLUS alle andre aviser, der indeholder mad (fx Lidls "Fast lav pris i Lidl" og Bilkas "Salling Princip").
 # Ugeavisen kendes på et ugenummer (1-53) i navnet – uanset præfiks. Årstal (2026) passerer ikke.
 UGEAVIS = re.compile(r'(?<!\d)(?:[1-9]|[1-4]\d|5[0-3])(?!\d)')
-# Aviser, der aldrig er mad (eller er dubletter af ugeavisen: Lidls weekendavis har de samme tilbud): nonfood, vin/alkohol, magasiner, kataloger, legetøj, gaver, elektronik, menuer – og Premium, som kun gentager tilbud fra hovedavisen
-IKKE_MAD = re.compile(r'weekendavis|nonfood|(?<![a-zæøå])vin(?![a-zæøå])|vinkatalog|søndag|magasin|katalog|premium|trend|gave|indstik|legetøj|beauty|prosonic|elektronik|ud af huset|madskole|opskrift|princip', re.I)  # Salling Princip er en produktkatalog med almindelige priser, ikke tilbud
+
+
+def er_ugeavis(label):
+    """Butikkens ugeavis – den, retterne skrives efter. Lidls "Weekendavis (uge 46)" har et ugenummer, men er et uddrag af ugeavisen, ikke en ny avis."""
+    return bool(UGEAVIS.search(label or '')) and not re.search(r'weekend', label or '', re.I)
+
+
+def _norm(navn):
+    return re.sub(r'[^a-z0-9æøå]', '', navn.lower())
+
+
+def _ord(navn):
+    return set(re.findall(r'[a-z0-9æøå]+', navn.lower()))
+
+
+def _grundmaengde(m, e):
+    """Mængden i grundenhed (g, ml eller stk), så 0,5 kg og 500 g er ens – None hvis ukendt."""
+    if m is None or e is None:
+        return None
+    try:
+        v = float(str(m).split('-')[0])
+    except ValueError:
+        return None
+    faktor = {'kg': 1000, 'g': 1, 'l': 1000, 'cl': 10, 'ml': 1, 'stk': 1}.get(e)
+    if faktor is None:
+        return None
+    return (v * faktor, 'g' if e in ('kg', 'g') else 'ml' if e in ('l', 'cl', 'ml') else 'stk')
+
+
+def samme_tilbud(a, b):
+    """Er det den samme vare i to af butikkens aviser? Samme pris og samme navn (med eller uden mærke, bindestreg og mellemrum) og samme
+    mængde i grundenhed. Er navnet ordret ens og prisen ens, er det samme vare, selv om mængden er tastet forskelligt i de to aviser
+    (Lidls weekendavis gentager ugeavisen med den slags småforskelle: 'SILVERCREST Gryder' / 'Gryder', '0.5 kg' / '500 g')."""
+    if a['pris'] != b['pris']:
+        return False
+    if _norm(a['navn']) == _norm(b['navn']):
+        return True
+    oa, ob = _ord(a['navn']), _ord(b['navn'])
+    if not oa or not ob or not (oa <= ob or ob <= oa):
+        return False
+    ga, gb = _grundmaengde(a['maengde'], a['enhed']), _grundmaengde(b['maengde'], b['enhed'])
+    return ga is None or gb is None or ga == gb
+# Aviser, der aldrig er mad: nonfood, vin/alkohol, magasiner, kataloger, legetøj, gaver, elektronik, menuer – og Premium, som kun gentager tilbud fra hovedavisen
+IKKE_MAD = re.compile(r'nonfood|(?<![a-zæøå])vin(?![a-zæøå])|vinkatalog|søndag|magasin|katalog|premium|trend|gave|indstik|legetøj|beauty|prosonic|elektronik|ud af huset|madskole|opskrift|princip', re.I)  # Salling Princip er en produktkatalog med almindelige priser, ikke tilbud
 # En avis, der ikke er en ugeavis, skal mindst have denne andel mad i sine tilbud (de første 100 tjekkes), før den tages med
 MADORD = re.compile(
     r'kød|kylling|okse|gris|svin|flæsk|bacon|pølse|medister|skinke|laks|fisk|rejer|sild|torsk|ørred|\bost\b|ost\b|mælk|yoghurt|skyr|fløde|smør|\bæg\b|brød|rundstykk|bolle|pasta|spaghetti|ris\b|nudler|mel\b|sukker|'
@@ -89,7 +131,7 @@ def find_aviser(key):
 
 def hent_butik(key):
     b = BUTIKKER[key]
-    aviser = find_aviser(key)
+    aviser = sorted(find_aviser(key), key=lambda a: not er_ugeavis(a['label']))  # ugeavisen først, så dens navne og mængder vinder ved dubletter
     tilbud = []
     for avis in aviser:
         for offset in range(0, 1500, 100):
@@ -111,12 +153,9 @@ def hent_butik(key):
                 })
             if len(side) < 100:
                 break
-    set_ = set()  # samme vare til samme pris i flere aviser (fx hovedavis og fast-lav-pris-avis) vises kun én gang
-    unikke = []
+    unikke = []  # samme vare til samme pris i flere aviser (fx ugeavis, weekendavis og fast-lav-pris-avis) vises kun én gang – se samme_tilbud
     for t in tilbud:
-        k = (t['navn'].lower(), t['pris'], t['maengde'], t['enhed'])
-        if k not in set_:
-            set_.add(k)
+        if not any(samme_tilbud(t, u) for u in unikke):
             unikke.append(t)
     if len(unikke) != len(tilbud):
         print(f"{b['navn']}: {len(tilbud) - len(unikke)} dubletter mellem aviserne fjernet", file=sys.stderr)
@@ -139,7 +178,7 @@ def hent_butik(key):
     tilbud = [{**t, 'kort': f"{b['prefix']}{n + 1}"} for n, t in enumerate(tilbud)]
     dealer = hent(f"{API}/dealers/{b['dealerId']}")
     logo2 = hent(f"{API}/dealers/{b['sammen_med']}").get('logo') if b.get('sammen_med') else None
-    info = {'navn': b['navn'], 'logo': dealer.get('logo'), 'logo2': logo2, 'farve': '#' + (dealer.get('color') or '10B981'), 'aviser': [{'fast': not UGEAVIS.search(a['label'] or ''), 'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
+    info = {'navn': b['navn'], 'logo': dealer.get('logo'), 'logo2': logo2, 'farve': '#' + (dealer.get('color') or '10B981'), 'aviser': [{'fast': not er_ugeavis(a['label']), 'id': a['id'], 'navn': a['label'], 'fra': a['run_from'], 'til': a['run_till']} for a in aviser]}
     return info, tilbud
 
 

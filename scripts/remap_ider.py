@@ -1,7 +1,7 @@
 """Flytter en butiks retter over på nye tilbuds-id'er, når id'erne er skiftet, uden at avisen er ny.
 
 Hvornår: tilbud.py giver tilbuddene id'er efter side og navn. Kommer der en ekstra madavis med (eller en avis forsvinder), flytter ALLE id'er sig, og retterne i
-scripts/retter/<butik>.json peger på forkerte varer. Dette script finder hvert gammelt tilbud i den nye liste (samme navn, pris og mængde) og retter id'erne.
+scripts/retter/<butik>.json peger på forkerte varer. Dette script finder hvert gammelt tilbud i den nye liste (samme navn, pris og mængde – ellers samme vare efter `samme_tilbud` i tilbud.py) og retter id'erne.
 
 Brug:
   1. gem det gamle øjebliksbillede (git har det: det er filen, som scriptet bruger som standard)
@@ -10,6 +10,9 @@ Brug:
   Uden filnavn bruges scripts/tilbud_snapshot.json, som den står i git (HEAD). Tilbud, der ikke længere findes, fjernes fra retterne og udskrives.
 Kør derefter udvid_retter.py (hvis der skal flere retter til), byg_retter.py, byg_opskrifter.py og byg_tilbudsliste.py."""
 import json, os, subprocess, sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from tilbud import samme_tilbud  # noqa: E402
 
 ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SNAP = os.path.join(ROD, 'scripts', 'tilbud_snapshot.json')
@@ -38,9 +41,12 @@ def main():
     for t in ny['tilbud']:
         if t['butik'] == butik:
             n_navnpris.setdefault((t['navn'].strip().lower(), t['pris']), t['kort'])
+    nye = [t for t in ny['tilbud'] if t['butik'] == butik]
     kort = {}
     for k, t in g.items():
         ny_k = n.get(noegle(t)) or n_navnpris.get((t['navn'].strip().lower(), t['pris']))
+        if not ny_k:  # samme vare, men navn eller mængde skrevet lidt anderledes (fx slået sammen med et kombi-tilbud til samme pris)
+            ny_k = next((x['kort'] for x in nye if samme_tilbud(x, t)), None)
         if ny_k:
             kort[k] = ny_k
     sti = os.path.join(ROD, 'scripts', 'retter', f'{butik}.json')

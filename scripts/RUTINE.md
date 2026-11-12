@@ -7,13 +7,21 @@ ud fra butikkens egne tilbud. Vercel deployer automatisk, når `main` på GitHub
 ```
 python -I scripts/tjek_nyt.py
 ```
-Sidste linje er `NYE: <butikker>` eller `NYE: ingen`. Ved `ingen` → STOP uden at ændre eller committe noget.
+De to sidste linjer er `NYE: <butikker>` og `SUPPLERET: <butikker>` (eller `ingen`):
+- **NYE** = butikken har fået en ny UGEAVIS → trin 1-3 (nye retter).
+- **SUPPLERET** = ugeavisen er den samme, men en ekstra avis er kommet til eller udløbet (fx Lidls weekendavis eller en fast-lav-pris-avis).
+  Så skifter tilbuds-id'erne, men retterne er stadig rigtige: kør `python -I scripts/tilbud.py <butik> > tilbud.txt`, derefter
+  `python -I scripts/remap_ider.py <butik>` (flytter retterne til de nye id'er og udskriver tilbud, der ikke findes mere), så trin 3 (byggerne) og commit.
+  Skriv INGEN nye retter for en suppleret butik.
+Står der `ingen` på begge linjer → STOP uden at ændre eller committe noget.
 Hvis scriptet ikke kan nå Tjek (exit-kode 2 eller fejlbeskeder for alle butikker), så stop og skriv det i din slutrapport.
 
 ## Hvilke aviser tages med
 Ugeavisen (har et ugenummer i navnet) og alle andre aviser hos butikken, der indeholder MAD, fx Lidls "Fast lav pris i Lidl" (se `find_aviser` i `scripts/tilbud.py`).
 Aviser, der aldrig er mad, tages ikke med: nonfood, vin, magasiner, kataloger, legetøj, gaver, elektronik og menuer, Premium-aviser, der kun gentager hovedavisen, og produktkataloger uden tilbud (Salling Princip). Andre aviser skal have mindst 35 % mad i tilbuddene.
-Samme vare til samme pris i flere aviser tælles kun én gang. Faste aviser (gyldige længe) er markeret `fast` og tæller ikke med i periode og udløb; kun ugeavisen gør det.
+Samme vare til samme pris i flere aviser tælles kun én gang – matchet på pris + navn (med eller uden mærke, bindestreg, mellemrum) + mængde i grundenhed
+(0,5 kg = 500 g), se `samme_tilbud` i `scripts/tilbud.py`. Lidls "Weekendavis (uge NN)" gentager fx ugeavisen med den slags småforskelle og bidrager
+derfor kun med de varer, der reelt er nye; den regnes ikke som ugeavis (`er_ugeavis`). Faste aviser (gyldige længe) er markeret `fast` og tæller ikke med i periode og udløb; kun ugeavisen gør det.
 Ændrer en butiks udvalg af aviser sig uden at ugeavisen er ny, flytter alle tilbuds-id'er sig: kør `python -I scripts/remap_ider.py <butik>` efter `tilbud.py`, så retterne flyttes til de nye id'er i stedet for at blive skrevet forfra.
 
 ## Trin 1 – Hent de nye aviser (kun de nye butikker)
