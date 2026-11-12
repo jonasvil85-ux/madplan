@@ -33,6 +33,10 @@ ID'erne (N1, M1 …) gælder KUN for dette øjebliksbillede. Kør derfor aldrig 
 (rækkefølgen er ustabil, og retterne ville pege på forkerte varer). Gør du det alligevel: `git checkout HEAD -- scripts/tilbud_snapshot.json` og start forfra.
 Butikker: netto, meny, bilka, rema, kvickly, lidl, 365, spar, minkoebmand. Kvickly og SuperBrugsen er EN samlet butik ("kvickly" = Kvickly / SuperBrugsen): `tilbud.py` beholder kun tilbud, der gælder begge kæder, så `kopier_retter.py` og `retter/superbrugsen.json` er ikke længere i brug (SPAR har en tynd madavis – kvalitet før antal; `udvid_retter.py spar --min-tilbud 0.4`). Kvickly og SuperBrugsen har samme avis (se trin 3).
 
+## Billeder (kan IKKE gøres i skyen)
+Rutinen kan ikke lave billeder (CLOUDFLARE_API_TOKEN findes kun på Jonas' pc). Nye retter får derfor intet billedfelt, og siden viser et gaffelikon. Byggeren advarer: "N retter har ikke noget billede endnu".
+Lokalt: skriv en beskrivelse til hver ny ret i `scripts/billedprompts.json`, kør `python -I scripts/billeder.py`, gennemse på oversigtsark, og kør derefter `byg_retter.py` + `byg_opskrifter.py` IGEN (billedfeltet sættes først, når filen findes) før commit.
+
 ## Trin 2 – Skriv retter til hver ny butik
 Udskift ALLE ikke-auto retter i `scripts/retter/<butik>.json` (de gamle peger på sidste uges id'er og er ugyldige) og opdatér `"avis"`
 til det nye katalog-id (står i `tilbud.txt` overskriften) og `"top"` til de 3 bedste tilbud (`{"id": "N7", "hvorfor": "…"}`).
