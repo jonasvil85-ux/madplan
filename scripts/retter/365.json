@@ -265,18 +265,18 @@
     {
       "navn": "Hakkebøffer med bløde løg og kartofler",
       "beskrivelse": "Klassisk dansk hakkebøf med masser af stegte løg og brun sauce.",
-      "niveau": "familie",
+      "niveau": "student",
       "kategori": "okse",
       "tid_minutter": 35,
       "spis_tidligt": false,
       "ingredienser": [
         [
           "hakket oksekød",
-          800,
+          700,
           "g",
           0,
           [
-            "D23"
+            "D3"
           ]
         ],
         [
@@ -343,7 +343,7 @@
         ]
       ],
       "fremgangsmaade": [
-        "Ælt kød med æg, rasp, mælk, salt og peber. Form 8 bøffer.",
+        "Ælt kødet med æg, rasp, mælk, salt og peber, og form 4 tykke bøffer.",
         "Steg bøfferne i smør 4-5 minutter pr. side til de er gennemstegte, og tag dem op.",
         "Steg skiveskårne løg møre i panden, drys med mel, og tilsæt bouillon og lidt vand til en sauce.",
         "Kog kartoflerne og server alt sammen."
@@ -597,8 +597,8 @@
       "koekken": "italiensk"
     },
     {
-      "navn": "Laks i fad med hvidvinssovs-agtig fløde og pasta",
-      "beskrivelse": "Møre lakseportioner bagt i ovn med citron og servet med smørpasta og grønt.",
+      "navn": "Ovnbagt laks med citron, pasta og dildcreme",
+      "beskrivelse": "Lakseportioner bagt med citron, serveret med smørvendt pasta, grønt og en kold dildcreme.",
       "niveau": "familie",
       "kategori": "fisk",
       "tid_minutter": 35,
@@ -606,8 +606,8 @@
       "ingredienser": [
         [
           "lakseportioner",
-          4,
-          "stk",
+          450,
+          "g",
           0,
           [
             "D25"
@@ -663,10 +663,10 @@
         ]
       ],
       "fremgangsmaade": [
-        "Tænd ovnen på 180 grader. Læg laks i et fad, krydr med salt, peber og citronskiver.",
-        "Bag 12-15 minutter.",
-        "Kog pasta, og varm frosne grøntsager. Vend alt i smør.",
-        "Rør creme fraiche med dild og citronsaft, og server til laksen."
+        "Tænd ovnen på 180 grader. Læg laksen i et fad, krydr med salt og peber, og læg citronskiver ovenpå.",
+        "Bag laksen 12-15 minutter, til den netop er gennembagt.",
+        "Kog pastaen efter pakken. Varm de frosne grøntsager med de sidste 2 minutter, hæld vandet fra, og vend pasta og grønt i smørret.",
+        "Rør creme fraiche med hakket dild, citronsaft, salt og peber, og server til laksen."
       ],
       "koekken": "middelhav"
     },
@@ -1218,8 +1218,8 @@
       "ingredienser": [
         [
           "kyllingebryst",
-          1,
-          "stk",
+          600,
+          "g",
           0,
           [
             "D30"
@@ -1257,9 +1257,7 @@
           50,
           "g",
           0,
-          [
-            "D8"
-          ]
+          []
         ],
         [
           "olie",
@@ -1286,7 +1284,7 @@
         ]
       ],
       "fremgangsmaade": [
-        "Steg kyllingebryst gennem, og skær i skiver.",
+        "Krydr kyllingebrysterne med salt og peber, og steg dem 5-6 minutter pr. side, til de er gennemstegte. Lad dem hvile, og skær dem i skiver.",
         "Fil appelsin, og skær æble i tern.",
         "Rist nødderne tørt.",
         "Pisk dressing af olie, appelsinsaft, honning og sennep. Vend alt sammen."
@@ -1388,23 +1386,23 @@
       "ingredienser": [
         [
           "hakket oksekød",
-          800,
+          600,
           "g",
           0,
           [
-            "D23"
+            "D3"
           ]
         ],
         [
           "burgerboller",
-          8,
+          4,
           "stk",
           0,
           []
         ],
         [
           "skæreost",
-          8,
+          4,
           "skiver",
           0,
           [
@@ -1458,10 +1456,10 @@
         ]
       ],
       "fremgangsmaade": [
-        "Form 8 bøffer og krydr med salt og peber.",
-        "Skær kartofler i både og bag dem ved 220 grader i 30 minutter.",
-        "Steg bøfferne 3 minutter pr. side, og smelt ost over.",
-        "Rør mayo og ketchup til dressing. Saml burgerne."
+        "Skær kartoflerne i både, vend dem med olie og salt, og bag dem ved 220 grader i ca. 30 minutter.",
+        "Form kødet til 4 bøffer på ca. 150 g, 2 cm tykke, og krydr dem med salt og peber.",
+        "Steg bøfferne på en varm pande 3-4 minutter pr. side. Læg en skive ost på hver bøf det sidste minut, så den smelter.",
+        "Rør mayonnaise og ketchup til dressing. Flæk bollerne og rist dem kort på panden. Saml burgerne med dressing, salat, rødløg og bøf, og server kartoffelbådene til."
       ],
       "koekken": "amerikansk"
     },
@@ -1670,6 +1668,13 @@
           "baguette",
           1,
           "stk",
+          0,
+          []
+        ],
+        [
+          "purløg",
+          1,
+          "bundt",
           0,
           []
         ]
@@ -2124,11 +2129,11 @@
       "koekken": "vegetar"
     },
     {
-      "navn": "Ovnbagt grøntsagsfad med feta-agtig skæreost og linser",
-      "beskrivelse": "Rodfrugter og løg bagt i ovn med ost.",
+      "navn": "Ovnbagte rodfrugter med linser og smeltet ost",
+      "beskrivelse": "Kartofler, gulerødder og løg bagt sprøde i ovnen, vendt med linser og toppet med smeltet ost og citron.",
       "niveau": "student",
       "kategori": "vegetar",
-      "tid_minutter": 50,
+      "tid_minutter": 55,
       "spis_tidligt": false,
       "ingredienser": [
         [
@@ -2190,62 +2195,12 @@
         ]
       ],
       "fremgangsmaade": [
-        "Bag rodfrugter og løg i olie ved 200 grader i 35 minutter.",
-        "Vend linser i, og læg ost i tern ovenpå. Bag 10 minutter.",
-        "Pres citron over."
+        "Tænd ovnen på 200 grader. Skrub kartoflerne og skær dem i både, skræl gulerødderne og skær dem i stave, og skær løgene i både.",
+        "Vend grøntsagerne med olie, salt og peber på en bageplade, og bag dem i ca. 35 minutter, til de er møre og gyldne.",
+        "Hæld linserne fra og skyl dem. Vend dem i grøntsagerne, og læg osten i tern ovenpå. Bag 10 minutter mere, til osten er smeltet.",
+        "Pres citronsaft over, og server."
       ],
       "koekken": "middelhav"
-    },
-    {
-      "navn": "Appelsin-skyr-dessert med knasende nødder",
-      "beskrivelse": "Hurtig dessert af appelsin, skyr og nødder.",
-      "niveau": "student",
-      "kategori": "vegetar",
-      "tid_minutter": 15,
-      "spis_tidligt": false,
-      "ingredienser": [
-        [
-          "skyr",
-          400,
-          "g",
-          0,
-          [
-            "D2"
-          ]
-        ],
-        [
-          "appelsiner",
-          3,
-          "stk",
-          0,
-          [
-            "D16"
-          ]
-        ],
-        [
-          "nødder",
-          60,
-          "g",
-          0,
-          [
-            "D8"
-          ]
-        ],
-        [
-          "honning",
-          2,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "fremgangsmaade": [
-        "Fil appelsinerne.",
-        "Hak nødderne.",
-        "Lag skyr, appelsin og nødder i glas.",
-        "Dryp med honning."
-      ],
-      "koekken": "vegetar"
     },
     {
       "navn": "Cremet kyllingepasta med bacon og løg",
