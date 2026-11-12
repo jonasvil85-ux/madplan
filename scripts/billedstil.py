@@ -26,8 +26,8 @@ DETALJER = [
                      'covered in a creamy pale-green parsley sauce with flecks of chopped fresh parsley'),
     (r'æbleflæsk', 'Danish æbleflæsk: slices of fried pork belly with soft caramelised apple and onion, served on dark rye bread'),
     (r'medister', 'Danish medisterpølse: thick coarse-ground pork sausage fried until the casing is glossy golden-brown, sliced diagonally to show the pale pink coarse meat inside'),
+    (r'fiskefrikadeller', 'Danish fiskefrikadeller: flat oval pan-fried fish cakes with a golden crust, with remoulade, a lemon wedge and boiled potatoes'),  # skal stå før frikadeller-reglen, ellers vinder den
     (r'frikadeller|grisefrikadel', 'Danish frikadeller: several flat oval pan-fried meatballs of minced pork and veal with a golden-brown uneven crust'),
-    (r'fiskefrikadeller', 'Danish fiskefrikadeller: flat oval pan-fried fish cakes with a golden crust, with remoulade, a lemon wedge and boiled potatoes'),
     (r'flæskesteg|ribbensteg', 'Danish flæskesteg: slices of roast pork with golden bubbly crackling (svær) on top, juicy pale pink meat, with caramelised brown potatoes and red cabbage'),
     (r'forloren hare', 'Danish forloren hare: a sliced oval meatloaf roll wrapped in crispy bacon, golden-brown, with brown gravy, boiled potatoes and red cabbage'),
     (r'hakkebøf', 'Danish hakkebøf med bløde løg: a thick rounded pan-fried beef patty topped with a heap of soft golden caramelised onions in glossy brown gravy, with boiled potatoes'),
