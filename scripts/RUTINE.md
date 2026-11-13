@@ -58,6 +58,7 @@ Regler for retterne (kommer fra brugeren – følg dem):
 - Retter må gerne gå igen mellem butikker. Tilbudsvarer må ikke være noget andet end det ingrediensen siger (ingen granatæble som æble, ingen marineret kotelet som almindelig kotelet,
   ingen ikke-mad som vin, kosmetik, legetøj).
 - Kun varer fra denne butiks egen avis i tilbuds-id'erne.
+- KUN RIGTIG AFTENSMAD: et mættende hovedmåltid til 2 voksne + 2 børn. Ingen søde retter eller desserter (skyr-/hytteostpandekager med æble, grød, vafler, kage), ingen morgenmad eller mellemmåltider – heller ikke selv om de er billige. `byg_retter.py` stopper på de tydelige navne, men reglen gælder også dem, den ikke fanger.
 - Min. 4 retter i hvert køkken pr. butik hvis avisen overhovedet giver mulighed for det (4-5 er målet).
 
 ## Trin 3 – Udvid til 50 og byg

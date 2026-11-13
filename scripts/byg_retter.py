@@ -91,6 +91,8 @@ def enhedspris(t):
 
 
 STUDENT_LOFT_PR_PERSON = 35  # kr pr. person (indkøb) – Studentermad over dette giver en advarsel
+# Kun rigtig aftensmad: søde/dessertagtige retter (skyr-/hytteostpandekager med æble, grød, vafler …) må ikke med – bygningen stopper.
+SOED_RET = re.compile(r'(skyr|hytteost|banan|havre)pandekage|pandekager? med (æble|bær|syltetøj|kanel|banan|sirup|sukker)|dessert|æblekage|trifli|vafl|smoothie|müsli|grød(?!en)|(?<![a-zæøå])is(?![a-zæøå])', re.I)
 
 
 def forbrugs_andel(t, behov):
@@ -265,6 +267,8 @@ def main():
             andel = sum(1 for i in ikke_basis if i['tilbud']) / max(1, len(ikke_basis))
             if not behov:
                 fejl.append(f"{butik}: '{r['navn']}' har ingen tilbudsvarer")
+            if SOED_RET.search(r['navn']):
+                fejl.append(f"{butik}: '{r['navn']}' er en sød ret/dessert – kun rigtig aftensmad (fjern den)")
             billede = f"billeder/{slug(r['navn'])}.jpg"
             if os.path.exists(os.path.join(ROD, billede)):
                 r = {**r, 'billede': billede}
