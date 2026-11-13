@@ -1,58 +1,48 @@
 {
-  "avis": "XpwnG_MO",
+  "avis": "Xas-9H_g",
   "retter": [
     {
-      "som": "Kyllingefrikadeller med kartofler og rødkålssalat",
+      "som": "Hjemmelavet kødsovs med spaghetti",
       "tilbud": {
-        "hakket kyllingekød": [
-          "K91"
+        "hakket oksekød": [
+          "K63"
         ],
-        "æg": [
-          "K62"
-        ],
-        "løg": [
-          "K67"
-        ],
-        "kartofler": [
-          "K22"
-        ],
-        "rødkål (frisk)": [
-          "K19"
-        ],
-        "æbler": [
-          "K69"
+        "danske gulerødder": [
+          "K82"
         ]
       }
     },
     {
-      "som": "Ribbensteg med rødkål og brunede kartofler",
+      "som": "Entrecote med bearnaise og ovnkartofler",
       "tilbud": {
-        "ribbensteg": [],
-        "rødkål (frisk)": [
-          "K19"
+        "Freygaard entrecote": [
+          "K63"
         ],
-        "kartofler": [
-          "K22"
+        "agurk": [
+          "K54"
         ],
-        "æbler": [
-          "K69"
+        "økologisk smør": [
+          "K12"
         ],
-        "løg": [
-          "K67"
+        "økologiske æg (blommer)": [
+          "K106"
         ]
       }
     },
     {
-      "som": "Kyllingebryst i fad med rød peber og kartofler",
+      "som": "Kyllingesalat med mango, agurk og lunt brød",
       "tilbud": {
-        "kyllingebrystfilet": [
-          "K66"
+        "Xtra! kyllingeinderfilet": [
+          "K10"
         ],
-        "rød peber": [
-          "K75"
+        "agurk": [
+          "K54"
         ],
-        "kartofler": [
-          "K22"
+        "gulerødder": [
+          "K82"
+        ],
+        "Schulstad Signaturbrød": [
+          "K107"
         ]
       }
     },
@@ -60,230 +50,44 @@
       "som": "Biksemad med spejlæg",
       "tilbud": {
         "hakket oksekød 15-18 %": [
-          "K44"
-        ],
-        "kartofler": [
-          "K22"
+          "K63"
         ],
         "æg": [
-          "K62"
-        ]
-      }
-    },
-    {
-      "som": "Æbleflæsk med rugbrød",
-      "tilbud": {
-        "Bornholmergrisen stegeflæsk": [],
-        "økologiske æbler": [
-          "K69"
-        ],
-        "Schulstad Signaturbrød": [
-          "K119"
-        ]
-      }
-    },
-    {
-      "som": "Græskarsuppe med ristede kerner",
-      "tilbud": {
-        "dansk græskar": [],
-        "danske kartofler": [
-          "K2"
-        ],
-        "Karolines Køkken piskefløde": [
-          "K3"
-        ],
-        "XXL brød eller baguette": [
-          "K119"
-        ]
-      }
-    },
-    {
-      "som": "Pølser med kartoffelmos og hvidkålssalat",
-      "tilbud": {
-        "Langelænder pølser": [
-          "K129"
-        ],
-        "kartofler": [
-          "K22"
-        ],
-        "æbler": [
-          "K69"
+          "K106"
         ]
       },
-      "niveau": "familie",
-      "kategori": "familie"
+      "niveau": "familie"
     },
     {
-      "som": "Oksekødsgryde med rød peber og kartoffelmos",
+      "som": "Stuvet hvidkål med medister og kartofler",
       "tilbud": {
-        "hakket oksekød 15-18 %": [
-          "K44"
+        "medister": [
+          "K31"
         ],
-        "rød peber": [
-          "K75"
-        ],
-        "piskefløde": [
-          "K3"
-        ],
-        "kartofler": [
-          "K22"
+        "hvidkål": [
+          "K83"
         ]
-      }
-    },
-    {
-      "som": "Gratineret kylling med broccoli og kartofler",
-      "tilbud": {
-        "Madværket kyllingebrystfilet": [
-          "K66"
-        ],
-        "broccoli": [
-          "K65"
-        ],
-        "danske kartofler": [
-          "K22"
-        ],
-        "revet ost": [
-          "K127"
-        ]
-      }
-    },
-    {
-      "som": "Ovnbagt laks med porrer og kartofler",
-      "tilbud": {
-        "fersk laksestykke": [
-          "K92"
-        ],
-        "kartofler": [
-          "K22"
-        ]
-      }
-    },
-    {
-      "som": "Mørksej i fad med flødekål og kartofler",
-      "tilbud": {
-        "mørksejfilet": [
-          "K61"
-        ],
-        "piskefløde": [
-          "K3"
-        ],
-        "kartofler": [
-          "K22"
-        ]
-      }
-    },
-    {
-      "som": "Kylling- og græskarsuppe med lunt brød",
-      "tilbud": {
-        "Coop kylling i tern": [
-          "K66"
-        ],
-        "Änglamark økologisk hokkaido": [],
-        "Schulstad levebrød": [
-          "K119"
-        ]
-      }
-    },
-    {
-      "som": "Kyllingebryst i fad med hokkaido og pastinak",
-      "tilbud": {
-        "Frijsenborg kyllingebrystfilet": [
-          "K66"
-        ],
-        "Änglamark økologisk hokkaido": []
-      }
-    },
-    {
-      "som": "Hokkaidosuppe med lunt brød",
-      "tilbud": {
-        "økologisk hokkaido-græskar": [],
-        "danske kartofler": [
-          "K2"
-        ],
-        "Schulstad Signaturbrød": [
-          "K119"
-        ]
-      }
-    },
-    {
-      "som": "Hjemmelavet kartoffel-broccoligratin",
-      "tilbud": {
-        "danske kartofler": [
-          "K22"
-        ],
-        "broccoli": [
-          "K65"
-        ],
-        "revet ost": [
-          "K127"
-        ]
-      }
-    },
-    {
-      "som": "Sprøde andelår med flødekartofler og rødkål",
-      "tilbud": {
-        "kartofler": [
-          "K22"
-        ],
-        "rødkål (frisk)": [
-          "K19"
-        ],
-        "æbler": [
-          "K69"
-        ],
-        "løg": [
-          "K67"
-        ]
-      }
-    },
-    {
-      "som": "Kyllingewraps med hakket kylling og avocado",
-      "tilbud": {
-        "hakket kyllingekød": [
-          "K91"
-        ],
-        "avocado": [
-          "K72"
-        ],
-        "revet cheddar": [
-          "K127"
-        ]
-      }
-    },
-    {
-      "som": "Stegt flæsk med persillesovs",
-      "tilbud": {
-        "flæsk i skiver": [],
-        "økologiske kartofler": [
-          "K2"
-        ]
-      }
-    },
-    {
-      "som": "Grønkålssuppe med sprødt flæsk",
-      "tilbud": {
-        "danske kartofler": [
-          "K2"
-        ],
-        "flæsk i skiver": []
       }
     },
     {
       "som": "Pasta med kylling og portobello i flødesauce",
       "tilbud": {
         "Coop kyllingestrimler": [
-          "K66"
+          "K84"
         ],
         "Coop portobellosvampe": [
-          "K74"
+          "K55"
         ]
       }
     },
     {
-      "som": "Fiskefileter i ovn med pastinak og skyrdressing",
+      "som": "Pastinaksuppe med sprød bacon og surdejsbrød",
       "tilbud": {
-        "Hirtshals store fiskefileter": [
-          "K61"
+        "Steff Houlberg bacon": [
+          "K74"
+        ],
+        "Schulstad levebrød": [
+          "K107"
         ]
       }
     },
@@ -291,76 +95,336 @@
       "som": "Ovnstegt roastbeef med ovnkartofler og remoulade",
       "tilbud": {
         "PremiuM roastbeef": [
-          "K90"
+          "K63"
         ],
         "Coop portobellosvampe": [
+          "K55"
+        ]
+      }
+    },
+    {
+      "som": "Oksemedaljoner med bacon, portobello og flødekartofler",
+      "tilbud": {
+        "oksemedaljon med bacon": [
+          "K23"
+        ],
+        "Coop portobellosvampe": [
+          "K55"
+        ]
+      }
+    },
+    {
+      "som": "Svinemørbrad med svampesauce og kartoffelmos",
+      "tilbud": {
+        "Coop mørbrad af gris": [
+          "K63"
+        ],
+        "Coop portobellosvampe": [
+          "K55"
+        ]
+      }
+    },
+    {
+      "som": "Æbleflæsk med rugbrød",
+      "tilbud": {
+        "Bornholmergrisen stegeflæsk": [
+          "K64"
+        ],
+        "Schulstad Signaturbrød": [
+          "K107"
+        ]
+      }
+    },
+    {
+      "som": "Æggekage med bacon, kartofler og porre",
+      "tilbud": {
+        "æg": [
+          "K106"
+        ],
+        "bacon": [
+          "K74"
+        ],
+        "rugbrød": [
+          "K107"
+        ]
+      }
+    },
+    {
+      "som": "Hakkebøf med bløde løg og brun sovs",
+      "tilbud": {
+        "hakket oksekød 14-18 %": [
+          "K63"
+        ],
+        "agurk": [
+          "K54"
+        ],
+        "økologisk smør": [
+          "K12"
+        ]
+      }
+    },
+    {
+      "som": "Brunchtallerken med bacon, æg og ovnkartofler",
+      "tilbud": {
+        "bacon i skiver": [
+          "K74"
+        ],
+        "æg": [
+          "K106"
+        ],
+        "Schulstad brød": [
+          "K107"
+        ]
+      },
+      "niveau": "familie"
+    },
+    {
+      "som": "Grisefrikadeller med kartofler og gulerodssalat",
+      "tilbud": {
+        "hakket grisekød": [
+          "K31"
+        ],
+        "økologiske æg": [
+          "K106"
+        ],
+        "gulerødder": [
+          "K82"
+        ]
+      }
+    },
+    {
+      "som": "Grøntsagsfrikadeller med kartofler og tzatziki",
+      "tilbud": {
+        "gulerødder": [
+          "K82"
+        ],
+        "økologiske æg": [
+          "K106"
+        ],
+        "agurk": [
+          "K54"
+        ]
+      }
+    },
+    {
+      "som": "Røget laks og kutterrejer med lun kartoffelsalat",
+      "tilbud": {
+        "Diskobay kutterrejer": [
+          "K100"
+        ],
+        "økologiske æg": [
+          "K106"
+        ],
+        "agurk": [
+          "K54"
+        ],
+        "Schulstad Signaturbrød": [
+          "K107"
+        ]
+      }
+    },
+    {
+      "som": "Kyllingekarry med gulerødder og jasminris",
+      "tilbud": {
+        "kyllingebrystfilet": [
+          "K10"
+        ],
+        "jasminris": [
+          "K85"
+        ],
+        "gulerødder": [
+          "K82"
+        ]
+      }
+    },
+    {
+      "som": "Kyllingesuppe med selleri og melboller",
+      "tilbud": {
+        "Himmerland hel kylling": [
+          "K10"
+        ],
+        "økologiske æg": [
+          "K106"
+        ],
+        "økologisk smør": [
+          "K12"
+        ]
+      }
+    },
+    {
+      "som": "Hjemmelavede laksefrikadeller med dildkartofler",
+      "tilbud": {
+        "laksefilet": [
+          "K60"
+        ],
+        "økologiske æg": [
+          "K106"
+        ],
+        "økologisk smør": [
+          "K12"
+        ]
+      }
+    },
+    {
+      "som": "Grisefrikadeller med kartofler og hvidkålssalat",
+      "tilbud": {
+        "hakket grisekød": [
+          "K31"
+        ],
+        "æg": [
+          "K106"
+        ],
+        "hvidkål": [
+          "K83"
+        ]
+      }
+    },
+    {
+      "som": "Kyllingenudler med hvidkål og rød peber",
+      "tilbud": {
+        "kyllingebrystfilet": [
+          "K10"
+        ],
+        "hvidkål": [
+          "K83"
+        ],
+        "æg": [
+          "K106"
+        ]
+      }
+    },
+    {
+      "som": "Kålrouletter i flødesauce med kartofler",
+      "tilbud": {
+        "hakket grisekød": [
+          "K31"
+        ],
+        "hvidkål": [
+          "K83"
+        ],
+        "æg": [
+          "K106"
+        ]
+      }
+    },
+    {
+      "som": "Mørbradgryde med porrer og ris",
+      "tilbud": {
+        "svinemørbrad": [
+          "K63"
+        ],
+        "jasminris": [
+          "K85"
+        ]
+      }
+    },
+    {
+      "som": "Kartoffel-porresuppe med sprød bacon",
+      "tilbud": {
+        "bacon": [
+          "K74"
+        ],
+        "Schulstad Det Gode brød": [
+          "K107"
+        ]
+      }
+    },
+    {
+      "som": "Svinemørbrad i bacon med hasselbackkartofler",
+      "tilbud": {
+        "svinemørbrad": [
+          "K63"
+        ],
+        "bacon i skiver": [
           "K74"
         ]
       }
     },
     {
-      "som": "Helstegt kylling med rodfrugter",
+      "som": "Hjemmelavede hotdogs med røget medister",
       "tilbud": {
-        "hel kylling": [
-          "K94"
+        "brioche hotdogbrød": [
+          "K104"
         ],
-        "kartofler": [
-          "K22"
-        ],
-        "løg": [
-          "K67"
+        "agurk": [
+          "K54"
         ]
       }
     },
     {
-      "som": "Kyllingebryst med flødekartofler og grønne bønner",
+      "som": "Spansk kartoffeltortilla med agurkesalat",
       "tilbud": {
-        "Gestus kyllingebrystfilet": [
-          "K66"
+        "økologiske æg": [
+          "K106"
         ],
-        "økologiske kartofler": [
-          "K2"
-        ],
-        "økologiske bønner": [
-          "K78"
+        "agurk": [
+          "K54"
         ]
       }
     },
     {
-      "som": "Økologisk flæskesteg med rødkål og brunede kartofler",
+      "som": "Citronkylling i fad med kartofler og timian",
       "tilbud": {
-        "flæskesteg af økologisk frilandsgris": [],
-        "økologiske kartofler": [
-          "K2"
+        "Rose hel kylling": [
+          "K10"
         ],
-        "danske æbler": [
-          "K69"
+        "økologisk smør": [
+          "K12"
         ]
       }
     },
     {
-      "som": "Helstegt and med æbler, svesker og rødkål",
+      "som": "Kylling- og græskarsuppe med lunt brød",
       "tilbud": {
-        "æbler": [
-          "K69"
+        "Coop kylling i tern": [
+          "K84"
         ],
-        "kartofler": [
-          "K2"
-        ],
-        "piskefløde": [
-          "K3"
+        "Schulstad levebrød": [
+          "K107"
         ]
       }
     },
     {
-      "som": "Oksekødsgryde med hokkaido og kartoffelmos",
+      "som": "Hakkebøf med portobello-flødesauce og pastinakmos",
       "tilbud": {
-        "Madværket hakket oksekød": [
-          "K44"
+        "Coop hakket oksekød 5-8%": [
+          "K63"
         ],
-        "økologisk hokkaido-græskar": [],
-        "danske kartofler": [
-          "K22"
+        "Coop portobellosvampe": [
+          "K55"
+        ]
+      }
+    },
+    {
+      "som": "Tykstegsbøffer med portobello og pastinakmos",
+      "tilbud": {
+        "tykstegbøffer": [
+          "K63"
+        ],
+        "Coop portobellosvampe": [
+          "K55"
+        ]
+      }
+    },
+    {
+      "som": "Gulerodssuppe med ingefær og lunt brød",
+      "tilbud": {
+        "gulerødder": [
+          "K82"
+        ],
+        "Schulstad Signaturbrød": [
+          "K107"
+        ]
+      }
+    },
+    {
+      "som": "Gammeldags brun kødsovs med kartofler og gulerødder",
+      "tilbud": {
+        "hakket oksekød 4-7 %": [
+          "K63"
+        ],
+        "gulerødder": [
+          "K82"
         ]
       }
     },
@@ -372,10 +436,10 @@
       "tid_minutter": 40,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog 1 liter vand op med bouillon, og hold den varm. Skær kyllingen i tern, og brun den i smør. Tag den op.",
-        "Svits hakket løg og champignon i skiver, tilsæt risene, og rør rundt et minut.",
+        "Kog 1 liter vand op med bouillon, og hold den varm. Skær kyllingen i tern, krydr med salt og peber, og steg den gennem i halvdelen af smørret, ca. 5-6 minutter. Tag den op.",
+        "Svits hakket løg og champignon i skiver i resten af smørret i 5 minutter, tilsæt risene, og rør rundt 1 minut.",
         "Tilsæt bouillon, en øse ad gangen, under omrøring, til risene er møre og cremede (ca. 20 minutter).",
-        "Vend kylling og revet Grana Padano i, og smag til med salt og peber."
+        "Vend kyllingen og revet Grana Padano i, varm det igennem 2 minutter, og smag til med salt og peber."
       ],
       "niveau": "familie",
       "ingredienser": [
@@ -385,7 +449,7 @@
           "g",
           0,
           [
-            "K66"
+            "K59"
           ]
         ],
         [
@@ -393,7 +457,9 @@
           300,
           "g",
           0,
-          []
+          [
+            "K85"
+          ]
         ],
         [
           "champignon",
@@ -401,7 +467,7 @@
           "g",
           0,
           [
-            "K74"
+            "K55"
           ]
         ],
         [
@@ -416,16 +482,16 @@
           1,
           "stk",
           0,
-          [
-            "K67"
-          ]
+          []
         ],
         [
           "smør",
           30,
           "g",
           0,
-          []
+          [
+            "K12"
+          ]
         ],
         [
           "hønsebouillon",
@@ -445,72 +511,82 @@
       "auto": true
     },
     {
-      "navn": "Fyldte kartofler med hakket oksekød og ost",
-      "beskrivelse": "Bagte kartofler fyldt med krydret kød og smeltet ost.",
-      "kategori": "okse",
+      "navn": "Kyllingeburgere med coleslaw",
+      "beskrivelse": "Sprøde kyllingebøffer i burgerbolle med hjemmelavet coleslaw.",
+      "kategori": "kylling",
       "koekken": "amerikansk",
-      "tid_minutter": 60,
+      "tid_minutter": 35,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Bag kartoflerne ved 200 grader i 50 minutter.",
-        "Brun kød og hakket løg med paprika. Tilsæt tomater, og lad det simre i 10 minutter.",
-        "Skær kartoflerne op, fyld dem med kødsovs og ost, og gratinér i 5 minutter."
+        "Skær kyllingebrysterne i to tynde bøffer. Vend dem i mel, sammenpisket æg med salt og peber, og til sidst i rasp.",
+        "Steg bøfferne gyldne i olie, ca. 4 minutter på hver side, til de er gennemstegte.",
+        "Riv kål og gulerødder, og vend med mayonnaise, 1 tsk eddike og salt til coleslaw.",
+        "Fyld burgerbollerne med kylling og coleslaw."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "hakket oksekød",
-          500,
+          "kyllingebryst",
+          600,
           "g",
           0,
           [
-            "K44"
+            "K59"
           ]
         ],
         [
-          "kartofler (store)",
+          "burgerboller",
           4,
           "stk",
           0,
           [
-            "K2"
+            "K104"
           ]
         ],
         [
-          "revet ost",
-          150,
+          "hvidkål",
+          300,
           "g",
           0,
           [
-            "K127"
+            "K83"
           ]
         ],
         [
-          "hakkede tomater",
-          1,
-          "dåse",
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "K82"
+          ]
+        ],
+        [
+          "mayonnaise",
+          100,
+          "ml",
           0,
           []
         ],
         [
-          "løg",
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "æg",
           1,
           "stk",
           0,
           [
-            "K67"
+            "K106"
           ]
         ],
         [
-          "paprika",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
           "olie",
-          1,
+          3,
           "spsk",
           1,
           []
@@ -521,55 +597,83 @@
           "efter smag",
           1,
           []
+        ],
+        [
+          "rasp",
+          5,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "tsk",
+          1,
+          []
         ]
       ],
       "auto": true
     },
     {
-      "navn": "Mørbrad wok med peberfrugt og ris",
-      "beskrivelse": "Møre skiver af svinemørbrad i en let sojasauce med peberfrugt og løg.",
-      "kategori": "svin",
+      "navn": "Koreansk-inspireret oksekødsbowl",
+      "beskrivelse": "Krydret hakket oksekød over ris med agurk, gulerod og spejlæg.",
+      "kategori": "okse",
       "koekken": "asiatisk",
-      "tid_minutter": 30,
+      "tid_minutter": 25,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog risene. Skær mørbraden i tynde skiver.",
-        "Steg kødet i olie på høj varme, og tag det op.",
-        "Steg peberfrugt, løg, hvidløg og ingefær 3-4 minutter.",
-        "Vend kød, soja og sukker i, og server med ris."
+        "Kog risene. Brun kødet i olie med hvidløg og ingefær, til det er gennemstegt og smuldrer.",
+        "Tilsæt soja og honning, og lad det stege ind, til det er blankt (2-3 minutter).",
+        "Skær agurk og gulerod i tynde stave, og vend dem med eddike, en knivspids sukker og salt. Lad dem trække, mens du steger æggene.",
+        "Steg æggene som spejlæg.",
+        "Anret ris, kød, grønt og et spejlæg i dybe skåle."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "svinemørbrad",
+          "hakket oksekød",
           500,
           "g",
           0,
-          []
+          [
+            "K63"
+          ]
         ],
         [
           "ris",
           300,
           "g",
           0,
-          []
-        ],
-        [
-          "peberfrugt",
-          2,
-          "stk",
-          0,
           [
-            "K75"
+            "K85"
           ]
         ],
         [
-          "løg",
+          "agurk",
           1,
           "stk",
           0,
           [
-            "K67"
+            "K54"
+          ]
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "K82"
+          ]
+        ],
+        [
+          "æg",
+          4,
+          "stk",
+          0,
+          [
+            "K106"
           ]
         ],
         [
@@ -580,7 +684,7 @@
           []
         ],
         [
-          "sukker",
+          "honning eller sukker",
           1,
           "spsk",
           1,
@@ -606,6 +710,550 @@
           "spsk",
           1,
           []
+        ],
+        [
+          "eddike",
+          1,
+          "spsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Spanske kødboller i tomatsauce",
+      "beskrivelse": "Saftige kødboller af hakket svinekød i en røget tomatsauce – serveres med brød.",
+      "kategori": "svin",
+      "koekken": "middelhav",
+      "tid_minutter": 45,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Rør kød med æg, rasp, krydderier, salt og peber. Rul små kødboller, og brun dem i olie.",
+        "Svits hakket løg og hvidløg, tilsæt paprika og tomater, og lad saucen simre i 10 minutter.",
+        "Læg kødbollerne i saucen, og lad dem simre under låg i 15 minutter.",
+        "Server med brød."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "hakket svinekød",
+          500,
+          "g",
+          0,
+          [
+            "K31"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          2,
+          "dåse",
+          0,
+          []
+        ],
+        [
+          "brød",
+          1,
+          "stk",
+          0,
+          [
+            "K107"
+          ]
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          0,
+          [
+            "K106"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "paprika (røget) og spidskommen",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "rasp eller hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Svampestroganoff med ris",
+      "beskrivelse": "Cremet stroganoff på champignon og løg – ingen savner kødet.",
+      "kategori": "vegetar",
+      "koekken": "vegetar",
+      "tid_minutter": 30,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog risene. Steg champignon i kvarte i smør, til de er gyldne, og tag dem op.",
+        "Svits løg i både, tilsæt paprika og tomatpuré.",
+        "Hæld fløde og sennep i, kom svampene tilbage, og lad det simre 8 minutter.",
+        "Smag til, og server med ris."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "champignon",
+          500,
+          "g",
+          0,
+          [
+            "K55"
+          ]
+        ],
+        [
+          "ris",
+          300,
+          "g",
+          0,
+          [
+            "K85"
+          ]
+        ],
+        [
+          "piskefløde",
+          250,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "tomatpuré",
+          1,
+          "spsk",
+          0,
+          []
+        ],
+        [
+          "sennep",
+          1,
+          "spsk",
+          0,
+          []
+        ],
+        [
+          "paprika",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          0,
+          [
+            "K12"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Helstegt kylling med kartofler og sovs",
+      "beskrivelse": "Sprød helstegt kylling med ovnkartofler og hjemmelavet sovs.",
+      "kategori": "kylling",
+      "koekken": "dansk",
+      "tid_minutter": 100,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Varm ovnen op til 200 grader. Gnid kyllingen med smør, salt og peber, og læg den i et fad med løg og gulerødder.",
+        "Steg i 70-80 minutter, til saften fra låret er klar. Tilsæt kartofler i både de sidste 45 minutter.",
+        "Tag kyllingen op, og lad den hvile 10 minutter under staniol.",
+        "Sovs: Hæld stegefonden fra fadet i en gryde (øs fedtet af), og tilsæt 4 dl vand og bouillon. Rør melet ud i 1 dl koldt vand, pisk det i, og lad sovsen koge 5 minutter. Smag til med salt og peber.",
+        "Skær kyllingen ud, og server med kartofler og sovs."
+      ],
+      "niveau": "weekend",
+      "ingredienser": [
+        [
+          "hel kylling",
+          1500,
+          "g",
+          0,
+          [
+            "K59"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          []
+        ],
+        [
+          "gulerødder",
+          3,
+          "stk",
+          0,
+          [
+            "K82"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          0,
+          [
+            "K12"
+          ]
+        ],
+        [
+          "hvedemel",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Osso buco med tomat og ris",
+      "beskrivelse": "Møre kalveskanker simret i tomat og grøntsager, serveret med ris.",
+      "kategori": "okse",
+      "koekken": "italiensk",
+      "tid_minutter": 130,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Krydr skiverne med salt og peber, vend dem i mel, og brun dem i olie i en gryde. Tag dem op.",
+        "Svits hakket løg, gulerod og selleri, og tilsæt tomater, bouillon, timian og 2 dl vand.",
+        "Læg kødet tilbage, og lad det simre under låg i 1,5-2 timer, til det er mørt. Smag til med salt og peber.",
+        "Kog ris, og server med kødet og sovsen."
+      ],
+      "niveau": "weekend",
+      "ingredienser": [
+        [
+          "osso buco",
+          1000,
+          "g",
+          0,
+          [
+            "K64"
+          ]
+        ],
+        [
+          "hakkede tomater",
+          1,
+          "dåse",
+          0,
+          []
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "K82"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "selleri",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "ris",
+          300,
+          "g",
+          0,
+          [
+            "K85"
+          ]
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "tørret timian",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Rejesalat med avocado og æg",
+      "beskrivelse": "Frisk salat med rejer, avocado og kogte æg, serveret med baguette.",
+      "kategori": "fisk",
+      "koekken": "amerikansk",
+      "tid_minutter": 20,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Hårdkog æggene i 9 minutter, og skær dem i både.",
+        "Skær avocado og agurk i tern.",
+        "Rør skyr med citronsaft, salt og peber til en dressing.",
+        "Skær baguetten i skiver, og rist dem i ovnen ved 200 grader i 5-6 minutter, til de er gyldne (eller i brødristeren).",
+        "Vend rejer, avocado, agurk og dressing, læg æg ovenpå, og server med den ristede baguette."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "rejer",
+          500,
+          "g",
+          0,
+          [
+            "K105"
+          ]
+        ],
+        [
+          "avocado",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "æg",
+          4,
+          "stk",
+          0,
+          [
+            "K106"
+          ]
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
+          0,
+          [
+            "K54"
+          ]
+        ],
+        [
+          "skyr",
+          100,
+          "g",
+          0,
+          []
+        ],
+        [
+          "baguette",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Laks med soja og honning, ris og broccoli",
+      "beskrivelse": "Mørbagt laks med blank sojaglasur, serveret med ris og dampet broccoli.",
+      "kategori": "fisk",
+      "koekken": "asiatisk",
+      "tid_minutter": 30,
+      "spis_tidligt": true,
+      "fremgangsmaade": [
+        "Tænd ovnen på 200 °C. Rør soja, honning, revet ingefær og hvidløg til en glasur, og hæld halvdelen over i en lille kasserolle.",
+        "Smør et fad med olie, læg laksen i, og pensl den med glasuren fra skålen. Bag i 12-15 minutter.",
+        "Kog risene, og damp eller kog broccolien i 3 minutter.",
+        "Kog glasuren i kasserollen op i 1-2 minutter, til den er let sirupsagtig.",
+        "Server laksen med ris, broccoli og den kogte glasur."
+      ],
+      "niveau": "weekend",
+      "ingredienser": [
+        [
+          "laksefilet",
+          600,
+          "g",
+          0,
+          [
+            "K105"
+          ]
+        ],
+        [
+          "ris",
+          300,
+          "g",
+          0,
+          [
+            "K85"
+          ]
+        ],
+        [
+          "broccoli",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "sojasauce",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "honning",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "frisk ingefær",
+          20,
+          "g",
+          0,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
         ]
       ],
       "auto": true
@@ -618,10 +1266,10 @@
       "tid_minutter": 80,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Skær squash i skiver, og steg dem lysebrune i olie.",
-        "Brun kødet med hakket løg, tilsæt tomater, kanel og oregano, og lad det simre i 20 minutter.",
-        "Lav en hvid sauce af smør, mel og mælk, og rør halvdelen af osten i.",
-        "Lag squash og kødsauce i et fad, hæld saucen over, drys med ost, og bag ved 200 °C i 30 minutter."
+        "Skær squash i skiver, drys med salt, og lad dem trække 10 minutter. Dup dem tørre, og steg dem lysebrune i olie i omgange.",
+        "Brun kødet med hakket løg, tilsæt tomater, kanel og oregano, og lad det simre i 20 minutter. Smag til med salt og peber.",
+        "Lav en hvid sauce af smør, mel og mælk, smag til med salt og peber, og rør halvdelen af osten i.",
+        "Lag squash og kødsauce i et fad, hæld saucen over, drys med resten af osten, og bag ved 200 °C i 30 minutter."
       ],
       "niveau": "familie",
       "ingredienser": [
@@ -631,7 +1279,7 @@
           "g",
           0,
           [
-            "K44"
+            "K63"
           ]
         ],
         [
@@ -639,9 +1287,7 @@
           2,
           "stk",
           0,
-          [
-            "K73"
-          ]
+          []
         ],
         [
           "hakkede tomater",
@@ -663,7 +1309,7 @@
           "g",
           0,
           [
-            "K127"
+            "K1"
           ]
         ],
         [
@@ -671,16 +1317,16 @@
           1,
           "stk",
           0,
-          [
-            "K67"
-          ]
+          []
         ],
         [
           "smør",
           40,
           "g",
           0,
-          []
+          [
+            "K12"
+          ]
         ],
         [
           "hvedemel",
@@ -714,140 +1360,42 @@
       "auto": true
     },
     {
-      "navn": "Fisk i tomatsauce med kapers og kartofler",
-      "beskrivelse": "Hvid fisk bagt i en frisk tomatsauce med oliven og kapers – italiensk fiskeret i ét fad.",
-      "kategori": "fisk",
-      "koekken": "italiensk",
-      "tid_minutter": 35,
-      "spis_tidligt": true,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C, og sæt kartoflerne over at koge.",
-        "Svits hakket løg og hvidløg i olie, tilsæt tomater og oliven, og lad saucen koge ind i 8 minutter. Kom den i et ovnfast fad.",
-        "Læg fisken ovenpå, krydr med salt, peber og citronskal, og bag i 12-15 minutter.",
-        "Server med kartoflerne og citronbåde."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "fiskefilet",
-          600,
-          "g",
-          0,
-          [
-            "K92"
-          ]
-        ],
-        [
-          "hakkede tomater",
-          2,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "oliven",
-          60,
-          "g",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Bagte kartofler med chili og ost",
-      "beskrivelse": "Store ovnkartofler fyldt med chili con carne-kød, ost og creme fraiche.",
-      "kategori": "okse",
-      "koekken": "amerikansk",
-      "tid_minutter": 75,
+      "navn": "Bagt æggekage med spinat, peberfrugt og ost",
+      "beskrivelse": "Luftig æggekage fra ovnen med grønt og ost – god varm og kold.",
+      "kategori": "vegetar",
+      "koekken": "vegetar",
+      "tid_minutter": 55,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Prik kartoflerne, gnid dem med olie og salt, og bag dem i ca. 60 minutter.",
-        "Brun kødet med hakket løg, tilsæt krydderier, tomater og bønner, og lad det simre i 20 minutter.",
-        "Skær et kryds i kartoflerne, og tryk dem op.",
-        "Fyld med chili, ost og en klat creme fraiche."
+        "Tænd ovnen på 180 °C. Kog kartoflerne, og skær dem i skiver. Steg dem med løg og peberfrugt i olie.",
+        "Pisk æg med mælk, salt og peber. Vend spinat og halvdelen af osten i.",
+        "Fordel kartofler og grønt i et smurt fad, hæld ægblandingen over, og drys med resten af osten.",
+        "Bag i 25-30 minutter, til æggekagen er stivnet og gylden."
       ],
-      "niveau": "familie",
+      "niveau": "student",
       "ingredienser": [
         [
-          "hakket oksekød",
-          400,
-          "g",
+          "æg",
+          8,
+          "stk",
           0,
           [
-            "K44"
+            "K106"
           ]
         ],
         [
-          "kartofler (store)",
-          1200,
+          "frisk spinat",
+          150,
           "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "hakkede tomater",
-          1,
-          "dåse",
           0,
           []
         ],
         [
-          "kidneybønner",
+          "peberfrugt",
           1,
-          "dåse",
+          "stk",
           0,
-          [
-            "K78"
-          ]
+          []
         ],
         [
           "revet ost",
@@ -855,187 +1403,28 @@
           "g",
           0,
           [
-            "K127"
+            "K1"
           ]
         ],
         [
-          "creme fraiche",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "chilikrydderi og spidskommen",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Svinekød i soja med ris og broccoli",
-      "beskrivelse": "Hurtig wok med svinemørbrad, soja og broccoli.",
-      "kategori": "svin",
-      "koekken": "asiatisk",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog risene. Skær mørbraden i strimler, og steg den i olie.",
-        "Tilsæt broccoli, hvidløg og ingefær, og steg 4 minutter.",
-        "Hæld soja og lidt vand over, og lad det simre 2 minutter. Server med ris."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "svinemørbrad",
-          500,
-          "g",
-          0,
-          []
-        ],
-        [
-          "ris",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "broccoli",
+          "kartofler",
           400,
           "g",
           0,
-          [
-            "K65"
-          ]
-        ],
-        [
-          "soja",
-          4,
-          "spsk",
-          1,
           []
         ],
         [
-          "hvidløg",
-          2,
-          "fed",
+          "mælk",
+          150,
+          "ml",
           0,
           []
-        ],
-        [
-          "ingefær",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Couscous med kylling og ovnbagte grøntsager",
-      "beskrivelse": "Let og farverigt: kylling over couscous med squash, peberfrugt og citron.",
-      "kategori": "kylling",
-      "koekken": "middelhav",
-      "tid_minutter": 35,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Skær grøntsager i stykker, vend med olie, krydderier og salt, og bag 25 minutter.",
-        "Steg kyllingen i strimler i olie, til den er gennemstegt.",
-        "Overhæld couscous med kogende vand (samme mængde), og lad den trække 5 minutter.",
-        "Bland alt, og pres citronsaft over."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          500,
-          "g",
-          0,
-          [
-            "K66"
-          ]
-        ],
-        [
-          "couscous",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "squash",
-          1,
-          "stk",
-          0,
-          [
-            "K73"
-          ]
-        ],
-        [
-          "peberfrugt",
-          2,
-          "stk",
-          0,
-          [
-            "K75"
-          ]
         ],
         [
           "løg",
           1,
           "stk",
           0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "spidskommen og paprika",
-          2,
-          "tsk",
-          1,
           []
         ],
         [
@@ -1056,27 +1445,114 @@
       "auto": true
     },
     {
-      "navn": "Kødboller i tomatsauce med pasta",
-      "beskrivelse": "Hjemmerullede kødboller i tomatsauce – saftige og perfekte at lave i stor mængde.",
-      "kategori": "okse",
-      "koekken": "italiensk",
-      "tid_minutter": 45,
+      "navn": "Mørbrad med baconsvøb og kartofler",
+      "beskrivelse": "Svinemørbrad svøbt i bacon, ovnbagt og serveret med brun sovs.",
+      "kategori": "svin",
+      "koekken": "dansk",
+      "tid_minutter": 50,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Rør kød med æg, rasp, halvdelen af det hakkede løg, salt og peber. Rul ca. 24 små kødboller.",
-        "Brun dem i olie, og tag dem op. Svits resten af løget og hvidløg, tilsæt tomater og oregano.",
-        "Læg kødbollerne i saucen, og lad dem simre under låg i 15 minutter. Kog pastaen imens.",
-        "Server med pasta og revet Grana Padano."
+        "Varm ovnen op til 200 grader. Krydr mørbraden, og pak den ind i bacon. Brun den hurtigt i smør på panden, og steg den i fad i 25-30 minutter, til kernetemperaturen er 65-68 grader. Lad den hvile 10 minutter.",
+        "Kog kartoflerne.",
+        "Sovs: Svits hakket løg i smør, rør mel i, og spæd med stegefond og ca. 4 dl vand med bouillon. Kog 5 minutter, og smag til med salt og peber.",
+        "Skær kødet i skiver, og server med sovs og kartofler."
       ],
-      "niveau": "familie",
+      "niveau": "weekend",
       "ingredienser": [
         [
-          "hakket oksekød",
-          500,
+          "svinemørbrad",
+          600,
           "g",
           0,
           [
-            "K44"
+            "K63"
+          ]
+        ],
+        [
+          "bacon i skiver",
+          150,
+          "g",
+          0,
+          [
+            "K74"
+          ]
+        ],
+        [
+          "kartofler",
+          900,
+          "g",
+          0,
+          []
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "bouillon",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "smør",
+          30,
+          "g",
+          0,
+          [
+            "K12"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Pasta carbonara",
+      "beskrivelse": "Cremet pasta uden fløde – kun æg, sprød bacon og parmesan. Klar på 20 minutter.",
+      "kategori": "svin",
+      "koekken": "italiensk",
+      "tid_minutter": 20,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog pastaen i saltet vand, og gem en kop af kogevandet.",
+        "Steg bacon sprødt med det knuste hvidløg, og tag panden af varmen.",
+        "Pisk æg med revet ost og masser af peber.",
+        "Vend pastaen i baconpanden, og rør ægblandingen i med lidt kogevand til en cremet sauce. Server straks."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "bacon i tern",
+          250,
+          "g",
+          0,
+          [
+            "K23"
           ]
         ],
         [
@@ -1087,69 +1563,32 @@
           []
         ],
         [
-          "hakkede tomater",
-          2,
-          "dåse",
-          0,
-          []
-        ],
-        [
           "æg",
-          1,
+          4,
           "stk",
           0,
           [
-            "K62"
+            "K106"
           ]
         ],
         [
           "Grana Padano",
-          40,
+          60,
           "g",
           0,
           []
         ],
         [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
           "hvidløg",
-          2,
+          1,
           "fed",
           0,
           []
         ],
         [
-          "rasp eller hvedemel",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "tørret oregano",
+          "sort peber",
           1,
           "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
           1,
           []
         ]
@@ -1176,7 +1615,7 @@
           "g",
           0,
           [
-            "K44"
+            "K63"
           ]
         ],
         [
@@ -1199,7 +1638,7 @@
           "g",
           0,
           [
-            "K127"
+            "K1"
           ]
         ],
         [
@@ -1207,9 +1646,7 @@
           1,
           "stk",
           0,
-          [
-            "K67"
-          ]
+          []
         ],
         [
           "bouillon",
@@ -1236,875 +1673,66 @@
       "auto": true
     },
     {
-      "navn": "Laks med soja og honning, ris og broccoli",
-      "beskrivelse": "Mørbagt laks med blank sojaglasur, serveret med ris og dampet broccoli.",
-      "kategori": "fisk",
+      "navn": "Stegt ris med æg og bacon",
+      "beskrivelse": "Fantastisk restemad: kold ris stegt med æg, bacon og grøntsager.",
+      "kategori": "svin",
       "koekken": "asiatisk",
-      "tid_minutter": 30,
-      "spis_tidligt": true,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Rør soja, honning, revet ingefær og hvidløg til en glasur.",
-        "Læg laksen i et fad, pensl den med glasuren, og bag i 12-15 minutter.",
-        "Kog risene, og damp eller kog broccolien i 3 minutter.",
-        "Server laksen med ris, broccoli og resten af glasuren."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "laksefilet",
-          600,
-          "g",
-          0,
-          [
-            "K93"
-          ]
-        ],
-        [
-          "ris",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "broccoli",
-          1,
-          "stk",
-          0,
-          [
-            "K65"
-          ]
-        ],
-        [
-          "sojasauce",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "honning",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "frisk ingefær",
-          20,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Græsk kylling i fad med squash og feta",
-      "beskrivelse": "Kylling, kartofler, squash og tomater bagt sammen under smuldret feta.",
-      "kategori": "kylling",
-      "koekken": "middelhav",
-      "tid_minutter": 55,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Skær kartofler i både og squash i stykker, vend med olie, oregano og salt, og bag 20 minutter.",
-        "Tilsæt kylling i store stykker og halverede tomater, og pres citronsaft over.",
-        "Bag 20 minutter, drys med smuldret feta, og bag 5-10 minutter mere."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          600,
-          "g",
-          0,
-          [
-            "K66"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "squash",
-          1,
-          "stk",
-          0,
-          [
-            "K73"
-          ]
-        ],
-        [
-          "tomater",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "feta",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "tørret oregano",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Broccolisuppe med ost og brød",
-      "beskrivelse": "Grøn broccolisuppe med smeltet ost.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog broccoli, kartofler og løg i bouillon og vand i 15 minutter.",
-        "Blend med flødeost, og smag til.",
-        "Server med brød."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "broccoli",
-          600,
-          "g",
-          0,
-          [
-            "K65"
-          ]
-        ],
-        [
-          "kartofler",
-          300,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "bouillon",
-          1,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "flødeost",
-          100,
-          "g",
-          0,
-          []
-        ],
-        [
-          "rugbrød",
-          1,
-          "stk",
-          0,
-          [
-            "K119"
-          ]
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Pasta med røget laks, creme fraiche og citron",
-      "beskrivelse": "Cremet pasta med røget laks og citron – klar på 20 minutter.",
-      "kategori": "fisk",
-      "koekken": "italiensk",
       "tid_minutter": 20,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog pastaen i saltet vand.",
-        "Rør creme fraiche med saft og revet skal fra citronen.",
-        "Vend pastaen med saucen, spinat og røget laks i strimler. Smag til med peber."
+        "Kog risene, og lad dem køle af (eller brug rester fra dagen før).",
+        "Steg bacon sprødt, og tilsæt løg og revet gulerod.",
+        "Skub til side, og rør æggene sammen på panden.",
+        "Tilsæt ris, ærter og soja, og steg 5 minutter, til alt er varmt og lidt sprødt."
       ],
       "niveau": "student",
       "ingredienser": [
         [
-          "røget laks",
+          "bacon i tern",
           200,
           "g",
           0,
           [
-            "K63"
+            "K23"
           ]
         ],
         [
-          "pasta",
-          400,
-          "g",
-          0,
-          []
-        ],
-        [
-          "creme fraiche",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "frisk spinat",
-          100,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Fajitas med kylling og peberfrugt",
-      "beskrivelse": "Stegte kyllingestrimler og farverige grøntsager i lune wraps med creme fraiche.",
-      "kategori": "kylling",
-      "koekken": "amerikansk",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Skær kylling, peberfrugt og løg i strimler. Vend kyllingen i krydderiet og olie.",
-        "Steg kyllingen gennem på en varm pande. Tag den op, og steg grøntsagerne 4-5 minutter.",
-        "Varm wraps, og mos avocadoen med salt.",
-        "Fyld wraps med kylling, grønt, avocado, ost og creme fraiche."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          500,
-          "g",
-          0,
-          [
-            "K66"
-          ]
-        ],
-        [
-          "wraps",
-          1,
-          "pakke",
-          0,
-          []
-        ],
-        [
-          "peberfrugt",
-          3,
-          "stk",
-          0,
-          [
-            "K75"
-          ]
-        ],
-        [
-          "løg",
-          2,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "creme fraiche",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          100,
-          "g",
-          0,
-          [
-            "K127"
-          ]
-        ],
-        [
-          "avocado",
-          2,
-          "stk",
-          0,
-          [
-            "K72"
-          ]
-        ],
-        [
-          "fajitakrydderi (spidskommen, paprika, hvidløgspulver)",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Kylling teriyaki med ris og broccoli",
-      "beskrivelse": "Blank, sød-salt kylling i teriyakisauce med ris og friske broccolibuketter.",
-      "kategori": "kylling",
-      "koekken": "asiatisk",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog risene. Skær kyllingen i strimler, og steg den i olie.",
-        "Rør soja, honning, hvidløg og ingefær sammen, og hæld det over kyllingen. Lad det koge ind til en blank sauce.",
-        "Damp broccolien i 3 minutter. Server kyllingen med ris og broccoli."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingebryst",
-          600,
-          "g",
-          0,
-          [
-            "K66"
-          ]
-        ],
-        [
-          "ris",
+          "ris (gerne kogt dagen før)",
           300,
           "g",
           0,
-          []
-        ],
-        [
-          "broccoli",
-          400,
-          "g",
-          0,
           [
-            "K65"
+            "K85"
           ]
         ],
-        [
-          "soja",
-          4,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "honning",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "ingefær",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Laks i fad med tomater, oliven og kartofler",
-      "beskrivelse": "Laks bagt på tomat og oliven – en nem middelhavsret i ét fad.",
-      "kategori": "fisk",
-      "koekken": "middelhav",
-      "tid_minutter": 40,
-      "spis_tidligt": true,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Kog kartoflerne møre, og skær dem i skiver.",
-        "Læg kartofler, halverede tomater og oliven i et fad, og vend med olie, hvidløg, krydderier og salt.",
-        "Læg laksen ovenpå, og pres citron over. Bag i 12-15 minutter.",
-        "Server direkte fra fadet."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "laksefilet",
-          600,
-          "g",
-          0,
-          [
-            "K93"
-          ]
-        ],
-        [
-          "tomater",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "oliven",
-          70,
-          "g",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "tørret timian eller oregano",
-          1,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Bagt æggekage med spinat, peberfrugt og ost",
-      "beskrivelse": "Luftig æggekage fra ovnen med grønt og ost – god varm og kold.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 180 °C. Kog kartoflerne, og skær dem i skiver. Steg dem med løg og peberfrugt i olie.",
-        "Pisk æg med mælk, salt og peber. Vend spinat og halvdelen af osten i.",
-        "Fordel kartofler og grønt i et smurt fad, hæld ægblandingen over, og drys med resten af osten.",
-        "Bag i 25-30 minutter, til æggekagen er stivnet og gylden."
-      ],
-      "niveau": "student",
-      "ingredienser": [
         [
           "æg",
-          8,
+          3,
           "stk",
           0,
           [
-            "K62"
+            "K106"
           ]
-        ],
-        [
-          "frisk spinat",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "peberfrugt",
-          1,
-          "stk",
-          0,
-          [
-            "K75"
-          ]
-        ],
-        [
-          "revet ost",
-          150,
-          "g",
-          0,
-          [
-            "K127"
-          ]
-        ],
-        [
-          "kartofler",
-          400,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "mælk",
-          150,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Pasta med rejer, citron og hvidløg",
-      "beskrivelse": "Frisk og hurtig rejepasta med citron, hvidløg og persille.",
-      "kategori": "fisk",
-      "koekken": "italiensk",
-      "tid_minutter": 20,
-      "spis_tidligt": true,
-      "fremgangsmaade": [
-        "Kog pastaen. Svits hakket hvidløg i olie uden at det tager farve.",
-        "Tilsæt fløde og revet citronskal, og lad det koge lidt ind.",
-        "Vend rejer og pasta i, og varm kort igennem. Smag til med citronsaft, salt og peber.",
-        "Drys med hakket persille."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "rejer",
-          300,
-          "g",
-          0,
-          [
-            "K61"
-          ]
-        ],
-        [
-          "pasta",
-          400,
-          "g",
-          0,
-          []
-        ],
-        [
-          "piskefløde",
-          200,
-          "ml",
-          0,
-          [
-            "K3"
-          ]
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "frisk persille",
-          1,
-          "bundt",
-          0,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "BBQ-kyllingelår fra ovnen med coleslaw",
-      "beskrivelse": "Klistrede, krydrede kyllingelår med sprødt coleslaw og bagte kartofler.",
-      "kategori": "kylling",
-      "koekken": "amerikansk",
-      "tid_minutter": 60,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Rør ketchup, honning, paprika, olie og salt til en BBQ-marinade, og vend kyllingelårene i den.",
-        "Skær kartoflerne i både, vend dem med olie og salt, og bag dem sammen med kyllingen i 40-45 minutter.",
-        "Snit hvidkålen fint, riv gulerødderne, og vend med creme fraiche, salt og peber til coleslaw.",
-        "Server kyllingen med kartofler og coleslaw."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingelår",
-          1200,
-          "g",
-          0,
-          [
-            "K91"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "hvidkål",
-          300,
-          "g",
-          0,
-          []
         ],
         [
           "gulerødder",
-          2,
+          1,
+          "stk",
+          0,
+          [
+            "K82"
+          ]
+        ],
+        [
+          "løg",
+          1,
           "stk",
           0,
           []
         ],
         [
-          "creme fraiche",
+          "frosne ærter",
           150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "ketchup",
-          4,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "honning eller sukker",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "paprika og hvidløgspulver",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Wok med andebryst, broccoli og nudler",
-      "beskrivelse": "Hurtig wok med tynde skiver andebryst, grønt og nudler i sojasauce.",
-      "kategori": "and",
-      "koekken": "asiatisk",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Skær andebrystet i tynde skiver, og steg dem sprøde i en tør wok, til fedtet er stegt ud. Tag dem op.",
-        "Kog nudlerne efter pakken.",
-        "Steg broccoli, hvidløg og ingefær i lidt af andefedtet i 4 minutter.",
-        "Vend nudler og and i, og smag til med sojasauce."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "andebryst",
-          500,
-          "g",
-          0,
-          [
-            "K26"
-          ]
-        ],
-        [
-          "broccoli",
-          300,
-          "g",
-          0,
-          [
-            "K65"
-          ]
-        ],
-        [
-          "nudler",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "frisk ingefær",
-          15,
           "g",
           0,
           []
@@ -2117,13 +1745,6 @@
           []
         ],
         [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
           "olie",
           1,
           "spsk",
@@ -2134,457 +1755,72 @@
       "auto": true
     },
     {
-      "navn": "Fiskesuppe med laks, tomat og kartofler",
-      "beskrivelse": "Cremet middelhavsinspireret suppe med laks, tomat og kartofler.",
-      "kategori": "fisk",
+      "navn": "Kyllingefrikadeller med tzatziki og kartofler",
+      "beskrivelse": "Lette frikadeller af hakket kylling med hjemmelavet tzatziki af skyr og agurk.",
+      "kategori": "kylling",
       "koekken": "middelhav",
-      "tid_minutter": 35,
-      "spis_tidligt": true,
+      "tid_minutter": 40,
+      "spis_tidligt": false,
       "fremgangsmaade": [
-        "Svits hakket løg, porre og hvidløg i olie. Tilsæt kartofler i tern, tomater, bouillon og 8 dl vand, og kog i 15 minutter.",
-        "Rør fløden i, og smag til.",
-        "Skær laksen i tern, og lad den trække i den varme suppe i 4-5 minutter.",
-        "Drys med hakket dild."
+        "Ælt kylling, æg, havregryn, 1 dl vand, oregano, paprika, salt og peber sammen, og lad farsen hvile 10 minutter. Form frikadeller.",
+        "Bag dem på bagepapir ved 200 grader i 20 minutter, til de er gennemstegte, eller steg dem i olie 5 minutter på hver side.",
+        "Kog kartoflerne møre.",
+        "Riv agurken, pres væden ud, og rør den med skyr, knust hvidløg, 1 tsk eddike og salt til tzatziki. Server til frikadeller og kartofler."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "laksefilet",
-          400,
+          "hakket kylling",
+          600,
           "g",
           0,
           [
-            "K93"
-          ]
-        ],
-        [
-          "hakkede tomater",
-          1,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          500,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "piskefløde",
-          200,
-          "ml",
-          0,
-          [
-            "K3"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "porre",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "fiskebouillon eller hønsebouillon",
-          2,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "frisk dild eller persille",
-          1,
-          "bundt",
-          0,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Squashfritter med yoghurtdip",
-      "beskrivelse": "Sprøde grøntsagsfritter af squash og ost.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Riv squash, og klem vandet fra. Bland med æg, mel, ost og salt.",
-        "Steg små fritter i olie, til de er gyldne. Kog kartoflerne.",
-        "Server med yoghurt rørt med salt."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "squash",
-          2,
-          "stk",
-          0,
-          [
-            "K73"
+            "K10"
           ]
         ],
         [
           "æg",
-          3,
+          1,
           "stk",
           0,
           [
-            "K62"
+            "K106"
           ]
         ],
         [
-          "hvedemel",
-          100,
-          "g",
-          1,
-          []
-        ],
-        [
-          "revet ost",
-          100,
-          "g",
-          0,
-          [
-            "K127"
-          ]
-        ],
-        [
-          "yoghurt naturel",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          600,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "olie",
-          1,
+          "havregryn",
+          4,
           "spsk",
           1,
           []
         ],
         [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Andelår i ovn med rødkål og kartofler",
-      "beskrivelse": "Mørt andelår fra ovnen med sprød skind, rødkål og kartofler.",
-      "kategori": "and",
-      "koekken": "dansk",
-      "tid_minutter": 110,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Gnid andelårene med salt, og steg dem i ovnen ved 160 grader i 1,5 time. Skru til sidst op på 220 grader, så skindet bliver sprødt.",
-        "Snit rødkålen fint, og kog den langsomt med æble i tern, eddike og lidt vand i 45 minutter.",
-        "Kog kartoflerne, og server med and og rødkål."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "andelår",
+          "kartofler",
           800,
           "g",
           0,
-          [
-            "K29"
-          ]
-        ],
-        [
-          "rødkål",
-          600,
-          "g",
-          0,
-          [
-            "K19"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "K22"
-          ]
-        ],
-        [
-          "æbler",
-          1,
-          "stk",
-          0,
-          [
-            "K69"
-          ]
-        ],
-        [
-          "eddike",
-          2,
-          "spsk",
-          1,
           []
         ],
         [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Flæskesteg med rødkål og brunede kartofler",
-      "beskrivelse": "Sprød svær, hjemmelavet rødkål og brunede kartofler – julestemning hele året.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 130,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Gnid sværen med groft salt, og stik laurbærblade i ridserne. Steg stegen på en rist over en bradepande med vand i 1½ time. Skru op til 250 °C til sidst for sprød svær.",
-        "Rødkål: Kog snittet rødkål med æbler i tern, eddike, 50 g sukker, 1 dl vand og salt i ca. 1 time.",
-        "Kog kartoflerne. Smelt resten af sukkeret til karamel, tilsæt smør, og vend kartoflerne i.",
-        "Lav sovs af skyen, og server."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "flæskesteg",
-          1500,
-          "g",
-          0,
-          [
-            "K86"
-          ]
-        ],
-        [
-          "rødkål (frisk eller på glas)",
-          1,
-          "stk",
-          0,
-          [
-            "K21"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "K22"
-          ]
-        ],
-        [
-          "æbler",
-          2,
-          "stk",
-          0,
-          [
-            "K69"
-          ]
-        ],
-        [
-          "eddike",
-          100,
-          "ml",
-          1,
-          []
-        ],
-        [
-          "sukker",
-          125,
-          "g",
-          1,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "laurbærblade",
-          3,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "groft salt",
-          2,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Bagt camembert med æbler og rugbrød",
-      "beskrivelse": "Varm, flydende camembert med bagte æbler og honning, serveret med rugbrød.",
-      "kategori": "vegetar",
-      "koekken": "dansk",
-      "tid_minutter": 25,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Læg camembert i et ildfast fad, og bag den ved 200 grader i 15 minutter.",
-        "Steg æbleskiver i panden med honning, til de er bløde.",
-        "Server den varme ost med æbler, valnødder og rugbrød."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "camembert",
-          500,
-          "g",
-          0,
-          [
-            "K126"
-          ]
-        ],
-        [
-          "æbler",
-          2,
-          "stk",
-          0,
-          [
-            "K69"
-          ]
-        ],
-        [
-          "honning",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "rugbrød",
-          8,
-          "stk",
-          0,
-          [
-            "K101"
-          ]
-        ],
-        [
-          "valnødder",
-          50,
-          "g",
-          0,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Oksebøffer med champignonsovs og kartofler",
-      "beskrivelse": "Stegte oksebøffer med cremet champignonsovs.",
-      "kategori": "okse",
-      "koekken": "dansk",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog kartoflerne. Krydr bøfferne, og steg dem i smør ca. 3 minutter på hver side. Lad dem hvile.",
-        "Steg champignon i panden, og tilsæt fløden. Lad den koge ind til en sauce.",
-        "Server bøffer med sauce og kartofler."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "oksebøffer",
-          600,
-          "g",
-          0,
-          [
-            "K90"
-          ]
-        ],
-        [
-          "champignon",
-          250,
-          "g",
-          0,
-          [
-            "K74"
-          ]
-        ],
-        [
-          "piskefløde",
+          "skyr",
           200,
-          "ml",
+          "g",
+          0,
+          []
+        ],
+        [
+          "agurk",
+          1,
+          "stk",
           0,
           [
-            "K3"
+            "K54"
           ]
         ],
         [
-          "kartofler",
-          900,
-          "g",
-          0,
-          [
-            "K22"
-          ]
-        ],
-        [
-          "smør",
-          30,
-          "g",
+          "hvidløg",
+          2,
+          "fed",
           0,
           []
         ],
@@ -2596,490 +1832,30 @@
           []
         ],
         [
-          "sort peber",
+          "oregano",
           1,
           "tsk",
           1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Helstegt and med æbler og svesker",
-      "beskrivelse": "Søndagsmad: en hel and fyldt med æbler og svesker, med rødkål og kartofler.",
-      "kategori": "and",
-      "koekken": "dansk",
-      "tid_minutter": 150,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Salt anden, og fyld den med skårne æbler og svesker.",
-        "Steg den ved 175 grader i ca. 2 timer, og øs fedtet af undervejs.",
-        "Varm rødkålen, og kog kartoflerne.",
-        "Skær anden i stykker, og server med rødkål, kartofler og sauce af stegefonden."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "hel and",
-          2500,
-          "g",
-          0,
-          [
-            "K30"
-          ]
-        ],
-        [
-          "æbler",
-          4,
-          "stk",
-          0,
-          [
-            "K69"
-          ]
-        ],
-        [
-          "svesker",
-          100,
-          "g",
-          0,
-          []
-        ],
-        [
-          "rødkål",
-          500,
-          "g",
-          0,
-          [
-            "K19"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "K22"
-          ]
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Svampestroganoff med ris",
-      "beskrivelse": "Cremet stroganoff på champignon og løg – ingen savner kødet.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 30,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog risene. Steg champignon i kvarte i smør, til de er gyldne, og tag dem op.",
-        "Svits løg i både, tilsæt paprika og tomatpuré.",
-        "Hæld fløde og sennep i, kom svampene tilbage, og lad det simre 8 minutter.",
-        "Smag til, og server med ris."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "champignon",
-          500,
-          "g",
-          0,
-          [
-            "K74"
-          ]
-        ],
-        [
-          "ris",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "piskefløde",
-          250,
-          "ml",
-          0,
-          [
-            "K3"
-          ]
-        ],
-        [
-          "løg",
-          2,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "tomatpuré",
-          1,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "sennep",
-          1,
-          "spsk",
-          0,
           []
         ],
         [
           "paprika",
-          2,
+          1,
           "tsk",
           1,
           []
         ],
         [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
+          "eddike",
           1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Kyllingelår i sojagryde med ingefær",
-      "beskrivelse": "Langsomt simrede kyllingelår i soja, ingefær og hvidløg – serveres med ris.",
-      "kategori": "kylling",
-      "koekken": "asiatisk",
-      "tid_minutter": 50,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Brun kyllingelårene i olie i en gryde, og tag dem op.",
-        "Svits løg i både, hvidløg og ingefær, og tilsæt gulerødder i stykker.",
-        "Hæld soja, sukker og 3 dl vand i, kom lårene tilbage, og lad det simre under låg i 30 minutter.",
-        "Kog risene, og server med saucen."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kyllingelår",
-          1200,
-          "g",
-          0,
-          [
-            "K91"
-          ]
-        ],
-        [
-          "ris",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "gulerødder",
-          2,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "løg",
-          2,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "sojasauce",
-          4,
-          "spsk",
+          "tsk",
           1,
-          []
-        ],
-        [
-          "sukker",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "frisk ingefær",
-          20,
-          "g",
-          0,
           []
         ],
         [
           "olie",
           1,
           "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Kalvegryde med svampe og kartofler",
-      "beskrivelse": "Mør kalvegryde med champignon og fløde, serveret med kartofler.",
-      "kategori": "okse",
-      "koekken": "dansk",
-      "tid_minutter": 100,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Brun kødet i smør i en gryde, og tilsæt hakket løg og skårne svampe.",
-        "Drys med mel, og rør bouillon og 4 dl vand i. Lad det simre under låg i 1 time.",
-        "Tilsæt fløden, og lad det småkoge 15 minutter. Kog kartoflerne.",
-        "Smag til med salt og peber, og server."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "kalvekød i tern",
-          800,
-          "g",
-          0,
-          [
-            "K89"
-          ]
-        ],
-        [
-          "champignon",
-          300,
-          "g",
-          0,
-          [
-            "K74"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "madlavningsfløde",
-          200,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "bouillon",
-          1,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "hvedemel",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Broccoligratin med ost og kartofler",
-      "beskrivelse": "Broccoli og kartofler bagt i cremet ostesauce med sprød top.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 55,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Skær kartofler i tynde skiver og broccoli i buketter.",
-        "Varm madlavningsfløde med knust hvidløg, muskat, salt og peber.",
-        "Lag kartofler og broccoli i et fad, hæld saucen over, og drys med ost.",
-        "Bag i 40 minutter."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "broccoli",
-          2,
-          "stk",
-          0,
-          [
-            "K65"
-          ]
-        ],
-        [
-          "kartofler",
-          700,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "madlavningsfløde",
-          330,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          200,
-          "g",
-          0,
-          [
-            "K127"
-          ]
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "muskatnød",
-          1,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Mørbradgryde med champignon og kartofler",
-      "beskrivelse": "Mør svinemørbrad i cremet champignonsauce.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 45,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Skær mørbraden i skiver, og brun dem i smør. Tag dem af panden.",
-        "Steg champignon, og tilsæt fløde. Lad saucen simre i 5 minutter, og kom kødet tilbage.",
-        "Server med kogte kartofler."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "svinemørbrad",
-          700,
-          "g",
-          0,
-          []
-        ],
-        [
-          "champignon",
-          300,
-          "g",
-          0,
-          [
-            "K74"
-          ]
-        ],
-        [
-          "piskefløde",
-          200,
-          "ml",
-          0,
-          [
-            "K3"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
           1,
           []
         ]
@@ -3107,7 +1883,7 @@
           "stk",
           0,
           [
-            "K62"
+            "K106"
           ]
         ],
         [
@@ -3122,9 +1898,7 @@
           2,
           "stk",
           0,
-          [
-            "K75"
-          ]
+          []
         ],
         [
           "feta",
@@ -3139,7 +1913,7 @@
           "stk",
           0,
           [
-            "K119"
+            "K107"
           ]
         ],
         [
@@ -3147,9 +1921,7 @@
           1,
           "stk",
           0,
-          [
-            "K67"
-          ]
+          []
         ],
         [
           "hvidløg",
@@ -3183,205 +1955,65 @@
       "auto": true
     },
     {
-      "navn": "Mørbradbøffer med løgsovs og kartofler",
-      "beskrivelse": "Møre bøffer af svinemørbrad med sovs af stegte løg og piskefløde.",
-      "kategori": "svin",
+      "navn": "Krondyrgryde med rodfrugter",
+      "beskrivelse": "Langtidsstegt gryde af krondyr med rodfrugter – rigtig efterårsmad.",
+      "kategori": "andet",
       "koekken": "dansk",
-      "tid_minutter": 40,
+      "tid_minutter": 130,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Kog kartoflerne. Skær mørbraden i tykke skiver, og bank dem let flade.",
-        "Steg bøfferne i smør 2-3 minutter på hver side, og tag dem op.",
-        "Svits løg i skiver i panden, til de er gyldne. Hæld bouillon og fløde i, og lad saucen koge ind.",
-        "Læg bøfferne tilbage, og server med kartofler."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "svinemørbrad",
-          700,
-          "g",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          900,
-          "g",
-          0,
-          [
-            "K22"
-          ]
-        ],
-        [
-          "løg",
-          3,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "piskefløde",
-          200,
-          "ml",
-          0,
-          [
-            "K3"
-          ]
-        ],
-        [
-          "oksebouillon",
-          1,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "smør",
-          40,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Rösti med spejlæg og spinat",
-      "beskrivelse": "Sprøde kartoffelrøsti med spejlæg og sauteret spinat.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 35,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Riv rå kartofler og løg groft, pres væden ud, og vend med mel, salt og peber.",
-        "Steg røstien i smør i store, flade portioner i 5 minutter på hver side, til de er gyldne.",
-        "Svits spinaten kort, og steg æggene som spejlæg.",
-        "Server røsti med spinat og et spejlæg."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "æg",
-          4,
-          "stk",
-          0,
-          [
-            "K62"
-          ]
-        ],
-        [
-          "frisk spinat",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "smør",
-          40,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvedemel",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Helstegt kylling med kartofler og sovs",
-      "beskrivelse": "Sprød helstegt kylling med ovnkartofler og hjemmelavet sovs.",
-      "kategori": "kylling",
-      "koekken": "dansk",
-      "tid_minutter": 100,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Varm ovnen op til 200 grader. Gnid kyllingen med smør, salt og peber, og læg den i et fad med løg og gulerødder.",
-        "Steg i 70-80 minutter, til saften er klar. Tilsæt kartofler i både de sidste 45 minutter.",
-        "Hæld stegefonden i en gryde med bouillon og mel, og kog den til sovs.",
-        "Skær kyllingen ud, og server med kartofler og sovs."
+        "Vend kødet i mel, og brun det i portioner i smør og olie i en tykbundet gryde. Tag det op.",
+        "Svits hakket løg i gryden, rør tomatpuré i, og kom kødet tilbage.",
+        "Tilsæt bouillon, 5 dl vand, laurbær og timian. Lad det simre under låg i 1 time.",
+        "Tilsæt rodfrugterne i stykker, og lad det simre under låg 30-40 minutter mere, til kødet er mørt.",
+        "Smag til med salt, peber og 1 tsk eddike. Kog kartoflerne, og server."
       ],
       "niveau": "weekend",
       "ingredienser": [
         [
-          "hel kylling",
-          1500,
+          "krondyrkød i tern",
+          800,
           "g",
           0,
           [
-            "K94"
+            "K63"
           ]
         ],
         [
-          "kartofler",
-          1000,
+          "pastinakker",
+          300,
           "g",
           0,
-          [
-            "K22"
-          ]
+          []
         ],
         [
           "gulerødder",
           3,
           "stk",
           0,
-          []
+          [
+            "K82"
+          ]
         ],
         [
           "løg",
           2,
           "stk",
           0,
-          [
-            "K67"
-          ]
+          []
         ],
         [
-          "smør",
-          30,
+          "kartofler",
+          600,
           "g",
           0,
+          []
+        ],
+        [
+          "bouillon",
+          2,
+          "stk",
+          1,
           []
         ],
         [
@@ -3392,9 +2024,123 @@
           []
         ],
         [
-          "bouillon",
+          "smør",
+          30,
+          "g",
+          0,
+          [
+            "K12"
+          ]
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
           1,
+          []
+        ],
+        [
+          "sort peber",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "tomatpuré",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "laurbærblade",
+          2,
           "stk",
+          1,
+          []
+        ],
+        [
+          "tørret timian",
+          1,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Kylling og porre i fløde med pasta",
+      "beskrivelse": "Cremet pasta med kyllingestrimler, porre og smeltet ost.",
+      "kategori": "kylling",
+      "koekken": "italiensk",
+      "tid_minutter": 30,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog pastaen. Steg kyllingestrimler i olie, og tilsæt porre i ringe.",
+        "Hæld fløden over, og lad det simre i 5 minutter. Smag til med salt og peber.",
+        "Vend pasta og ost i, til osten smelter."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "kyllingebryst",
+          500,
+          "g",
+          0,
+          [
+            "K59"
+          ]
+        ],
+        [
+          "pasta",
+          400,
+          "g",
+          0,
+          []
+        ],
+        [
+          "porrer",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "madlavningsfløde",
+          200,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "revet ost",
+          100,
+          "g",
+          0,
+          [
+            "K1"
+          ]
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
           1,
           []
         ],
@@ -3409,6 +2155,195 @@
           "sort peber",
           1,
           "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Wraps med kyllingestrimler og coleslaw",
+      "beskrivelse": "Sprøde kyllingestrimler i wraps med cremet coleslaw og ost.",
+      "kategori": "kylling",
+      "koekken": "amerikansk",
+      "tid_minutter": 25,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Skær kyllingen i strimler, vend dem i krydderier, og steg dem gennem i olie i 5-6 minutter.",
+        "Snit hvidkålen fint, riv gulerod, og vend med creme fraiche, 1 spsk eddike, 1 tsk sukker, salt og peber.",
+        "Varm wraps, og fyld dem med kylling, coleslaw og ost."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "kyllingebryst",
+          450,
+          "g",
+          0,
+          [
+            "K59"
+          ]
+        ],
+        [
+          "wraps",
+          1,
+          "pakke",
+          0,
+          []
+        ],
+        [
+          "hvidkål",
+          250,
+          "g",
+          0,
+          [
+            "K83"
+          ]
+        ],
+        [
+          "gulerødder",
+          1,
+          "stk",
+          0,
+          [
+            "K82"
+          ]
+        ],
+        [
+          "creme fraiche",
+          150,
+          "g",
+          0,
+          []
+        ],
+        [
+          "revet ost",
+          100,
+          "g",
+          0,
+          [
+            "K1"
+          ]
+        ],
+        [
+          "paprika og hvidløgspulver",
+          2,
+          "tsk",
+          1,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "eddike",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Kyllingelår i sojagryde med ingefær",
+      "beskrivelse": "Langsomt simrede kyllingelår i soja, ingefær og hvidløg – serveres med ris.",
+      "kategori": "kylling",
+      "koekken": "asiatisk",
+      "tid_minutter": 50,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Brun kyllingelårene i olie i en gryde, og tag dem op.",
+        "Svits løg i både, hvidløg og ingefær, og tilsæt gulerødder i stykker.",
+        "Hæld soja, sukker og 3 dl vand i, kom lårene tilbage, og lad det simre under låg i 30 minutter.",
+        "Kog risene, og server med saucen."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "kyllingelår",
+          1200,
+          "g",
+          0,
+          [
+            "K58"
+          ]
+        ],
+        [
+          "ris",
+          300,
+          "g",
+          0,
+          [
+            "K85"
+          ]
+        ],
+        [
+          "gulerødder",
+          2,
+          "stk",
+          0,
+          [
+            "K82"
+          ]
+        ],
+        [
+          "løg",
+          2,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "sojasauce",
+          4,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          2,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "hvidløg",
+          2,
+          "fed",
+          0,
+          []
+        ],
+        [
+          "frisk ingefær",
+          20,
+          "g",
+          0,
+          []
+        ],
+        [
+          "olie",
+          1,
+          "spsk",
           1,
           []
         ]
@@ -3436,7 +2371,7 @@
           "g",
           0,
           [
-            "K91"
+            "K58"
           ]
         ],
         [
@@ -3458,16 +2393,16 @@
           300,
           "g",
           0,
-          []
+          [
+            "K85"
+          ]
         ],
         [
           "løg",
           2,
           "stk",
           0,
-          [
-            "K67"
-          ]
+          []
         ],
         [
           "hvidløg",
@@ -3501,188 +2436,23 @@
       "auto": true
     },
     {
-      "navn": "Kartoffelgratin med ost og grøn salat",
-      "beskrivelse": "Cremet kartoffelgratin med ost og frisk salat.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 70,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Skær kartofler i tynde skiver, og læg dem lagvis i et smurt fad med hvidløg, salt og peber.",
-        "Hæld fløde over, og drys med ost. Bag ved 180 grader i 50-60 minutter.",
-        "Server med grøn salat."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "piskefløde",
-          300,
-          "ml",
-          0,
-          [
-            "K3"
-          ]
-        ],
-        [
-          "revet ost",
-          120,
-          "g",
-          0,
-          [
-            "K127"
-          ]
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "salat",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Flæskestegssandwich med rødkål og agurkesalat",
-      "beskrivelse": "Sprød flæskesteg i bolle med rødkål, agurkesalat, remoulade og ristede løg – som på en dansk sandwichbar.",
-      "kategori": "svin",
+      "navn": "Kylling i flødesauce med ris og ærter",
+      "beskrivelse": "Mør kylling i en cremet sauce med champignon – serveres med ris og ærter.",
+      "kategori": "kylling",
       "koekken": "dansk",
-      "tid_minutter": 90,
+      "tid_minutter": 40,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Tag flæskestegen ud af køleskabet 30 minutter før. Rids sværen med en skarp kniv, og gnid den med salt og peber.",
-        "Steg flæskestegen i ovnen ved 200 grader i 20 minutter, skru ned på 160 grader, og steg videre, til kernetemperaturen er 70 grader (ca. 1 time). Skru op på 250 grader eller grill de sidste 10 minutter, så sværen bliver sprød. Lad den hvile 15 minutter (den kan også steges dagen før).",
-        "Skær agurken i tynde skiver, og vend den med eddike, sukker og salt. Lad den stå 15 minutter, og pres væden fra. Varm rødkålen.",
-        "Skær kødet i tynde skiver, og skær sværen i stykker. Rist bollerne i ovnen eller på en pande.",
-        "Smør bollerne med remoulade, og læg flæskesteg, rødkål, agurkesalat og ristede løg i. Læg et stykke sprød svær ovenpå."
+        "Kog risene. Skær kyllingen i tern, og brun den i smør. Tag den op.",
+        "Svits hakket løg og champignon, hæld fløde, bouillon og lidt vand i, og lad saucen koge ind.",
+        "Kom kyllingen og ærterne i, og lad det simre i 8 minutter.",
+        "Smag til, og server med ris."
       ],
       "niveau": "familie",
       "ingredienser": [
         [
-          "flæskesteg",
-          500,
-          "g",
-          0,
-          [
-            "K84"
-          ]
-        ],
-        [
-          "burgerboller",
-          4,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "rødkål",
-          1,
-          "pakke",
-          0,
-          [
-            "K21"
-          ]
-        ],
-        [
-          "remoulade",
-          4,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "agurk",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "ristede løg",
-          3,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "eddike",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "sukker",
-          1,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Kokossuppe med rejer og nudler",
-      "beskrivelse": "Duftende suppe med kokosmælk, rejer, champignon og citron.",
-      "kategori": "fisk",
-      "koekken": "asiatisk",
-      "tid_minutter": 25,
-      "spis_tidligt": true,
-      "fremgangsmaade": [
-        "Kog 7 dl vand med bouillon, hvidløg og ingefær.",
-        "Tilsæt kokosmælk og champignon i skiver, og lad det simre i 5 minutter.",
-        "Kog nudlerne separat, og læg dem i dybe tallerkener.",
-        "Kom rejerne i suppen, til de er varme, smag til med citronsaft og chili, og øs over nudlerne."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "rejer",
-          300,
+          "kyllingebryst",
+          600,
           "g",
           0,
           [
@@ -3690,422 +2460,48 @@
           ]
         ],
         [
-          "kokosmælk",
-          400,
-          "ml",
+          "ris",
+          300,
+          "g",
           0,
-          []
+          [
+            "K85"
+          ]
         ],
         [
-          "nudler",
-          200,
-          "g",
+          "piskefløde",
+          250,
+          "ml",
           0,
           []
         ],
         [
           "champignon",
-          200,
+          250,
           "g",
           0,
           [
-            "K74"
+            "K55"
           ]
         ],
         [
-          "citron",
+          "frosne ærter",
+          200,
+          "g",
+          0,
+          []
+        ],
+        [
+          "løg",
           1,
           "stk",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "frisk ingefær",
-          20,
-          "g",
           0,
           []
         ],
         [
           "hønsebouillon",
-          2,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "chilisauce",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Laksewraps med avocado og agurk",
-      "beskrivelse": "Hurtige wraps med røget laks, avocado og cremet fyld.",
-      "kategori": "fisk",
-      "koekken": "amerikansk",
-      "tid_minutter": 15,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Rør creme fraiche med citronsaft og salt.",
-        "Smør den på tortillaerne, og læg laks, avocadoskiver og agurk på.",
-        "Rul dem sammen, og skær dem over."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "røget laks",
-          200,
-          "g",
-          0,
-          [
-            "K63"
-          ]
-        ],
-        [
-          "tortillas",
-          8,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "avocado",
-          2,
-          "stk",
-          0,
-          [
-            "K72"
-          ]
-        ],
-        [
-          "agurk",
           1,
           "stk",
-          0,
-          []
-        ],
-        [
-          "creme fraiche",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Fyldte peberfrugter med ris og ost",
-      "beskrivelse": "Ovnbagte peberfrugter fyldt med ris, tomat og smeltet ost.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 55,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Tænd ovnen på 200 °C. Kog risene. Halvér peberfrugterne, og fjern kernerne.",
-        "Svits hakket løg og hvidløg med krydderier, tilsæt tomater og ris, og smag til.",
-        "Fyld peberfrugterne, og drys med ost.",
-        "Bag i 25-30 minutter."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "peberfrugt",
-          4,
-          "stk",
-          0,
-          [
-            "K75"
-          ]
-        ],
-        [
-          "ris",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hakkede tomater",
-          1,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          150,
-          "g",
-          0,
-          [
-            "K127"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "spidskommen og oregano",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Andebryst med appelsinsauce og kartoffelmos",
-      "beskrivelse": "Sprødstegt andebryst med frisk appelsinsauce og blød kartoffelmos.",
-      "kategori": "and",
-      "koekken": "dansk",
-      "tid_minutter": 45,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Rids skindet på andebrystene, og steg dem 8 minutter på skindsiden og 4 minutter på den anden side. Lad dem hvile.",
-        "Kog de skrællede kartofler møre, og most dem med smør og mælk.",
-        "Kog appelsinjuice med lidt af stegefedtet ind til en sauce.",
-        "Skær andebrystet i skiver, og server med mos og sauce."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "andebryst",
-          700,
-          "g",
-          0,
-          [
-            "K81"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          [
-            "K22"
-          ]
-        ],
-        [
-          "appelsiner",
-          2,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "smør",
-          50,
-          "g",
-          0,
-          []
-        ],
-        [
-          "mælk",
-          100,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Hotdogs med stegte pølser og hjemmelavet remoulade-dressing",
-      "beskrivelse": "Lørdagshygge: grillpølser i bolle med sprøde løg, agurk og ketchup.",
-      "kategori": "svin",
-      "koekken": "amerikansk",
-      "tid_minutter": 20,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Skær løgene i ringe, vend dem i mel, og steg dem sprøde i olie. Lad dem dryppe af.",
-        "Steg pølserne gyldne på en pande.",
-        "Skær agurken i tynde skiver, og varm brødene.",
-        "Fyld brød med pølse, agurk, ketchup, sennep og sprøde løg."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "grillpølser",
-          600,
-          "g",
-          0,
-          [
-            "K129"
-          ]
-        ],
-        [
-          "hotdogbrød",
-          8,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "agurk",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "løg",
-          2,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "ketchup",
-          4,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "sennep",
-          3,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "hvedemel",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Mørbrad med baconsvøb og kartofler",
-      "beskrivelse": "Svinemørbrad svøbt i bacon, ovnbagt og serveret med brun sovs.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 50,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Varm ovnen op til 200 grader. Krydr mørbraden, og pak den ind i bacon. Steg den i fad i 25-30 minutter.",
-        "Kog kartoflerne.",
-        "Lav sovs af stegefond, bouillon og mel. Skær kødet i skiver, og server med sovs og kartofler."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "svinemørbrad",
-          600,
-          "g",
-          0,
-          []
-        ],
-        [
-          "bacon i skiver",
-          150,
-          "g",
-          0,
-          []
-        ],
-        [
-          "kartofler",
-          900,
-          "g",
-          0,
-          [
-            "K22"
-          ]
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "bouillon",
-          1,
-          "stk",
-          1,
-          []
-        ],
-        [
-          "hvedemel",
-          2,
-          "spsk",
           1,
           []
         ],
@@ -4114,181 +2510,9 @@
           30,
           "g",
           0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Fiskegratin med broccoli og ris",
-      "beskrivelse": "Cremet fiskegratin med broccoli og ost.",
-      "kategori": "fisk",
-      "koekken": "dansk",
-      "tid_minutter": 45,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Læg fisk og broccoli i et fad. Hæld fløde over, og drys med ost, salt og peber.",
-        "Bag ved 200 grader i 25 minutter. Kog risene.",
-        "Server gratinen med ris."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "hvid fisk (fx torsk/sej)",
-          600,
-          "g",
-          0,
           [
-            "K92"
+            "K12"
           ]
-        ],
-        [
-          "broccoli",
-          300,
-          "g",
-          0,
-          [
-            "K65"
-          ]
-        ],
-        [
-          "ris",
-          250,
-          "g",
-          0,
-          []
-        ],
-        [
-          "madlavningsfløde",
-          200,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "revet ost",
-          100,
-          "g",
-          0,
-          [
-            "K127"
-          ]
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Fiskefrikadeller med remoulade og kartofler",
-      "beskrivelse": "Lette fiskefrikadeller af hvid fisk – friske og saftige, med remoulade og citron.",
-      "kategori": "fisk",
-      "koekken": "dansk",
-      "tid_minutter": 45,
-      "spis_tidligt": true,
-      "fremgangsmaade": [
-        "Kog kartoflerne. Kør fisken i en foodprocessor med revet løg, æg, mel, mælk, salt og peber, til en jævn fars. Stil den koldt 15 minutter.",
-        "Form frikadeller med en ske, og steg dem gyldne i smør, 3-4 minutter på hver side.",
-        "Server med kartofler, remoulade og citronbåde."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "fiskefilet",
-          500,
-          "g",
-          0,
-          [
-            "K92"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "æg",
-          2,
-          "stk",
-          0,
-          [
-            "K62"
-          ]
-        ],
-        [
-          "mælk",
-          100,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "remoulade",
-          4,
-          "spsk",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "hvedemel",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
         ],
         [
           "salt og peber",
@@ -4301,364 +2525,31 @@
       "auto": true
     },
     {
-      "navn": "Kyllingefrikadeller med kartofler og agurkesalat",
-      "beskrivelse": "Lyse, saftige frikadeller af hakket kylling med kartofler og sød-sur agurkesalat.",
-      "kategori": "kylling",
-      "koekken": "dansk",
+      "navn": "Kødsovs med spaghetti og parmesan",
+      "beskrivelse": "Kraftig kødsovs af hakket svinekød over spaghetti.",
+      "kategori": "svin",
+      "koekken": "italiensk",
       "tid_minutter": 40,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Rør kyllingefars med revet løg, æg, mel, mælk og salt. Lad den hvile 15 minutter.",
-        "Form frikadeller, og steg dem i smør i 4-5 minutter på hver side. Kog kartoflerne.",
-        "Skær agurken i tynde skiver, og vend med eddike, lidt sukker og salt.",
-        "Server frikadellerne med kartofler og agurkesalat."
+        "Brun kødet grundigt i olie i en stor gryde, til væsken er kogt væk. Tilsæt hakket løg og revet gulerod, og steg 5 minutter.",
+        "Tilsæt tomater og oregano, og lad det simre under låg i 25 minutter. Smag til med salt, peber og en knivspids sukker.",
+        "Kog pastaen efter anvisningen, og server med sauce og revet ost."
       ],
       "niveau": "student",
       "ingredienser": [
         [
-          "hakket kylling",
+          "hakket svinekød",
           500,
           "g",
           0,
           [
-            "K91"
+            "K31"
           ]
         ],
         [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "agurk",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "løg",
-          1,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "æg",
-          1,
-          "stk",
-          0,
-          [
-            "K62"
-          ]
-        ],
-        [
-          "mælk",
-          100,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "hvedemel",
-          3,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "eddike",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "smør",
-          30,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Bønnechili med ris og creme fraiche",
-      "beskrivelse": "Rig, røget chili med kidneybønner, peberfrugt og majs – ingen savner kødet.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 40,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Svits hakket løg, hvidløg og peberfrugt i tern i olie med krydderierne.",
-        "Tilsæt tomater og afdryppede bønner, og lad chilien simre i 25 minutter.",
-        "Kog risene.",
-        "Server med ris og creme fraiche."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "kidneybønner",
-          2,
-          "dåse",
-          0,
-          [
-            "K78"
-          ]
-        ],
-        [
-          "hakkede tomater",
-          2,
-          "dåse",
-          0,
-          []
-        ],
-        [
-          "ris",
-          300,
-          "g",
-          0,
-          []
-        ],
-        [
-          "peberfrugt",
-          2,
-          "stk",
-          0,
-          [
-            "K75"
-          ]
-        ],
-        [
-          "løg",
-          2,
-          "stk",
-          0,
-          [
-            "K67"
-          ]
-        ],
-        [
-          "creme fraiche",
-          200,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          2,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "chilikrydderi og spidskommen",
-          2,
-          "tsk",
-          1,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Ovnbagt fisk med citron og kartofler",
-      "beskrivelse": "Mild hvid fisk i ovnen med citron, persille og kartofler.",
-      "kategori": "fisk",
-      "koekken": "dansk",
-      "tid_minutter": 35,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Kog kartoflerne. Læg fisken i et smurt fad, og drys med salt, peber og citronsaft.",
-        "Bag ved 200 grader i 12-15 minutter. Smelt smør med persille.",
-        "Server fisken med persillesmør og kartofler."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "hvid fisk (fx torsk/sej)",
-          600,
-          "g",
-          0,
-          [
-            "K92"
-          ]
-        ],
-        [
-          "kartofler",
-          800,
-          "g",
-          0,
-          [
-            "K2"
-          ]
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "persille",
-          1,
-          "bundt",
-          0,
-          []
-        ],
-        [
-          "smør",
-          40,
-          "g",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Rugbrød med røget laks og rørt æggesalat",
-      "beskrivelse": "Klassisk lun frokost eller let aftensmad: rugbrød, røget laks og æggesalat.",
-      "kategori": "fisk",
-      "koekken": "dansk",
-      "tid_minutter": 20,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Hårdkog æggene i 9 minutter, og hak dem groft.",
-        "Rør æggene med creme fraiche, purløg og salt.",
-        "Læg æggesalat og røget laks på rugbrødet, og pynt med citron."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "røget laks",
-          200,
-          "g",
-          0,
-          [
-            "K63"
-          ]
-        ],
-        [
-          "rugbrød",
-          8,
-          "stk",
-          0,
-          [
-            "K101"
-          ]
-        ],
-        [
-          "æg",
-          6,
-          "stk",
-          0,
-          [
-            "K62"
-          ]
-        ],
-        [
-          "creme fraiche",
-          100,
-          "g",
-          0,
-          []
-        ],
-        [
-          "citron",
-          1,
-          "stk",
-          0,
-          []
-        ],
-        [
-          "purløg",
-          1,
-          "bundt",
-          0,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Grøntsagslasagne med squash og mozzarella",
-      "beskrivelse": "Lasagne med lag af squash, tomatsauce og cremet ostesauce.",
-      "kategori": "vegetar",
-      "koekken": "vegetar",
-      "tid_minutter": 75,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Svits hakket løg og revet gulerod, tilsæt tomater og oregano, og lad saucen simre 15 minutter.",
-        "Skær squash i tynde skiver. Lav en hvid sauce af smør, mel og mælk.",
-        "Lag tomatsauce, squash, plader og hvid sauce i et fad, og slut med mozzarella.",
-        "Bag ved 200 °C i 35 minutter."
-      ],
-      "niveau": "familie",
-      "ingredienser": [
-        [
-          "squash",
-          2,
-          "stk",
-          0,
-          [
-            "K73"
-          ]
-        ],
-        [
-          "lasagneplader",
-          250,
+          "pasta",
+          400,
           "g",
           0,
           []
@@ -4671,47 +2562,26 @@
           []
         ],
         [
-          "mælk",
-          500,
-          "ml",
-          0,
-          []
-        ],
-        [
-          "mozzarella",
-          125,
-          "g",
-          0,
-          []
-        ],
-        [
           "løg",
           1,
           "stk",
           0,
-          [
-            "K67"
-          ]
+          []
         ],
         [
           "gulerødder",
           2,
           "stk",
           0,
-          []
+          [
+            "K82"
+          ]
         ],
         [
-          "smør",
-          40,
+          "Grana Padano",
+          50,
           "g",
           0,
-          []
-        ],
-        [
-          "hvedemel",
-          40,
-          "g",
-          1,
           []
         ],
         [
@@ -4722,6 +2592,100 @@
           []
         ],
         [
+          "olie",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ],
+        [
+          "sukker",
+          1,
+          "tsk",
+          1,
+          []
+        ]
+      ],
+      "auto": true
+    },
+    {
+      "navn": "Mac and cheese med bacon",
+      "beskrivelse": "Pasta i cremet ostesauce med sprød bacon – nem og mættende.",
+      "kategori": "svin",
+      "koekken": "amerikansk",
+      "tid_minutter": 30,
+      "spis_tidligt": false,
+      "fremgangsmaade": [
+        "Kog pastaen. Kom broccoli i buketter i gryden de sidste 3 minutter.",
+        "Smelt smør, rør mel i, og spæd med mælk til en jævn sauce. Rør osten i, til den er smeltet.",
+        "Steg bacon sprødt.",
+        "Vend pasta og broccoli i saucen, og top med bacon. Bag evt. 10 minutter ved 200 °C for en gylden top."
+      ],
+      "niveau": "student",
+      "ingredienser": [
+        [
+          "bacon i tern",
+          200,
+          "g",
+          0,
+          [
+            "K23"
+          ]
+        ],
+        [
+          "pasta",
+          400,
+          "g",
+          0,
+          []
+        ],
+        [
+          "revet ost",
+          200,
+          "g",
+          0,
+          [
+            "K1"
+          ]
+        ],
+        [
+          "mælk",
+          500,
+          "ml",
+          0,
+          []
+        ],
+        [
+          "smør",
+          40,
+          "g",
+          0,
+          [
+            "K12"
+          ]
+        ],
+        [
+          "hvedemel",
+          40,
+          "g",
+          1,
+          []
+        ],
+        [
+          "broccoli",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
           "salt og peber",
           0,
           "efter smag",
@@ -4732,77 +2696,80 @@
       "auto": true
     },
     {
-      "navn": "Ovnbagte kyllingelår med rodfrugter",
-      "beskrivelse": "Sprøde kyllingelår bagt på bund af rodfrugter – alt i ét fad.",
-      "kategori": "kylling",
-      "koekken": "dansk",
-      "tid_minutter": 60,
+      "navn": "Stegt ris med rejer og æg",
+      "beskrivelse": "Hurtig wokret med rejer, æg og grønt – brug gerne dagen-før-risene.",
+      "kategori": "fisk",
+      "koekken": "asiatisk",
+      "tid_minutter": 25,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Varm ovnen op til 200 grader. Skær rodfrugterne i både, og vend dem i olie, salt og timian.",
-        "Læg kyllingelårene ovenpå, og drys dem med salt.",
-        "Bag i 45-50 minutter, til kyllingen er gylden og gennemstegt.",
-        "Server direkte fra fadet."
+        "Kog risene, og spred dem ud på en bakke, så de køler hurtigt af. Stil dem på køl, hvis de ikke bruges inden for ½ time (eller brug ris fra dagen før).",
+        "Snit peberfrugt, varm olien i en wok eller stor pande, og steg peberfrugt og ærter 3 minutter.",
+        "Skub grøntsagerne til siden, og røræg æggene i panden.",
+        "Tilsæt rejer og ris, og steg på høj varme 3-4 minutter, til rejerne er varme igennem (rå rejer skal være lyserøde og faste), og risene er lidt sprøde.",
+        "Smag til med sojasauce og peber."
       ],
-      "niveau": "student",
+      "niveau": "familie",
       "ingredienser": [
         [
-          "kyllingelår",
-          1000,
+          "rejer",
+          500,
           "g",
           0,
           [
-            "K91"
+            "K105"
           ]
         ],
         [
-          "kartofler",
-          800,
+          "ris",
+          300,
           "g",
           0,
           [
-            "K2"
+            "K85"
           ]
         ],
         [
-          "gulerødder",
-          3,
+          "æg",
+          4,
           "stk",
           0,
-          []
+          [
+            "K106"
+          ]
         ],
         [
-          "pastinakker",
+          "peberfrugt",
           2,
           "stk",
           0,
           []
         ],
         [
-          "hvidløg",
-          3,
-          "fed",
+          "ærter",
+          200,
+          "g",
           0,
           []
         ],
         [
-          "olie",
-          1,
+          "sojasauce",
+          3,
           "spsk",
           1,
           []
         ],
         [
-          "timian",
-          1,
-          "tsk",
+          "olie",
+          2,
+          "spsk",
           1,
           []
         ],
         [
-          "salt og peber",
-          0,
-          "efter smag",
+          "peber",
+          0.5,
+          "tsk",
           1,
           []
         ]
@@ -4810,52 +2777,75 @@
       "auto": true
     },
     {
-      "navn": "Pølseret med kartofler og tomatsovs",
-      "beskrivelse": "Hurtig panderet med pølser, kartofler og tomat.",
-      "kategori": "svin",
-      "koekken": "dansk",
-      "tid_minutter": 30,
+      "navn": "Tunsalat med æg og kikærter",
+      "beskrivelse": "Mættende salat med tun, kogte æg, kikærter og agurk.",
+      "kategori": "fisk",
+      "koekken": "middelhav",
+      "tid_minutter": 20,
       "spis_tidligt": false,
       "fremgangsmaade": [
-        "Skær kartofler og pølser i skiver. Steg løg og kartofler i olie til de er gyldne.",
-        "Tilsæt pølserne og tomaterne, og lad retten simre i 10 minutter.",
-        "Smag til med salt og peber."
+        "Hårdkog æggene i 9 minutter, og skær dem i både.",
+        "Skyl kikærterne, og skær agurk og tomater i stykker.",
+        "Vend tun, kikærter, grønt og æg med olie, citronsaft, salt og peber.",
+        "Skær baguetten i skiver, og rist dem i ovnen ved 200 grader i 5-6 minutter, til de er gyldne (eller i brødristeren).",
+        "Server salaten med den ristede baguette."
       ],
       "niveau": "student",
       "ingredienser": [
         [
-          "pølser",
-          500,
-          "g",
+          "tun",
+          4,
+          "dåse",
           0,
           [
-            "K129"
+            "K101"
           ]
         ],
         [
-          "kartofler",
-          800,
-          "g",
+          "æg",
+          4,
+          "stk",
           0,
           [
-            "K2"
+            "K106"
           ]
         ],
         [
-          "hakkede tomater",
+          "kikærter",
           1,
           "dåse",
           0,
           []
         ],
         [
-          "løg",
+          "agurk",
           1,
           "stk",
           0,
           [
-            "K67"
+            "K54"
           ]
+        ],
+        [
+          "cherrytomater",
+          250,
+          "g",
+          0,
+          []
+        ],
+        [
+          "baguette",
+          1,
+          "stk",
+          0,
+          []
+        ],
+        [
+          "citron",
+          1,
+          "stk",
+          0,
+          []
         ],
         [
           "olie",
@@ -4868,13 +2858,6 @@
           "salt og peber",
           0,
           "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
           1,
           []
         ]
