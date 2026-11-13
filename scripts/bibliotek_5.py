@@ -111,11 +111,6 @@ RETTER = [
        ('frisk spinat', 100, 'g', 0, 'spinat', 0), SALT, PEBER],
       ["Kog pastaen i saltet vand.", "Rør creme fraiche med saft og revet skal fra citronen.", "Vend pastaen med saucen, spinat og røget laks i strimler. Smag til med peber."],
       "Pasta in a creamy lemon sauce with ribbons of smoked salmon and spinach in a rustic bowl"),
-    r("Rugbrød med røget laks og rørt æggesalat", "Klassisk lun frokost eller let aftensmad: rugbrød, røget laks og æggesalat.", 'student', 'fisk', 'dansk', 20,
-      [('røget laks', 200, 'g', 0, 'roeget_laks', 1), ('rugbrød', 8, 'stk', 0, 'rugbroed', 0), ('æg', 6, 'stk', 0, 'aeg', 0), ('creme fraiche', 100, 'g', 0, 'creme_fraiche', 0),
-       ('citron', 1, 'stk', 0, 'citron', 0), ('purløg', 1, 'bundt', 0, '', 0), SALT],
-      ["Hårdkog æggene i 9 minutter, og hak dem groft.", "Rør æggene med creme fraiche, purløg og salt.", "Læg æggesalat og røget laks på rugbrødet, og pynt med citron."],
-      "Danish open-faced sandwiches on dark rye bread with smoked salmon, egg salad, chives and lemon on a plate"),
     r("Laksewraps med avocado og agurk", "Hurtige wraps med røget laks, avocado og cremet fyld.", 'student', 'fisk', 'amerikansk', 15,
       [('røget laks', 200, 'g', 0, 'roeget_laks', 1), ('tortillas', 8, 'stk', 0, 'wraps', 0), ('avocado', 2, 'stk', 0, 'avocado', 0), ('agurk', 1, 'stk', 0, 'agurk', 0),
        ('creme fraiche', 150, 'g', 0, 'creme_fraiche', 0), ('citron', 1, 'stk', 0, 'citron', 0), SALT],
@@ -203,9 +198,4 @@ RETTER = [
       "Smooth orange sweet potato and coconut soup in a bowl with bread on the side"),
 
     # ---------------- CAMEMBERT / BRIE ----------------
-    r("Bagt camembert med æbler og rugbrød", "Varm, flydende camembert med bagte æbler og honning, serveret med rugbrød.", 'student', 'vegetar', 'dansk', 25,
-      [('camembert', 500, 'g', 0, 'camembert', 1), ('æbler', 2, 'stk', 0, 'aeble', 0), ('honning', 2, 'spsk', 1, '', 0), ('rugbrød', 8, 'stk', 0, 'rugbroed', 0), ('valnødder', 50, 'g', 0, '', 0)],
-      ["Læg camembert i et ildfast fad, og bag den ved 200 grader i 15 minutter.", "Steg æbleskiver i panden med honning, til de er bløde.",
-       "Server den varme ost med æbler, valnødder og rugbrød."],
-      "Baked camembert with caramelised apple slices, walnuts and dark rye bread on a wooden board"),
 ]

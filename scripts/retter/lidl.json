@@ -3806,64 +3806,6 @@
       "auto": true
     },
     {
-      "navn": "Bagt camembert med æbler og rugbrød",
-      "beskrivelse": "Varm, flydende camembert med bagte æbler og honning, serveret med rugbrød.",
-      "kategori": "vegetar",
-      "koekken": "dansk",
-      "tid_minutter": 25,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Læg camembert i et ildfast fad, og bag den ved 200 grader i 15 minutter.",
-        "Steg æbleskiver i panden med honning, til de er bløde.",
-        "Server den varme ost med æbler, valnødder og rugbrød."
-      ],
-      "niveau": "student",
-      "ingredienser": [
-        [
-          "camembert",
-          500,
-          "g",
-          0,
-          [
-            "L369"
-          ]
-        ],
-        [
-          "æbler",
-          2,
-          "stk",
-          0,
-          [
-            "L12"
-          ]
-        ],
-        [
-          "honning",
-          2,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "rugbrød",
-          8,
-          "stk",
-          0,
-          [
-            "L447"
-          ]
-        ],
-        [
-          "valnødder",
-          50,
-          "g",
-          0,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
       "navn": "Sticky ribs med ris og agurk",
       "beskrivelse": "Møre ribs i sød-salt glasur med ris og frisk agurk.",
       "kategori": "svin",

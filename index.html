@@ -1339,9 +1339,39 @@ function simGruppe(r) {
   if (/frikadell|kødboll|hakkebøf/.test(n)) return 'frikadelle';
   return r.kategori;
 }
-const SIM_MAX = { suppe: 1, pasta: 2, tex: 1, fastfood: 1, hakkebøf: 1, frikadelle: 2, fisk: 1, vegetar: 1, kylling: 2, svin: 2, okse: 2 };
+const SIM_MAX = { suppe: 1, pasta: 1, tex: 1, fastfood: 1, hakkebøf: 1, frikadelle: 1, fisk: 1, vegetar: 1, kylling: 2, svin: 2, okse: 2 };
 const SIM_MAX_VOKSEN = { ...SIM_MAX, suppe: 2, tex: 2, fisk: 2, vegetar: 2 };  // uden børn kan der være lidt mere af det, børn ikke gider
 const simLoft = () => state.boern > 0 ? SIM_MAX : SIM_MAX_VOKSEN;
+// Variation i ugen: ud over gruppen (suppe, pasta, fisk …) får hver ret mærker for det, der gør to retter ens at spise – pølser, kartoffelmos, æg, gryde, køkken og den
+// grøntsag, der fylder (er broccoli på tilbud, skal den ikke være i fire af ugens retter). Hvert mærke har et loft pr. uge (SIM_MAX_MAERKE; grøntsager og køkkener har et fælles loft).
+const SIM_MAX_MAERKE = { pølse: 1, mos: 1, æg: 1, fars: 2, gryde: 2, fad: 2, ris: 2, 'k:dansk': 3 };  // fars = frikadeller, kødboller, hakkebøf, karbonader (formet fars)
+const SIM_MAX_GROENT = 2, SIM_MAX_KOEKKEN = 3;
+const SIM_GROENT = [['broccoli', /broccoli/], ['blomkål', /blomkål/], ['kål', /spidskål|hvidkål|rødkål|savoykål|grønkål|rosenkål/], ['porre', /porre/], ['squash', /squash|courgette/],
+  ['peberfrugt', /peberfrugt|snackpeb/], ['svampe', /champignon|svampe|portobello/], ['spinat', /spinat/], ['ærter', /(?<!kik)ærter/], ['majs', /majs/],
+  ['bønner', /bønner/], ['græskar', /græskar|hokkaido/], ['sød kartoffel', /sød(?:e)? kartof/], ['avocado', /avocado/], ['æble', /æble/], ['rodfrugt', /rodfrugt|selleri|pastinak|persillerod|rødbede/]];
+const SIM_MAERKER = new Map();
+function simMaerker(r) {
+  if (SIM_MAERKER.has(r.id)) return SIM_MAERKER.get(r.id);
+  const n = r.navn.toLowerCase(), m = [simGruppe(r)];
+  if (/pølse|hotdog|medister|chorizo|salsiccia/.test(n)) m.push('pølse');
+  if (/frikadell|kødboll|hakkebøf|karbonade|krebinet|farsbrød|forloren/.test(n)) m.push('fars');
+  if (/kartoffelmos|\bmos\b/.test(n)) m.push('mos');
+  if (/æggekage|omelet|spejlæg|shakshuka|frittata/.test(n)) m.push('æg');
+  if (/gryde|gullasch|ragout|stroganoff|frikassé|labskovs/.test(n)) m.push('gryde');
+  if (/i fad|ovnbagt|ovnstegt|bradepande/.test(n)) m.push('fad');
+  if (/\bris\b|jasminris|risotto/.test(n)) m.push('ris');
+  if (r.koekken) m.push('k:' + r.koekken);
+  const ing = (r.ingredienser || []).filter(i => !i.basisvare).map(i => (i.navn || '').toLowerCase());
+  for (const [g, re] of SIM_GROENT) if (re.test(n) || ing.some(x => re.test(x) && !/pulver|krydderi|bouillon/.test(x))) m.push('g:' + g);
+  const u = [...new Set(m)];
+  SIM_MAERKER.set(r.id, u);
+  return u;
+}
+const simMaerkeLoft = (loft, m) => loft[m] ?? SIM_MAX_MAERKE[m] ?? (m.startsWith('g:') ? SIM_MAX_GROENT : m.startsWith('k:') ? SIM_MAX_KOEKKEN : 2);
+// Point for en afvekslende uge (lægges til ugens score): hvert køkken ud over det første (op til fire i alt), og at der er mindst én ret med fisk eller uden kød
+let SIM_VARIATION_KOEKKEN = 1.5, SIM_VARIATION_GROEN = 2;
+const simVariation = sæt => (Math.min(4, new Set(sæt.map(r => r.koekken).filter(Boolean)).size) - 1) * SIM_VARIATION_KOEKKEN
+  + (sæt.some(r => r.kategori === 'fisk' || r.kategori === 'vegetar') ? SIM_VARIATION_GROEN : 0);
 let SIM_TILBUD_VAEGT = 1;  // point for en ret, hvis pris udelukkende er tilbudsvarer (lavere = prisen alene styrer valget)
 let SIM_LOKAL_KAND = 30, SIM_RUNDER = 3, SIM_GREEDY_KAND = 30;  // hvor grundigt retter prøves af
 let SIM_SPILD = 3, SIM_FORBEDRING = true, SIM_DOBBELT_GRAENSE = 0;  // spildvægt, forbedring ved ombytning, og hvor meget en dobbelt portion mindst skal spare  // vægt på spild i scoren; om sættet forbedres ved at bytte retter
@@ -1417,24 +1447,24 @@ function simFraButikker(stores) {
       t.straf = Math.max(0, t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK;
       return t;
     };
-    const scoreSæt = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) + SIM_TILBUD_PLAN * (t.ialt ? t.tilbud / t.ialt : 0) - (t.ialt + SIM_SPILD * t.spild + t.straf) / (SIM_PRIS_DIV * f); };
+    const scoreSæt = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) + simVariation(sæt) + SIM_TILBUD_PLAN * (t.ialt ? t.tilbud / t.ialt : 0) - (t.ialt + SIM_SPILD * t.spild + t.straf) / (SIM_PRIS_DIV * f); };
     // Ét udgangspunkt vælges ret for ret efter smag minus pris (div = hvor tungt prisen vejer). To udgangspunkter prøves (prisen vejer lidt mindre og lidt mere end i scoren), og det med den bedste score forbedres bagefter –
     // så søgningen ikke sætter sig fast på en dyr uge, når en meget billigere næsten er lige så god.
     const bygGreedy = (div, antalKand = SIM_GREEDY_KAND) => {
       const vt = [], antal = {}, pakkeAntal = {};
       let pris = 0;
       while (vt.length < 7) {
-        const kand = paaSmag.filter(r => !vt.includes(r) && !vt.some(x => ensRet(x, r)) && (antal[simGruppe(r)] || 0) < (loft[simGruppe(r)] ?? 2)
+        const kand = paaSmag.filter(r => !vt.includes(r) && !vt.some(x => ensRet(x, r)) && simMaerker(r).every(m => (antal[m] || 0) < simMaerkeLoft(loft, m))
           && proteinNoegler(r).every(n => (pakkeAntal[n] || 0) < PAKKE_MAX)).slice(0, antalKand);
         if (!kand.length) break;
         let bedst = null, bedstSc = -Infinity, bedstPris = 0;
         for (const r of kand) {
           const t = tal([...vt, r], true), p = t.ialt + t.straf;
-          const sc = smag.get(r.id) - (p - pris) / (div * f);
+          const sc = smag.get(r.id) + simVariation([...vt, r]) - simVariation(vt) - (p - pris) / (div * f);
           if (sc > bedstSc) { bedst = r; bedstSc = sc; bedstPris = p; }
         }
         vt.push(bedst); pris = bedstPris;
-        const g = simGruppe(bedst); antal[g] = (antal[g] || 0) + 1;
+        for (const m of simMaerker(bedst)) antal[m] = (antal[m] || 0) + 1;
         for (const n of proteinNoegler(bedst)) pakkeAntal[n] = (pakkeAntal[n] || 0) + 1;
       }
       return vt;
@@ -1451,8 +1481,8 @@ function simFraButikker(stores) {
     if (vt.length === 7) {
       const overholderLoft = sæt => {
         const a = {}, pk = {};
-        for (const r of sæt) { const g = simGruppe(r); a[g] = (a[g] || 0) + 1; for (const n of proteinNoegler(r)) pk[n] = (pk[n] || 0) + 1; }
-        return Object.entries(a).every(([g, n]) => n <= (loft[g] ?? 2)) && Object.values(pk).every(n => n <= PAKKE_MAX);
+        for (const r of sæt) { for (const m of simMaerker(r)) a[m] = (a[m] || 0) + 1; for (const n of proteinNoegler(r)) pk[n] = (pk[n] || 0) + 1; }
+        return Object.entries(a).every(([m, n]) => n <= simMaerkeLoft(loft, m)) && Object.values(pk).every(n => n <= PAKKE_MAX);
       };
       bedstScore = scoreSæt(vt);
       for (let runde = 0; SIM_FORBEDRING && runde < SIM_RUNDER; runde++) {
@@ -1697,11 +1727,11 @@ function simByt(k, i) {  // skift dag i's ret ud med det næstbedste forslag (al
   const brugt = new Set(plan.map(x => x.r.id)), ensMedPlan = r => plan.some(x => ensRet(x.r, r));
   const alle = medS(plan.S, () => pool(plan.S).slice()).sort((a, b) => boernScore(b) - boernScore(a));
   const antal = {};
-  plan.forEach((x, j) => { if (j !== i) antal[simGruppe(x.r)] = (antal[simGruppe(x.r)] || 0) + 1; });
+  plan.forEach((x, j) => { if (j !== i) for (const m of simMaerker(x.r)) antal[m] = (antal[m] || 0) + 1; });
   const kand = alle.filter(r => !brugt.has(r.id) && !afvist.has(r.id) && !ensMedPlan(r));
   // Den nye ret: blandt de bedste kandidater den, der giver mest smag for den ekstra pris i hele ugens indkøb
   const f = Math.max(faktor(), 0.3);
-  const egnede = kand.filter(r => (antal[simGruppe(r)] || 0) < (simLoft()[simGruppe(r)] ?? 2)).slice(0, 12);
+  const egnede = kand.filter(r => simMaerker(r).every(m => (antal[m] || 0) < simMaerkeLoft(simLoft(), m))).slice(0, 12);
   let ny = null, nyScore = -Infinity;
   for (const r of egnede) {
     const sæt = plan.map((x, j) => j === i ? r.id : x.r.id), t = ugePris(sæt, {}, plan.S);
@@ -2214,7 +2244,7 @@ const NETBUTIKKER = {
   bilka: { navn: 'Bilka To Go', url: q => `https://www.bilkatogo.dk/s/?query=${encodeURIComponent(q)}` },
 };
 // Kort, søgbart navn: "Danske kartofler" / "Oscar fersk andebryst" – uden "eller …", mængder og parenteser
-const soegeord = navn => navn.split(/ eller |,| – | - /i)[0].replace(/\(.*?\)/g, '').replace(/\s(marked|storkøb|xxl)/gi, '').replace(/\d+([,.]\d+)?(-\d+([,.]\d+)?)?\s*(%|g|kg|ml|l|stk)\b/gi, '').trim();
+const soegeord = navn => navn.split(/ eller |,| – | - /i)[0].replace(/\(.*?\)/g, '').replace(/\s(marked|storkøb|xxl)\b/gi, '').replace(/\d+([,.]\d+)?(-\d+([,.]\d+)?)?\s*(%|g|kg|ml|l|stk)\b/gi, '').trim();
 
 // Samlet pris for en række linjer: tilbudsvarer (faktisk pris) + skøn for resten
 function prisSum(linjer) {
