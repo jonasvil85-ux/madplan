@@ -25,7 +25,7 @@ STIL_KOEKKEN = {
 
 # (regex på rettens navn i små bogstaver, beskrivelse af hvordan retten SER UD) – første match vinder
 DETALJER = [
-    (r'stegt flæsk', 'Danish stegt flæsk med persillesovs: several thick slices of crispy golden-brown fried pork belly with crunchy edges, beside a mound of boiled potatoes, '
+    (r'stegt flæsk', 'Danish stegt flæsk med persillesovs: many thin crispy golden-brown fried slices of pork belly, like thick-cut streaky bacon rashers with crunchy edges (not a roast, not thick cuts), beside a mound of boiled potatoes, '
                      'covered in a creamy pale-green parsley sauce with flecks of chopped fresh parsley'),
     (r'æbleflæsk', 'Danish æbleflæsk: slices of fried pork belly with soft caramelised apple and onion, served on dark rye bread'),
     (r'medister', 'Danish medisterpølse: thick coarse-ground pork sausage fried until the casing is glossy golden-brown, sliced diagonally to show the pale pink coarse meat inside'),
@@ -38,7 +38,7 @@ DETALJER = [
     (r'brun kødsovs', 'Danish gammeldags brun kødsovs: a plate of whole boiled potatoes and boiled carrot pieces with a thick brown gravy of crumbled browned minced beef and onion spooned over, plain and homely'),
     (r'biksemad', 'Danish biksemad: fried diced potatoes and small meat pieces with onion, topped with a sunny-side-up fried egg, with pickled beetroot slices and parsley'),
     (r'brændende kærlighed', 'Danish brændende kærlighed: fluffy mashed potatoes topped with crispy fried bacon pieces and golden fried onions, with pickled beetroot on the side'),
-    (r'æggekage', 'Danish æggekage: a thick golden baked egg cake cut in pieces, served with dark rye bread'),
+    (r'æggekage', 'Danish æggekage: a thick fluffy golden omelette (like a frittata) made of eggs, baked in a frying pan and cut in wedges, clearly egg and not bread or cake, served with dark rye bread'),
     (r'stuvet|stuvede', 'Danish stuvet kål: soft cabbage in a creamy white sauce with nutmeg, served with fried sausage and boiled potatoes'),
     (r'skipperlabskovs', 'Danish skipperlabskovs: thick beef and potato stew served with rye bread and pickled beetroot'),
     (r'gule ærter', 'Danish yellow pea soup (gule ærter) with pieces of pork and sausage in a deep bowl, mustard on the side'),
