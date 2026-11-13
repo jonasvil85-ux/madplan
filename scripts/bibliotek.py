@@ -1,4 +1,4 @@
-"""Samler opskriftsbiblioteket (bibliotek_1..7)."""
+"""Samler opskriftsbiblioteket (bibliotek_1..8)."""
 import os as _os, sys as _sys
 _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
 from bibliotek_1 import RETTER as _1
@@ -8,9 +8,10 @@ from bibliotek_4 import RETTER as _4
 from bibliotek_5 import RETTER as _5
 from bibliotek_6 import RETTER as _6
 from bibliotek_7 import RETTER as _7
+from bibliotek_8 import RETTER as _8
 from bibliotek_typer import TYPER
 
-RETTER = _1 + _2 + _3 + _4 + _5 + _6 + _7
+RETTER = _1 + _2 + _3 + _4 + _5 + _6 + _7 + _8
 # Smør til sovs, mos og stegning (mindst 30 g) er en rigtig vare, der kan være på tilbud (fx Lurpak) – kun mindre klatter er basisvarer
 SMOER_MIN = 30
 for _r in RETTER:

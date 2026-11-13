@@ -1369,9 +1369,22 @@ function simMaerker(r) {
 }
 const simMaerkeLoft = (loft, m) => loft[m] ?? SIM_MAX_MAERKE[m] ?? (m.startsWith('g:') ? SIM_MAX_GROENT : m.startsWith('k:') ? SIM_MAX_KOEKKEN : 2);
 // Point for en afvekslende uge (lægges til ugens score): hvert køkken ud over det første (op til fire i alt), og at der er mindst én ret med fisk eller uden kød
-let SIM_VARIATION_KOEKKEN = 1.5, SIM_VARIATION_GROEN = 2;
+let SIM_VARIATION_KOEKKEN = 1.5, SIM_VARIATION_GROEN = 2, SIM_VARIATION_FARVE = 3, SIM_FARVE_MAX = 3;
+// Blikfang: en ret er farverig, når den har friske råvarer i mindst tre farver (rød, orange, grøn, lilla, gul). Op til fire farverige retter om ugen giver point,
+// så forslaget ikke kun er brun mad med kartofler – de må koste lidt mere end den billigste uge.
+const SIM_FARVER = [/tomat|peberfrugt|snackpeb|rødbede|radise/, /gulerod|gulerødder|sød(?:e)? kartof|græskar|hokkaido|mango|appelsin/,
+  /broccoli|spinat|agurk|avocado|ærter|grønne bønner|salat|squash|porre|pak choi|forårsløg|spidskål|rucola|pesto/, /rødkål|rødløg|aubergine/, /majs|citron|ananas|gurkemeje/];
+const SIM_FARVE_ANTAL = new Map();
+function farveAntal(r) {
+  if (SIM_FARVE_ANTAL.has(r.id)) return SIM_FARVE_ANTAL.get(r.id);
+  const ing = (r.ingredienser || []).map(i => (i.navn || '').toLowerCase()).filter(x => !/hakkede tomater|tomatpur|ketchup|pulver/.test(x));
+  const n = SIM_FARVER.filter(re => ing.some(x => re.test(x))).length;
+  SIM_FARVE_ANTAL.set(r.id, n);
+  return n;
+}
 const simVariation = sæt => (Math.min(4, new Set(sæt.map(r => r.koekken).filter(Boolean)).size) - 1) * SIM_VARIATION_KOEKKEN
-  + (sæt.some(r => r.kategori === 'fisk' || r.kategori === 'vegetar') ? SIM_VARIATION_GROEN : 0);
+  + (sæt.some(r => r.kategori === 'fisk' || r.kategori === 'vegetar') ? SIM_VARIATION_GROEN : 0)
+  + Math.min(SIM_FARVE_MAX, sæt.filter(r => farveAntal(r) >= 3).length) * SIM_VARIATION_FARVE;
 let SIM_TILBUD_VAEGT = 1;  // point for en ret, hvis pris udelukkende er tilbudsvarer (lavere = prisen alene styrer valget)
 let SIM_LOKAL_KAND = 30, SIM_RUNDER = 3, SIM_GREEDY_KAND = 30;  // hvor grundigt retter prøves af
 let SIM_SPILD = 3, SIM_FORBEDRING = true, SIM_DOBBELT_GRAENSE = 0;  // spildvægt, forbedring ved ombytning, og hvor meget en dobbelt portion mindst skal spare  // vægt på spild i scoren; om sættet forbedres ved at bytte retter

@@ -9,7 +9,7 @@ import re
 # Fælles fotostil (13/11-2026, valgt af brugeren efter før/efter-prøve): varm og tæt på maden i stedet for den blege "hvid tallerken på gråt hør".
 # Ikke 'cookbook cover' (gav titeltekst på billedet) og ikke 'dark table' (blev for mørkt). Ingen pynt ved siden af, der ikke er i retten (modellen lagde tomater ved alt, da stilen bad om "noget friskt ved siden af").
 STIL_NORDISK = ('Mouth-watering close-up food photograph, bright and inviting: warm golden afternoon sunlight from a window at the side, soft shadows, the hot dish glistening and juicy, '
-                'vivid saturated natural colours, a big generous family-style portion with every part of the dish clearly visible, served in rustic handmade glazed stoneware on a honey-brown wooden table, '
+                'vivid saturated natural colours, a big generous family-style portion with every part of the dish clearly visible, served on a honey-brown wooden table in rustic handmade glazed stoneware (or on the board, tray, pan or pot the description names), '
                 'nothing beside the dish that is not part of it, no loose tomatoes or vegetables on the table, '
                 'shallow depth of field with a softly blurred light and airy kitchen background, shot close from a 35 degree angle, realistic, freshly cooked, '
                 'a plain photograph with no text, no letters, no title, no caption, no watermark, no people, no hands')
