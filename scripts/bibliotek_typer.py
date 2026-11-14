@@ -64,7 +64,7 @@ TYPER = {
     'agurk':         (r'agurk', r'syltede|salat|sauce'),
     'avocado':       (r'avocado', r''),
     'citron': (r'(?<![a-zæøå])(citron|lime)(?![a-zæøå])', r'fromage|mousse|pølse|kylling|oetker|saft|sodavand|vand|brus|gin|vin|måne|kage|cake|vafler|digestive|kiks|biscuit|chokolade|slik'),
-    'aeble': (r'(?<![a-zæøå])æble', r'most|juice|kompot|sauce|granat'),
+    'aeble': (r'(?<![a-zæøå])æble', r'most|juice|kompot|sauce|granat|nektar'),
     'pastinak':      (r'pastinak', r''),
     'selleri':       (r'selleri', r''),
     # Konserves og kolonial
@@ -76,7 +76,7 @@ TYPER = {
     'pasta': (r'(?<![a-zæøå])pasta(?![a-zæøå])|spaghetti|penne|fettuccine|makaroni|tagliatelle|fusilli', r'fyldt|brema|sauce|salat|tand|pastel|suppe|rana|tortell|ravioli'),
     'ris': (r'(?<![a-zæøå])ris(?![a-zæøå])|jasminris|basmati', r'kogepose|ben.s|papir|ritz'),
     'nudler':        (r'nudler|udon|ramen', r'kopnudler|instant|buldak'),
-    'wraps': (r'(?<![a-zæøå])wraps?(?![a-zæøå])|tortilla', r'mask|collagen|night|ansigt|hud'),
+    'wraps': (r'(?<![a-zæøå])wraps?(?![a-zæøå])|tortilla', r'mask|collagen|night|ansigt|hud|chips'),
     'pita':          (r'pita', r''),
     'baguette':      (r'baguette|ciabatta|(?<![a-zæøå])flute|hvedebrød|landbrød|franskbrød', r'rugbrød|knæk|brioche|burger|hotdog|toast|wienerbrød|boller|pizza|croissant|pulled|duck|sandwich|(?<![a-zæøå])med(?![a-zæøå])'),
     'burgerboller':  (r'burgerboller|hotdogbrød|brioche|burger', r'bøf|boost|hamburger'),
