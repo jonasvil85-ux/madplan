@@ -1,0 +1,53 @@
+# Laver billeder til retter, der mangler et (nye retter fra tilbudsrutinen), og lægger dem på main.
+# Kræver ÉN hemmelighed i GitHub: Settings -> Secrets and variables -> Actions -> New repository secret
+#   navn: CLOUDFLARE_API_TOKEN   værdi: Cloudflare-nøglen med Workers AI-adgang (samme som på Jonas' pc)
+# Kører hver dag lidt efter tilbudsrutinen (05:08 UTC) og kan startes med hånden under fanen Actions.
+name: Billeder til nye retter
+on:
+  schedule:
+    - cron: '35 5 * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: billeder
+  cancel-in-progress: false
+jobs:
+  billeder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow
+      - name: Er der retter uden billede?
+        id: mangler
+        run: |
+          python -I - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          r = json.load(open('retter.json', encoding='utf-8'))
+          n = sum(1 for b in r['butikker'].values() for x in b['retter'] if not x.get('billede'))
+          print(f'antal={n}')
+          PY
+      - name: Lav billeder
+        if: steps.mangler.outputs.antal != '0'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "Mangler hemmeligheden CLOUDFLARE_API_TOKEN"; exit 1; fi
+          python -I scripts/billeder.py --maks 120
+          python -I scripts/byg_retter.py
+          python -I scripts/byg_opskrifter.py
+          python -I scripts/tests/kontrol.py
+      - name: Læg billederne på main
+        if: steps.mangler.outputs.antal != '0'
+        run: |
+          git config user.name "Madplan billeder"
+          git config user.email "noreply@github.com"
+          git add billeder retter.json opskrifter.json naering.json
+          git diff --cached --quiet && { echo "Ingen ændringer"; exit 0; }
+          git commit -m "Billeder til nye retter (automatisk)"
+          git pull --rebase origin main
+          git push origin HEAD:main

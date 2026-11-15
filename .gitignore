@@ -9,3 +9,7 @@ scripts/naering/byg_forside_demo.py
 scripts/naering/demo_skabelon.html
 scripts/naering/naering_demo.html
 scripts/naering/naering.json
+
+# genereres af scripts/tests/kontrol.py
+scripts/_tjek_fund.json
+__pycache__/

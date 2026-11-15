@@ -18,7 +18,7 @@ Fælles regler for alle: `regler.md`. Overblik over hvad der sker: `STATUS.md`.
    - **Klasse A (sikker):** tekst, layout/CSS, nye eller ændrede retter og opskrifter, billeder, dokumentation, tests. Kontrolløren slår sammen med `main` (Vercel udgiver automatisk), hvis alt er bestået.
    - **Klasse B (kræver Jonas):** alt der rører priser, mængder, indkøbslisten, madplanens beregning, service worker, login/dataindsamling, byggescripts, rutinernes instrukser eller sletter mange retter. Grenen bliver stående og står som VENTER i `STATUS.md`. Jonas siger "godkend ai/…" i chatten, så slår Claude den sammen.
    - **Afvist:** fejl rapporteres i `rapporter/`; udvikleren retter dagen efter (højst to forsøg, så parkeres opgaven).
-4. Kan JavaScript ikke syntaks-tjekkes (node mangler i skyen), er enhver ændring i `.js`/`index.html` automatisk klasse B.
+4. Skyen har `node`, så kontrollen syntaks-tjekker al JavaScript. Mangler node en dag (kontrollen skriver det), er enhver ændring i `.js`/`index.html` automatisk klasse B. Syntaks-tjek er ikke det samme som, at siden virker – derfor er ændringer i beregninger altid B.
 5. Alt kan rulles tilbage: `main` er en git-historik, og hver ændring er ét sammenlægnings-commit.
 
 ## Jonas' styring
@@ -27,6 +27,6 @@ Fælles regler for alle: `regler.md`. Overblik over hvad der sker: `STATUS.md`.
 - Stop alt: pausér rutinerne på https://claude.ai/code/routines.
 
 ## Hvad holdet ikke kan (endnu)
-- **Billeder:** nøglen til billedmodellen findes kun på Jonas' pc. Nye retter får et gaffelikon, til billeder laves (`python -I scripts/billeder.py`, derefter `byg_retter.py` → `byg_opskrifter.py`).
+- **Billeder:** laves af GitHub-handlingen `.github/workflows/billeder.yml` hver dag kl. 05:35 UTC (kræver hemmeligheden `CLOUDFLARE_API_TOKEN` i GitHub). Uden den, eller indtil den har kørt, viser nye retter et gaffelikon; Jonas kan også køre `python -I scripts/billeder.py` lokalt.
 - **Browsertest:** skyen har ikke en browser. Visuelle ændringer vurderes ud fra koden; Jonas ser dem på siden efter udgivelsen.
 - **Brugerfeedback:** ligger i Supabase, som holdet ikke har adgang til. Klistr relevant feedback ind i `BACKLOG.md`.
