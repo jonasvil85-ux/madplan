@@ -1,6 +1,6 @@
 # Status for AI-holdet
 
-**HELBRED.md findes ikke endnu** (Vagtpost-handlingen er ny og har ikke skrevet den); den udgivne side er ikke tjekket 2026-11-15 kl. 09.
+HELBRED.md: GRØN (2026-11-15 09:09 UTC, begge domæner OK, retter.json identisk med main 1e5ed5f).
 
 Sidst kontrolleret: 2026-11-15 kl. 09 (kontrollant)
 Main-status: BESTÅET (0 fejl, 9 advarsler) og REGRESSION: BESTÅET efter sammenlægning af ai/2026-11-15-regressionstest.
