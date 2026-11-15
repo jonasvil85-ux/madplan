@@ -85,6 +85,29 @@ if opskr:
         if not o.get('billede') or not os.path.exists(os.path.join(ROD, o['billede'])): fejl.append(f"opskrift '{o['navn']}' mangler billede")
     ok.append(f'{len(ider)} biblioteksopskrifter tjekket')
 
+# ---------- 3b. Opskriftssider (SEO): hver opskrift skal have en side, gyldig Recipe-JSON-LD og stå i sitemap ----------
+if opskr:
+    try:
+        sitemap = laes('sitemap.xml')
+        mangler_side, mangler_sitemap, ugyldig = [], [], []
+        for o in opskr['opskrifter']:
+            sl = re.sub(r'[^a-z0-9]+', '-', o['navn'].lower().replace('æ', 'ae').replace('ø', 'oe').replace('å', 'aa')).strip('-')[:90]
+            sti = f'opskrift/{sl}/index.html'
+            if not os.path.exists(os.path.join(ROD, sti)): mangler_side.append(o['navn']); continue
+            if f'/opskrift/{sl}/' not in sitemap: mangler_sitemap.append(o['navn'])
+            blokke = re.findall(r'<script type="application/ld\+json">(.*?)</script>', laes(sti), re.S)
+            try:
+                r = [json.loads(b) for b in blokke if '"Recipe"' in b][0]
+                if not (r.get('recipeIngredient') and r.get('recipeInstructions') and r.get('name')): ugyldig.append(o['navn'])
+            except Exception:  # noqa: BLE001
+                ugyldig.append(o['navn'])
+        if mangler_side: fejl.append(f'{len(mangler_side)} opskrifter mangler opskriftsside (kør scripts/byg_sider.py): ' + '; '.join(mangler_side[:3]))
+        if mangler_sitemap: fejl.append(f'{len(mangler_sitemap)} opskriftssider mangler i sitemap.xml: ' + '; '.join(mangler_sitemap[:3]))
+        if ugyldig: fejl.append(f'{len(ugyldig)} opskriftssider har ugyldig Recipe-JSON-LD: ' + '; '.join(ugyldig[:3]))
+        if not (mangler_side or mangler_sitemap or ugyldig): ok.append(f'{len(opskr["opskrifter"])} opskriftssider i orden')
+    except FileNotFoundError:
+        fejl.append('sitemap.xml mangler')
+
 # ---------- 4. Næring og tilbudsliste skal høre til de aktuelle retter ----------
 if retter and data['naering.json']:
     n = data['naering.json']
