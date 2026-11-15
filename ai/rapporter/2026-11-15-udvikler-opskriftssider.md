@@ -39,3 +39,20 @@ Alle forskelle er nul, som forventet: grenen ændrer hverken `retter.json`, `ops
 **Kontrolløren bør kigge på:** at `python -I scripts/byg_sider.py` giver byte-identiske filer to gange i træk; at `retter.json`/`opskrifter.json` er uændrede; at regressionstesten er uændret; stikprøve af 5 sider.
 
 **Næste skridt:** (1) Lad billedhandlingen og RUTINE.md kalde `byg_sider.py` efter `byg_opskrifter.py` (grundlov; Jonas/chatten gør det). (2) Når siderne er indekseret: mål visninger i Google Search Console (kræver Jonas). (3) Overvej opskriftssider med "typisk pris pr. person" først når et ærligt, stabilt tal findes.
+
+
+**Indkøbslistens linjer og summer (før = main, efter = grenen; ugeforslagets valgte retter, 2 voksne + 2 børn, én butik; målt med sidens `listeLinjer()` og `prisSum()` i headless Edge):**
+
+| Butik | På tilbud (linjer) | Øvrige | Basisvarer | Sum for listen (kr) | Ugepris | Før = efter |
+|---|---|---|---|---|---|---|
+| 365discount | 12 | 11 | 12 | 707 | 514 | ja |
+| Netto | 11 | 9 | 19 | 780 | 464 | ja |
+| MENY | 7 | 14 | 15 | 865 | 658 | ja |
+| Bilka | 7 | 16 | 13 | 767 | 565 | ja |
+| REMA 1000 | 10 | 14 | 14 | 792 | 583 | ja |
+| Kvickly | 8 | 16 | 10 | 656 | 522 | ja |
+| Lidl | 13 | 11 | 16 | 637 | 421 | ja |
+| SPAR | 8 | 18 | 14 | 825 | 608 | ja |
+| Min Købmand | 7 | 14 | 13 | 785 | 595 | ja |
+
+Alle tal er identiske før og efter i alle 9 butikker.
