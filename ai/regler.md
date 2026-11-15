@@ -15,7 +15,7 @@ Læs dem, før du rører noget. De kommer fra Jonas (ejeren) eller fra fejl, vi 
 - Én lille opgave ad gangen: højst ca. 15 filer. Er opgaven større, så del den i trin i `BACKLOG.md` og tag det første.
 - Læs `ai/STATUS.md` og de to seneste rapporter, før du vælger. Gentag ikke noget, der allerede er afvist.
 - Kør `python -I scripts/tests/kontrol.py` før og efter. Den skal slutte med `BESTÅET`. Bliver den rød af en ældre fejl, så ret den ikke i samme gren – skriv den i rapporten.
-- Bygge-rækkefølge for data er ALTID `byg_retter.py` → `byg_opskrifter.py` (ellers forsvinder `vt`/`ty`, og indkøbslisten viser hele tilbudsgrupper). Læs `scripts/RUTINE.md` før du rører data.
+- Bygge-rækkefølge for data er ALTID `byg_retter.py` → `byg_opskrifter.py` (ellers forsvinder `vt`/`ty`, og indkøbslisten viser hele tilbudsgrupper). Læs `scripts/RUTINE.md` før du rører data. Ændrer du biblioteksopskrifter (`scripts/bibliotek_*.py`) eller deres billeder, så kør bagefter `python -I scripts/byg_sider.py` (bygger opskriftssiderne og sitemap til Google, findes når grenen `ai/2026-11-15-opskriftssider` er slået sammen); kontrollen fejler, hvis en opskrift mangler sin side.
 - Skriv en ny kontrol i `scripts/tests/kontrol.py`, hver gang du finder eller retter en fejl, der kunne være fanget automatisk.
 - Brug `python -I` til Python. Skriv UTF-8 (æøå) og bevar eksisterende linjeskift og indrykning. Brug ikke `\b` i regex med æøå (brug `(?<![a-zæøå])…(?![a-zæøå])`).
 - Rør ikke filer uden for opgaven. Ret aldrig i grundloven (se nedenfor) – foreslå det i rapporten.
