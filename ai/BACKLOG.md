@@ -11,7 +11,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: uden den kan ingen ændring af priser, mængder eller ugeforslag valideres automatisk, så alle H-ændringer er blokeret.
   Accept: (1) kører i skyen uden internet på under 2 minutter, (2) fanger en bevidst ændring af en prisregel og en ændring af en pakkestørrelse (bevis i rapporten), (3) facitlisten kan opdateres med én kommando, når en ændring er tilsigtet, (4) kaldes af `kontrol.py`, (5) rapporten beskriver, hvad den IKKE dækker.
   Ikke-mål: ændre noget i selve prisberegningen.
-- [ ] [UX] [A] Opskriftssider til Google (PARKERET 2026-11-15 efter to afviste forsøg, tilbage hos Ejeren. Gren ai/2026-11-15-opskriftssider. Forsøg 1: før/efter-tal manglede. Forsøg 2 (552202c): indkøbslistens linjer mangler stadig i før/efter-tabellen. Alt andet grønt; se ai/rapporter/2026-11-15-kontrol.md, fjerde kørsel. Forsøg 3 (9360d24) lukker manglen; afventer Ejerens beslutning om at fjerne parkeringen)
+- [ ] [UX] [A] Opskriftssider til Google (KLAR TIL SAMMENLÆGNING: afparkeret 2026-11-15 af Ejer/CTO efter forsøg 3; gren ai/2026-11-15-opskriftssider, 9360d24)
   Krav: hver af de 193 biblioteksopskrifter får en egen side `/opskrift/<navn>/` med billede, ingredienser til 4, trin, tid, næring og Recipe-struktureret data, plus en oversigt `/opskrifter/` og sitemap.
   Hvorfor: siden har kun én URL, så Google ser ingen retter. Organisk trafik er den største vækstmulighed uden annoncer.
   Accept: (1) 193 sider + oversigt, (2) gyldig Recipe-JSON-LD på hver, (3) sitemap med alle, (4) kontrollen tjekker at hver opskrift har en side, (5) sider bygges af `scripts/byg_sider.py`, (6) ingen priser eller datoer på siderne (de bliver gamle).
@@ -84,4 +84,4 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Ikke-mål: ændre facit.
 
 ## Afvist / parkeret
-- [UX] Opskriftssider til Google (gren ai/2026-11-15-opskriftssider, 552202c). Parkeret 2026-11-15 efter to afvisninger på H-punkt 2 (rapportens før/efter-tal). Kontrollanten har selv genskabt tallene, og de er uændrede for alle 9 butikker: ugepris, 7 retter og 34–40 linjer på indkøbslisten. Det eneste, der mangler, er kolonnen for indkøbslistens linjer i udviklerrapporten. Ejeren beslutter næste skridt.
+- [UX] Opskriftssider til Google (gren ai/2026-11-15-opskriftssider, 9360d24): afparkeret 2026-11-15; klar til sammenlægning (se STATUS).

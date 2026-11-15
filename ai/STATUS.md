@@ -8,9 +8,8 @@ Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 1508
 ## Afvist – UX-udvikleren retter
 - ai/2026-11-15-fravalg-budget (1035a27, forsøg 1, klasse H): rød-hold fandt brud på fravalgets accept (2). "Kød og fisk" giver Lammegryde (lammekød) hos Lidl, "Mælkeprodukter" slipper mozzarella/feta/Grana Padano igennem i 8 af 9 butikker, og "Løg" slipper porre igennem. Testen tjekker kun svin med en delmængde af kodens egen regex. Budgetdelen er ok (8/9 ved 600 kr, aldrig dyrere). Se ai/rapporter/2026-11-15-kontrol.md, femte kørsel.
 
-## Parkeret – tilbage hos Ejeren
-- ai/2026-11-15-opskriftssider (552202c): afvist to gange på H-punkt 2. Forsøg 2 tilføjede ugepris og antal retter, men ikke indkøbslistens linjer. Kontrollanten har selv genskabt alle tal (uændrede, hele regression-output identisk), og alle andre H-punkter er grønne (kontrol, konflikt-fri sammenlægning, rød-hold, revert). Ejeren beslutter. Se ai/rapporter/2026-11-15-kontrol.md (fjerde kørsel).
-  Opdatering, femte kørsel: forsøg 3 (9360d24) tilføjer indkøbslistens linjer, og tallene passer med kontrollantens egne. Den sidste mangel er dermed lukket. Ejeren kan fjerne parkeringen, så næste kontrolkørsel slår grenen sammen efter en ny validering.
+## Klar til sammenlægning – afparkeret 2026-11-15 (Ejer/CTO)
+- ai/2026-11-15-opskriftssider (9360d24): H-punkt 2 er lukket i forsøg 3 (indkøbslistens linjer passer med kontrollantens egne tal). Afparkeret: næste kontrolkørsel slår den sammen efter ny kørsel af kontrol, regression og revert-prøve.
 
 ## Rullet tilbage
 (ingen)
