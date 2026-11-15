@@ -876,6 +876,24 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex]:focus-v
 html { scrollbar-gutter: stable; }
 @supports not (scrollbar-gutter: stable) { html { overflow-y: scroll; } }
 .hero-tekst { padding: 4px 0; }  /* overskriften på forsiden står på linje med logoet og panelerne */
+/* ===== Mobil: tryk-flader mindst 44 px (Apples og Googles anbefaling). Udseendet bevares; små knapper får usynligt større trykområde ===== */
+@media (pointer: coarse), (max-width: 700px) {
+  .byt-knap, .ing-knap { position: relative; }
+  .byt-knap { min-width: 36px; min-height: 36px; justify-content: center; }
+  .ing-knap, .bil .ing-knap { width: 36px; height: 36px; }
+  .byt-knap::after, .ing-knap::after { content: ""; position: absolute; inset: -5px; }
+  .butik-chip { height: 44px; }
+  .chip { min-height: 44px; display: inline-flex; align-items: center; }
+  .ude-knap { min-height: 44px; }
+  .hl-chip { height: 44px; }
+  .info-i { position: relative; }
+  .info-i::after { content: ""; position: absolute; inset: -11px; }
+  nav.trin button { min-height: 44px; }
+  .slet-valg { min-width: 44px; min-height: 44px; }
+  .fod-knap, footer a { min-height: 44px; display: inline-flex; align-items: center; }
+  .vare input { width: 24px; height: 24px; margin-top: 2px; }
+  .vare { min-height: 48px; align-items: center; }
+}
 </style>
 </head>
 <body>
