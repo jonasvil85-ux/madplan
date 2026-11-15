@@ -6,6 +6,7 @@ Siden udvikles hver dag af et hold Claude-rutiner i skyen. De styrer sig selv og
 |---|---|---|---|
 | Tilbudsrutinen | dagligt 05:08 | Henter nye aviser, skriver retter, bygger data | `scripts/RUTINE.md` |
 | Billedhandlingen (GitHub) | dagligt 05:35 | Laver billeder til nye retter | `.github/workflows/billeder.yml` |
+| Vagtpost (GitHub) | efter hver ændring + hver 3. time | Sammenligner den udgivne side med main, skriver `HELBRED.md`, rydder sammenlagte grene. Rød giver en e-mail | `.github/workflows/vagtpost.yml` |
 | **Ejer** | dagligt 06:00 | Ejer visionen. Skriver krav med acceptkriterier. Efterkontrollerer det udgivne. Gennemgår grundigt om søndagen | `agenter/ejer.md` |
 | **UX-udvikler** | dagligt 06:30 | Kreativ designer og udvikler. Tager det øverste krav, designer, bygger på en gren, tester | `agenter/ux-udvikler.md` |
 | **Kontrollant** | dagligt 09:00 | Vagtpost over det udgivne (kan rulle tilbage). Validerer grene og slår sammen eller afviser | `agenter/kontrollant.md` |

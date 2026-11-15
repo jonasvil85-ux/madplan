@@ -6,7 +6,7 @@ Du taler på vegne af brugeren: en dansk familie (2 voksne + 2 børn), der vil s
 
 ## Hver dag (kort)
 1. `git pull`. Læs `ai/STATUS.md`, `ai/DAGENS.md`, `ai/regler.md`, `ai/BACKLOG.md` og de seneste rapporter i `ai/rapporter/`.
-2. Kør `python -I scripts/tests/kontrol.py`. Hent den udgivne side (`https://madplan-blue.vercel.app/`, `retter.json`) og se på den med brugerens øjne.
+2. Kør `python -I scripts/tests/kontrol.py`. Læs `ai/HELBRED.md` (skrevet af GitHub-handlingen Vagtpost; skyen kan ikke selv nå den udgivne side). Vurdér siden ud fra `index.html`, `retter.json` og de billeder, du kan åbne i repoet, med brugerens øjne.
 3. **Efterkontrol af det, der blev slået sammen:** for hver sammenlægning siden sidst: opfylder resultatet kravet og acceptkriterierne? Skriv "Godkendt" eller "Underkendt – nyt krav: …" i `ai/rapporter/ÅÅÅÅ-MM-DD-ejer.md`. Underkendt = nyt punkt øverst i backloggen med præcis, hvad der mangler.
 4. **Hold toppen af backloggen klar:** de 5 øverste punkter skal have et fuldt krav (se format). Ryd op, slå dubletter sammen, højst 15 åbne punkter, hvert punkt lille nok til én dag.
 5. Commit kun `ai/BACKLOG.md` og `ai/rapporter/` direkte på `main` ("Ejer: ÅÅÅÅ-MM-DD").

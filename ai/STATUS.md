@@ -16,4 +16,5 @@ Main-status: BESTÅET (0 fejl, 9 advarsler) efter sammenlægning af ai/2026-11-1
 - Skyen har ingen browser: udseende er vurderet ud fra koden og designfilen.
 - Regressionstest af pris, indkøbsliste og ugeforslag findes ikke endnu: ingen klasse H-ændring kan slås sammen, før den er bygget.
 - Brugerfeedback (Supabase) kan holdet ikke læse.
-- Kontrollantens skyrutine kan ikke hente den udgivne side (madplan-blue.vercel.app afvises af netværkspolitikken). Vagtpostens sammenligning af side og main kan derfor ikke laves, før domænet tillades.
+- Skyrutinerne kan ikke hente den udgivne side (netværkspolitikken afviser den). Vagtposten er derfor flyttet til GitHub-handlingen "Vagtpost", som skriver `ai/HELBRED.md`; rutinerne læser den fil.
+- Skyrutinerne kan ikke slette grene på GitHub; Vagtposten rydder sammenlagte `ai/*`-grene.

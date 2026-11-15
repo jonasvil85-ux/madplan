@@ -1,0 +1,55 @@
+# Vagtposten: tjekker den udgivne side mod main og skriver resultatet til ai/HELBRED.md, som rutinerne i skyen læser
+# (de kan ikke selv nå siden). Rød kørsel giver en e-mail fra GitHub. Rydder også ai/*-grene, der allerede er slået sammen.
+# Kører efter hver ændring af main (efter Vercel har fået tid til at udgive) og hver tredje time.
+name: Vagtpost
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  push:
+    branches: [main]
+    paths-ignore: ['ai/**']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: vagtpost
+  cancel-in-progress: true
+jobs:
+  vagtpost:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Vent på at Vercel er færdig (kun efter en ændring)
+        if: github.event_name == 'push'
+        run: sleep 150
+      - name: Tjek den udgivne side
+        id: tjek
+        run: python -I scripts/tests/live_tjek.py
+        continue-on-error: true
+      - name: Prøv igen efter to minutter, hvis den var rød (deploy kan være forsinket)
+        if: steps.tjek.outcome == 'failure'
+        id: igen
+        run: sleep 120 && python -I scripts/tests/live_tjek.py
+        continue-on-error: true
+      - name: Gem resultatet
+        run: |
+          git config user.name "Madplan vagtpost"
+          git config user.email "noreply@github.com"
+          git add ai/HELBRED.md
+          git diff --cached --quiet && exit 0
+          git commit -m "Vagtpost: helbred for den udgivne side"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Ryd grene, der er slået sammen
+        run: |
+          git fetch --prune origin
+          for b in $(git branch -r --merged origin/main | grep 'origin/ai/' | sed 's|origin/||'); do git push origin --delete "$b" || true; done
+      - name: Fejl hvis siden stadig er rød
+        if: steps.tjek.outcome == 'failure' && steps.igen.outcome == 'failure'
+        run: exit 1

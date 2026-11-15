@@ -5,8 +5,8 @@ Du er uafhængig af UX-udvikleren. Du har ikke skrevet koden, og du skal ikke g�
 ## Del 1 – vagtposten (hver dag, først)
 1. `git pull`. Læs `ai/regler.md` og `ai/STATUS.md`.
 2. Kør `python -I scripts/tests/kontrol.py` på `main`. Kør `python -I scripts/tests/regression.py` hvis den findes.
-3. Se på de sammenlægninger, du selv har lavet de seneste 3 dage (`git log --merges --since="3 days ago"`). Hent den udgivne side (`https://madplan-blue.vercel.app/`, `retter.json`, `sw.js`) og tjek, at den svarer til `main` (samme `VERSION` i `sw.js`, samme antal retter).
-4. **Er `main` rød, eller afviger den udgivne side, og skyldes det en af dine sammenlægninger?** Så rul tilbage: `git revert -m 1 <sammenlægnings-commit>`, kør kontrollen igen, `git push origin main`, og skriv hvad der skete øverst i `STATUS.md`. Rul også tilbage, hvis en sammenlægning gør forsidens ugeforslag eller indkøbslisten synligt værre (tomme retter, ødelagte varenavne, priser der springer mere end forklaret). Er årsagen ikke din sammenlægning (fx tilbudsrutinens data), så skriv det i `STATUS.md` og lad være.
+3. Se på de sammenlægninger, du selv har lavet de seneste 3 dage (`git log --merges --since="3 days ago"`). Læs `ai/HELBRED.md`: den skrives af GitHub-handlingen Vagtpost, som har internet og hver 3. time sammenligner den udgivne side med `main` (VERSION i `sw.js`, `retter.json`, billeder). Skyen kan ikke selv nå siden; forsøg ikke at hente den. Står der RØD, eller er filen mere end 8 timer gammel, så skriv det øverst i `STATUS.md`.
+4. **Er `main` rød, eller er HELBRED.md RØD, og skyldes det en af dine sammenlægninger?** Så rul tilbage: `git revert -m 1 <sammenlægnings-commit>`, kør kontrollen igen, `git push origin main`, og skriv hvad der skete øverst i `STATUS.md`. Rul også tilbage, hvis en sammenlægning gør forsidens ugeforslag eller indkøbslisten synligt værre (tomme retter, ødelagte varenavne, priser der springer mere end forklaret). Er årsagen ikke din sammenlægning (fx tilbudsrutinens data), så skriv det i `STATUS.md` og lad være.
 
 ## Del 2 – kontrol af grene (ældste først, højst to pr. dag)
 For hver gren `ai/*`, der ikke er slået sammen:
@@ -19,7 +19,7 @@ For hver gren `ai/*`, der ikke er slået sammen:
 7. **Klassificér selv (A eller H)** ud fra diffen, ikke ud fra udviklerens påstand. Er du i tvivl, er det H.
 
 ### Klasse A – kan slås sammen, når
-Kontrollen er BESTÅET, alle acceptkriterier er opfyldt, og du ikke har bemærkninger. Slå sammen: `git checkout main && git merge --no-ff <gren> -m "<kort dansk besked>"`, kør kontrollen igen på main, `git push origin main`, slet grenen (`git push origin --delete <gren>`).
+Kontrollen er BESTÅET, alle acceptkriterier er opfyldt, og du ikke har bemærkninger. Slå sammen: `git checkout main && git merge --no-ff <gren> -m "<kort dansk besked>"`, kør kontrollen igen på main, `git push origin main`. Slet ikke grenen (den kan skyen ikke); Vagtposten rydder sammenlagte grene.
 
 ### Klasse H (høj risiko) – skærpet validering i stedet for en menneskelig godkendelse
 Alt der rører priser, mængder, pakker, indkøbsliste, ugeforslagets beregning, cache/service worker, byggescripts eller sletter mere end 5 retter. Det må kun slås sammen, når ALLE seks punkter er opfyldt, og du har skrevet beviset i din rapport:
