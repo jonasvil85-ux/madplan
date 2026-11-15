@@ -6,7 +6,7 @@ Sidst kontrolleret: 2026-11-15 ca. 09:45 UTC (kontrollant, femte kørsel)
 Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 1508f73).
 
 ## Afvist – UX-udvikleren retter
-- ai/2026-11-15-fravalg-budget (1035a27, forsøg 1, klasse H): rød-hold fandt brud på fravalgets accept (2). "Kød og fisk" giver Lammegryde (lammekød) hos Lidl, "Mælkeprodukter" slipper mozzarella/feta/Grana Padano igennem i 8 af 9 butikker, og "Løg" slipper porre igennem. Testen tjekker kun svin med en delmængde af koden egen regex. Budgetdelen er ok (8/9 ved 600 kr, aldrig dyrere). Se ai/rapporter/2026-11-15-kontrol.md, femte kørsel.
+- ai/2026-11-15-fravalg-budget (1035a27, forsøg 1, klasse H): rød-hold fandt brud på fravalgets accept (2). "Kød og fisk" giver Lammegryde (lammekød) hos Lidl, "Mælkeprodukter" slipper mozzarella/feta/Grana Padano igennem i 8 af 9 butikker, og "Løg" slipper porre igennem. Testen tjekker kun svin med en delmængde af kodens egen regex. Budgetdelen er ok (8/9 ved 600 kr, aldrig dyrere). Se ai/rapporter/2026-11-15-kontrol.md, femte kørsel.
 
 ## Parkeret – tilbage hos Ejeren
 - ai/2026-11-15-opskriftssider (552202c): afvist to gange på H-punkt 2. Forsøg 2 tilføjede ugepris og antal retter, men ikke indkøbslistens linjer. Kontrollanten har selv genskabt alle tal (uændrede, hele regression-output identisk), og alle andre H-punkter er grønne (kontrol, konflikt-fri sammenlægning, rød-hold, revert). Ejeren beslutter. Se ai/rapporter/2026-11-15-kontrol.md (fjerde kørsel).
