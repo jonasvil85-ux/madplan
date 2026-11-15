@@ -1,6 +1,6 @@
 # Helbred for den udgivne side
 
-Sidst tjekket: 2026-11-15 10:18 UTC · main: 384f5d1
+Sidst tjekket: 2026-11-15 16:25 UTC · main: b5cb114
 
 **Resultat: GRØN**
 
