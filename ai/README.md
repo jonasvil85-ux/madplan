@@ -1,32 +1,36 @@
 # Måltidsjagtens AI-hold
 
-Siden udvikles hver dag af et lille hold Claude-rutiner i skyen. De arbejder på hver sin rolle og kontrollerer hinanden. Jonas er direktør og beslutter alt, der kan skade.
+Siden udvikles hver dag af et hold Claude-rutiner i skyen. De styrer sig selv og kontrollerer hinanden. Jonas får en daglig rapport og behøver ikke godkende noget.
 
 | Rolle | Hvornår (UTC) | Opgave | Instruks |
 |---|---|---|---|
-| Tilbudsrutinen (findes) | dagligt 05:08 | Henter nye aviser, skriver retter, bygger data | `scripts/RUTINE.md` |
-| **Udvikler** | dagligt 06:30 | Tager ÉN opgave fra `BACKLOG.md`, bygger den på en egen gren, tester, skriver rapport | `agenter/udvikler.md` |
-| **Kontrollant** | dagligt 09:00 | Uafhængig kontrol af udviklerens gren. Slår sammen med main, afviser eller sender til Jonas | `agenter/kontrollant.md` |
-| **Produktchef** | mandag 06:00 | Gennemgår siden og rapporterne, rydder op i og prioriterer `BACKLOG.md` | `agenter/produktchef.md` |
+| Tilbudsrutinen | dagligt 05:08 | Henter nye aviser, skriver retter, bygger data | `scripts/RUTINE.md` |
+| Billedhandlingen (GitHub) | dagligt 05:35 | Laver billeder til nye retter | `.github/workflows/billeder.yml` |
+| **Ejer** | dagligt 06:00 | Ejer visionen. Skriver krav med acceptkriterier. Efterkontrollerer det udgivne. Gennemgår grundigt om søndagen | `agenter/ejer.md` |
+| **UX-udvikler** | dagligt 06:30 | Kreativ designer og udvikler. Tager det øverste krav, designer, bygger på en gren, tester | `agenter/ux-udvikler.md` |
+| **Kontrollant** | dagligt 09:00 | Vagtpost over det udgivne (kan rulle tilbage). Validerer grene og slår sammen eller afviser | `agenter/kontrollant.md` |
+| **Sekretær** | dagligt 10:30 | Samler dagens fakta til én rapport (`DAGENS.md`) og sender den til Jonas som e-mail | `agenter/sekretaer.md` |
 
-Fælles regler for alle: `regler.md`. Overblik over hvad der sker: `STATUS.md`.
+Fælles regler: `regler.md`. Overblik: `STATUS.md`. Seneste dagsrapport: `DAGENS.md`.
 
 ## Flowet
-1. Udvikleren arbejder aldrig direkte på `main`. Alt sker på en gren `ai/DATO-emne`.
-2. Udvikleren kører `python -I scripts/tests/kontrol.py` og skriver en rapport i `rapporter/`.
-3. Kontrolløren kører kontrollerne selv, læser ændringen med friske øjne og klassificerer den:
-   - **Klasse A (sikker):** tekst, layout/CSS, nye eller ændrede retter og opskrifter, billeder, dokumentation, tests. Kontrolløren slår sammen med `main` (Vercel udgiver automatisk), hvis alt er bestået.
-   - **Klasse B (kræver Jonas):** alt der rører priser, mængder, indkøbslisten, madplanens beregning, service worker, login/dataindsamling, byggescripts, rutinernes instrukser eller sletter mange retter. Grenen bliver stående og står som VENTER i `STATUS.md`. Jonas siger "godkend ai/…" i chatten, så slår Claude den sammen.
-   - **Afvist:** fejl rapporteres i `rapporter/`; udvikleren retter dagen efter (højst to forsøg, så parkeres opgaven).
-4. Skyen har `node`, så kontrollen syntaks-tjekker al JavaScript. Mangler node en dag (kontrollen skriver det), er enhver ændring i `.js`/`index.html` automatisk klasse B. Syntaks-tjek er ikke det samme som, at siden virker – derfor er ændringer i beregninger altid B.
-5. Alt kan rulles tilbage: `main` er en git-historik, og hver ændring er ét sammenlægnings-commit.
+1. **Ejer** skriver krav i `BACKLOG.md` (hvad, hvorfor, acceptkriterier, ikke-mål).
+2. **UX-udvikler** vælger løsningen, skriver en kort designfil i `design/`, bygger på en gren `ai/DATO-emne`, kører kontrollerne og skriver en rapport med bevis for hvert acceptkriterium. Rører aldrig `main`.
+3. **Kontrollant** kører kontrollerne selv, tjekker acceptkriterierne og klassificerer ændringen:
+   - **Klasse A** (tekst, design, retter, billeder, tests): slås sammen, når alt er grønt.
+   - **Klasse H** (priser, mængder, indkøbsliste, madplanens beregning, cache, byggescripts): slås kun sammen efter skærpet validering: regressionstest, før/efter-tal for alle 9 butikker, mindst tre egne forsøg på at få den til at fejle (rød-hold), og tilbagerulning kan prøves. Mangler et punkt, afvises den.
+   - **Afvist:** fejlrapport, UX-udvikleren retter (højst to forsøg), så parkeres opgaven og Ejeren får den.
+4. **Vagtposten** (kontrollantens første trin næste dag) tjekker den udgivne side og kan rulle en sammenlægning tilbage med `git revert`.
+5. **Ejer** efterkontrollerer: opfyldte det udgivne kravet? Nej giver et nyt krav øverst.
+6. **Sekretær** skriver dagsrapporten; en GitHub-handling sender den som e-mail.
 
-## Jonas' styring
-- Se `STATUS.md` på GitHub (eller bed Claude i chatten om status).
-- Skriv ønsker øverst i `BACKLOG.md` (eller sig dem i chatten), så tages de først.
-- Stop alt: pausér rutinerne på https://claude.ai/code/routines.
+## Grundloven
+Disse filer kan ingen agent ændre: `regler.md`, `agenter/*`, `.github/`, `auth.js`, `feedback.js`, `privatlivspolitik.html`, nøgler og rutinernes instrukser. Ejeren kan foreslå ændringer; kun Jonas kan gennemføre dem. Det er den eneste menneskelige port.
+
+## Stop alt
+Pausér rutinerne på https://claude.ai/code/routines (og slå handlingerne fra under fanen Actions på GitHub).
 
 ## Hvad holdet ikke kan (endnu)
-- **Billeder:** laves af GitHub-handlingen `.github/workflows/billeder.yml` hver dag kl. 05:35 UTC (kræver hemmeligheden `CLOUDFLARE_API_TOKEN` i GitHub). Uden den, eller indtil den har kørt, viser nye retter et gaffelikon; Jonas kan også køre `python -I scripts/billeder.py` lokalt.
-- **Browsertest:** skyen har ikke en browser. Visuelle ændringer vurderes ud fra koden; Jonas ser dem på siden efter udgivelsen.
-- **Brugerfeedback:** ligger i Supabase, som holdet ikke har adgang til. Klistr relevant feedback ind i `BACKLOG.md`.
+- **Browsertest:** skyen har ikke en browser. Udseende vurderes ud fra koden og designfilen; Ejeren ser resultatet på den udgivne side.
+- **Brugerfeedback:** ligger i Supabase, som holdet ikke har adgang til. Klistr relevant feedback ind i `BACKLOG.md` under "Fra brugerne".
+- **Regressionstest af priser og indkøbsliste i JavaScript:** findes ikke endnu. Den er det første krav i backloggen, og indtil den består, kan ingen klasse H-ændring slås sammen.

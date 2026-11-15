@@ -3,16 +3,16 @@
 Sidst kontrolleret: (endnu aldrig)
 Main-status: (kendes ikke endnu)
 
-## Venter på Jonas
+## Afvist – UX-udvikleren retter
 (ingen)
 
-## Afvist – udvikleren retter
+## Rullet tilbage
 (ingen)
 
 ## Seneste sammenlægninger
 (ingen endnu)
 
 ## Kendte begrænsninger
-- Billeder laves kun lokalt af Jonas (`python -I scripts/billeder.py`). Retter uden billede viser et gaffelikon.
-- Skyen har ingen browser: visuelle ændringer er set i koden, ikke på skærmen.
+- Skyen har ingen browser: udseende er vurderet ud fra koden og designfilen.
+- Regressionstest af pris, indkøbsliste og ugeforslag findes ikke endnu: ingen klasse H-ændring kan slås sammen, før den er bygget.
 - Brugerfeedback (Supabase) kan holdet ikke læse.

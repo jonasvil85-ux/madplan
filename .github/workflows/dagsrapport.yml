@@ -1,0 +1,25 @@
+# Sender sekretærens dagsrapport (ai/DAGENS.md) som en GitHub-sag, så den ender som en e-mail til repoets ejer.
+# Kræver ingen hemmeligheder. Kører, når filen ai/DAGENS.md opdateres på main, og kan startes med hånden under fanen Actions.
+name: Dagsrapport til Jonas
+on:
+  push:
+    branches: [main]
+    paths: ['ai/DAGENS.md']
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  issues: write
+jobs:
+  sag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Opret sagen
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('ai/DAGENS.md', 'utf8');
+            const titel = (body.split('\n')[0] || 'Dagsrapport').replace(/^#\s*/, '');
+            await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title: titel, body: body.slice(0, 60000) });
