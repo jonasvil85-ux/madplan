@@ -79,3 +79,6 @@ Kontrolløren fandt tre rigtige huller og en for svag test. Alt er rettet:
 **Ærlig begrænsning:** den uafhængige ordliste er skrevet af den samme (mig) som implementeringen, selv om den er bygget fra typefilen; en ukendt stavemåde kan stadig slippe igennem. Fravalg er ikke en allergigaranti, og siden siger det.
 
 **Næste skridt:** (1) Mindst 12 kødfri retter pr. butik (DATA). (2) Test for 2+0 og 1+0 i budget (kontrollanten kørte dem, men de er ikke i den faste test). (3) UI-test i Browser-QA.
+
+## Forsøg 2, tilføjelse
+Kontrollantens sjette kørsel (afbrudt af forbrugsgrænsen, se STATUS) fandt, at "Mælkeprodukter" stadig lod `parmigiano` slippe igennem (fx "Parmigiano Reggiano"). Tilføjet `parmigiano|reggiano|pecorino` i både filteret og testens uafhængige liste. Testkoden er kørt igen i headless Edge: `FEJL: []`, 73 kombinationer. `kontrol.py` lokalt: `BESTÅET`.

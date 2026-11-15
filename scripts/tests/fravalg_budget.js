@@ -67,7 +67,7 @@ kør(kode, 'index.html');
       vegetar: new RegExp(KOEDORD + '|(?<![a-zæøå])lam(?![a-zæøå])|(?<![a-zæøå])tun(?!ge)'),
       loeg: new RegExp('løg|skalotte|porre'),
       svampe: new RegExp('champignon|svamp|portobello|østershat|shiitake'),
-      mejeri: new RegExp('(?<!kokos)(?<!havre)mælk|fløde|ost(?![a-zæøå])|mozzarella|feta|parmesan|grana|cheddar|gouda|havarti|emmentaler|danbo|brie|camembert|halloumi|ricotta|gorgonzola|mascarpone|smør|yoghurt|skyr|creme fraiche|kefir|ymer|paneer'),
+      mejeri: new RegExp('(?<!kokos)(?<!havre)mælk|fløde|ost(?![a-zæøå])|mozzarella|feta|parmesan|parmigiano|reggiano|pecorino|grana|cheddar|gouda|havarti|emmentaler|danbo|brie|camembert|halloumi|ricotta|gorgonzola|mascarpone|smør|yoghurt|skyr|creme fraiche|kefir|ymer|paneer'),
       aeg: new RegExp('(?<![a-zæøå])æg(?![a-zæøå])|æggekage|omelet|spejlæg|æggeblomme|frittata'),
     };
     let tjekket = 0; const sprunget = [];
