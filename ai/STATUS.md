@@ -2,11 +2,12 @@
 
 HELBRED.md: GRØN (2026-11-15 09:12 UTC, begge domæner OK, main d52a40a).
 
-Sidst kontrolleret: 2026-11-15 ca. 09:15 UTC (kontrollant, anden kørsel)
-Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 039205b).
+Sidst kontrolleret: 2026-11-15 ca. 09:22 UTC (kontrollant, tredje kørsel)
+Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main fac0a45).
+BROWSER.md findes endnu ikke (Browser-QA blev tilføjet i fac0a45 og har ikke kørt endnu).
 
 ## Afvist – UX-udvikleren retter
-- ai/2026-11-15-opskriftssider (forsøg 1, 2026-11-15): klasse H (`scripts/byg_*.py`). Alt andet er grønt, men rapporten mangler før/efter-tal for de 9 butikker (H-punkt 2). Se ai/rapporter/2026-11-15-kontrol.md.
+- ai/2026-11-15-opskriftssider (forsøg 1, 2026-11-15): klasse H (`scripts/byg_*.py`). Alt andet er grønt, men rapporten mangler før/efter-tal for de 9 butikker (H-punkt 2). Se ai/rapporter/2026-11-15-kontrol.md. Uændret ved tredje kørsel (stadig a13dc81, intet nyt forsøg).
 
 ## Rullet tilbage
 (ingen)
