@@ -57,6 +57,33 @@ kør(kode, 'index.html');
     const plan = (b, v = 2, bo = 2) => { state.voksne = v; state.boern = bo; state.personer = v + bo; nulstilSim(); const pl = simFraButikker([b]); const pris = ugePris(pl.map(x => x.r.id), planMult(pl), [b]); return { ids: pl.map(x => x.r.id), ialt: Math.round(pris.ialt), dage: pl.length }; };
     const SVIN = /svin|gris|flæsk|bacon|medister|skinke|chorizo|pølse|spareribs|kamkotelet|nakkefilet|salsiccia/;
     const indeholder = (id, re) => { const r = ret(id); return re.test(r.navn.toLowerCase()) || r.ingredienser.some(i => re.test(i.navn.toLowerCase())); };
+    // Alle ni fravalg mod en UAFHÆNGIG ordliste (bygget ud fra typerne i bibliotek_typer.py), over hele puljen i hver butik, ikke kun ugens retter
+    const KOEDORD = 'svin|gris|flæsk|bacon|medister|skinke|chorizo|salsiccia|spegepølse|salami|pølse|spareribs|ribbensteg|nakkefilet|nakkesteg|nakkekam|kamsteg|kamkotelet|svinemedaljon|pulled pork|hamburgerryg|okse|bøf|entrecote|ribeye|roastbeef|culotte|flanksteak|tyksteg|tyndsteg|kalv|osso buco|gullasch|kylling|kalkun|andebryst|andelår|vildand|canette|fasan|høne|fjerkræ|laks|torsk|rejer|sild|fisk|rødspætte|makrel|skaldyr|ansjos|alaska|hellefisk|krondyr|hjort|vildt|vildsvin|lammekød|lammekølle|lammeculotte|lammekotelet|lammefars|lammeskank|lammelår|lammesteg|lammebov';
+    const INDEP = {
+      svin: new RegExp('svin|gris|flæsk|bacon|medister|skinke|chorizo|salsiccia|spegepølse|salami|pølse|spareribs|ribbensteg|nakkefilet|nakkesteg|nakkekam|kamsteg|kamkotelet|svinemedaljon|pulled pork|hamburgerryg'),
+      okse: new RegExp('okse|bøf|entrecote|ribeye|roastbeef|culotte|flanksteak|tyksteg|tyndsteg|kalv|osso buco|gullasch'),
+      fjerkrae: new RegExp('kylling|kalkun|andebryst|andelår|vildand|canette|fasan|høne|fjerkræ'),
+      fisk: new RegExp('laks|torsk|rejer|sild|fisk|rødspætte|makrel|skaldyr|ansjos|alaska|hellefisk|rogn'),
+      vegetar: new RegExp(KOEDORD + '|(?<![a-zæøå])lam(?![a-zæøå])|(?<![a-zæøå])tun(?!ge)'),
+      loeg: new RegExp('løg|skalotte|porre'),
+      svampe: new RegExp('champignon|svamp|portobello|østershat|shiitake'),
+      mejeri: new RegExp('(?<!kokos)(?<!havre)mælk|fløde|ost(?![a-zæøå])|mozzarella|feta|parmesan|grana|cheddar|gouda|havarti|emmentaler|danbo|brie|camembert|halloumi|ricotta|gorgonzola|mascarpone|smør|yoghurt|skyr|creme fraiche|kefir|ymer|paneer'),
+      aeg: new RegExp('(?<![a-zæøå])æg(?![a-zæøå])|æggekage|omelet|spejlæg|æggeblomme|frittata'),
+    };
+    let tjekket = 0; const sprunget = [];
+    for (const b of Object.keys(data.butikker)) for (const f of FRAVALG) {
+      state.fravalg = [f.id]; const lst = pool([b]);
+      if (fravalgFejl) { sprunget.push(b + ':' + f.id); continue; }  // for få retter: fravalget bruges ikke (det er meningen)
+      tjekket++;
+      for (const r of lst) {
+        const ord = [r.navn, ...r.ingredienser.map(i => i.navn)].map(x => x.toLowerCase());
+        const ramt = ord.find(x => INDEP[f.id].test(x) && !(f.id === 'vegetar' && r.kategori === 'vegetar' && !ord.slice(1).some(y => INDEP.vegetar.test(y))));
+        if (ramt && fejl.length < 40) fejl.push(b + ': fravalg ' + f.id + ' lader "' + r.navn + '" slippe igennem (' + ramt + ')');
+      }
+    }
+    state.fravalg = [];
+    if (tjekket < 20) fejl.push('for få fravalg kunne afprøves over puljen (' + tjekket + ')');
+    rapport.puljetjek = { tjekket, sprunget: sprunget.length };
     for (const b of Object.keys(data.butikker)) {
       state.fravalg = []; state.budget = 0;
       const basis = plan(b), igen = plan(b);
@@ -87,5 +114,5 @@ kør(kode, 'index.html');
     return { fejl, rapport };
   })()`, 'fravalg_budget');
   if (ud.fejl.length) { console.log('FEJL:\n' + ud.fejl.slice(0, 30).join('\n')); process.exit(1); }
-  console.log('FRAVALG_BUDGET: BESTÅET (' + Object.keys(ud.rapport).length + ' butikker)');
+  console.log('FRAVALG_BUDGET: BESTÅET (' + (Object.keys(ud.rapport).length - 1) + ' butikker, ' + ud.rapport.puljetjek.tjekket + ' fravalg-kombinationer over hele puljen)');
 })().catch(e => { console.error('FEJL: ' + (e && e.stack || e)); process.exit(2); });

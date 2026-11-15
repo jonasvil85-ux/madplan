@@ -58,3 +58,24 @@
 | Min Købmand | 7 | 14 | 13 | 785 | 595 | ja |
 
 Alle tal er identiske før og efter i alle 9 butikker.
+
+---
+
+## Forsøg 2 (efter kontrollantens afvisning)
+
+Kontrolløren fandt tre rigtige huller og en for svag test. Alt er rettet:
+
+| Fund | Rettelse |
+|---|---|
+| (a) "Kød og fisk" lod lammegryde (`lammekød`) slippe igennem | Ordlisten for kød har nu alle lammeord fra `bibliotek_typer.py` (lammekød, -kølle, -culotte, -kotelet, -fars, -skank, -lår, -steg, -bov, -gryde), samt krondyr, hjort, vildt, vildsvin, vildand, salami og spegepølse. "Lammefjordskartofler" er stadig ikke kød. |
+| (b) "Mælkeprodukter" lod ost slippe igennem i 8 af 9 butikker | Alle ostetyper er med: mozzarella, feta, parmesan, grana/padano, cheddar, gouda, havarti, emmentaler, danbo, brie, camembert, halloumi/grillost, philadelphia, ricotta, gorgonzola/blåskimmel, paneer (plus mælk, fløde, smør, yoghurt, skyr, creme fraiche, kefir, ymer, mascarpone). |
+| (c) "Løg" lod porre slippe igennem | `porre` er med under "Løg". |
+| Test for svag (kun svin, regex som delmængde af implementeringens) | `fravalg_budget.js` tester nu alle ni fravalg mod en uafhængig ordliste (bygget ud fra typerne i `bibliotek_typer.py`) over HELE puljen i hver af de 9 butikker, ikke kun ugens retter. |
+
+**Resultat:** testkoden kørt i headless Edge mod sidens funktioner: `FEJL: []`; 73 fravalg-kombinationer afprøvet over hele puljen (9 butikker × 9 fravalg, minus 8 hvor fravalget efterlader under 12 retter og derfor bevidst ikke bruges; det er de vegetariske, som kun Lidl kan: 13 retter). Lammegryden er ude af Lidls kødfri pulje. Uge og budget er uændrede (ugepriser uden valg: 514/464/658/565/583/522/421/608/595; budgettest uændret grøn). Det kan ikke ses i denne rapport, at node-udgaven er kørt i skyen: det gør kontrolløren.
+
+**Størrelse af puljen efter fravalg** (retter at vælge imellem, én butik): alle 58–171; uden svin 24–125; uden okse 51–141; uden fjerkræ 47–115; uden fisk 47–142; uden løg og porre 25–47; uden svampe 56–164; uden mælkeprodukter 14–50; uden æg 39–142. Kødfri: kun Lidl (13); de andre 3–8.
+
+**Ærlig begrænsning:** den uafhængige ordliste er skrevet af den samme (mig) som implementeringen, selv om den er bygget fra typefilen; en ukendt stavemåde kan stadig slippe igennem. Fravalg er ikke en allergigaranti, og siden siger det.
+
+**Næste skridt:** (1) Mindst 12 kødfri retter pr. butik (DATA). (2) Test for 2+0 og 1+0 i budget (kontrollanten kørte dem, men de er ikke i den faste test). (3) UI-test i Browser-QA.

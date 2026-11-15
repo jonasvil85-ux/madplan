@@ -1057,16 +1057,16 @@ function mixFor(S) {  // alle opskrifter som retter for butikkerne S (cachet)
   return m;
 }
 // Fravalg ("Vi spiser ikke …"): en ret med noget fra fravalget (i kategori, navn eller en ingrediens) er ikke med i forslag, "Vælg selv" eller byt. Det er ikke en allergigaranti.
-const KOED_RE = /svin|gris|flæsk|bacon|medister|skinke|pølse|spareribs|ribbensteg|pulled pork|chorizo|salsiccia|nakkefilet|nakkekotelet|nakkesteak|kamkotelet|kotelet|karbonade|mørbrad|okse|oksekød|bøf|hakkebøf|entrecote|ribeye|roastbeef|culotte|flanksteak|tyksteg|tyndsteg|gullasch|kalv|osso buco|kylling|kalkun|andebryst|andelår|(?<![a-zæøå])and(?![a-zæøå])|fasan|høne|laks|torsk|rejer|(?<![a-zæøå])tun(?!ge)|sild|fisk|rødspætte|makrel|(?<![a-zæøå])sej(?![a-zæøå])|skaldyr|ansjos|krondyr|lam(?![a-zæøå])|lammekølle|lammeculotte/;
+const KOED_RE = /svin|gris|flæsk|bacon|medister|skinke|pølse|spareribs|ribbensteg|pulled pork|chorizo|salsiccia|nakkefilet|nakkekotelet|nakkesteak|kamkotelet|kotelet|karbonade|mørbrad|okse|oksekød|bøf|hakkebøf|entrecote|ribeye|roastbeef|culotte|flanksteak|tyksteg|tyndsteg|gullasch|kalv|osso buco|kylling|kalkun|andebryst|andelår|(?<![a-zæøå])and(?![a-zæøå])|fasan|høne|laks|torsk|rejer|(?<![a-zæøå])tun(?!ge)|sild|fisk|rødspætte|makrel|(?<![a-zæøå])sej(?![a-zæøå])|skaldyr|ansjos|krondyr|hjort|vildt|vildsvin|vildand|lammekød|lammekølle|lammeculotte|lammekotelet|lammefars|lammeskank|lammelår|lammesteg|lammebov|lammegryde|(?<![a-zæøå])lam(?![a-zæøå])|salami|spegepølse/;
 const FRAVALG = [
-  { id: 'svin', navn: 'Svinekød', kat: ['svin'], re: /svin|gris|flæsk|bacon|medister|skinke|pølse|spareribs|ribbensteg|pulled pork|chorizo|salsiccia|nakkefilet|nakkekotelet|nakkesteak|kamkotelet|kotelet|karbonade|mørbrad/ },
+  { id: 'svin', navn: 'Svinekød', kat: ['svin'], re: /svin|gris|flæsk|bacon|medister|skinke|pølse|spareribs|ribbensteg|pulled pork|chorizo|salsiccia|nakkefilet|nakkekotelet|nakkesteak|nakkekam|kamkotelet|kotelet|karbonade|mørbrad|vildsvin|salami|spegepølse|hamburgerryg/ },
   { id: 'okse', navn: 'Okse og kalv', kat: ['okse'], re: /okse|bøf|hakkebøf|entrecote|ribeye|roastbeef|culotte|flanksteak|tyksteg|tyndsteg|gullasch|kalv|osso buco/ },
-  { id: 'fjerkrae', navn: 'Kylling og and', kat: ['kylling', 'kalkun', 'and'], re: /kylling|kalkun|andebryst|andelår|(?<![a-zæøå])and(?![a-zæøå])|fasan|høne|fjerkræ/ },
-  { id: 'fisk', navn: 'Fisk og skaldyr', kat: ['fisk'], re: /laks|torsk|rejer|(?<![a-zæøå])tun(?!ge)|sild|fisk|rødspætte|makrel|(?<![a-zæøå])sej(?![a-zæøå])|skaldyr|ansjos/ },
+  { id: 'fjerkrae', navn: 'Kylling og and', kat: ['kylling', 'kalkun', 'and'], re: /kylling|kalkun|andebryst|andelår|(?<![a-zæøå])and(?![a-zæøå])|vildand|canette|fasan|høne|fjerkræ/ },
+  { id: 'fisk', navn: 'Fisk og skaldyr', kat: ['fisk'], re: /laks|torsk|rejer|(?<![a-zæøå])tun(?!ge)|sild|fisk|rødspætte|makrel|(?<![a-zæøå])sej(?![a-zæøå])|skaldyr|ansjos|alaska|hellefisk|rogn/ },
   { id: 'vegetar', navn: 'Alt kød og fisk', kat: ['svin', 'okse', 'kylling', 'kalkun', 'and', 'fisk', 'lam', 'vildt'], re: KOED_RE, ikoneNavn: 'Kødfrit' },
-  { id: 'loeg', navn: 'Løg', kat: [], re: /løg|skalotte/ },
-  { id: 'svampe', navn: 'Svampe', kat: [], re: /champignon|svamp|portobello|østershat/ },
-  { id: 'mejeri', navn: 'Mælkeprodukter', kat: [], re: /(?<!kokos)(?<!havre)mælk|fløde|ost(?![a-zæøå])|smør(?!bar)|yoghurt|skyr|creme fraiche|kefir|ymer|mascarpone/ },
+  { id: 'loeg', navn: 'Løg', kat: [], re: /løg|skalotte|porre/ },
+  { id: 'svampe', navn: 'Svampe', kat: [], re: /champignon|svamp|portobello|østershat|shiitake/ },
+  { id: 'mejeri', navn: 'Mælkeprodukter', kat: [], re: /(?<!kokos)(?<!havre)mælk|fløde|ost(?![a-zæøå])|mozzarella|feta|parmesan|grana|padano|cheddar|gouda|havarti|emmentaler|danbo|brie|camembert|halloumi|grillost|philadelphia|ricotta|gorgonzola|blåskimmel|paneer|smør(?!bar)|yoghurt|skyr|creme fraiche|kefir|ymer|mascarpone/ },
   { id: 'aeg', navn: 'Æg', kat: [], re: /(?<![a-zæøå])æg(?![a-zæøå])|æggekage|omelet|spejlæg|æggeblomme|frittata|shakshuka/ },
 ];
 const FRAVALGMAP = new Map();  // ret-id + fravalgets id -> om retten rammes
