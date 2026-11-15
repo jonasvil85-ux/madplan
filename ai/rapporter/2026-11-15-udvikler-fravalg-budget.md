@@ -41,3 +41,20 @@
 **Kontrolløren bør kigge på:** `index.html`-diffen (især `pool`, `simSig` og slutningen af `simFraButikker`), at `regression.py` er uændret, at `fravalg_budget.js` består i skyen, og at `retter.json`/`opskrifter.json` er uændrede.
 
 **Næste skridt:** (1) Vegetarretter pr. butik (DATA): mindst 12 kødfri retter i hver butik. (2) Giv budgettet en pænere forklaring af, hvilken butik der er billigst. (3) Tæl fravalg på mobilknappen (kun et badge i dag). (4) Test af flere butikker på én gang.
+
+
+**Indkøbslistens linjer og summer (før = main, efter = grenen; ugeforslagets valgte retter, 2 voksne + 2 børn, én butik; målt med sidens `listeLinjer()` og `prisSum()` i headless Edge):**
+
+| Butik | På tilbud (linjer) | Øvrige | Basisvarer | Sum for listen (kr) | Ugepris | Før = efter |
+|---|---|---|---|---|---|---|
+| 365discount | 12 | 11 | 12 | 707 | 514 | ja |
+| Netto | 11 | 9 | 19 | 780 | 464 | ja |
+| MENY | 7 | 14 | 15 | 865 | 658 | ja |
+| Bilka | 7 | 16 | 13 | 767 | 565 | ja |
+| REMA 1000 | 10 | 14 | 14 | 792 | 583 | ja |
+| Kvickly | 8 | 16 | 10 | 656 | 522 | ja |
+| Lidl | 13 | 11 | 16 | 637 | 421 | ja |
+| SPAR | 8 | 18 | 14 | 825 | 608 | ja |
+| Min Købmand | 7 | 14 | 13 | 785 | 595 | ja |
+
+Alle tal er identiske før og efter i alle 9 butikker.
