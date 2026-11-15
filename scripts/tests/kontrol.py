@@ -114,7 +114,9 @@ node = shutil.which('node')
 if node:
     import tempfile
     html = laes('index.html')
-    scripts = re.findall(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>', html, re.S)
+    # kun rigtig JavaScript: spring JSON-LD og andre data-blokke (type=application/ld+json mv.) over
+    scripts = [s for attr, s in re.findall(r'<script(?![^>]*\bsrc=)([^>]*)>(.*?)</script>', html, re.S)
+               if not re.search(r'type\s*=\s*["\']?(?!module|text/javascript|application/javascript)[^"\'\s>]+', attr)]
     with tempfile.TemporaryDirectory() as tmp:
         emner = [(f'index.html #{i + 1}', s) for i, s in enumerate(scripts) if s.strip()] + [(f, laes(f)) for f in ['kategorier.js', 'pris.js', 'varer.js', 'sw.js']]
         for navn, kode in emner:
