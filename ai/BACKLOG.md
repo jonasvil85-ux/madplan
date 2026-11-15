@@ -11,7 +11,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: uden den kan ingen ændring af priser, mængder eller ugeforslag valideres automatisk, så alle H-ændringer er blokeret.
   Accept: (1) kører i skyen uden internet på under 2 minutter, (2) fanger en bevidst ændring af en prisregel og en ændring af en pakkestørrelse (bevis i rapporten), (3) facitlisten kan opdateres med én kommando, når en ændring er tilsigtet, (4) kaldes af `kontrol.py`, (5) rapporten beskriver, hvad den IKKE dækker.
   Ikke-mål: ændre noget i selve prisberegningen.
-- [ ] [UX] [A] Opskriftssider til Google (PARKERET 2026-11-15 efter to afviste forsøg, tilbage hos Ejeren. Gren ai/2026-11-15-opskriftssider. Forsøg 1: før/efter-tal manglede. Forsøg 2 (552202c): indkøbslistens linjer mangler stadig i før/efter-tabellen. Alt andet grønt; se ai/rapporter/2026-11-15-kontrol.md, fjerde kørsel)
+- [ ] [UX] [A] Opskriftssider til Google (PARKERET 2026-11-15 efter to afviste forsøg, tilbage hos Ejeren. Gren ai/2026-11-15-opskriftssider. Forsøg 1: før/efter-tal manglede. Forsøg 2 (552202c): indkøbslistens linjer mangler stadig i før/efter-tabellen. Alt andet grønt; se ai/rapporter/2026-11-15-kontrol.md, fjerde kørsel. Forsøg 3 (9360d24) lukker manglen; afventer Ejerens beslutning om at fjerne parkeringen)
   Krav: hver af de 193 biblioteksopskrifter får en egen side `/opskrift/<navn>/` med billede, ingredienser til 4, trin, tid, næring og Recipe-struktureret data, plus en oversigt `/opskrifter/` og sitemap.
   Hvorfor: siden har kun én URL, så Google ser ingen retter. Organisk trafik er den største vækstmulighed uden annoncer.
   Accept: (1) 193 sider + oversigt, (2) gyldig Recipe-JSON-LD på hver, (3) sitemap med alle, (4) kontrollen tjekker at hver opskrift har en side, (5) sider bygges af `scripts/byg_sider.py`, (6) ingen priser eller datoer på siderne (de bliver gamle).
@@ -21,12 +21,12 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: siden bruges mest på telefon i butikken, og små knapper giver forkerte tryk.
   Accept: (1) måling i CDP-audit viser 0 elementer under 40 px på 390 px bredde (undtagen tekstlinks i brødtekst), (2) intet vandret scroll på 360 px, (3) designfil med før/efter.
   Ikke-mål: nyt design.
-- [ ] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3)
+- [ ] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3) (gren ai/2026-11-15-fravalg-budget afvist 2026-11-15 sammen med fravalg; budgetdelen var i orden)
   Krav: brugeren kan skrive et ugebudget (fx 600 kr), og ugeforslaget holder sig under det, hvis det kan lade sig gøre; ellers fortæller siden ærligt, hvad den billigste mulighed koster.
   Hvorfor: familier tænker i kroner pr. uge, ikke i kroner pr. ret. Det er den funktion, konkurrenter fremhæver mest.
   Accept: (1) budgetfelt i husstandslinjen på forsiden, (2) ugeforslaget overholder budgettet i mindst 7 af 9 butikker ved 600 kr, (3) uopnåeligt budget giver en klar besked med billigste pris, (4) regressionstest uændret for brugere uden budget, (5) før/efter-tal for alle 9 butikker.
   Ikke-mål: ændre prisregler.
-- [ ] [UX] [H] Fravalg og kost: "Vi spiser ikke …" (ROADMAP 4)
+- [ ] [UX] [H] Fravalg og kost: "Vi spiser ikke …" (ROADMAP 4) (AFVIST forsøg 1 2026-11-15: lammekød, ostetyper og porre slipper igennem; se kontrolrapporten, femte kørsel)
   Krav: brugeren kan fravælge ingredienser og kosttyper (svinekød, fisk, løg, laktose, vegetar), og forslag, "Vælg selv" og indkøbsliste respekterer det.
   Hvorfor: uden fravalg kan mange familier ikke bruge forslaget; det er en forudsætning for gentagne besøg.
   Accept: (1) valget gemmes (lokalt og i konto), (2) ingen foreslået ret indeholder en fravalgt ingrediens (testes i regression), (3) tydelig besked, hvis for få retter er tilbage, (4) før/efter-tal.
