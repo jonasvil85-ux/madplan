@@ -4,7 +4,7 @@
 
 **Hvorfor:** ROADMAP 1: siden havde én URL, så Google kunne ikke vise nogen ret. Det er den største vækstmulighed uden betalt annoncering.
 
-**Klasse:** A i indhold (nye statiske filer, intet i appens beregninger, priser eller data ændret). Formelt matcher navnet `byg_*.py` klasse H, men scriptet læser kun `opskrifter.json` og `naering.json` og skriver kun nye filer; `retter.json`, `opskrifter.json` og al JavaScript er uændret (kun ét link i footeren i `index.html`). Regressionstesten skal være uændret.
+**Klasse:** H formelt (nyt `byg_*.py`-script), A i indhold (nye statiske filer, intet i appens beregninger, priser eller data ændret). Formelt matcher navnet `byg_*.py` klasse H, men scriptet læser kun `opskrifter.json` og `naering.json` og skriver kun nye filer; `retter.json`, `opskrifter.json` og al JavaScript er uændret (kun ét link i footeren i `index.html`). Regressionstesten skal være uændret.
 
 **Filer:** `scripts/byg_sider.py`, `opskrift/` (193 mapper), `opskrifter/index.html`, `sitemap.xml`, `index.html` (ét link), `scripts/tests/kontrol.py` (nyt tjek: hver opskrift har en side, står i sitemap og har gyldig Recipe-JSON-LD), denne rapport.
 
@@ -17,6 +17,22 @@
 6. Ingen priser eller datoer på siderne: ja.
 
 **Test:** `RESULTAT: BESTÅET (0 fejl, 11 advarsler)` lokalt (uden node, så JavaScript og regression kørte ikke lokalt; skal køres af kontrolløren). Set i headless Edge: mobil (390 px) og desktop (1100 px) uden vandret scroll; skærmbilleder af en opskriftsside og oversigten kontrolleret.
+
+**Før/efter-tal (forsøg 2, efter kontrollantens afvisning; målt med sidens egen JavaScript i headless Edge, ugeforslag for 2 voksne + 2 børn, én butik ad gangen):**
+
+| Butik | Ugepris før | Ugepris efter | Retter i forslag før/efter | Samme retter | Retter i butikken |
+|---|---|---|---|---|---|
+| 365discount | 514 | 514 | 7 / 7 | ja | 46 |
+| Netto | 464 | 464 | 7 / 7 | ja | 64 |
+| MENY | 658 | 658 | 7 / 7 | ja | 53 |
+| Bilka | 565 | 565 | 7 / 7 | ja | 58 |
+| REMA 1000 | 583 | 583 | 7 / 7 | ja | 50 |
+| Kvickly | 522 | 522 | 7 / 7 | ja | 60 |
+| Lidl | 421 | 421 | 7 / 7 | ja | 50 |
+| SPAR | 608 | 608 | 7 / 7 | ja | 53 |
+| Min Købmand | 595 | 595 | 7 / 7 | ja | 45 |
+
+Alle forskelle er nul, som forventet: grenen ændrer hverken `retter.json`, `opskrifter.json`, `pris.js`, `kategorier.js` eller `varer.js` (git-hashes er identiske på `main` og grenen). Eneste ændring i sidens kode er ét ekstra link i footeren i `index.html`. Regressionstesten (`regression.py`) forventes uændret; den kunne ikke køres lokalt (ingen node).
 
 **Dækker IKKE:** om Google faktisk indekserer siderne (det tager uger); mørk tilstand er kun kontrolleret i CSS, ikke på skærmen; sider for butiksretterne (de skifter hver uge); `scripts/byg_sider.py` er endnu ikke kaldt af tilbudsrutinen eller billedhandlingen (opskrifterne ændres sjældent; byg_sider skal køres, når `bibliotek_*.py` ændres).
 
