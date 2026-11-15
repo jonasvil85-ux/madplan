@@ -1,0 +1,61 @@
+# Browser-QA: åbner den udgivne side i Chromium, måler (vandret scroll, JavaScript-fejl, tryk-flader, hastighed), tager skærmbilleder af flowet
+# og skriver ai/BROWSER.md. Skærmbillederne lægges på grenen "skaermbilleder" (én commit, overskrives), så rutinerne i skyen kan åbne dem.
+# Kører efter hver ændring af main (efter Vercel har udgivet), hver sjette time og med hånden. Rød kørsel giver en e-mail fra GitHub.
+name: Browser-QA
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  push:
+    branches: [main]
+    paths-ignore: ['ai/**']
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: browser-qa
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Vent på at Vercel er færdig (kun efter en ændring)
+        if: github.event_name == 'push'
+        run: sleep 150
+      - run: pip install playwright && python -m playwright install --with-deps chromium
+      - name: Mål og tag skærmbilleder
+        id: qa
+        run: python -I scripts/tests/browser_tjek.py
+        continue-on-error: true
+      - name: Læg skærmbillederne på grenen skaermbilleder
+        run: |
+          git config user.name "Madplan browser-QA"
+          git config user.email "noreply@github.com"
+          rm -rf /tmp/sk && mkdir /tmp/sk && cp skaermbilleder/*.png /tmp/sk/ 2>/dev/null || true
+          cp ai/BROWSER.md /tmp/sk/BROWSER.md 2>/dev/null || true
+          git checkout --orphan skaermbilleder
+          git rm -rf . >/dev/null 2>&1 || true
+          cp /tmp/sk/* . 2>/dev/null || true
+          git add -A
+          git commit -m "Skærmbilleder fra Browser-QA" || true
+          git push -f origin skaermbilleder
+          git checkout -f main
+          cp /tmp/sk/BROWSER.md ai/BROWSER.md 2>/dev/null || true
+      - name: Gem rapporten på main
+        run: |
+          git config user.name "Madplan browser-QA"
+          git config user.email "noreply@github.com"
+          git stash -q || true
+          git pull --rebase origin main
+          git stash pop -q || true
+          git add ai/BROWSER.md
+          git diff --cached --quiet && exit 0
+          git commit -m "Browser-QA: rapport"
+          git push origin HEAD:main
+      - name: Fejl hvis siden er rød
+        if: steps.qa.outcome == 'failure'
+        run: exit 1

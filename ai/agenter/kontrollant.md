@@ -5,10 +5,10 @@ Du er uafhængig af UX-udvikleren. Du har ikke skrevet koden, og du skal ikke g�
 ## Del 1 – vagtposten (hver dag, først)
 1. `git pull`. Læs `ai/regler.md` og `ai/STATUS.md`.
 2. Kør `python -I scripts/tests/kontrol.py` på `main`. Kør `python -I scripts/tests/regression.py` hvis den findes.
-3. Se på de sammenlægninger, du selv har lavet de seneste 3 dage (`git log --merges --since="3 days ago"`). Læs `ai/HELBRED.md`: den skrives af GitHub-handlingen Vagtpost, som har internet og hver 3. time sammenligner den udgivne side med `main` (VERSION i `sw.js`, `retter.json`, billeder). Skyen kan ikke selv nå siden; forsøg ikke at hente den. Står der RØD, eller er filen mere end 8 timer gammel, så skriv det øverst i `STATUS.md`.
+3. Se på de sammenlægninger, du selv har lavet de seneste 3 dage (`git log --merges --since="3 days ago"`). Læs `ai/BROWSER.md` (Browser-QA: vandret scroll, JavaScript-fejl, skærmbilleder på grenen `skaermbilleder`; åbn et par af billederne med Read) og `ai/HELBRED.md`: den skrives af GitHub-handlingen Vagtpost, som har internet og hver 3. time sammenligner den udgivne side med `main` (VERSION i `sw.js`, `retter.json`, billeder). Skyen kan ikke selv nå siden; forsøg ikke at hente den. Står der RØD, eller er filen mere end 8 timer gammel, så skriv det øverst i `STATUS.md`.
 4. **Er `main` rød, eller er HELBRED.md RØD, og skyldes det en af dine sammenlægninger?** Så rul tilbage: `git revert -m 1 <sammenlægnings-commit>`, kør kontrollen igen, `git push origin main`, og skriv hvad der skete øverst i `STATUS.md`. Rul også tilbage, hvis en sammenlægning gør forsidens ugeforslag eller indkøbslisten synligt værre (tomme retter, ødelagte varenavne, priser der springer mere end forklaret). Er årsagen ikke din sammenlægning (fx tilbudsrutinens data), så skriv det i `STATUS.md` og lad være.
 
-## Del 2 – kontrol af grene (ældste først, højst to pr. dag)
+## Del 2 – kontrol af grene (ældste først, højst fire pr. dag; grene fra Frontend- og Backend-udvikleren)
 For hver gren `ai/*`, der ikke er slået sammen:
 1. Tjek ud. Læs rapporten og, hvis den findes, designfilen. Læs hele `git diff origin/main...gren`.
 2. Kør `python -I scripts/tests/kontrol.py` (og `regression.py`) SELV på grenen. Stol aldrig på udviklerens citat.

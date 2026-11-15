@@ -16,7 +16,7 @@ Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 0392
 - 2026-11-15: ai/2026-11-15-kontrol-jsonld (A, kun test): kontrol.py springer JSON-LD-blokke over i JS-tjekket.
 
 ## Kendte begrænsninger
-- Skyen har ingen browser: udseende er vurderet ud fra koden og designfilen.
+- Skyen har ingen browser. Browser-QA (GitHub) måler og tager skærmbilleder af siden (`ai/BROWSER.md`, grenen `skaermbilleder`), men klikker kun et fast flow.
 - Regressionstesten dækker ikke DOM/udseende, simByt, andre husstande end 2+2/2+0 eller live-data (se udviklerrapporten 2026-11-15).
 - Brugerfeedback (Supabase) kan holdet ikke læse.
 - Skyrutinerne kan ikke hente den udgivne side (netværkspolitikken afviser den). Vagtposten er derfor flyttet til GitHub-handlingen "Vagtpost", som skriver `ai/HELBRED.md`; rutinerne læser den fil.
