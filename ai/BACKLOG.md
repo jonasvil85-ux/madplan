@@ -11,6 +11,31 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: uden den kan ingen ændring af priser, mængder eller ugeforslag valideres automatisk, så alle H-ændringer er blokeret.
   Accept: (1) kører i skyen uden internet på under 2 minutter, (2) fanger en bevidst ændring af en prisregel og en ændring af en pakkestørrelse (bevis i rapporten), (3) facitlisten kan opdateres med én kommando, når en ændring er tilsigtet, (4) kaldes af `kontrol.py`, (5) rapporten beskriver, hvad den IKKE dækker.
   Ikke-mål: ændre noget i selve prisberegningen.
+- [ ] [UX] [A] Opskriftssider til Google (I GANG: gren ai/2026-11-15-opskriftssider, bygget af Claude i chatten)
+  Krav: hver af de 193 biblioteksopskrifter får en egen side `/opskrift/<navn>/` med billede, ingredienser til 4, trin, tid, næring og Recipe-struktureret data, plus en oversigt `/opskrifter/` og sitemap.
+  Hvorfor: siden har kun én URL, så Google ser ingen retter. Organisk trafik er den største vækstmulighed uden annoncer.
+  Accept: (1) 193 sider + oversigt, (2) gyldig Recipe-JSON-LD på hver, (3) sitemap med alle, (4) kontrollen tjekker at hver opskrift har en side, (5) sider bygges af `scripts/byg_sider.py`, (6) ingen priser eller datoer på siderne (de bliver gamle).
+  Ikke-mål: ændre appen eller prisberegningen.
+- [ ] [UX] [A] Mobil: tryk-flader og luft (ROADMAP 2)
+  Krav: alle knapper og links på forsiden, retter og indkøbsliste er mindst 44 × 44 px på telefon (i dag er 25–27 elementer under 32 px).
+  Hvorfor: siden bruges mest på telefon i butikken, og små knapper giver forkerte tryk.
+  Accept: (1) måling i CDP-audit viser 0 elementer under 40 px på 390 px bredde (undtagen tekstlinks i brødtekst), (2) intet vandret scroll på 360 px, (3) designfil med før/efter.
+  Ikke-mål: nyt design.
+- [ ] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3)
+  Krav: brugeren kan skrive et ugebudget (fx 600 kr), og ugeforslaget holder sig under det, hvis det kan lade sig gøre; ellers fortæller siden ærligt, hvad den billigste mulighed koster.
+  Hvorfor: familier tænker i kroner pr. uge, ikke i kroner pr. ret. Det er den funktion, konkurrenter fremhæver mest.
+  Accept: (1) budgetfelt i husstandslinjen på forsiden, (2) ugeforslaget overholder budgettet i mindst 7 af 9 butikker ved 600 kr, (3) uopnåeligt budget giver en klar besked med billigste pris, (4) regressionstest uændret for brugere uden budget, (5) før/efter-tal for alle 9 butikker.
+  Ikke-mål: ændre prisregler.
+- [ ] [UX] [H] Fravalg og kost: "Vi spiser ikke …" (ROADMAP 4)
+  Krav: brugeren kan fravælge ingredienser og kosttyper (svinekød, fisk, løg, laktose, vegetar), og forslag, "Vælg selv" og indkøbsliste respekterer det.
+  Hvorfor: uden fravalg kan mange familier ikke bruge forslaget; det er en forudsætning for gentagne besøg.
+  Accept: (1) valget gemmes (lokalt og i konto), (2) ingen foreslået ret indeholder en fravalgt ingrediens (testes i regression), (3) tydelig besked, hvis for få retter er tilbage, (4) før/efter-tal.
+  Ikke-mål: allergi-garantier. Siden må ikke love, at noget er allergensikkert.
+- [ ] [UX] [A] Gemte madplaner og favoritter (ROADMAP 5)
+  Krav: en bruger med konto kan gemme en madplan og markere retter som favoritter, og få dem forslået oftere.
+  Hvorfor: giver grund til at komme igen hver uge.
+  Accept: (1) gem/åbn madplan, (2) favoritstjerne på retkort, (3) fungerer uden konto lokalt, (4) rører ikke login-koden (auth.js).
+  Ikke-mål: ændre login.
 - [ ] [DATA] [A] Farverige, spændende aftensretter med blikfang
   Krav: de mest brugte brune retter (pølseret, spanske kødboller, frikadeller, carbonara, hakkebøf) får et friskt tilbehør (råkost, salat, grønt) i opskrift og ingrediensliste; 365discount får mindst 4 vegetarretter; Min Købmand får 2–3 børnevenlige retter i et nyt køkken.
   Hvorfor: ugeforslaget må ikke være fire brune kartoffelretter; farver og variation er forsidens blikfang.
