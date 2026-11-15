@@ -133,6 +133,14 @@ p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tjek_ops
 if p.returncode: fejl.append('tjek_opskrifter.py fandt rå-fejl:\n' + '\n'.join(p.stdout.strip().splitlines()[-12:]))
 else: ok.append('tjek_opskrifter.py bestået')
 
+# ---------- 8. Regressionstest af pris, indkøbsliste og ugeforslag (node, gemt datakopi, se scripts/tests/regression.py) ----------
+if shutil.which('node'):
+    p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'regression.py')], capture_output=True, text=True, encoding='utf-8', errors='replace')
+    if p.returncode: fejl.append('Regressionstesten (regression.py) fejlede:\n' + '\n'.join(p.stdout.strip().splitlines()[:12]))
+    else: ok.append('regressionstest bestået (pris, indkøbsliste, ugeforslag)')
+else:
+    advarsler.append('node findes ikke her – regressionstesten er IKKE kørt')
+
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
 if len(advarsler) > 40: print(f'… og {len(advarsler) - 40} flere advarsler')
