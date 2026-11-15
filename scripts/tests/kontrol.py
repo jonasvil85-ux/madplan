@@ -144,9 +144,7 @@ else:
 # ---------- 9. Fravalg og budget i ugeforslaget (node, samme datakopi; se scripts/tests/fravalg_budget.js) ----------
 if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'fravalg_budget.js')):
     p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'fravalg_budget.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)
-    if p.returncode: fejl.append('Test af fravalg og budget fejlede:
-' + '
-'.join((p.stdout + p.stderr).strip().splitlines()[:12]))
+    if p.returncode: fejl.append('Test af fravalg og budget fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[:12]))
     else: ok.append('fravalg og budget bestået')
 
 print('OK:      ' + '; '.join(ok))
