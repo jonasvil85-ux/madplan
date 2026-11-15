@@ -6,7 +6,12 @@ name: Billeder til nye retter
 on:
   schedule:
     - cron: '35 5 * * *'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      proev:
+        description: 'Kun afprøv nøglen: lav ét billede og gem det ikke'
+        type: boolean
+        default: false
 permissions:
   contents: write
 concurrency:
@@ -22,6 +27,14 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install Pillow
+      - name: Afprøv nøglen (laver ét billede, gemmer intet)
+        if: ${{ inputs.proev }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then echo "Mangler hemmeligheden CLOUDFLARE_API_TOKEN"; exit 1; fi
+          python -I scripts/billeder.py --kun "Spaghetti bolognese" --maks 1
+          echo "Nøglen virker: billedet blev lavet (det gemmes ikke)."
       - name: Er der retter uden billede?
         id: mangler
         run: |
@@ -32,7 +45,7 @@ jobs:
           print(f'antal={n}')
           PY
       - name: Lav billeder
-        if: steps.mangler.outputs.antal != '0'
+        if: ${{ !inputs.proev && steps.mangler.outputs.antal != '0' }}
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
@@ -42,7 +55,7 @@ jobs:
           python -I scripts/byg_opskrifter.py
           python -I scripts/tests/kontrol.py
       - name: Læg billederne på main
-        if: steps.mangler.outputs.antal != '0'
+        if: ${{ !inputs.proev && steps.mangler.outputs.antal != '0' }}
         run: |
           git config user.name "Madplan billeder"
           git config user.email "noreply@github.com"
