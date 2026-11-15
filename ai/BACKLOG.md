@@ -11,12 +11,12 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: uden den kan ingen ændring af priser, mængder eller ugeforslag valideres automatisk, så alle H-ændringer er blokeret.
   Accept: (1) kører i skyen uden internet på under 2 minutter, (2) fanger en bevidst ændring af en prisregel og en ændring af en pakkestørrelse (bevis i rapporten), (3) facitlisten kan opdateres med én kommando, når en ændring er tilsigtet, (4) kaldes af `kontrol.py`, (5) rapporten beskriver, hvad den IKKE dækker.
   Ikke-mål: ændre noget i selve prisberegningen.
-- [ ] [UX] [A] Opskriftssider til Google (KLAR TIL SAMMENLÆGNING: afparkeret 2026-11-15 af Ejer/CTO efter forsøg 3; gren ai/2026-11-15-opskriftssider, 9360d24)
+- [x] [UX] [H] Opskriftssider til Google (slået sammen 2026-11-15 af kontrollanten, 384f5d1)
   Krav: hver af de 193 biblioteksopskrifter får en egen side `/opskrift/<navn>/` med billede, ingredienser til 4, trin, tid, næring og Recipe-struktureret data, plus en oversigt `/opskrifter/` og sitemap.
   Hvorfor: siden har kun én URL, så Google ser ingen retter. Organisk trafik er den største vækstmulighed uden annoncer.
   Accept: (1) 193 sider + oversigt, (2) gyldig Recipe-JSON-LD på hver, (3) sitemap med alle, (4) kontrollen tjekker at hver opskrift har en side, (5) sider bygges af `scripts/byg_sider.py`, (6) ingen priser eller datoer på siderne (de bliver gamle).
   Ikke-mål: ændre appen eller prisberegningen.
-- [ ] [UX] [A] Mobil: tryk-flader og luft (ROADMAP 2)
+- [ ] [UX] [A] Mobil: tryk-flader og luft (ROADMAP 2) (AFVIST forsøg 1 2026-11-15: 23 elementer under 40 px på forsiden, designfil mangler)
   Krav: alle knapper og links på forsiden, retter og indkøbsliste er mindst 44 × 44 px på telefon (i dag er 25–27 elementer under 32 px).
   Hvorfor: siden bruges mest på telefon i butikken, og små knapper giver forkerte tryk.
   Accept: (1) måling i CDP-audit viser 0 elementer under 40 px på 390 px bredde (undtagen tekstlinks i brødtekst), (2) intet vandret scroll på 360 px, (3) designfil med før/efter.
@@ -77,6 +77,11 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: den kom med i en commit ved et uheld 2026-11-15.
   Accept: (1) filen er ignoreret, (2) `git status` er ren efter en kørsel af `kontrol.py`.
   Ikke-mål: røre andre filer.
+- [ ] [TEST] [A] Kontrollen opdager forældede og forældreløse opskriftssider (forslag fra kontrollanten)
+  Krav: `kontrol.py` sammenligner Recipe-JSON-LD's ingredienser og trin med `opskrifter.json` og fejler på mapper i `opskrift/` uden en opskrift.
+  Hvorfor: rød-hold 2026-11-15 viste, at en ændret opskrift uden ny kørsel af `byg_sider.py` og en forældreløs side begge giver BESTÅET.
+  Accept: (1) ændret ingrediens uden genbygning giver FEJLET, (2) forældreløs mappe giver FEJLET, (3) slug-funktionen findes ét sted (importeres fra `byg_sider.py`).
+  Ikke-mål: ændre siderne.
 - [ ] [TEST] [A] Bedre fejltekst når regression.js crasher (forslag fra kontrollanten)
   Krav: `regression.py` viser selve fejlbeskeden (linjen med `FEJL:`) i stedet for stderr's sidste linje (`Node.js v…`).
   Hvorfor: ved en ødelagt fixtur 2026-11-15 sagde fejlen kun "Node.js v22.23.4".
@@ -84,4 +89,3 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Ikke-mål: ændre facit.
 
 ## Afvist / parkeret
-- [UX] Opskriftssider til Google (gren ai/2026-11-15-opskriftssider, 9360d24): afparkeret 2026-11-15; klar til sammenlægning (se STATUS).
