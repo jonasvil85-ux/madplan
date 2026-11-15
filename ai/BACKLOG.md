@@ -6,7 +6,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
-- [ ] [TEST] [A] Regressionstest af pris, indkøbsliste og ugeforslag i node
+- [x] [TEST] [A] Regressionstest af pris, indkøbsliste og ugeforslag i node
   Krav: `scripts/tests/regression.py` (der kalder node) indlæser sidens egen JavaScript (`pris.js`, `kategorier.js`, funktionerne i `index.html`) uden browser og beregner for hver af de 9 butikker ugeforslagets pris, indkøbslistens linjer og et udvalg af retters forbrugs- og indkøbspris. Resultatet sammenlignes med en gemt facitliste (`scripts/tests/facit.json`).
   Hvorfor: uden den kan ingen ændring af priser, mængder eller ugeforslag valideres automatisk, så alle H-ændringer er blokeret.
   Accept: (1) kører i skyen uden internet på under 2 minutter, (2) fanger en bevidst ændring af en prisregel og en ændring af en pakkestørrelse (bevis i rapporten), (3) facitlisten kan opdateres med én kommando, når en ændring er tilsigtet, (4) kaldes af `kontrol.py`, (5) rapporten beskriver, hvad den IKKE dækker.
@@ -52,6 +52,11 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: den kom med i en commit ved et uheld 2026-11-15.
   Accept: (1) filen er ignoreret, (2) `git status` er ren efter en kørsel af `kontrol.py`.
   Ikke-mål: røre andre filer.
+- [ ] [TEST] [A] Bedre fejltekst når regression.js crasher (forslag fra kontrollanten)
+  Krav: `regression.py` viser selve fejlbeskeden (linjen med `FEJL:`) i stedet for stderr's sidste linje (`Node.js v…`).
+  Hvorfor: ved en ødelagt fixtur 2026-11-15 sagde fejlen kun "Node.js v22.23.4".
+  Accept: (1) en bevidst ødelagt fixtur giver en læsbar fejltekst, (2) kontrol.py er BESTÅET.
+  Ikke-mål: ændre facit.
 
 ## Afvist / parkeret
 (ingen)
