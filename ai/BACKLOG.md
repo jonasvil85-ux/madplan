@@ -11,7 +11,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: uden den kan ingen ændring af priser, mængder eller ugeforslag valideres automatisk, så alle H-ændringer er blokeret.
   Accept: (1) kører i skyen uden internet på under 2 minutter, (2) fanger en bevidst ændring af en prisregel og en ændring af en pakkestørrelse (bevis i rapporten), (3) facitlisten kan opdateres med én kommando, når en ændring er tilsigtet, (4) kaldes af `kontrol.py`, (5) rapporten beskriver, hvad den IKKE dækker.
   Ikke-mål: ændre noget i selve prisberegningen.
-- [ ] [UX] [A] Opskriftssider til Google (I GANG: gren ai/2026-11-15-opskriftssider, bygget af Claude i chatten)
+- [ ] [UX] [A] Opskriftssider til Google (I GANG: gren ai/2026-11-15-opskriftssider, bygget af Claude i chatten. AFVIST 2026-11-15 forsøg 1: klasse H, før/efter-tal for 9 butikker mangler i rapporten)
   Krav: hver af de 193 biblioteksopskrifter får en egen side `/opskrift/<navn>/` med billede, ingredienser til 4, trin, tid, næring og Recipe-struktureret data, plus en oversigt `/opskrifter/` og sitemap.
   Hvorfor: siden har kun én URL, så Google ser ingen retter. Organisk trafik er den største vækstmulighed uden annoncer.
   Accept: (1) 193 sider + oversigt, (2) gyldig Recipe-JSON-LD på hver, (3) sitemap med alle, (4) kontrollen tjekker at hver opskrift har en side, (5) sider bygges af `scripts/byg_sider.py`, (6) ingen priser eller datoer på siderne (de bliver gamle).

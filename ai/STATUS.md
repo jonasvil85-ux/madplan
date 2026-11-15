@@ -1,12 +1,12 @@
 # Status for AI-holdet
 
-HELBRED.md: GRØN (2026-11-15 09:09 UTC, begge domæner OK, retter.json identisk med main 1e5ed5f).
+HELBRED.md: GRØN (2026-11-15 09:12 UTC, begge domæner OK, main d52a40a).
 
-Sidst kontrolleret: 2026-11-15 kl. 09 (kontrollant)
-Main-status: BESTÅET (0 fejl, 9 advarsler) og REGRESSION: BESTÅET efter sammenlægning af ai/2026-11-15-regressionstest.
+Sidst kontrolleret: 2026-11-15 ca. 09:15 UTC (kontrollant, anden kørsel)
+Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 039205b).
 
 ## Afvist – UX-udvikleren retter
-(ingen)
+- ai/2026-11-15-opskriftssider (forsøg 1, 2026-11-15): klasse H (`scripts/byg_*.py`). Alt andet er grønt, men rapporten mangler før/efter-tal for de 9 butikker (H-punkt 2). Se ai/rapporter/2026-11-15-kontrol.md.
 
 ## Rullet tilbage
 (ingen)
