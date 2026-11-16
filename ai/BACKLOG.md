@@ -16,11 +16,17 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: siden har kun én URL, så Google ser ingen retter. Organisk trafik er den største vækstmulighed uden annoncer.
   Accept: (1) 193 sider + oversigt, (2) gyldig Recipe-JSON-LD på hver, (3) sitemap med alle, (4) kontrollen tjekker at hver opskrift har en side, (5) sider bygges af `scripts/byg_sider.py`, (6) ingen priser eller datoer på siderne (de bliver gamle).
   Ikke-mål: ændre appen eller prisberegningen.
+- [ ] [DATA] [A] Ret kendte datafejl
+  Krav: Kvickly "Svinemørbrad med svampesauce og kartoffelmos" får svinemørbrad som ingrediens; `ty`-oplysning for ingredienser med tilbud, der mangler den (kontrollen tæller dem; mango, majs, salsa, parmigiano, rygeost m.fl.) via `bibliotek_typer.py`, uden at ramme ikke-mad; dyre andretter (over 450 kr for hele retten) vurderes og fjernes eller laves billigere.
+  Hvorfor: tillid til indkøbslisten og et ugeforslag uden urealistisk dyre retter.
+  Accept: (1) kontrollens advarsler om disse punkter er væk, (2) ingen ret på forsiden koster over 450 kr, (3) indkøbslisten viser kun den vare, retten bruger, for de rettede ingredienser.
+  Ikke-mål: ændre `tilbudVariant()`.
 - [ ] [UX] [A] Mobil: tryk-flader og luft (ROADMAP 2) (AFVIST forsøg 1 2026-11-15: 23 elementer under 40 px på forsiden, designfil mangler)
   Krav: alle knapper og links på forsiden, retter og indkøbsliste er mindst 44 × 44 px på telefon (i dag er 25–27 elementer under 32 px).
   Hvorfor: siden bruges mest på telefon i butikken, og små knapper giver forkerte tryk.
   Accept: (1) måling i CDP-audit viser 0 elementer under 40 px på 390 px bredde (undtagen tekstlinks i brødtekst), (2) intet vandret scroll på 360 px, (3) designfil med før/efter.
   Ikke-mål: nyt design.
+  Tilføjet af Ejeren 2026-11-16: slår "Tilgængelighed og hastighed" sammen hertil – også (4) ingen billeder over 160 KB, (5) alle billeder har alt, (6) UX-designeren laver designfilen FØR udvikleren bygger (afvist sidst fordi den manglede).
 - [ ] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3) (gren ai/2026-11-15-fravalg-budget afvist 2026-11-15 sammen med fravalg; budgetdelen var i orden)
   Krav: brugeren kan skrive et ugebudget (fx 600 kr), og ugeforslaget holder sig under det, hvis det kan lade sig gøre; ellers fortæller siden ærligt, hvad den billigste mulighed koster.
   Hvorfor: familier tænker i kroner pr. uge, ikke i kroner pr. ret. Det er den funktion, konkurrenter fremhæver mest.
@@ -41,31 +47,26 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: ugeforslaget må ikke være fire brune kartoffelretter; farver og variation er forsidens blikfang.
   Accept: (1) alle ændrede retter består `kontrol.py`, (2) hver ændret ret har mindst tre friske farver i ingredienserne, (3) forsidens ugeforslag for 365discount og Min Købmand har mindst tre forskellige køkkener, (4) nye retter har en engelsk billedbeskrivelse i `billedprompts.json`, (5) svinekød udgør højst 35 % af retterne hos Min Købmand og Spar (i dag 24 af 45 og 24 af 53), og suppe-retter (fx pastinaksuppe) har så mættende tilbehør, at de er et hovedmåltid til 4.
   Ikke-mål: ugeforslagets algoritme.
-- [ ] [DATA] [A] Ret kendte datafejl
-  Krav: Kvickly "Svinemørbrad med svampesauce og kartoffelmos" får svinemørbrad som ingrediens; `ty`-oplysning for ingredienser med tilbud, der mangler den (kontrollen tæller dem; mango, majs, salsa, parmigiano, rygeost m.fl.) via `bibliotek_typer.py`, uden at ramme ikke-mad; dyre andretter (over 450 kr for hele retten) vurderes og fjernes eller laves billigere.
-  Hvorfor: tillid til indkøbslisten og et ugeforslag uden urealistisk dyre retter.
-  Accept: (1) kontrollens advarsler om disse punkter er væk, (2) ingen ret på forsiden koster over 450 kr, (3) indkøbslisten viser kun den vare, retten bruger, for de rettede ingredienser.
-  Ikke-mål: ændre `tilbudVariant()`.
 - [ ] [UX] [A] Gode tilbud-grupperne nederst på indkøbslisten
   Krav: gruppetekster er korte og viser det, man kan købe (højst ca. 40 tegn pr. vare), og listen er hurtig at skimme på mobil.
   Hvorfor: de lange gruppetekster ("A, B eller C") forvirrer i butikken.
   Accept: (1) ingen vare i grupperne har tekst over 45 tegn, (2) 400 px bredde uden vandret scroll, (3) designfil med valgt løsning.
   Ikke-mål: ændre hvilke tilbud der vælges.
+- [ ] [UX] [H] Indkøbsliste: tydelige rækker (gren ai/2026-11-15-indkoebsliste-raekker afvist proceduralt, mangler dette krav)
+  Krav: hver vare på indkøbslisten er en tydelig række med varenavn, mængde og pris, og kan afkrydses med ét tryk på telefon i butikken.
+  Hvorfor: listen er det, brugeren bruger i butikken; den skal kunne skimmes og afkrydses med én hånd.
+  Accept: (1) tryk-flade mindst 44 px pr. række, (2) afkrydsning huskes ved genindlæsning, (3) summer og linjer uændrede: regressionstest og før/efter-tal for alle 9 butikker, (4) 360 px uden vandret scroll.
+  Ikke-mål: ændre hvilke varer eller priser listen viser.
+- [ ] [SEO] [A] Opskriftssider: forsiden linker til dem og SEO-detaljer (opfølgning på 384f5d1)
+  Krav: forsiden har et synligt link til /opskrifter/, hver opskriftsside linker tilbage til forsiden og til oversigten, og robots.txt peger på sitemap.xml.
+  Hvorfor: Google finder siderne via links; kun sitemap giver svag indeksering.
+  Accept: (1) link fra forsiden, (2) brødkrumme/tilbage-link på alle 193 sider, (3) robots.txt indeholder Sitemap-linjen, (4) kontrollen tjekker (2) og (3), (5) ingen priser på siderne.
+  Ikke-mål: ændre appen eller prisberegningen.
 - [ ] [UX] [H] Banner "Du ser en gemt kopi"
   Krav: når siden er vist fra service workerens cache og ikke fra nettet, forklarer et lille, roligt banner det, med en knap der prøver igen.
   Hvorfor: på netværk, hvor siden er blokeret, ser brugeren forældede data uden at vide det.
   Accept: (1) vises kun ved cache-visning, (2) forsvinder, når frisk data er hentet, (3) rører ikke cache-strategien for billeder, (4) regressionstest består.
   Ikke-mål: ændre hvad der caches.
-- [ ] [UX] [A] SEO-gennemgang (kun kortlægning og små rettelser)
-  Krav: kortlæg titel, beskrivelse, `og:`-tags, sitemap og robots.txt, og hvad Google kan se (retterne er ikke egne sider). Ret småting; foreslå resten som nye krav.
-  Hvorfor: organisk trafik uden betalt annoncering.
-  Accept: (1) rapport med fund, (2) små rettelser lagt ind, (3) ingen nye tusinde sider.
-  Ikke-mål: bygge opskriftssider.
-- [ ] [UX] [A] Tilgængelighed og hastighed på mobil
-  Krav: kontrast, tryk-flader, `alt`-tekster og billedstørrelse (kontrollen advarer om billeder over 160 KB).
-  Hvorfor: siden bruges mest på telefon i butikken.
-  Accept: (1) ingen billeder over 160 KB, (2) alle billeder har `alt`, (3) tryk-flader mindst 44 px på forsiden og indkøbslisten.
-  Ikke-mål: nyt design.
 - [ ] [DATA] [H] Næring pr. voksen i Fitness
   Krav: kategorien Fitness regner næring pr. voksen i stedet for pr. gennemsnitsportion (børn spiser mindre).
   Hvorfor: tallene skal passe til, hvad en voksen faktisk spiser.
