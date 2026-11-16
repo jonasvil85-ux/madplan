@@ -6,6 +6,11 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
+- [ ] [UX] [A] Sammenlign alle butikker på forsiden (CTO-prioritet 1, se ai/rapporter/2026-11-16-produktanalyse.md)
+  Krav: under "Hvor handler du?" vises en rangeret liste over alle 9 butikker med ugens pris for brugerens husstand (samme beregning som ugeforslaget, én butik ad gangen), besparelse mod normalpris og andel på tilbud. Den billigste er markeret "Billigst". Et tryk på en butik vælger den (som at krydse den af alene). Under listen vises den bedste kombination af to butikker, hvis den er mindst 30 kr billigere end den billigste enkeltbutik. Tallene regnes i baggrunden butik for butik og vises efterhånden; siden må aldrig fryse.
+  Hvorfor: "Hvor skal jeg handle i denne uge?" er kernespørgsmålet for en tilbudsside, og det kræver i dag mange klik. Konkurrenten Goma reklamerer netop med prissammenligning.
+  Accept: (1) alle 9 butikker vises med en pris, der er identisk med den pris, siden viser, når butikken vælges alene (testet for alle 9); (2) listen er sorteret billigst først, og "Billigst" står på den billigste; (3) et tryk vælger butikken og opdaterer madplanen; (4) første skærm vises før beregningen er færdig, og hovedtråden blokeres aldrig mere end 200 ms ad gangen (målt i Chromium); (5) 390 px uden vandret scroll, tryk-flader mindst 44 px; (6) regressionstesten uændret; (7) designfil i ai/design/.
+  Ikke-mål: ændre prisberegningen, ugeforslaget eller butiksvalget for brugere, der ikke trykker i listen.
 - [x] [TEST] [A] Regressionstest af pris, indkøbsliste og ugeforslag i node
   Krav: `scripts/tests/regression.py` (der kalder node) indlæser sidens egen JavaScript (`pris.js`, `kategorier.js`, funktionerne i `index.html`) uden browser og beregner for hver af de 9 butikker ugeforslagets pris, indkøbslistens linjer og et udvalg af retters forbrugs- og indkøbspris. Resultatet sammenlignes med en gemt facitliste (`scripts/tests/facit.json`).
   Hvorfor: uden den kan ingen ændring af priser, mængder eller ugeforslag valideres automatisk, så alle H-ændringer er blokeret.
