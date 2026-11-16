@@ -195,7 +195,7 @@ button.slet-valg[hidden] { display: none; }
 .bil .ing-knap .ikon-svg { width: 16px; height: 16px; }
 .dag-ret { padding: 7px 10px 2px; color: var(--text-1); font-weight: 600; font-size: 13px; line-height: 1.3; }
 .butik-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px 26px; align-items: start; }
-.butik-venstre h2, .butik-hoejre h3 { margin: 0 0 10px; font-size: 15px; line-height: 22px; }
+.butik-venstre h2, .butik-venstre .flere-titel, .butik-hoejre h3 { margin: 0 0 10px; font-size: 15px; line-height: 22px; }
 .butik-hoejre h3 { color: var(--text-2); font-weight: 600; }
 .butik-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
 .butik-chip { position: relative; display: flex; align-items: center; justify-content: center; padding: 2px; height: 38px; background: var(--surface-2); border: 2px solid transparent; border-radius: 12px; cursor: pointer; }
@@ -230,7 +230,7 @@ button.slet-valg[hidden] { display: none; }
 @media (min-width: 761px) {
   .butikpanel { padding: 14px 18px; }
   .butik-grid { gap: 0 26px; }
-  .butik-venstre h2, .butik-hoejre h3 { display: flex; align-items: center; height: 22px; margin: 0 0 8px !important; line-height: 22px; }
+  .butik-venstre h2, .butik-venstre .flere-titel, .butik-hoejre h3 { display: flex; align-items: center; height: 22px; margin: 0 0 8px !important; line-height: 22px; }
   .butik-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 36px; gap: 6px; }  /* tre rækker à 36 px = de tre felter til højre */
   .butik-chip { height: 36px; }
   .butik-chip .logo { height: 24px; padding: 3px 6px; }
@@ -706,7 +706,7 @@ html body #fb-fod a { color: var(--text-1); }
 .hero-tekst h2 { font-size: 26px; margin: 0; }
 
 /* overskrifter i paneler: mindre og dæmpede */
-.butik-venstre h2, .butik-hoejre h3, .simulering .panel-hoved h2, .ugeplan-valg h2 { font-size: 15px; font-weight: 600; color: var(--text-2); }
+.butik-venstre h2, .butik-venstre .flere-titel, .butik-hoejre h3, .simulering .panel-hoved h2, .ugeplan-valg h2 { font-size: 15px; font-weight: 600; color: var(--text-2); }
 .sim-undertekst { margin: 2px 0 0; font-size: 13px; color: var(--text-3); }
 .simulering .panel-hoved { margin-bottom: 14px; }
 .dag-fra { align-items: center; justify-content: center; gap: 8px; text-align: center; }
@@ -888,6 +888,10 @@ html { scrollbar-gutter: stable; }
 .hero-tekst { padding: 4px 0; }  /* overskriften på forsiden står på linje med logoet og panelerne */
 /* Sammenlign butikker (rangeret liste) */
 .samm h2 { margin: 0 0 4px; font-size: 20px; line-height: 28px; font-weight: 700; }
+.butik-titel { margin: 0 0 4px; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--text-1); }
+.samm-bund { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 12px; margin-top: 4px; }
+.samm-fold { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 0 2px; background: none; border: 0; color: var(--text-2); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.samm-fold:focus-visible { outline: 2px solid var(--valgt); outline-offset: 2px; border-radius: 6px; }
 .samm-under { margin: 0 0 12px; font-size: 13px; line-height: 18px; color: var(--text-3); }
 .samm-liste { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
 .samm-raekke { width: 100%; min-height: 64px; display: flex; align-items: center; gap: 10px; padding: 8px 12px; text-align: left; background: var(--surface); color: var(--text-1); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; font: inherit; }
@@ -895,7 +899,15 @@ html { scrollbar-gutter: stable; }
 .samm-raekke:focus-visible { outline: 2px solid var(--valgt); outline-offset: 2px; }
 .samm-raekke.aktiv { border: 2px solid var(--valgt); background: var(--valgt-tint); padding: 7px 11px; }
 .samm-raekke.daempet { opacity: .7; }
-.samm-rang { flex: none; width: 16px; font-size: 14px; color: var(--text-3); text-align: center; font-variant-numeric: tabular-nums; }
+.samm-tjek { flex: none; width: 24px; height: 24px; display: grid; place-items: center; border: 2px solid var(--border); border-radius: 7px; color: transparent; font-size: 15px; font-weight: 700; line-height: 1; background: var(--surface); }
+.samm-raekke.aktiv .samm-tjek { background: var(--valgt); border-color: var(--valgt); color: #fff; }
+#antal-plads:empty, #note-plads:empty { display: none; }
+.samm-raekke.aktiv.ubrugt { border-style: dashed; background: var(--surface); }
+.samm-raekke.ubrugt .samm-tjek { background: var(--text-3); border-color: var(--text-3); }
+.valg-svar { display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 20px; color: var(--text-2); }
+.valg-svar b { font-size: 16px; line-height: 22px; color: var(--text-1); }
+#antal-plads { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+.samm-igen { margin-top: 8px; }
 .samm-raekke .butikhoved { flex: none; }
 .samm-midt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .samm-midt b { font-size: 16px; font-weight: 600; line-height: 22px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -908,7 +920,7 @@ html { scrollbar-gutter: stable; }
 @media (prefers-reduced-motion: reduce) { .samm-skel { animation: none; } }
 .samm-ekstra { display: none; }
 .samm.alle .samm-ekstra { display: list-item; }
-.samm-fold { width: 100%; min-height: 44px; margin-top: 8px; }
+
 .samm-kombi { margin-top: 12px; padding: 12px; background: var(--surface-2); border-radius: 12px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
 .samm-kombi span { font-size: 14px; color: var(--text-2); }
 .samm-kombi .knap { min-height: 44px; }
@@ -918,6 +930,54 @@ html { scrollbar-gutter: stable; }
   .samm-liste { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .samm-ekstra { display: list-item; }
   .samm-fold { display: none; }
+}
+
+/* ===== MOBIL: hele forsiden på én skærm (Jonas 2026-11-16) – butikkerne er én række med logo og pris, man stryger i; et tryk = flueben ===== */
+@media (max-width: 600px) {
+  .hero-ramme { display: none; }
+  .butikpanel { padding: 12px 14px; margin-bottom: 10px; }
+  .butik-titel { font-size: 18px; line-height: 24px; margin: 0 0 2px; }
+  .samm-under { margin: 0 0 8px; font-size: 12.5px; line-height: 17px; }
+  .samm-liste { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; margin: 0 -14px; padding: 2px 14px 4px; }
+  .samm-liste::-webkit-scrollbar { display: none; }
+  .samm-liste > li, .samm-liste > li.samm-ekstra { display: block; flex: 0 0 auto; scroll-snap-align: start; }
+  .samm-liste > li.valgt { order: -1; }  /* dine butikker forrest, derefter billigst først */
+  .samm-raekke { position: relative; width: 98px; height: 100%; min-height: 0; flex-direction: column; align-items: center; justify-content: flex-start; gap: 4px; padding: 10px 6px 7px; text-align: center; }
+  .samm-raekke.aktiv { padding: 9px 5px 6px; }
+  .samm-raekke .samm-tjek { position: absolute; top: 5px; left: 5px; width: 20px; height: 20px; font-size: 12px; border-radius: 6px; }
+  .samm-midt { align-items: center; flex: none; }
+  .samm-midt b { font-size: 12px; line-height: 15px; font-weight: 600; max-width: 86px; }
+  .samm-midt small { display: none; }
+  .samm-raekke.ubrugt .samm-midt small { display: block; font-size: 11px; line-height: 14px; }
+  .samm-raekke.ubrugt .samm-midt small span { display: none; }
+  .samm-raekke.ubrugt .samm-midt small::after { content: 'Ikke med'; }  /* den fulde forklaring står lige under listen */
+  .samm-pris { align-items: center; font-size: 16px; line-height: 20px; gap: 2px; }
+  .samm-billigst { order: 2; font-size: 10.5px; line-height: 15px; padding: 0 6px; }
+  .samm-bund { display: none; }
+  .samm-kombi { margin-top: 8px; padding: 8px 10px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 2px 10px; }
+  .samm-kombi b { flex: 1 1 150px; font-size: 14px; line-height: 19px; }
+  .samm-kombi .knap { min-height: 44px; padding: 0 14px; font-size: 14px; }
+  .samm-kombi span { flex-basis: 100%; order: 3; font-size: 12px; line-height: 16px; color: var(--text-3); }
+  #antal-plads { margin-top: 10px; padding-top: 10px; }
+  .simulering { padding: 12px 14px; }
+  .simulering .panel-hoved { margin-bottom: 8px; }
+  .simulering .sim-undertekst { display: none; }
+  .simulering .panel-hoved h2 { font-size: 17px; }
+  .simulering .kalender { margin: 0 -14px; padding: 0 14px 4px; }
+  .kalender > .dag-kort { flex-basis: 136px; }
+  .kalender .dag-bil-sim { aspect-ratio: 2 / 1; }
+  .sim-bund { margin-top: 10px; padding-top: 10px; }
+  /* flere butikker valgt: "1 butik" og "2 butikker" side om side; kort forklaring; tippet på én linje */
+  #antal-plads h3 { margin-bottom: 6px; font-size: 14px; }
+  .antal-kort { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 8px; }
+  .antal-knap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 6px; min-height: 44px; padding: 11px 10px 6px; }
+  .antal-knap .antal-foer { display: none; }
+  .antal-knap small { flex-basis: 100%; font-size: 12px; -webkit-line-clamp: 1; }
+  .valg-svar { gap: 2px; font-size: 12.5px; line-height: 17px; }
+  .valg-svar b { font-size: 14px; line-height: 19px; }
+  .valg-svar span { display: none; }
+  .samm-kombi.flere { flex-wrap: nowrap; }
+  .samm-kombi.flere span { display: none; }
 }
 </style>
 </head>
@@ -2043,6 +2103,13 @@ function ubrugtNote() {  // forklaring på en afkrydset butik, der ikke er med i
   const ant = state.butikker.length, ub = ubrugteButikker(), brugte = ant ? simStandard(simK()).butikker : [];
   return ub.length ? `${esc(butikTekst(ub))} er ikke med – det er billigst ${brugte.length === 1 ? 'kun ' : ''}at gå i ${esc(butikTekst(brugte))}.` : '';
 }
+function antalSynlige() {  // antallet af felter, antalValgHtml viser (et felt, der ikke er billigere end det forrige, vises ikke – undtagen det valgte)
+  const ant = state.butikker.length; if (!ant) return 0;
+  const m = butikMuligheder(), aktivN = simStandard(simK()).butikker.length, priser = m.map(muligPris);
+  let sidst = -1, n = 0;
+  m.forEach((o, i) => { if (i && o.n !== aktivN && priser[i].ialt >= priser[sidst].ialt - 1) return; sidst = i; n++; });
+  return n;
+}
 function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i?" – et felt pr. mulighed (1, så 2, så 3 butikker)
   const ant = state.butikker.length;
   const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
@@ -2072,17 +2139,18 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i
 // Tallene regnes af to rene funktioner, som både kortet og scripts/tests/sammenlign.js bruger:
 // en butik = forslaget for netop den butik (7 aftensmåltider til husstanden, hele pakker), samme tal som når butikken vælges alene.
 function sammButikTal(k) { return simPris(k + '|1'); }
-// To butikker: ugens forslag for parret, regnet som én samlet indkøbsliste over begge (ugePris med begge butikker).
-// Besparelsen må ikke skyldes, at man får noget andet eller mindre, så den regnes mod det BILLIGSTE af
-// (a) præcis de samme retter og mængder købt i den billigste enkeltbutik og (b) den butiks egen billigste uge.
+// To butikker: parrets fælles billigste uge (én samlet indkøbsliste over begge butikker, ud fra deres egne tilbud) mod den billigste
+// enkeltbutiks egen uge. Begge er 7 aftensmåltider til husstanden med samme portioner, så besparelsen skyldes ikke mindre mad.
+// SAMME regel som "Hvor mange butikker" (anbefaletAntal): anbefales, når forskellen på de præcise tal er mindst ANBEFAL_SPAR (Jonas 2026-11-16).
 function sammKombiTal(par, enkeltButik) {
   const k = par.slice().sort().join('+') + '|2', plan = simStandard(k);
   if (!plan || plan.length !== 7 || plan.butikker.length < 2) return null;
   const ids = plan.map(x => x.r.id), mult = planMult(plan);
-  const pris = ugePris(ids, mult, plan.S).ialt, sammeIEnkelt = ugePris(ids, mult, [enkeltButik]).ialt, enkelt = sammButikTal(enkeltButik).ialt;
-  if (![pris, sammeIEnkelt, enkelt].every(Number.isFinite)) return null;
-  const vist = { pris: Math.round(pris), sammeIEnkelt: Math.round(sammeIEnkelt), enkelt: Math.round(enkelt) };
-  return { butikker: plan.butikker.slice().sort(), enkeltButik, pris, sammeIEnkelt, enkelt, vist, spar: Math.min(vist.sammeIEnkelt, vist.enkelt) - vist.pris };
+  const pris = ugePris(ids, mult, plan.S).ialt, enkelt = sammButikTal(enkeltButik).ialt;
+  if (![pris, enkelt].every(Number.isFinite)) return null;
+  const vist = { pris: Math.round(pris), enkelt: Math.round(enkelt) };
+  // spar = forskellen på de VISTE tal (så teksten går op); anbefalet afgøres på de præcise tal, som i anbefaletAntal
+  return { butikker: plan.butikker.slice().sort(), enkeltButik, pris, enkelt, vist, spar: vist.enkelt - vist.pris, anbefalet: enkelt - pris >= ANBEFAL_SPAR };
 }
 const SAMM = { sig: null, nr: 0, pris: {}, fejl: {}, faerdig: false, koerer: false, kombi: null, alle: false, taeller: 0, sidstTekst: 0, fejlAlle: false };
 const sammOrden = () => {  // rækkefølgen: de afkrydsede først, og billigst først, når alle er regnet
@@ -2092,43 +2160,46 @@ const sammOrden = () => {  // rækkefølgen: de afkrydsede først, og billigst f
   const rang = k => !ok(k) ? 2 : udloebet(data.butikker[k]) ? 1 : 0;
   return alle.slice().sort((a, b) => rang(a) - rang(b) || (ok(a) && ok(b) ? Math.round(SAMM.pris[a].ialt) - Math.round(SAMM.pris[b].ialt) : 0));
 };
+const ubrugteNu = () => { if (state.butikker.length < 2 || manglerSim()) return []; const brugt = simStandard(simK()).butikker; return state.butikker.filter(x => !brugt.includes(x)); };  // valgte butikker uden varer i den viste madplan (kun når den er regnet: blokerer aldrig)
 function sammRaekke(k, i) {
-  const b = data.butikker[k], p = SAMM.pris[k], fejl = SAMM.fejl[k], ud = udloebet(b), valgt = state.butikker.includes(k);
+  const b = data.butikker[k], p = SAMM.pris[k], fejl = SAMM.fejl[k], ud = udloebet(b), valgt = state.butikker.includes(k), ubrugt = valgt && ubrugteNu().includes(k);
   const pris = p && !fejl ? Math.round(p.ialt) : null;
   const spar = p && p.spar >= 10 ? Math.round(p.spar) : 0, andel = p && p.ialt > 0 ? Math.round(100 * p.tilbud / p.ialt) : 0;
   const priser = SAMM.faerdig ? Object.keys(SAMM.pris).filter(x => !SAMM.fejl[x] && !udloebet(data.butikker[x])).map(x => Math.round(SAMM.pris[x].ialt)) : [];
   const billigst = pris != null && !ud && priser.length > 0 && pris === Math.min(...priser);
   const rang = SAMM.faerdig && pris != null && !ud ? i + 1 : '';
-  const sub = fejl ? 'Kunne ikke regnes' : ud ? 'Avisen er udløbet' : p ? [spar ? `Sparer ${kr(spar)}` : '', `${andel} % på tilbud`].filter(Boolean).map(x => `<span>${x}</span>`).join('') : '';
-  const label = `${b.navn}${rang ? `, nummer ${rang}` : ''}${billigst ? ', billigst' : ''}${pris != null ? `, ugens indkøb ${pris} kroner` : ''}${spar && !ud ? `, sparer ${spar} kroner` : ''}. Vælg butik`;
-  return `<li class="${i >= 3 ? 'samm-ekstra' : ''}"><button type="button" class="samm-raekke ${valgt ? 'aktiv' : ''} ${ud || fejl ? 'daempet' : ''}" data-sammvalg="${esc(k)}" data-sk="${esc(k)}" aria-pressed="${valgt}" aria-label="${esc(label)}">
-    <span class="samm-rang" aria-hidden="true">${rang}</span><span class="butikhoved lille">${logo(b)}</span>
-    <span class="samm-midt"><b>${esc(b.navn)}${valgt ? ' ✓' : ''}</b><small>${fejl || ud ? esc(sub) : sub}</small></span>
+  const sub = fejl ? 'Kunne ikke regnes' : ud ? 'Avisen er udløbet' : ubrugt ? `<span>Ikke med i madplanen</span>${kunEnMulighed() ? `<span>Ugen er billigere uden ${esc(b.navn)}</span>` : ''}` : p ? [spar ? `Sparer ${kr(spar)}` : '', `${andel} % på tilbud`].filter(Boolean).map(x => `<span>${x}</span>`).join('') : '';
+  const label = `${b.navn}${rang ? `, nummer ${rang}` : ''}${billigst ? ', billigst' : ''}${pris != null ? `, ugens indkøb ${pris} kroner` : ''}${spar && !ud ? `, sparer ${spar} kroner` : ''}${ubrugt ? ', ikke med i madplanen' : ''}`;
+  return `<li class="${i >= 3 && !valgt ? 'samm-ekstra' : ''} ${valgt ? 'valgt' : ''}" data-nr="${i}"><button type="button" class="samm-raekke ${valgt ? 'aktiv' : ''} ${ubrugt ? 'ubrugt' : ''} ${ud || fejl ? 'daempet' : ''}" data-sammvalg="${esc(k)}" data-sk="${esc(k)}" aria-pressed="${valgt}" aria-label="${esc(label)}">
+    <span class="samm-tjek" aria-hidden="true">✓</span><span class="butikhoved lille">${logo(b)}</span>
+    <span class="samm-midt"><b>${esc(b.navn)}</b><small>${fejl || ud ? esc(sub) : sub}</small></span>
     <span class="samm-pris">${billigst ? '<i class="samm-billigst">Billigst</i>' : ''}${pris != null ? `<span>${kr(pris)}</span>` : fejl ? '<span>–</span>' : '<span class="samm-skel" aria-hidden="true"></span>'}</span></button></li>`;
 }
 function sammKombiHtml() {
   const c = SAMM.kombi;
   if (!c) return '';
   const [a, b] = c.butikker, navn = `${data.butikker[a].navn} + ${data.butikker[b].navn}`, en = esc(data.butikker[c.enkeltButik].navn);
-  return `<div class="samm-kombi"><b>Handl i to butikker og spar ${kr(c.spar)}</b>
-    <span>${esc(navn)}: ${kr(c.vist.pris)} for ugens 7 aftensmåltider. De samme retter og mængder i ${en} alene: ${kr(c.vist.sammeIEnkelt)}. ${en}s egen billigste uge: ${kr(c.vist.enkelt)}.</span>
-    <button type="button" class="knap" data-sammkombi="${esc(c.butikker.join('+'))}">Vælg ${esc(navn)}</button>
-    <small>Besparelsen er regnet mod det billigste af de to. Transport og ekstra tid er ikke regnet med i prisen.</small></div>`;
+  const valgt = state.butikker.slice().sort().join('+');
+  if (valgt === c.butikker.join('+')) return '';  // allerede valgt: "Hvor mange butikker" viser tallene
+  const ny = state.butikker.length === 1 && c.butikker.includes(state.butikker[0]) ? c.butikker.find(x => x !== state.butikker[0]) : null;  // én af de to er valgt: tilbyd at tilføje den anden
+  return `<div class="samm-kombi${state.butikker.length > 1 ? ' flere' : ''}"><b>${ny ? `Spar ${kr(c.spar)} ved også at handle i ${esc(data.butikker[ny].navn)}` : `Spar ${kr(c.spar)} ved at handle i ${esc(navn)}`}</b>
+    <span>${esc(navn)}: ${kr(c.vist.pris)} for ugen mod ${kr(c.vist.enkelt)} i ${en} alene. Transport og ekstra tid er ikke regnet med i prisen.</span>
+    <button type="button" class="knap" data-sammkombi="${esc(c.butikker.join('+'))}">${ny ? `Tilføj ${esc(data.butikker[ny].navn)}` : `Vælg ${esc(navn)}`}</button></div>`;
 }
 function sammStatus() {
   const n = Object.keys(data.butikker).length;
-  if (SAMM.fejlAlle) return 'Sammenligningen kunne ikke regnes lige nu. Du kan stadig vælge butik ovenfor.';
-  if (SAMM.faerdig) return `Hver butiks billigste ugeforslag: 7 aftensmåltider til ${husstandTekst(state.voksne, state.boern)}, samme portioner i alle butikker.`;
+  if (SAMM.fejlAlle) return 'Priserne kunne ikke regnes lige nu. Du kan stadig vælge butikker.';
+  if (SAMM.faerdig) return `<span class="kun-stor">Tryk på de butikker, du handler i – gerne flere. Prisen er hver butiks billigste uge ud fra egne tilbud, 7 aftensmåltider til ${husstandTekst(state.voksne, state.boern)}.</span><span class="kun-lille">Billigste uge pr. butik · 7 aftensmåltider til ${husstandTekst(state.voksne, state.boern)}. Tryk for at vælge – gerne flere.</span>`;
   return `Regner butik ${Math.min(SAMM.taeller + 1, n)} af ${n} …`;
 }
 function sammenlignHtml() {
   const alle = Object.keys(data.butikker);
   if (!alle.length) return '';
-  return `<div class="panel samm ${SAMM.alle ? 'alle' : ''}" id="samm-kort"><h2>Sammenlign butikker</h2>
+  return `<div class="samm ${SAMM.alle ? 'alle' : ''}" id="samm-kort">
     <p class="samm-under" id="samm-status" aria-live="polite">${sammStatus()}</p>
-    ${SAMM.fejlAlle ? '<button type="button" class="knap sekundaer" data-sammigen>Prøv igen</button>' : `<ul role="list" class="samm-liste">${sammOrden().map(sammRaekke).join('')}</ul>
-    <button type="button" class="knap sekundaer samm-fold" data-sammalle aria-expanded="${SAMM.alle}">${SAMM.alle ? 'Vis færre' : `Vis alle ${alle.length} butikker`}</button>`}
-    <div id="samm-kombi-plads">${sammKombiHtml()}</div></div>`;
+    <ul role="list" class="samm-liste">${sammOrden().map(sammRaekke).join('')}</ul>${SAMM.fejlAlle ? '<button type="button" class="knap sekundaer samm-igen" data-sammigen>Prøv igen</button>' : ''}
+    <div id="samm-kombi-plads">${sammKombiHtml()}</div>
+    <div class="samm-bund"><button type="button" class="samm-fold" data-sammalle aria-expanded="${SAMM.alle}">${SAMM.alle ? 'Vis færre <span aria-hidden="true">▴</span>' : `Vis alle ${alle.length} butikker <span aria-hidden="true">▾</span>`}</button></div></div>`;
 }
 function sammenlignTegn(flip) {
   const pl = document.getElementById('samm-plads'); if (!pl) return;
@@ -2141,18 +2212,22 @@ function sammenlignTegn(flip) {
     if (d) e.animate([{ transform: `translateY(${d}px)` }, { transform: 'none' }], { duration: 200, easing: 'ease-out' });
   });
 }
-function sammenlignMarker() {  // butikvalget er ændret: kun markeringen opdateres, rækkerne står stille
+function sammenlignMarker() {  // butikvalget er ændret: kun flueben (og to-butiks-forslaget) opdateres, rækkerne står stille
   document.querySelectorAll('.samm-raekke').forEach(r => {
-    const v = state.butikker.includes(r.dataset.sammvalg), b = data.butikker[r.dataset.sammvalg];
+    const k = r.dataset.sammvalg, v = state.butikker.includes(k), li = r.closest('li');
     r.classList.toggle('aktiv', v); r.setAttribute('aria-pressed', String(v));
-    const n = r.querySelector('.samm-midt b'); if (n) n.textContent = b.navn + (v ? ' ✓' : '');
+    if (li) { li.classList.toggle('samm-ekstra', +li.dataset.nr >= 3 && !v); li.classList.toggle('valgt', v); }  // en valgt butik skjules aldrig af "Vis alle"; på telefonen står de valgte forrest
+    const ny = document.createElement('div'); ny.innerHTML = sammRaekke(k, +(li?.dataset.nr || 0));  // underteksten ("Ikke med i madplanen" eller sparet/tilbud)
+    const nyR = ny.querySelector('.samm-raekke'), sm = r.querySelector('.samm-midt small');
+    if (nyR && sm) { sm.innerHTML = nyR.querySelector('.samm-midt small').innerHTML; r.classList.toggle('ubrugt', nyR.classList.contains('ubrugt')); r.setAttribute('aria-label', nyR.getAttribute('aria-label')); }
   });
+  const kp = document.getElementById('samm-kombi-plads'); if (kp) kp.innerHTML = sammKombiHtml();
 }
 function sammenlignStatusTekst() {  // statuslinjen opdateres højst hvert sekund
   const t = performance.now();
   if (t - SAMM.sidstTekst < 1000) return;
   SAMM.sidstTekst = t;
-  const s = document.getElementById('samm-status'); if (s) s.textContent = sammStatus();
+  const s = document.getElementById('samm-status'); if (s) s.innerHTML = sammStatus();
 }
 async function sammenlignStart(tving) {
   if (state.trin !== 'butik' || !document.getElementById('samm-plads')) return;
@@ -2197,7 +2272,7 @@ function sammKombiKandidater() {  // de gyldige butikker billigst først (samme 
   const ok = sammOrden().filter(k => SAMM.pris[k] && !SAMM.fejl[k] && !udloebet(data.butikker[k]));
   return { ok, enkeltButik: ok[0], top: ok.slice(0, SAMM_KOMBI_TOP) };
 }
-async function sammenlignKombi(gyldig) {  // vises kun, hvis det sparer mindst ANBEFAL_SPAR kr mod både samme retter i enkeltbutikken og dens egen uge; blandt dem vises den billigste uge
+async function sammenlignKombi(gyldig) {  // vises kun, hvis parret er mindst ANBEFAL_SPAR kr billigere end den billigste enkeltbutik (samme regel som "Hvor mange butikker"); blandt dem vises den billigste uge
   const { ok, enkeltButik, top } = sammKombiKandidater();
   if (ok.length < 2) return;
   let bedst = null;
@@ -2208,10 +2283,10 @@ async function sammenlignKombi(gyldig) {  // vises kun, hvis det sparer mindst A
     try {
       if (!simStd[n]) { const it = simulerTrin(k); let r; while (!(r = it.next()).done) { await pusterum(); if (!gyldig()) return; } simStd[n] = r.value; }
       const t = sammKombiTal([top[i], top[j]], enkeltButik);
-      if (t && t.spar >= ANBEFAL_SPAR && (!bedst || t.vist.pris < bedst.vist.pris || (t.vist.pris === bedst.vist.pris && t.spar > bedst.spar))) bedst = t;  // billigste uge blandt dem, der reelt sparer nok
+      if (t && t.anbefalet && (!bedst || t.pris < bedst.pris)) bedst = t;  // billigste uge blandt dem, der sparer nok
     } catch (e) { /* kombinationen springes over */ }
   }
-  if (!gyldig() || !bedst || bedst.spar < ANBEFAL_SPAR) return;
+  if (!gyldig() || !bedst) return;
   SAMM.kombi = bedst;
   const pl = document.getElementById('samm-kombi-plads'); if (pl) pl.innerHTML = sammKombiHtml();
 }
@@ -2225,24 +2300,32 @@ function saetKunButikker(liste) {  // som at krydse de andre butikker af; spørg
   tilpasButikker(); gemHusstand();
   return true;
 }
-function butikPanel() {
-  const alle = Object.keys(data.butikker), ub = ubrugteButikker();
-  return `<div class="panel butikpanel"><div class="butik-grid">
-    <div class="butik-venstre"><h2>Hvor handler du?</h2><div class="butik-chips">${alle.map(k => { const b = data.butikker[k], valgt = state.butikker.includes(k); return `
-      <button type="button" class="butik-chip ${valgt ? 'aktiv' : ''} ${ub.includes(k) ? 'ubrugt' : ''} ${udloebet(b) ? 'udloebet' : ''}" data-butikvalg="${k}" aria-pressed="${valgt}" title="${esc(b.navn)}${ub.includes(k) ? ' – ikke med i madplanen: det er ikke billigere' : ''}${udloebet(b) ? ' – avisen er udløbet' : ''}" style="--brand:${esc(b.farve || '#10B981')}">
-        ${logo(b)}<span class="bc-navn">${esc(b.navn)}${udloebet(b) ? ' – avisen er udløbet' : ''}</span><i class="afkryds">✓</i>
-      </button>`; }).join('')}</div></div>
-    <div class="butik-hoejre" id="antal-plads">${antalValgHtml()}</div>
-    <p class="ubrugt-note" id="note-plads">${ubrugtNote()}</p>
-  </div></div>`;
+// Under listen, når der er valgt mere end én butik: kan flere butikker gøre ugen billigere, vises valget 1/2/3 butikker;
+// ellers én klar sætning (ingen ensom "1 butik"-knap), og rækken for den ubrugte butik siger det samme.
+const kunEnMulighed = () => state.butikker.length > 1 && antalSynlige() <= 1;
+function antalPladsHtml() {
+  if (state.butikker.length < 2) return '';
+  if (!kunEnMulighed()) return antalValgHtml();
+  const k = simK(), plan = simStandard(k), pris = Math.round(simPrisPlan(k).ialt);
+  const ikke = state.butikker.filter(x => !plan.butikker.includes(x));
+  return `<div class="valg-svar"><b>Madplanen bruger kun ${esc(butikTekst(plan.butikker))} (${kr(pris)}) – ${esc(butikTekst(ikke))} gør ikke ugen billigere</b>
+    <span>Derfor er der ingen varer fra ${esc(butikTekst(ikke))} i ugens madplan. Det kan ændre sig, når nye aviser kommer.</span></div>`;
+}
+const noteHtml = () => kunEnMulighed() ? '' : ubrugtNote();  // sætningen ovenfor siger det allerede
+function butikPanel() {  // ét kort: listen er butiksvalget (tryk = flueben, gerne flere); "Hvor mange butikker" vises under, når der er valgt flere
+  return `<div class="panel butikpanel"><h2 class="butik-titel">Hvor handler du?</h2>
+    <div id="samm-plads">${sammenlignHtml()}</div>
+    <div class="butik-hoejre" id="antal-plads">${antalPladsHtml()}</div>
+    <p class="ubrugt-note" id="note-plads">${noteHtml()}</p>
+  </div>`;
 }
 // Flueben/antal butikker/madplan: opdatér kun det, der ændrer sig (logoerne og siden står stille, og der scrolles ikke)
 function opdaterButik(anker) {  // anker: vælger for det element, der skal blive stående det samme sted på skærmen (fx dagkortet, man trykkede på)
   const y = window.scrollY, foer = anker ? document.querySelector(anker)?.getBoundingClientRect().top : undefined;
   const ub = ubrugteButikker();
   document.querySelectorAll('.butik-chip').forEach(c => { const k = c.dataset.butikvalg, v = state.butikker.includes(k); c.classList.toggle('aktiv', v); c.classList.toggle('ubrugt', ub.includes(k)); c.setAttribute('aria-pressed', String(v)); });
-  const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalValgHtml();
-  const np = document.getElementById('note-plads'); if (np) np.innerHTML = ubrugtNote();
+  const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalPladsHtml();
+  const np = document.getElementById('note-plads'); if (np) np.innerHTML = noteHtml();
   const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
   sammenlignMarker(); sammenlignStart();
   document.querySelectorAll('.beregner').forEach(el => el.classList.remove('beregner'));
@@ -2262,7 +2345,6 @@ function renderButikker() {
   </section>
   </div>
   ${butikPanel()}
-  <div id="samm-plads">${sammenlignHtml()}</div>
   <div id="sim-plads">${simuleringHtml()}</div>`);
   bund('');
   sammenlignStart();
@@ -2787,8 +2869,8 @@ async function kopierListe() {
 // ---------- Rundvisning første gang: fremhæver et område ad gangen med få ord ----------
 const INTRO_TRIN = [
   { sel: '#husstand-plads', titel: 'Hvem skal spise med?', tekst: 'Vælg her, hvor mange voksne og børn I er. Så passer mængder og priser til jer.' },
-  { sel: '.butik-chips', titel: 'Vælg dine butikker', tekst: 'Tryk på de butikker, du vil have tilbud fra. Du kan vælge flere.' },
-  { sel: '#antal-plads', titel: 'Hvor mange butikker?', tekst: 'Se, hvad ugens mad koster, hvis du handler i 1, 2 eller 3 butikker. Tryk på det felt, du vil bruge.' },
+  { sel: '#samm-plads', titel: 'Hvor handler du?', tekst: 'Tryk på de butikker, du handler i – gerne flere. Den billigste uge står øverst.' },
+  { sel: '#antal-plads', titel: 'Hvor mange butikker?', tekst: 'Har du valgt flere butikker, ser du her, hvad ugen koster i 1, 2 eller 3 af dem. Tryk på det, du vil bruge.' },
   { sel: '#sim-plads .dag-kort', titel: 'Din madplan', tekst: 'Her er ugens retter. Tryk Byt for en anden ret, eller Fjern, hvis du spiser ude den dag.' },
   { sel: '[data-sim-indkoeb]', side: 'over', titel: 'Klar til at handle?', tekst: 'Tryk her, når du er tilfreds – så laver vi indkøbssedlen til dig.' },
   { sel: '[data-sim-vaelg]', side: 'over', titel: 'Vil du vælge selv?', tekst: 'Tryk her for at se alle retter og selv vælge dem, du har lyst til. Brug kategorierne øverst, fx Budget eller Fitness.' },
@@ -2893,9 +2975,13 @@ document.addEventListener('click', e => {
   else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simFjern + 1})`); }
   else if (d.simGendan !== undefined) { simFra[simK()]?.delete(+d.simGendan); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simGendan + 1})`); }
   else if (d.butikvalg) { if (!skiftButik(d.butikvalg)) return; return opdaterButikRoligt(); }
-  else if (d.sammvalg) { if (state.butikker.length === 1 && state.butikker[0] === d.sammvalg) return; if (!saetKunButikker([d.sammvalg])) return; return opdaterButikRoligt(); }
+  else if (d.sammvalg) {  // flueben til/fra – gerne flere butikker
+    if (!skiftButik(d.sammvalg)) return;
+    const liste = t.closest('.samm-liste'); if (liste && liste.scrollLeft > 0 && matchMedia('(max-width: 600px)').matches) liste.scrollTo({ left: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });  // telefon: de valgte står forrest – vis dem
+    return opdaterButikRoligt();
+  }
   else if (d.sammkombi) { if (!saetKunButikker(d.sammkombi.split('+'))) return; return opdaterButikRoligt(); }
-  else if ('sammalle' in d) { SAMM.alle = !SAMM.alle; document.getElementById('samm-kort')?.classList.toggle('alle', SAMM.alle); t.setAttribute('aria-expanded', String(SAMM.alle)); t.textContent = SAMM.alle ? 'Vis færre' : `Vis alle ${Object.keys(data.butikker).length} butikker`; return; }
+  else if ('sammalle' in d) { SAMM.alle = !SAMM.alle; document.getElementById('samm-kort')?.classList.toggle('alle', SAMM.alle); t.setAttribute('aria-expanded', String(SAMM.alle)); t.innerHTML = SAMM.alle ? 'Vis færre <span aria-hidden="true">▴</span>' : `Vis alle ${Object.keys(data.butikker).length} butikker <span aria-hidden="true">▾</span>`; return; }
   else if ('sammigen' in d) { return sammenlignStart(true); }
   else if (d.maxb) { state.maxButikker = +d.maxb === anbefaletAntal() ? 0 : +d.maxb; state.koebButikker = []; gemHusstand(); return opdaterButik(); }
   else if (d.aktivbutik) state.butik = d.aktivbutik;
