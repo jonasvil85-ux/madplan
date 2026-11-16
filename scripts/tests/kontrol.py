@@ -57,7 +57,8 @@ if retter:
             if not r.get('billede') or not os.path.exists(os.path.join(ROD, r['billede'])): uden_billede.setdefault(kode, []).append(r['navn'])
             if len(r.get('fremgangsmaade', [])) < 2: fejl.append(f'{h} har under 2 trin i fremgangsmåden')
             if not r.get('ingredienser'): fejl.append(f'{h} har ingen ingredienser'); continue
-            if not (15 <= r.get('pris_i_alt', 0) <= 450): advarsler.append(f"{h} har mærkelig pris: {r.get('pris_i_alt')} kr (hele retten)")
+            if r.get('pris_i_alt', 0) > 450: fejl.append(f"{h} koster over 450 kr for hele retten ({r.get('pris_i_alt')} kr) – fjern eller lav den billigere")
+            elif not (15 <= r.get('pris_i_alt', 0) <= 450): advarsler.append(f"{h} har mærkelig pris: {r.get('pris_i_alt')} kr (hele retten)")
             ikke_basis = [i for i in r['ingredienser'] if not i.get('basisvare')]
             if not any(i.get('tilbud') for i in ikke_basis): fejl.append(f'{h} bruger ikke ét eneste tilbud')
             for i in r['ingredienser']:
@@ -67,6 +68,7 @@ if retter:
             # navnet må ikke love en hovedingrediens, retten ikke har
             ing_tekst = ' '.join(i['navn'].lower() for i in r['ingredienser'])
             for ord_ in ('svinemørbrad', 'andebryst', 'laks', 'torsk', 'kylling', 'hakket'):
+                if ord_ == 'svinemørbrad' and re.search(r'mørbrad af (?:dansk )?(?:gris|svin)|grisemørbrad', ing_tekst): continue  # samme vare under butikkens eget navn
                 if ord_ in r['navn'].lower() and ord_ not in ing_tekst and not (ord_ == 'hakket' and 'hak' in ing_tekst):
                     advarsler.append(f"{h}: navnet nævner '{ord_}', men det står ikke på ingredienslisten")
     # Billeder kan ikke laves i skyen (nøglen findes kun på ejerens pc) – derfor en advarsel, ikke en fejl. Den, der laver billeder lokalt, skal rydde den.

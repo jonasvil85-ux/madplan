@@ -918,20 +918,6 @@
       }
     },
     {
-      "som": "Sprøde andelår med flødekartofler og rødkål",
-      "tilbud": {
-        "ferske andelår": [
-          "M48"
-        ],
-        "æbler": [
-          "M20"
-        ],
-        "løg": [
-          "M7"
-        ]
-      }
-    },
-    {
       "som": "Andebryst med druesauce og ovnbagte rodfrugter",
       "tilbud": {
         "ferske andebryst": [
@@ -991,17 +977,6 @@
           "M63"
         ],
         "danske æbler": [
-          "M20"
-        ]
-      }
-    },
-    {
-      "som": "Andelår i fad med æbler, svesker og kartofler",
-      "tilbud": {
-        "Julius ferske andelår": [
-          "M48"
-        ],
-        "æbler": [
           "M20"
         ]
       }
@@ -1131,76 +1106,6 @@
           "olie",
           1,
           "spsk",
-          1,
-          []
-        ]
-      ],
-      "auto": true
-    },
-    {
-      "navn": "Lammekølle med rosmarin og ovnkartofler",
-      "beskrivelse": "Helstegt lammekølle med hvidløg og rosmarin og ovnbagte kartofler.",
-      "kategori": "andet",
-      "koekken": "middelhav",
-      "tid_minutter": 150,
-      "spis_tidligt": false,
-      "fremgangsmaade": [
-        "Stik huller i kødet, og fyld dem med hvidløg og rosmarin. Gnid med salt, peber og olie.",
-        "Steg ved 160 grader i 1,5-2 timer, til kernetemperaturen er 65-70 grader.",
-        "Vend kartoflerne i både med 2 spsk olie, salt og peber, og bag dem i et fad i ovnen sammen med kødet den sidste time.",
-        "Tag kødet ud, dæk det med folie, og lad det hvile 20 minutter. Skru imens ovnen op på 200 °C, og bag kartoflerne 15-20 minutter, til de er gyldne.",
-        "Skær kødet i skiver, og server."
-      ],
-      "niveau": "weekend",
-      "ingredienser": [
-        [
-          "lammekølle",
-          1500,
-          "g",
-          0,
-          [
-            "M41"
-          ]
-        ],
-        [
-          "kartofler",
-          1000,
-          "g",
-          0,
-          []
-        ],
-        [
-          "hvidløg",
-          4,
-          "fed",
-          0,
-          []
-        ],
-        [
-          "rosmarin",
-          1,
-          "bundt",
-          0,
-          []
-        ],
-        [
-          "olie",
-          1,
-          "spsk",
-          1,
-          []
-        ],
-        [
-          "salt og peber",
-          0,
-          "efter smag",
-          1,
-          []
-        ],
-        [
-          "sort peber",
-          1,
-          "tsk",
           1,
           []
         ]
