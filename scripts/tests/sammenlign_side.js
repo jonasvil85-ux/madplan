@@ -8,6 +8,7 @@
   try { po = new PerformanceObserver(l => l.getEntries().forEach(e => lange.push({ start: e.startTime, ms: Math.round(e.duration) }))); po.observe({ type: 'longtask' }); } catch (e) { fejl.push('PerformanceObserver longtask findes ikke'); }
   const ventPaaKort = async () => { for (let i = 0; i < 240; i++) { if (SAMM.sig === simSig() && SAMM.faerdig && !SAMM.koerer) return true; /* færdig for netop denne husstand, ikke den forrige */ await vent(250); } return false; };
   const tekst = el => (el ? el.textContent : '').replace(/\s+/g, ' ').trim();
+  const kombiTjek = [];
   // Kortets beregning for én husstand, målt: skiftet af husstand sker i testens egen opgave (som et klik) og måles ikke; alt bagefter måles.
   const maalHusstand = async (v, bo) => {
     saetHusstand(v, bo); opdaterHusstand(); const t0 = performance.now(); await vent(0);
@@ -41,18 +42,19 @@
     for (let i = 1; i < vistePriser.length; i++) if (vistePriser[i] < vistePriser[i - 1]) fejl.push(H + ': rækkerne er ikke billigst først');
     if (!document.querySelector('#samm-kort .samm-billigst')) fejl.push(H + ': ingen række er markeret "Billigst"');
     if (!tekst(document.getElementById('samm-status')).includes('7 aftensmåltider til ' + husstandTekst(v, bo))) fejl.push(H + ': kortet siger ikke "7 aftensmåltider til ' + husstandTekst(v, bo) + '"');
-    // (9)+(11): kombinationen i DOM = den billigste uge blandt parrene (de 5 billigste), der sparer mindst ANBEFAL_SPAR mod både samme retter og enkeltbutikkens uge
+    // Én regel: kombinationen i DOM = den billigste uge blandt parrene (de 5 billigste), som er mindst ANBEFAL_SPAR billigere end den billigste enkeltbutik
     const { enkeltButik, top } = sammKombiKandidater(); let forvent = null;
     for (let i = 0; i < top.length; i++) for (let j = i + 1; j < top.length; j++) {
       const t = sammKombiTal([top[i], top[j]], enkeltButik);
-      if (t && t.spar >= ANBEFAL_SPAR && (!forvent || t.vist.pris < forvent.vist.pris || (t.vist.pris === forvent.vist.pris && t.spar > forvent.spar))) forvent = t;
+      if (t && t.anbefalet && (!forvent || t.pris < forvent.pris)) forvent = t;
     }
     const kombiTekst = tekst(document.getElementById('samm-kombi-plads'));
     maal[H].kombi = forvent ? forvent.butikker.join('+') + ' ' + forvent.vist.pris + ' kr, spar ' + forvent.spar : 'ingen';
     if (!forvent && kombiTekst) fejl.push(H + ': kortet viser en kombination, som ikke sparer nok: ' + kombiTekst.slice(0, 120));
     if (forvent) {
-      for (const tal of [forvent.spar, forvent.vist.pris, forvent.vist.sammeIEnkelt, forvent.vist.enkelt]) if (!kombiTekst.includes(kr(tal))) fejl.push(H + ': kombinationsteksten mangler ' + kr(tal) + ' ("' + kombiTekst.slice(0, 160) + '")');
+      for (const tal of [forvent.spar, forvent.vist.pris, forvent.vist.enkelt]) if (!kombiTekst.includes(kr(tal))) fejl.push(H + ': kombinationsteksten mangler ' + kr(tal) + ' ("' + kombiTekst.slice(0, 160) + '")');
       if (!/Transport og ekstra tid er ikke regnet med/.test(kombiTekst)) fejl.push(H + ': kombinationsteksten siger ikke, at transport ikke er regnet med');
+      kombiTjek.push([v, bo, forvent]);  // trykket på kombiknappen tjekkes efter tidsmålingerne (det vælger 2 butikker og ville påvirke næste måling)
     }
     // (5): 390 px uden vandret scroll, tryk-flader i kortet mindst 44 px
     if (document.documentElement.scrollWidth > innerWidth + 1) fejl.push(H + ': vandret scroll (' + document.documentElement.scrollWidth + ' > ' + innerWidth + ')');
@@ -60,6 +62,19 @@
       const r = b.getBoundingClientRect();
       if (r.width && r.height && (r.height < 44 || r.width < 44)) fejl.push(H + ': tryk-flade ' + Math.round(r.width) + '×' + Math.round(r.height) + ' px: "' + tekst(b).slice(0, 40) + '"');
     }
+  }
+  // Én regel: tryk på kombiknappen → "Hvor mange butikker" anbefaler 2 butikker til samme pris, og madplanen koster det samme
+  for (const [v, bo, forvent] of kombiTjek) {
+    const H = v + '+' + bo;
+    saetHusstand(v, bo); opdaterHusstand(); await vent(0); await ventPaaKort(); await vent(300);
+    const knap = document.querySelector('[data-sammkombi]');
+    if (!knap || knap.dataset.sammkombi !== forvent.butikker.join('+')) { fejl.push(H + ': kombiknappen mangler eller gælder ' + (knap && knap.dataset.sammkombi)); continue; }
+    knap.click(); await vent(2500);
+    const anbKnap = [...document.querySelectorAll('#antal-plads .antal-knap')].find(b => b.querySelector('.anbef'));
+    if (!anbKnap || !/2 butikker/.test(tekst(anbKnap)) || !tekst(anbKnap).includes(kr(forvent.vist.pris))) fejl.push(H + ': efter kombiknappen anbefaler "Hvor mange butikker" ikke 2 butikker til ' + kr(forvent.vist.pris) + ' ("' + tekst(anbKnap) + '")');
+    const pk2 = simK();
+    if (!pk2 || Math.round(simPrisPlan(pk2).ialt) !== forvent.vist.pris) fejl.push(H + ': efter kombiknappen koster madplanen ' + (pk2 ? Math.round(simPrisPlan(pk2).ialt) : '?') + ' kr, kortet sagde ' + kr(forvent.vist.pris));
+    maal[H].kombiKnap = anbKnap ? tekst(anbKnap) : '(ingen anbefaling)';
   }
   // (3): et tryk på en række vælger butikken og opdaterer madplanen (2+2; den næstbilligste, så valget faktisk skifter)
   saetHusstand(2, 2); opdaterHusstand(); await vent(50); await ventPaaKort();
@@ -84,9 +99,11 @@
   if (synlig(document.getElementById('antal-plads'))) fejl.push('Ét kort: "Hvor mange butikker" vises på første skærm, selv om der kun er valgt én butik');
   // (5) madplanen starter mindst 300 px højere på 390 px end på main (main 2026-11-16: overskriften "Madplan" ved 1056 px, én butik valgt)
   if (innerWidth <= 400) {
+    // Et to-butiks-forslag afhænger af ugens tilbud og gør kortet højere; det fandtes ikke i main's måling (1056 px). Dets højde trækkes fra, og begge tal vises.
     const top = Math.round(document.getElementById('sim-plads').getBoundingClientRect().top + scrollY);
-    maal.madplanTop390 = top;
-    if (top > 756) fejl.push('Ét kort: madplanen starter ' + top + ' px nede (krav: højst 756 px, dvs. 300 px højere end main)');
+    const kombiEl = document.querySelector('#samm-kombi-plads .samm-kombi'), kombiH = kombiEl ? Math.round(kombiEl.getBoundingClientRect().height + 12) : 0;
+    maal.madplanTop390 = top; maal.toButiksForslagPx = kombiH;
+    if (top - kombiH > 756) fejl.push('Ét kort: madplanen starter ' + (top - kombiH) + ' px nede uden to-butiks-forslaget (krav: højst 756 px, dvs. 300 px højere end main)');
   }
   // (6) rundvisningens trin peger kun på synlige områder; trin 2 = listen, trin 3 = "Vælg selv flere butikker"
   if (INTRO_TRIN[1].sel !== '#samm-plads' || INTRO_TRIN[2].sel !== '[data-flere-butikker]') fejl.push('Rundvisning: trin 2/3 peger på ' + INTRO_TRIN[1].sel + ' / ' + INTRO_TRIN[2].sel);
