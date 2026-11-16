@@ -170,6 +170,19 @@ if shutil.which('node'):
 else:
     advarsler.append('node findes ikke her – regressionstesten er IKKE kørt')
 
+# ---------- 9. Sammenlign butikker (node, samme datakopi; se scripts/tests/sammenlign.js) og i Chromium (scripts/tests/sammenlign_browser.py) ----------
+if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sammenlign.js')):
+    p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'sammenlign.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)
+    if p.returncode: fejl.append('Test af sammenlign butikker fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[:12]))
+    else: ok.append('sammenlign butikker bestået (' + (p.stdout.strip().splitlines() or [''])[-1].split('fingeraftryk ')[-1].rstrip(')') + ')')
+elif os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sammenlign.js')):
+    advarsler.append('node findes ikke her – testen af sammenlign butikker er IKKE kørt')
+if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sammenlign_browser.py')):
+    p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'sammenlign_browser.py'), ROD], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
+    if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke her – browsertesten af sammenlign butikker er IKKE kørt')
+    elif p.returncode: fejl.append('Browsertest af sammenlign butikker fejlede:' + chr(10) + chr(10).join(p.stdout.strip().splitlines()[-12:]))
+    else: ok.append('sammenlign butikker i Chromium bestået')
+
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
 if len(advarsler) > 40: print(f'… og {len(advarsler) - 40} flere advarsler')
