@@ -89,7 +89,7 @@ kør(kode, 'index.html');
           const inden = q.eksakt <= bud;
           if (inden && !n.includes('bud-note ok')) fejl.push(tag + ': ugen holder budgettet, men beskeden siger andet');
           if (!inden && !n.includes('bud-note over')) fejl.push(tag + ': ugen er over budgettet (' + q.eksakt.toFixed(2) + '), men beskeden siger "inden for"');
-          if (!inden) { const over = Math.max(1, Math.ceil(q.eksakt - bud)); if (!n.includes(kr(over) + ' over')) fejl.push(tag + ': beskeden angiver ikke overskridelsen ' + kr(over)); }
+          if (!inden) { const over = Math.max(1, Math.round(q.eksakt - bud)); if (!n.includes(kr(over) + ' over')) fejl.push(tag + ': beskeden angiver ikke overskridelsen ' + kr(over)); }
           graense[tag] = Math.round(q.eksakt * 100);
         }
       }

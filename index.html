@@ -1950,8 +1950,8 @@ function simuleringHtml() {
 
 function budgetNote(pris, k, dage = 7) {  // ærlig besked under madplanens overskrift: budgettet holdt eller ej
   if (!(state.budget > 0) || !pris || !pris.ialt) return '';
-  // Den præcise pris sammenlignes (ikke den afrundede), så 600,40 kr aldrig kaldes "inden for" et budget på 600 kr; overskridelsen rundes op.
-  const ialt = Math.round(pris.ialt), inden = pris.ialt <= state.budget, over = Math.max(1, Math.ceil(pris.ialt - state.budget));
+  // Den præcise pris sammenlignes (ikke den afrundede), så 600,40 kr aldrig kaldes "inden for" et budget på 600 kr; overskridelsen er den viste pris minus budgettet (mindst 1 kr).
+  const ialt = Math.round(pris.ialt), inden = pris.ialt <= state.budget, over = Math.max(1, Math.round(pris.ialt - state.budget));  // = vist pris minus budget, så tallene går op; aldrig "0 kr over"
   if (k && simAendret(k)) {  // brugeren har byttet/fjernet retter: tal om brugerens egen madplan, aldrig "billigste uge"
     const forslag = simPris(k), fTekst = forslag && forslag.ialt ? ` Vores forslag for ugen koster ${kr(Math.round(forslag.ialt))}.` : '';
     const hvad = dage === 7 ? 'Din madplan' : `Din madplan (${dage} ${dage === 1 ? 'dag' : 'dage'})`;
