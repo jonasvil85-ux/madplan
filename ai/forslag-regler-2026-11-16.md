@@ -1,6 +1,6 @@
-# Forslag til ændring af arbejdsreglerne (venter på Jonas' godkendelse)
+# Ændring af arbejdsreglerne (GODKENDT af Jonas 2026-11-16, indført i ai/agenter/kontrollant.md)
 
-Ikke indført. Grundloven ændres først, når Jonas siger ja.
+Jonas' betingelser: (1) op til tre H om dagen, kun uafhængige, hver kan rulles tilbage separat og testes individuelt, regression efter hver; (2) procedurefejl tæller ikke som forsøg, men manglen skal rettes før godkendelse; (3) tre forsøg, men hvert nyt forsøg skal være en reel forbedring baseret på kontrollantens feedback.
 
 ## Hvad der er sket de første to dage
 - 9 grene bygget. 3 slået sammen (regressionstest, opskriftssider, indkøbsliste-rækker).

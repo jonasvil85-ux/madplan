@@ -27,12 +27,18 @@ Alt der rører priser, mængder, pakker, indkøbsliste, ugeforslagets beregning,
 2. Rapporten har **før/efter-tal** for alle 9 butikker (ugepris, antal retter, indkøbslistens linjer). Du genskaber dem selv fra begge grene og tjekker, at de passer med rapporten, og at hver ændring er forklaret og tilsigtet.
 3. **Rød-hold:** skriv mindst tre egne forsøg på at få ændringen til at fejle (kantsager: 0 børn, ét tilbud, tom butik, tegn som æøå, ekstremt store mængder) og kør dem. Skriv dem og resultatet i `ai/rapporter/ÅÅÅÅ-MM-DD-kontrol.md`.
 4. Kontrollen er BESTÅET, og kontrolløren (du) har læst hele diffen, ikke et uddrag.
-5. Højst én H-sammenlægning pr. dag, og ikke samme dag som en anden, der rører samme område.
+5. Højst **tre** H-sammenlægninger pr. dag (godkendt af Jonas 2026-11-16), og kun hvis de er uafhængige: de rører ikke de samme funktioner eller filer på samme sted, hver kan rulles tilbage for sig med én `git revert`, og hver er testet for sig. Efter HVER H-sammenlægning køres `kontrol.py` og `regression.py` igen på main, før den næste slås sammen; fejler de, rulles den seneste tilbage, og dagens øvrige H-grene venter.
 6. Ændringen kan rulles tilbage med én `git revert`. Tjek, at det går (prøv `git revert --no-commit` og afbryd).
 Er ét punkt ikke opfyldt, så **afvis** grenen med en konkret mangel (ikke "vent"). Dagen efter tjekker vagtposten (Del 1) resultatet på den udgivne side.
 
 ### Afvist
-Skriv en konkret fejlrapport i `ai/rapporter/ÅÅÅÅ-MM-DD-kontrol.md` (fil, linje, hvad der er galt, hvordan det gentages) og sæt grenen under "Afvist" i `STATUS.md`. Slet ikke grenen (UX-udvikleren retter den; højst to forsøg, så parkeres opgaven og Ejeren får den tilbage).
+Skriv en konkret fejlrapport i `ai/rapporter/ÅÅÅÅ-MM-DD-kontrol.md` (fil, linje, hvad der er galt, hvordan det gentages) og sæt grenen under "Afvist" i `STATUS.md`. Slet ikke grenen.
+
+**Forsøg (godkendt af Jonas 2026-11-16):**
+- Der er højst **tre** forsøg; derefter parkeres opgaven, og Ejeren får den tilbage.
+- Kun **indholdsfejl** tæller som et forsøg: rød-hold finder en fejl, en test fejler, eller et acceptkriterium er brudt.
+- **Procedurefejl tæller ikke** (H-pladsen er brugt, manglende tabel eller dokumentation, manglende krav i BACKLOG). Men manglen skal stadig rettes, før grenen kan godkendes; skriv "procedural, tæller ikke" i STATUS.
+- Et nyt forsøg skal indeholde en **reel ændring af løsningen** baseret på din feedback. Er grenen ikke ændret i forhold til den afviste udgave (ud over rapporten), så afvis den igen uden at tælle et nyt forsøg og skriv det i STATUS.
 
 ## Del 3 – afslut
 Opdatér `STATUS.md` (sidst kontrolleret, sammenlægninger, afvisninger, tilbagerulninger) og marker opgaven i `BACKLOG.md`. Commit disse to filer og rapporten direkte på main. Slut med en kort dansk rapport: grene, afgørelse for hver, kontrolresultat, hvad du ikke kunne tjekke.

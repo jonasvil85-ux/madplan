@@ -32,7 +32,7 @@ Fælles regler: `regler.md`. Køreplan: `ROADMAP.md`. Overblik: `STATUS.md`. Sen
 4. **Kontrollant** kører kontrollerne selv, tjekker acceptkriterierne og klassificerer:
    - **Klasse A** (tekst, design, retter, billeder, tests): slås sammen, når alt er grønt.
    - **Klasse H** (priser, mængder, indkøbsliste, madplanens beregning, cache, byggescripts): slås kun sammen efter skærpet validering: regressionstest, før/efter-tal for alle 9 butikker, mindst tre egne forsøg på at få den til at fejle, og tilbagerulning kan prøves.
-   - **Afvist:** fejlrapport, udvikleren retter (højst to forsøg), så parkeres opgaven og Ejeren får den.
+   - **Afvist:** fejlrapport, udvikleren retter (højst tre forsøg, kun indholdsfejl tæller, hvert forsøg skal ændre løsningen), så parkeres opgaven og Ejeren får den. Op til tre uafhængige H-ændringer om dagen med regression efter hver (regler godkendt af Jonas 2026-11-16).
 5. **Vagtposten** og **Browser-QA** (GitHub) måler den udgivne side. Kontrollantens første trin næste dag læser dem og kan rulle en sammenlægning tilbage med `git revert`.
 6. **Ejer** efterkontrollerer: opfyldte det udgivne kravet? Nej giver et nyt krav øverst.
 7. **Sikkerhed** og **SEO/vækst** skriver ugentligt krav i backloggen.
