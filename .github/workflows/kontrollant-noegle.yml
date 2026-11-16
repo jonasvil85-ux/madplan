@@ -1,0 +1,31 @@
+# Prøve af nøglen til kontrollanten (CLAUDE_CODE_OAUTH_TOKEN): ét kort svar fra Claude, ingen kontrol, ingen ændringer.
+# Kører, når kontrollant-workflowene ændres på main, og med hånden. Grøn = nøglen virker.
+# Oprettet på Jonas' anmodning 2026-11-16 (grundlovsfil).
+name: Kontrollant – prøve af nøglen
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/kontrollant*.yml']
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  proeve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hemmeligheden findes?
+        env:
+          T: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: if [ -z "$T" ]; then echo "Mangler hemmeligheden CLAUDE_CODE_OAUTH_TOKEN"; exit 1; fi
+      - name: Ét kort svar fra Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: 'Svar kun med ordet OK. Brug ingen værktøjer.'
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 1

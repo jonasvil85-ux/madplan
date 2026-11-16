@@ -1,0 +1,94 @@
+# Den uafhængige kontrollant i GitHub Actions. Kører uanset hvilken Claude-konto der er logget ind på Jonas' pc.
+# Kræver hemmeligheden CLAUDE_CODE_OAUTH_TOKEN (lavet med `claude setup-token` på Jonas' PRIVATE konto; forbruget tæller dér).
+# Kører, når en udviklergren (ai/**) pushes, og med hånden under fanen Actions. Den daglige morgenkørsel ligger indtil videre
+# stadig som rutine på claude.ai (så de to ikke kører samtidig).
+# Nøglen afprøves af kontrollant-noegle.yml (kører, når disse filer ændres på main).
+# Oprettet på Jonas' anmodning 2026-11-16 (grundlovsfil).
+name: Kontrollant
+on:
+  push:
+    branches: ['ai/**']
+  workflow_dispatch:
+    inputs:
+      proev:
+        description: 'Kun afprøv nøglen (ingen kontrol, ingen ændringer)'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  actions: write
+  issues: write
+  id-token: write
+concurrency:
+  group: kontrollant
+  cancel-in-progress: false
+jobs:
+  kontrol:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      PROEV: ${{ inputs.proev == true }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Hemmeligheden findes?
+        env:
+          T: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: if [ -z "$T" ]; then echo "Mangler hemmeligheden CLAUDE_CODE_OAUTH_TOKEN"; exit 1; fi
+      - name: Prøve af nøglen
+        if: env.PROEV == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: 'Svar kun med ordet OK. Brug ingen værktøjer.'
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 1
+      - uses: actions/setup-python@v5
+        if: env.PROEV != 'true'
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        if: env.PROEV != 'true'
+        with:
+          node-version: '20'
+      - name: Playwright og Chromium (til browsertestene)
+        if: env.PROEV != 'true'
+        run: pip install playwright && python -m playwright install --with-deps chromium
+      - name: Git-navn og main før kontrollen
+        if: env.PROEV != 'true'
+        id: foer
+        run: |
+          git config user.name "Madplan kontrollant"
+          git config user.email "noreply@github.com"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Kontrollanten
+        if: env.PROEV != 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            Du er den uafhængige kontrollant på Måltidsjagten (repo ${{ github.repository }}, deployes automatisk fra main på Vercel; main er produktion). Læs ai/README.md, ai/regler.md og ai/agenter/kontrollant.md i repoet og følg instruksen trin for trin. Du har ikke skrevet den kode, du kontrollerer, og du skal være kritisk. Der er ingen menneskelig godkendelse bag dig: du er vagtposten over det udgivne (kan rulle en sammenlægning tilbage med git revert) og den eneste, der må slå en gren sammen med main. Kør kontrollerne selv (`python -I scripts/tests/kontrol.py`), læs hele diffen, tjek acceptkriterierne i ai/BACKLOG.md, og klassificér selv A eller H. Klasse A slås sammen, når alt er grønt. Klasse H kræver den skærpede validering i instruksen, ellers afvises den. Ændringer i grundloven (ai/regler.md, ai/agenter/*, .github/, auth.js, feedback.js, privatlivspolitik.html) afvises altid. Ret aldrig udviklerens kode for at få den igennem. Kør Python med `python -I`. Rapportér ærligt, hvad du ikke har kunnet tjekke. Slut med en kort rapport på dansk: grene, afgørelse for hver, kontrolresultat.
+
+            Miljø: du kører i GitHub Actions. node 20, Python 3.12 med Playwright og Chromium og internet findes her, så kør ALLE test, også node-testene (regression, budget.js, sammenlign.js) og `python -I scripts/tests/sammenlign_browser.py`, og tjek gerne den udgivne side (https://madplan-blue.vercel.app). Udløst af: ${{ github.event_name }} på ${{ github.ref_name }}. Læs ai/STATUS.md: står der ændringer, der er udgivet uden forudgående kontrol, så efterprøv dem som en almindelig H og rul tilbage, hvis de ikke holder. Dine ændringer (rapport, STATUS, sammenlægninger, tilbagerulninger) skal committes og pushes til main med `git push origin HEAD:main` (hent først med `git pull --rebase origin main`).
+          claude_args: |
+            --model claude-opus-5-5
+            --permission-mode default
+            --allowedTools Bash,Read,Write,Edit,Glob,Grep
+      - name: Start Vagtpost og Browser-QA, hvis main er ændret
+        if: env.PROEV != 'true' && always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git fetch -q origin main
+          if [ "$(git rev-parse origin/main)" != "${{ steps.foer.outputs.sha }}" ]; then
+            echo "main er ændret – starter Vagtpost og Browser-QA (push fra en handling starter dem ikke selv)"
+            gh workflow run vagtpost.yml --ref main
+            gh workflow run browser-qa.yml --ref main
+          else
+            echo "main er uændret"
+          fi
