@@ -2026,6 +2026,21 @@ function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i
 }
 // ===== Sammenlign butikker: ugens indkøbspris for hver af de 9 butikker, billigst først =====
 // Prisen er den samme, som siden viser, når butikken vælges alene: simPris(butik + '|1') (samme funktion, samme husstand). Én butik ad gangen med pause imellem (siden fryser ikke).
+// Tallene regnes af to rene funktioner, som både kortet og scripts/tests/sammenlign.js bruger:
+// en butik = forslaget for netop den butik (7 aftensmåltider til husstanden, hele pakker), samme tal som når butikken vælges alene.
+function sammButikTal(k) { return simPris(k + '|1'); }
+// To butikker: ugens forslag for parret, regnet som én samlet indkøbsliste over begge (ugePris med begge butikker).
+// Besparelsen må ikke skyldes, at man får noget andet eller mindre, så den regnes mod det BILLIGSTE af
+// (a) præcis de samme retter og mængder købt i den billigste enkeltbutik og (b) den butiks egen billigste uge.
+function sammKombiTal(par, enkeltButik) {
+  const k = par.slice().sort().join('+') + '|2', plan = simStandard(k);
+  if (!plan || plan.length !== 7 || plan.butikker.length < 2) return null;
+  const ids = plan.map(x => x.r.id), mult = planMult(plan);
+  const pris = ugePris(ids, mult, plan.S).ialt, sammeIEnkelt = ugePris(ids, mult, [enkeltButik]).ialt, enkelt = sammButikTal(enkeltButik).ialt;
+  if (![pris, sammeIEnkelt, enkelt].every(Number.isFinite)) return null;
+  const vist = { pris: Math.round(pris), sammeIEnkelt: Math.round(sammeIEnkelt), enkelt: Math.round(enkelt) };
+  return { butikker: plan.butikker.slice().sort(), enkeltButik, pris, sammeIEnkelt, enkelt, vist, spar: Math.min(vist.sammeIEnkelt, vist.enkelt) - vist.pris };
+}
 const SAMM = { sig: null, nr: 0, pris: {}, fejl: {}, faerdig: false, koerer: false, kombi: null, alle: false, taeller: 0, sidstTekst: 0, fejlAlle: false };
 const sammOrden = () => {  // rækkefølgen: de afkrydsede først, og billigst først, når alle er regnet
   const alle = Object.keys(data.butikker);
@@ -2051,16 +2066,16 @@ function sammRaekke(k, i) {
 function sammKombiHtml() {
   const c = SAMM.kombi;
   if (!c) return '';
-  const [a, b] = c.butikker, navn = `${data.butikker[a].navn} + ${data.butikker[b].navn}`;
+  const [a, b] = c.butikker, navn = `${data.butikker[a].navn} + ${data.butikker[b].navn}`, en = esc(data.butikker[c.enkeltButik].navn);
   return `<div class="samm-kombi"><b>Handl i to butikker og spar ${kr(c.spar)}</b>
-    <span>${esc(navn)}: ${kr(c.pris)} mod ${kr(c.enkelt)} i ${esc(data.butikker[c.enkeltButik].navn)} alene.</span>
+    <span>${esc(navn)}: ${kr(c.vist.pris)} for ugens 7 aftensmåltider. De samme retter og mængder i ${en} alene: ${kr(c.vist.sammeIEnkelt)}. ${en}s egen billigste uge: ${kr(c.vist.enkelt)}.</span>
     <button type="button" class="knap" data-sammkombi="${esc(c.butikker.join('+'))}">Vælg ${esc(navn)}</button>
-    <small>To butikker betyder ekstra tid; vi regner kun kroner.</small></div>`;
+    <small>Besparelsen er regnet mod det billigste af de to. Transport og ekstra tid er ikke regnet med i prisen.</small></div>`;
 }
 function sammStatus() {
   const n = Object.keys(data.butikker).length;
   if (SAMM.fejlAlle) return 'Sammenligningen kunne ikke regnes lige nu. Du kan stadig vælge butik ovenfor.';
-  if (SAMM.faerdig) return 'Ugens madplan til din husstand, regnet butik for butik.';
+  if (SAMM.faerdig) return `Hver butiks billigste ugeforslag: 7 aftensmåltider til ${husstandTekst(state.voksne, state.boern)}, samme portioner i alle butikker.`;
   return `Regner butik ${Math.min(SAMM.taeller + 1, n)} af ${n} …`;
 }
 function sammenlignHtml() {
@@ -2108,7 +2123,11 @@ async function sammenlignStart(tving) {
     await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)));
     for (const k of sammOrden()) {  // de valgte butikker først, så brugerens eget tal aldrig venter bag de andre
       if (!gyldig()) return;
-      try { SAMM.pris[k] = simPris(k + '|1'); } catch (e) { SAMM.fejl[k] = true; }
+      try {  // ugen regnes i små trin med pause imellem (samme generator som simuler), så hovedtråden aldrig låses længe; derefter samme tal som enkeltvalget
+        const n = k + '|1|' + simSig();
+        if (!simStd[n]) { const it = simulerTrin(k + '|1'); let r; while (!(r = it.next()).done) { await pusterum(); if (!gyldig()) return; } simStd[n] = r.value; }
+        SAMM.pris[k] = sammButikTal(k);
+      } catch (e) { SAMM.fejl[k] = true; }
       SAMM.taeller++;
       const r = document.querySelector(`.samm-raekke[data-sammvalg="${CSS.escape(k)}"]`);
       if (r) {  // kun denne række opdateres, så rækkerne ikke flytter sig under fingeren
@@ -2130,10 +2149,14 @@ async function sammenlignStart(tving) {
     if (nr === SAMM.nr) { SAMM.fejlAlle = true; sammenlignTegn(); }
   } finally { if (nr === SAMM.nr) SAMM.koerer = false; }
 }
-async function sammenlignKombi(gyldig) {  // bedste to butikker blandt de 5 billigste enkeltbutikker; vises kun, hvis det sparer mindst ANBEFAL_SPAR kr
+const SAMM_KOMBI_TOP = 5;  // parrene dannes blandt de 5 billigste enkeltbutikker (10 par); scripts/tests/sammenlign.js måler, om et par uden for dem ville have sparet mere
+function sammKombiKandidater() {  // de gyldige butikker billigst først (samme orden som listen) og den billigste enkeltbutik
   const ok = sammOrden().filter(k => SAMM.pris[k] && !SAMM.fejl[k] && !udloebet(data.butikker[k]));
+  return { ok, enkeltButik: ok[0], top: ok.slice(0, SAMM_KOMBI_TOP) };
+}
+async function sammenlignKombi(gyldig) {  // vises kun, hvis det sparer mindst ANBEFAL_SPAR kr mod både samme retter i enkeltbutikken og dens egen uge; blandt dem vises den billigste uge
+  const { ok, enkeltButik, top } = sammKombiKandidater();
   if (ok.length < 2) return;
-  const enkeltButik = ok[0], enkelt = Math.round(SAMM.pris[enkeltButik].ialt), top = ok.slice(0, 5);
   let bedst = null;
   for (let i = 0; i < top.length; i++) for (let j = i + 1; j < top.length; j++) {
     const k = [top[i], top[j]].sort().join('+') + '|2', n = k + '|' + simSig();
@@ -2141,13 +2164,12 @@ async function sammenlignKombi(gyldig) {  // bedste to butikker blandt de 5 bill
     if (!gyldig()) return;
     try {
       if (!simStd[n]) { const it = simulerTrin(k); let r; while (!(r = it.next()).done) { await pusterum(); if (!gyldig()) return; } simStd[n] = r.value; }
-      if (simStd[n].butikker.length < 2) continue;
-      const pris = Math.round(simPris(k).ialt);
-      if (!bedst || pris < bedst.pris) bedst = { pris, butikker: simStd[n].butikker.slice().sort() };
+      const t = sammKombiTal([top[i], top[j]], enkeltButik);
+      if (t && t.spar >= ANBEFAL_SPAR && (!bedst || t.vist.pris < bedst.vist.pris || (t.vist.pris === bedst.vist.pris && t.spar > bedst.spar))) bedst = t;  // billigste uge blandt dem, der reelt sparer nok
     } catch (e) { /* kombinationen springes over */ }
   }
-  if (!gyldig() || !bedst || enkelt - bedst.pris < ANBEFAL_SPAR) return;
-  SAMM.kombi = { ...bedst, enkelt, enkeltButik, spar: enkelt - bedst.pris };
+  if (!gyldig() || !bedst || bedst.spar < ANBEFAL_SPAR) return;
+  SAMM.kombi = bedst;
   const pl = document.getElementById('samm-kombi-plads'); if (pl) pl.innerHTML = sammKombiHtml();
 }
 function saetKunButikker(liste) {  // som at krydse de andre butikker af; spørger, hvis valgte retter ellers forsvinder (som skiftButik). Returnerer false ved fortrydelse
