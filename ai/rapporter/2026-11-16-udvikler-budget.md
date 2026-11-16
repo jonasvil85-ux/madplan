@@ -60,3 +60,15 @@
 **Gentagelighed (accept 8):** testen udskriver et fingeraftryk af alle tal. To kørsler på samme data gav samme fingeraftryk.
 
 **Testen kan fejle (mutationsprøve):** jeg lavede tre bevidste fejl i en kopi, og testen fangede alle: fjernet "aldrig dyrere"-vagten, afrundet sammenligning i beskeden (57 fejl), og den gamle Byt-besked. Testkoden er kørt i headless Edge mod sidens egne funktioner: `FEJL: []`, 27 kombinationer + 180 grænsetilfælde. Lokalt er der ingen node, så node-kørslen af selve filen gøres af kontrollanten.
+
+---
+
+## Forsøg 3 (2026-11-16, efter kontrollantens afvisning af forsøg 2)
+
+**Fund:** `budget.js` fejlede i node med `ReferenceError: sb is not defined`. Familieskiftet (accept 6) går gennem `saetHusstand` → `gemHusstand`, som læser login-variablerne `sb` og `bruger` fra `auth.js`, og testens sandkasse indlæser ikke `auth.js`. Jeg kunne kun køre testkoden i Edge, hvor `auth.js` er indlæst, og derfor så jeg det ikke.
+
+**Rettelse:** testens sandkasse har nu `sb: null, bruger: null`. Det er de samme startværdier som i `auth.js` for en bruger, der ikke er logget ind, så `gemHusstand` gemmer kun lokalt i testens `localStorage` (som testen også tjekker). Ingen ændring i `index.html` eller `auth.js`. Kontrollanten har allerede afprøvet netop denne rettelse i en kopi: `BUDGET: BESTÅET (27 kombinationer …, 180 grænsetilfælde; fingeraftryk 2a83215c1a79)`, to gange med samme fingeraftryk.
+
+**Læring:** en test, der kun er kørt i browseren, er ikke kørt. Testkoden kan ikke køres i node her; det er derfor kontrollantens kørsel, der afgør.
+
+Grenen er flettet med den nye main (sammenlign-butikker 25d3cb7) uden konflikt.
