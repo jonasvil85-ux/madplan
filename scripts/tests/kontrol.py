@@ -151,6 +151,17 @@ if node:
 else:
     advarsler.append('node findes ikke her – JavaScript-syntaksen er IKKE tjekket (kør kontrollen lokalt før udgivelse af kodeændringer)')
 
+# ---------- 6b. Mobil: tryk-flader (CSS-blokken med 44 px skal findes; selve målingen gøres af Browser-QA) ----------
+if os.path.exists(os.path.join(ROD, 'index.html')):
+    import re as _re
+    _m = _re.search(r'/\* ===== Mobil: tryk-flader mindst 44.*?\n\}', laes('index.html'), _re.S)
+    if not _m: fejl.append('index.html mangler CSS-blokken "Mobil: tryk-flader mindst 44 x 44 px"')
+    else:
+        for _vaelger in ['.byt-knap', '.butik-chip', '.hl-chip', 'nav.trin button', '.ing-knap', '.info-i', '.ude-knap']:
+            if _vaelger not in _m.group(0): fejl.append(f'Tryk-flade-blokken i index.html mangler {_vaelger}')
+        if '44px' not in _m.group(0): fejl.append('Tryk-flade-blokken i index.html bruger ikke 44px')
+        else: ok.append('tryk-flader: CSS-blok med 44 px findes')
+
 # ---------- 7. Opskrifternes egne tjek (rå kød uden tilberedning mv.) ----------
 p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tjek_opskrifter.py')], capture_output=True, text=True, encoding='utf-8', errors='replace')
 if p.returncode: fejl.append('tjek_opskrifter.py fandt rå-fejl:\n' + '\n'.join(p.stdout.strip().splitlines()[-12:]))

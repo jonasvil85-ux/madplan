@@ -876,6 +876,30 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex]:focus-v
 html { scrollbar-gutter: stable; }
 @supports not (scrollbar-gutter: stable) { html { overflow-y: scroll; } }
 .hero-tekst { padding: 4px 0; }  /* overskriften på forsiden står på linje med logoet og panelerne */
+/* ===== Mobil: tryk-flader mindst 44 x 44 px (selve elementets boks, ikke kun et usynligt område). Udseendet bevares så vidt muligt ===== */
+@media (pointer: coarse), (max-width: 700px) {
+  .hl-chip { height: 44px; }
+  nav.trin button { min-height: 44px; }
+  .butik-chip { height: 44px; }
+  .butik-chips { gap: 8px; grid-auto-rows: auto; }
+  .chip, button.slet-valg { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .byt-knap { min-width: 44px; min-height: 44px; justify-content: center; }
+  .dag-knapper { gap: 8px; right: 4px; top: 30px; }
+  .ing-knap, .info-i { position: relative; width: 44px; height: 44px; border-color: transparent !important; background: transparent !important; box-sizing: border-box; }
+  .ing-knap { margin: -11px -11px -11px -7px; vertical-align: middle; }
+  .bil .ing-knap { width: 44px; height: 44px; margin: 0; top: 0; right: 0; }
+  .ude-knap { min-height: 44px; }
+  .info-i { margin: -11px -13px -11px -11px; }
+  .ing-knap::before, .info-i::before { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; box-sizing: border-box; z-index: -1; }
+  .ing-knap::before { border: 1px solid var(--border); background: var(--surface-2); }
+  .bil .ing-knap::before, .dag-bil-sim .ing-knap::before { border-color: rgba(60,45,30,.2); background: rgba(255,255,255,.9); }
+  .bil .ing-knap::before { width: 28px; height: 28px; margin: -14px 0 0 -14px; }
+  .dag-bil-sim .ing-knap { right: 0; bottom: 0; }
+  .info-i::before { border: 1.5px solid var(--text-3); background: var(--surface-2); }
+  .info-i:hover::before, .info-i:focus-visible::before, .info-i.aaben::before { background: var(--accent-fill); border-color: var(--accent-fill); }
+  .ing-knap, .info-i { isolation: isolate; }
+  .fod-knap, .fod a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; }
+}
 </style>
 </head>
 <body>
