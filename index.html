@@ -2123,7 +2123,7 @@ function sammKombiHtml() {
 }
 function sammStatus() {
   const n = Object.keys(data.butikker).length;
-  if (SAMM.fejlAlle) return 'Sammenligningen kunne ikke regnes lige nu. Du kan stadig vælge butik ovenfor.';
+  if (SAMM.fejlAlle) return 'Priserne kunne ikke regnes lige nu. Vælg din butik nedenfor.';  // logo-valget åbnes samtidig (sammenlignTegn)
   if (SAMM.faerdig) return `Billigste uge i hver butik ud fra dens egne tilbud · 7 aftensmåltider til ${husstandTekst(state.voksne, state.boern)}.`;
   return `Regner butik ${Math.min(SAMM.taeller + 1, n)} af ${n} …`;
 }
@@ -2140,6 +2140,9 @@ function sammenlignTegn(flip) {
   const pl = document.getElementById('samm-plads'); if (!pl) return;
   const foer = {}, fokus = document.activeElement?.dataset?.sk;
   if (flip) pl.querySelectorAll('[data-sk]').forEach(e => { foer[e.dataset.sk] = e.getBoundingClientRect().top; });
+  if (SAMM.fejlAlle && FLERE_AABEN !== true) {  // uden priser er logo-valget den eneste vej til en butik: åbn det
+    FLERE_AABEN = true; const f = document.getElementById('flere-butikker'); if (f) f.hidden = false;
+  }
   pl.innerHTML = sammenlignHtml();
   if (fokus) pl.querySelector(`[data-sk="${CSS.escape(fokus)}"]`)?.focus({ preventScroll: true });
   if (flip && !matchMedia('(prefers-reduced-motion: reduce)').matches) pl.querySelectorAll('[data-sk]').forEach(e => {

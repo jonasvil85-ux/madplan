@@ -66,3 +66,21 @@
 | 1+0 | Min Købmand | 338 | 338 | 7 / 7 | 5 / 11 / 14 | ja |
 
 **Ikke dækket:** butikslogoer (blokeret lokalt), mørkt tema og rigtig telefon.
+
+---
+
+## Forsøg 2 (2026-11-16, efter kontrollantens afvisning)
+
+**Fund rettet (rød-hold 4):** når priserne ikke kan regnes (`SAMM.fejlAlle`), sagde teksten "Du kan stadig vælge butik ovenfor", men valget står nu nedenfor. Nu:
+- Teksten er "Priserne kunne ikke regnes lige nu. Vælg din butik nedenfor."
+- Logo-valget åbnes af sig selv i den situation (`sammenlignTegn`), fordi listen så mangler, og logo-valget er den eneste vej til en butik. Teksten peger altså på noget, der findes og er synligt.
+
+**Ny test:** `sammenlign_side.js` sætter `SAMM.fejlAlle` og kræver, at teksten ikke siger "ovenfor", og at logo-valget er synligt.
+- Mutationsprøve: den gamle tekst og uden automatisk åbning, og testen fangede begge.
+- Grenen i headless Edge (390 px), to kørsler: `FEJL: []`; længste opgave 51–122 ms.
+
+**Om tidsmålingerne tidligere i dag:** mine egne headless Edge-processer fra testkørslerne blev ikke lukket ordentligt (kun forældreprocessen), så maskinen var belastet. Det forklarer en del af de 219–277 ms, jeg rapporterede under sammenlign-butikker. Efter oprydning: 51–122 ms. Mine testscripts lukker nu hele processtræet.
+
+**Fingeraftryk:** kontrollantens `sammenlign.js` (node, frossen datakopi) giver 5c7736814650. Mit bc1c23328b49 er fra samme testkode kørt i Edge på de aktuelle data, så de to tal kan ikke sammenlignes. Det afgørende er, at main og grenen giver samme tal i samme miljø, og det er de hos os begge.
+
+**H-plads:** dagens tre er brugt, så grenen kan tidligst slås sammen 2026-11-17.

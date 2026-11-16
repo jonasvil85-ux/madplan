@@ -107,6 +107,13 @@
     document.querySelector('[data-flere-butikker]').click(); await vent(300);
     if (synlig(document.querySelector('.butik-chips'))) fejl.push('Flere butikker: "Skjul" skjuler ikke valget');
   }
+  // Kontrollantens fund 2026-11-16: når priserne ikke kan regnes, skal teksten pege på et valg, der findes og er synligt
+  enButik(foerste); await vent(300);
+  SAMM.fejlAlle = true; sammenlignTegn(); await vent(100);
+  const ft = tekst(document.getElementById('samm-status'));
+  if (/ovenfor/.test(ft)) fejl.push('Fejlvisning: teksten peger opad ("' + ft + '"), men butiksvalget står nedenfor');
+  if (!synlig(document.querySelector('.butik-chips'))) fejl.push('Fejlvisning: priserne kunne ikke regnes, og logo-valget er ikke synligt ("' + ft + '")');
+  SAMM.fejlAlle = false; SAMM.sig = null;
   enButik(foerste); await vent(300);
   if (po) po.disconnect();
   return JSON.stringify({ fejl, maal });
