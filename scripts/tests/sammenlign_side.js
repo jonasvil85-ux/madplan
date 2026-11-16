@@ -1,4 +1,4 @@
-// Browsertest af "Sammenlign butikker" (BACKLOG accept 1, 2, 3, 4, 5, 9, 11), kørt INDE på siden i Chromium.
+// Browsertest af "Hvor handler du?" og sammenligningen (BACKLOG "Sammenlign butikker", "Ét kort" og "Én regel for to butikker"), kørt INDE på siden i Chromium.
 // Bruges af scripts/tests/sammenlign_browser.py (Playwright). Udtrykket evalueres som et løfte og giver JSON: { fejl: [...], maal: {...} }.
 // Kortet køres rigtigt (asynkront, med DOM); tallene i DOM sammenlignes med sidens egne prisfunktioner.
 (async () => {
@@ -63,40 +63,39 @@
       if (r.width && r.height && (r.height < 44 || r.width < 44)) fejl.push(H + ': tryk-flade ' + Math.round(r.width) + '×' + Math.round(r.height) + ' px: "' + tekst(b).slice(0, 40) + '"');
     }
   }
+  // ===== Hjælpere til resten af testen =====
+  const synlig = el => !!el && !el.closest('[hidden]') && el.getBoundingClientRect().height > 0;
+  const enButik = k => { state.butikker = [k]; state.maxButikker = 0; state.koebButikker = []; renderButikker(); };
+  const raekke = k => document.querySelector('.samm-raekke[data-sammvalg="' + CSS.escape(k) + '"]');
   // Én regel: tryk på kombiknappen → "Hvor mange butikker" anbefaler 2 butikker til samme pris, og madplanen koster det samme
   for (const [v, bo, forvent] of kombiTjek) {
     const H = v + '+' + bo;
-    saetHusstand(v, bo); opdaterHusstand(); await vent(0); await ventPaaKort(); await vent(300);
+    saetHusstand(v, bo); opdaterHusstand(); await vent(0); await ventPaaKort();
+    enButik(forvent.enkeltButik); await vent(300); await ventPaaKort(); await vent(300);  // start fra den billigste enkeltbutik alene
     const knap = document.querySelector('[data-sammkombi]');
     if (!knap || knap.dataset.sammkombi !== forvent.butikker.join('+')) { fejl.push(H + ': kombiknappen mangler eller gælder ' + (knap && knap.dataset.sammkombi)); continue; }
+    if (forvent.butikker.includes(forvent.enkeltButik) && !/^Tilføj /.test(tekst(knap))) fejl.push(H + ': knappen burde tilbyde at tilføje den anden butik, men siger "' + tekst(knap) + '"');
     knap.click(); await vent(2500);
+    if (state.butikker.slice().sort().join('+') !== forvent.butikker.join('+')) fejl.push(H + ': kombiknappen valgte ' + JSON.stringify(state.butikker));
     const anbKnap = [...document.querySelectorAll('#antal-plads .antal-knap')].find(b => b.querySelector('.anbef'));
     if (!anbKnap || !/2 butikker/.test(tekst(anbKnap)) || !tekst(anbKnap).includes(kr(forvent.vist.pris))) fejl.push(H + ': efter kombiknappen anbefaler "Hvor mange butikker" ikke 2 butikker til ' + kr(forvent.vist.pris) + ' ("' + tekst(anbKnap) + '")');
     const pk2 = simK();
     if (!pk2 || Math.round(simPrisPlan(pk2).ialt) !== forvent.vist.pris) fejl.push(H + ': efter kombiknappen koster madplanen ' + (pk2 ? Math.round(simPrisPlan(pk2).ialt) : '?') + ' kr, kortet sagde ' + kr(forvent.vist.pris));
+    if (document.querySelector('#samm-kombi-plads .samm-kombi')) fejl.push(H + ': forslaget vises stadig, selv om parret er valgt');
     maal[H].kombiKnap = anbKnap ? tekst(anbKnap) : '(ingen anbefaling)';
   }
-  // (3): et tryk på en række vælger butikken og opdaterer madplanen (2+2; den næstbilligste, så valget faktisk skifter)
+  // ===== Ét kort, flere butikker med et tryk (BACKLOG "Ét kort": accept 1, 3, 4, 5, 6) =====
   saetHusstand(2, 2); opdaterHusstand(); await vent(50); await ventPaaKort();
-  const r2 = [...document.querySelectorAll('#samm-kort .samm-raekke')][1];
-  if (r2) {
-    const k = r2.dataset.sammvalg; r2.click(); await vent(1500);
-    if (state.butikker.length !== 1 || state.butikker[0] !== k) fejl.push('tryk på ' + k + ' valgte ' + JSON.stringify(state.butikker));
-    if (document.querySelectorAll('.kalender .dag-kort').length !== 7) fejl.push('efter tryk på ' + k + ' viser madplanen ' + document.querySelectorAll('.kalender .dag-kort').length + ' dage');
-    const pk = simK(); if (pk && Math.round(simPrisPlan(pk).ialt) !== Math.round(sammButikTal(k).ialt)) fejl.push('efter tryk på ' + k + ' viser madplanen ' + Math.round(simPrisPlan(pk).ialt) + ' kr, rækken ' + Math.round(sammButikTal(k).ialt) + ' kr');
-  } else fejl.push('ingen række at trykke på');
-  // ===== Ét kort for butiksvalg (BACKLOG "Ét kort": accept 1, 4, 5, 6) =====
-  const synlig = el => !!el && !el.closest('[hidden]') && el.getBoundingClientRect().height > 0;
-  const enButik = gyldigeButikker => { state.butikker = [gyldigeButikker]; state.maxButikker = 0; state.koebButikker = []; FLERE_AABEN = null; renderButikker(); };
   const foerste = sammKombiKandidater().ok[0] || Object.keys(data.butikker)[0];
   enButik(foerste); await vent(800);
-  // (1) kun ét kort om butiksvalg; logo-gitteret skjult, når der er valgt én butik
-  const h2 = [...document.querySelectorAll('main h2, #app h2, h2')].map(h => tekst(h));
+  // (1) kun ét kort om butiksvalg; intet logo-gitter; "Hvor mange butikker" først, når der er valgt flere
+  const h2 = [...document.querySelectorAll('h2')].map(h => tekst(h));
   if (h2.filter(t => t === 'Hvor handler du?').length !== 1) fejl.push('Ét kort: "Hvor handler du?" står ' + h2.filter(t => t === 'Hvor handler du?').length + ' gange');
   if (h2.some(t => /Sammenlign butikker/.test(t))) fejl.push('Ét kort: der er stadig en separat overskrift "Sammenlign butikker"');
   if (!document.querySelector('.butikpanel #samm-kort')) fejl.push('Ét kort: listen ligger ikke i kortet "Hvor handler du?"');
-  if (synlig(document.querySelector('.butik-chips'))) fejl.push('Ét kort: logo-gitteret vises på første skærm, selv om der kun er valgt én butik');
-  if (synlig(document.getElementById('antal-plads'))) fejl.push('Ét kort: "Hvor mange butikker" vises på første skærm, selv om der kun er valgt én butik');
+  if (document.querySelector('.butik-chip')) fejl.push('Ét kort: logo-gitteret findes stadig (butikkerne skal vælges i listen)');
+  if (document.querySelector('[data-flere-butikker]')) fejl.push('Ét kort: der er stadig en særskilt knap for at vælge flere butikker');
+  if (synlig(document.getElementById('antal-plads'))) fejl.push('Ét kort: "Hvor mange butikker" vises, selv om der kun er valgt én butik');
   // (5) madplanen starter mindst 300 px højere på 390 px end på main (main 2026-11-16: overskriften "Madplan" ved 1056 px, én butik valgt)
   if (innerWidth <= 400) {
     // Et to-butiks-forslag afhænger af ugens tilbud og gør kortet højere; det fandtes ikke i main's måling (1056 px). Dets højde trækkes fra, og begge tal vises.
@@ -105,31 +104,32 @@
     maal.madplanTop390 = top; maal.toButiksForslagPx = kombiH;
     if (top - kombiH > 756) fejl.push('Ét kort: madplanen starter ' + (top - kombiH) + ' px nede uden to-butiks-forslaget (krav: højst 756 px, dvs. 300 px højere end main)');
   }
-  // (6) rundvisningens trin peger kun på synlige områder; trin 2 = listen, trin 3 = "Vælg selv flere butikker"
-  if (INTRO_TRIN[1].sel !== '#samm-plads' || INTRO_TRIN[2].sel !== '[data-flere-butikker]') fejl.push('Rundvisning: trin 2/3 peger på ' + INTRO_TRIN[1].sel + ' / ' + INTRO_TRIN[2].sel);
-  for (const [i, t] of INTRO_TRIN.entries()) if (!synlig(document.querySelector(t.sel))) fejl.push('Rundvisning: trin ' + (i + 1) + ' (' + t.sel + ') findes ikke eller er skjult');
-  // (4) "Vælg selv flere butikker" viser det eksisterende valg; flerbutiksvalget virker; åbent af sig selv ved flere butikker
-  const fk = document.querySelector('[data-flere-butikker]');
-  if (!fk || fk.getAttribute('aria-expanded') !== 'false') fejl.push('Flere butikker: knappen mangler eller er ikke lukket fra start');
-  else {
-    fk.click(); await vent(300);
-    if (fk.getAttribute('aria-expanded') !== 'true' || !synlig(document.querySelector('.butik-chips')) || !synlig(document.getElementById('antal-plads'))) fejl.push('Flere butikker: et tryk viser ikke logo-valget og "Hvor mange butikker"');
-    const anden = [...document.querySelectorAll('.butik-chip')].find(c => c.dataset.butikvalg !== foerste && !udloebet(data.butikker[c.dataset.butikvalg]));
-    anden.click(); await vent(2500);
-    if (state.butikker.length !== 2 || !state.butikker.includes(anden.dataset.butikvalg)) fejl.push('Flere butikker: afkrydsning gav ' + JSON.stringify(state.butikker));
-    if (!/2 butikker/.test(tekst(document.getElementById('antal-plads')))) fejl.push('Flere butikker: "Hvor mange butikker" viser ikke 2 butikker efter afkrydsning');
-    if (document.querySelectorAll('.kalender .dag-kort').length !== 7) fejl.push('Flere butikker: madplanen har ikke 7 dage efter afkrydsning');
-    FLERE_AABEN = null; renderButikker(); await vent(500);  // som ved genindlæsning: to butikker valgt
-    if (!synlig(document.querySelector('.butik-chips')) || document.querySelector('[data-flere-butikker]').getAttribute('aria-expanded') !== 'true') fejl.push('Flere butikker: valget er skjult, selv om der er valgt to butikker');
-    document.querySelector('[data-flere-butikker]').click(); await vent(300);
-    if (synlig(document.querySelector('.butik-chips'))) fejl.push('Flere butikker: "Skjul" skjuler ikke valget');
-  }
-  // Kontrollantens fund 2026-11-16: når priserne ikke kan regnes, skal teksten pege på et valg, der findes og er synligt
+  // (6) rundvisningen: trin 2 = listen; et trin må kun pege på noget skjult, hvis det er "Hvor mange butikker" (springes over ved én butik)
+  if (INTRO_TRIN[1].sel !== '#samm-plads') fejl.push('Rundvisning: trin 2 peger på ' + INTRO_TRIN[1].sel);
+  for (const [i, t] of INTRO_TRIN.entries()) if (!synlig(document.querySelector(t.sel)) && t.sel !== '#antal-plads') fejl.push('Rundvisning: trin ' + (i + 1) + ' (' + t.sel + ') findes ikke eller er skjult');
+  // (3)+(4) et tryk på en butik mere = flueben på begge; "Hvor mange butikker" dukker op; et tryk igen fjerner den
+  const anden = sammOrden().find(k => k !== foerste && !udloebet(data.butikker[k]));
+  raekke(anden).click(); await vent(2500);
+  if (state.butikker.length !== 2 || !state.butikker.includes(foerste) || !state.butikker.includes(anden)) fejl.push('Flere butikker: tryk på ' + anden + ' gav ' + JSON.stringify(state.butikker) + ' (forventet begge)');
+  if (raekke(anden).getAttribute('aria-pressed') !== 'true' || raekke(foerste).getAttribute('aria-pressed') !== 'true') fejl.push('Flere butikker: begge rækker skal have flueben');
+  if (!synlig(document.getElementById('antal-plads')) || !/2 butikker/.test(tekst(document.getElementById('antal-plads')))) fejl.push('Flere butikker: "Hvor mange butikker" viser ikke 2 butikker efter et tryk på en butik mere');
+  if (document.querySelectorAll('.kalender .dag-kort').length !== 7) fejl.push('Flere butikker: madplanen har ikke 7 dage');
+  raekke(anden).click(); await vent(2500);
+  if (state.butikker.length !== 1 || state.butikker[0] !== foerste) fejl.push('Flere butikker: et tryk igen fjernede ikke ' + anden + ' (' + JSON.stringify(state.butikker) + ')');
+  if (synlig(document.getElementById('antal-plads'))) fejl.push('Flere butikker: "Hvor mange butikker" vises stadig med én butik');
+  const pk = simK(); if (!pk || Math.round(simPrisPlan(pk).ialt) !== Math.round(sammButikTal(foerste).ialt)) fejl.push('Én butik igen: madplanen koster ' + (pk ? Math.round(simPrisPlan(pk).ialt) : '?') + ' kr, rækken ' + Math.round(sammButikTal(foerste).ialt) + ' kr');
+  // en valgt butik skjules aldrig af "Vis alle" (telefon viser 3 rækker)
+  const sidste = sammOrden().filter(k => !udloebet(data.butikker[k])).slice(-1)[0];
+  SAMM.alle = true; sammenlignTegn(); await vent(100); raekke(sidste).click(); await vent(2500);
+  SAMM.alle = false; sammenlignTegn(); await vent(100);
+  if (innerWidth <= 400 && !synlig(raekke(sidste))) fejl.push('Vis alle: den valgte butik ' + sidste + ' er skjult, når listen er foldet sammen');
+  raekke(sidste).click(); await vent(2000);
+  // Fejlvisning: uden priser kan man stadig vælge butikker i listen
   enButik(foerste); await vent(300);
   SAMM.fejlAlle = true; sammenlignTegn(); await vent(100);
   const ft = tekst(document.getElementById('samm-status'));
-  if (/ovenfor/.test(ft)) fejl.push('Fejlvisning: teksten peger opad ("' + ft + '"), men butiksvalget står nedenfor');
-  if (!synlig(document.querySelector('.butik-chips'))) fejl.push('Fejlvisning: priserne kunne ikke regnes, og logo-valget er ikke synligt ("' + ft + '")');
+  if (/ovenfor|nedenfor/.test(ft)) fejl.push('Fejlvisning: teksten peger på et sted ("' + ft + '")');
+  if (document.querySelectorAll('#samm-kort .samm-raekke').length !== Object.keys(data.butikker).length) fejl.push('Fejlvisning: listen med butikker vises ikke, så man ikke kan vælge ("' + ft + '")');
   SAMM.fejlAlle = false; SAMM.sig = null;
   enButik(foerste); await vent(300);
   if (po) po.disconnect();
