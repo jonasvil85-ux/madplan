@@ -70,6 +70,44 @@
     if (document.querySelectorAll('.kalender .dag-kort').length !== 7) fejl.push('efter tryk på ' + k + ' viser madplanen ' + document.querySelectorAll('.kalender .dag-kort').length + ' dage');
     const pk = simK(); if (pk && Math.round(simPrisPlan(pk).ialt) !== Math.round(sammButikTal(k).ialt)) fejl.push('efter tryk på ' + k + ' viser madplanen ' + Math.round(simPrisPlan(pk).ialt) + ' kr, rækken ' + Math.round(sammButikTal(k).ialt) + ' kr');
   } else fejl.push('ingen række at trykke på');
+  // ===== Ét kort for butiksvalg (BACKLOG "Ét kort": accept 1, 4, 5, 6) =====
+  const synlig = el => !!el && !el.closest('[hidden]') && el.getBoundingClientRect().height > 0;
+  const enButik = gyldigeButikker => { state.butikker = [gyldigeButikker]; state.maxButikker = 0; state.koebButikker = []; FLERE_AABEN = null; renderButikker(); };
+  const foerste = sammKombiKandidater().ok[0] || Object.keys(data.butikker)[0];
+  enButik(foerste); await vent(800);
+  // (1) kun ét kort om butiksvalg; logo-gitteret skjult, når der er valgt én butik
+  const h2 = [...document.querySelectorAll('main h2, #app h2, h2')].map(h => tekst(h));
+  if (h2.filter(t => t === 'Hvor handler du?').length !== 1) fejl.push('Ét kort: "Hvor handler du?" står ' + h2.filter(t => t === 'Hvor handler du?').length + ' gange');
+  if (h2.some(t => /Sammenlign butikker/.test(t))) fejl.push('Ét kort: der er stadig en separat overskrift "Sammenlign butikker"');
+  if (!document.querySelector('.butikpanel #samm-kort')) fejl.push('Ét kort: listen ligger ikke i kortet "Hvor handler du?"');
+  if (synlig(document.querySelector('.butik-chips'))) fejl.push('Ét kort: logo-gitteret vises på første skærm, selv om der kun er valgt én butik');
+  if (synlig(document.getElementById('antal-plads'))) fejl.push('Ét kort: "Hvor mange butikker" vises på første skærm, selv om der kun er valgt én butik');
+  // (5) madplanen starter mindst 300 px højere på 390 px end på main (main 2026-11-16: overskriften "Madplan" ved 1056 px, én butik valgt)
+  if (innerWidth <= 400) {
+    const top = Math.round(document.getElementById('sim-plads').getBoundingClientRect().top + scrollY);
+    maal.madplanTop390 = top;
+    if (top > 756) fejl.push('Ét kort: madplanen starter ' + top + ' px nede (krav: højst 756 px, dvs. 300 px højere end main)');
+  }
+  // (6) rundvisningens trin peger kun på synlige områder; trin 2 = listen, trin 3 = "Vælg selv flere butikker"
+  if (INTRO_TRIN[1].sel !== '#samm-plads' || INTRO_TRIN[2].sel !== '[data-flere-butikker]') fejl.push('Rundvisning: trin 2/3 peger på ' + INTRO_TRIN[1].sel + ' / ' + INTRO_TRIN[2].sel);
+  for (const [i, t] of INTRO_TRIN.entries()) if (!synlig(document.querySelector(t.sel))) fejl.push('Rundvisning: trin ' + (i + 1) + ' (' + t.sel + ') findes ikke eller er skjult');
+  // (4) "Vælg selv flere butikker" viser det eksisterende valg; flerbutiksvalget virker; åbent af sig selv ved flere butikker
+  const fk = document.querySelector('[data-flere-butikker]');
+  if (!fk || fk.getAttribute('aria-expanded') !== 'false') fejl.push('Flere butikker: knappen mangler eller er ikke lukket fra start');
+  else {
+    fk.click(); await vent(300);
+    if (fk.getAttribute('aria-expanded') !== 'true' || !synlig(document.querySelector('.butik-chips')) || !synlig(document.getElementById('antal-plads'))) fejl.push('Flere butikker: et tryk viser ikke logo-valget og "Hvor mange butikker"');
+    const anden = [...document.querySelectorAll('.butik-chip')].find(c => c.dataset.butikvalg !== foerste && !udloebet(data.butikker[c.dataset.butikvalg]));
+    anden.click(); await vent(2500);
+    if (state.butikker.length !== 2 || !state.butikker.includes(anden.dataset.butikvalg)) fejl.push('Flere butikker: afkrydsning gav ' + JSON.stringify(state.butikker));
+    if (!/2 butikker/.test(tekst(document.getElementById('antal-plads')))) fejl.push('Flere butikker: "Hvor mange butikker" viser ikke 2 butikker efter afkrydsning');
+    if (document.querySelectorAll('.kalender .dag-kort').length !== 7) fejl.push('Flere butikker: madplanen har ikke 7 dage efter afkrydsning');
+    FLERE_AABEN = null; renderButikker(); await vent(500);  // som ved genindlæsning: to butikker valgt
+    if (!synlig(document.querySelector('.butik-chips')) || document.querySelector('[data-flere-butikker]').getAttribute('aria-expanded') !== 'true') fejl.push('Flere butikker: valget er skjult, selv om der er valgt to butikker');
+    document.querySelector('[data-flere-butikker]').click(); await vent(300);
+    if (synlig(document.querySelector('.butik-chips'))) fejl.push('Flere butikker: "Skjul" skjuler ikke valget');
+  }
+  enButik(foerste); await vent(300);
   if (po) po.disconnect();
   return JSON.stringify({ fejl, maal });
 })()
