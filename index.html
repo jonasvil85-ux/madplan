@@ -443,6 +443,9 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .vare .tekst { flex: 1; }
 .vare .navn { color: var(--text-1); font-weight: 500; }
 .vare .detalje { font-size: 13px; color: var(--text-3); }
+.detalje-fuld summary { display: inline-block; padding: 6px 0; font-size: 12.5px; color: var(--text-3); text-decoration: underline; cursor: pointer; }
+.detalje-fuld p { margin: 0 0 4px; font-size: 12.5px; line-height: 1.45; color: var(--text-3); }
+@media (pointer: coarse), (max-width: 700px) { .detalje-fuld summary { padding: 12px 0; } }
 .vare .pris { font-weight: 700; color: var(--emerald); white-space: nowrap; }
 .vare.taget .navn { text-decoration: line-through; opacity: .5; }
 
@@ -861,7 +864,7 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex]:focus-v
   .liste-vare .navn { grid-column: 3; grid-row: 1; line-height: 1.3; }
   .liste-vare:not(:has(img)) .navn { grid-column: 2 / 4; }
   .liste-vare .pris { grid-column: 4; grid-row: 1; }
-  .liste-vare .detalje, .liste-vare .rest { grid-column: 2 / -1; line-height: 1.45; }
+  .liste-vare .detalje, .liste-vare .rest, .liste-vare .detalje-fuld { grid-column: 2 / -1; line-height: 1.45; }
   .liste-vare .rest { margin-top: 0; }
 }
 /* udskrift: kun indholdet (indkøbsseddel og opskrifter) */
@@ -2231,7 +2234,9 @@ function listeLinjer() {
     tilbud: l.tilbud.map(v => ({
       key: 't|' + v.key, butik: v.butik, navn: tilbudsNavn(v), gruppe: varegruppe(v.ingNavn), pris: v.pris, billede: v.tilbud.billede,
       soeg: soegeord(v.tilbud.navn), restHtml: restTekst(v),
-      detalje: `${tilbudsOverskrift(v) !== v.tilbud.navn ? esc('Avisen: ' + v.tilbud.navn) + ' · ' : ''}${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}${v.brug.length > 1 ? `I alt ca. ${samletBehov(v.behov)} · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
+      // Kort linje øverst (mængde og første ret); alt det øvrige (avisens tekst, stykpris, samlet behov, alle retter) ligger i "Detaljer"
+      detalje: `${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}Til ${esc((v.brug[0].match(/\(([^()]*)\)\s*$/) || [null, v.brug[0]])[1])}${v.brug.length > 1 ? ` og ${v.brug.length - 1} ${v.brug.length === 2 ? 'ret' : 'retter'} mere` : ''}`,
+      detaljeFuld: `${tilbudsOverskrift(v) !== v.tilbud.navn ? esc('Avisen: ' + v.tilbud.navn) + ' · ' : ''}${v.tilbud.maengde ? esc(v.tilbud.maengde + ' ' + (v.tilbud.enhed || '')) + ' · ' : ''}${v.antal > 1 ? `${kr(v.tilbud.pris)} stk. · ` : ''}${v.brug.length > 1 ? `I alt ca. ${samletBehov(v.behov)} · ` : ''}Til: ${v.brug.map(esc).join('; ')}`,
     })),
     oevrige: l.oevrige.map(v => ({
       key: 'o|' + v.key, navn: `${maengde(v.m, v.enhed, true)} ${v.navn}`.trim(), gruppe: varegruppe(v.navn), soeg: soegeord(v.navn),
@@ -2310,7 +2315,7 @@ function renderListe() {
     <label class="vare liste-vare ${state.valgtVare[x.key] ? 'valgt' : ''}">
       <input type="checkbox" data-vaelg="${esc(x.key)}" ${state.valgtVare[x.key] ? 'checked' : ''}>
       ${x.billede ? `<img src="${esc(x.billede)}" alt="" loading="lazy">` : ''}
-      <div class="tekst"><div class="navn">${esc(x.navn)}</div><div class="detalje">${x.detalje}</div>${x.restHtml || ''}</div>
+      <div class="tekst"><div class="navn">${esc(x.navn)}</div><div class="detalje">${x.detalje}</div>${x.detaljeFuld ? `<details class="detalje-fuld"><summary>Detaljer</summary><p>${x.detaljeFuld}</p></details>` : ''}${x.restHtml || ''}</div>
       ${prisCelle(x)}
     </label>`;
 
