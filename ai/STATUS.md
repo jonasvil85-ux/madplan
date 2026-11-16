@@ -1,11 +1,14 @@
 # Status for AI-holdet
 
-HELBRED.md: GRØN (2026-11-16 06:41 UTC, begge domæner OK, main 45ed2ca). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll).
+HELBRED.md: GRØN (2026-11-16 09:20 UTC, begge domæner OK, main 8c2e4a7). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll).
 
-Sidst kontrolleret: 2026-11-16 ca. 10 UTC (kontrollant)
-Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 8c2e4a7, efter sammenlægning af indkøbsliste-rækker).
+Sidst kontrolleret: 2026-11-16 ca. 11:30 UTC (kontrollant, anden kørsel)
+Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 2e9c636). Ingen sammenlægning i anden kørsel.
 
 ## Afvist – udvikleren retter
+- ai/2026-11-16-budget (1a4459e, forsøg 1, klasse H, indholdsfejl – tæller): efter "Byt" siger budgetbeskeden "Billigste uge vi kan finde her koster 528 kr", selv om forslaget koster 406 kr (`budgetNote` får `simPrisPlan`). Før/efter-tal passer og er uændrede; budget.js bestået; 7/9 under 600 kr. Se kontrolrapporten (anden kørsel).
+- ai/2026-11-16-sammenlign-butikker (ca0003b, forsøg 1, klasse H efter kontrollantens vurdering): accept (9) brudt – teksten nævner ikke, at transport ikke er regnet med (tæller). Procedural, tæller ikke: før/efter-tabel for 9 butikker mangler i rapporten. Ellers alt målt grønt: 27/27 priser identiske med enkeltvalg (2+2, 2+0, 1+0), kombinationen identisk, ingen opgave over 100 ms.
+  Bemærk: budget og sammenlign rører samme linjer (klik-vælgeren i index.html, blok 9 i kontrol.py) og kan ikke slås sammen samme dag; den anden skal flettes med main først.
 - ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
 
 ## Parkeret – Ejeren har dem (to forsøg brugt)
