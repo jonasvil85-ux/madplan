@@ -2,10 +2,11 @@
 
 HELBRED.md: GRØN (2026-11-16 11:40 UTC, begge domæner OK, main 25d3cb7). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll).
 
-Sidst kontrolleret: 2026-11-16 ca. 12:00 UTC (kontrollant, fjerde kørsel)
-Main-status: BESTÅET (0 fejl, 10 advarsler), regressionstest bestået (main f1c3024). Budget slået sammen (H nr. 3 i dag – dagens H-pladser er brugt).
+Sidst kontrolleret: 2026-11-16 ca. 12:15 UTC (kontrollant, femte kørsel)
+Main-status: BESTÅET (0 fejl, 10 advarsler), regressionstest bestået (main 0996d4b). Intet slået sammen i femte kørsel (dagens 3 H-pladser var brugt).
 
 ## Afvist – udvikleren retter
+- ai/2026-11-16-et-kort (4e6d74f, forsøg 1, klasse H): rød-hold fandt en forkert tekst: når sammenligningen fejler, står der "Du kan stadig vælge butik ovenfor", men valget ligger nu nedenfor bag "Vælg selv flere butikker" (`sammStatus`). Desuden var dagens H-plads brugt (procedural, tæller ikke). Alt andet er bestået: kontrol, regression, browsertest i Chromium (madplan 1056 → 686 px), før/efter ens, revert-prøve. Ret teksten, så kan den tages i morgen.
 - ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H; uændret ved fjerde kørsel – afvist igen, tæller ikke): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
 
 ## Parkeret – Ejeren har dem (to forsøg brugt)
