@@ -420,6 +420,13 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .hl-chip .ikon-svg { width: 17px; height: 17px; color: var(--accent); }
 .hl-badge { display: none; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--accent-fill); color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; }
 .hl-afsnit { padding: 10px 0 2px; color: var(--text-2); font-size: 13px; font-weight: 600; }
+.hl-valgfri { font-weight: 400; color: var(--text-3); }
+.bud-raekke { display: flex; align-items: center; gap: 8px; padding: 4px 0 10px; }
+.bud-raekke input { width: 110px; min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text-1); font: inherit; }
+.bud-raekke .chip { min-height: 44px; }
+.bud-note { margin: 0 0 12px; padding: 10px 12px; border-radius: 10px; font-size: 14px; border: 1px solid var(--border); background: var(--surface-2); }
+.bud-note.ok { border-color: rgba(14,159,110,.4); }
+.bud-note.over { background: #FFF4D6; border-color: #F0D78A; color: #6B4E00; }
 .hl-pop { position: absolute; z-index: 60; top: calc(100% + 8px); right: 0; width: min(330px, calc(100vw - 40px)); padding: 6px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 14px 34px rgba(0,0,0,.5); }
 .hl-raekke { display: flex; align-items: center; gap: 10px; min-height: 62px; }
 .hl-raekke + .hl-raekke { border-top: 1px solid var(--border); }
@@ -966,12 +973,12 @@ const DAGE = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'L�
 const GEM = 'madplan-v3';
 // valgtVare: varer krydset af på indkøbslisten · ekstra: tilføjede varer · koebt: krydset af på indkøbssedlen
 const TOM = { trin: 'butik', seddelFane: null, sorter: 'niveau', niveau: 'alle', filter: 'alle', koekken: 'alle', kunRest: false, valgte: [], butik: null, butikker: [], koebButikker: [], maxButikker: 0, butikValgt: false, personer: 4, voksne: 2, boern: 2, mult: {},
-              valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [], dagPlads: {} };
+              valgtVare: {}, ekstra: [], koebt: {}, soeg: '', handlet: false, plan: [], dagPlads: {}, budget: 0 };
 
 // Husstand: voksne + børn. retter.json er skrevet til en familie på 2 voksne + 2 børn (= faktor 1); et barn tæller som 0,6 voksenportion.
 const BARN_VAEGT = 0.6;
 const fraPersoner = p => p <= 1 ? [1, 0] : p === 2 ? [2, 0] : [2, p - 2];  // gamle gemte valg havde kun antal personer
-const husstand = s => ({ voksne: s.voksne, boern: s.boern, personer: s.voksne + s.boern, butikker: (s.butikker || []).slice(), maxButikker: s.maxButikker ?? 0, butik: s.butik, butikValgt: !!s.butikValgt });  // det, der bevares, når valg nulstilles
+const husstand = s => ({ voksne: s.voksne, boern: s.boern, personer: s.voksne + s.boern, butikker: (s.butikker || []).slice(), maxButikker: s.maxButikker ?? 0, butik: s.butik, butikValgt: !!s.butikValgt, budget: s.budget || 0 });  // det, der bevares, når valg nulstilles
 const husstandTekst = (v, b) => `${v} ${v === 1 ? 'voksen' : 'voksne'}${b ? ` + ${b} ${b === 1 ? 'barn' : 'børn'}` : ''}`;
 const HUSSTANDE = [
   { k: 'enlig', navn: 'Mig selv', v: 1, b: 0 }, { k: 'par', navn: 'Os to', v: 2, b: 0 },
@@ -1421,6 +1428,10 @@ function farveAntal(r) {
 const simVariation = sæt => (Math.min(4, new Set(sæt.map(r => r.koekken).filter(Boolean)).size) - 1) * SIM_VARIATION_KOEKKEN
   + (sæt.some(r => r.kategori === 'fisk' || r.kategori === 'vegetar') ? SIM_VARIATION_GROEN : 0)
   + Math.min(SIM_FARVE_MAX, sæt.filter(r => farveAntal(r) >= 3).length) * SIM_VARIATION_FARVE;
+// Budget: hver krone over budgettet tæller SIM_BUDGET_VAEGT gange så tungt som en krone ellers. Uden budget (0) er alt som før.
+let SIM_BUDGET_VAEGT = 6;
+let simUdenBudget = false;  // true mens ugen uden budget regnes som sammenligning
+const budgetOver = ialt => state.budget > 0 ? Math.max(0, ialt - state.budget) : 0;
 let SIM_TILBUD_VAEGT = 1;  // point for en ret, hvis pris udelukkende er tilbudsvarer (lavere = prisen alene styrer valget)
 let SIM_LOKAL_KAND = 30, SIM_RUNDER = 3, SIM_GREEDY_KAND = 30;  // hvor grundigt retter prøves af
 let SIM_SPILD = 3, SIM_FORBEDRING = true, SIM_DOBBELT_GRAENSE = 0;  // spildvægt, forbedring ved ombytning, og hvor meget en dobbelt portion mindst skal spare  // vægt på spild i scoren; om sættet forbedres ved at bytte retter
@@ -1496,7 +1507,7 @@ function simFraButikker(stores) {
       t.straf = Math.max(0, t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK;
       return t;
     };
-    const scoreSæt = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) + simVariation(sæt) + SIM_TILBUD_PLAN * (t.ialt ? t.tilbud / t.ialt : 0) - (t.ialt + SIM_SPILD * t.spild + t.straf) / (SIM_PRIS_DIV * f); };
+    const scoreSæt = sæt => { const t = tal(sæt); return sæt.reduce((sum, r) => sum + smag.get(r.id), 0) + simVariation(sæt) + SIM_TILBUD_PLAN * (t.ialt ? t.tilbud / t.ialt : 0) - (t.ialt + SIM_SPILD * t.spild + t.straf + SIM_BUDGET_VAEGT * budgetOver(t.ialt)) / (SIM_PRIS_DIV * f); };
     // Ét udgangspunkt vælges ret for ret efter smag minus pris (div = hvor tungt prisen vejer). To udgangspunkter prøves (prisen vejer lidt mindre og lidt mere end i scoren), og det med den bedste score forbedres bagefter –
     // så søgningen ikke sætter sig fast på en dyr uge, når en meget billigere næsten er lige så god.
     const bygGreedy = (div, antalKand = SIM_GREEDY_KAND) => {
@@ -1508,7 +1519,7 @@ function simFraButikker(stores) {
         if (!kand.length) break;
         let bedst = null, bedstSc = -Infinity, bedstPris = 0;
         for (const r of kand) {
-          const t = tal([...vt, r], true), p = t.ialt + t.straf;
+          const t = tal([...vt, r], true), p = t.ialt + t.straf + SIM_BUDGET_VAEGT * budgetOver(t.ialt);
           const sc = smag.get(r.id) + simVariation([...vt, r]) - simVariation(vt) - (p - pris) / (div * f);
           if (sc > bedstSc) { bedst = r; bedstSc = sc; bedstPris = p; }
         }
@@ -1555,7 +1566,19 @@ function simFraButikker(stores) {
   const t = ugePris(valgt.map(r => r.id), mult, stores);
   plan.S = stores;  // butikkerne retterne er bygget til
   plan.butikker = t.butikker;  // de butikker, madplanen faktisk handler i
-  plan.kost = valgt.length === 7 ? t.ialt + SPILD_I_SAMMENLIGNING * t.spild + (t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK : Infinity;  // lavere er bedre
+  plan.kost = valgt.length === 7 ? t.ialt + SPILD_I_SAMMENLIGNING * t.spild + (t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK + SIM_BUDGET_VAEGT * budgetOver(t.ialt) : Infinity;  // lavere er bedre
+  // Med et budget søges der først efter en uge under budgettet. Søgningen er ikke perfekt, så ugen uden budget regnes også:
+  // holder den budgettet, bruges den uændret (et højt budget ændrer aldrig forslaget); ellers vinder den bedste af de to. Et budget gør aldrig ugen dyrere.
+  if (state.budget > 0 && !simUdenBudget && plan.kost !== Infinity) {
+    const gemBudget = state.budget; let alt;
+    simUdenBudget = true; state.budget = 0;
+    try { alt = simFraButikker(stores); } finally { state.budget = gemBudget; simUdenBudget = false; }
+    if (alt.kost !== Infinity) {
+      const altIalt = ugePris(alt.map(x => x.r.id), planMult(alt), alt.S).ialt;
+      const altKost = alt.kost + SIM_BUDGET_VAEGT * budgetOver(altIalt);
+      if (altIalt <= state.budget || altKost < plan.kost) { const c = alt.slice(); c.S = alt.S; c.butikker = alt.butikker; c.kost = altKost; return SIM_DEL[nk] = c; }
+    }
+  }
   return SIM_DEL[nk] = plan;
 }
 // Valg af butikker: nøglen er "netto+rema|2" = de afkrydsede butikker og højst hvor mange af dem madplanen må bruge
@@ -1605,7 +1628,7 @@ function* simulerTrin(k) {  // generator: holder pause (yield) efter hver delber
     const t = ugePris(pl.map(x => x.r.id), planMult(pl), S);
     const plan = medS(S, () => pl.map(x => ({ ...x, r: ret(x.r.id) || x.r })));
     plan.S = S; plan.butikker = t.butikker;
-    plan.kost = t.ialt + SPILD_I_SAMMENLIGNING * t.spild + (t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK;
+    plan.kost = t.ialt + SPILD_I_SAMMENLIGNING * t.spild + (t.butikker.length - 1) * STRAF_PR_EKSTRA_BUTIK + SIM_BUDGET_VAEGT * budgetOver(t.ialt);
     return plan;
   };
   const udvid = n => {
@@ -1645,8 +1668,11 @@ function* simulerTrin(k) {  // generator: holder pause (yield) efter hver delber
   return bedst || bedstUanset;
 }
 const TIEBREAK_KR = 10;
-const simSig = () => `${state.voksne}-${state.boern}`;  // forslag og priser gælder for én husstand ad gangen
+const simSig = () => `${state.voksne}-${state.boern}|${state.budget || 0}`;  // et budget giver et andet forslag  // forslag og priser gælder for én husstand ad gangen
 function nulstilSim() { for (const o of [simStd, simPrisCache, simManuel, simAfvist, simFra, SIM_DEL]) for (const k in o) delete o[k]; }
+// Nyt budget: forslagene er gemt pr. husstand OG budget (simSig), så de beregnede uger kan blive liggende – også ugen uden budget,
+// som budgetsøgningen sammenligner med (den skal så ikke regnes igen). Kun brugerens egne byt nulstilles, fordi forslaget skifter.
+function nulstilBudget() { for (const o of [simManuel, simAfvist, simFra]) for (const k in o) delete o[k]; }
 // Husstand og butikker gemmes for sig selv (også uden valgte retter): på enheden og – når man er logget ind – på brugeren (Supabase user_metadata),
 // så man ikke skal vælge dem igen næste gang eller på en anden enhed.
 const HUSSTAND_GEM = 'madplan-husstand', INTRO_GEM = 'madplan-intro';
@@ -1665,12 +1691,13 @@ function anvendHusstand(h) {
   if (Array.isArray(h.butikker) && h.butikker.length) state.butikker = medAlias(h.butikker).filter(k => data.butikker[k]);
   if (h.max >= 0) state.maxButikker = Math.min(8, Math.floor(h.max));
   if (h.valgt) state.butikValgt = true;
+  if (h.budget >= 0) state.budget = Math.min(20000, Math.round(h.budget));
   if (h.intro) localStorage.setItem(INTRO_GEM, '1');  // rundvisningen er set (også på en anden enhed)
   tilpasButikker();
   return true;
 }
 function gemHusstand(kunLokalt = false) {
-  const h = { voksne: state.voksne, boern: state.boern, butikker: state.butikker.slice(), max: state.maxButikker, valgt: state.butikValgt, intro: introSet() ? 1 : 0 };
+  const h = { voksne: state.voksne, boern: state.boern, butikker: state.butikker.slice(), max: state.maxButikker, valgt: state.butikValgt, intro: introSet() ? 1 : 0, budget: state.budget };
   localStorage.setItem(HUSSTAND_GEM, JSON.stringify(h));
   if (!kunLokalt && sb && bruger) {
     clearTimeout(husstandTimer);
@@ -1946,6 +1973,7 @@ function simuleringHtml() {
   return `<div class="panel simulering" id="simulering">
     <div class="panel-hoved"><div><h2>Madplan</h2><p class="sim-undertekst">Brug forslaget, byt en ret &ndash; eller vælg selv.</p></div>
       <span class="panel-hoved-hoejre">${simAendret(k) ? `<button type="button" class="chip" data-sim-nulstil="${esc(k)}">Tilbage til forslaget</button>` : ''}</span></div>
+    ${budgetNote(pris, k, antalDage)}
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
       <div class="sim-valg">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb>Brug ${antalDage === plan.length ? 'forslaget' : 'planen'} &rarr;</button>` : ''}
@@ -1953,6 +1981,19 @@ function simuleringHtml() {
     </div></div>`;
 }
 
+function budgetNote(pris, k, dage = 7) {  // ærlig besked under madplanens overskrift: budgettet holdt eller ej
+  if (!(state.budget > 0) || !pris || !pris.ialt) return '';
+  // Den præcise pris sammenlignes (ikke den afrundede), så 600,40 kr aldrig kaldes "inden for" et budget på 600 kr; overskridelsen er den viste pris minus budgettet (mindst 1 kr).
+  const ialt = Math.round(pris.ialt), inden = pris.ialt <= state.budget, over = Math.max(1, Math.round(pris.ialt - state.budget));  // = vist pris minus budget, så tallene går op; aldrig "0 kr over"
+  if (k && simAendret(k)) {  // brugeren har byttet/fjernet retter: tal om brugerens egen madplan, aldrig "billigste uge"
+    const forslag = simPris(k), fTekst = forslag && forslag.ialt ? ` Vores forslag for ugen koster ${kr(Math.round(forslag.ialt))}.` : '';
+    const hvad = dage === 7 ? 'Din madplan' : `Din madplan (${dage} ${dage === 1 ? 'dag' : 'dage'})`;
+    return inden ? `<p class="bud-note ok">${hvad} er inden for dit budget: ${kr(ialt)} af ${kr(state.budget)}.</p>`
+      : `<p class="bud-note over">${hvad} koster ${kr(ialt)} &ndash; ${kr(over)} over dit budget på ${kr(state.budget)}.${fTekst}</p>`;
+  }
+  return inden ? `<p class="bud-note ok">Inden for dit budget: ${kr(ialt)} af ${kr(state.budget)}.</p>`
+    : `<p class="bud-note over">Billigste uge vi kan finde her koster ${kr(ialt)} &ndash; ${kr(over)} over dit budget på ${kr(state.budget)}. Prøv en anden butik eller et højere budget.</p>`;
+}
 // "Dine valg": et personikon i toppen, der åbner en boks med valg, der gælder hele siden (nu: hvem der skal spise med – senere fx økologi og allergier)
 const FIGUR = '<svg class="hl-figur" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="5.2"/><path d="M1.5 29.5v-5.8a8.5 8.5 0 0 1 17 0v5.8z"/></svg>';
 const FIGUR_TOM = '<svg class="hl-figur tom" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="4.6"/><path d="M2 29v-5.3a8 8 0 0 1 16 0V29z"/></svg>';
@@ -1961,8 +2002,10 @@ function husstandInner() {  // knappen i toppen + boksen (en figur pr. voksen, e
   const { voksne: v, boern: b } = state;
   const figurer = (n, type) => !n && type === 'boern' ? FIGUR_TOM : FIGUR.repeat(Math.min(n, 5)) + (n > 5 ? `<span class="hl-flere">+${n - 5}</span>` : '');
   const raekke = (nogle, n, ent, fl) => `<div class="hl-raekke ${nogle}" role="group" aria-label="${fl}"><span class="hl-figurer">${figurer(n, nogle)}</span><span class="hl-tekst"><b>${n}</b> ${n === 1 ? ent : fl}</span><span class="hl-knapper"><button type="button" data-${nogle}="-1" aria-label="Færre ${fl}">−</button><button type="button" data-${nogle}="1" aria-label="Flere ${fl}">+</button></span></div>`;
-  return `<button type="button" class="hl-chip ${husstandAaben ? 'aaben' : ''}" data-husstand-aabn aria-expanded="${husstandAaben}" aria-haspopup="true" aria-label="Dine valg: ${husstandTekst(v, b)}" title="Dine valg">${ikon('users')}<span class="hl-chip-tekst">${husstandTekst(v, b).replace(' + ', ' · ')}</span><span class="hl-badge">${v + b}</span></button>
-    ${husstandAaben ? `<div class="hl-pop"><div class="hl-afsnit">Hvem skal spise med?</div>${raekke('voksne', v, 'voksen', 'voksne')}${raekke('boern', b, 'barn', 'børn')}</div>` : ''}`;
+  return `<button type="button" class="hl-chip ${husstandAaben ? 'aaben' : ''}" data-husstand-aabn aria-expanded="${husstandAaben}" aria-haspopup="true" aria-label="Dine valg: ${husstandTekst(v, b)}" title="Dine valg">${ikon('users')}<span class="hl-chip-tekst">${husstandTekst(v, b).replace(' + ', ' · ')}${state.budget ? ` · højst ${kr(state.budget)}` : ''}</span><span class="hl-badge">${v + b}</span></button>
+    ${husstandAaben ? `<div class="hl-pop"><div class="hl-afsnit">Hvem skal spise med?</div>${raekke('voksne', v, 'voksen', 'voksne')}${raekke('boern', b, 'barn', 'børn')}
+      <div class="hl-afsnit">Budget for ugens aftensmad <span class="hl-valgfri">(valgfrit)</span></div>
+      <div class="bud-raekke"><input type="number" id="budget-input" inputmode="numeric" min="0" max="20000" step="50" placeholder="fx 600" value="${state.budget || ''}" aria-label="Budget for ugens aftensmad i kroner"><span>kr</span>${state.budget ? '<button type="button" class="chip" data-budget-ryd>Fjern</button>' : ''}</div></div>` : ''}`;
 }
 function husstandLinje() {  // tegner knappen i toppen (kun på forsiden, hvor valget kan ændres)
   const h = document.getElementById('husstand-plads'); if (!h) return;
@@ -2818,6 +2861,16 @@ document.addEventListener('keydown', e => {
 });
 
 // ---------- Hændelser ----------
+document.addEventListener('click', e => {  // "Fjern" ved budgettet (egen lytter, så den fælles klik-vælger ikke ændres)
+  if (!e.target.closest('[data-budget-ryd]')) return;
+  state.budget = 0; nulstilBudget(); gemHusstand(); opdaterHusstand();
+});
+document.addEventListener('change', e => {
+  if (e.target.id !== 'budget-input') return;
+  const v = Math.max(0, Math.min(20000, Math.round(+e.target.value || 0)));
+  if (v === state.budget) return;
+  state.budget = v; nulstilBudget(); gemHusstand(); opdaterHusstand();
+});
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && husstandAaben) { husstandAaben = false; husstandLinje(); } });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList?.contains('info-i')) { e.preventDefault(); e.target.classList.toggle('aaben'); } });
 document.addEventListener('click', e => {
