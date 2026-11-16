@@ -156,6 +156,12 @@ p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tjek_ops
 if p.returncode: fejl.append('tjek_opskrifter.py fandt rå-fejl:\n' + '\n'.join(p.stdout.strip().splitlines()[-12:]))
 else: ok.append('tjek_opskrifter.py bestået')
 
+# ---------- 7b. Budget i ugeforslaget (node, samme datakopi; se scripts/tests/budget.js) ----------
+if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'budget.js')):
+    p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'budget.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)
+    if p.returncode: fejl.append('Test af budget fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[:12]))
+    else: ok.append('budget bestået')
+
 # ---------- 8. Regressionstest af pris, indkøbsliste og ugeforslag (node, gemt datakopi, se scripts/tests/regression.py) ----------
 if shutil.which('node'):
     p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'regression.py')], capture_output=True, text=True, encoding='utf-8', errors='replace')
@@ -163,12 +169,6 @@ if shutil.which('node'):
     else: ok.append('regressionstest bestået (pris, indkøbsliste, ugeforslag)')
 else:
     advarsler.append('node findes ikke her – regressionstesten er IKKE kørt')
-
-# ---------- 10. Budget i ugeforslaget (node, samme datakopi; se scripts/tests/budget.js) ----------
-if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'budget.js')):
-    p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'budget.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)
-    if p.returncode: fejl.append('Test af budget fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[:12]))
-    else: ok.append('budget bestået')
 
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
