@@ -164,6 +164,12 @@ if shutil.which('node'):
 else:
     advarsler.append('node findes ikke her – regressionstesten er IKKE kørt')
 
+# ---------- 9. Sammenlign butikker: kortet bruger samme prisfunktion som enkeltvalget (simPris(butik|1)) ----------
+_idx = laes(os.path.join(ROD, 'index.html'))
+for _d in ('id="samm-plads"', 'simPris(k + \'|1\')', 'sammenlignStart()', 'data-sammvalg', 'prefers-reduced-motion'):
+    if _d not in _idx: fejl.append(f'Sammenlign butikker: "{_d}" mangler i index.html')
+ok.append('sammenlign-butikker-kortet tjekket')
+
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
 if len(advarsler) > 40: print(f'… og {len(advarsler) - 40} flere advarsler')
