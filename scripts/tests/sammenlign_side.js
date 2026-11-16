@@ -124,6 +124,28 @@
   SAMM.alle = false; sammenlignTegn(); await vent(100);
   if (innerWidth <= 400 && !synlig(raekke(sidste))) fejl.push('Vis alle: den valgte butik ' + sidste + ' er skjult, når listen er foldet sammen');
   raekke(sidste).click(); await vent(2000);
+  // Jonas 2026-11-16 ("vælger jeg SPAR også, står der stadig bare Lidl"): en valgt butik, som madplanen ikke bruger, skal sige det selv,
+  // og under listen står én klar sætning i stedet for en ensom "1 butik"-knap. Testen finder selv en butik, der ikke gør ugen billigere.
+  enButik(foerste); await vent(300);
+  let fundet = null;
+  for (const k of sammOrden().filter(x => x !== foerste && !udloebet(data.butikker[x])).reverse()) {
+    raekke(k).click(); for (let n = 0; n < 40 && manglerSim(); n++) await vent(250); await vent(600);
+    if (kunEnMulighed()) { fundet = k; break; }
+    // flere butikker kan betale sig her: så skal valget 1/2 butikker vises, og forklaringen ikke
+    if (!document.querySelector('#antal-plads .antal-knap')) fejl.push('Flere butikker (' + foerste + '+' + k + '): valget 1/2 butikker vises ikke');
+    raekke(k).click(); for (let n = 0; n < 40 && manglerSim(); n++) await vent(250); await vent(300);
+  }
+  if (!fundet) fejl.push('Ubrugt butik: fandt ingen butik, der ikke gør ugen billigere sammen med ' + foerste + ' (kan ikke afprøves med disse data)');
+  else {
+    const ap = document.getElementById('antal-plads'), np = document.getElementById('note-plads'), brugt = simStandard(simK()).butikker;
+    if (!raekke(fundet).classList.contains('ubrugt') || !/Ikke med i madplanen/.test(tekst(raekke(fundet)))) fejl.push('Ubrugt butik: rækken for ' + fundet + ' siger ikke, at den ikke er med i madplanen ("' + tekst(raekke(fundet)) + '")');
+    if (!tekst(ap).includes('Madplanen bruger kun ' + butikTekst(brugt)) || !tekst(ap).includes(kr(Math.round(simPrisPlan(simK()).ialt)))) fejl.push('Ubrugt butik: under listen står ikke "Madplanen bruger kun ' + butikTekst(brugt) + '" med prisen ("' + tekst(ap).slice(0, 120) + '")');
+    if (ap.querySelector('.antal-knap')) fejl.push('Ubrugt butik: der står en ensom "1 butik"-knap');
+    if (tekst(np)) fejl.push('Ubrugt butik: forklaringen står to gange ("' + tekst(np) + '")');
+    maal.ubrugtButik = foerste + '+' + fundet + ': ' + tekst(ap).slice(0, 70);
+    raekke(fundet).click(); await vent(1500);
+    if (raekke(fundet).classList.contains('ubrugt')) fejl.push('Ubrugt butik: markeringen bliver hængende, efter butikken er fravalgt');
+  }
   // Fejlvisning: uden priser kan man stadig vælge butikker i listen
   enButik(foerste); await vent(300);
   SAMM.fejlAlle = true; sammenlignTegn(); await vent(100);

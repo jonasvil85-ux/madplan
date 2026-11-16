@@ -74,3 +74,13 @@ Krav: BACKLOG "Ét kort" (revideret) og "Én regel for to butikker". Design: `ai
 | 1+0 | Min Købmand | 338 | 338 | 7 / 7 | 5 / 11 / 14 | ja |
 
 **Ikke dækket:** butikslogoer (blokeret lokalt), mørkt tema og rigtig telefon.
+
+## Tilføjet efter Jonas' afprøvning ("Lidl er valgt – vælger jeg SPAR også, står der stadig bare Lidl – det er ikke intuitivt")
+- **En valgt butik, som madplanen ikke bruger, siger det selv i sin række:** stiplet kant, gråt flueben og teksten "Ikke med i madplanen – Ugen er billigere uden SPAR". Den sidste del står kun, når ingen kombination er billigere.
+- **Under listen står én klar sætning** i stedet for en ensom "1 butik"-knap: "Madplanen bruger kun Lidl: 421 kr. SPAR gør ikke ugen billigere denne uge, så der er ingen varer derfra i madplanen." Den ekstra note nederst vises så ikke, så det ikke står to gange.
+- **Kan flere butikker betale sig,** vises valget "1 butik / 2 butikker – Anbefalet" som før. Sætningen og boksen bruger samme regel for, hvilke felter der vises (`antalSynlige`), så de aldrig er uenige.
+
+**Test:** browsertesten finder selv en butik, der ikke gør ugen billigere sammen med den billigste (i denne uge Lidl + SPAR), og tjekker rækken, sætningen, at der ikke er en ensom knap, og at forklaringen ikke står to gange. Den fejler, hvis den ikke kan finde et sådant tilfælde.
+- Mutationsprøve: rækkens markering fjernet. Testen fangede det ("rækken for spar siger ikke, at den ikke er med i madplanen").
+
+**Tidsmåling:** mine egne headless Edge-processer hobede sig op igen (68 stk.), og tiderne steg til ca. 250 ms, også i en kopi uden ændringen. Efter oprydning efter hver kørsel er tiderne 69–154 ms.

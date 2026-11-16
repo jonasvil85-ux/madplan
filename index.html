@@ -902,6 +902,10 @@ html { scrollbar-gutter: stable; }
 .samm-tjek { flex: none; width: 24px; height: 24px; display: grid; place-items: center; border: 2px solid var(--border); border-radius: 7px; color: transparent; font-size: 15px; font-weight: 700; line-height: 1; background: var(--surface); }
 .samm-raekke.aktiv .samm-tjek { background: var(--valgt); border-color: var(--valgt); color: #fff; }
 #antal-plads:empty, #note-plads:empty { display: none; }
+.samm-raekke.aktiv.ubrugt { border-style: dashed; background: var(--surface); }
+.samm-raekke.ubrugt .samm-tjek { background: var(--text-3); border-color: var(--text-3); }
+.valg-svar { display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 20px; color: var(--text-2); }
+.valg-svar b { font-size: 16px; line-height: 22px; color: var(--text-1); }
 #antal-plads { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
 .samm-igen { margin-top: 8px; }
 .samm-raekke .butikhoved { flex: none; }
@@ -2051,6 +2055,13 @@ function ubrugtNote() {  // forklaring på en afkrydset butik, der ikke er med i
   const ant = state.butikker.length, ub = ubrugteButikker(), brugte = ant ? simStandard(simK()).butikker : [];
   return ub.length ? `${esc(butikTekst(ub))} er ikke med – det er billigst ${brugte.length === 1 ? 'kun ' : ''}at gå i ${esc(butikTekst(brugte))}.` : '';
 }
+function antalSynlige() {  // antallet af felter, antalValgHtml viser (et felt, der ikke er billigere end det forrige, vises ikke – undtagen det valgte)
+  const ant = state.butikker.length; if (!ant) return 0;
+  const m = butikMuligheder(), aktivN = simStandard(simK()).butikker.length, priser = m.map(muligPris);
+  let sidst = -1, n = 0;
+  m.forEach((o, i) => { if (i && o.n !== aktivN && priser[i].ialt >= priser[sidst].ialt - 1) return; sidst = i; n++; });
+  return n;
+}
 function antalValgHtml() {  // højre side: "Hvor mange butikker vil du handle i?" – et felt pr. mulighed (1, så 2, så 3 butikker)
   const ant = state.butikker.length;
   const m = ant ? butikMuligheder() : [], anb = ant > 1 ? anbefaletAntal() : 1, aktivN = ant ? simStandard(simK()).butikker.length : 0;
@@ -2101,16 +2112,17 @@ const sammOrden = () => {  // rækkefølgen: de afkrydsede først, og billigst f
   const rang = k => !ok(k) ? 2 : udloebet(data.butikker[k]) ? 1 : 0;
   return alle.slice().sort((a, b) => rang(a) - rang(b) || (ok(a) && ok(b) ? Math.round(SAMM.pris[a].ialt) - Math.round(SAMM.pris[b].ialt) : 0));
 };
+const ubrugteNu = () => { if (state.butikker.length < 2 || manglerSim()) return []; const brugt = simStandard(simK()).butikker; return state.butikker.filter(x => !brugt.includes(x)); };  // valgte butikker uden varer i den viste madplan (kun når den er regnet: blokerer aldrig)
 function sammRaekke(k, i) {
-  const b = data.butikker[k], p = SAMM.pris[k], fejl = SAMM.fejl[k], ud = udloebet(b), valgt = state.butikker.includes(k);
+  const b = data.butikker[k], p = SAMM.pris[k], fejl = SAMM.fejl[k], ud = udloebet(b), valgt = state.butikker.includes(k), ubrugt = valgt && ubrugteNu().includes(k);
   const pris = p && !fejl ? Math.round(p.ialt) : null;
   const spar = p && p.spar >= 10 ? Math.round(p.spar) : 0, andel = p && p.ialt > 0 ? Math.round(100 * p.tilbud / p.ialt) : 0;
   const priser = SAMM.faerdig ? Object.keys(SAMM.pris).filter(x => !SAMM.fejl[x] && !udloebet(data.butikker[x])).map(x => Math.round(SAMM.pris[x].ialt)) : [];
   const billigst = pris != null && !ud && priser.length > 0 && pris === Math.min(...priser);
   const rang = SAMM.faerdig && pris != null && !ud ? i + 1 : '';
-  const sub = fejl ? 'Kunne ikke regnes' : ud ? 'Avisen er udløbet' : p ? [spar ? `Sparer ${kr(spar)}` : '', `${andel} % på tilbud`].filter(Boolean).map(x => `<span>${x}</span>`).join('') : '';
-  const label = `${b.navn}${rang ? `, nummer ${rang}` : ''}${billigst ? ', billigst' : ''}${pris != null ? `, ugens indkøb ${pris} kroner` : ''}${spar && !ud ? `, sparer ${spar} kroner` : ''}`;
-  return `<li class="${i >= 3 && !valgt ? 'samm-ekstra' : ''}" data-nr="${i}"><button type="button" class="samm-raekke ${valgt ? 'aktiv' : ''} ${ud || fejl ? 'daempet' : ''}" data-sammvalg="${esc(k)}" data-sk="${esc(k)}" aria-pressed="${valgt}" aria-label="${esc(label)}">
+  const sub = fejl ? 'Kunne ikke regnes' : ud ? 'Avisen er udløbet' : ubrugt ? `<span>Ikke med i madplanen</span>${kunEnMulighed() ? `<span>Ugen er billigere uden ${esc(b.navn)}</span>` : ''}` : p ? [spar ? `Sparer ${kr(spar)}` : '', `${andel} % på tilbud`].filter(Boolean).map(x => `<span>${x}</span>`).join('') : '';
+  const label = `${b.navn}${rang ? `, nummer ${rang}` : ''}${billigst ? ', billigst' : ''}${pris != null ? `, ugens indkøb ${pris} kroner` : ''}${spar && !ud ? `, sparer ${spar} kroner` : ''}${ubrugt ? ', ikke med i madplanen' : ''}`;
+  return `<li class="${i >= 3 && !valgt ? 'samm-ekstra' : ''}" data-nr="${i}"><button type="button" class="samm-raekke ${valgt ? 'aktiv' : ''} ${ubrugt ? 'ubrugt' : ''} ${ud || fejl ? 'daempet' : ''}" data-sammvalg="${esc(k)}" data-sk="${esc(k)}" aria-pressed="${valgt}" aria-label="${esc(label)}">
     <span class="samm-tjek" aria-hidden="true">✓</span><span class="butikhoved lille">${logo(b)}</span>
     <span class="samm-midt"><b>${esc(b.navn)}</b><small>${fejl || ud ? esc(sub) : sub}</small></span>
     <span class="samm-pris">${billigst ? '<i class="samm-billigst">Billigst</i>' : ''}${pris != null ? `<span>${kr(pris)}</span>` : fejl ? '<span>–</span>' : '<span class="samm-skel" aria-hidden="true"></span>'}</span></button></li>`;
@@ -2154,9 +2166,12 @@ function sammenlignTegn(flip) {
 }
 function sammenlignMarker() {  // butikvalget er ændret: kun flueben (og to-butiks-forslaget) opdateres, rækkerne står stille
   document.querySelectorAll('.samm-raekke').forEach(r => {
-    const v = state.butikker.includes(r.dataset.sammvalg), li = r.closest('li');
+    const k = r.dataset.sammvalg, v = state.butikker.includes(k), li = r.closest('li');
     r.classList.toggle('aktiv', v); r.setAttribute('aria-pressed', String(v));
     if (li) li.classList.toggle('samm-ekstra', +li.dataset.nr >= 3 && !v);  // en valgt butik skjules aldrig af "Vis alle"
+    const ny = document.createElement('div'); ny.innerHTML = sammRaekke(k, +(li?.dataset.nr || 0));  // underteksten ("Ikke med i madplanen" eller sparet/tilbud)
+    const nyR = ny.querySelector('.samm-raekke'), sm = r.querySelector('.samm-midt small');
+    if (nyR && sm) { sm.innerHTML = nyR.querySelector('.samm-midt small').innerHTML; r.classList.toggle('ubrugt', nyR.classList.contains('ubrugt')); r.setAttribute('aria-label', nyR.getAttribute('aria-label')); }
   });
   const kp = document.getElementById('samm-kombi-plads'); if (kp) kp.innerHTML = sammKombiHtml();
 }
@@ -2237,12 +2252,23 @@ function saetKunButikker(liste) {  // som at krydse de andre butikker af; spørg
   tilpasButikker(); gemHusstand();
   return true;
 }
-const antalPladsHtml = () => state.butikker.length > 1 ? antalValgHtml() : '';  // "Hvor mange butikker" giver kun mening, når der er valgt mere end én
+// Under listen, når der er valgt mere end én butik: kan flere butikker gøre ugen billigere, vises valget 1/2/3 butikker;
+// ellers én klar sætning (ingen ensom "1 butik"-knap), og rækken for den ubrugte butik siger det samme.
+const kunEnMulighed = () => state.butikker.length > 1 && antalSynlige() <= 1;
+function antalPladsHtml() {
+  if (state.butikker.length < 2) return '';
+  if (!kunEnMulighed()) return antalValgHtml();
+  const k = simK(), plan = simStandard(k), pris = Math.round(simPrisPlan(k).ialt);
+  const ikke = state.butikker.filter(x => !plan.butikker.includes(x));
+  return `<div class="valg-svar"><b>Madplanen bruger kun ${esc(butikTekst(plan.butikker))}: ${kr(pris)}</b>
+    <span>${esc(butikTekst(ikke))} gør ikke ugen billigere denne uge, så der er ingen varer derfra i madplanen.</span></div>`;
+}
+const noteHtml = () => kunEnMulighed() ? '' : ubrugtNote();  // sætningen ovenfor siger det allerede
 function butikPanel() {  // ét kort: listen er butiksvalget (tryk = flueben, gerne flere); "Hvor mange butikker" vises under, når der er valgt flere
   return `<div class="panel butikpanel"><h2 class="butik-titel">Hvor handler du?</h2>
     <div id="samm-plads">${sammenlignHtml()}</div>
     <div class="butik-hoejre" id="antal-plads">${antalPladsHtml()}</div>
-    <p class="ubrugt-note" id="note-plads">${ubrugtNote()}</p>
+    <p class="ubrugt-note" id="note-plads">${noteHtml()}</p>
   </div>`;
 }
 // Flueben/antal butikker/madplan: opdatér kun det, der ændrer sig (logoerne og siden står stille, og der scrolles ikke)
@@ -2251,7 +2277,7 @@ function opdaterButik(anker) {  // anker: vælger for det element, der skal bliv
   const ub = ubrugteButikker();
   document.querySelectorAll('.butik-chip').forEach(c => { const k = c.dataset.butikvalg, v = state.butikker.includes(k); c.classList.toggle('aktiv', v); c.classList.toggle('ubrugt', ub.includes(k)); c.setAttribute('aria-pressed', String(v)); });
   const ap = document.getElementById('antal-plads'); if (ap) ap.innerHTML = antalPladsHtml();
-  const np = document.getElementById('note-plads'); if (np) np.innerHTML = ubrugtNote();
+  const np = document.getElementById('note-plads'); if (np) np.innerHTML = noteHtml();
   const sp = document.getElementById('sim-plads'); if (sp) sp.innerHTML = simuleringHtml();
   sammenlignMarker(); sammenlignStart();
   document.querySelectorAll('.beregner').forEach(el => el.classList.remove('beregner'));
