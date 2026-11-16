@@ -2,13 +2,11 @@
 
 HELBRED.md: GRØN (2026-11-16 09:20 UTC, begge domæner OK, main 8c2e4a7). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll).
 
-Sidst kontrolleret: 2026-11-16 ca. 11:30 UTC (kontrollant, anden kørsel)
-Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 2e9c636). Ingen sammenlægning i anden kørsel.
+Sidst kontrolleret: 2026-11-16 ca. 12:15 UTC (kontrollant, tredje kørsel)
+Main-status: BESTÅET (0 fejl, 10 advarsler), regressionstest bestået (main 25d3cb7). Sammenlign-butikker slået sammen (H nr. 2 i dag).
 
 ## Afvist – udvikleren retter
-- ai/2026-11-16-budget (1a4459e, forsøg 1, klasse H, indholdsfejl – tæller): efter "Byt" siger budgetbeskeden "Billigste uge vi kan finde her koster 528 kr", selv om forslaget koster 406 kr (`budgetNote` får `simPrisPlan`). Før/efter-tal passer og er uændrede; budget.js bestået; 7/9 under 600 kr. Se kontrolrapporten (anden kørsel).
-- ai/2026-11-16-sammenlign-butikker (ca0003b, forsøg 1, klasse H efter kontrollantens vurdering): accept (9) brudt – teksten nævner ikke, at transport ikke er regnet med (tæller). Procedural, tæller ikke: før/efter-tabel for 9 butikker mangler i rapporten. Ellers alt målt grønt: 27/27 priser identiske med enkeltvalg (2+2, 2+0, 1+0), kombinationen identisk, ingen opgave over 100 ms.
-  Bemærk: budget og sammenlign rører samme linjer (klik-vælgeren i index.html, blok 9 i kontrol.py) og kan ikke slås sammen samme dag; den anden skal flettes med main først.
+- ai/2026-11-16-budget (457d919, forsøg 2 af 3, klasse H, indholdsfejl – tæller): `kontrol.py` FEJLET – grenens egen `budget.js` kaster `ReferenceError: sb is not defined` (gemHusstand via saetHusstand; `sb`/`bruger` erklæres i auth.js, som testen ikke indlæser). Med `sb`/`bruger` sat til null i en kopi bestod testen (fingeraftryk 2a83215c1a79, to gange). Ét forsøg tilbage. Flettes uden konflikt med ny main. Forsøg 1 (1a4459e): "billigste uge" efter Byt.
 - ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
 
 ## Parkeret – Ejeren har dem (to forsøg brugt)
@@ -19,6 +17,7 @@ Main-status: BESTÅET (0 fejl, 9 advarsler), regressionstest bestået (main 2e9c
 (ingen)
 
 ## Seneste sammenlægninger
+- 2026-11-16: ai/2026-11-16-sammenlign-butikker (H, 25d3cb7, forsøg 2): rangeret liste over 9 butikker og ærligt to-butiks-forslag. Skærpet validering bestået (før/efter byte-identisk for 9 butikker × 3 husstande, 6 rød-hold-forsøg, revert-prøve). Dagens 2. H.
 - 2026-11-16: ai/2026-11-15-indkoebsliste-raekker (H, 8c2e4a7): korte rækker med Detaljer-link. Skærpet validering bestået (linjer og summer uændrede i alle 9 butikker, rød-hold, revert-prøve).
 - 2026-11-15: ai/2026-11-15-opskriftssider (H, 384f5d1): 193 opskriftssider, oversigt og sitemap. Skærpet validering bestået (før/efter byte-identisk for alle 9 butikker, rød-hold, revert-prøve).
 - 2026-11-15: ai/2026-11-15-regressionstest (A, kun test): regression.py/.js + facit + frossen datakopi; kaldes af kontrol.py. Klasse H kan nu valideres efter den skærpede proces.
