@@ -16,23 +16,23 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: siden har kun én URL, så Google ser ingen retter. Organisk trafik er den største vækstmulighed uden annoncer.
   Accept: (1) 193 sider + oversigt, (2) gyldig Recipe-JSON-LD på hver, (3) sitemap med alle, (4) kontrollen tjekker at hver opskrift har en side, (5) sider bygges af `scripts/byg_sider.py`, (6) ingen priser eller datoer på siderne (de bliver gamle).
   Ikke-mål: ændre appen eller prisberegningen.
-- [ ] [DATA] [A] Ret kendte datafejl
+- [ ] [DATA] [H] Ret kendte datafejl (gren ai/2026-11-16-datafejl AFVIST forsøg 1 2026-11-16: klasse H, før/efter mangler ugepris og indkøbslinjer for 9 butikker, 16 ty-advarsler tilbage; se kontrolrapporten)
   Krav: Kvickly "Svinemørbrad med svampesauce og kartoffelmos" får svinemørbrad som ingrediens; `ty`-oplysning for ingredienser med tilbud, der mangler den (kontrollen tæller dem; mango, majs, salsa, parmigiano, rygeost m.fl.) via `bibliotek_typer.py`, uden at ramme ikke-mad; dyre andretter (over 450 kr for hele retten) vurderes og fjernes eller laves billigere.
   Hvorfor: tillid til indkøbslisten og et ugeforslag uden urealistisk dyre retter.
   Accept: (1) kontrollens advarsler om disse punkter er væk, (2) ingen ret på forsiden koster over 450 kr, (3) indkøbslisten viser kun den vare, retten bruger, for de rettede ingredienser.
   Ikke-mål: ændre `tilbudVariant()`.
-- [ ] [UX] [A] Mobil: tryk-flader og luft (ROADMAP 2) (AFVIST forsøg 1 2026-11-15: 23 elementer under 40 px på forsiden, designfil mangler)
+- [ ] [UX] [A] Mobil: tryk-flader og luft (ROADMAP 2) (AFVIST forsøg 1 2026-11-15; AFVIST forsøg 2 2026-11-16 og PARKERET hos Ejeren: "Om Måltidsjagten" i sidefoden 95 × 14 px, accept (4) billeder ikke gjort – foreslås flyttet til eget H-krav)
   Krav: alle knapper og links på forsiden, retter og indkøbsliste er mindst 44 × 44 px på telefon (i dag er 25–27 elementer under 32 px).
   Hvorfor: siden bruges mest på telefon i butikken, og små knapper giver forkerte tryk.
   Accept: (1) måling i CDP-audit viser 0 elementer under 40 px på 390 px bredde (undtagen tekstlinks i brødtekst), (2) intet vandret scroll på 360 px, (3) designfil med før/efter.
   Ikke-mål: nyt design.
   Tilføjet af Ejeren 2026-11-16: slår "Tilgængelighed og hastighed" sammen hertil – også (4) ingen billeder over 160 KB, (5) alle billeder har alt, (6) UX-designeren laver designfilen FØR udvikleren bygger (afvist sidst fordi den manglede).
-- [ ] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3) (gren ai/2026-11-15-fravalg-budget afvist 2026-11-15 sammen med fravalg; budgetdelen var i orden)
+- [ ] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3) (gren ai/2026-11-15-fravalg-budget PARKERET 2026-11-16 sammen med fravalg; budgetdelen er i orden – 8/9 butikker under 600 kr – og bør bygges som egen gren)
   Krav: brugeren kan skrive et ugebudget (fx 600 kr), og ugeforslaget holder sig under det, hvis det kan lade sig gøre; ellers fortæller siden ærligt, hvad den billigste mulighed koster.
   Hvorfor: familier tænker i kroner pr. uge, ikke i kroner pr. ret. Det er den funktion, konkurrenter fremhæver mest.
   Accept: (1) budgetfelt i husstandslinjen på forsiden, (2) ugeforslaget overholder budgettet i mindst 7 af 9 butikker ved 600 kr, (3) uopnåeligt budget giver en klar besked med billigste pris, (4) regressionstest uændret for brugere uden budget, (5) før/efter-tal for alle 9 butikker.
   Ikke-mål: ændre prisregler.
-- [ ] [UX] [H] Fravalg og kost: "Vi spiser ikke …" (ROADMAP 4) (AFVIST forsøg 1 2026-11-15: lammekød, ostetyper og porre slipper igennem; se kontrolrapporten, femte kørsel)
+- [ ] [UX] [H] Fravalg og kost: "Vi spiser ikke …" (ROADMAP 4) (AFVIST forsøg 1 2026-11-15; AFVIST forsøg 2 2026-11-16 og PARKERET hos Ejeren: mayonnaise/remoulade under Æg, pesto under Mælkeprodukter, "hakket kød" (svin+kalv) under Okse og kalv; se kontrolrapporten 2026-11-16)
   Krav: brugeren kan fravælge ingredienser og kosttyper (svinekød, fisk, løg, laktose, vegetar), og forslag, "Vælg selv" og indkøbsliste respekterer det.
   Hvorfor: uden fravalg kan mange familier ikke bruge forslaget; det er en forudsætning for gentagne besøg.
   Accept: (1) valget gemmes (lokalt og i konto), (2) ingen foreslået ret indeholder en fravalgt ingrediens (testes i regression), (3) tydelig besked, hvis for få retter er tilbage, (4) før/efter-tal.
@@ -52,7 +52,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: de lange gruppetekster ("A, B eller C") forvirrer i butikken.
   Accept: (1) ingen vare i grupperne har tekst over 45 tegn, (2) 400 px bredde uden vandret scroll, (3) designfil med valgt løsning.
   Ikke-mål: ændre hvilke tilbud der vælges.
-- [ ] [UX] [H] Indkøbsliste: tydelige rækker (gren ai/2026-11-15-indkoebsliste-raekker afvist proceduralt, mangler dette krav)
+- [x] [UX] [H] Indkøbsliste: tydelige rækker (slået sammen 2026-11-16 af kontrollanten, 8c2e4a7; alle fire accept målt af kontrollanten)
   Krav: hver vare på indkøbslisten er en tydelig række med varenavn, mængde og pris, og kan afkrydses med ét tryk på telefon i butikken.
   Hvorfor: listen er det, brugeren bruger i butikken; den skal kunne skimmes og afkrydses med én hånd.
   Accept: (1) tryk-flade mindst 44 px pr. række, (2) afkrydsning huskes ved genindlæsning, (3) summer og linjer uændrede: regressionstest og før/efter-tal for alle 9 butikker, (4) 360 px uden vandret scroll.
