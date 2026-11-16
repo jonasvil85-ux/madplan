@@ -31,3 +31,23 @@ Vælg selv flere butikker ›                 (åbner det eksisterende logo-valg
 - Madplanen starter mindst 300 px højere på 390 px (i dag ca. 1.050 px).
 - Ingen dobbelte logoer eller tal på første skærm.
 - Alle tal og test fra "Sammenlign butikker" uændrede.
+
+
+## Revision samme dag (Jonas: "vælge mere end en butik bare ved at trykke på en butik mere … pænt, simpelt og logisk")
+"Vælg selv flere butikker" og logo-gitteret er fjernet. Listen er afkrydsning:
+```
+Hvor handler du?
+Tryk på de butikker, du handler i – gerne flere. Prisen er hver butiks billigste uge
+ud fra egne tilbud, 7 aftensmåltider til 2 voksne + 2 børn.
+┌──────────────────────────────────────┐
+│ [✓] Lidl          Billigst   421 kr  │
+│ [✓] Netto                    464 kr  │  ← et tryk mere = to butikker
+│ [ ] 365discount              514 kr  │
+└──────────────────────────────────────┘
+Vis alle 9 butikker ▾
+────────────────────────────────────────
+Hvor mange butikker vil du handle i?      ← kun når der er valgt flere
+[ 1 butik  421 kr  Lidl ]
+[ 2 butikker 367 kr Netto og Lidl  Anbefalet ]
+```
+Med én butik valgt og et billigere par: "Spar 54 kr ved også at handle i Netto – Lidl + Netto: 367 kr for ugen mod 421 kr i Lidl alene. Transport og ekstra tid er ikke regnet med i prisen. [Tilføj Netto]". Forslaget forsvinder, når parret er valgt. En valgt butik skjules aldrig af "Vis alle".
