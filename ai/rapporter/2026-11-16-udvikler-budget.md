@@ -31,3 +31,32 @@
 **Dækker IKKE:** flere butikker samtidig i den faste test (logikken er den samme, men ikke testet); søgningen finder ikke garanteret den billigst mulige uge (heuristik), kun aldrig en dyrere end uden budget.
 
 **Kontrolløren bør kigge på:** slutningen af `simFraButikker` (sammenligning med ugen uden budget og rekursionsvagten `simUdenBudget`), `simSig`, og at grenen ikke indeholder noget fravalg.
+
+---
+
+## Forsøg 2 (2026-11-16, efter kontrollantens afvisning og Jonas' ekstra krav)
+
+**Kontrollantens fund rettet:** efter "Byt" kaldte beskeden brugerens ændrede plan "billigste uge". Nu: er planen ændret (`simAendret(k)`), siger beskeden "Din madplan koster X kr – Y kr over dit budget på B kr. Vores forslag for ugen koster Z kr." (eller "Din madplan er inden for dit budget"). Har brugeren fjernet dage, står antallet ("Din madplan (5 dage)"). "Billigste uge" står kun om forslaget selv (`simPris(k)`).
+
+**Præcis sammenligning:** beskeden sammenligner nu den præcise pris med budgettet, ikke den afrundede. Kontrollantens eksempel SPAR 600,x kr mod 600 kr hedder nu "over dit budget", ikke "600 kr af 600 kr". Overskridelsen rundes op (aldrig "0 kr over").
+
+**Hastighed (kontrollanten bad om måling):** budgettet regnede ugen uden budget igen ved hver ændring. Nu bevares de beregnede uger, når kun budgettet ændres (`nulstilBudget()` nulstiller kun brugerens egne byt; mellemlagrene er i forvejen gemt pr. husstand og budget). Målt i headless Edge (PerformanceObserver longtask, rigtige data), længste opgave efter budgetændring:
+
+| Butikker | Før (forsøg 1) | Nu |
+|---|---|---|
+| Lidl, budget 300 | 195 ms | under 50 ms |
+| MENY, budget 600 | 150 ms | 0–75 ms |
+| Netto+Lidl, budget 350 | 240 ms | 0–50 ms |
+| REMA+Bilka+SPAR, budget 450 | 223 ms | 57–106 ms |
+
+**Uafhængig af sammenlign-butikker:** "Fjern"-knappen har nu sin egen klik-lytter, så den fælles klik-vælger i index.html er uændret i forhold til main, og kontrolblokken hedder "10." (sammenligningen bruger "9."). De to grene rører ikke længere de samme linjer.
+
+**Jonas' grænsetilfælde (accept 6), alle i `scripts/tests/budget.js`, kørt automatisk af `kontrol.py`:**
+- 9 butikker × 3 husstande (2+2, 2+0, 1+0) × budget præcis lig ugeprisen, 1 kr under, 1 kr over, 1 kr og 50 kr: 7 retter, aldrig dyrere, uændret uge når budget ≥ pris, og beskeden passer til tallet (inden for/over, og den rigtige overskridelse).
+- Ændring af familiestørrelse efter budgettet (9 butikker × 3 skift: 2+2→1+0, 1+0→2+2, 2+0→2+3, via `saetHusstand` som knapperne): budgettet bevares og gemmes, og ugen er præcis den samme som regnet forfra for den nye husstand.
+- Byt-scenariet: 9 butikker × budget 300 og 100000, byt mandag–onsdag.
+- Mellemlageret: 11 butiksvalg (9 enkelte, Netto+Lidl, REMA+Bilka+SPAR) × 2 husstande. Budgettet skiftes frem og tilbage via feltets vej og skal give samme uge og pris som regnet helt forfra.
+
+**Gentagelighed (accept 8):** testen udskriver et fingeraftryk af alle tal. To kørsler på samme data gav samme fingeraftryk.
+
+**Testen kan fejle (mutationsprøve):** jeg lavede tre bevidste fejl i en kopi, og testen fangede alle: fjernet "aldrig dyrere"-vagten, afrundet sammenligning i beskeden (57 fejl), og den gamle Byt-besked. Testkoden er kørt i headless Edge mod sidens egne funktioner: `FEJL: []`, 27 kombinationer + 180 grænsetilfælde. Lokalt er der ingen node, så node-kørslen af selve filen gøres af kontrollanten.

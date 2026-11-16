@@ -1637,6 +1637,9 @@ function* simulerTrin(k) {  // generator: holder pause (yield) efter hver delber
 const TIEBREAK_KR = 10;
 const simSig = () => `${state.voksne}-${state.boern}|${state.budget || 0}`;  // et budget giver et andet forslag  // forslag og priser gælder for én husstand ad gangen
 function nulstilSim() { for (const o of [simStd, simPrisCache, simManuel, simAfvist, simFra, SIM_DEL]) for (const k in o) delete o[k]; }
+// Nyt budget: forslagene er gemt pr. husstand OG budget (simSig), så de beregnede uger kan blive liggende – også ugen uden budget,
+// som budgetsøgningen sammenligner med (den skal så ikke regnes igen). Kun brugerens egne byt nulstilles, fordi forslaget skifter.
+function nulstilBudget() { for (const o of [simManuel, simAfvist, simFra]) for (const k in o) delete o[k]; }
 // Husstand og butikker gemmes for sig selv (også uden valgte retter): på enheden og – når man er logget ind – på brugeren (Supabase user_metadata),
 // så man ikke skal vælge dem igen næste gang eller på en anden enhed.
 const HUSSTAND_GEM = 'madplan-husstand', INTRO_GEM = 'madplan-intro';
@@ -1937,7 +1940,7 @@ function simuleringHtml() {
   return `<div class="panel simulering" id="simulering">
     <div class="panel-hoved"><div><h2>Madplan</h2><p class="sim-undertekst">Brug forslaget, byt en ret &ndash; eller vælg selv.</p></div>
       <span class="panel-hoved-hoejre">${simAendret(k) ? `<button type="button" class="chip" data-sim-nulstil="${esc(k)}">Tilbage til forslaget</button>` : ''}</span></div>
-    ${budgetNote(pris)}
+    ${budgetNote(pris, k, antalDage)}
     <div class="kalender">${kort}</div>
     <div class="sim-bund">
       <div class="sim-valg">${antalDage ? `<button type="button" class="knap" data-sim-indkoeb>Brug ${antalDage === plan.length ? 'forslaget' : 'planen'} &rarr;</button>` : ''}
@@ -1945,11 +1948,18 @@ function simuleringHtml() {
     </div></div>`;
 }
 
-function budgetNote(pris) {  // ærlig besked under madplanens overskrift: budgettet holdt eller ej
+function budgetNote(pris, k, dage = 7) {  // ærlig besked under madplanens overskrift: budgettet holdt eller ej
   if (!(state.budget > 0) || !pris || !pris.ialt) return '';
-  const ialt = Math.round(pris.ialt);
-  return ialt <= state.budget ? `<p class="bud-note ok">Inden for dit budget: ${kr(ialt)} af ${kr(state.budget)}.</p>`
-    : `<p class="bud-note over">Billigste uge vi kan finde her koster ${kr(ialt)} &ndash; ${kr(ialt - state.budget)} over dit budget på ${kr(state.budget)}. Prøv en anden butik eller et højere budget.</p>`;
+  // Den præcise pris sammenlignes (ikke den afrundede), så 600,40 kr aldrig kaldes "inden for" et budget på 600 kr; overskridelsen rundes op.
+  const ialt = Math.round(pris.ialt), inden = pris.ialt <= state.budget, over = Math.max(1, Math.ceil(pris.ialt - state.budget));
+  if (k && simAendret(k)) {  // brugeren har byttet/fjernet retter: tal om brugerens egen madplan, aldrig "billigste uge"
+    const forslag = simPris(k), fTekst = forslag && forslag.ialt ? ` Vores forslag for ugen koster ${kr(Math.round(forslag.ialt))}.` : '';
+    const hvad = dage === 7 ? 'Din madplan' : `Din madplan (${dage} ${dage === 1 ? 'dag' : 'dage'})`;
+    return inden ? `<p class="bud-note ok">${hvad} er inden for dit budget: ${kr(ialt)} af ${kr(state.budget)}.</p>`
+      : `<p class="bud-note over">${hvad} koster ${kr(ialt)} &ndash; ${kr(over)} over dit budget på ${kr(state.budget)}.${fTekst}</p>`;
+  }
+  return inden ? `<p class="bud-note ok">Inden for dit budget: ${kr(ialt)} af ${kr(state.budget)}.</p>`
+    : `<p class="bud-note over">Billigste uge vi kan finde her koster ${kr(ialt)} &ndash; ${kr(over)} over dit budget på ${kr(state.budget)}. Prøv en anden butik eller et højere budget.</p>`;
 }
 // "Dine valg": et personikon i toppen, der åbner en boks med valg, der gælder hele siden (nu: hvem der skal spise med – senere fx økologi og allergier)
 const FIGUR = '<svg class="hl-figur" viewBox="0 0 20 30" aria-hidden="true"><circle cx="10" cy="7" r="5.2"/><path d="M1.5 29.5v-5.8a8.5 8.5 0 0 1 17 0v5.8z"/></svg>';
@@ -2657,11 +2667,15 @@ document.addEventListener('keydown', e => {
 });
 
 // ---------- Hændelser ----------
+document.addEventListener('click', e => {  // "Fjern" ved budgettet (egen lytter, så den fælles klik-vælger ikke ændres)
+  if (!e.target.closest('[data-budget-ryd]')) return;
+  state.budget = 0; nulstilBudget(); gemHusstand(); opdaterHusstand();
+});
 document.addEventListener('change', e => {
   if (e.target.id !== 'budget-input') return;
   const v = Math.max(0, Math.min(20000, Math.round(+e.target.value || 0)));
   if (v === state.budget) return;
-  state.budget = v; nulstilSim(); gemHusstand(); opdaterHusstand();
+  state.budget = v; nulstilBudget(); gemHusstand(); opdaterHusstand();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && husstandAaben) { husstandAaben = false; husstandLinje(); } });
 document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList?.contains('info-i')) { e.preventDefault(); e.target.classList.toggle('aaben'); } });
@@ -2671,7 +2685,7 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-budget-ryd],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken],[data-udskriv]');
+  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken],[data-udskriv]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if ('ing' in d) { e.stopPropagation(); const pop = document.getElementById('ing-pop'); if (pop && pop.style.display === 'block' && ingKilde === t && !pop.dataset.fast) return ingSkjul(); return ingVis(t, false); }
@@ -2730,7 +2744,6 @@ document.addEventListener('click', e => {
     sletSky();
   }
   else if (d.husstand) { const [v, b] = d.husstand.split(',').map(Number); saetHusstand(v, b); return opdaterHusstand(); }
-  else if ('budgetRyd' in d) { state.budget = 0; nulstilSim(); gemHusstand(); return opdaterHusstand(); }
   else if (d.voksne) { saetHusstand(state.voksne + +d.voksne, state.boern); return opdaterHusstand(); }
   else if (d.boern) { saetHusstand(state.voksne, state.boern + +d.boern); return opdaterHusstand(); }
   else if ('handlet' in d) { state.handlet = true; lavPlan(); state.trin = 'plan'; }

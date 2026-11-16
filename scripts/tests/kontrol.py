@@ -164,7 +164,7 @@ if shutil.which('node'):
 else:
     advarsler.append('node findes ikke her – regressionstesten er IKKE kørt')
 
-# ---------- 9. Budget i ugeforslaget (node, samme datakopi; se scripts/tests/budget.js) ----------
+# ---------- 10. Budget i ugeforslaget (node, samme datakopi; se scripts/tests/budget.js) ----------
 if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'budget.js')):
     p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'budget.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)
     if p.returncode: fejl.append('Test af budget fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[:12]))
