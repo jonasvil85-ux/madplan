@@ -67,6 +67,15 @@
   const synlig = el => !!el && !el.closest('[hidden]') && el.getBoundingClientRect().height > 0;
   const enButik = k => { state.butikker = [k]; state.maxButikker = 0; state.koebButikker = []; renderButikker(); };
   const raekke = k => document.querySelector('.samm-raekke[data-sammvalg="' + CSS.escape(k) + '"]');
+  // Jonas 2026-11-16: på telefonen (390 × 844) skal hele forsiden ses uden at scrolle – butiksvalg, madplan og "Brug forslaget"
+  const paaEnSkaerm = navn => {
+    if (innerWidth > 400 || innerHeight < 800) return;
+    scrollTo(0, 0);
+    const k = document.querySelector('[data-sim-indkoeb]'), b = k ? Math.round(k.getBoundingClientRect().bottom) : null;
+    (maal.enSkaerm = maal.enSkaerm || {})[navn] = b;
+    if (b == null || b > innerHeight) fejl.push('Én skærm (' + navn + '): "Brug forslaget" slutter ved ' + b + ' px, skærmen er ' + innerHeight + ' px');
+    if (document.documentElement.scrollWidth > innerWidth + 1) fejl.push('Én skærm (' + navn + '): vandret scroll');
+  };
   // Én regel: tryk på kombiknappen → "Hvor mange butikker" anbefaler 2 butikker til samme pris, og madplanen koster det samme
   for (const [v, bo, forvent] of kombiTjek) {
     const H = v + '+' + bo;
@@ -104,6 +113,7 @@
     maal.madplanTop390 = top; maal.toButiksForslagPx = kombiH;
     if (top - kombiH > 756) fejl.push('Ét kort: madplanen starter ' + (top - kombiH) + ' px nede uden to-butiks-forslaget (krav: højst 756 px, dvs. 300 px højere end main)');
   }
+  paaEnSkaerm('én butik');
   // (6) rundvisningen: trin 2 = listen; et trin må kun pege på noget skjult, hvis det er "Hvor mange butikker" (springes over ved én butik)
   if (INTRO_TRIN[1].sel !== '#samm-plads') fejl.push('Rundvisning: trin 2 peger på ' + INTRO_TRIN[1].sel);
   for (const [i, t] of INTRO_TRIN.entries()) if (!synlig(document.querySelector(t.sel)) && t.sel !== '#antal-plads') fejl.push('Rundvisning: trin ' + (i + 1) + ' (' + t.sel + ') findes ikke eller er skjult');
@@ -114,6 +124,7 @@
   if (raekke(anden).getAttribute('aria-pressed') !== 'true' || raekke(foerste).getAttribute('aria-pressed') !== 'true') fejl.push('Flere butikker: begge rækker skal have flueben');
   if (!synlig(document.getElementById('antal-plads')) || !/2 butikker/.test(tekst(document.getElementById('antal-plads')))) fejl.push('Flere butikker: "Hvor mange butikker" viser ikke 2 butikker efter et tryk på en butik mere');
   if (document.querySelectorAll('.kalender .dag-kort').length !== 7) fejl.push('Flere butikker: madplanen har ikke 7 dage');
+  paaEnSkaerm('to butikker (' + foerste + '+' + anden + ')');
   raekke(anden).click(); await vent(2500);
   if (state.butikker.length !== 1 || state.butikker[0] !== foerste) fejl.push('Flere butikker: et tryk igen fjernede ikke ' + anden + ' (' + JSON.stringify(state.butikker) + ')');
   if (synlig(document.getElementById('antal-plads'))) fejl.push('Flere butikker: "Hvor mange butikker" vises stadig med én butik');
@@ -143,6 +154,9 @@
     if (ap.querySelector('.antal-knap')) fejl.push('Ubrugt butik: der står en ensom "1 butik"-knap');
     if (tekst(np)) fejl.push('Ubrugt butik: forklaringen står to gange ("' + tekst(np) + '")');
     maal.ubrugtButik = foerste + '+' + fundet + ': ' + tekst(ap).slice(0, 70);
+    paaEnSkaerm('ubrugt butik (' + foerste + '+' + fundet + ')');
+    // telefon: de valgte butikker står forrest i rækken (CSS order), så man kan se den ubrugte
+    if (innerWidth <= 400) { const r = raekke(fundet).getBoundingClientRect(); if (r.right > innerWidth || r.left < 0) fejl.push('Ubrugt butik: ' + fundet + ' er valgt, men står uden for skærmen i rækken'); }
     raekke(fundet).click(); await vent(1500);
     if (raekke(fundet).classList.contains('ubrugt')) fejl.push('Ubrugt butik: markeringen bliver hængende, efter butikken er fravalgt');
   }

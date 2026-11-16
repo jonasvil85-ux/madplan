@@ -84,3 +84,34 @@ Krav: BACKLOG "Ét kort" (revideret) og "Én regel for to butikker". Design: `ai
 - Mutationsprøve: rækkens markering fjernet. Testen fangede det ("rækken for spar siger ikke, at den ikke er med i madplanen").
 
 **Tidsmåling:** mine egne headless Edge-processer hobede sig op igen (68 stk.), og tiderne steg til ca. 250 ms, også i en kopi uden ændringen. Efter oprydning efter hver kørsel er tiderne 69–154 ms.
+
+## Hele forsiden på én telefonskærm (Jonas: "på telefonen kan se hele forsiden på én side uden at scroll")
+**Målt før:** på 390 × 844 px sluttede "Brug forslaget" ved 1.267 px på denne gren, 1.420 px på main og 980 px før sammenligningen.
+
+**Ændret, kun på telefon (≤ 600 px); computeren er uændret:**
+- Butikkerne er én række, man stryger i. Hver boks har flueben, logo, navn, pris og "Billigst". Den 4. butik stikker frem, så man kan se, at der er flere.
+- Dine valgte butikker står forrest i rækken (CSS order), og rækken glider tilbage til start, når du trykker.
+- En valgt butik, der ikke bruges, har stiplet kant, gråt flueben og "Ikke med".
+- Teksten under overskriften er kort, to linjer.
+- Overskriften "Aftensmad ud fra ugens tilbud" er skjult på telefonen (står stadig i siden).
+- To-butiks-tippet er kompakt. Står flere butikker valgt, er det én linje med knap.
+- "1 butik / 2 butikker" står side om side; den overstregede normalpris er skjult på telefonen.
+- Sætningen ved en ubrugt butik er samlet: "Madplanen bruger kun Lidl (421 kr) – SPAR gør ikke ugen billigere".
+- Madplanen: undertekst skjult på telefonen, lidt lavere ret-billeder og lidt mindre luft.
+
+**Resultat ("Brug forslaget" slutter ved, skærmen er 844 px):**
+
+| Tilstand | Bund |
+|---|---|
+| Én butik | 813 px |
+| Lidl + Netto | 817 px |
+| Lidl + SPAR (SPAR ubrugt) | 838 px |
+
+**Test:** browsertesten kræver for alle tre tilstande, at "Brug forslaget" er synlig uden at scrolle, og at der ikke er vandret scroll. Ved en ubrugt butik skal butikken stå på skærmen i rækken.
+- Mutationsprøve: hele telefon-blokken fjernet. Testen fangede alle tre tilstande (1.249 / 1.238 / 1.532 px).
+- Tidsmåling skiftevis mod udgaven før: samme niveau (0–180 ms). Udsving over 200 ms skyldes maskinens belastning.
+- Node-testen og budget har samme fingeraftryk som før, før/efter er 27 af 27 identiske, og `kontrol.py` består.
+
+**Grænse:** målt på 390 × 844 (almindelig nyere telefon). En lille telefon (fx 375 × 667) skal stadig scrolle lidt.
+
+**Undtagelse:** Jonas skrev "ja og lig den online" (står i BACKLOG). Kun loftet over H pr. dag er hævet for denne gren.
