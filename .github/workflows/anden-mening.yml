@@ -25,7 +25,6 @@ jobs:
     timeout-minutes: 30
     env:
       PROEV: ${{ inputs.proev == true }}
-      SECOND_OPINION_TAELLER: ${{ runner.temp }}/taeller
     steps:
       - uses: actions/checkout@v4
         with:
@@ -42,6 +41,7 @@ jobs:
         if: env.PROEV == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          SECOND_OPINION_TAELLER: ${{ runner.temp }}/taeller
         run: python3 scripts/second_opinion.py --proev
       - name: Er der plads i dag? (højst to kørsler om dagen)
         id: plads
@@ -63,6 +63,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           NR: ${{ steps.plads.outputs.nr }}
+          SECOND_OPINION_TAELLER: ${{ runner.temp }}/taeller
           OPGAVE: |
             Du er Måltidsjagtens Product Owner, UX Designer og Security Auditor i "anden mening"-kørsel. Læs ai/agenter/anden-mening.md og ai/regler.md og følg dem trin for trin.
             Udløst af en ændring i ai/BACKLOG.md eller ai/design/ på main. Find selv ud af, hvad der er nyt (git diff HEAD~1 HEAD), og tag højst 3 emner. Du må kun køre kommandoen python3 scripts/second_opinion.py (højst 3 kald; den afviser selv personoplysninger og nøgler).
