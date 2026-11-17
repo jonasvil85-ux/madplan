@@ -1,25 +1,26 @@
 # Status for AI-holdet
 
-HELBRED.md: GRØN (2026-11-16 11:40 UTC, begge domæner OK, main 25d3cb7). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll).
+**2026-11-17: "Hvor handler du?" (090801b) og flueben-CSS'en (4211735) er RULLET TILBAGE** – main var rød (kontrol.py FEJLET i Chromium: sammenlign_browser.py går ned på de nye målinger fra sammenlign_side.js). Siden er tilbage på butiksvalget fra før 2026-11-16 kl. 14.
 
-Sidst kontrolleret: 2026-11-16 ca. 12:15 UTC (kontrollant, femte kørsel)
-Main-status: BESTÅET (0 fejl, 10 advarsler), regressionstest bestået (main 0996d4b). Intet slået sammen i femte kørsel (dagens 3 H-pladser var brugt).
+HELBRED.md: GRØN (2026-11-17 03:57 UTC, begge domæner OK, før tilbagerulningen). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll, 23 små tryk-flader).
+
+Sidst kontrolleret: 2026-11-17 ca. 07:00 UTC (kontrollant i GitHub Actions, med Playwright/Chromium og node)
+Main-status: BESTÅET (0 fejl, 9 advarsler) efter tilbagerulning (4aab106); regression.py, regression.js, budget.js, sammenlign.js og sammenlign i Chromium bestået. Intet slået sammen i dag.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
-- 090801b "Hvor handler du?" (gren ai/2026-11-16-hvor-handler-du, klasse H; erstatter et-kort og to-butikker, som er slettet): slået sammen af CTO'en 2026-11-16 på Jonas' udtrykkelige ordre ("Gør en undtagelse og publicer den"), fordi kontrollant-rutinen ikke kunne startes fra den aktuelle konto. Inden udgivelse: kontrol.py BESTÅET på main; browsertest (sammenlign_side.js), sammenlign- og budgettestens kode kørt i headless Edge på det sammenflettede main: FEJL [] (én skærm 813/817/838 px). node-testene og sammenlign_browser.py er IKKE kørt i node/Playwright (findes ikke lokalt). Kontrollanten: kør dem, gennemgå diffen og rapporten (ai/rapporter/2026-11-16-udvikler-hvor-handler-du.md) som ved en almindelig H, og rul tilbage med `git revert -m 1 090801b`, hvis noget ikke holder.
-
-- Intet lille flueben i butiksboksen på telefon (gren ai/2026-11-16-hele-boksen, én CSS-linje, klasse A): udgivet af CTO'en på Jonas' ordre ("ja nu") uden forudgående kontrol. Browsertest i headless Edge: FEJL [] (én skærm 813/817/838 px). Efterprøv sammen med 090801b.
+(ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
 
 ## Afvist – udvikleren retter
-- ai/2026-11-16-et-kort (4e6d74f, forsøg 1, klasse H): rød-hold fandt en forkert tekst: når sammenligningen fejler, står der "Du kan stadig vælge butik ovenfor", men valget ligger nu nedenfor bag "Vælg selv flere butikker" (`sammStatus`). Desuden var dagens H-plads brugt (procedural, tæller ikke). Alt andet er bestået: kontrol, regression, browsertest i Chromium (madplan 1056 → 686 px), før/efter ens, revert-prøve. Ret teksten, så kan den tages i morgen.
-- ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H; uændret ved fjerde kørsel – afvist igen, tæller ikke): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
+- ai/2026-11-17-browsertest-sky (0b558ff, forsøg 1, klasse A): node-reserven gør enhver fejl efter opstart (timeout, side der ikke bliver klar, undtagelse i testen) til "IKKE KØRT" exit 3, som kontrol.py kun giver en advarsel for – en ødelagt forside giver BESTÅET i skyen. Gentaget: `SAMM` omdøbt i en kopi → exit 3 (Python-Playwright: exit 1). Kun manglende playwright/Chromium må give exit 3. Resten bestået (kontrol BESTÅET, accept 1–3, tekstmutation fanges).
+- "Hvor handler du?" (090801b + 4661112, forsøg 1, klasse H): rullet tilbage, se øverst. Selve sidens tjek gav fejl = []; ret runneren (eller tag den med fra browsertest-sky, når den er rettet) og indsend som gren. Kontrol.py skal være BESTÅET med Playwright.
+- ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H; uændret også 2026-11-17 – intet nyt forsøg): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
 
 ## Parkeret – Ejeren har dem (to forsøg brugt)
 - ai/2026-11-15-fravalg-budget (7ad8866, klasse H): fravalg lader stadig igennem: mayonnaise/remoulade under "Æg" (6 butikker), pesto under "Mælkeprodukter", "hakket kød 8-12%" (svin+kalv) under "Okse og kalv". Budgetdelen er i orden (8/9 under 600 kr) – foreslås bygget som egen gren.
 - ai/2026-11-16-mobil-tryk-flader (cccb0f6, klasse A): forsiden 36 → 1 element under 40 px, men "Om Måltidsjagten" i sidefoden er 95 × 14 px, og accept (4) (madplan-hero.png 405 KB) er ikke gjort. Forslag: flyt (4) til eget H-krav. Erstatter ai/2026-11-15-mobil-tryk-flader.
 
 ## Rullet tilbage
-(ingen)
+- 2026-11-17: 4211735 (flueben, e202c61) og 090801b "Hvor handler du?" (4aab106), udgivet 2026-11-16 uden forudgående kontrol. Årsag: kontrol.py FEJLET på main (TypeError i sammenlign_browser.py linje 46; før 090801b bestået). Efter tilbagerulning: BESTÅET. Se ai/rapporter/2026-11-17-kontrol.md.
 
 ## Seneste sammenlægninger
 - 2026-11-16: ai/2026-11-16-budget (H, f1c3024, forsøg 3): budget for ugens aftensmad i Dine valg. Skærpet validering bestået (før/efter identisk uden budget for 9 butikker × 3 husstande, 7/9 under 600 kr, 5 rød-hold-forsøg, revert-prøve). Dagens 3. H. Opfølgning: "600 kr – 1 kr over 600 kr"-beskeden, afvigelse fra designfilens chips, "højt budget ændrer intet" gælder kun én butik.
