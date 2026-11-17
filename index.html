@@ -697,7 +697,25 @@ html body #fb-fod a { color: var(--text-1); }
 /* ======================================================================
    MIDDELVEJ: korte tekster er tilbage, men dæmpede. Færre mærkater, ingen store tekstblokke
    ====================================================================== */
-.fod { opacity: .7; }
+.fod { opacity: .7; } 
+.fod { opacity: 1; color: var(--text-2); }
+.fod summary::after { content: "+"; float: right; font-size: 18px; color: var(--text-3); }
+.fod details[open] summary::after { content: "\2013"; }
+@media (hover: hover) { .fod a:hover, .fod-knap:hover, .fod summary:hover { text-decoration: underline; } }
+.fod a:focus-visible, .fod-knap:focus-visible, .fod summary:focus-visible { outline: 2px solid var(--valgt); outline-offset: -2px; }
+@media (max-width: 600px) {
+  .fod { display: block; font-size: 15px; line-height: 1.4; padding-top: 0; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+  .fod details, .fod summary, .fod a, .fod-knap { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 48px; box-sizing: border-box; border-bottom: 1px solid var(--border); }
+  .fod details { display: block; min-height: 0; padding: 0; }
+  .fod details summary { border-bottom: 0; }
+  .fod details[open] summary { margin-bottom: 0; }
+  .fod [hidden] { display: none; }
+  .fod a::after { content: "\203A"; font-size: 18px; color: var(--text-3); }
+  .fod a, .fod-knap { -webkit-tap-highlight-color: transparent; }
+  .fod a:active, .fod-knap:active, .fod summary:active { background: var(--valgt-tint); }
+  .fod p { font-size: 14px; line-height: 1.5; padding: 4px 0 16px; }
+}
+@media (min-width: 601px) { .fod { font-size: 13px; } .fod a, .fod-knap, .fod summary { padding: 12px 0; } }
 
 /* forsiden: kun overskriften, uden billedbanner og brødtekst */
 .hero { display: block; min-height: 0; margin-bottom: 14px; border: 0; background: none; box-shadow: none; overflow: visible; }
