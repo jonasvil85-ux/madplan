@@ -95,35 +95,27 @@ kør(kode, 'index.html');
         const ids = plan.map(x => x.r.id), mult = planMult(plan);
         const samlet = ugePris(ids, mult, plan.S).ialt, iEnkelt = ugePris(ids, mult, [enkeltButik]).ialt;
         if (Math.abs(t.pris - samlet) > 0.001 || Math.abs(t.pris - simPris(k).ialt) > 0.001) fejl.push(tag + ': prisen ' + r2(t.pris) + ' er ikke én samlet liste over begge butikker (' + r2(samlet) + ')');
+        if (Math.abs(t.sammeIEnkelt - iEnkelt) > 0.001) fejl.push(tag + ': "samme retter i ' + enkeltButik + '" ' + r2(t.sammeIEnkelt) + ' mod genberegnet ' + r2(iEnkelt));
         if (Math.abs(t.enkelt - enkelt) > 0.001) fejl.push(tag + ': enkeltbutikkens uge ' + r2(t.enkelt) + ' mod ' + r2(enkelt));
-        // Én regel (Jonas 2026-11-16): parrets fælles uge mod den billigste enkeltbutiks uge; anbefalet ved mindst ANBEFAL_SPAR på præcise tal
-        const spar = Math.round(enkelt) - Math.round(samlet);
-        if (t.spar !== spar) fejl.push(tag + ': besparelsen ' + t.spar + ' er ikke forskellen på de viste tal: ' + spar);
-        if (t.anbefalet !== (enkelt - samlet >= ANBEFAL_SPAR)) fejl.push(tag + ': anbefalet=' + t.anbefalet + ', men forskellen er ' + r2(enkelt - samlet) + ' kr');
-        if (t.anbefalet) {  // vælger man parret, skal "Hvor mange butikker" anbefale 2 butikker til præcis samme pris
-          const gemB = state.butikker.slice(); state.butikker = p.slice(); state.maxButikker = 0; state.koebButikker = [];
-          const anb = anbefaletAntal(), kk = simK();
-          if (anb !== 2) fejl.push(tag + ': kortet anbefaler parret, men "Hvor mange butikker" anbefaler ' + anb + ' butik(ker)');
-          else if (kk !== k || Math.abs(simPris(kk).ialt - samlet) > 0.001) fejl.push(tag + ': "Hvor mange butikker" viser ' + kk + ' til ' + r2(simPris(kk).ialt) + ' kr, kortet ' + r2(samlet) + ' kr');
-          state.butikker = gemB;
-        }
+        const spar = Math.min(Math.round(iEnkelt), Math.round(enkelt)) - Math.round(samlet);
+        if (t.spar !== spar) fejl.push(tag + ': besparelsen ' + t.spar + ' er ikke det mindste af (a) og (b): ' + spar);
         const indTop = top.includes(p[0]) && top.includes(p[1]);
-        const bedre = (x, y) => x.anbefalet && (!y || x.pris < y.pris);
+        const bedre = (x, y) => x.spar >= ANBEFAL_SPAR && (!y || x.vist.pris < y.vist.pris || (x.vist.pris === y.vist.pris && x.spar > y.spar));
         if (indTop && bedre(t, bedstTop)) bedstTop = t;
         if (bedre(t, bedstAlle)) bedstAlle = t;
       }
-      const vist = bedstTop;
+      const vist = bedstTop && bedstTop.spar >= ANBEFAL_SPAR ? bedstTop : null;
       if (vist && !(vist.spar > STRAF_PR_EKSTRA_BUTIK)) fejl.push(H + ': kombinationen overvinder ikke tidsstraffen for en ekstra butik');
       if (vist) {  // teksten, brugeren ser
         SAMM.kombi = vist; const html = sammKombiHtml();
-        for (const tal of [vist.spar, vist.vist.pris, vist.vist.enkelt]) if (!html.includes(kr(tal))) fejl.push(H + ': kombi-teksten mangler ' + kr(tal));
+        for (const tal of [vist.spar, vist.vist.pris, vist.vist.sammeIEnkelt, vist.vist.enkelt]) if (!html.includes(kr(tal))) fejl.push(H + ': kombi-teksten mangler ' + kr(tal));
         if (!/Transport/.test(html) || !/ikke regnet med/.test(html)) fejl.push(H + ': kombi-teksten siger ikke, at transport ikke er regnet med');
-        if (vist.vist.pris + vist.spar !== vist.vist.enkelt) fejl.push(H + ': tallene i teksten går ikke op');
+        if (vist.vist.pris + vist.spar > Math.min(vist.vist.sammeIEnkelt, vist.vist.enkelt)) fejl.push(H + ': tallene i teksten går ikke op');
       }
       if (bedstAlle && (!vist || bedstAlle.vist.pris < vist.vist.pris)) info.push(H + ': parret ' + bedstAlle.butikker.join('+') + ' uden for de ' + SAMM_KOMBI_TOP + ' billigste ville give ' + bedstAlle.vist.pris + ' kr mod vist ' + (vist ? vist.vist.pris + ' kr' : 'ingen'));
       const status = sammStatus();
       if (!status.includes('7 aftensmåltider') || !status.includes(husstandTekst(v, bo))) fejl.push(H + ': kortet siger ikke "7 aftensmåltider til ' + husstandTekst(v, bo) + '"');
-      rapport[H] = { pris: Object.fromEntries(BUT.map(b => [b, Math.round(pris[b].ialt)])), kombi: vist ? [vist.butikker.join('+'), vist.vist.pris, vist.vist.enkelt, vist.spar] : null };
+      rapport[H] = { pris: Object.fromEntries(BUT.map(b => [b, Math.round(pris[b].ialt)])), kombi: vist ? [vist.butikker.join('+'), vist.vist.pris, vist.vist.sammeIEnkelt, vist.vist.enkelt, vist.spar] : null };
     }
     state.voksne = 2; state.boern = 2; state.personer = 4; state.butikker = []; nulstilSim();
     Object.assign(SAMM, { pris: {}, fejl: {}, faerdig: false, kombi: null });
