@@ -4,8 +4,8 @@
 
 HELBRED.md: GRØN (2026-11-17 03:57 UTC, begge domæner OK, før tilbagerulningen). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll, 23 små tryk-flader).
 
-Sidst kontrolleret: 2026-11-17 ca. 07:15 UTC (kontrollant i GitHub Actions, kørsel 2, udløst af ai/2026-11-17-sidefod-tryk-flader)
-Main-status: BESTÅET (0 fejl, 9 advarsler) på 6740e0f; regression.py, regression.js, budget.js, sammenlign.js og sammenlign i Chromium bestået. Udgivet index.html byte-identisk med main. Intet slået sammen i dag.
+Sidst kontrolleret: 2026-11-17 ca. 09:10 UTC (kontrollant, sky-kørsel 3)
+Main-status: BESTÅET (0 fejl, 10 advarsler) på f4ecd4e; regression.py bestået. Browsertesten af sammenlign butikker ikke kørt i denne session (Playwright mangler). Ingen grene ændret siden kørsel 2 – intet slået sammen, intet nyt forsøg talt.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
 (ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
