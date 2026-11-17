@@ -10,40 +10,58 @@ import functools, http.server, os, sys, threading
 
 sys.stdout.reconfigure(encoding='utf-8')
 ROD = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+NODE_RESERVE = False
 try:
     from playwright.sync_api import sync_playwright
 except ImportError:
-    print('IKKE KØRT: Playwright findes ikke her (pip install playwright && playwright install chromium)')
-    sys.exit(3)
+    # Reserve: node-Playwright (sammenlign_browser_node.js), hvis node og Playwright findes her
+    import shutil, subprocess, json as _json
+    node = shutil.which('node')
+    if not node:
+        print('IKKE KØRT: Playwright findes ikke her (pip install playwright && playwright install chromium)')
+        sys.exit(3)
+    q = subprocess.run([node, os.path.join(ROD, 'scripts', 'tests', 'sammenlign_browser_node.js'), ROD], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
+    if q.returncode == 3:
+        print(q.stderr.strip() or 'IKKE KØRT: Playwright findes ikke her (hverken i Python eller node)')
+        sys.exit(3)
+    if q.returncode != 0:
+        print('FEJL: node-browsertesten fejlede:', (q.stderr.strip() or q.stdout.strip())[:300])
+        sys.exit(1)
+    _r = _json.loads(q.stdout)
+    NODE_RESERVE = True
+    ud, js_fejl = _r['ud'], _r['jsFejl']
 
-class Stille(http.server.SimpleHTTPRequestHandler):
-    def log_message(self, *a): pass
+if not NODE_RESERVE:
+    class Stille(http.server.SimpleHTTPRequestHandler):
+        def log_message(self, *a): pass
 
-srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), functools.partial(Stille, directory=ROD))
-threading.Thread(target=srv.serve_forever, daemon=True).start()
-url = f'http://127.0.0.1:{srv.server_address[1]}/'
-test = open(os.path.join(ROD, 'scripts', 'tests', 'sammenlign_side.js'), encoding='utf-8').read()
-js_fejl = []
-try:
-    with sync_playwright() as p:
-        try:
-            b = p.chromium.launch()
-        except Exception as e:
-            print('IKKE KØRT: Chromium kunne ikke startes:', str(e).splitlines()[0])
-            sys.exit(3)
-        side = b.new_page(viewport={'width': 390, 'height': 844}, has_touch=True, is_mobile=True)
-        side.on('pageerror', lambda e: js_fejl.append(str(e)[:200]))
-        side.route('**/*', lambda r: r.abort() if not r.request.url.startswith(url) else r.continue_())  # kun den lokale kopi (logoer udefra blokeres)
-        side.goto(url)
-        side.wait_for_function("typeof data !== 'undefined' && data && data.butikker && typeof SAMM !== 'undefined'", timeout=60000)
-        side.evaluate("() => { localStorage.clear(); document.querySelector('[data-intro-luk]')?.click(); }")
-        ud = side.evaluate(test)
-        b.close()
-finally:
-    srv.shutdown()
+    srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), functools.partial(Stille, directory=ROD))
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    url = f'http://127.0.0.1:{srv.server_address[1]}/'
+    test = open(os.path.join(ROD, 'scripts', 'tests', 'sammenlign_side.js'), encoding='utf-8').read()
+    js_fejl = []
+    try:
+        with sync_playwright() as p:
+            try:
+                b = p.chromium.launch()
+            except Exception as e:
+                print('IKKE KØRT: Chromium kunne ikke startes:', str(e).splitlines()[0])
+                sys.exit(3)
+            side = b.new_page(viewport={'width': 390, 'height': 844}, has_touch=True, is_mobile=True)
+            side.on('pageerror', lambda e: js_fejl.append(str(e)[:200]))
+            side.route('**/*', lambda r: r.abort() if not r.request.url.startswith(url) else r.continue_())  # kun den lokale kopi (logoer udefra blokeres)
+            side.goto(url)
+            side.wait_for_function("typeof data !== 'undefined' && data && data.butikker && typeof SAMM !== 'undefined'", timeout=60000)
+            side.evaluate("() => { localStorage.clear(); document.querySelector('[data-intro-luk]')?.click(); }")
+            ud = side.evaluate(test)
+            b.close()
+    finally:
+        srv.shutdown()
 import json
 d = json.loads(ud)
-for h, m in d['maal'].items(): print(f"{h}: længste opgave {m['laengsteOpgaveMs']} ms; to butikker: {m.get('kombi')}")
+for h, m in d['maal'].items():
+    if isinstance(m, dict) and 'laengsteOpgaveMs' in m: print(f"{h}: længste opgave {m['laengsteOpgaveMs']} ms; to butikker: {m.get('kombi')}")
+    else: print(f"{h}: {m}")
 fejl = d['fejl'] + [f'JavaScript-fejl: {e}' for e in js_fejl]
 for f in fejl[:30]: print('FEJL:', f)
 print('SAMMENLIGN I BROWSER:', 'BESTÅET' if not fejl else f'FEJLET ({len(fejl)} fejl)')
