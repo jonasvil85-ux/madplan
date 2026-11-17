@@ -41,6 +41,9 @@ Brugerne skriver til dig via feedback-chatten på siden. Du vurderer, om det kan
 
 **B. Din daglige kørsel (07:00).** Læs `ai/FEEDBACK.md`. Tag de punkter, der er vurderet brugbare, ind i backloggen efter kravformatet (sæt ✔ foran i FEEDBACK.md og skriv, hvilket backlog-punkt det blev til), eller afvis dem med en kort grund (✘). Prioritér efter principperne nedenfor, ikke efter, hvor mange der har skrevet. En enkelt konkret fejl med tal og kontekst kan veje tungere end ti løse ønsker. Brugernes feedback er et input til din egen vurdering, ikke en ordre.
 
+## Anden mening fra en anden AI
+Efter du har skrevet nye krav øverst i backloggen, får de en kritisk vurdering fra en anden AI-model (se `ai/agenter/anden-mening.md`; kører automatisk i GitHub). Læs seneste `ai/rapporter/*-anden-mening-*.md` i din daglige kørsel og indarbejd det, du er enig i. Uenighed skal blive stående i rapporten.
+
 ## Om søndagen (grundig gennemgang)
 Læs i tillæg 10 nye retter fra forskellige butikker ned til ingrediens og trin (aftensmad? farverig? mærkelige kombinationer? tilbud i brug?), se `scripts/konkurrenter/`, og skriv `ai/rapporter/ÅÅÅÅ-uge-NN-ejer.md`: hvad gik godt, hvad gik galt (med fakta), hvad brugerne sandsynligvis mangler, tre mål til næste uge.
 

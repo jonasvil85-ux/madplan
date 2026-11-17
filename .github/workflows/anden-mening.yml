@@ -1,0 +1,98 @@
+# Anden mening: lader den agent, der har skrevet et nyt krav eller design, få en kritisk vurdering fra en anden AI-model (Cloudflare Workers AI) og vurdere den.
+# Instruks: ai/agenter/anden-mening.md. Modellen er rådgiver; resultatet er en rapport i ai/rapporter/ (…-anden-mening-N.md), som Product Owner og UX Designer læser næste dag.
+# Kører, når ai/BACKLOG.md eller ai/design/** ændres på main, højst to gange om dagen. Kan startes med hånden; med "proev" afprøves kun forbindelsen (ét kort spørgsmål, ingen agent).
+# Kræver hemmelighederne CLOUDFLARE_API_TOKEN (samme som billederne; skal også have Workers AI-adgang til tekstmodeller) og CLAUDE_CODE_OAUTH_TOKEN (samme som kontrollanten).
+# Oprettet på Jonas' anmodning 2026-11-17 (grundlovsfil).
+name: Anden mening
+on:
+  push:
+    branches: [main]
+    paths: ['ai/BACKLOG.md', 'ai/design/**']
+  workflow_dispatch:
+    inputs:
+      proev:
+        description: 'Kun afprøv forbindelsen til modellen (ingen agent, ingen ændringer)'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: anden-mening
+  cancel-in-progress: false
+jobs:
+  dialog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PROEV: ${{ inputs.proev == true }}
+      SECOND_OPINION_TAELLER: ${{ runner.temp }}/taeller
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - name: Hemmelighederne findes?
+        env:
+          CF: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          C: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          if [ -z "$CF" ]; then echo "Mangler hemmeligheden CLOUDFLARE_API_TOKEN"; exit 1; fi
+          if [ -z "$C" ] && [ "$PROEV" != "true" ]; then echo "Mangler hemmeligheden CLAUDE_CODE_OAUTH_TOKEN"; exit 1; fi
+      - name: Prøve af forbindelsen
+        if: env.PROEV == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: python3 scripts/second_opinion.py --proev
+      - name: Er der plads i dag? (højst to kørsler om dagen)
+        id: plads
+        if: env.PROEV != 'true'
+        run: |
+          n=$(ls ai/rapporter/$(date -u +%F)-anden-mening-*.md 2>/dev/null | wc -l)
+          echo "I dag: $n rapporter"
+          if [ "$n" -ge 2 ]; then echo "ja=nej" >> "$GITHUB_OUTPUT"; else echo "ja=ja" >> "$GITHUB_OUTPUT"; echo "nr=$((n+1))" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-node@v4
+        if: env.PROEV != 'true' && steps.plads.outputs.ja == 'ja'
+        with:
+          node-version: '22'
+      - name: Installér Claude Code
+        if: env.PROEV != 'true' && steps.plads.outputs.ja == 'ja'
+        run: npm install -g @anthropic-ai/claude-code
+      - name: Agenterne og den anden model
+        if: env.PROEV != 'true' && steps.plads.outputs.ja == 'ja'
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          NR: ${{ steps.plads.outputs.nr }}
+          OPGAVE: |
+            Du er Måltidsjagtens Product Owner, UX Designer og Security Auditor i "anden mening"-kørsel. Læs ai/agenter/anden-mening.md og ai/regler.md og følg dem trin for trin.
+            Udløst af en ændring i ai/BACKLOG.md eller ai/design/ på main. Find selv ud af, hvad der er nyt (git diff HEAD~1 HEAD), og tag højst 3 emner. Du må kun køre kommandoen python3 scripts/second_opinion.py (højst 3 kald; den afviser selv personoplysninger og nøgler).
+            Skriv rapporten ai/rapporter/ÅÅÅÅ-MM-DD-anden-mening-${NR}.md (dagens dato i UTC, N = ${NR}) og ingen andre filer. Slet spoergsmaal.txt, når du er færdig. Er der intet nyt at validere, så skriv det i rapporten og kald ikke modellen.
+            Slut med en kort rapport på dansk: emner, hvad modellen sagde, hvad du tog med.
+        run: |
+          claude -p "$OPGAVE" --model claude-sonnet-5-5 --permission-mode default --allowedTools "Bash(python3 scripts/second_opinion.py:*)" Read Write Edit Glob Grep --output-format text | tee anden-mening-svar.txt
+      - name: Tjek og commit (kun rapporten, ingen e-mailadresser)
+        if: env.PROEV != 'true' && steps.plads.outputs.ja == 'ja'
+        run: |
+          rm -f spoergsmaal.txt anden-mening-svar.txt
+          git config user.name "Madplan anden mening"
+          git config user.email "noreply@github.com"
+          python3 - <<'PY'
+          import re, subprocess, sys
+          ud = subprocess.run(['git', 'status', '--porcelain', '--untracked-files=all'], capture_output=True, text=True).stdout.splitlines()
+          filer = [l[3:].strip().strip('"') for l in ud if l.strip()]
+          if not filer: sys.exit('Ingen rapport skrevet – intet at committe')
+          forbudt = [f for f in filer if not re.fullmatch(r'ai/rapporter/[0-9]{4}-[0-9]{2}-[0-9]{2}-anden-mening-[12]\.md', f)]
+          if forbudt: sys.exit('Agenten ændrede filer, den ikke må: ' + ', '.join(forbudt))
+          for f in filer:
+              if re.search(r'[\w.+-]+@[\w-]+\.[\w.-]+', open(f, encoding='utf-8').read()):
+                  sys.exit('Der står en e-mailadresse i ' + f + ' – stoppet')
+          open('tilladte.txt', 'w').write('\n'.join(filer))
+          PY
+          xargs -a tilladte.txt git add
+          rm -f tilladte.txt
+          git commit -m "Anden mening: $(date -u +%F)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Ryd op
+        if: always()
+        run: rm -f spoergsmaal.txt anden-mening-svar.txt tilladte.txt

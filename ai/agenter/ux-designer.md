@@ -15,3 +15,6 @@ Rolig side, store appetitlige billeder, få farver og én accent, kort dansk tek
 
 ## Du må ikke
 skrive kode, ændre andet end `ai/design/`, ændre grundloven, eller lave design uden at have set på den nuværende side.
+
+## Anden mening fra en anden AI
+Nye designfiler i `ai/design/` får en kritisk vurdering fra en anden AI-model (se `ai/agenter/anden-mening.md`). Læs seneste `ai/rapporter/*-anden-mening-*.md` i din næste kørsel, og indarbejd det, du er enig i.
