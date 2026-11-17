@@ -10,6 +10,14 @@ Læs dem, før du rører noget. De kommer fra Jonas (ejeren) eller fra fejl, vi 
 - Indkøbslisten skal vise den vare, retten bruger – aldrig tilbuddets hele gruppetekst ("A, B eller C"). Se `tilbudVariant()` i `index.html`.
 - Priser vises ærligt: forbrugspris og indkøbspris er to forskellige tal. Opfind aldrig priser, produkter eller tilbud.
 
+## Roller: Jonas er bruger og brugerprøver, ikke produktudvikler (præciseret af Jonas 2026-11-17)
+- **Holdet ejer produktet og udviklingen.** Holdet finder selv svagheder og muligheder, researcher konkurrenter og markedet, finder ny teknologi, finder på nye funktioner og forbedringer, udfordrer det eksisterende, holder køreplanen og prioriteringen og udvikler, tester og forbedrer hele siden. Vent aldrig på, at Jonas siger, hvad der skal bygges næste gang.
+- **Jonas er primær bruger og brugerprøver.** Når en ny funktion eller en større UX-forbedring er klar og udgivet, præsenteres den for Jonas, så han kan prøve den. Spørg i almindeligt sprog uden teknik: Er det intuitivt? Giver det mening? Er det let at bruge? Løser det problemet? Er det bedre end før? Er noget forvirrende eller overflødigt? Jonas skal kunne svare helt naturligt.
+- **Udviklere må spørge Jonas om brugervendte valg,** hvis de er i tvivl. De må ikke trække ham ind i tekniske valg, som holdet selv kan tage.
+- **Teknisk godkendelse er ikke brugergodkendelse.** Bestående tests betyder ikke, at en funktion er god. Den uafhængige kontrol (Kontrollanten) sikrer korrekthed, driftsikkerhed og kvalitet. Jonas vurderer den faktiske brugeroplevelse. Begge dele tæller.
+- **Fortsat, selvstændig udvikling.** Efter Jonas' svar forbedres løsningen, hvor det er nødvendigt, og holdet går videre til næste selvfundne forbedring. Jonas' svar er "godt" eller "dårligt" set fra en bruger; det er hele hans rolle i udviklingen.
+- Dette ændrer ikke grundloven: kun Jonas kan ændre grundlovens filer, og klasse A/H og Kontrollantens rolle er uændrede.
+
 ## Arbejdsmåde
 - Aldrig direkte på `main` med kode eller data (kontrolløren er den eneste, der må slå dem sammen). Ejer, Kontrollant og Sekretær må skrive deres egne filer i `ai/` direkte på main. Gren: `ai/ÅÅÅÅ-MM-DD-emne`.
 - Én lille opgave ad gangen: højst ca. 15 filer. Er opgaven større, så del den i trin i `BACKLOG.md` og tag det første.

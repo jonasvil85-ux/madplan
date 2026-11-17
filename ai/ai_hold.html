@@ -1,0 +1,266 @@
+<title>Måltidsjagtens AI-hold</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: smalle tekstspalter, tal øverst, ét stort flowdiagram, så tabeller; farve = rollens afgørelse (grøn slås sammen, rød afvist, orange kontrol bagefter). */
+:root {
+  --bg: #FAF7F2; --surface: #FFFFFF; --ink: #261C15; --muted: #6E6055; --line: #D9CFC3;
+  --accent: #C9561E; --accent-soft: #F6E2D6; --tool: #E9EEF0; --tool-line: #8A9AA3;
+  --ok: #2F6B3F; --ok-soft: #DCEBDD; --warn: #8A5A00; --warn-soft: #F5E7C4; --bad: #A12B2B; --bad-soft: #F3D9D6;
+  --font: 'Instrument Sans', system-ui, sans-serif; --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1A1410; --surface: #251D17; --ink: #F2E9DF; --muted: #A8998B; --line: #44372D;
+  --accent: #E8793F; --accent-soft: #3A2417; --tool: #1F2A30; --tool-line: #6F8793;
+  --ok: #7FC48F; --ok-soft: #1E3324; --warn: #E3B25A; --warn-soft: #382B10; --bad: #EE8A83; --bad-soft: #3B1D1B; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #1A1410; --surface: #251D17; --ink: #F2E9DF; --muted: #A8998B; --line: #44372D;
+  --accent: #E8793F; --accent-soft: #3A2417; --tool: #1F2A30; --tool-line: #6F8793;
+  --ok: #7FC48F; --ok-soft: #1E3324; --warn: #E3B25A; --warn-soft: #382B10; --bad: #EE8A83; --bad-soft: #3B1D1B; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.55;
+  padding-block: 40px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 40px; }
+.txt { max-width: 66ch; }
+h1 { font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; text-wrap: balance; }
+h2 { font-size: 1.25rem; margin: 0 0 10px; letter-spacing: -0.01em; }
+p { margin: 0 0 10px; }
+.lead { font-size: 1.1rem; color: var(--muted); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+.tal { display: flex; flex-wrap: wrap; gap: 12px; }
+.tal > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 20px; min-width: 150px; }
+.tal b { display: block; font-size: 2.4rem; line-height: 1; letter-spacing: -.02em; color: var(--accent); }
+.tal span { font-size: 14px; color: var(--muted); }
+figure { margin: 0; }
+.fig { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; }
+.fig svg { display: block; min-width: 780px; width: 100%; height: auto; }
+figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; max-width: 76ch; }
+svg text { font-family: var(--font); fill: var(--ink); }
+.t { font-size: 14px; font-weight: 600; } .s { font-size: 11.5px; fill: var(--muted); } .l { font-size: 11.5px; fill: var(--muted); font-style: italic; }
+.box { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+.agent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.tool { fill: var(--tool); stroke: var(--tool-line); stroke-width: 1.5; }
+.ok { fill: var(--ok-soft); stroke: var(--ok); stroke-width: 1.5; }
+.bad { fill: var(--bad-soft); stroke: var(--bad); stroke-width: 1.5; }
+.ln { stroke: var(--muted); stroke-width: 1.6; fill: none; } .ln.back { stroke: var(--bad); stroke-dasharray: 5 4; } .ln.weak { stroke: var(--muted); stroke-dasharray: 2 4; }
+.ar { fill: var(--muted); } .ar.back { fill: var(--bad); }
+.nøgle { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.nøgle i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; border: 1.5px solid; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td:first-child { font-weight: 600; }
+.scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.scroll table { min-width: 700px; }
+.time { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 99px; }
+.pill.a { background: var(--ok-soft); color: var(--ok); } .pill.h { background: var(--ok-soft); color: var(--ok); outline: 1px solid var(--ok); }
+.pill.x { background: var(--bad-soft); color: var(--bad); } .pill.g { background: var(--accent-soft); color: var(--accent); }
+.status { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.status > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.status b { display: block; margin-bottom: 4px; }
+.status .k { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; }
+.k.ok { color: var(--ok); } .k.wait { color: var(--warn); }
+code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+</style>
+
+<div class="wrap">
+  <header class="txt">
+    <p class="eyebrow">Måltidsjagten.dk · opdateret 15. november 2026</p>
+    <h1>Sådan udvikler AI-holdet siden hver dag</h1>
+    <p class="lead">Ni agenter arbejder på hver sin rolle og kontrollerer hinanden. Fire automatiske værktøjer måler siden og giver agenterne øjne. Du skal ikke godkende noget, og du får én rapport om dagen.</p>
+  </header>
+
+  <section class="tal" aria-label="Antal">
+    <div><b>9</b><span>agenter (Claude-rutiner)</span></div>
+    <div><b>7</b><span>kører hver dag</span></div>
+    <div><b>2</b><span>kører hver uge</span></div>
+    <div><b>4</b><span>automatiske værktøjer (GitHub)</span></div>
+  </section>
+
+  <section>
+    <h2>Flowet</h2>
+    <figure>
+      <div class="fig">
+        <svg viewBox="0 0 1000 1010" role="img" aria-label="Ejeren, sikkerhedsagenten og SEO-agenten skriver krav i backloggen. UX-designeren designer. Frontend- og backend-udvikleren bygger på hver sin gren. Kontrolløren validerer og vælger afvist, klasse H eller klasse A. Det slås sammen til main og udgives. Tilbudsrutinen og billedhandlingen skriver data direkte til main. Sekretæren sender dagsrapport til Jonas.">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ar" d="M0,0 L10,5 L0,10 z"/></marker>
+            <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ar back" d="M0,0 L10,5 L0,10 z"/></marker>
+          </defs>
+
+          <!-- krav -->
+          <rect class="agent" x="10" y="30" width="170" height="60" rx="8"/><text class="t" x="95" y="56" text-anchor="middle">Agent - Sikkerhed</text><text class="s" x="95" y="74" text-anchor="middle">onsdag · ugentlig</text>
+          <rect class="agent" x="190" y="30" width="180" height="60" rx="8"/><text class="t" x="280" y="56" text-anchor="middle">Agent - SEO og vækst</text><text class="s" x="280" y="74" text-anchor="middle">torsdag · ugentlig</text>
+          <rect class="agent" x="410" y="30" width="180" height="60" rx="8"/><text class="t" x="500" y="56" text-anchor="middle">Agent - Ejer</text><text class="s" x="500" y="74" text-anchor="middle">CTO og produkt · dagligt 07:00</text>
+          <rect class="box" x="410" y="130" width="180" height="60" rx="8"/><text class="t" x="500" y="156" text-anchor="middle">Backlog + køreplan</text><text class="s" x="500" y="174" text-anchor="middle">krav med acceptkriterier</text>
+          <path class="ln" d="M500,90 V130" marker-end="url(#ah)"/>
+          <path class="ln" d="M95,90 V160 H410" marker-end="url(#ah)"/>
+          <path class="ln" d="M280,90 V145 H410" marker-end="url(#ah)"/>
+          <text class="l" x="105" y="152">fund som krav</text>
+
+          <!-- tilbudsrutine -->
+          <rect class="agent" x="825" y="130" width="170" height="60" rx="8"/><text class="t" x="910" y="156" text-anchor="middle">Agent - Tilbudsrutinen</text><text class="s" x="910" y="174" text-anchor="middle">dagligt 06:08</text>
+
+          <!-- designer -->
+          <path class="ln" d="M500,190 V250" marker-end="url(#ah)"/><text class="l" x="510" y="224">øverste UX-krav</text>
+          <rect class="agent" x="410" y="250" width="180" height="60" rx="8"/><text class="t" x="500" y="276" text-anchor="middle">Agent - UX-designer</text><text class="s" x="500" y="294" text-anchor="middle">dagligt 07:15 · designfil</text>
+
+          <!-- udviklere -->
+          <path class="ln" d="M455,310 V340 H385 V370" marker-end="url(#ah)"/><text class="l" x="395" y="338">designfil</text>
+          <path class="ln" d="M590,160 H685 V370" marker-end="url(#ah)"/><text class="l" x="695" y="250">[BACKEND] [DATA] [TEST]</text>
+          <rect class="agent" x="275" y="370" width="220" height="60" rx="8"/><text class="t" x="385" y="396" text-anchor="middle">Agent - Frontend-udvikler</text><text class="s" x="385" y="414" text-anchor="middle">dagligt 07:30 · [UX]</text>
+          <rect class="agent" x="575" y="370" width="220" height="60" rx="8"/><text class="t" x="685" y="396" text-anchor="middle">Agent - Backend og data</text><text class="s" x="685" y="414" text-anchor="middle">dagligt 07:30</text>
+
+          <!-- grene -->
+          <path class="ln" d="M385,430 V490" marker-end="url(#ah)"/><path class="ln" d="M685,430 V490" marker-end="url(#ah)"/>
+          <rect class="box" x="300" y="490" width="470" height="50" rx="8"/><text class="t" x="535" y="512" text-anchor="middle">Grene ai/dato-emne: ændring + rapport + kontrol bestået</text><text class="s" x="535" y="528" text-anchor="middle">de rører aldrig main</text>
+
+          <!-- kontrollant -->
+          <path class="ln" d="M535,540 V590" marker-end="url(#ah)"/><text class="l" x="545" y="570">hentes 10:00</text>
+          <rect class="agent" x="410" y="590" width="250" height="80" rx="8"/><text class="t" x="535" y="616" text-anchor="middle">Agent - Kontrollant (QA)</text><text class="s" x="535" y="634" text-anchor="middle">kører kontrollerne selv, læser diffen</text><text class="s" x="535" y="649" text-anchor="middle">tjekker acceptkriterier, vælger A eller H</text>
+
+          <!-- værktøjer til kontrollant -->
+          <rect class="tool" x="760" y="590" width="210" height="80" rx="8"/><text class="t" x="865" y="614" text-anchor="middle">Vagtpost + Browser-QA</text><text class="s" x="865" y="632" text-anchor="middle">GitHub · browser + internet</text><text class="s" x="865" y="647" text-anchor="middle">HELBRED · BROWSER · billeder</text>
+          <path class="ln weak" d="M760,630 H660" marker-end="url(#ah)"/><text class="l" x="710" y="622" text-anchor="middle">måler siden</text>
+
+          <!-- afgørelser -->
+          <path class="ln" d="M470,670 V700 H315 V730" marker-end="url(#ah)"/><text class="l" x="392" y="692" text-anchor="middle">rød eller mangler</text>
+          <path class="ln" d="M535,670 V730" marker-end="url(#ah)"/><text class="l" x="545" y="705">klasse H</text>
+          <path class="ln" d="M600,670 V700 H715 V730" marker-end="url(#ah)"/><text class="l" x="660" y="692" text-anchor="middle">klasse A</text>
+          <rect class="bad" x="230" y="730" width="170" height="64" rx="8"/><text class="t" x="315" y="756" text-anchor="middle">Afvist</text><text class="s" x="315" y="774" text-anchor="middle">fejlrapport, 2 forsøg</text>
+          <rect class="ok" x="450" y="730" width="170" height="64" rx="8"/><text class="t" x="535" y="756" text-anchor="middle">H: skærpet kontrol</text><text class="s" x="535" y="774" text-anchor="middle">regression, før/efter, rød-hold</text>
+          <rect class="ok" x="630" y="730" width="170" height="64" rx="8"/><text class="t" x="715" y="756" text-anchor="middle">A: slås sammen</text><text class="s" x="715" y="774" text-anchor="middle">alt grønt</text>
+          <path class="ln back" d="M230,762 H200 V400 H275" marker-end="url(#ahb)"/><text class="l" x="190" y="590" text-anchor="end" style="fill:var(--bad)">tilbage til udvikleren</text>
+
+          <!-- main -->
+          <path class="ln" d="M535,794 V850" marker-end="url(#ah)"/><path class="ln" d="M715,794 V850" marker-end="url(#ah)"/>
+          <rect class="box" x="430" y="850" width="400" height="56" rx="8"/><text class="t" x="630" y="874" text-anchor="middle">main → Vercel → madplan-blue.vercel.app</text><text class="s" x="630" y="892" text-anchor="middle">udgives automatisk · kan rulles tilbage</text>
+          <path class="ln" d="M965,190 V200 H990 V878 H830" marker-end="url(#ah)"/><text class="l" transform="rotate(-90 982 520)" x="982" y="520" text-anchor="middle">data direkte</text>
+          <rect class="tool" x="40" y="850" width="170" height="56" rx="8"/><text class="t" x="125" y="874" text-anchor="middle">Billedhandling</text><text class="s" x="125" y="892" text-anchor="middle">GitHub · dagligt 06:35</text>
+          <path class="ln" d="M210,878 H430" marker-end="url(#ah)"/><text class="l" x="320" y="870" text-anchor="middle">billeder direkte</text>
+
+          <!-- sekretær -->
+          <path class="ln" d="M630,906 V940" marker-end="url(#ah)"/>
+          <rect class="agent" x="545" y="940" width="170" height="56" rx="8"/><text class="t" x="630" y="964" text-anchor="middle">Agent - Sekretær</text><text class="s" x="630" y="982" text-anchor="middle">dagligt 11:30</text>
+          <path class="ln" d="M715,968 H790" marker-end="url(#ah)"/><text class="l" x="752" y="960" text-anchor="middle">e-mail</text>
+          <rect class="box" x="790" y="940" width="150" height="56" rx="8"/><text class="t" x="865" y="964" text-anchor="middle">Jonas</text><text class="s" x="865" y="982" text-anchor="middle">læser. Godkender intet</text>
+        </svg>
+      </div>
+      <div class="nøgle" aria-hidden="true">
+        <span><i style="background:var(--accent-soft);border-color:var(--accent)"></i>agent (Claude-rutine)</span>
+        <span><i style="background:var(--tool);border-color:var(--tool-line)"></i>automatisk værktøj (GitHub)</span>
+        <span><i style="background:var(--ok-soft);border-color:var(--ok)"></i>slås sammen</span>
+        <span><i style="background:var(--bad-soft);border-color:var(--bad)"></i>afvist</span>
+      </div>
+      <figcaption>Ejeren efterkontrollerer hver dag, om det udgivne opfyldte kravet, og skriver et nyt krav, hvis ikke. Kontrollantens første trin næste dag er vagtposten: den læser målingerne og kan rulle en sammenlægning tilbage.</figcaption>
+    </figure>
+  </section>
+
+  <section class="txt">
+    <h2>Hvad de gør, med almindelige ord</h2>
+    <p><b>Agent - Tilbudsrutinen</b> starter dagen. Den henter ugens nye tilbudsaviser fra Tjek, finder ud af, hvilke aftensretter der kan laves af varer på tilbud, og opdaterer sidens data. Den skriver direkte til siden, fordi det er data og ikke kode.</p>
+    <p><b>Agent - Ejer</b> er den, der bestemmer, hvad der skal bygges. Den passer køreplanen, skriver små opgaver (krav) med klare kriterier for, hvornår de er færdige, og ser dagen efter på den udgivne side, om opgaven faktisk blev løst. Hvis ikke, skriver den en ny opgave. Om søndagen gennemgår den det hele grundigere.</p>
+    <p><b>Agent - UX-designer</b> kigger på siden og skærmbillederne og laver en designfil til de vigtigste opgaver om udseende og brug. Hvis en opgave er dårlig for brugeren, siger den fra, i stedet for bare at tegne den.</p>
+    <p><b>Agent - Frontend-udvikler</b> bygger det, brugeren ser og trykker på, efter designfilen. Den arbejder på sin egen gren og rører aldrig den udgivne side, og den skriver en rapport med bevis for, at hvert kriterium er opfyldt.</p>
+    <p><b>Agent - Backend og data</b> bygger det, der ligger bag: beregning af priser, filtre, data og tests. Den arbejder også på sin egen gren og skal vise før/efter-tal, når den rører noget, der kan ændre en pris.</p>
+    <p><b>Agent - Kontrollant</b> er den uafhængige kontrol. Den har ikke skrevet koden selv. Den kører alle tests, læser hele ændringen, tjekker kriterierne og vælger så: slå sammen, afvise med en fejlrapport eller kræve skærpet kontrol, hvis ændringen rører priser eller indkøbsliste. Den er den eneste, der må slå noget sammen med den udgivne side, og den kan rulle en ændring tilbage.</p>
+    <p><b>Agent - Sekretær</b> samler dagens fakta (hvad der blev bygget, afvist og udgivet) i én kort rapport til dig. Den sendes som e-mail og telefonbesked.</p>
+    <p><b>Agent - Sikkerhed</b> gennemgår hver onsdag hemmeligheder, adgangsregler i Supabase, koden på siden, afhængigheder og privatliv. Den skriver det, den finder, som opgaver. Den ændrer ikke selv noget.</p>
+    <p><b>Agent - SEO og vækst</b> kigger hver torsdag på søgemaskiner, om brugerne kommer igen, og måling. Den foreslår kun nye sider, hvis de har rigtigt indhold, og skriver forslagene som opgaver.</p>
+  </section>
+
+  <section>
+    <h2>De ni agenter</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Dansk tid</th><th>Agent</th><th>Opgave</th><th>Skriver til</th></tr></thead>
+      <tbody>
+        <tr><td class="time">06:08</td><td>Tilbudsrutinen</td><td>Henter nye aviser fra Tjek, skriver retter og bygger data.</td><td>main direkte</td></tr>
+        <tr><td class="time">07:00</td><td>Agent - Ejer</td><td>CTO og produkt: ejer køreplanen, skriver krav med acceptkriterier, efterkontrollerer det udgivne. Om søndagen en grundig gennemgang.</td><td>backlog, rapporter</td></tr>
+        <tr><td class="time">07:15</td><td>Agent - UX-designer</td><td>Omsætter de øverste UX-krav til designfiler og udfordrer dårlige krav. Ser på siden og skærmbillederne først.</td><td><code>ai/design/</code></td></tr>
+        <tr><td class="time">07:30</td><td>Agent - Frontend-udvikler</td><td>Bygger det brugeren ser, efter designfilen.</td><td>egen gren</td></tr>
+        <tr><td class="time">07:30</td><td>Agent - Backend og data</td><td>Bygger beregning, filtre, data og tests. Klasse H kræver før/efter-tal for alle 9 butikker.</td><td>egen gren</td></tr>
+        <tr><td class="time">10:00</td><td>Agent - Kontrollant</td><td>Uafhængig QA: kører kontrollerne selv, tjekker kriterierne, slår sammen, afviser eller ruller tilbage.</td><td>main (kun efter validering)</td></tr>
+        <tr><td class="time">11:30</td><td>Agent - Sekretær</td><td>Samler dagens fakta til én rapport og sender den som e-mail og telefonbesked.</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/DAGENS.md" target="_blank" rel="noopener"><code>ai/DAGENS.md</code></a></td></tr>
+        <tr><td class="time">ons 08:00</td><td>Agent - Sikkerhed</td><td>Gennemgår hemmeligheder, Supabase-regler, frontend, afhængigheder og privatliv. Skriver fund som krav.</td><td>backlog, rapporter</td></tr>
+        <tr><td class="time">tor 08:00</td><td>Agent - SEO og vækst</td><td>SEO, fastholdelse og måling. Foreslår kun sider med reelt indhold.</td><td>backlog, rapporter</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>De fire værktøjer, der ikke er agenter</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Værktøj</th><th>Hvornår</th><th>Hvad det gør</th></tr></thead>
+      <tbody>
+        <tr><td>Billedhandling</td><td>dagligt 06:35</td><td>Laver billeder til nye retter og bygger data igen.</td></tr>
+        <tr><td>Vagtpost</td><td>efter hver ændring og hver 3. time</td><td>Sammenligner den udgivne side med main og skriver <code>HELBRED.md</code>. Rydder sammenlagte grene.</td></tr>
+        <tr><td>Browser-QA</td><td>efter hver ændring og hver 6. time</td><td>Åbner siden i en rigtig browser, måler scroll, fejl, tryk-flader og hastighed, tager skærmbilleder af flowet og skriver <code>BROWSER.md</code>.</td></tr>
+        <tr><td>Dagsrapport</td><td>når rapporten ændres</td><td>Sender sekretærens rapport som en GitHub-sag, så den ender som e-mail.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Hvor ligger agenterne?</h2>
+    <p>Agenterne er Claude-rutiner i Anthropics sky. De kører ikke på din pc. Rutinerne ligger på din <b>private</b> Claude-konto og kan ses og pauses på <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><code>claude.ai/code/routines</code></a>. Fra arbejdskontoen kan de ikke ses. Hver agent læser sin instruks fra repoet og skriver tilbage til det.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Agent</th><th>Kører som</th><th>Instruks i repoet</th><th>Resultatet ligger</th></tr></thead>
+      <tbody>
+        <tr><td>Agent - Tilbudsrutinen</td><td>Claude-rutine (claude.ai)</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/RUTINE.md" target="_blank" rel="noopener"><code>scripts/RUTINE.md</code></a></td><td>main (data og retter)</td></tr>
+        <tr><td>Agent - Ejer</td><td>Claude-rutine (claude.ai)</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ejer.md" target="_blank" rel="noopener"><code>ai/agenter/ejer.md</code></a></td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/BACKLOG.md" target="_blank" rel="noopener"><code>ai/BACKLOG.md</code></a>, <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/ROADMAP.md" target="_blank" rel="noopener"><code>ai/ROADMAP.md</code></a>, <code>ai/rapporter/</code></td></tr>
+        <tr><td>Agent - UX-designer</td><td>Claude-rutine (claude.ai)</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ux-designer.md" target="_blank" rel="noopener"><code>ai/agenter/ux-designer.md</code></a></td><td><code>ai/design/</code></td></tr>
+        <tr><td>Agent - Frontend-udvikler</td><td>Claude-rutine (claude.ai)</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ux-udvikler.md" target="_blank" rel="noopener"><code>ai/agenter/ux-udvikler.md</code></a></td><td>gren <code>ai/dato-emne</code></td></tr>
+        <tr><td>Agent - Backend og data</td><td>Claude-rutine (claude.ai)</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/backend-udvikler.md" target="_blank" rel="noopener"><code>ai/agenter/backend-udvikler.md</code></a></td><td>gren <code>ai/dato-emne</code></td></tr>
+        <tr><td>Agent - Kontrollant</td><td>Claude-rutine (claude.ai) hver morgen <b>og</b> GitHub-handlingen <i>Kontrollant</i>, når en udviklergren pushes</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/kontrollant.md" target="_blank" rel="noopener"><code>ai/agenter/kontrollant.md</code></a> og <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/kontrollant.yml" target="_blank" rel="noopener"><code>.github/workflows/kontrollant.yml</code></a></td><td>main og <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/STATUS.md" target="_blank" rel="noopener"><code>ai/STATUS.md</code></a></td></tr>
+        <tr><td>Agent - Sekretær</td><td>Claude-rutine (claude.ai)</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/sekretaer.md" target="_blank" rel="noopener"><code>ai/agenter/sekretaer.md</code></a></td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/DAGENS.md" target="_blank" rel="noopener"><code>ai/DAGENS.md</code></a></td></tr>
+        <tr><td>Agent - Sikkerhed</td><td>Claude-rutine (claude.ai), ugentlig</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/sikkerhed.md" target="_blank" rel="noopener"><code>ai/agenter/sikkerhed.md</code></a></td><td>backlog, rapporter</td></tr>
+        <tr><td>Agent - SEO og vækst</td><td>Claude-rutine (claude.ai), ugentlig</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/seo-vaekst.md" target="_blank" rel="noopener"><code>ai/agenter/seo-vaekst.md</code></a></td><td>backlog, rapporter</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Systemerne bag</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>System</th><th>Bruges til</th><th>Hvor / hvad</th></tr></thead>
+      <tbody>
+        <tr><td>GitHub</td><td>Al kode, alle agent-instrukser, grene, de fire værktøjer (GitHub Actions)</td><td>Repo <a href="https://github.com/jonasvil85-ux/madplan" target="_blank" rel="noopener"><code>jonasvil85-ux/madplan</code></a> (offentligt). <code>main</code> er produktion. Lokalt: <code>Desktop\madplan</code></td></tr>
+        <tr><td>GitHub Actions</td><td>Kontrollant (når en gren pushes), Vagtpost, Browser-QA, Billedhandling, Dagsrapport</td><td><code>.github/workflows/</code>. Hemmeligheder: <code>CLAUDE_CODE_OAUTH_TOKEN</code> (kontrolløren, din private konto) og <code>CLOUDFLARE_API_TOKEN</code> (billeder)</td></tr>
+        <tr><td>Claude-rutiner (claude.ai)</td><td>De ni agenters daglige og ugentlige kørsel</td><td>Din private Claude-konto, <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><code>claude.ai/code/routines</code></a>. Her pauser du alt</td></tr>
+        <tr><td>Vercel</td><td>Udgiver siden automatisk, når <code>main</code> ændres</td><td><code>madplan-blue.vercel.app</code> og <code>måltidsjagten.dk</code></td></tr>
+        <tr><td>Supabase</td><td>Login og brugerfeedback</td><td>Agenterne kan ikke læse den (se nederst)</td></tr>
+        <tr><td>Tjek</td><td>Ugens tilbudsaviser, som tilbudsrutinen henter</td><td>Offentligt API; kræver en User-Agent</td></tr>
+        <tr><td>Cloudflare Workers AI</td><td>Billeder til nye retter</td><td>Bruges af Billedhandlingen</td></tr>
+        <tr><td>Facebook</td><td>Markedsføring (planlagt: en markedsføringsagent)</td><td>Siden <code>facebook.com/profile.php?id=61596462307739</code>. Ikke koblet til agenter endnu</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Valideringen i stedet for din godkendelse</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Slags ændring</th><th>Klasse</th><th>Hvad der skal til, før den slås sammen</th></tr></thead>
+      <tbody>
+        <tr><td>Tekst, design, retter, billeder, tests, dokumentation</td><td><span class="pill a">A</span></td><td>Kontrollen er bestået, alle acceptkriterier er opfyldt og set af kontrolløren</td></tr>
+        <tr><td>Priser, mængder, indkøbsliste, madplanens beregning, cache, byggescripts</td><td><span class="pill h">H</span></td><td>Alt fra A, og desuden: regressionstest bestået, før/efter-tal for alle 9 butikker, mindst tre egne forsøg på at få den til at fejle, tilbagerulning afprøvet</td></tr>
+        <tr><td>Kontrollen er rød, eller et kriterium mangler</td><td><span class="pill x">Afvist</span></td><td>Fejlrapport til udvikleren, to forsøg, så får Ejeren opgaven tilbage</td></tr>
+        <tr><td>Rutinernes instrukser, regler, GitHub-handlinger, login og privatliv</td><td><span class="pill g">Grundlov</span></td><td>Ingen agent kan ændre dem. Ejer og sikkerhedsagent kan foreslå; kun du gennemfører. Den eneste menneskelige port</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Hvad der er bevist, og hvad der ikke er</h2>
+    <div class="status">
+      <div><span class="k ok">Virker</span><b>Kontrolløren afviser korrekt</b>Den afviste i dag min egen gren, fordi et før/efter-tal manglede. Det er reglen, der virker, også mod mig.</div>
+      <div><span class="k ok">Virker</span><b>Udvikling og sammenlægning</b>Udvikleren byggede regressionstesten på 3 minutter, og kontrolløren slog den sammen efter egne forsøg på at få den til at fejle.</div>
+      <div><span class="k ok">Virker</span><b>Vagtpost og billeder</b>Vagtposten er grøn, og billednøglen virker.</div>
+      <div><span class="k wait">Mangler</span><b>Browser-QA</b>Lige oprettet. Første kørsel afgør, om skærmbillederne når frem, og jeg har ikke kunnet teste scriptet lokalt.</div>
+      <div><span class="k wait">Mangler</span><b>Nye agenter</b>UX-designer, backend, sikkerhed og SEO/vækst har ikke kørt endnu. Første kørsel i morgen og senere på ugen.</div>
+      <div><span class="k wait">Mangler</span><b>Forbrug</b>Ni agenter bruger mere af dit abonnement end før. Det er ikke målt.</div>
+    </div>
+  </section>
+
+  <section class="txt">
+    <h2>Hvad holdet ikke kan</h2>
+    <p>Agenterne kan ikke selv klikke rundt på siden; de læser målinger og skærmbilleder fra Browser-QA. De kan ikke læse brugerfeedback (Supabase) eller trafik (Vercel Insights), og skyen kan ikke komme på nettet til konkurrentresearch.</p>
+  </section>
+</div>

@@ -13,6 +13,14 @@ Du taler på vegne af brugeren: en dansk familie (2 voksne + 2 børn), der vil s
 4. **Hold toppen af backloggen klar:** de 5 øverste punkter skal have et fuldt krav (se format). Ryd op, slå dubletter sammen, højst 15 åbne punkter, hvert punkt lille nok til én dag.
 5. Commit kun `ai/BACKLOG.md` og `ai/rapporter/` direkte på `main` ("Ejer: ÅÅÅÅ-MM-DD").
 
+## Dit ansvar for retningen og brugerprøven (Jonas 2026-11-17, se `ai/regler.md`)
+Jonas er bruger og brugerprøver. Han skal IKKE finde på idéer, forbedringer eller funktioner og skal ikke styre køreplanen. Det er dit og holdets ansvar. Vent aldrig på ham.
+- **Find selv det næste:** svagheder i siden, konkurrenter (`scripts/konkurrenter/`), nye muligheder og teknologi. Skriv dem som krav i backloggen og hold `ai/ROADMAP.md` levende.
+- **Brugerprøve:** når en ny funktion eller en større UX-forbedring er udgivet og efterkontrolleret, så tilføj den til afsnittet "Til prøve hos Jonas" i din rapport (Sekretæren sender den videre). Skriv i hverdagssprog: hvad er nyt, hvor finder man det, og højst tre spørgsmål, fx: Er det intuitivt? Giver det mening? Er det bedre end før? Er noget forvirrende eller overflødigt? Ingen teknik, ingen filnavne.
+- **Efter Jonas' svar:** er svaret "dårligt" eller "forvirrende", så skriv et nyt krav øverst i backloggen med hans ord som begrundelse. Ellers gå videre til næste selvfundne forbedring.
+- Spørg kun Jonas om brugervendte valg, du ikke selv kan afgøre. Aldrig om tekniske valg.
+- Bestående kontrol (Kontrollanten) er ikke det samme som, at funktionen er god for brugeren. Du efterkontrollerer begge dele.
+
 ## Om søndagen (grundig gennemgang)
 Læs i tillæg 10 nye retter fra forskellige butikker ned til ingrediens og trin (aftensmad? farverig? mærkelige kombinationer? tilbud i brug?), se `scripts/konkurrenter/`, og skriv `ai/rapporter/ÅÅÅÅ-uge-NN-ejer.md`: hvad gik godt, hvad gik galt (med fakta), hvad brugerne sandsynligvis mangler, tre mål til næste uge.
 

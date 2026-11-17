@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Måltidsjagten – System architecture</title>
+<style>
+:root {
+  --bg: #FAF7F2; --surface: #FFFFFF; --ink: #261C15; --muted: #6E6055; --line: #D9CFC3;
+  --accent: #C9561E; --accent-soft: #F6E2D6; --tool: #E9EEF0; --tool-line: #8A9AA3;
+  --ok: #2F6B3F; --ok-soft: #DCEBDD; --warn: #8A5A00; --warn-soft: #F5E7C4; --bad: #A12B2B; --bad-soft: #F3D9D6;
+  --font: system-ui, 'Segoe UI', sans-serif; --mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root {
+  --bg: #1A1410; --surface: #251D17; --ink: #F2E9DF; --muted: #A8998B; --line: #44372D;
+  --accent: #E8793F; --accent-soft: #3A2417; --tool: #1F2A30; --tool-line: #6F8793;
+  --ok: #7FC48F; --ok-soft: #1E3324; --warn: #E3B25A; --warn-soft: #382B10; --bad: #EE8A83; --bad-soft: #3B1D1B; color-scheme: dark } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.55; padding: 40px 16px 64px; }
+.wrap { max-width: 1100px; margin: 0 auto; display: grid; gap: 36px; }
+.txt { max-width: 70ch; }
+h1 { font-size: clamp(2rem, 4vw, 2.7rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
+h2 { font-size: 1.25rem; margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+.lead { font-size: 1.1rem; color: var(--muted); }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+.fig { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; overflow-x: auto; }
+.fig svg { display: block; min-width: 900px; width: 100%; height: auto; }
+svg text { font-family: var(--font); fill: var(--ink); }
+.t { font-size: 14px; font-weight: 600; } .s { font-size: 11.5px; fill: var(--muted); } .l { font-size: 11.5px; fill: var(--muted); font-style: italic; }
+.band { fill: none; stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 2 0; }
+.bandlabel { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; fill: var(--muted); text-transform: uppercase; }
+.box { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+.agent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.tool { fill: var(--tool); stroke: var(--tool-line); stroke-width: 1.5; }
+.ext { fill: var(--warn-soft); stroke: var(--warn); stroke-width: 1.5; }
+.ok { fill: var(--ok-soft); stroke: var(--ok); stroke-width: 1.5; }
+.plan { stroke-dasharray: 6 4; }
+.ln { stroke: var(--muted); stroke-width: 1.6; fill: none; } .ln.mail { stroke: var(--accent); }
+.ar { fill: var(--muted); } .ar.mail { fill: var(--accent); }
+.key { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+.key i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; border: 1.5px solid; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td:first-child { font-weight: 600; }
+.scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.scroll table { min-width: 680px; }
+code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+svg a { cursor: pointer; } svg a:hover rect { stroke-width: 3; }
+a { color: var(--accent); }
+.links td:last-child a { margin-right: 14px; white-space: nowrap; }
+ol.flow { margin: 0; padding-left: 22px; } ol.flow li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="txt">
+  <p class="eyebrow">Måltidsjagten · system architecture</p>
+  <h1>How the site, the agents and the tools fit together</h1>
+  <p class="lead">A public website, built and maintained every day by nine Claude agents that review each other, with a handful of automatic GitHub tools that watch the live site. The team finds and builds every improvement itself. Jonas is the primary user and tries what is new, and he is also the only human who can change the constitution.</p>
+</header>
+
+<section>
+  <h2>Links</h2>
+  <p class="txt">Every box in the drawings below is clickable too. GitHub links open the instruction file or workflow in the repository. Claude routines and the dashboards need a login.</p>
+  <h3>Agents</h3>
+  <div class="scroll links"><table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Open</th></tr></thead>
+    <tbody>
+      <tr><td>Agent - Offers</td><td>Fetches offers, writes dishes and data</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/RUTINE.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - Owner</td><td>CTO and product, writes the backlog</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ejer.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - UX Designer</td><td>Design files for UX tasks</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ux-designer.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - Frontend Developer</td><td>Builds what the user sees</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ux-udvikler.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - Backend and Data</td><td>Prices, filters, data, tests</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/backend-udvikler.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - Reviewer</td><td>Independent QA, merges to main</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/kontrollant.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - Secretary</td><td>Daily report to Jonas</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/sekretaer.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - Security</td><td>Weekly security audit</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/sikkerhed.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+      <tr><td>Agent - SEO and Growth</td><td>Weekly search and growth review</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/seo-vaekst.md" target="_blank" rel="noopener">Instructions</a> <a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines on claude.ai</a></td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:20px">Automatic tools and systems</h3>
+  <div class="scroll links"><table>
+    <thead><tr><th>System</th><th>Role</th><th>Open</th></tr></thead>
+    <tbody>
+      <tr><td>GitHub repository</td><td>Code, data, instructions, history</td><td><a href="https://github.com/jonasvil85-ux/madplan" target="_blank" rel="noopener">Repository</a> <a href="https://github.com/jonasvil85-ux/madplan/branches" target="_blank" rel="noopener">Branches</a> <a href="https://github.com/jonasvil85-ux/madplan/commits/main" target="_blank" rel="noopener">Commits on main</a> <a href="https://github.com/jonasvil85-ux/madplan/settings/secrets/actions" target="_blank" rel="noopener">Secrets</a></td></tr>
+      <tr><td>GitHub Actions</td><td>All automatic tools</td><td><a href="https://github.com/jonasvil85-ux/madplan/actions" target="_blank" rel="noopener">All runs</a></td></tr>
+      <tr><td>Reviewer run</td><td>Reviews branches pushed to ai/**</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/kontrollant.yml" target="_blank" rel="noopener">Workflow file</a> <a href="https://github.com/jonasvil85-ux/madplan/actions/workflows/kontrollant.yml" target="_blank" rel="noopener">Runs</a> <a href="https://github.com/jonasvil85-ux/madplan/actions/workflows/kontrollant-noegle.yml" target="_blank" rel="noopener">Key test</a></td></tr>
+      <tr><td>Health Monitor</td><td>Compares the live site with main</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/vagtpost.yml" target="_blank" rel="noopener">Workflow file</a> <a href="https://github.com/jonasvil85-ux/madplan/actions/workflows/vagtpost.yml" target="_blank" rel="noopener">Runs</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/HELBRED.md" target="_blank" rel="noopener">Latest result</a></td></tr>
+      <tr><td>Browser QA</td><td>Real browser measurements and screenshots</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/browser-qa.yml" target="_blank" rel="noopener">Workflow file</a> <a href="https://github.com/jonasvil85-ux/madplan/actions/workflows/browser-qa.yml" target="_blank" rel="noopener">Runs</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/BROWSER.md" target="_blank" rel="noopener">Latest result</a></td></tr>
+      <tr><td>Image Generator</td><td>Images for new dishes</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/billeder.yml" target="_blank" rel="noopener">Workflow file</a> <a href="https://github.com/jonasvil85-ux/madplan/actions/workflows/billeder.yml" target="_blank" rel="noopener">Runs</a></td></tr>
+      <tr><td>Report Mailer</td><td>Sends the daily report as e-mail</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/dagsrapport.yml" target="_blank" rel="noopener">Workflow file</a> <a href="https://github.com/jonasvil85-ux/madplan/actions/workflows/dagsrapport.yml" target="_blank" rel="noopener">Runs</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/DAGENS.md" target="_blank" rel="noopener">Latest report</a></td></tr>
+      <tr><td>Claude routines</td><td>Where the nine agents run</td><td><a href="https://claude.ai/code/routines" target="_blank" rel="noopener">Routines (private account)</a></td></tr>
+      <tr><td>Website</td><td>What visitors see</td><td><a href="https://madplan-blue.vercel.app" target="_blank" rel="noopener">madplan-blue.vercel.app</a> <a href="https://www.xn--mltidsjagten-tcb.dk" target="_blank" rel="noopener">måltidsjagten.dk</a> <a href="https://madplan-blue.vercel.app/admin.html" target="_blank" rel="noopener">Admin dashboard</a></td></tr>
+      <tr><td>Vercel</td><td>Hosting and deploys</td><td><a href="https://vercel.com/dashboard" target="_blank" rel="noopener">Dashboard</a></td></tr>
+      <tr><td>Supabase</td><td>Login, saved plans, feedback</td><td><a href="https://supabase.com/dashboard" target="_blank" rel="noopener">Dashboard</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/auth.js" target="_blank" rel="noopener">Login code</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/feedback.js" target="_blank" rel="noopener">Feedback code</a> <a href="https://github.com/jonasvil85-ux/madplan/tree/main/scripts" target="_blank" rel="noopener">Table setup (SQL)</a></td></tr>
+      <tr><td>Tjek</td><td>Weekly offers</td><td><a href="https://tjek.com" target="_blank" rel="noopener">Tjek</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/tilbud.py" target="_blank" rel="noopener">Fetch script</a></td></tr>
+      <tr><td>Cloudflare Workers AI</td><td>Dish images</td><td><a href="https://dash.cloudflare.com" target="_blank" rel="noopener">Dashboard</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/billeder.py" target="_blank" rel="noopener">Image script</a></td></tr>
+      <tr><td>Facebook page</td><td>Marketing (Agent - Marketing is planned)</td><td><a href="https://www.facebook.com/profile.php?id=61596462307739" target="_blank" rel="noopener">Page</a></td></tr>
+      <tr><td>Team documents</td><td>Backlog, roadmap, status, rules</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/BACKLOG.md" target="_blank" rel="noopener">Backlog</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/ROADMAP.md" target="_blank" rel="noopener">Roadmap</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/STATUS.md" target="_blank" rel="noopener">Status</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/regler.md" target="_blank" rel="noopener">Rules</a> <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/README.md" target="_blank" rel="noopener">Team README</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Architecture</h2>
+  <div class="fig">
+  <svg viewBox="0 0 1100 925" role="img" aria-label="Architecture. Visitors use the site hosted on Vercel, which deploys from the main branch in GitHub. The site talks to Supabase for login and feedback. Nine Claude routines on claude.ai read instructions from the repository, work on branches and write reports. GitHub Actions run a Reviewer, a Health Monitor, a Browser QA, an Image Generator and a Report Mailer. External services are the Tjek offers API, Cloudflare Workers AI and Anthropic.">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="ar" d="M0,0 L10,5 L0,10 z"/></marker>
+    <marker id="ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="ar mail" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+
+    <!-- bands -->
+    <rect class="band" x="10" y="10" width="1080" height="100" rx="10"/><text class="bandlabel" x="24" y="30">People</text>
+    <rect class="band" x="10" y="130" width="1080" height="130" rx="10"/><text class="bandlabel" x="24" y="150">Production</text>
+    <rect class="band" x="10" y="280" width="1080" height="110" rx="10"/><text class="bandlabel" x="24" y="300">GitHub repository · jonasvil85-ux/madplan (public)</text>
+    <rect class="band" x="10" y="410" width="1080" height="120" rx="10"/><text class="bandlabel" x="24" y="430">GitHub Actions · automatic tools (not agents, except the Reviewer run)</text>
+    <rect class="band" x="10" y="550" width="1080" height="100" rx="10"/><text class="bandlabel" x="24" y="570">External services</text>
+    <rect class="band" x="10" y="670" width="1080" height="245" rx="10"/><text class="bandlabel" x="24" y="690">Claude routines · claude.ai · Jonas' private account · 9 agents (times are Copenhagen time)</text>
+
+    <!-- people -->
+    <a href="https://madplan-blue.vercel.app" target="_blank" rel="noopener"><rect class="box" x="150" y="44" width="250" height="56" rx="8"/><text class="t" x="275" y="68" text-anchor="middle">Visitors</text><text class="s" x="275" y="86" text-anchor="middle">phone and desktop browsers</text></a>
+    <rect class="box" x="700" y="44" width="300" height="56" rx="8"/><text class="t" x="850" y="68" text-anchor="middle">Jonas (user and tester)</text><text class="s" x="850" y="86" text-anchor="middle">tries new features · answers in plain words</text>
+
+    <!-- production -->
+    <a href="https://vercel.com/dashboard" target="_blank" rel="noopener"><rect class="tool" x="150" y="165" width="410" height="75" rx="8"/><text class="t" x="355" y="190" text-anchor="middle">Vercel</text><text class="s" x="355" y="208" text-anchor="middle">hosts the static site, deploys automatically when main changes</text><text class="s" x="355" y="224" text-anchor="middle">madplan-blue.vercel.app · måltidsjagten.dk</text></a>
+    <a href="https://supabase.com/dashboard" target="_blank" rel="noopener"><rect class="tool" x="600" y="165" width="180" height="75" rx="8"/><text class="t" x="690" y="190" text-anchor="middle">Supabase</text><text class="s" x="690" y="208" text-anchor="middle">login and user feedback</text><text class="s" x="690" y="224" text-anchor="middle">Postgres with row rules</text></a>
+    <a href="https://www.facebook.com/profile.php?id=61596462307739" target="_blank" rel="noopener"><rect class="box plan" x="820" y="165" width="180" height="75" rx="8"/><text class="t" x="910" y="190" text-anchor="middle">Facebook · Instagram</text><text class="s" x="910" y="208" text-anchor="middle">planned: Marketing agent</text><text class="s" x="910" y="224" text-anchor="middle">posts once a week</text></a>
+    <path class="ln" d="M275,100 V165" marker-end="url(#ah)"/><text class="l" x="283" y="138">HTTPS</text>
+    <path class="ln" d="M400,72 H690 V165" marker-end="url(#ah)"/><text class="l" x="545" y="64" text-anchor="middle">login and feedback straight from the browser</text>
+
+    <!-- github -->
+    <a href="https://github.com/jonasvil85-ux/madplan/tree/main/" target="_blank" rel="noopener"><rect class="ok" x="150" y="315" width="150" height="60" rx="8"/><text class="t" x="225" y="341" text-anchor="middle">main</text><text class="s" x="225" y="359" text-anchor="middle">= production</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/branches" target="_blank" rel="noopener"><rect class="box" x="340" y="315" width="280" height="60" rx="8"/><text class="t" x="480" y="341" text-anchor="middle">Branches ai/date-topic</text><text class="s" x="480" y="359" text-anchor="middle">developers work here, never on main</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/tree/main/ai" target="_blank" rel="noopener"><rect class="box" x="660" y="315" width="340" height="60" rx="8"/><text class="t" x="830" y="338" text-anchor="middle">ai/ folder</text><text class="s" x="830" y="354" text-anchor="middle">BACKLOG · ROADMAP · STATUS · HEALTH · BROWSER · DAILY</text><text class="s" x="830" y="368" text-anchor="middle">agent instructions in ai/agenter/</text></a>
+    <path class="ln" d="M225,315 V240" marker-end="url(#ah)"/><text class="l" x="233" y="282">auto-deploy</text>
+
+    <!-- actions -->
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/vagtpost.yml" target="_blank" rel="noopener"><rect class="tool" x="150" y="445" width="170" height="65" rx="8"/><text class="t" x="235" y="470" text-anchor="middle">Health Monitor</text><text class="s" x="235" y="488" text-anchor="middle">every 3 h and after changes</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/browser-qa.yml" target="_blank" rel="noopener"><rect class="tool" x="340" y="445" width="170" height="65" rx="8"/><text class="t" x="425" y="470" text-anchor="middle">Browser QA</text><text class="s" x="425" y="488" text-anchor="middle">every 6 h and after changes</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/billeder.yml" target="_blank" rel="noopener"><rect class="tool" x="550" y="445" width="170" height="65" rx="8"/><text class="t" x="635" y="470" text-anchor="middle">Image Generator</text><text class="s" x="635" y="488" text-anchor="middle">daily 06:35</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/kontrollant.yml" target="_blank" rel="noopener"><rect class="agent" x="740" y="445" width="150" height="65" rx="8"/><text class="t" x="815" y="470" text-anchor="middle">Reviewer run</text><text class="s" x="815" y="488" text-anchor="middle">when a branch is pushed</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/dagsrapport.yml" target="_blank" rel="noopener"><rect class="tool" x="910" y="445" width="150" height="65" rx="8"/><text class="t" x="985" y="470" text-anchor="middle">Report Mailer</text><text class="s" x="985" y="488" text-anchor="middle">when the report changes</text></a>
+    <path class="ln" d="M320,477 H330 V240" marker-end="url(#ah)"/><path class="ln" d="M340,477 H330"/><text class="l" x="338" y="262">measure the live site</text>
+    <path class="ln mail" d="M985,445 V405 H1045 V72 H1000" marker-end="url(#ahm)"/><text class="l" x="1053" y="250" transform="rotate(-90 1053 250)" text-anchor="middle">daily report by e-mail</text>
+
+    <!-- external -->
+    <a href="https://tjek.com" target="_blank" rel="noopener"><rect class="ext" x="30" y="585" width="190" height="55" rx="8"/><text class="t" x="125" y="609" text-anchor="middle">Tjek</text><text class="s" x="125" y="626" text-anchor="middle">weekly offers from 9 stores</text></a>
+    <a href="https://dash.cloudflare.com" target="_blank" rel="noopener"><rect class="ext" x="550" y="585" width="170" height="55" rx="8"/><text class="t" x="635" y="609" text-anchor="middle">Cloudflare Workers AI</text><text class="s" x="635" y="626" text-anchor="middle">dish images</text></a>
+    <a href="https://claude.ai/code/routines" target="_blank" rel="noopener"><rect class="ext" x="780" y="585" width="260" height="55" rx="8"/><text class="t" x="910" y="609" text-anchor="middle">Anthropic (Claude)</text><text class="s" x="910" y="626" text-anchor="middle">runs the routines and the Reviewer run</text></a>
+    <path class="ln" d="M635,585 V510" marker-end="url(#ah)"/>
+    <path class="ln" d="M125,640 V705" marker-end="url(#ah)"/>
+    <path class="ln" d="M530,705 V375" marker-end="url(#ah)"/><text class="l" x="522" y="602" text-anchor="end">read instructions ·</text><text class="l" x="522" y="616" text-anchor="end">push branches ·</text><text class="l" x="522" y="630" text-anchor="end">write reports</text>
+
+    <!-- routines row 1 -->
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/RUTINE.md" target="_blank" rel="noopener"><rect class="agent" x="30" y="705" width="190" height="70" rx="8"/><text class="t" x="125" y="729" text-anchor="middle">Agent - Offers</text><text class="s" x="125" y="746" text-anchor="middle">daily 06:08</text><text class="s" x="125" y="761" text-anchor="middle">writes dishes and data to main</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ejer.md" target="_blank" rel="noopener"><rect class="agent" x="238" y="705" width="190" height="70" rx="8"/><text class="t" x="333" y="729" text-anchor="middle">Agent - Owner</text><text class="s" x="333" y="746" text-anchor="middle">daily 07:00 · CTO and product</text><text class="s" x="333" y="761" text-anchor="middle">writes the backlog</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ux-designer.md" target="_blank" rel="noopener"><rect class="agent" x="446" y="705" width="190" height="70" rx="8"/><text class="t" x="541" y="729" text-anchor="middle">Agent - UX Designer</text><text class="s" x="541" y="746" text-anchor="middle">daily 07:15</text><text class="s" x="541" y="761" text-anchor="middle">writes design files</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/ux-udvikler.md" target="_blank" rel="noopener"><rect class="agent" x="654" y="705" width="190" height="70" rx="8"/><text class="t" x="749" y="729" text-anchor="middle">Agent - Frontend Developer</text><text class="s" x="749" y="746" text-anchor="middle">daily 07:30</text><text class="s" x="749" y="761" text-anchor="middle">builds on its own branch</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/backend-udvikler.md" target="_blank" rel="noopener"><rect class="agent" x="862" y="705" width="190" height="70" rx="8"/><text class="t" x="957" y="729" text-anchor="middle">Agent - Backend and Data</text><text class="s" x="957" y="746" text-anchor="middle">daily 07:30</text><text class="s" x="957" y="761" text-anchor="middle">builds on its own branch</text></a>
+    <!-- routines row 2 -->
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/kontrollant.md" target="_blank" rel="noopener"><rect class="agent" x="30" y="805" width="190" height="85" rx="8"/><text class="t" x="125" y="829" text-anchor="middle">Agent - Reviewer</text><text class="s" x="125" y="846" text-anchor="middle">daily 10:00 · independent QA</text><text class="s" x="125" y="861" text-anchor="middle">the only one that merges to main</text><text class="s" x="125" y="876" text-anchor="middle">and can roll a merge back</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/sekretaer.md" target="_blank" rel="noopener"><rect class="agent" x="238" y="805" width="190" height="85" rx="8"/><text class="t" x="333" y="829" text-anchor="middle">Agent - Secretary</text><text class="s" x="333" y="846" text-anchor="middle">daily 11:30</text><text class="s" x="333" y="861" text-anchor="middle">writes the daily report</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/sikkerhed.md" target="_blank" rel="noopener"><rect class="agent" x="446" y="805" width="190" height="85" rx="8"/><text class="t" x="541" y="829" text-anchor="middle">Agent - Security</text><text class="s" x="541" y="846" text-anchor="middle">Wednesday 08:00</text><text class="s" x="541" y="861" text-anchor="middle">audits secrets, access rules,</text><text class="s" x="541" y="876" text-anchor="middle">dependencies, privacy</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/seo-vaekst.md" target="_blank" rel="noopener"><rect class="agent" x="654" y="805" width="190" height="85" rx="8"/><text class="t" x="749" y="829" text-anchor="middle">Agent - SEO and Growth</text><text class="s" x="749" y="846" text-anchor="middle">Thursday 08:00</text><text class="s" x="749" y="861" text-anchor="middle">search, retention, measurement</text></a>
+    <rect class="agent plan" x="862" y="805" width="190" height="85" rx="8"/><text class="t" x="957" y="829" text-anchor="middle">Agent - Marketing</text><text class="s" x="957" y="846" text-anchor="middle">planned · weekly post</text><text class="s" x="957" y="861" text-anchor="middle">to Facebook and Instagram</text>
+  </svg>
+  </div>
+  <div class="key">
+    <span><i style="background:var(--accent-soft);border-color:var(--accent)"></i>agent (Claude)</span>
+    <span><i style="background:var(--tool);border-color:var(--tool-line)"></i>automatic tool or hosted service</span>
+    <span><i style="background:var(--warn-soft);border-color:var(--warn)"></i>external data or compute</span>
+    <span><i style="background:var(--ok-soft);border-color:var(--ok)"></i>production branch</span>
+    <span>dashed outline = planned</span>
+  </div>
+</section>
+
+<section>
+  <h2>Inside the website: what a visitor touches</h2>
+  <div class="fig">
+  <svg viewBox="0 0 1100 520" role="img" aria-label="The visitor's browser loads static files from Vercel and talks directly to Supabase for login, feedback and saved meal plans.">
+    <defs><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="ar" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+    <rect class="band" x="10" y="10" width="400" height="450" rx="10"/><text class="bandlabel" x="24" y="30">Visitor's browser</text>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/index.html" target="_blank" rel="noopener"><rect class="box" x="30" y="45" width="360" height="75" rx="8"/><text class="t" x="210" y="68" text-anchor="middle">index.html</text><text class="s" x="210" y="86" text-anchor="middle">the whole app: meal plan, shopping list, store comparison,</text><text class="s" x="210" y="101" text-anchor="middle">budget. Plain HTML, CSS and JavaScript, no framework</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/tree/main/" target="_blank" rel="noopener"><rect class="box" x="30" y="135" width="360" height="85" rx="8"/><text class="t" x="210" y="158" text-anchor="middle">Helper scripts</text><text class="s" x="210" y="176" text-anchor="middle">pris.js (prices) · varer.js (product types) · kategorier.js</text><text class="s" x="210" y="191" text-anchor="middle">ikoner.js (icons) · auth.js (login) · feedback.js (chat box)</text><text class="s" x="210" y="206" text-anchor="middle">supabase-js library, loaded from the jsDelivr CDN</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/sw.js" target="_blank" rel="noopener"><rect class="box" x="30" y="235" width="360" height="85" rx="8"/><text class="t" x="210" y="258" text-anchor="middle">Service worker (sw.js) and web app manifest</text><text class="s" x="210" y="276" text-anchor="middle">site works as an installable app, the shopping list works offline</text><text class="s" x="210" y="291" text-anchor="middle">data and pages: network first · images: cache first</text><text class="s" x="210" y="306" text-anchor="middle">login and other outside calls are never cached</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/tree/main/opskrift" target="_blank" rel="noopener"><rect class="box" x="30" y="335" width="360" height="110" rx="8"/><text class="t" x="210" y="358" text-anchor="middle">Pages for search engines and admin</text><text class="s" x="210" y="376" text-anchor="middle">/opskrift/&lt;name&gt;/ recipe pages (193) · sitemap.xml · robots.txt</text><text class="s" x="210" y="391" text-anchor="middle">privatlivspolitik.html (privacy policy)</text><text class="s" x="210" y="406" text-anchor="middle">admin.html: Jonas' dashboard, needs an admin login</text><text class="s" x="210" y="421" text-anchor="middle">Google Fonts for typography</text></a>
+
+    <rect class="band" x="470" y="10" width="270" height="450" rx="10"/><text class="bandlabel" x="484" y="30">Vercel · static hosting</text>
+    <a href="https://madplan-blue.vercel.app" target="_blank" rel="noopener"><rect class="tool" x="490" y="45" width="230" height="190" rx="8"/><text class="t" x="605" y="68" text-anchor="middle">Static files from main</text><text class="s" x="605" y="88" text-anchor="middle">index.html and the scripts</text><text class="s" x="605" y="103" text-anchor="middle">retter.json (dishes per store)</text><text class="s" x="605" y="118" text-anchor="middle">opskrifter.json (recipe library)</text><text class="s" x="605" y="133" text-anchor="middle">tilbudsliste.json (extra offers)</text><text class="s" x="605" y="148" text-anchor="middle">naering.json (nutrition)</text><text class="s" x="605" y="163" text-anchor="middle">dish images, icons, logo</text><text class="s" x="605" y="178" text-anchor="middle">opskrift/ pages, sitemap.xml</text><text class="s" x="605" y="193" text-anchor="middle">No server code, no API routes,</text><text class="s" x="605" y="208" text-anchor="middle">no vercel.json: files are served as is</text></a>
+    <a href="https://www.xn--mltidsjagten-tcb.dk" target="_blank" rel="noopener"><rect class="tool" x="490" y="250" width="230" height="75" rx="8"/><text class="t" x="605" y="273" text-anchor="middle">Domains and HTTPS</text><text class="s" x="605" y="291" text-anchor="middle">madplan-blue.vercel.app</text><text class="s" x="605" y="306" text-anchor="middle">måltidsjagten.dk (www)</text></a>
+    <a href="https://vercel.com/dashboard" target="_blank" rel="noopener"><rect class="tool" x="490" y="340" width="230" height="105" rx="8"/><text class="t" x="605" y="363" text-anchor="middle">Vercel Analytics</text><text class="s" x="605" y="381" text-anchor="middle">script <tspan style="font-family:var(--mono)">/_vercel/insights</tspan> is on the page.</text><text class="s" x="605" y="396" text-anchor="middle">Counts visits once it is switched on</text><text class="s" x="605" y="411" text-anchor="middle">in Vercel. The agents cannot read it.</text></a>
+
+    <rect class="band" x="800" y="10" width="290" height="450" rx="10"/><text class="bandlabel" x="814" y="30">Supabase · database and login</text>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/auth.js" target="_blank" rel="noopener"><rect class="tool" x="820" y="45" width="250" height="75" rx="8"/><text class="t" x="945" y="68" text-anchor="middle">Auth</text><text class="s" x="945" y="86" text-anchor="middle">e-mail and password. Login is optional:</text><text class="s" x="945" y="101" text-anchor="middle">only needed to save your plan</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/brugerdata.sql" target="_blank" rel="noopener"><rect class="tool" x="820" y="135" width="250" height="95" rx="8"/><text class="t" x="945" y="158" text-anchor="middle">Table brugerdata</text><text class="s" x="945" y="176" text-anchor="middle">one row per user: chosen dishes,</text><text class="s" x="945" y="191" text-anchor="middle">shopping list, week plan (JSON)</text><text class="s" x="945" y="206" text-anchor="middle">row-level security: only the owner</text><text class="s" x="945" y="221" text-anchor="middle">can read or change it</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/feedback.sql" target="_blank" rel="noopener"><rect class="tool" x="820" y="245" width="250" height="95" rx="8"/><text class="t" x="945" y="268" text-anchor="middle">Table feedback</text><text class="s" x="945" y="286" text-anchor="middle">anyone can add a message;</text><text class="s" x="945" y="301" text-anchor="middle">only a logged-in admin can read</text><text class="s" x="945" y="316" text-anchor="middle">and mark it handled</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/admin.sql" target="_blank" rel="noopener"><rect class="tool" x="820" y="355" width="250" height="90" rx="8"/><text class="t" x="945" y="378" text-anchor="middle">Function admin_statistik()</text><text class="s" x="945" y="396" text-anchor="middle">usage numbers for admin.html.</text><text class="s" x="945" y="411" text-anchor="middle">Set up by hand with the SQL files</text><text class="s" x="945" y="426" text-anchor="middle">in scripts/ (SQL editor)</text></a>
+
+    <path class="ln" d="M410,140 H470" marker-end="url(#b)"/><text class="l" x="440" y="130" text-anchor="middle">GET</text>
+    <path class="ln" d="M210,460 V490 H945 V460" marker-end="url(#b)"/><text class="l" x="578" y="484" text-anchor="middle">login, feedback and saved plans go straight to Supabase (public key, protected by row-level security)</text>
+  </svg>
+  </div>
+</section>
+
+<section>
+  <h2>Build pipeline: offers → data → git → Vercel</h2>
+  <div class="fig">
+  <svg viewBox="0 0 1100 330" role="img" aria-label="Offers from Tjek are turned into dish files, built into JSON and pages, committed to git, tested by the Reviewer, merged to main and deployed by Vercel.">
+    <defs><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="ar" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+    <a href="https://tjek.com" target="_blank" rel="noopener"><rect class="ext" x="10" y="30" width="160" height="100" rx="8"/><text class="t" x="90" y="54" text-anchor="middle">Tjek API</text><text class="s" x="90" y="73" text-anchor="middle">this week's offers</text><text class="s" x="90" y="88" text-anchor="middle">for 9 stores</text><text class="s" x="90" y="103" text-anchor="middle">(needs a User-Agent)</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/tilbud.py" target="_blank" rel="noopener"><rect class="box" x="195" y="30" width="165" height="100" rx="8"/><text class="t" x="277" y="54" text-anchor="middle">tilbud.py</text><text class="s" x="277" y="73" text-anchor="middle">fetches papers, gives</text><text class="s" x="277" y="88" text-anchor="middle">offers short ids, saves</text><text class="s" x="277" y="103" text-anchor="middle">tilbud_snapshot.json</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/RUTINE.md" target="_blank" rel="noopener"><rect class="agent" x="385" y="30" width="165" height="100" rx="8"/><text class="t" x="467" y="54" text-anchor="middle">Agent - Offers</text><text class="s" x="467" y="73" text-anchor="middle">writes dishes per store</text><text class="s" x="467" y="88" text-anchor="middle">using only offers that exist</text><text class="s" x="467" y="103" text-anchor="middle">(scripts/retter/&lt;store&gt;.json)</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/tree/main/scripts" target="_blank" rel="noopener"><rect class="box" x="575" y="30" width="215" height="100" rx="8"/><text class="t" x="682" y="54" text-anchor="middle">Build scripts (Python)</text><text class="s" x="682" y="73" text-anchor="middle">byg_retter · byg_opskrifter</text><text class="s" x="682" y="88" text-anchor="middle">byg_tilbudsliste · byg_sider</text><text class="s" x="682" y="103" text-anchor="middle">validate, then write the JSON and pages</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/commits/main" target="_blank" rel="noopener"><rect class="ok" x="815" y="30" width="130" height="100" rx="8"/><text class="t" x="880" y="54" text-anchor="middle">git commit</text><text class="s" x="880" y="73" text-anchor="middle">data: straight to main</text><text class="s" x="880" y="88" text-anchor="middle">code: a branch ai/</text><text class="s" x="880" y="103" text-anchor="middle">pushed to GitHub</text></a>
+    <a href="https://vercel.com/dashboard" target="_blank" rel="noopener"><rect class="tool" x="970" y="30" width="120" height="100" rx="8"/><text class="t" x="1030" y="54" text-anchor="middle">Vercel</text><text class="s" x="1030" y="73" text-anchor="middle">sees a change on</text><text class="s" x="1030" y="88" text-anchor="middle">main, publishes</text><text class="s" x="1030" y="103" text-anchor="middle">the files</text></a>
+    <path class="ln" d="M170,80 H195" marker-end="url(#c)"/><path class="ln" d="M360,80 H385" marker-end="url(#c)"/><path class="ln" d="M550,80 H575" marker-end="url(#c)"/><path class="ln" d="M790,80 H815" marker-end="url(#c)"/><path class="ln" d="M945,80 H970" marker-end="url(#c)"/>
+
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/agenter/kontrollant.md" target="_blank" rel="noopener"><rect class="agent" x="575" y="190" width="215" height="110" rx="8"/><text class="t" x="682" y="214" text-anchor="middle">Agent - Reviewer</text><text class="s" x="682" y="233" text-anchor="middle">runs the test suite itself:</text><text class="s" x="682" y="248" text-anchor="middle">kontrol.py · regression.js · budget.js</text><text class="s" x="682" y="263" text-anchor="middle">sammenlign.js · browser tests</text><text class="s" x="682" y="278" text-anchor="middle">then merges a branch to main</text></a>
+    <path class="ln" d="M850,130 V160 H690 V190" marker-end="url(#c)"/><text class="l" x="770" y="154" text-anchor="middle">code branches wait here</text>
+    <path class="ln" d="M790,230 H910 V130" marker-end="url(#c)"/><text class="l" x="850" y="222" text-anchor="middle">merge to main</text>
+    <path class="ln" d="M1030,130 V215" marker-end="url(#c)"/>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/browser-qa.yml" target="_blank" rel="noopener"><rect class="tool" x="940" y="215" width="150" height="85" rx="8"/><text class="t" x="1015" y="239" text-anchor="middle">After deploy</text><text class="s" x="1015" y="257" text-anchor="middle">Health Monitor and</text><text class="s" x="1015" y="272" text-anchor="middle">Browser QA test the</text><text class="s" x="1015" y="287" text-anchor="middle">live site</text></a>
+    <a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/billeder.yml" target="_blank" rel="noopener"><rect class="tool" x="195" y="190" width="355" height="110" rx="8"/><text class="t" x="372" y="214" text-anchor="middle">Image Generator (GitHub Actions)</text><text class="s" x="372" y="233" text-anchor="middle">finds dishes without an image, makes one with</text><text class="s" x="372" y="248" text-anchor="middle">Cloudflare Workers AI, rebuilds the data and</text><text class="s" x="372" y="263" text-anchor="middle">commits to main. Cloud routines cannot do this,</text><text class="s" x="372" y="278" text-anchor="middle">because the key only exists in GitHub</text></a>
+  </svg>
+  </div>
+</section>
+
+<section>
+  <h2>The platforms in more detail</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Platform</th><th>Role</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td>Git and GitHub</td><td>Single source of truth for code, data, agent instructions and workflows</td><td>Public repo <code>jonasvil85-ux/madplan</code>, remote <code>origin</code>. <code>main</code> is production. Work happens on branches named <code>ai/YYYY-MM-DD-topic</code>; only the Reviewer merges them, using merge commits so a merge can be undone with <code>git revert -m 1</code>. The Health Monitor deletes branches that are already merged. A branch <code>skaermbilleder</code> holds the latest Browser QA screenshots (one commit, overwritten) so cloud agents can open them. Local clone on Jonas' PC: <code>Desktop\madplan</code>. Files are stored with LF line endings.</td></tr>
+      <tr><td>Vercel</td><td>Hosting, HTTPS, domains, deploys</td><td>Project connected to the GitHub repo. A change on <code>main</code> is published automatically. The site is plain static files: there is no build command, no server code and no <code>vercel.json</code>. Two domains point at it. The <code>.vercel/</code> folder is git-ignored. Vercel Analytics needs to be switched on in Vercel to collect visits.</td></tr>
+      <tr><td>Supabase</td><td>Login, saved plans, feedback, admin numbers</td><td>One project. The browser talks to it directly with a public key, so security rests on row-level security rules in the database, not on a server. Tables <code>brugerdata</code> and <code>feedback</code> and the function <code>admin_statistik()</code> are created by hand from <code>scripts/brugerdata.sql</code>, <code>feedback.sql</code> and <code>admin.sql</code>. A deleted user also loses their saved plan. No agent has access.</td></tr>
+      <tr><td>GitHub Actions</td><td>Everything automatic that is not a Claude routine</td><td>Six workflows in <code>.github/workflows/</code> (Reviewer run, Reviewer key test, Health Monitor, Browser QA, Image Generator, Report Mailer). Changes there are constitution changes.</td></tr>
+      <tr><td>Claude routines</td><td>Where the nine agents run</td><td>Scheduled cloud sessions on Jonas' private Claude account, each starting from a clean checkout of the repo and an instruction file.</td></tr>
+      <tr><td>Tjek and Cloudflare</td><td>Offer data and image generation</td><td>Tjek is a public API read by <code>tilbud.py</code> and <code>tjek_nyt.py</code>. Cloudflare Workers AI is called by <code>scripts/billeder.py</code> from the Image Generator.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="txt" style="margin-top:12px"><p><b>Not verified:</b> whether Vercel builds preview deployments for the <code>ai/</code> branches, and which hosting and DNS provider holds the <code>måltidsjagten.dk</code> domain. Neither is visible in the repo.</p></div>
+</section>
+
+<section>
+  <h2>How a change reaches production</h2>
+  <div class="txt"><ol class="flow">
+    <li><b>Owner</b>, <b>Security</b> and <b>SEO and Growth</b> write tasks into <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/BACKLOG.md" target="_blank" rel="noopener"><code>ai/BACKLOG.md</code></a>, each with acceptance criteria.</li>
+    <li><b>UX Designer</b> turns the top UX tasks into a design file in <code>ai/design/</code>.</li>
+    <li><b>Frontend Developer</b> and <b>Backend and Data</b> build on a branch <code>ai/date-topic</code> and attach a report that proves each criterion. Neither touches main.</li>
+    <li><b>Reviewer</b> (not the author) runs every test itself, reads the whole diff and picks: <i>merge</i> (class A), <i>stricter validation</i> (class H: prices, quantities, shopping list, meal-plan maths) or <i>reject</i> with a failure report.</li>
+    <li>A merge to <code>main</code> deploys on Vercel within minutes. <b>Health Monitor</b> and <b>Browser QA</b> then check the live site and write <code>HEALTH.md</code> and <code>BROWSER.md</code>.</li>
+    <li>Next day the Reviewer reads those results first and can revert a merge. The Owner checks that the task was really solved and writes a new one if not. The Owner also finds the next improvements itself (weaknesses, competitors, new technology) and never waits for Jonas to say what to build.</li>
+    <li><b>Secretary</b> writes <code>DAILY.md</code> (<a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/DAGENS.md" target="_blank" rel="noopener"><code>ai/DAGENS.md</code></a> in the repo). <b>Report Mailer</b> turns it into an e-mail to Jonas.</li>
+    <li><b>User test by Jonas.</b> When a new feature or a bigger UX change is live and checked, the daily report lists it under "Til prøve hos Jonas" with up to three plain questions: is it intuitive, does it make sense, is it better than before? If Jonas finds it confusing, the Owner writes a new task. Passing the Reviewer's tests is technical approval; Jonas' answer is user acceptance. Both count.</li>
+  </ol></div>
+  <div class="txt" style="margin-top:12px"><p>Two things skip the branch step because they are data, not code: <b>Agent - Offers</b> writes dishes and data straight to main, and <b>Image Generator</b> adds images straight to main.</p></div>
+</section>
+
+<section>
+  <h2>What runs where</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Component</th><th>Runs on</th><th>Code or instructions</th><th>Trigger</th></tr></thead>
+    <tbody>
+      <tr><td>Website</td><td>Vercel</td><td><code>index.html</code> and the JSON data files in the repo root</td><td>every change to main</td></tr>
+      <tr><td>Login and feedback</td><td>Supabase, called from the browser</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/auth.js" target="_blank" rel="noopener"><code>auth.js</code></a>, <a href="https://github.com/jonasvil85-ux/madplan/blob/main/feedback.js" target="_blank" rel="noopener"><code>feedback.js</code></a></td><td>user action</td></tr>
+      <tr><td>Agents (9)</td><td>Claude routines on claude.ai</td><td><code>ai/agenter/*.md</code> · <a href="https://github.com/jonasvil85-ux/madplan/blob/main/scripts/RUTINE.md" target="_blank" rel="noopener"><code>scripts/RUTINE.md</code></a> (Offers)</td><td>cron schedule</td></tr>
+      <tr><td>Reviewer run</td><td>GitHub Actions, Claude Code CLI</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/kontrollant.yml" target="_blank" rel="noopener"><code>.github/workflows/kontrollant.yml</code></a></td><td>push to an <code>ai/**</code> branch, or manual</td></tr>
+      <tr><td>Health Monitor</td><td>GitHub Actions</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/vagtpost.yml" target="_blank" rel="noopener"><code>.github/workflows/vagtpost.yml</code></a></td><td>every 3 h and after changes to main</td></tr>
+      <tr><td>Browser QA</td><td>GitHub Actions, Chromium</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/browser-qa.yml" target="_blank" rel="noopener"><code>.github/workflows/browser-qa.yml</code></a></td><td>every 6 h and after changes to main</td></tr>
+      <tr><td>Image Generator</td><td>GitHub Actions, Cloudflare Workers AI</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/billeder.yml" target="_blank" rel="noopener"><code>.github/workflows/billeder.yml</code></a></td><td>daily</td></tr>
+      <tr><td>Report Mailer</td><td>GitHub Actions</td><td><a href="https://github.com/jonasvil85-ux/madplan/blob/main/.github/workflows/dagsrapport.yml" target="_blank" rel="noopener"><code>.github/workflows/dagsrapport.yml</code></a></td><td>when <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/DAGENS.md" target="_blank" rel="noopener"><code>ai/DAGENS.md</code></a> changes</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Roles, secrets and the one human gate</h2>
+  <div class="txt">
+    <p><b>Roles.</b> The AI team owns innovation and development: it finds weaknesses and opportunities, researches competitors and technology, invents features, keeps the roadmap and builds and tests the whole site. Jonas is the primary user and acceptance tester. He answers in plain words whether something is good or bad from a user's point of view, and he is only asked about user-facing choices, never technical ones.</p>
+    <p>GitHub Actions secrets: <code>CLAUDE_CODE_OAUTH_TOKEN</code> (Reviewer run, made from Jonas' private account) and <code>CLOUDFLARE_API_TOKEN</code> (Image Generator). Agents never see or write secrets.</p>
+    <p>The <b>constitution</b> can only be changed by Jonas: <a href="https://github.com/jonasvil85-ux/madplan/blob/main/ai/regler.md" target="_blank" rel="noopener"><code>ai/regler.md</code></a>, <code>ai/agenter/*</code>, <code>.github/</code>, <a href="https://github.com/jonasvil85-ux/madplan/blob/main/auth.js" target="_blank" rel="noopener"><code>auth.js</code></a>, <a href="https://github.com/jonasvil85-ux/madplan/blob/main/feedback.js" target="_blank" rel="noopener"><code>feedback.js</code></a>, <code>privatlivspolitik.html</code> and the routine prompts. Owner and Security may propose changes. Pausing everything: stop the routines on claude.ai and disable the workflows under the GitHub Actions tab.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What the team cannot see</h2>
+  <div class="txt"><p>Agents cannot browse the live site themselves; they read the measurements and screenshots from Browser QA. They cannot read user feedback (Supabase) or traffic data (Vercel). Image generation needs a key that only exists in GitHub, so the routines in the cloud never create images.</p></div>
+</section>
+
+<section>
+  <h2>Danish names, English names</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>In the repo (Danish)</th><th>On this page</th></tr></thead>
+    <tbody>
+      <tr><td>Ejer</td><td>Agent - Owner</td></tr>
+      <tr><td>UX-designer</td><td>Agent - UX Designer</td></tr>
+      <tr><td>Frontend-udvikler (<code>ux-udvikler.md</code>)</td><td>Agent - Frontend Developer</td></tr>
+      <tr><td>Backend- og dataudvikler</td><td>Agent - Backend and Data</td></tr>
+      <tr><td>Kontrollant</td><td>Agent - Reviewer</td></tr>
+      <tr><td>Sekretær</td><td>Agent - Secretary</td></tr>
+      <tr><td>Sikkerhedsagent</td><td>Agent - Security</td></tr>
+      <tr><td>SEO- og vækstagent</td><td>Agent - SEO and Growth</td></tr>
+      <tr><td>Tilbudsrutinen</td><td>Agent - Offers</td></tr>
+      <tr><td>Vagtpost</td><td>Health Monitor</td></tr>
+      <tr><td>Billedhandling</td><td>Image Generator</td></tr>
+      <tr><td>Dagsrapport</td><td>Report Mailer</td></tr>
+      <tr><td>Grundlov</td><td>Constitution</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</div>
+</body>
+</html>

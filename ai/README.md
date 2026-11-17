@@ -1,6 +1,6 @@
 # Måltidsjagtens AI-hold
 
-Siden udvikles hver dag af et hold Claude-rutiner i skyen. De styrer sig selv og kontrollerer hinanden. Jonas får en daglig rapport og behøver ikke godkende noget.
+Siden udvikles hver dag af et hold Claude-rutiner i skyen. De styrer sig selv og kontrollerer hinanden. Holdet finder selv på forbedringerne og styrer køreplanen. Jonas er primær bruger og brugerprøver: han får en daglig rapport og prøver nye funktioner som almindelig bruger, men skal hverken finde på idéer eller godkende noget teknisk (se `regler.md`, afsnittet Roller).
 
 ## Holdet: 9 agenter og 4 automatiske værktøjer
 

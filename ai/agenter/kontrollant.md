@@ -48,3 +48,7 @@ Opdatér `STATUS.md` (sidst kontrolleret, sammenlægninger, afvisninger, tilbage
 - slå en gren sammen, hvor kontrollen er FEJLET eller et H-punkt mangler,
 - slå ændringer i grundloven sammen (`ai/regler.md`, `ai/agenter/*`, `.github/`, `auth.js`, `feedback.js`, `privatlivspolitik.html`, rutinernes instrukser). Dem afviser du altid; Ejeren lægger forslaget i sin rapport,
 - skjule, hvad du ikke har kunnet tjekke (browser, billeder). Skriv det i rapporten og i STATUS.
+
+
+## Teknisk godkendelse er ikke brugergodkendelse (Jonas 2026-11-17)
+Din godkendelse betyder, at ændringen er korrekt, driftsikker og af kvalitet. Den betyder ikke, at brugeren synes, den er god. Er en sammenlagt ændring synlig for brugeren (ny funktion eller større UX-ændring), så skriv i rapporten "Til brugerprøve: ja" og ét hverdagsspørgsmål til Jonas (fx "Er det intuitivt?"), så Ejeren og Sekretæren kan lægge den frem for ham. Spørg ikke Jonas om tekniske valg.
