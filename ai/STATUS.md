@@ -4,13 +4,14 @@
 
 HELBRED.md: GRØN (2026-11-17 03:57 UTC, begge domæner OK, før tilbagerulningen). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll, 23 små tryk-flader).
 
-Sidst kontrolleret: 2026-11-17 ca. 07:00 UTC (kontrollant i GitHub Actions, med Playwright/Chromium og node)
-Main-status: BESTÅET (0 fejl, 9 advarsler) efter tilbagerulning (4aab106); regression.py, regression.js, budget.js, sammenlign.js og sammenlign i Chromium bestået. Intet slået sammen i dag.
+Sidst kontrolleret: 2026-11-17 ca. 07:15 UTC (kontrollant i GitHub Actions, kørsel 2, udløst af ai/2026-11-17-sidefod-tryk-flader)
+Main-status: BESTÅET (0 fejl, 9 advarsler) på 6740e0f; regression.py, regression.js, budget.js, sammenlign.js og sammenlign i Chromium bestået. Udgivet index.html byte-identisk med main. Intet slået sammen i dag.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
 (ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
 
 ## Afvist – udvikleren retter
+- ai/2026-11-17-sidefod-tryk-flader (8fa5c7d, forsøg 1, klasse A): accept (1) og (2) opfyldt (alle sidefodsrækker 48 px på 360/390, intet vandret scroll), men opacity fjernes ikke (`.fod:has(details[open])`/`:focus-within` på linje 325 giver stadig 0.9 – i strid med rapporten og designet), og på desktop svæver "–" yderst til højre væk fra "Om Måltidsjagten". Grenen bygger på 253deb3 (før tilbagerulningen) – rebase på main. Accept (3) "færre end 23" ikke opfyldt (main + gren: 30, main: 33), men basis 23 forsvandt med tilbagerulningen – procedural, tæller ikke; Ejeren bør omformulere den. Se ai/rapporter/2026-11-17-kontrol.md, kørsel 2.
 - ai/2026-11-17-browsertest-sky (0b558ff, forsøg 1, klasse A): node-reserven gør enhver fejl efter opstart (timeout, side der ikke bliver klar, undtagelse i testen) til "IKKE KØRT" exit 3, som kontrol.py kun giver en advarsel for – en ødelagt forside giver BESTÅET i skyen. Gentaget: `SAMM` omdøbt i en kopi → exit 3 (Python-Playwright: exit 1). Kun manglende playwright/Chromium må give exit 3. Resten bestået (kontrol BESTÅET, accept 1–3, tekstmutation fanges).
 - "Hvor handler du?" (090801b + 4661112, forsøg 1, klasse H): rullet tilbage, se øverst. Selve sidens tjek gav fejl = []; ret runneren (eller tag den med fra browsertest-sky, når den er rettet) og indsend som gren. Kontrol.py skal være BESTÅET med Playwright.
 - ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H; uændret også 2026-11-17 – intet nyt forsøg): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
