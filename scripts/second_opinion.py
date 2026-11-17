@@ -3,7 +3,7 @@
 Brug:   python3 scripts/second_opinion.py spoergsmaal.txt                      (kritisk rolle: finder huller; svaret skrives til skærmen)
         python3 scripts/second_opinion.py --rolle kreativ spoergsmaal.txt      (kreativ rolle: kommer med 5 forskellige idéer, høj temperatur)
         python3 scripts/second_opinion.py --proev [--rolle kreativ|kritisk]    (afprøver forbindelsen med ét kort spørgsmål)
-Model: SECOND_OPINION_MODEL (standard Llama 3.3 70B). Stærkere gratis modeller på Cloudflare kan prøves, fx @cf/openai/gpt-oss-120b.
+Model: SECOND_OPINION_MODEL (standard @cf/openai/gpt-oss-120b; afprøvet 17/11-2026: følger rollerne og er langt bedre end Llama 3.3 70B til idéer). Den tænker først, så max_tokens er sat højt.
 
 Kræver miljøvariablen CLOUDFLARE_API_TOKEN (samme nøgle som billederne; den må ikke stå i koden eller sendes i chatten).
 Modellen er en RÅDGIVER: den ser kun den tekst, du sender, og kan tage fejl. Den ændrer ingenting.
@@ -17,7 +17,7 @@ import json, os, re, sys, urllib.error, urllib.request
 
 ROD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KONTO = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '38253a60db8406866eb2a255247002d5')
-MODEL = os.environ.get('SECOND_OPINION_MODEL', '@cf/meta/llama-3.3-70b-instruct-fp8-fast')
+MODEL = os.environ.get('SECOND_OPINION_MODEL', '@cf/openai/gpt-oss-120b')
 MAKS = int(os.environ.get('SECOND_OPINION_MAKS', '3'))
 TAELLER = os.environ.get('SECOND_OPINION_TAELLER', os.path.join(ROD, '.second_opinion_taeller'))
 MAKS_TEGN = 12000
@@ -27,14 +27,14 @@ ROLLER = {
     'kritisk': ('Du er en kritisk, ærlig sparringspartner for et lille dansk produkthold. Du får et krav eller et design til ' + PRODUKT + '. '
                 'Svar på dansk og kort (højst 250 ord) i netop disse fire punkter: 1) Hvad er svagt eller uklart? 2) Hvad er glemt? '
                 '3) Hvilke risici er der for brugerne (fx forvirring, forkerte priser, tillid)? 4) Hvad ville du gøre anderledes? '
-                'Er kravet godt, så sig det kort og nævn kun det vigtigste. Du ser kun den tekst, du har fået; gæt ikke på mere, og opfind ikke fakta.', 0.3, 700),
+                'Er kravet godt, så sig det kort og nævn kun det vigtigste. Du ser kun den tekst, du har fået; gæt ikke på mere, og opfind ikke fakta.', 0.3, 1500),
     # kreativ = divergerer: kommer med flere, forskellige idéer. Høj temperatur. Agenten vælger bagefter, hvad der passer til produktets mål.
     'kreativ': ('Du er en meget kreativ produkttænker og en uforudsigelig sparringspartner for et lille dansk produkthold. Du får et krav eller et design til ' + PRODUKT + '. '
                 'Din opgave er IKKE at kritisere, men at udvide mulighederne. Kom med 5 forskellige, konkrete idéer til, hvordan kravet kan løses eller tænkes helt anderledes, '
                 'fra sikre til dristige. Mindst én skal være "skør, men tænkbar", mindst én skal vende problemet på hovedet, og mindst én skal være en radikalt enklere løsning. '
                 'Hent inspiration fra andre brancher (spil, abonnementer, sociale apps, opskriftsapps, butikkernes egne apps), og tænk både som en travl forælder og som en konkurrent. '
                 'Svar på dansk. For hver idé: en kort titel og 1-2 sætninger om, hvad brugeren oplever, og hvorfor det er værdifuldt. Ingen forbehold og ingen kritik. Højst 350 ord. '
-                'Du ser kun den tekst, du har fået; opfind ikke fakta om produktet.', 1.0, 900),
+                'Du ser kun den tekst, du har fået; opfind ikke fakta om produktet.', 1.0, 2000),
 }
 
 

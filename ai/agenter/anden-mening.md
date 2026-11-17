@@ -1,6 +1,6 @@
 # Anden mening: dialog med en anden AI (fælles instruks for de agenter, det giver mening for)
 
-Formålet er at få input fra en anden AI-model end Claude, før noget bygges. Claude-agenterne har ofte samme blinde vinkler; en anden model kan se noget andet. Modellen (Cloudflare Workers AI, Llama 3.3 70B som standard) er en **rådgiver**: den ændrer intet og bestemmer intet. Agenten bevarer ansvaret og vurderer svaret kritisk.
+Formålet er at få input fra en anden AI-model end Claude, før noget bygges. Claude-agenterne har ofte samme blinde vinkler; en anden model kan se noget andet. Modellen (Cloudflare Workers AI, standard gpt-oss-120b) er en **rådgiver**: den ændrer intet og bestemmer intet. Agenten bevarer ansvaret og vurderer svaret kritisk.
 
 Det kører i GitHub-handlingen `.github/workflows/anden-mening.yml`, fordi rutinerne i skyen ikke kan nå internettet. Handlingen starter, når `ai/BACKLOG.md` eller `ai/design/**` ændres på `main`, højst to gange om dagen.
 

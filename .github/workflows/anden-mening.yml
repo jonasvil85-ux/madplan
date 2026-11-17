@@ -15,9 +15,9 @@ on:
         type: boolean
         default: false
       model:
-        description: 'Kun til prøven: model på Cloudflare, fx @cf/openai/gpt-oss-120b eller @cf/meta/llama-3.3-70b-instruct-fp8-fast'
+        description: 'Kun til prøven: model på Cloudflare, fx @cf/openai/gpt-oss-120b (standard) eller @cf/meta/llama-3.3-70b-instruct-fp8-fast'
         type: string
-        default: '@cf/meta/llama-3.3-70b-instruct-fp8-fast'
+        default: '@cf/openai/gpt-oss-120b'
       rolle:
         description: 'Kun til prøven: kreativ (5 idéer, høj temperatur) eller kritisk (finder huller)'
         type: choice
