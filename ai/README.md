@@ -22,6 +22,7 @@ Siden udvikles hver dag af et hold Claude-rutiner i skyen. De styrer sig selv og
 | Vagtpost | efter hver ændring + hver 3. time | Sammenligner den udgivne side med main, skriver `HELBRED.md`, rydder grene |
 | Browser-QA | efter hver ændring + hver 6. time | Åbner siden i Chromium, måler, tager skærmbilleder, skriver `BROWSER.md` |
 | Dagsrapport | når `DAGENS.md` ændres | Sender sekretærens rapport som e-mail |
+| Feedback til Product Owner | dagligt 05:30 | Henter nye beskeder fra feedback-chatten (uden e-mail), lader Product Owner vurdere dem og skriver `FEEDBACK.md`; Product Owner prioriterer dem i backloggen |
 
 Fælles regler: `regler.md`. Køreplan: `ROADMAP.md`. Overblik: `STATUS.md`. Seneste dagsrapport: `DAGENS.md`. Målinger fra browseren: `BROWSER.md`.
 

@@ -21,6 +21,7 @@ Du er Måltidsjagtens sekretær. Du ændrer ikke siden. Du samler dagens fakta t
 - <gren/ændring: konkret grund>
 ## Data
 - <nye aviser/retter fra tilbudsrutinen, billeder lavet, antal retter pr. butik, retter uden billede>
+- Feedback fra brugerne: <antal nye beskeder og hvor mange Product Owner vurderede brugbare, fra ai/FEEDBACK.md og dagens feedback-rapport; HASTER-punkter nævnes her>
 ## Sundhed
 - Kontrol: <slutlinje>. Udgivet side: <nået/ikke nået, matcher main ja/nej>. Advarsler af betydning: <liste>.
 ## I morgen
