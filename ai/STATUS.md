@@ -4,8 +4,10 @@
 
 HELBRED.md: GRØN (2026-11-18 06:56 UTC, begge domæner OK, main d32d113). BROWSER.md: GRØN (2026-11-17, mob og desk, 0 JS-fejl, intet vandret scroll, 33/34 små tryk-flader). Egen måling 2026-11-18: begge domæner 200, sw.js v6, retter.json identisk med main.
 
-Sidst kontrolleret: 2026-11-18 (kontrollant, kørsel 2, GitHub Actions, udløst af push på ai/2026-11-18-sidefod-tryk-flader)
-Main-status: BESTÅET (0 fejl, 9 advarsler) på 3104489; regression.py, budget.js, sammenlign.js, sammenlign i Chromium og den nye sidefodstest i Chromium bestået. Slået sammen i dag: ai/2026-11-18-browsertest-sky (A), ai/2026-11-18-sidefod-tryk-flader (A). Øvrige grene uændrede – intet nyt forsøg talt.
+Sidst kontrolleret: 2026-11-18 09:13 UTC (kontrollant, kørsel 3, planlagt)
+Main-status: BESTÅET (0 fejl, 10 advarsler) på 0b39764; regression.py BESTÅET. Sidefodens Chromium-test IKKE kørt i skyen (Python-Playwright mangler, testen har ingen node-reserve) – bestået i GitHub Actions ved kørsel 2. HELBRED.md GRØN (07:07 UTC, main e4782ab = inkl. sidefod-sammenlægningen), BROWSER.md GRØN. Ingen tilbagerulning.
+Kørsel 3: ingen nye eller ændrede grene (alle åbne grene har samme commit som ved seneste afgørelse) – intet slået sammen, intet nyt forsøg talt.
+Tidligere i dag: ai/2026-11-18-browsertest-sky (A) og ai/2026-11-18-sidefod-tryk-flader (A) slået sammen.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
 (ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
