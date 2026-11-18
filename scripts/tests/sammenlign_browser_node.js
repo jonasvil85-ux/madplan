@@ -1,6 +1,6 @@
 // Reserve for sammenlign_browser.py: kører samme browsertest med node-Playwright (når Python ikke har Playwright).
 // Kør:  node scripts/tests/sammenlign_browser_node.js <rodmappe>
-// Skriver ét JSON-objekt {ud, jsFejl} til stdout. Afslutter med 3, hvis Playwright/Chromium ikke findes.
+// Skriver ét JSON-objekt {ud, jsFejl} til stdout. Afslutter med 3, hvis Playwright/Chromium ikke findes, og med 1 ved enhver fejl efter opstart.
 const http = require('http'), fs = require('fs'), path = require('path');
 const ROD = path.resolve(process.argv[2] || path.join(__dirname, '..', '..'));
 let chromium;
@@ -32,4 +32,8 @@ const srv = http.createServer((q, s) => {
     const ud = await side.evaluate(test);
     process.stdout.write(JSON.stringify({ ud, jsFejl }));
   } finally { if (b) await b.close(); srv.close(); }
-})().catch(e => { console.error('IKKE KØRT: ' + e.message.split('\n')[0]); process.exit(3); });
+})().catch(e => {
+  // Kun manglende Playwright/Chromium (håndteret ovenfor) er "IKKE KØRT" (exit 3). Alt efter opstart – timeout, side der
+  // ikke bliver klar, undtagelse i testen – er en rigtig fejl (exit 1), ellers kunne en ødelagt forside give BESTÅET.
+  console.error('FEJL: ' + String(e && e.message || e).split('\n')[0]); process.exit(1);
+});
