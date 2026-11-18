@@ -103,4 +103,54 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Accept: (1) en bevidst ødelagt fixtur giver en læsbar fejltekst, (2) kontrol.py er BESTÅET.
   Ikke-mål: ændre facit.
 
+### Sikkerhed (sikkerhedsagenten, uge 47 – rapport: ai/rapporter/2026-uge-47-sikkerhed.md; ingen kritiske fund)
+- [ ] [SIKKERHED] [H] Høj: Supabase-biblioteket fra egen server med fast version (H1)
+  Krav: `index.html` og `admin.html` henter ikke længere `supabase-js@2` fra jsDelivr uden fast version; en bestemt version ligger i repoet (fx `vendor/`) eller hentes med præcis version + `integrity` + `crossorigin`.
+  Hvorfor: en kompromitteret eller ny 2.x-udgivelse kører i dag uden test med fuld adgang til login-sessioner og til admin-siden med feedback-e-mails.
+  Accept: (1) `grep -n 'supabase-js@2"' *.html` giver intet; (2) scriptet har enten egen sti eller præcis version med `integrity="sha384-…"`; (3) en kontrol i `kontrol.py` fejler, hvis et `<script src="http…">` mangler `integrity` (undtagen `/_vercel/insights`); (4) login, log ud, gem/hent brugerdata og feedback virker i Browser-QA; (5) `VERSION` i `sw.js` er hævet; (6) kontrol.py BESTÅET.
+  Ikke-mål: ændre `auth.js` eller login-flowet.
+- [ ] [SIKKERHED] [H] Høj: Kontrollant-workflowet adskiller grenens kode fra hemmelighederne (H2 – GRUNDLOV, kun Jonas)
+  Krav: grenens tests kører i et job uden `CLAUDE_CODE_OAUTH_TOKEN` og med `permissions: contents: read`; `actions: write` fjernes eller begrundes; `persist-credentials: false` hvor der ikke pushes; grenbeskyttelse på `main` (ingen force-push/sletning).
+  Hvorfor: i dag kan kode på en `ai/**`-gren læse Jonas' private Claude-token og et GitHub-token med skriveadgang.
+  Accept: (1) intet job, der kører grenens kode, har en hemmelighed i miljøet (læses i workflowet); (2) kontrollanten kører stadig alle tests og kan slå sammen; (3) `main` afviser force-push.
+  Ikke-mål: ændre kontrollantens instruks. Forslaget står i rapporten under "Forslag til grundloven"; Ejeren/Sekretæren sender det til Jonas.
+- [ ] [SIKKERHED] [H] Middel: Sikkerhedshoveder via `vercel.json` (M1)
+  Krav: en `vercel.json` med `Content-Security-Policy` (først evt. `-Report-Only`), `X-Frame-Options: DENY`/`frame-ancestors 'none'`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`, `Strict-Transport-Security`; `/admin.html` får også `X-Robots-Tag: noindex` og `Cache-Control: no-store`.
+  Hvorfor: login og admin kan i dag indlejres i fremmede sider, og intet begrænser, hvilke scripts der må køre.
+  Accept: (1) Browser-QA (eller curl i GitHub) viser alle hoveder på `/`, `/admin.html` og en opskriftsside; (2) ingen CSP-fejl i konsollen ved forside, login, feedback, opskriftsside og Vercel Insights; (3) billeder fra Tjek vises; (4) kontrol.py BESTÅET.
+  Ikke-mål: fjerne `'unsafe-inline'` (eget, senere krav).
+- [ ] [SIKKERHED] [H] Middel: Feedback-tabellen får grænser på serveren (M2)
+  Krav: ny SQL-fil (fx `scripts/feedback_graenser.sql`, som Jonas kører) med check-regler: `pg_column_size(kontekst) <= 4000`, `jsonb_typeof(kontekst) = 'object'`, `type` i de 5 kendte typer, formattjek af e-mail; en hastighedsgrænse på serveren (trigger, der afviser mere end fx 30 rækker pr. minut i alt). `admin.html` tåler rækker med forkert form (`Array.isArray` før `.join`).
+  Hvorfor: grænsen på 5 beskeder i timen findes kun i browseren; hvem som helst kan fylde tabellen via REST med den offentlige nøgle, og én misdannet række får admin-listen til at gå ned.
+  Accept: (1) SQL'en kan køres flere gange; (2) eksisterende gyldige rækker overholder reglerne (forespørgsel i SQL-filen tjekker det, før reglerne lægges på); (3) `feedback.js` sender stadig gyldige beskeder (testet med samme felter som i dag); (4) admin viser en række med `valgte_retter: "x"` uden at gå ned; (5) kontrol.py BESTÅET.
+  Ikke-mål: ændre `feedback.js` (grundlov).
+- [ ] [SIKKERHED] [H] Middel: Admin kræver 2-trinsbekræftelse og fast bruger-id (M3)
+  Krav: admin-politikkerne og `admin_statistik()` kræver `aal2` og sammenligner med admin-kontoens `auth.uid()` i stedet for e-mailen (ny SQL-fil, som Jonas kører); `admin.html` tilbyder TOTP-tilmelding og -kode ved login; Jonas slår MFA, "Leaked password protection" og mindst 8 tegn til i Supabase.
+  Hvorfor: i dag beskytter kun en adgangskode (mindst 6 tegn) alle feedback-e-mails, og admin-e-mailen er offentlig.
+  Accept: (1) uden MFA giver admin-siden "ikke tilladt" fra databasen; (2) med MFA vises statistik og beskeder; (3) e-mailadressen står ikke længere i `admin.html` eller den nye SQL-fil; (4) kontrol.py BESTÅET.
+  Ikke-mål: MFA for almindelige brugere; ændre `auth.js` (teksten "mindst 6 tegn" er et forslag til grundloven).
+- [ ] [SIKKERHED] [H] Middel: Færre tredjeparter og sletning efter 12 måneder (M4; politikteksten er GRUNDLOV)
+  Krav: Inter-fonten hentes fra egen server (ikke fonts.googleapis.com/gstatic.com); et ugentligt job (`pg_cron` i ny SQL-fil) sletter feedback ældre end 12 måneder. Politikteksten om Anthropic, GitHub og evt. Google/jsDelivr opdateres af Jonas.
+  Hvorfor: privatlivspolitikken nævner kun Supabase og Vercel, men besøgendes IP går til Google og jsDelivr, AI'en læser feedback, og løftet om "højst 12 måneder" håndhæves ikke.
+  Accept: (1) `grep -rn 'fonts.googleapis\|fonts.gstatic' --include=*.html .` giver intet; (2) fonten ser ens ud (Browser-QA før/efter-skærmbilleder); (3) SQL'en planlægger sletningen og kan køres flere gange; (4) `VERSION` i `sw.js` er hævet, hvis fonte caches; (5) kontrol.py BESTÅET.
+  Ikke-mål: ændre `privatlivspolitik.html` (grundlov – forslaget står i rapporten).
+- [ ] [SIKKERHED] [H] Middel: Værn mod styring via anonym feedback (M5 – workflow og instrukser er GRUNDLOV)
+  Krav: commit-tjekket i feedback-workflowet afviser også links og telefonnumre; Ejerens og kontrollantens instrukser siger, at krav fra feedback ikke må tilføje eksterne adresser/scripts eller røre login uden sikkerhedsagentens gennemsyn. Det, holdet selv kan gøre nu: en kontrol i `kontrol.py`, der fejler, hvis HTML/JS indeholder et eksternt domæne, som ikke står på en tilladt liste i testen.
+  Hvorfor: anonym tekst går automatisk gennem fire AI-led, før den kan blive til kode.
+  Accept: (1) kontrollen fejler på et nyt `<script src="https://ukendt.example">` og består på main; (2) listen over tilladte domæner står ét sted; (3) kontrol.py BESTÅET.
+  Ikke-mål: blokere feedback.
+- [ ] [SIKKERHED] [A] Lav: Escaping af alle datafelter og kontrol af datafilerne (L1)
+  Krav: `kontrol.py` fejler, hvis `retter.json`, `opskrifter.json` eller `tilbudsliste.json` indeholder `<`, `>` eller `javascript:`. (Skabelonerne i `index.html` får `esc()` på `ing.navn`, `r.navn`, butiksnavne m.fl. som eget H-krav, fordi de rører indkøbslisten.)
+  Hvorfor: tilbudstekster kommer fra en tredjepart og sættes enkelte steder ind i `innerHTML` uden escaping.
+  Accept: (1) en datafil med `<b>` giver FEJLET; (2) main giver BESTÅET.
+  Ikke-mål: ændre datafilerne.
+- [ ] [SIKKERHED] [H] Lav: `.vercelignore` så kun selve siden udgives (L4)
+  Krav: en `.vercelignore` med `ai/`, `scripts/`, `.github/` og `*.md`.
+  Hvorfor: i dag udgives hele repoet, også SQL-filer, testdata og agentrapporter.
+  Accept: (1) Vagtposten og Browser-QA er grønne efter udgivelsen (forside, opskriftssider, billeder, manifest, sw.js); (2) `/ai/STATUS.md` og `/scripts/admin.sql` giver 404 på den udgivne side; (3) kontrol.py BESTÅET.
+  Ikke-mål: ændre repoets synlighed.
+- [ ] [SIKKERHED] [H] Lav: Fastlåste versioner og fast Supabase-adresse i workflows (L2, L3 – GRUNDLOV, kun Jonas)
+  Krav: `uses:` fastlåses til commit-SHA, `@anthropic-ai/claude-code` og `playwright` til præcise versioner; feedback-workflowet sender kun hemmeligheden til en fast `…supabase.co`-adresse (variabel eller tjek), ikke til hvad der står i `auth.js`. Jonas bruger GitHubs noreply-adresse i commits (L5).
+  Accept: (1) ingen `@v4`/`@v5`/`@v7` uden SHA i `.github/workflows/`; (2) en ændret URL i `auth.js` får workflowet til at stoppe uden at sende hemmeligheden.
+
 ## Afvist / parkeret
