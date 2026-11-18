@@ -5,7 +5,7 @@
 HELBRED.md: GRØN (2026-11-18 00:59 UTC, begge domæner OK). BROWSER.md: GRØN (2026-11-17, mob og desk, 0 JS-fejl, intet vandret scroll, 33/34 små tryk-flader). Egen måling 2026-11-18: begge domæner 200, sw.js v6, retter.json identisk med main.
 
 Sidst kontrolleret: 2026-11-18 ca. 07:00 UTC (kontrollant, GitHub Actions, udløst af push på ai/2026-11-18-browsertest-sky)
-Main-status: BESTÅET (0 fejl, 9 advarsler) på bf32dbf; regression.py, budget.js, sammenlign.js og browsertesten i Chromium bestået. Slået sammen: ai/2026-11-18-browsertest-sky (A). Øvrige grene uændrede – intet nyt forsøg talt.
+Main-status: BESTÅET (0 fejl, 9 advarsler) på 4f9c835; regression.py, budget.js, sammenlign.js og browsertesten i Chromium bestået. Slået sammen: ai/2026-11-18-browsertest-sky (A). Øvrige grene uændrede – intet nyt forsøg talt.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
 (ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
@@ -24,7 +24,7 @@ Main-status: BESTÅET (0 fejl, 9 advarsler) på bf32dbf; regression.py, budget.j
 - 2026-11-17: 4211735 (flueben, e202c61) og 090801b "Hvor handler du?" (4aab106), udgivet 2026-11-16 uden forudgående kontrol. Årsag: kontrol.py FEJLET på main (TypeError i sammenlign_browser.py linje 46; før 090801b bestået). Efter tilbagerulning: BESTÅET. Se ai/rapporter/2026-11-17-kontrol.md.
 
 ## Seneste sammenlægninger
-- 2026-11-18: ai/2026-11-18-browsertest-sky (A, bf32dbf, forsøg 2): browsertesten kører i skyen med node-Playwright som reserve; kun manglende Playwright/Chromium giver IKKE KØRT, sidefejl giver FEJLET. 6 rød-hold-forsøg, revert-prøve. Se ai/rapporter/2026-11-18-kontrol.md.
+- 2026-11-18: ai/2026-11-18-browsertest-sky (A, 3b28eb5, forsøg 2; lineær – se rapporten): browsertesten kører i skyen med node-Playwright som reserve; kun manglende Playwright/Chromium giver IKKE KØRT, sidefejl giver FEJLET. 6 rød-hold-forsøg, revert-prøve. Se ai/rapporter/2026-11-18-kontrol.md.
 - 2026-11-16: ai/2026-11-16-budget (H, f1c3024, forsøg 3): budget for ugens aftensmad i Dine valg. Skærpet validering bestået (før/efter identisk uden budget for 9 butikker × 3 husstande, 7/9 under 600 kr, 5 rød-hold-forsøg, revert-prøve). Dagens 3. H. Opfølgning: "600 kr – 1 kr over 600 kr"-beskeden, afvigelse fra designfilens chips, "højt budget ændrer intet" gælder kun én butik.
 - 2026-11-16: ai/2026-11-16-sammenlign-butikker (H, 25d3cb7, forsøg 2): rangeret liste over 9 butikker og ærligt to-butiks-forslag. Skærpet validering bestået (før/efter byte-identisk for 9 butikker × 3 husstande, 6 rød-hold-forsøg, revert-prøve). Dagens 2. H.
 - 2026-11-16: ai/2026-11-15-indkoebsliste-raekker (H, 8c2e4a7): korte rækker med Detaljer-link. Skærpet validering bestået (linjer og summer uændrede i alle 9 butikker, rød-hold, revert-prøve).
