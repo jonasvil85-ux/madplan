@@ -9,14 +9,14 @@ Skrevet af GitHub-handlingen "Browser-QA" (`scripts/tests/browser_tjek.py`) med 
 ### mob (390 px)
 - Indlæsning (load-hændelsen): under 1 s · største indhold vist: under 1 s
 - Vandret scroll: nej · JavaScript-fejl: 0 · ødelagte billeder: 0 · billeder uden alt: 0
-- Små tryk-flader (under 40 px): 33 – fx 365discount✓; Alle opskrifter; Bilka✓; Byt Fredags ret; Byt Lørdags ret; Byt Mandags ret; Byt Onsdags ret; Byt Søndags ret
+- Små tryk-flader (under 40 px): 30 – fx 365discount✓; Bilka✓; Byt Fredags ret; Byt Lørdags ret; Byt Mandags ret; Byt Onsdags ret; Byt Søndags ret; Byt Tirsdags ret
 - Flow: brug forslaget: ok, trin 2: ok, trin 3: ok, trin 4: ok, trin 5: ok
 - Trin set: butik, retter, liste, tilfoej, seddel
 
 ### desk (1280 px)
 - Indlæsning (load-hændelsen): under 1 s · største indhold vist: under 1 s
 - Vandret scroll: nej · JavaScript-fejl: 0 · ødelagte billeder: 0 · billeder uden alt: 0
-- Små tryk-flader (under 40 px): 34 – fx 1 butik817 kr421 kr Lidl; 365discount✓; Alle opskrifter; Bilka✓; Byt Fredags ret; Byt Lørdags ret; Byt Mandags ret; Byt Onsdags ret
+- Små tryk-flader (under 40 px): 31 – fx 1 butik817 kr421 kr Lidl; 365discount✓; Bilka✓; Byt Fredags ret; Byt Lørdags ret; Byt Mandags ret; Byt Onsdags ret; Byt Søndags ret
 - Flow: brug forslaget: ok, trin 2: ok, trin 3: ok, trin 4: ok, trin 5: ok
 - Trin set: butik, retter, liste, tilfoej, seddel
 
