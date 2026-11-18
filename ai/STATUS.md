@@ -2,17 +2,17 @@
 
 **2026-11-17: "Hvor handler du?" (090801b) og flueben-CSS'en (4211735) er RULLET TILBAGE** – main var rød (kontrol.py FEJLET i Chromium: sammenlign_browser.py går ned på de nye målinger fra sammenlign_side.js). Siden er tilbage på butiksvalget fra før 2026-11-16 kl. 14.
 
-HELBRED.md: GRØN (2026-11-17 03:57 UTC, begge domæner OK, før tilbagerulningen). BROWSER.md: GRØN (2026-11-16, mob og desk, 0 JS-fejl, intet vandret scroll, 23 små tryk-flader).
+HELBRED.md: GRØN (2026-11-18 00:59 UTC, begge domæner OK). BROWSER.md: GRØN (2026-11-17, mob og desk, 0 JS-fejl, intet vandret scroll, 33/34 små tryk-flader). Egen måling 2026-11-18: begge domæner 200, sw.js v6, retter.json identisk med main.
 
-Sidst kontrolleret: 2026-11-17 ca. 09:10 UTC (kontrollant, sky-kørsel 3)
-Main-status: BESTÅET (0 fejl, 10 advarsler) på f4ecd4e; regression.py bestået. Browsertesten af sammenlign butikker ikke kørt i denne session (Playwright mangler). Ingen grene ændret siden kørsel 2 – intet slået sammen, intet nyt forsøg talt.
+Sidst kontrolleret: 2026-11-18 ca. 07:00 UTC (kontrollant, GitHub Actions, udløst af push på ai/2026-11-18-browsertest-sky)
+Main-status: BESTÅET (0 fejl, 9 advarsler) på bf32dbf; regression.py, budget.js, sammenlign.js og browsertesten i Chromium bestået. Slået sammen: ai/2026-11-18-browsertest-sky (A). Øvrige grene uændrede – intet nyt forsøg talt.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
 (ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
 
 ## Afvist – udvikleren retter
 - ai/2026-11-17-sidefod-tryk-flader (8fa5c7d, forsøg 1, klasse A): accept (1) og (2) opfyldt (alle sidefodsrækker 48 px på 360/390, intet vandret scroll), men opacity fjernes ikke (`.fod:has(details[open])`/`:focus-within` på linje 325 giver stadig 0.9 – i strid med rapporten og designet), og på desktop svæver "–" yderst til højre væk fra "Om Måltidsjagten". Grenen bygger på 253deb3 (før tilbagerulningen) – rebase på main. Accept (3) "færre end 23" ikke opfyldt (main + gren: 30, main: 33), men basis 23 forsvandt med tilbagerulningen – procedural, tæller ikke; Ejeren bør omformulere den. Se ai/rapporter/2026-11-17-kontrol.md, kørsel 2.
-- ai/2026-11-17-browsertest-sky (0b558ff, forsøg 1, klasse A): node-reserven gør enhver fejl efter opstart (timeout, side der ikke bliver klar, undtagelse i testen) til "IKKE KØRT" exit 3, som kontrol.py kun giver en advarsel for – en ødelagt forside giver BESTÅET i skyen. Gentaget: `SAMM` omdøbt i en kopi → exit 3 (Python-Playwright: exit 1). Kun manglende playwright/Chromium må give exit 3. Resten bestået (kontrol BESTÅET, accept 1–3, tekstmutation fanges).
+- ai/2026-11-17-browsertest-sky (0b558ff, forsøg 1, klasse A) – AFLØST: forsøg 2 (ai/2026-11-18-browsertest-sky) slået sammen 2026-11-18. Oprindelig afvisning: node-reserven gør enhver fejl efter opstart (timeout, side der ikke bliver klar, undtagelse i testen) til "IKKE KØRT" exit 3, som kontrol.py kun giver en advarsel for – en ødelagt forside giver BESTÅET i skyen. Gentaget: `SAMM` omdøbt i en kopi → exit 3 (Python-Playwright: exit 1). Kun manglende playwright/Chromium må give exit 3. Resten bestået (kontrol BESTÅET, accept 1–3, tekstmutation fanges).
 - "Hvor handler du?" (090801b + 4661112, forsøg 1, klasse H): rullet tilbage, se øverst. Selve sidens tjek gav fejl = []; ret runneren (eller tag den med fra browsertest-sky, når den er rettet) og indsend som gren. Kontrol.py skal være BESTÅET med Playwright.
 - ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H; uændret også 2026-11-17 – intet nyt forsøg): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
 
@@ -24,6 +24,7 @@ Main-status: BESTÅET (0 fejl, 10 advarsler) på f4ecd4e; regression.py bestået
 - 2026-11-17: 4211735 (flueben, e202c61) og 090801b "Hvor handler du?" (4aab106), udgivet 2026-11-16 uden forudgående kontrol. Årsag: kontrol.py FEJLET på main (TypeError i sammenlign_browser.py linje 46; før 090801b bestået). Efter tilbagerulning: BESTÅET. Se ai/rapporter/2026-11-17-kontrol.md.
 
 ## Seneste sammenlægninger
+- 2026-11-18: ai/2026-11-18-browsertest-sky (A, bf32dbf, forsøg 2): browsertesten kører i skyen med node-Playwright som reserve; kun manglende Playwright/Chromium giver IKKE KØRT, sidefejl giver FEJLET. 6 rød-hold-forsøg, revert-prøve. Se ai/rapporter/2026-11-18-kontrol.md.
 - 2026-11-16: ai/2026-11-16-budget (H, f1c3024, forsøg 3): budget for ugens aftensmad i Dine valg. Skærpet validering bestået (før/efter identisk uden budget for 9 butikker × 3 husstande, 7/9 under 600 kr, 5 rød-hold-forsøg, revert-prøve). Dagens 3. H. Opfølgning: "600 kr – 1 kr over 600 kr"-beskeden, afvigelse fra designfilens chips, "højt budget ændrer intet" gælder kun én butik.
 - 2026-11-16: ai/2026-11-16-sammenlign-butikker (H, 25d3cb7, forsøg 2): rangeret liste over 9 butikker og ærligt to-butiks-forslag. Skærpet validering bestået (før/efter byte-identisk for 9 butikker × 3 husstande, 6 rød-hold-forsøg, revert-prøve). Dagens 2. H.
 - 2026-11-16: ai/2026-11-15-indkoebsliste-raekker (H, 8c2e4a7): korte rækker med Detaljer-link. Skærpet validering bestået (linjer og summer uændrede i alle 9 butikker, rød-hold, revert-prøve).

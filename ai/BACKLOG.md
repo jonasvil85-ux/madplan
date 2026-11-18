@@ -21,7 +21,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: tillid til indkøbslisten og et ugeforslag uden urealistisk dyre retter.
   Accept: (1) kontrollens advarsler om disse punkter er væk, (2) ingen ret på forsiden koster over 450 kr, (3) indkøbslisten viser kun den vare, retten bruger, for de rettede ingredienser.
   Ikke-mål: ændre `tilbudVariant()`.
-- [ ] [TEST] [A] Browsertesten kan køres i skyen (Ejer 2026-11-17) (gren ai/2026-11-17-browsertest-sky AFVIST forsøg 1 2026-11-17: node-reserven melder sidefejl som "IKKE KØRT" (exit 3 → kun advarsel); se kontrolrapporten)
+- [x] [TEST] [A] Browsertesten kan køres i skyen (Ejer 2026-11-17) (SLÅET SAMMEN 2026-11-18, bf32dbf, forsøg 2; gren ai/2026-11-17-browsertest-sky AFVIST forsøg 1 2026-11-17: node-reserven melder sidefejl som "IKKE KØRT" (exit 3 → kun advarsel); se kontrolrapporten)
   Krav: `sammenlign_browser.py` og `kontrol.py` kører Chromium-testen, hvor Chromium findes, i stedet for at springe den over med en advarsel.
   Hvorfor: `python -I` ser ikke Playwright; Ejeren måtte køre `sammenlign_side.js` via node for at efterprøve "Hvor handler du?". Ellers er "hele forsiden på én skærm" aldrig automatisk bevist.
   Accept: (1) kontrol.py siger ikke "IKKE kørt" i et miljø med /opt/pw-browsers (node-Playwright som reserve, `executablePath` til den installerede Chromium); (2) ved manglende Chromium er advarslen uændret; (3) kontrol.py BESTÅET.
