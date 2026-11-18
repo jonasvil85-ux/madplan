@@ -182,6 +182,11 @@ if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sammenlign_browser.py')
     if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke her – browsertesten af sammenlign butikker er IKKE kørt')
     elif p.returncode: fejl.append('Browsertest af sammenlign butikker fejlede:' + chr(10) + chr(10).join(p.stdout.strip().splitlines()[-12:]))
     else: ok.append('sammenlign butikker i Chromium bestået')
+if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sidefod_browser.py')):
+    p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'sidefod_browser.py'), ROD], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
+    if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke her – browsertesten af sidefoden er IKKE kørt')
+    elif p.returncode: fejl.append('Browsertest af sidefoden fejlede:' + chr(10) + chr(10).join(p.stdout.strip().splitlines()[-12:]))
+    else: ok.append('sidefod i Chromium bestået')
 
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
