@@ -6,7 +6,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
-- [ ] [DATA] [H] Ret kendte datafejl (gren ai/2026-11-16-datafejl AFVIST forsøg 1 2026-11-16: klasse H, før/efter mangler ugepris og indkøbslinjer for 9 butikker, 16 ty-advarsler tilbage; se kontrolrapporten)
+- [ ] [DATA] [H] Ret kendte datafejl (gren ai/2026-11-16-datafejl AFVIST forsøg 1 2026-11-16: klasse H, før/efter mangler ugepris og indkøbslinjer for 9 butikker, 16 ty-advarsler tilbage; se kontrolrapporten. ai/2026-11-19-datafejl AFVIST 2026-11-19 uden nyt forsøg: kode uændret, accept (1) stadig 16 ty-advarsler)
   Krav: Kvickly "Svinemørbrad med svampesauce og kartoffelmos" får svinemørbrad som ingrediens; `ty`-oplysning for ingredienser med tilbud, der mangler den (kontrollen tæller dem; mango, majs, salsa, parmigiano, rygeost m.fl.) via `bibliotek_typer.py`, uden at ramme ikke-mad; dyre andretter (over 450 kr for hele retten) vurderes og fjernes eller laves billigere.
   Hvorfor: tillid til indkøbslisten og et ugeforslag uden urealistisk dyre retter.
   Accept: (1) kontrollens advarsler om disse punkter er væk, (2) ingen ret på forsiden koster over 450 kr, (3) indkøbslisten viser kun den vare, retten bruger, for de rettede ingredienser.

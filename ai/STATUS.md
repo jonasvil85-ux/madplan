@@ -2,12 +2,11 @@
 
 **2026-11-17: "Hvor handler du?" (090801b) og flueben-CSS'en (4211735) er RULLET TILBAGE** – main var rød (kontrol.py FEJLET i Chromium: sammenlign_browser.py går ned på de nye målinger fra sammenlign_side.js). Siden er tilbage på butiksvalget fra før 2026-11-16 kl. 14.
 
-HELBRED.md: GRØN (2026-11-18 06:56 UTC, begge domæner OK, main d32d113). BROWSER.md: GRØN (2026-11-17, mob og desk, 0 JS-fejl, intet vandret scroll, 33/34 små tryk-flader). Egen måling 2026-11-18: begge domæner 200, sw.js v6, retter.json identisk med main.
+HELBRED.md: GRØN (2026-11-19 05:16 UTC, begge domæner OK, main 6b05f36). BROWSER.md: GRØN (2026-11-19, 0 JS-fejl, intet vandret scroll). Egen måling 2026-11-19: madplan-blue.vercel.app 200, sw.js v6, retter.json identisk med main.
 
-Sidst kontrolleret: 2026-11-18 09:13 UTC (kontrollant, kørsel 3, planlagt)
-Main-status: BESTÅET (0 fejl, 10 advarsler) på 0b39764; regression.py BESTÅET. Sidefodens Chromium-test IKKE kørt i skyen (Python-Playwright mangler, testen har ingen node-reserve) – bestået i GitHub Actions ved kørsel 2. HELBRED.md GRØN (07:07 UTC, main e4782ab = inkl. sidefod-sammenlægningen), BROWSER.md GRØN. Ingen tilbagerulning.
-Kørsel 3: ingen nye eller ændrede grene (alle åbne grene har samme commit som ved seneste afgørelse) – intet slået sammen, intet nyt forsøg talt.
-Tidligere i dag: ai/2026-11-18-browsertest-sky (A) og ai/2026-11-18-sidefod-tryk-flader (A) slået sammen.
+Sidst kontrolleret: 2026-11-19 (kontrollant, GitHub Actions, udløst af push på ai/2026-11-19-datafejl)
+Main-status: BESTÅET (0 fejl, 10 advarsler) på 5383110; regression.py BESTÅET; Chromium-testene (sammenlign, sidefod) og node-testene bestået. Ingen tilbagerulning. Intet slået sammen.
+I dag: ai/2026-11-19-datafejl AFVIST igen (løsningen uændret fra forsøg 1; accept (1) stadig ikke opfyldt) – se nedenfor og ai/rapporter/2026-11-19-kontrol.md.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
 (ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
@@ -16,6 +15,7 @@ Tidligere i dag: ai/2026-11-18-browsertest-sky (A) og ai/2026-11-18-sidefod-tryk
 - ai/2026-11-17-sidefod-tryk-flader (8fa5c7d, forsøg 1, klasse A) – AFLØST: forsøg 2 (ai/2026-11-18-sidefod-tryk-flader) slået sammen 2026-11-18.
 - ai/2026-11-17-browsertest-sky (0b558ff, forsøg 1, klasse A) – AFLØST: forsøg 2 (ai/2026-11-18-browsertest-sky) slået sammen 2026-11-18. Oprindelig afvisning: node-reserven gør enhver fejl efter opstart (timeout, side der ikke bliver klar, undtagelse i testen) til "IKKE KØRT" exit 3, som kontrol.py kun giver en advarsel for – en ødelagt forside giver BESTÅET i skyen. Gentaget: `SAMM` omdøbt i en kopi → exit 3 (Python-Playwright: exit 1). Kun manglende playwright/Chromium må give exit 3. Resten bestået (kontrol BESTÅET, accept 1–3, tekstmutation fanges).
 - "Hvor handler du?" (090801b + 4661112, forsøg 1, klasse H): rullet tilbage, se øverst. Selve sidens tjek gav fejl = []; ret runneren (eller tag den med fra browsertest-sky, når den er rettet) og indsend som gren. Kontrol.py skal være BESTÅET med Playwright.
+- ai/2026-11-19-datafejl (24ca7f3, klasse H) – AFVIST 2026-11-19, tæller IKKE som nyt forsøg (stadig forsøg 1 brugt): koden i scripts/ er byte-identisk med 4f2dd38; kun data genbygget og før/efter-tal tilføjet (H-punkt 2 nu opfyldt – før/efter genskabt af kontrollanten, identiske priser og linjer i 9 butikker). Mangler: accept (1) – 16 ty-advarsler hos Netto (mayonnaise, remoulade, risottoris, tacoskaller, pizzasauce, sild m.fl.). Rød-hold: "Jalapeño ost", "Mayonnaise med mango" og "Hakket svinekød og kalv" får forkert type. Afløser grenen nedenfor.
 - ai/2026-11-16-datafejl (4f2dd38, forsøg 1, klasse H; uændret også 2026-11-17 – intet nyt forsøg): før/efter-tal mangler ugepris og indkøbslinjer for de 9 butikker (H-punkt 2); dagens H-plads var brugt (H-punkt 5); accept (1) kun delvist (16 ty-advarsler tilbage). Bygget korrekt (kun tidsstempel ændres ved genbygning).
 
 ## Parkeret – Ejeren har dem (to forsøg brugt)
