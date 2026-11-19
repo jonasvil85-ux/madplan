@@ -4,7 +4,8 @@
 
 HELBRED.md: GRØN (2026-11-19 05:16 UTC, begge domæner OK, main 6b05f36). BROWSER.md: GRØN (2026-11-19, 0 JS-fejl, intet vandret scroll). Egen måling 2026-11-19: madplan-blue.vercel.app 200, sw.js v6, retter.json identisk med main.
 
-Sidst kontrolleret: 2026-11-19, kørsel 2 (kontrollant, GitHub Actions, udløst af push på ai/2026-11-19-gode-tilbud-grupper). Main f905b14: BESTÅET (0 fejl, 10 advarsler), inkl. regression, node- og Chromium-test; live sw.js v6 og retter.json = main.
+Sidst kontrolleret: 2026-11-19, kørsel 3 (planlagt 09:00 UTC). Main a44c3f5: BESTÅET (0 fejl, 11 advarsler; sidefodens Chromium-test IKKE kørt her – Python-Playwright mangler), regression BESTÅET. HELBRED GRØN (07:03 UTC, main 4e67e41), BROWSER GRØN. Ingen gren ændret siden kørsel 2 – ingen nye afgørelser, intet slået sammen, ingen tilbagerulning.
+Kørsel 2: 2026-11-19 (kontrollant, GitHub Actions, udløst af push på ai/2026-11-19-gode-tilbud-grupper). Main f905b14: BESTÅET (0 fejl, 10 advarsler), inkl. regression, node- og Chromium-test; live sw.js v6 og retter.json = main.
 Kørsel 1: Main-status BESTÅET (0 fejl, 10 advarsler) på 5383110; regression.py BESTÅET; Chromium-testene (sammenlign, sidefod) og node-testene bestået. Ingen tilbagerulning. Intet slået sammen.
 I dag: ai/2026-11-19-gode-tilbud-grupper AFVIST (forsøg 1, klasse H). ai/2026-11-19-datafejl AFVIST igen (løsningen uændret fra forsøg 1; accept (1) stadig ikke opfyldt) – se nedenfor og ai/rapporter/2026-11-19-kontrol.md.
 
