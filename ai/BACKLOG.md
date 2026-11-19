@@ -61,7 +61,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: ugeforslaget må ikke være fire brune kartoffelretter; farver og variation er forsidens blikfang.
   Accept: (1) alle ændrede retter består `kontrol.py`, (2) hver ændret ret har mindst tre friske farver i ingredienserne, (3) forsidens ugeforslag for 365discount og Min Købmand har mindst tre forskellige køkkener, (4) nye retter har en engelsk billedbeskrivelse i `billedprompts.json`, (5) svinekød udgør højst 35 % af retterne hos Min Købmand og Spar (i dag 24 af 45 og 24 af 53), og suppe-retter (fx pastinaksuppe) har så mættende tilbehør, at de er et hovedmåltid til 4.
   Ikke-mål: ugeforslagets algoritme.
-- [ ] [UX] [A] Gode tilbud-grupperne nederst på indkøbslisten
+- [ ] [UX] [A] Gode tilbud-grupperne nederst på indkøbslisten (kontrollant 2026-11-19: ai/2026-11-19-gode-tilbud-grupper AFVIST, forsøg 1; klassificeret H, fordi den rører listeLinjer og facit; titler som "Daim" og "Kartofler" på sedlen – se kontrolrapporten)
   Krav: gruppetekster er korte og viser det, man kan købe (højst ca. 40 tegn pr. vare), og listen er hurtig at skimme på mobil.
   Hvorfor: de lange gruppetekster ("A, B eller C") forvirrer i butikken.
   Accept: (1) ingen vare i grupperne har tekst over 45 tegn, (2) 400 px bredde uden vandret scroll, (3) designfil med valgt løsning.

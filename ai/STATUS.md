@@ -4,14 +4,15 @@
 
 HELBRED.md: GRØN (2026-11-19 05:16 UTC, begge domæner OK, main 6b05f36). BROWSER.md: GRØN (2026-11-19, 0 JS-fejl, intet vandret scroll). Egen måling 2026-11-19: madplan-blue.vercel.app 200, sw.js v6, retter.json identisk med main.
 
-Sidst kontrolleret: 2026-11-19 (kontrollant, GitHub Actions, udløst af push på ai/2026-11-19-datafejl)
-Main-status: BESTÅET (0 fejl, 10 advarsler) på 5383110; regression.py BESTÅET; Chromium-testene (sammenlign, sidefod) og node-testene bestået. Ingen tilbagerulning. Intet slået sammen.
-I dag: ai/2026-11-19-datafejl AFVIST igen (løsningen uændret fra forsøg 1; accept (1) stadig ikke opfyldt) – se nedenfor og ai/rapporter/2026-11-19-kontrol.md.
+Sidst kontrolleret: 2026-11-19, kørsel 2 (kontrollant, GitHub Actions, udløst af push på ai/2026-11-19-gode-tilbud-grupper). Main f905b14: BESTÅET (0 fejl, 10 advarsler), inkl. regression, node- og Chromium-test; live sw.js v6 og retter.json = main.
+Kørsel 1: Main-status BESTÅET (0 fejl, 10 advarsler) på 5383110; regression.py BESTÅET; Chromium-testene (sammenlign, sidefod) og node-testene bestået. Ingen tilbagerulning. Intet slået sammen.
+I dag: ai/2026-11-19-gode-tilbud-grupper AFVIST (forsøg 1, klasse H). ai/2026-11-19-datafejl AFVIST igen (løsningen uændret fra forsøg 1; accept (1) stadig ikke opfyldt) – se nedenfor og ai/rapporter/2026-11-19-kontrol.md.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
 (ingen – 090801b og 4211735 efterprøvet og rullet tilbage 2026-11-17)
 
 ## Afvist – udvikleren retter
+- ai/2026-11-19-gode-tilbud-grupper (8b91af3, forsøg 1, klasse H – rører listeLinjer og facit, ikke A): AFVIST 2026-11-19. Indholdsfejl: titlen er første led i "A, B eller C", så varetypen forsvinder. Sedlen og den kopierede seddel viser kun titlen: "Daim (18 kr)" for Philadelphia/Daim-cheesecake (netto), "Kartofler (15 kr)" for "Kartofler eller brød" (bilka), "Starbucks", "Merrild", "Semper", "Klovborg", "Chia", "Gestus". Procedural, tæller ikke: før/efter-tal for 9 butikker mangler, 400 px ikke målt. Foldningen og facit (kun titler) er i orden. Se ai/rapporter/2026-11-19-kontrol.md, kørsel 2.
 - ai/2026-11-17-sidefod-tryk-flader (8fa5c7d, forsøg 1, klasse A) – AFLØST: forsøg 2 (ai/2026-11-18-sidefod-tryk-flader) slået sammen 2026-11-18.
 - ai/2026-11-17-browsertest-sky (0b558ff, forsøg 1, klasse A) – AFLØST: forsøg 2 (ai/2026-11-18-browsertest-sky) slået sammen 2026-11-18. Oprindelig afvisning: node-reserven gør enhver fejl efter opstart (timeout, side der ikke bliver klar, undtagelse i testen) til "IKKE KØRT" exit 3, som kontrol.py kun giver en advarsel for – en ødelagt forside giver BESTÅET i skyen. Gentaget: `SAMM` omdøbt i en kopi → exit 3 (Python-Playwright: exit 1). Kun manglende playwright/Chromium må give exit 3. Resten bestået (kontrol BESTÅET, accept 1–3, tekstmutation fanges).
 - "Hvor handler du?" (090801b + 4661112, forsøg 1, klasse H): rullet tilbage, se øverst. Selve sidens tjek gav fejl = []; ret runneren (eller tag den med fra browsertest-sky, når den er rettet) og indsend som gren. Kontrol.py skal være BESTÅET med Playwright.
