@@ -43,7 +43,7 @@ def uden_krav(typ, t):
     return typ in KRAEV_BESKRIVELSE and not re.search(KRAEV_BESKRIVELSE[typ], ((t.get('navn') or '') + ' ' + (t.get('beskrivelse') or '')).lower())
 
 
-BESKRIVELSE_EKSKL = {'laks': r'gravad|røget|rogn', 'yoghurt': r'pære|banan|jordbær|blåbær|vanilje|mango|fersken|skovbær|frugt', 'pasta': r'tortell|ravioli|fyldt|gnocchi'}
+BESKRIVELSE_EKSKL = {'laks': r'gravad|røget|rogn', 'yoghurt': r'pære|banan|jordbær|blåbær|vanilje|mango|fersken|skovbær|frugt', 'pasta': r'tortell|ravioli|fyldt|gnocchi', 'kartofler': r'dybfrost'}
 
 
 def varer_i(navn):
