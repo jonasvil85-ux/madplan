@@ -182,6 +182,13 @@ if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sammenlign_browser.py')
     if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke her – browsertesten af sammenlign butikker er IKKE kørt')
     elif p.returncode: fejl.append('Browsertest af sammenlign butikker fejlede:' + chr(10) + chr(10).join(p.stdout.strip().splitlines()[-12:]))
     else: ok.append('sammenlign butikker i Chromium bestået')
+# ---------- 9b. "Gode tilbud"-grupperne: korte titler og foldning til 4 rækker (node; se scripts/tests/tilbudsgrupper.js) ----------
+if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'tilbudsgrupper.js')):
+    p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'tilbudsgrupper.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)
+    if p.returncode: fejl.append('Test af gode tilbud-grupperne fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[:12]))
+    else: ok.append('gode tilbud-grupperne bestået (' + (p.stdout.strip().splitlines() or [''])[-1][:60] + ')')
+elif os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'tilbudsgrupper.js')):
+    advarsler.append('node findes ikke her – testen af gode tilbud-grupperne er IKKE kørt')
 if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sidefod_browser.py')):
     p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'sidefod_browser.py'), ROD], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
     if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke her – browsertesten af sidefoden er IKKE kørt')

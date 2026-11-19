@@ -483,7 +483,10 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 
 /* Indkøbsliste, tilføj varer og indkøbsseddel */
 .sektionshoved { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
-.sektionshoved h2 { margin: 0; }
+.sektionshoved h2 { margin: 0; overflow-wrap: anywhere; }
+.ekstra-flere { width: 100%; min-height: 44px; margin-top: 8px; border-radius: 12px; font-size: 15px; }
+.ekstra-flere:focus-visible { outline: 2px solid var(--valgt, var(--accent)); outline-offset: 2px; }
+.liste-vare .navn { overflow-wrap: anywhere; }
 .vare { cursor: pointer; border-radius: 8px; }
 .vare.valgt { background: rgba(232,116,59,.08); }
 .vare.valgt .navn { color: var(--text-1); }
@@ -1353,9 +1356,15 @@ function kortPriser(r) {
 const prisPrPers = (b, niveau) => median(b.retter.filter(r => r.niveau === niveau).map(r => prisIAlt(r) / 4));
 
 // Avisnavne er ofte i VERSALER og lange: "PEPSI MAX, FAXE KONDI ELLER …" -> "Pepsi max, faxe kondi …"
+// Har tilbuddet alternativer ("A, B eller C"), er titlen det første; resten tælles (se andreSlags). Afkortes aldrig midt i et ord.
+const versalNavn = n => n === n.toUpperCase() ? n.charAt(0) + n.slice(1).toLowerCase() : n;
+const alternativer = n => /\seller\s/i.test(n) && !/-\s+eller\s/i.test(n) ? versalNavn(n).split(/,\s+|\s+eller\s+/i).map(x => x.trim()).filter(Boolean) : [versalNavn(n)];
+const andreSlags = n => alternativer(n).length - 1;
 const kortNavn = n => {
-  const s = n === n.toUpperCase() ? n.charAt(0) + n.slice(1).toLowerCase() : n;
-  return s.length > 42 ? s.slice(0, 40).trim() + '…' : s;
+  const s = alternativer(n)[0];
+  if (s.length <= 40) return s;
+  const i = s.slice(0, 41).lastIndexOf(' ');
+  return (i > 10 ? s.slice(0, i) : s.slice(0, 40)).replace(/[\s,;:–-]+$/, '') + '…';
 };
 
 // Kædens logo i en hvid "chip", så alle logoer står pænt på den mørke baggrund
@@ -2502,7 +2511,7 @@ function listeLinjer() {
       const g = ekstraTilbud(new Set(l.tilbud.map(v => v.key)), l.tilbud.length ? [...new Set(l.tilbud.map(v => v.butik))] : aktivS());
       return Object.fromEntries(Object.keys(EKSTRA_TITLER).map(k => [k, (g[k] || []).map(t => ({
         key: 'g|' + t.kort, butik: t.butik, navn: kortNavn(t.navn), gruppe: varegruppe(t.navn), pris: t.pris, billede: t.billede, soeg: soegeord(t.navn),
-        detalje: `${esc(t.under)} · ${esc(data.butikker[t.butik].navn)}${t.note ? ' · ' + esc(t.note.toLowerCase()) : ''}`,
+        detalje: `${andreSlags(t.navn) ? `eller ${andreSlags(t.navn)} ${andreSlags(t.navn) === 1 ? 'anden slags' : 'andre slags'} · ` : ''}${esc(t.under)} · ${esc(data.butikker[t.butik].navn)}${t.note ? ' · ' + esc(t.note.toLowerCase()) : ''}`,
       }))]));
     })(),
   };
@@ -2538,6 +2547,8 @@ function listeSektioner(L) {
   for (const [k, titel] of Object.entries(EKSTRA_TITLER)) if (L[k]?.length) sek.push({ id: k, titel, linjer: L[k], vaelgAlle: false });  // ikke afkrydset som standard
   return sek;
 }
+const EKSTRA_SYNLIGE = 4;  // "Gode tilbud"-grupperne viser 4 rækker, før man trykker "Vis flere"
+const ekstraAaben = new Set();  // grupper foldet ud (kun i denne visning, huskes ikke)
 const valgteButikker = () => [...new Set(byggListe().tilbud.map(v => v.butik))];  // butikkerne, der skal handles i (dem tilbuddene på listen er fra)
 
 // Standard på indkøbslisten: tilbudsvarer OG varer til normalpris er afkrydset (de skal købes); kun basisvarer (salt, olie …) vælger man selv til.
@@ -2583,9 +2594,14 @@ function renderListe() {
     ${listeSektioner(L).map(({ id, titel, linjer, vaelgAlle }) => {
       const alle = linjer.every(x => state.valgtVare[x.key]);
       return `<div class="panel">
-        <div class="sektionshoved"><h2>${titel}</h2>
+        <div class="sektionshoved"><h2>${titel}${vaelgAlle === false ? ` <span class="detalje">· ${linjer.length}</span>` : ''}</h2>
           ${vaelgAlle === false ? '' : `<button class="chip" data-alle="${id}" data-til="${alle ? 0 : 1}">${alle ? 'Fravælg alle' : '✓ Vælg alle'}</button>`}</div>
-        ${linjer.map(linje).join('')}
+        ${(() => {
+          if (vaelgAlle !== false || linjer.length <= EKSTRA_SYNLIGE) return linjer.map(linje).join('');
+          const aaben = ekstraAaben.has(id) || linjer.some(x => state.valgtVare[x.key]);
+          return `<div id="ekstra-${esc(id)}">${(aaben ? linjer : linjer.slice(0, EKSTRA_SYNLIGE)).map(linje).join('')}</div>
+            <button class="chip ekstra-flere" data-ekstra="${esc(id)}" aria-expanded="${aaben}" aria-controls="ekstra-${esc(id)}">${aaben ? 'Vis færre' : `Vis ${linjer.length - EKSTRA_SYNLIGE} flere`}</button>`;
+        })()}
       </div>`;
     }).join('')}`);
 
@@ -2896,7 +2912,7 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-sammvalg],[data-sammkombi],[data-sammalle],[data-sammigen],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken],[data-udskriv]');
+  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-sammvalg],[data-sammkombi],[data-sammalle],[data-sammigen],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-ekstra],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken],[data-udskriv]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if ('ing' in d) { e.stopPropagation(); const pop = document.getElementById('ing-pop'); if (pop && pop.style.display === 'block' && ingKilde === t && !pop.dataset.fast) return ingSkjul(); return ingVis(t, false); }
@@ -2939,6 +2955,7 @@ document.addEventListener('click', e => {
   else if (d.onlineTil) state.online = d.onlineTil === '1';
   else if (d.online) { state.koebt[d.online] = true; setTimeout(() => { const y = window.scrollY; render(); window.scrollTo(0, y); }, 0); return; }
   else if (d.alle) { const [g, bk] = d.alle.split(':'); listeLinjer()[g].filter(x => !bk || x.butik === bk).forEach(x => { state.valgtVare[x.key] = d.til === '1'; }); }
+  else if (d.ekstra) { if (ekstraAaben.has(d.ekstra)) ekstraAaben.delete(d.ekstra); else ekstraAaben.add(d.ekstra); }
   else if (d.katalog) {
     if (harEkstra(d.katalog)) state.ekstra = state.ekstra.filter(x => x.navn.toLowerCase() !== d.katalog.toLowerCase());
     else tilfoejEkstra(d.katalog, d.kgruppe);
