@@ -76,6 +76,26 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: Google finder siderne via links; kun sitemap giver svag indeksering.
   Accept: (1) link fra forsiden, (2) brødkrumme/tilbage-link på alle 193 sider, (3) robots.txt indeholder Sitemap-linjen, (4) kontrollen tjekker (2) og (3), (5) ingen priser på siderne.
   Ikke-mål: ændre appen eller prisberegningen.
+- [ ] [SEO] [A] Opskriftssider: titler under 60 tegn og beskrivelser 70–160 tegn (SEO/vækst 2026-11-19, uge 47)
+  Krav: byg-scriptet (`scripts/byg_sider.py`) skriver titler på formen "Navn | Måltidsjagten" (eller kortere), højst 60 tegn, og beskrivelser på 70–160 tegn. Bevar unikke titler og beskrivelser.
+  Hvorfor: 171 af 193 titler er over 60 tegn (længste 99), og 13 beskrivelser er under 70, så søgeresultater afkortes. Effekten på placering er en hypotese; ingen placering lovet.
+  Accept: (1) alle 193 titler ≤ 60 tegn, alle beskrivelser 70–160 tegn, (2) ingen dubletter af titel eller beskrivelse, (3) kontrollen tjekker (1) og (2), (4) `kontrol.py` BESTÅET, (5) ingen priser og ingen opfundet tekst på siderne.
+  Ikke-mål: ændre opskrifter, billeder eller forsiden.
+- [ ] [SEO] [A] Forside: synlig overskrift, ens butikstal og tekst uden JavaScript (SEO/vækst 2026-11-19)
+  Krav: (a) Ejeren afgør butikstallet (9 eller 10) og meta-beskrivelse, `og:description`, JSON-LD og opskriftssidernes tekst bruger samme tal og samme liste; (b) forsiden får en synlig `<h1>` med søgeord (fx "Ugens madplan ud fra tilbud") uden at forskubbe "hele forsiden på én skærm" (UX-designeren vurderer), og logoet bliver ikke-overskrift; (c) `<noscript>` forklarer kort, hvad siden gør, og linker til `/opskrifter/`.
+  Hvorfor: forsidens indhold bygges i JavaScript; uden overskrift og ens tal er siden svagere for søgemaskiner og mindre ærlig. Betydningen er en hypotese, ikke målt.
+  Accept: (1) kun ét tal for antal butikker i `index.html` og i opskriftssiderne, (2) `<h1>` indeholder synlig tekst, (3) 390 × 844 px: butiksvalg, ugens retter og "Brug forslaget" er stadig synlige uden scroll (browsertesten), (4) `kontrol.py` BESTÅET, (5) ingen ændring af priser eller beregning.
+  Ikke-mål: nye landingssider; ændre `simuleringHtml()`.
+- [ ] [SEO] [A] Anonym hændelsesmåling uden persondata (SEO/vækst 2026-11-19; ROADMAP 16)
+  Krav: Ejeren afklarer, om Vercel Web Analytics' egne hændelser kan bruges (holdet kan ikke se abonnementet); hvis ja, tælles `butik_valgt`, `forslag_brugt`, `seddel_aabnet`, `liste_delt` og `opskrift_til_forside` uden bruger-id, indkøbsindhold eller tekstfelter. Rør ikke `auth.js`/`feedback.js`.
+  Hvorfor: ingen kan i dag se, hvor i flowet brugerne falder fra; fastholdelse og søgetrafik kan ikke vurderes uden måling.
+  Accept: (1) hændelser sender kun navnet på hændelsen (ingen parametre med persondata eller indkøbsvarer), (2) siden virker uændret, hvis scriptet er blokeret, (3) browsertesten viser 0 JavaScript-fejl, (4) privatlivspolitikken dækker det; mener Ejeren, at den skal ændres, skrives forslaget til Jonas (grundlov), og kravet venter, (5) `kontrol.py` BESTÅET.
+  Ikke-mål: cookies, bruger-id, tredjepartsværktøjer, egen tabel i Supabase.
+- [ ] [SEO] [A] Tjek næringsdata i opskrifterne (SEO/vækst 2026-11-19; hypotese)
+  Krav: 5 opskriftssider angiver over 1000 kcal pr. portion (fx 1354 kcal for æbleflæsk). Udvikleren genberegner dem og retter beregningen eller teksten, så tallet er rimeligt og tydeligt mærket.
+  Hvorfor: forkerte tal i `Recipe`-markup og på siden skader tilliden; det er uafklaret, om tallene er forkerte.
+  Accept: (1) de 5 sider forklaret eller rettet med bevis (ingrediensliste, regnestykke), (2) kontrollen advarer ved over 1000 kcal pr. portion uden forklaring, (3) `kontrol.py` BESTÅET.
+  Ikke-mål: ændre priser.
 - [ ] [UX] [H] Banner "Du ser en gemt kopi"
   Krav: når siden er vist fra service workerens cache og ikke fra nettet, forklarer et lille, roligt banner det, med en knap der prøver igen.
   Hvorfor: på netværk, hvor siden er blokeret, ser brugeren forældede data uden at vide det.
