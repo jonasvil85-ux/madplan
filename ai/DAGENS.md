@@ -1,20 +1,22 @@
-# Dagsrapport 2026-11-19
-**Siden i dag:** Sund med advarsler. Udgivet side grøn (Vagtpost 07:03 UTC, Browser-QA), kontrol bestået (0 fejl, 11 advarsler); udseendet er kun målt af Browser-QA, ikke set af mig.
+# Dagsrapport 2026-11-20
+**Siden i dag:** Sund (grøn). Kun nye tilbudsdata er udgivet; to ændringer blev afvist af kontrollanten.
 ## Ændret på siden (slået sammen)
-- Data: tilbudsrutinen (6b05f36, 05:13 UTC) hentede nye aviser (365discount uge 47, Lidl suppleret med weekendavis). 483 retter, op fra 479. Kontrollant: main grøn, regression bestået. Ingen kodeændring i dag.
+- Nye tilbudsaviser uge 48 (meny, bilka, kvickly, spar, minkoebmand) og billeder til nye retter (9eac79c, dcaa466): automatisk data fra tilbudsrutinen, ikke en funktionsændring. Kontrol bestået (se Sundhed). Ingen UX- eller kodeændringer slået sammen i dag.
 ## Afvist eller rullet tilbage
-- ai/2026-11-19-gode-tilbud-grupper (H, forsøg 1): afvist. Titlen er første led i "A, B eller C", så varetypen forsvinder på sedlen ("Daim (18 kr)", "Kartofler (15 kr)"); før/efter-tal for 9 butikker mangler.
-- ai/2026-11-19-datafejl (H): afvist igen, tæller ikke som nyt forsøg. Koden i scripts/ er uændret; stadig 16 Netto-ingredienser uden type (accept 1).
-- Stadig rullet tilbage fra 17/11: "Hvor handler du?" (090801b). Ingen ny tilbagerulning i dag.
+- ai/2026-11-19-gode-tilbud-grupper (forsøg 2): "Vis færre" virker ikke, når en vare i gruppen er afkrydset. Ét forsøg tilbage.
+- ai/2026-11-20-datafejl (forsøg 2): ny kødtype rammer også rent okse-/grisekød, så indkøbslisten kan vise hele avisens gruppetekst. Ét forsøg tilbage.
+- Ingen tilbagerulning i dag. Øvrige ai/-grene er uændrede/parkerede.
 ## Data
-- Retter pr. butik: netto 64, bilka 58, kvickly 60, meny 53, spar 53, rema 50, lidl 50, 365 50, minkoebmand 45 (i alt 483). Retter uden billede: 30, alle hos 365 (nye retter; kræver lokal billeder.py). Ubrugte billeder: 214 (188 i går).
-- Feedback fra brugerne: 0 nye beskeder (FEEDBACK.md: seneste 17/11, 2 testbeskeder, 0 brugbare). Ingen HASTER.
+- 572 retter: netto 64, meny 73, bilka 83, rema 50, kvickly 88, lidl 50, 365 50, spar 73, minkoebmand 41 (minimum er 40).
+- Retter uden billede: 11 (alle 365; Frikadeller hos minkoebmand nævnes af kontrollanten som billedløs, men tælles ikke i mit tjek). 222 billeder bruges ikke (kan ryddes).
+- Datakvalitet dårligere efter uge 48 (Ejeren): netto har 25 ingredienser uden type, 5 retter koster over 450 kr (andelår/and, 494–773 kr).
+- Feedback fra brugerne: ingen nye beskeder; seneste (17/11) var 2 testbeskeder, ikke brugbare. Intet HASTER.
 ## Sundhed
-- Kontrol: RESULTAT: BESTÅET (0 fejl, 11 advarsler). Udgivet side: nået, matcher main ja (begge domæner OK, 8/8 billeder; Browser-QA GRØN, 0 JS-fejl, intet vandret scroll, 30 små tryk-flader på mobil). Advarsler af betydning: 5 dyre andretter (496–759 kr for hele retten), Kvickly svinemørbrad mangler på ingrediensliste, 25 Netto-ingredienser uden ty, 30 retter uden billede (365), 214 ubrugte billeder. Ikke tjekket: sidefodens Chromium-test i min session (Playwright mangler; kontrollanten kørte den i Actions), farvekontrast, tastatur, login.
+- Kontrol: BESTÅET (0 fejl, 10 advarsler) inkl. regression, budget og sammenlign butikker. Udgivet side: nået, matcher main ja (Vagtpost GRØN 07:06 UTC, sw.js v6, 572 retter). Browser-QA GRØN: 0 JS-fejl, intet vandret scroll, 30 små tryk-flader (<40 px) på mobil. Advarsler af betydning: de 5 dyre retter, 25 netto uden type, 11 retter uden billede hos 365.
+- Ikke tjekket af mig: udseende i en rigtig browser (jeg har ingen), sidefodens Chromium-test (Playwright mangler her), farvekontrast og tastaturbrug.
 ## I morgen
-- Øverst: "Ret kendte datafejl" (DATA, H, backend-udvikleren – skal rette de 16 ty-mangler); derefter "Ét kort: Hvor handler du?" genindsendes (frontend), og gode-tilbud-grupper skal rettes.
-- SEO-rapport uge 47 er læst: 171 af 193 opskriftstitler er over 60 tegn; "10 supermarkeder" i tekster mod 9 butikker; 5 sider med over 1000 kcal pr. portion. Ejeren tager det op i backloggen (ikke målt mod rigtige søgedata).
+- Øverst: "Ret kendte datafejl" (DATA, H) – sidste forsøg; derefter "Ét kort: Hvor handler du?" (genindsendelse). Tages af Backend-udvikleren hhv. Frontend-udvikleren, efter Ejerens prioritering.
 ## Til prøve hos Jonas
-- Intet nyt udgivet siden sidefoden på mobil (spørgsmålene står i dagsrapporten 2026-11-18).
+- Intet.
 ## Til Jonas
-- Grundlovs-punkter fra Sikkerhedsagentens uge 47 afventer dig: H2, L2/L3, M4/M5 (se ai/rapporter/2026-uge-47-sikkerhed.md). Ejeren har ingen nye forslag.
+- Intet nyt. Sikkerhedspunkter H2, L2/L3, M4/M5 afventer stadig Jonas (grundlov), jf. Ejerens rapport.
