@@ -4,7 +4,7 @@
 
 HELBRED.md: GRØN (2026-11-20 05:16 UTC, begge domæner OK, main 9eac79c). BROWSER.md: GRØN (2026-11-20, 0 JS-fejl, intet vandret scroll). Egen måling 2026-11-20: madplan-blue.vercel.app 200, sw.js v6, retter.json identisk med main.
 
-Sidst kontrolleret: 2026-11-20, kørsel 2 (kontrollant, GitHub Actions, udløst af push på ai/2026-11-20-datafejl). Main c9a0ff4: BESTÅET (0 fejl, 9 advarsler) inkl. regression, node-test og begge Chromium-test. HELBRED/BROWSER GRØN (06:53 UTC). Ingen tilbagerulning. Intet slået sammen.
+Sidst kontrolleret: 2026-11-20, kørsel 3 (planlagt). Main BESTÅET (0 fejl, 10 advarsler) inkl. regression og sammenlign i Chromium; sidefodens Chromium-test ikke kørt (Python-Playwright mangler). HELBRED/BROWSER GRØN. Ingen tilbagerulning. Intet slået sammen – ingen gren ændret siden kørsel 2.
 I dag: ai/2026-11-19-gode-tilbud-grupper AFVIST (forsøg 2, H: "Vis færre" virker ikke med afkrydset vare). ai/2026-11-20-datafejl AFVIST (forsøg 2, H: ny type hakket_kod rammer også rent okse-/grisekød → hele gruppeteksten i indkøbslisten). Øvrige grene uændrede. Se ai/rapporter/2026-11-20-kontrol.md (kørsel 1 og 2).
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
