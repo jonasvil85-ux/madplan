@@ -27,7 +27,7 @@ TYPER = {
     'okse_tern':     (r'gullasch|okse i tern|oksekød i tern|okseklump|bankekød|stroganoff|oksekæber|oksecuvette|cuvette af okse', r''),
     'laks':          (r'laks', r'røget|gravad|snitter|pålæg|vildlaks|varm|kold|ketalaks|rogn'),
     'hvid_fisk': (r'torsk|\bsej\b|mørksej|rødspætte|fiskefilet|alaska', r'paner|frikadelle|ovnklar|indbagt|rahbek|amanda|makrel|røget|sæby|glyngøre|dåse|tomat'),
-    'rejer':         (r'rejer', r'paner|rahbek'),
+    'rejer':         (r'rejer', r'paner|rahbek|indbagt'),
     'tun':           (r'\btun\b', r''),
     'chorizo':       (r'chorizo', r''),
     # Nye typer (bibliotek_5): varer, der ofte er på tilbud, men som biblioteket manglede opskrifter til

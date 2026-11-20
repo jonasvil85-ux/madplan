@@ -58,6 +58,8 @@ def kandidater(tilbud, typ):
     for t in tilbud:
         if not t.get('pris'):
             continue
+        if 'indbagt' in t['navn'].lower():
+            continue  # færdigvare (Rahbek indbagt fisk/rejer)
         if uden_krav(typ, t):
             continue  # skyr/yoghurt uden "naturel" i avisen kan være sødet
         if typ in BESKRIVELSE_EKSKL and re.search(BESKRIVELSE_EKSKL[typ], (t.get('beskrivelse') or '').split('.')[0].lower()):
