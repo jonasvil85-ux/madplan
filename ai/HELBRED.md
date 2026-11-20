@@ -1,10 +1,10 @@
 # Helbred for den udgivne side
 
-Sidst tjekket: 2026-11-20 02:22 UTC · main: 68d5f49
+Sidst tjekket: 2026-11-20 05:16 UTC · main: 9eac79c
 
 **Resultat: GRØN**
 
-- https://madplan-blue.vercel.app: **OK** (sw.js v6, 483 retter, retter.json identisk med main, 8/8 billeder hentet)
-- https://www.xn--mltidsjagten-tcb.dk: **OK** (sw.js v6, 483 retter, retter.json identisk med main, 8/8 billeder hentet)
+- https://madplan-blue.vercel.app: **OK** (sw.js v6, 572 retter, retter.json identisk med main, 8/8 billeder hentet)
+- https://www.xn--mltidsjagten-tcb.dk: **OK** (sw.js v6, 572 retter, retter.json identisk med main, 8/8 billeder hentet)
 
 Filen skrives af GitHub-handlingen "Vagtpost" (scripts/tests/live_tjek.py). Rutinerne i skyen kan ikke selv nå siden, så de læser denne fil.
