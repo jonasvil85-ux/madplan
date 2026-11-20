@@ -10,7 +10,7 @@ AE = r'(?<![a-zæøå])æg(?![a-zæøå])|skrabeæg|frilandsæg'
 TYPER = {
     # Kød og fisk
     'hakket_okse':   (r'hakket.{0,20}okse|okse.{0,8}hakket|hakket oksekød', r'kalv|gris|kylling|burger|bøf|boost'),
-    'hakket_gris':   (r'hakket.{0,20}gris|gris.{0,8}hakket|hakket grisekød|hakket gris', r'okse|kylling'),
+    'hakket_gris':   (r'hakket.{0,20}gris|gris.{0,8}hakket|hakket grisekød|hakket gris|hakket (?:dansk )?svinekød', r'okse|kylling|kalv'),
     'hakket_kylling': (r'hakket.{0,20}kylling|kyllingekød|hakket kylling', r'okse|gris'),
     'kyllingebryst': (r'kyllingebryst|kyllingeinderfilet|kyllingefilet|kyllingestrimler|kylling i tern|(?<![a-zæøå])brystfilet', r'pålæg|ande|sandwich|spyd|kalkun|hel kylling|kebab|schnitzel|fasan'),
     'kyllingelaar':  (r'kyllingelår|kyllingeoverlår|kyllingeunderlår|overlår|underlår|lårfilet|kyllingeover', r'pålæg|kalkun'),
@@ -97,8 +97,26 @@ TYPER = {
     'feta':          (r'feta', r''),
     'halloumi':      (r'halloumi|grillost', r''),
     'floedeost':     (r'flødeost|philadelphia', r''),
-    'parmesan':      (r'parmesan|grana padano', r''),
+    'parmesan':      (r'parmesan|parmigiano|grana padano', r''),
     'hytteost':      (r'hytteost', r''),
     'skiveost':      (r'skiveost|havarti|gouda|cheddar|emmentaler|danbo', r'revet|smelte'),
     'aeg':           (AE, r'påske|salat|kinder'),
+    # Frugt, konserves og tilbehør (tilføjet 2026-11-16, så indkøbslisten kender typen)
+    'mango':         (r'(?<![a-zæøå])mango(?![a-zæøå])', r'chutney|sauce|juice|drik|smoothie|yoghurt|mayonnaise|remoulade'),
+    'majs':          (r'(?<![a-zæøå])majs(?![a-zæøå])', r'chips|popcorn|mel|stivelse|snack|flager|tortilla|wraps'),
+    'salsa':         (r'(?<![a-zæøå])salsa(?![a-zæøå])', r'chips|nachos'),
+    'rygeost':       (r'rygeost', r''),
+    'jalapenos':     (r'jalape', r'chips|sauce|ost'),
+    'clementiner':   (r'clementin', r''),
+    'kefir':         (r'kefir', r'drik|smag|frugt'),
+    # Enkeltvarer fra netto-avisen (2026-11-20), så indkøbslisten kender typen
+    'mayonnaise':    (r'mayonnaise', r'mango|salat|dressing'),
+    'remoulade':     (r'remoulade', r'salat'),
+    'risottoris':    (r'risottoris|arborio', r''),
+    'tacoskaller':   (r'taco ?skaller', r''),
+    'pizzasauce':    (r'pizzasauce', r''),
+    'sild':          (r'(?<![a-zæøå])sild(?![a-zæøå])', r'salat|røget|dåse'),
+    'tomatsuppe':    (r'tomatsuppe', r''),
+    'skaereost':     (r'skæreost', r'revet|smelte'),
+    'hakket_kod':    (r'hakket kød|hakket (?:dansk )?(?:okse|gris|svine)[a-zæøå -]*kød', r'kalv|kylling|burger|bøf'),
 }

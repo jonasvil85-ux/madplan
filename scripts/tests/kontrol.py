@@ -57,7 +57,8 @@ if retter:
             if not r.get('billede') or not os.path.exists(os.path.join(ROD, r['billede'])): uden_billede.setdefault(kode, []).append(r['navn'])
             if len(r.get('fremgangsmaade', [])) < 2: fejl.append(f'{h} har under 2 trin i fremgangsmåden')
             if not r.get('ingredienser'): fejl.append(f'{h} har ingen ingredienser'); continue
-            if not (15 <= r.get('pris_i_alt', 0) <= 450): advarsler.append(f"{h} har mærkelig pris: {r.get('pris_i_alt')} kr (hele retten)")
+            if r.get('pris_i_alt', 0) > 450: fejl.append(f"{h} koster over 450 kr for hele retten ({r.get('pris_i_alt')} kr) – fjern eller lav den billigere")
+            elif not (15 <= r.get('pris_i_alt', 0) <= 450): advarsler.append(f"{h} har mærkelig pris: {r.get('pris_i_alt')} kr (hele retten)")
             ikke_basis = [i for i in r['ingredienser'] if not i.get('basisvare')]
             if not any(i.get('tilbud') for i in ikke_basis): fejl.append(f'{h} bruger ikke ét eneste tilbud')
             for i in r['ingredienser']:
@@ -67,6 +68,7 @@ if retter:
             # navnet må ikke love en hovedingrediens, retten ikke har
             ing_tekst = ' '.join(i['navn'].lower() for i in r['ingredienser'])
             for ord_ in ('svinemørbrad', 'andebryst', 'laks', 'torsk', 'kylling', 'hakket'):
+                if ord_ == 'svinemørbrad' and re.search(r'mørbrad af (?:dansk )?(?:gris|svin)|grisemørbrad', ing_tekst): continue  # samme vare under butikkens eget navn
                 if ord_ in r['navn'].lower() and ord_ not in ing_tekst and not (ord_ == 'hakket' and 'hak' in ing_tekst):
                     advarsler.append(f"{h}: navnet nævner '{ord_}', men det står ikke på ingredienslisten")
     # Billeder kan ikke laves i skyen (nøglen findes kun på ejerens pc) – derfor en advarsel, ikke en fejl. Den, der laver billeder lokalt, skal rydde den.
@@ -152,6 +154,20 @@ else:
     advarsler.append('node findes ikke her – JavaScript-syntaksen er IKKE tjekket (kør kontrollen lokalt før udgivelse af kodeændringer)')
 
 # ---------- 7. Opskrifternes egne tjek (rå kød uden tilberedning mv.) ----------
+# Ingredienstyper (bibliotek_typer.py): kantsager, der ikke må ramme forkert (rød-hold fra kontrollanten 2026-11-19)
+sys.path.insert(0, os.path.join(ROD, 'scripts'))
+try:
+    import bibliotek_typer as _BT
+    def _typer(t): return {k for k, (i, e) in _BT.TYPER.items() if re.search(i, t.lower()) and not (e and re.search(e, t.lower()))}
+    _krav = [('Jalapeño ost', 'jalapenos', False), ('Mayonnaise med mango', 'mango', False), ('Mayonnaise med mango', 'mayonnaise', False),
+             ('Hakket svinekød og kalv', 'hakket_gris', False), ('Hakket dansk svinekød', 'hakket_gris', True), ('Jalapeños på glas', 'jalapenos', True),
+             ('Hakket Dansk Grise- og Oksekød 8-12 %', 'hakket_kod', True), ('Klovborg skæreost', 'skaereost', True), ('Mex & Co. taco skaller', 'tacoskaller', True),
+             ('Æbler og mango', 'mango', True), ('Heinz tomatsuppe', 'tomatsuppe', True), ('Rice Market risottoris', 'risottoris', True)]
+    _forkert = [f"'{t}' {'skal' if skal else 'må ikke'} give typen {typ}" for t, typ, skal in _krav if (typ in _typer(t)) != skal]
+    if _forkert: fejl.append('bibliotek_typer.py giver forkerte typer: ' + '; '.join(_forkert))
+    else: ok.append(f'{len(_krav)} typekantsager bestået')
+except Exception as e_:
+    fejl.append(f'typekantsager kunne ikke køre: {e_}')
 p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tjek_opskrifter.py')], capture_output=True, text=True, encoding='utf-8', errors='replace')
 if p.returncode: fejl.append('tjek_opskrifter.py fandt rå-fejl:\n' + '\n'.join(p.stdout.strip().splitlines()[-12:]))
 else: ok.append('tjek_opskrifter.py bestået')
