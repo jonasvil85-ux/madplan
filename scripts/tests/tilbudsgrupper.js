@@ -1,5 +1,5 @@
 // Test af "Gode tilbud"-grupperne på indkøbslisten (BACKLOG [UX] "Gode tilbud-grupperne nederst på indkøbslisten"). Køres af kontrol.py (node, uden browser).
-// Samme DOM-attrap, frosne ur og datakopi som sammenlign.js. Tjekker titlerne for alle varer i alle grupper og alle 9 butikker, og at den tegnede liste
+// Samme DOM-attrap, frosne ur og datakopi som sammenlign.js. Tjekker, at titlerne er avisens egen tekst (aldrig kun første alternativ), for alle varer i alle grupper og alle 9 butikker, og at den tegnede liste
 // foldes til 4 rækker pr. gruppe uden at ændre summen.
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm'), zlib = require('zlib');
@@ -51,17 +51,18 @@ kør(kode, 'index.html');
     const fejl = []; let antal = 0, med = 0;
     for (const [g, liste] of Object.entries(tilbudsliste.grupper)) for (const t of liste) {
       antal++;
-      const titel = kortNavn(t.navn), alt = alternativer(t.navn), n = andreSlags(t.navn);
-      if (titel.length > 41) fejl.push(g + ': titel over 40 tegn: ' + titel);
-      if (/\\seller\\s/i.test(titel) && !/-\\s+eller\\s/i.test(t.navn)) fejl.push(g + ': titlen indeholder alternativer: ' + titel);
-      if (titel.endsWith('…') && !(alt[0].startsWith(titel.slice(0, -1)) && (alt[0][titel.length - 1] === ' ' || alt[0][titel.length - 1] === ',')))
-        fejl.push(g + ': afkortet midt i et ord: ' + titel + ' <- ' + alt[0]);
-      if (n !== alt.length - 1 || n < 0) fejl.push(g + ': forkert antal andre: ' + t.navn);
-      if (n) med++;
+      const titel = kortNavn(t.navn), fuld = versalNavn(t.navn);
+      if (titel.length > 42) fejl.push(g + ': titel over 42 tegn: ' + titel);
+      // Titlen er avisens egen tekst, aldrig et enkelt alternativ: afkortes den, er den et præfiks af hele teksten ved en ordgrænse
+      if (titel.endsWith('…')) {
+        const r = titel.slice(0, -1);
+        if (!fuld.startsWith(r) || !/[\\s,;:–-]/.test(fuld.charAt(r.length) || ' ')) fejl.push(g + ': afkortet midt i et ord: ' + titel + ' <- ' + fuld);
+      } else if (titel !== fuld) fejl.push(g + ': titlen er ændret uden afkortning: ' + titel + ' <- ' + fuld);
+      if (/\\seller\\s/i.test(t.navn)) med++;
     }
-    const prov = [['PEPSI MAX, FAXE KONDI ELLER COLA ZERO', 'Pepsi max', 2], ['Combino fusilli eller penne rigate', 'Combino fusilli', 1], ['Høker røget bacon', 'Høker røget bacon', 0],
-                  ['Meget lang tilbudstekst uden alternativer og med mange ord i titlen', 'Meget lang tilbudstekst uden…', 0]];
-    for (const [i, t, n] of prov) if (kortNavn(i) !== t || andreSlags(i) !== n) fejl.push('prøve "' + i + '": fik "' + kortNavn(i) + '" / ' + andreSlags(i) + ', forventede "' + t + '" / ' + n);
+    const prov = [['PEPSI MAX, FAXE KONDI ELLER COLA ZERO', 'Pepsi max, faxe kondi eller cola zero'], ['Starbucks eller Illy kaffekapsler', 'Starbucks eller Illy kaffekapsler'],
+                  ['Daim, Oreo, Toblerone eller Philadelphia cheesecake', 'Daim, Oreo, Toblerone eller Philadelphia…'], ['Høker røget bacon', 'Høker røget bacon']];
+    for (const [i, t] of prov) if (kortNavn(i) !== t) fejl.push('prøve "' + i + '": fik "' + kortNavn(i) + '", forventede "' + t + '"');
     // Tegnet liste: lukkede grupper viser højst 4 rækker, "Vis flere" findes, og summen er den samme foldet og udfoldet
     const rapport = {};
     let html = '';
@@ -91,7 +92,6 @@ kør(kode, 'index.html');
     }
     const foldede = Object.values(rapport).flatMap(r => r.grupper).filter(n => n > EKSTRA_SYNLIGE).length;
     if (foldede < 10) fejl.push('kun ' + foldede + ' foldede grupper i alle butikker – foldningen er ikke testet');
-    if (!kortNavn('Graasten italiensk- eller karrysalat').includes('karrysalat')) fejl.push('sammensat ord "italiensk- eller karrysalat" må ikke deles');
     return { fejl, antal, med, rapport };
   })()`, 'grupper');
   if (ud.fejl.length) { console.log('FEJL:\n' + ud.fejl.slice(0, 30).join('\n')); process.exit(1); }
