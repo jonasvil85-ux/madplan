@@ -1356,13 +1356,11 @@ function kortPriser(r) {
 const prisPrPers = (b, niveau) => median(b.retter.filter(r => r.niveau === niveau).map(r => prisIAlt(r) / 4));
 
 // Avisnavne er ofte i VERSALER og lange: "PEPSI MAX, FAXE KONDI ELLER …" -> "Pepsi max, faxe kondi …"
-// Har tilbuddet alternativer ("A, B eller C"), er titlen det første; resten tælles (se andreSlags). Afkortes aldrig midt i et ord.
+// Titlen er avisens egen tekst (varetypen står ofte sidst: "Starbucks eller Illy kaffekapsler"), så den deles aldrig i alternativer. Afkortes kun ved et helt ord.
 const versalNavn = n => n === n.toUpperCase() ? n.charAt(0) + n.slice(1).toLowerCase() : n;
-const alternativer = n => /\seller\s/i.test(n) && !/-\s+eller\s/i.test(n) ? versalNavn(n).split(/,\s+|\s+eller\s+/i).map(x => x.trim()).filter(Boolean) : [versalNavn(n)];
-const andreSlags = n => alternativer(n).length - 1;
 const kortNavn = n => {
-  const s = alternativer(n)[0];
-  if (s.length <= 40) return s;
+  const s = versalNavn(n);
+  if (s.length <= 42) return s;
   const i = s.slice(0, 41).lastIndexOf(' ');
   return (i > 10 ? s.slice(0, i) : s.slice(0, 40)).replace(/[\s,;:–-]+$/, '') + '…';
 };
@@ -2511,7 +2509,7 @@ function listeLinjer() {
       const g = ekstraTilbud(new Set(l.tilbud.map(v => v.key)), l.tilbud.length ? [...new Set(l.tilbud.map(v => v.butik))] : aktivS());
       return Object.fromEntries(Object.keys(EKSTRA_TITLER).map(k => [k, (g[k] || []).map(t => ({
         key: 'g|' + t.kort, butik: t.butik, navn: kortNavn(t.navn), gruppe: varegruppe(t.navn), pris: t.pris, billede: t.billede, soeg: soegeord(t.navn),
-        detalje: `${andreSlags(t.navn) ? `eller ${andreSlags(t.navn)} ${andreSlags(t.navn) === 1 ? 'anden slags' : 'andre slags'} · ` : ''}${esc(t.under)} · ${esc(data.butikker[t.butik].navn)}${t.note ? ' · ' + esc(t.note.toLowerCase()) : ''}`,
+        detalje: `${esc(t.under)} · ${esc(data.butikker[t.butik].navn)}${t.note ? ' · ' + esc(t.note.toLowerCase()) : ''}`,
       }))]));
     })(),
   };
