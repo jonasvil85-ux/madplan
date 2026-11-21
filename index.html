@@ -1361,8 +1361,8 @@ const versalNavn = n => n === n.toUpperCase() ? n.charAt(0) + n.slice(1).toLower
 const kortNavn = n => {
   const s = versalNavn(n);
   if (s.length <= 42) return s;
-  const i = s.slice(0, 41).lastIndexOf(' ');
-  return (i > 10 ? s.slice(0, i) : s.slice(0, 40)).replace(/[\s,;:–-]+$/, '') + '…';
+  const i = /\s/.test(s[41]) ? 41 : s.slice(0, 41).lastIndexOf(' ');  // et ord, der netop slutter ved tegn 41, passer
+  return (i > 10 ? s.slice(0, i) : s.slice(0, 40)).replace(/[\s,;:–-]+$/, '').replace(/ (eller|og)$/i, '') + '…';  // aldrig "…eller…"
 };
 
 // Kædens logo i en hvid "chip", så alle logoer står pænt på den mørke baggrund
@@ -2596,9 +2596,12 @@ function renderListe() {
           ${vaelgAlle === false ? '' : `<button class="chip" data-alle="${id}" data-til="${alle ? 0 : 1}">${alle ? 'Fravælg alle' : '✓ Vælg alle'}</button>`}</div>
         ${(() => {
           if (vaelgAlle !== false || linjer.length <= EKSTRA_SYNLIGE) return linjer.map(linje).join('');
-          const aaben = ekstraAaben.has(id) || linjer.some(x => state.valgtVare[x.key]);
-          return `<div id="ekstra-${esc(id)}">${(aaben ? linjer : linjer.slice(0, EKSTRA_SYNLIGE)).map(linje).join('')}</div>
-            <button class="chip ekstra-flere" data-ekstra="${esc(id)}" aria-expanded="${aaben}" aria-controls="ekstra-${esc(id)}">${aaben ? 'Vis færre' : `Vis ${linjer.length - EKSTRA_SYNLIGE} flere`}</button>`;
+          // Foldet: de første rækker og altid de afkrydsede (en valgt vare må ikke forsvinde); "Vis færre" virker derfor også med afkrydsede varer
+          const aaben = ekstraAaben.has(id);
+          const synlige = linjer.filter((x, i) => i < EKSTRA_SYNLIGE || state.valgtVare[x.key]);
+          if (synlige.length === linjer.length) return `<div id="ekstra-${esc(id)}">${linjer.map(linje).join('')}</div>`;
+          return `<div id="ekstra-${esc(id)}">${(aaben ? linjer : synlige).map(linje).join('')}</div>
+            <button class="chip ekstra-flere" data-ekstra="${esc(id)}" aria-expanded="${aaben}" aria-controls="ekstra-${esc(id)}">${aaben ? 'Vis færre' : `Vis ${linjer.length - synlige.length} flere`}</button>`;
         })()}
       </div>`;
     }).join('')}`);

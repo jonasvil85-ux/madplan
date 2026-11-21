@@ -61,7 +61,8 @@ kør(kode, 'index.html');
       if (/\\seller\\s/i.test(t.navn)) med++;
     }
     const prov = [['PEPSI MAX, FAXE KONDI ELLER COLA ZERO', 'Pepsi max, faxe kondi eller cola zero'], ['Starbucks eller Illy kaffekapsler', 'Starbucks eller Illy kaffekapsler'],
-                  ['Daim, Oreo, Toblerone eller Philadelphia cheesecake', 'Daim, Oreo, Toblerone eller Philadelphia…'], ['Høker røget bacon', 'Høker røget bacon']];
+                  ['Daim, Oreo, Toblerone eller Philadelphia cheesecake', 'Daim, Oreo, Toblerone eller Philadelphia…'], ['Høker røget bacon', 'Høker røget bacon'],
+                  ['Dan Cake juleromkugler, havregrynskugler, kryddermazarin og mere', 'Dan Cake juleromkugler, havregrynskugler…']];
     for (const [i, t] of prov) if (kortNavn(i) !== t) fejl.push('prøve "' + i + '": fik "' + kortNavn(i) + '", forventede "' + t + '"');
     // Tegnet liste: lukkede grupper viser højst 4 rækker, "Vis flere" findes, og summen er den samme foldet og udfoldet
     const rapport = {};
@@ -86,6 +87,18 @@ kør(kode, 'index.html');
         ekstraAaben.add(s.id); html = ''; renderListe(); const aaben = html; ekstraAaben.delete(s.id);
         const j = aaben.indexOf('id="ekstra-' + s.id + '"'), st2 = aaben.slice(j, aaben.indexOf('</button>', j));
         if ((st2.match(/class="vare liste-vare/g) || []).length !== s.linjer.length || !st2.includes('Vis færre')) fejl.push(b + ' ' + s.id + ': udfoldet gruppe viser ikke alle rækker');
+        // Afkryds en vare uden for de første rækker: foldet gruppe viser den stadig, og "Vis færre" lukker gruppen (virker også med afkrydset vare)
+        if (s.linjer.length < EKSTRA_SYNLIGE + 2) continue;  // med 5 rækker og en valgt er intet skjult, så der er ingen knap
+        const sidste = s.linjer[s.linjer.length - 1];
+        state.valgtVare[sidste.key] = true;
+        html = ''; renderListe(); const m1 = html;
+        ekstraAaben.add(s.id); html = ''; renderListe(); const m2 = html; ekstraAaben.delete(s.id);
+        const udsnit = (h) => { const q = h.indexOf('id="ekstra-' + s.id + '"'); return h.slice(q, h.indexOf('</button>', h.indexOf('ekstra-flere', q))); };
+        const rk1 = (udsnit(m1).match(/class="vare liste-vare/g) || []).length, rk2 = (udsnit(m2).match(/class="vare liste-vare/g) || []).length;
+        if (rk1 !== EKSTRA_SYNLIGE + 1) fejl.push(b + ' ' + s.id + ': foldet gruppe med afkrydset vare viser ' + rk1 + ' rækker, forventede ' + (EKSTRA_SYNLIGE + 1));
+        if (rk2 !== s.linjer.length) fejl.push(b + ' ' + s.id + ': udfoldet gruppe med afkrydset vare viser ikke alle rækker');
+        if (!udsnit(m1).includes('aria-expanded="false"') || !udsnit(m2).includes('Vis færre')) fejl.push(b + ' ' + s.id + ': "Vis færre" mangler/virker ikke med afkrydset vare');
+        delete state.valgtVare[sidste.key];
       }
       const sum = Math.round(prisSum(Object.values(L).flat().filter(x => state.valgtVare[x.key])).ialt * 100) / 100;
       rapport[b] = { grupper: sek.map(s => s.linjer.length), sum };
