@@ -4,7 +4,7 @@
 
 HELBRED.md: GRØN (2026-11-21 05:15 UTC, begge domæner OK). BROWSER.md: GRØN (2026-11-21, 0 JS-fejl, intet vandret scroll). Egen måling 2026-11-21: madplan-blue.vercel.app 200, sw.js v6, retter.json identisk med main.
 
-Sidst kontrolleret: 2026-11-21, kørsel 2 (udløst af push på ai/2026-11-21-ux, GitHub Actions med Chromium). Main BESTÅET (0 fejl, 8 advarsler) før og efter sammenlægningen, inkl. regression, budget, sammenlign, tilbudsgrupper og begge Chromium-test. Ingen tilbagerulning.
+Sidst kontrolleret: 2026-11-21, kørsel 3 (sky, ca. 09 UTC): main 42336f3 BESTÅET (0 fejl, 9 advarsler; sidefod-browsertest ikke kørt – Playwright mangler), HELBRED og BROWSER GRØN, ingen grene ændret – intet slået sammen, ingen tilbagerulning. Før det: kørsel 2 (udløst af push på ai/2026-11-21-ux, GitHub Actions med Chromium). Main BESTÅET (0 fejl, 8 advarsler) før og efter sammenlægningen, inkl. regression, budget, sammenlign, tilbudsgrupper og begge Chromium-test. Ingen tilbagerulning.
 I dag: ai/2026-11-21-ux (Gode tilbud-grupperne, H, forsøg 3) SLÅET SAMMEN (10e1bd7). Det er dagens 1. H. ai/2026-11-21-backend AFVIST (kørsel 1) – procedural, tæller ikke (forsøg 3 er stadig ubrugt). Se ai/rapporter/2026-11-21-kontrol.md.
 
 ## Udgivet uden forudgående kontrol – SKAL efterprøves ved næste kørsel
