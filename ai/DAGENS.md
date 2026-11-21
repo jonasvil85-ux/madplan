@@ -1,22 +1,22 @@
-# Dagsrapport 2026-11-20
-**Siden i dag:** Sund (grøn). Kun nye tilbudsdata er udgivet; to ændringer blev afvist af kontrollanten.
+# Dagsrapport 2026-11-21
+**Siden i dag:** Sund med advarsler. Udgivet side grøn (Vagtpost 07:00 UTC, begge domæner), kontrol bestået med 0 fejl og 9 advarsler.
 ## Ændret på siden (slået sammen)
-- Nye tilbudsaviser uge 48 (meny, bilka, kvickly, spar, minkoebmand) og billeder til nye retter (9eac79c, dcaa466): automatisk data fra tilbudsrutinen, ikke en funktionsændring. Kontrol bestået (se Sundhed). Ingen UX- eller kodeændringer slået sammen i dag.
+- Gode tilbud-grupperne (ai/2026-11-21-ux, klasse H, forsøg 3, 10e1bd7): korte titler ved helt ord, foldet til 4 rækker, "Vis færre" virker med afkrydset vare. Godkendt af kontrollanten 06:59 UTC efter skærpet validering; main BESTÅET før og efter, inkl. regression, budget, sammenlign og Chromium-testene.
+- Nye tilbudsaviser fra Netto, uge 48 (065e06f, 05:12 UTC) og billeder til nye retter (automatisk).
 ## Afvist eller rullet tilbage
-- ai/2026-11-19-gode-tilbud-grupper (forsøg 2): "Vis færre" virker ikke, når en vare i gruppen er afkrydset. Ét forsøg tilbage.
-- ai/2026-11-20-datafejl (forsøg 2): ny kødtype rammer også rent okse-/grisekød, så indkøbslisten kan vise hele avisens gruppetekst. Ét forsøg tilbage.
-- Ingen tilbagerulning i dag. Øvrige ai/-grene er uændrede/parkerede.
+- ai/2026-11-21-backend (datafejl, H): afvist af kontrollanten, kun proceduremæssigt (forkert forklaring i rapporten, 6 slettede retter ikke 5, før/efter-tabel ufuldstændig). Indholdet bestod alle tjek; tæller ikke som forsøg. Se ai/rapporter/2026-11-21-kontrol.md.
+- ai/2026-11-20-datafejl: afvist 20/11 (ny type hakket_kod rammer rent kød), ét forsøg tilbage. Ingen tilbagerulning i dag.
 ## Data
-- 572 retter: netto 64, meny 73, bilka 83, rema 50, kvickly 88, lidl 50, 365 50, spar 73, minkoebmand 41 (minimum er 40).
-- Retter uden billede: 11 (alle 365; Frikadeller hos minkoebmand nævnes af kontrollanten som billedløs, men tælles ikke i mit tjek). 222 billeder bruges ikke (kan ryddes).
-- Datakvalitet dårligere efter uge 48 (Ejeren): netto har 25 ingredienser uden type, 5 retter koster over 450 kr (andelår/and, 494–773 kr).
-- Feedback fra brugerne: ingen nye beskeder; seneste (17/11) var 2 testbeskeder, ikke brugbare. Intet HASTER.
+- Retter (568 i alt): Meny 73, Bilka 83, Kvickly 88, Spar 73, Netto 60, Rema 50, Lidl 50, 365discount 50, minkøbmand 41. `retter.json` genereret 2026-11-21 05:11 UTC.
+- Uden billede: 34 (alle Netto, nye retter; kræver lokal billedkørsel). 252 billeder bruges ikke.
+- Feedback fra brugerne: ingen nye beskeder siden 17/11 (to testbeskeder, 0 brugbare). Ingen HASTER.
 ## Sundhed
-- Kontrol: BESTÅET (0 fejl, 10 advarsler) inkl. regression, budget og sammenlign butikker. Udgivet side: nået, matcher main ja (Vagtpost GRØN 07:06 UTC, sw.js v6, 572 retter). Browser-QA GRØN: 0 JS-fejl, intet vandret scroll, 30 små tryk-flader (<40 px) på mobil. Advarsler af betydning: de 5 dyre retter, 25 netto uden type, 11 retter uden billede hos 365.
-- Ikke tjekket af mig: udseende i en rigtig browser (jeg har ingen), sidefodens Chromium-test (Playwright mangler her), farvekontrast og tastaturbrug.
+- Kontrol: RESULTAT: BESTÅET (0 fejl, 9 advarsler), regression, budget, sammenlign og tilbudsgrupper bestået. Udgivet side: nået, matcher main (HELBRED, 568 retter). Browser-QA GRØN: 0 JS-fejl, intet vandret scroll, 30 små tryk-flader på mobil og 31 på desktop.
+- Advarsler af betydning: 5 retter over ca. 490 kr (andelår og helstegt and hos Bilka, Spar og minkøbmand); Meny-svinemørbrad mangler ingrediens; 34 Netto-retter uden billede; sidefodens Chromium-test kunne ikke køres i min session (Playwright mangler).
+- Ikke tjekket af mig: udseende i browser, kontrast, tastatur, iOS Safari.
 ## I morgen
-- Øverst: "Ret kendte datafejl" (DATA, H) – sidste forsøg; derefter "Ét kort: Hvor handler du?" (genindsendelse). Tages af Backend-udvikleren hhv. Frontend-udvikleren, efter Ejerens prioritering.
+- Øverste krav: ret kendte datafejl (Backend/data-udvikleren, H, sidste forsøg), derefter "Ét kort: Hvor handler du?" og "Én regel for to butikker".
 ## Til prøve hos Jonas
-- Intet.
+- Intet nyt som UX: Gode tilbud-grupperne er ændret i udseende (kortere titler, foldet til 4 rækker). Ejerens rapport har dog ikke meldt den som prøve-klar; kan kigges på, hvis du alligevel har lyst.
 ## Til Jonas
-- Intet nyt. Sikkerhedspunkter H2, L2/L3, M4/M5 afventer stadig Jonas (grundlov), jf. Ejerens rapport.
+- Intet nyt. Sikkerhedspunkter H2, L2/L3, M4/M5 afventer stadig dig (jf. Ejeren).
