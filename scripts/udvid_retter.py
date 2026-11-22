@@ -28,7 +28,7 @@ NYE_TILBUD_BONUS = 0.05  # pr. tilbud, retten bruger, som ingen valgt ret bruger
 
 
 # Ikke-mad (og drikkevarer), som aldrig må kobles til en ingrediens, selv om navnet ligner en madvare
-IKKE_MAD = re.compile(r"test|maske|mask|collagen|shampoo|vitamin|lotion|parfume|spejl|massage|trimmer|batteri|vaskemiddel|opvask|"
+IKKE_MAD = re.compile(r"ris cuisine|plantekøkken|test|maske|mask|collagen|shampoo|vitamin|lotion|parfume|spejl|massage|trimmer|batteri|vaskemiddel|opvask|"
                       r"toilet|legetøj|dukke|julekalender|pude|plaid|sengetøj|krus|glas|gryde|kniv|lampe|pærer|kapsel|vodka|whisky|"
                       r"gin|likør|champagne|prosecco|rødvin|hvidvin|vin|øl|pilsner|sodavand|cola|energidrik|hundemad|kattemad|"
                       r"foder|gel|creme|serum|plaster|tablet|medicin|pastel|pastis", re.I)
