@@ -10,6 +10,8 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Krav: Kvickly "Svinemørbrad med svampesauce og kartoffelmos" får svinemørbrad som ingrediens; `ty`-oplysning for ingredienser med tilbud, der mangler den (kontrollen tæller dem; mango, majs, salsa, parmigiano, rygeost m.fl.) via `bibliotek_typer.py`, uden at ramme ikke-mad; dyre andretter (over 450 kr for hele retten) vurderes og fjernes eller laves billigere.
   Hvorfor: tillid til indkøbslisten og et ugeforslag uden urealistisk dyre retter.
   Opdatering Ejer 2026-11-20: efter aviserne uge 48 er problemet vokset: netto har nu 25 ty-advarsler (var 16), og 5 nye retter er over 450 kr (bilka-andelår 773,5 og 732 kr, minkoebmand 494 og 512,5 kr, spar helstegt and 567 kr). Næste forsøg skal tage højde for nye data, ikke kun de gamle 16 – og udelukke 'Jalapeño ost', 'Mayonnaise med mango' og blandingsfars (kontrollantens rød-hold). Kvickly/meny-svinemørbraden: Ejeren accepterer, at kontrollen tæller 'mørbrad af gris' som svinemørbrad, hvis ingrediensen ellers passer.
+  Opdatering Ejer 2026-11-22: grenen ai/2026-11-21-backend (1d621b2) er afvist KUN på rapporten (procedural, tæller ikke som forsøg; indholdet bestod alle kontrollantens tjek). Udvikleren skal ikke ændre koden, men rette rapporten: (a) minkoebmands fald (611,5 → 564 kr i 2+2) skyldes den nye Frikadeller-ret (75 kr), ikke de fjernede andretter; (b) 6 retter slettes, ikke 5 (også spar-10 'Helstegt and', fejlkoblet til 300 g andebryst); (c) tabel med antal retter og linjer på indkøbslisten for alle 9 butikker (kontrollantens tal: retter bilka 83→81, spar 73→71, minkoebmand 41→40; linjer minkoebmand 24→28). Nyt om data efter uge 48 (rema, lidl): 18 ingredienser uden `ty` hos hver; rema mangler billede på 32 retter og lidl på 36 (billedhandlingen tager dem). Tag tallene med i en senere gren, ikke i denne.
+  Opfølgning (samme tema, eget lille krav bagefter): `byg_retter.py` afviser en kobling, hvor tilbuddets mængde er under 20 % af ingrediensens (ellers skriver tilbudsrutinen de samme fejl som B80/X17/P94 igen), og tilbudsrutinen tjekker 'over 450 kr' og 'mindst 40 retter' før udgivelse, så main ikke bliver rød af en ny avis.
   Accept: (1) kontrollens advarsler om disse punkter er væk, (2) ingen ret på forsiden koster over 450 kr, (3) indkøbslisten viser kun den vare, retten bruger, for de rettede ingredienser.
   Ikke-mål: ændre `tilbudVariant()`.
 - [ ] [UX] [H] Én regel for to butikker (UDGIVET 2026-11-16 i 090801b; RULLET TILBAGE af kontrollanten 2026-11-17 sammen med "Ét kort" – se dér) (Jonas 2026-11-16: "Vælger man flere butikker skal det jo gerne blive billigere"; afløser (11)'s del (a) i "Sammenlign butikker". Bygges oven på "Ét kort")
@@ -22,31 +24,22 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Accept: (1) kun ét kort om butiksvalg: ingen "Sammenlign butikker"-overskrift, intet logo-gitter, ingen særskilt knap for flere butikker; (2) alle tal og accept (1)–(12) for "Sammenlign butikker" gælder (sammenlign.js og browsertesten består), dog med to-butiks-reglen fra "Én regel for to butikker"; (3) et tryk på en række sætter/fjerner fluebenet med samme funktion som det gamle butiksvalg (skiftButik: bekræftelse, hvis valgte retter fjernes); (4) et tryk på en butik mere giver flueben på begge, "Hvor mange butikker" vises med 1/2 butikker, madplanen har 7 dage; et tryk igen fjerner butikken og "Hvor mange butikker"; en valgt butik skjules aldrig af "Vis alle"; (5) madplanen (#sim-plads) starter mindst 300 px højere på 390 px end på main, målt uden et eventuelt to-butiks-forslag; (6) rundvisningens trin peger på synlige områder (trin 2 = listen; "Hvor mange butikker" springes over ved én butik); (7) regression og budget.js uændrede; 390 px uden vandret scroll; tryk-flader ≥ 44 px; (8) teksten siger, at man kan trykke på flere butikker, og at prisen er hver butiks billigste uge ud fra egne tilbud, til den valgte husstand; (9) (1), (3), (4), (5) og (6) testes automatisk i Chromium (scripts/tests); (10) før/efter-tal for alle 9 butikker; (11) uden priser (fejl) vises listen stadig, så man kan vælge butikker. (12) **hele forsiden på én skærm på telefon** (Jonas 2026-11-16: "på telefonen kan se hele forsiden på én side uden at scroll"): på 390 × 844 px er butiksvalget, ugens retter og "Brug forslaget" synlige uden at scrolle – med én butik, med to butikker og med en valgt butik, der ikke bruges; testet automatisk. (13) en valgt butik, som madplanen ikke bruger, siger det selv ("Ikke med") og står forrest i rækken på telefonen; under listen står én sætning med begrundelsen.
   **Undtagelse (Jonas 2026-11-16, "ja og lig den online"):** denne gren må slås sammen i dag, selv om dagens tre H-pladser er brugt. Al øvrig validering gælder fuldt; kun loftet over antal H pr. dag er hævet for netop denne gren.
   Ikke-mål: ændre priser, ugeforslag eller boksens regel; "samme madplan i alle butikker" (fravalgt).
-- [x] [TEST] [A] Browsertesten kan køres i skyen (Ejer 2026-11-17) (SLÅET SAMMEN 2026-11-18, 91d8dc5..3b28eb5, forsøg 2; gren ai/2026-11-17-browsertest-sky AFVIST forsøg 1 2026-11-17: node-reserven melder sidefejl som "IKKE KØRT" (exit 3 → kun advarsel); se kontrolrapporten)
-  Krav: `sammenlign_browser.py` og `kontrol.py` kører Chromium-testen, hvor Chromium findes, i stedet for at springe den over med en advarsel.
-  Hvorfor: `python -I` ser ikke Playwright; Ejeren måtte køre `sammenlign_side.js` via node for at efterprøve "Hvor handler du?". Ellers er "hele forsiden på én skærm" aldrig automatisk bevist.
-  Accept: (1) kontrol.py siger ikke "IKKE kørt" i et miljø med /opt/pw-browsers (node-Playwright som reserve, `executablePath` til den installerede Chromium); (2) ved manglende Chromium er advarslen uændret; (3) kontrol.py BESTÅET.
-  Ikke-mål: ændre testens målinger.
-- [x] [UX] [A] Mobil: 'Om Måltidsjagten' og sidefod som tryk-flader (afløser delen af mobil-tryk-flader, der blev parkeret) (SLÅET SAMMEN 2026-11-18 af kontrollanten, 3104489, forsøg 2; accept (3) vurderet efter hensigt – Ejeren 2026-11-19: accept er omformuleret til 'intet sidefodselement under 44 px på 390 px' – opfølgningskrav kommer, når 'Hvor handler du?' er genindsendt; opfølgning: 'Om' 39 px på desktop, ubetingede hover-regler, sidefod_browser.py uden node-reserve) (gren ai/2026-11-17-sidefod-tryk-flader AFVIST forsøg 1 2026-11-17: opacity 0.9 tilbage ved åben/fokus, desktop-ikon løsrevet; accept (3) bør omformuleres – basis 23 forsvandt med tilbagerulningen, main er nu 33)
-  Krav: alle links i sidefoden er mindst 44 px høje på 390 px.
-  Hvorfor: 'Om Måltidsjagten' er 95 × 14 px og det sidste, som holdt tryk-flader afvist.
-  Accept: (1) ingen sidefodslinks under 40 px højde; (2) 390 px uden vandret scroll; (3) browser_tjek viser færre små tryk-flader end 23.
-  Ikke-mål: billeder (eget krav).
-
+- [ ] [UX] [A] Søg i "Vælg selv" (ROADMAP 10; Ejer 2026-11-22)
+  Krav: på siden med alle retter kan man skrive i et søgefelt (fx "kylling" eller "pasta") og straks se kun de retter, hvis navn eller ingredienser passer; ét tryk rydder søgningen.
+  Hvorfor: listen er meget lang på telefon (ROADMAP: ca. 63.000 px); at finde en bestemt ret uden søgning er det, der får folk til at give op.
+  Accept: (1) søgefeltet er synligt øverst uden at scrolle på 390 px, og tryk-fladen er mindst 44 px; (2) søgning på ret og på ingrediens, uden at skelne store/små bogstaver og med æ/ø/å; (3) 0 træffere giver en venlig besked og et tryk, der rydder søgningen; (4) en valgt ret forsvinder aldrig fra madplanen, fordi den er filtreret væk; (5) priser, madplan og indkøbsliste er uændrede (regression og før/efter-tal for 9 butikker, selv om det er en visningsændring); (6) automatisk test i Chromium; (7) designfil fra UX-designeren først.
+  Ikke-mål: ændre kategorierne eller ugeforslaget.
+- [ ] [UX] [A] Gode tilbud: småting efter udgivelsen (Ejer 2026-11-22; fra kontrollantens bemærkninger 2026-11-21)
+  Krav: knappen hedder "Vis 1 mere" (ikke "Vis 1 flere"), når kun én række er skjult; en afkrydset vare uden for de første 4 står sidst i den foldede gruppe, og det er ok, men teksten må ikke virke tilfældig (tjek i browseren).
+  Hvorfor: små sproglige fejl dræner tilliden til en side, der ellers skal føles rolig og pæn.
+  Accept: (1) "Vis 1 mere" ved præcis én skjult række og "Vis N flere" ellers; (2) tilbudsgrupper.js dækker det; (3) regression og facit uændrede.
+  Ikke-mål: titel-felt fra tilbud.py (eget DATA/H-krav, først når toppen er ren).
 - [ ] [UX] [A] Mobil: tryk-flader og luft (ROADMAP 2) (AFVIST forsøg 1 2026-11-15; AFVIST forsøg 2 2026-11-16 og PARKERET hos Ejeren: "Om Måltidsjagten" i sidefoden 95 × 14 px, accept (4) billeder ikke gjort – foreslås flyttet til eget H-krav)
   Krav: alle knapper og links på forsiden, retter og indkøbsliste er mindst 44 × 44 px på telefon (i dag er 25–27 elementer under 32 px).
   Hvorfor: siden bruges mest på telefon i butikken, og små knapper giver forkerte tryk.
   Accept: (1) måling i CDP-audit viser 0 elementer under 40 px på 390 px bredde (undtagen tekstlinks i brødtekst), (2) intet vandret scroll på 360 px, (3) designfil med før/efter.
   Ikke-mål: nyt design.
   Tilføjet af Ejeren 2026-11-16: slår "Tilgængelighed og hastighed" sammen hertil – også (4) ingen billeder over 160 KB, (5) alle billeder har alt, (6) UX-designeren laver designfilen FØR udvikleren bygger (afvist sidst fordi den manglede).
-- [x] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3) (SLÅET SAMMEN 2026-11-16 af kontrollanten, f1c3024, forsøg 3; opfølgning: beskeden "600 kr – 1 kr over 600 kr" bør vise øre, designfilens chips er ikke bygget, et budget over ugens pris kan ændre ugen ved flere butikker) (gren ai/2026-11-16-budget AFVIST forsøg 1 2026-11-16: "billigste uge" efter Byt; AFVIST forsøg 2 2026-11-16: budget.js fejler i node – `sb is not defined`, kontrol.py rød; ét forsøg tilbage) (gren ai/2026-11-15-fravalg-budget PARKERET 2026-11-16 sammen med fravalg; budgetdelen er i orden – 8/9 butikker under 600 kr – og bør bygges som egen gren)
-  Krav: brugeren kan skrive et ugebudget (fx 600 kr), og ugeforslaget holder sig under det, hvis det kan lade sig gøre; ellers fortæller siden ærligt, hvad den billigste mulighed koster.
-  Hvorfor: familier tænker i kroner pr. uge, ikke i kroner pr. ret. Det er den funktion, konkurrenter fremhæver mest.
-  Accept: (1) budgetfelt i husstandslinjen på forsiden, (2) ugeforslaget overholder budgettet i mindst 7 af 9 butikker ved 600 kr, (3) uopnåeligt budget giver en klar besked med billigste pris, (4) regressionstest uændret for brugere uden budget, (5) før/efter-tal for alle 9 butikker; (6) **grænsetilfælde** (Jonas 2026-11-16) testes for alle 9 butikker og 2+2, 2+0 og 1+0: budget præcis lig ugeprisen, 1 kr under og 1 kr over, meget lavt budget (1 kr og 50 kr), og ændring af familiestørrelse efter budgettet er tastet (budgettet bevares, ugen regnes igen for den nye husstand og følger stadig reglerne); (7) budgetfunktionen afhænger ikke af fravalg; (8) testene er automatiske og gentagelige: `scripts/tests/budget.js` (node, frossen datakopi) kører fra `kontrol.py`, og to kørsler giver samme resultat.
-  Ikke-mål: ændre prisregler.
-- [ ] [UX] [H] Motoren i trin: del `simFraButikker` op (Ejer 2026-11-16, fundet under sammenlign-butikker; IKKE påbegyndt, lav prioritet)
-  Krav: én beregning af én uge kan i dag tage 60–280 ms i ét stræk (GC-pauser), også på main uden nye funktioner. Del den i trin med pause imellem uden at ændre resultatet.
-  Accept: (1) regression.py, budget.js og sammenlign.js uændrede; (2) ingen opgave over 100 ms i sammenlign_browser.py over 5 kørsler; (3) før/efter-tal for alle 9 butikker.
 - [ ] [UX] [H] Fravalg og kost: "Vi spiser ikke …" (ROADMAP 4) (AFVIST forsøg 1 2026-11-15; AFVIST forsøg 2 2026-11-16 og PARKERET hos Ejeren: mayonnaise/remoulade under Æg, pesto under Mælkeprodukter, "hakket kød" (svin+kalv) under Okse og kalv; se kontrolrapporten 2026-11-16)
   Krav: brugeren kan fravælge ingredienser og kosttyper (svinekød, fisk, løg, laktose, vegetar), og forslag, "Vælg selv" og indkøbsliste respekterer det.
   Hvorfor: uden fravalg kan mange familier ikke bruge forslaget; det er en forudsætning for gentagne besøg.
@@ -62,16 +55,6 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: ugeforslaget må ikke være fire brune kartoffelretter; farver og variation er forsidens blikfang.
   Accept: (1) alle ændrede retter består `kontrol.py`, (2) hver ændret ret har mindst tre friske farver i ingredienserne, (3) forsidens ugeforslag for 365discount og Min Købmand har mindst tre forskellige køkkener, (4) nye retter har en engelsk billedbeskrivelse i `billedprompts.json`, (5) svinekød udgør højst 35 % af retterne hos Min Købmand og Spar (i dag 24 af 45 og 24 af 53), og suppe-retter (fx pastinaksuppe) har så mættende tilbehør, at de er et hovedmåltid til 4.
   Ikke-mål: ugeforslagets algoritme.
-- [x] [UX] [A] Gode tilbud-grupperne nederst på indkøbslisten (slået sammen 2026-11-21 af kontrollanten som H, forsøg 3, merge 10e1bd7; accept 1–3 målt af kontrollanten, 400 og 320 px i Chromium. Opfølgning: titel-felt fra tilbud.py, så varetypen ikke forsvinder ved afkortning; "Vis 1 flere" → "Vis 1 mere")
-  Krav: gruppetekster er korte og viser det, man kan købe (højst ca. 40 tegn pr. vare), og listen er hurtig at skimme på mobil.
-  Hvorfor: de lange gruppetekster ("A, B eller C") forvirrer i butikken.
-  Accept: (1) ingen vare i grupperne har tekst over 45 tegn, (2) 400 px bredde uden vandret scroll, (3) designfil med valgt løsning.
-  Ikke-mål: ændre hvilke tilbud der vælges.
-- [x] [UX] [H] Indkøbsliste: tydelige rækker (slået sammen 2026-11-16 af kontrollanten, 8c2e4a7; alle fire accept målt af kontrollanten)
-  Krav: hver vare på indkøbslisten er en tydelig række med varenavn, mængde og pris, og kan afkrydses med ét tryk på telefon i butikken.
-  Hvorfor: listen er det, brugeren bruger i butikken; den skal kunne skimmes og afkrydses med én hånd.
-  Accept: (1) tryk-flade mindst 44 px pr. række, (2) afkrydsning huskes ved genindlæsning, (3) summer og linjer uændrede: regressionstest og før/efter-tal for alle 9 butikker, (4) 360 px uden vandret scroll.
-  Ikke-mål: ændre hvilke varer eller priser listen viser.
 - [ ] [SEO] [A] Opskriftssider: forsiden linker til dem og SEO-detaljer (opfølgning på 384f5d1)
   Krav: forsiden har et synligt link til /opskrifter/, hver opskriftsside linker tilbage til forsiden og til oversigten, og robots.txt peger på sitemap.xml.
   Hvorfor: Google finder siderne via links; kun sitemap giver svag indeksering.
@@ -92,38 +75,16 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: ingen kan i dag se, hvor i flowet brugerne falder fra; fastholdelse og søgetrafik kan ikke vurderes uden måling.
   Accept: (1) hændelser sender kun navnet på hændelsen (ingen parametre med persondata eller indkøbsvarer), (2) siden virker uændret, hvis scriptet er blokeret, (3) browsertesten viser 0 JavaScript-fejl, (4) privatlivspolitikken dækker det; mener Ejeren, at den skal ændres, skrives forslaget til Jonas (grundlov), og kravet venter, (5) `kontrol.py` BESTÅET.
   Ikke-mål: cookies, bruger-id, tredjepartsværktøjer, egen tabel i Supabase.
-- [ ] [SEO] [A] Tjek næringsdata i opskrifterne (SEO/vækst 2026-11-19; hypotese)
-  Krav: 5 opskriftssider angiver over 1000 kcal pr. portion (fx 1354 kcal for æbleflæsk). Udvikleren genberegner dem og retter beregningen eller teksten, så tallet er rimeligt og tydeligt mærket.
-  Hvorfor: forkerte tal i `Recipe`-markup og på siden skader tilliden; det er uafklaret, om tallene er forkerte.
-  Accept: (1) de 5 sider forklaret eller rettet med bevis (ingrediensliste, regnestykke), (2) kontrollen advarer ved over 1000 kcal pr. portion uden forklaring, (3) `kontrol.py` BESTÅET.
-  Ikke-mål: ændre priser.
 - [ ] [UX] [H] Banner "Du ser en gemt kopi"
   Krav: når siden er vist fra service workerens cache og ikke fra nettet, forklarer et lille, roligt banner det, med en knap der prøver igen.
   Hvorfor: på netværk, hvor siden er blokeret, ser brugeren forældede data uden at vide det.
   Accept: (1) vises kun ved cache-visning, (2) forsvinder, når frisk data er hentet, (3) rører ikke cache-strategien for billeder, (4) regressionstest består.
   Ikke-mål: ændre hvad der caches.
-- [ ] [DATA] [H] Næring pr. voksen i Fitness
-  Krav: kategorien Fitness regner næring pr. voksen i stedet for pr. gennemsnitsportion (børn spiser mindre).
-  Hvorfor: tallene skal passe til, hvad en voksen faktisk spiser.
-  Accept: (1) forklaret i teksten på siden, (2) regressionstest og før/efter-tal, (3) `naering.json` bygges med den nye regel.
-  Ikke-mål: ændre andre kategorier.
-
-- [ ] [TEST] [A] Hold genererede filer ude af commits
-  Krav: `scripts/_tjek_fund.json` (skrives af `tjek_opskrifter.py`) kommer i `.gitignore`.
-  Hvorfor: den kom med i en commit ved et uheld 2026-11-15.
-  Accept: (1) filen er ignoreret, (2) `git status` er ren efter en kørsel af `kontrol.py`.
-  Ikke-mål: røre andre filer.
-- [ ] [TEST] [A] Kontrollen opdager forældede og forældreløse opskriftssider (forslag fra kontrollanten)
-  Krav: `kontrol.py` sammenligner Recipe-JSON-LD's ingredienser og trin med `opskrifter.json` og fejler på mapper i `opskrift/` uden en opskrift.
-  Hvorfor: rød-hold 2026-11-15 viste, at en ændret opskrift uden ny kørsel af `byg_sider.py` og en forældreløs side begge giver BESTÅET.
-  Accept: (1) ændret ingrediens uden genbygning giver FEJLET, (2) forældreløs mappe giver FEJLET, (3) slug-funktionen findes ét sted (importeres fra `byg_sider.py`).
-  Ikke-mål: ændre siderne.
-- [ ] [TEST] [A] Bedre fejltekst når regression.js crasher (forslag fra kontrollanten)
-  Krav: `regression.py` viser selve fejlbeskeden (linjen med `FEJL:`) i stedet for stderr's sidste linje (`Node.js v…`).
-  Hvorfor: ved en ødelagt fixtur 2026-11-15 sagde fejlen kun "Node.js v22.23.4".
-  Accept: (1) en bevidst ødelagt fixtur giver en læsbar fejltekst, (2) kontrol.py er BESTÅET.
-  Ikke-mål: ændre facit.
-
+- [ ] [TEST] [A] Tre små kontrol-forbedringer samlet (Ejer 2026-11-22; slår tre punkter sammen, originalerne ligger i arkivet nederst)
+  Krav: (a) `scripts/_tjek_fund.json` er i `.gitignore`; (b) `kontrol.py` fejler på en opskriftsside, hvis ingredienser/trin ikke svarer til `opskrifter.json`, og på mapper i `opskrift/` uden opskrift; (c) `regression.py` viser `FEJL:`-linjen i stedet for 'Node.js v…'.
+  Hvorfor: fejl skal fanges automatisk og kunne læses.
+  Accept: (1) `git status` ren efter kontrol.py; (2) ændret ingrediens uden genbygning og forældreløs mappe giver hver FEJLET; (3) ødelagt fixtur giver læsbar fejltekst; (4) kontrol.py BESTÅET.
+  Ikke-mål: ændre siderne eller facit.
 ### Sikkerhed (sikkerhedsagenten, uge 47 – rapport: ai/rapporter/2026-uge-47-sikkerhed.md; ingen kritiske fund)
 - [ ] [SIKKERHED] [H] Høj: Supabase-biblioteket fra egen server med fast version (H1)
   Krav: `index.html` og `admin.html` henter ikke længere `supabase-js@2` fra jsDelivr uden fast version; en bestemt version ligger i repoet (fx `vendor/`) eller hentes med præcis version + `integrity` + `crossorigin`.
@@ -176,3 +137,64 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Accept: (1) ingen `@v4`/`@v5`/`@v7` uden SHA i `.github/workflows/`; (2) en ændret URL i `auth.js` får workflowet til at stoppe uden at sende hemmeligheden.
 
 ## Afvist / parkeret
+
+## Udført / udskudt (arkiv, ryddet 2026-11-22)
+- [x] [TEST] [A] Browsertesten kan køres i skyen (Ejer 2026-11-17) (SLÅET SAMMEN 2026-11-18, 91d8dc5..3b28eb5, forsøg 2; gren ai/2026-11-17-browsertest-sky AFVIST forsøg 1 2026-11-17: node-reserven melder sidefejl som "IKKE KØRT" (exit 3 → kun advarsel); se kontrolrapporten)
+  Krav: `sammenlign_browser.py` og `kontrol.py` kører Chromium-testen, hvor Chromium findes, i stedet for at springe den over med en advarsel.
+  Hvorfor: `python -I` ser ikke Playwright; Ejeren måtte køre `sammenlign_side.js` via node for at efterprøve "Hvor handler du?". Ellers er "hele forsiden på én skærm" aldrig automatisk bevist.
+  Accept: (1) kontrol.py siger ikke "IKKE kørt" i et miljø med /opt/pw-browsers (node-Playwright som reserve, `executablePath` til den installerede Chromium); (2) ved manglende Chromium er advarslen uændret; (3) kontrol.py BESTÅET.
+  Ikke-mål: ændre testens målinger.
+- [x] [UX] [A] Mobil: 'Om Måltidsjagten' og sidefod som tryk-flader (afløser delen af mobil-tryk-flader, der blev parkeret) (SLÅET SAMMEN 2026-11-18 af kontrollanten, 3104489, forsøg 2; accept (3) vurderet efter hensigt – Ejeren 2026-11-19: accept er omformuleret til 'intet sidefodselement under 44 px på 390 px' – opfølgningskrav kommer, når 'Hvor handler du?' er genindsendt; opfølgning: 'Om' 39 px på desktop, ubetingede hover-regler, sidefod_browser.py uden node-reserve) (gren ai/2026-11-17-sidefod-tryk-flader AFVIST forsøg 1 2026-11-17: opacity 0.9 tilbage ved åben/fokus, desktop-ikon løsrevet; accept (3) bør omformuleres – basis 23 forsvandt med tilbagerulningen, main er nu 33)
+  Krav: alle links i sidefoden er mindst 44 px høje på 390 px.
+  Hvorfor: 'Om Måltidsjagten' er 95 × 14 px og det sidste, som holdt tryk-flader afvist.
+  Accept: (1) ingen sidefodslinks under 40 px højde; (2) 390 px uden vandret scroll; (3) browser_tjek viser færre små tryk-flader end 23.
+  Ikke-mål: billeder (eget krav).
+
+- [x] [UX] [H] Budget: "Højst X kr for ugen" (ROADMAP 3) (SLÅET SAMMEN 2026-11-16 af kontrollanten, f1c3024, forsøg 3; opfølgning: beskeden "600 kr – 1 kr over 600 kr" bør vise øre, designfilens chips er ikke bygget, et budget over ugens pris kan ændre ugen ved flere butikker) (gren ai/2026-11-16-budget AFVIST forsøg 1 2026-11-16: "billigste uge" efter Byt; AFVIST forsøg 2 2026-11-16: budget.js fejler i node – `sb is not defined`, kontrol.py rød; ét forsøg tilbage) (gren ai/2026-11-15-fravalg-budget PARKERET 2026-11-16 sammen med fravalg; budgetdelen er i orden – 8/9 butikker under 600 kr – og bør bygges som egen gren)
+  Krav: brugeren kan skrive et ugebudget (fx 600 kr), og ugeforslaget holder sig under det, hvis det kan lade sig gøre; ellers fortæller siden ærligt, hvad den billigste mulighed koster.
+  Hvorfor: familier tænker i kroner pr. uge, ikke i kroner pr. ret. Det er den funktion, konkurrenter fremhæver mest.
+  Accept: (1) budgetfelt i husstandslinjen på forsiden, (2) ugeforslaget overholder budgettet i mindst 7 af 9 butikker ved 600 kr, (3) uopnåeligt budget giver en klar besked med billigste pris, (4) regressionstest uændret for brugere uden budget, (5) før/efter-tal for alle 9 butikker; (6) **grænsetilfælde** (Jonas 2026-11-16) testes for alle 9 butikker og 2+2, 2+0 og 1+0: budget præcis lig ugeprisen, 1 kr under og 1 kr over, meget lavt budget (1 kr og 50 kr), og ændring af familiestørrelse efter budgettet er tastet (budgettet bevares, ugen regnes igen for den nye husstand og følger stadig reglerne); (7) budgetfunktionen afhænger ikke af fravalg; (8) testene er automatiske og gentagelige: `scripts/tests/budget.js` (node, frossen datakopi) kører fra `kontrol.py`, og to kørsler giver samme resultat.
+  Ikke-mål: ændre prisregler.
+- [ ] [UX] [H] Motoren i trin: del `simFraButikker` op (Ejer 2026-11-16, fundet under sammenlign-butikker; IKKE påbegyndt, lav prioritet)
+  Krav: én beregning af én uge kan i dag tage 60–280 ms i ét stræk (GC-pauser), også på main uden nye funktioner. Del den i trin med pause imellem uden at ændre resultatet.
+  Accept: (1) regression.py, budget.js og sammenlign.js uændrede; (2) ingen opgave over 100 ms i sammenlign_browser.py over 5 kørsler; (3) før/efter-tal for alle 9 butikker.
+- [x] [UX] [A] Gode tilbud-grupperne nederst på indkøbslisten (slået sammen 2026-11-21 af kontrollanten som H, forsøg 3, merge 10e1bd7; accept 1–3 målt af kontrollanten, 400 og 320 px i Chromium. Opfølgning: titel-felt fra tilbud.py, så varetypen ikke forsvinder ved afkortning; "Vis 1 flere" → "Vis 1 mere")
+  Krav: gruppetekster er korte og viser det, man kan købe (højst ca. 40 tegn pr. vare), og listen er hurtig at skimme på mobil.
+  Hvorfor: de lange gruppetekster ("A, B eller C") forvirrer i butikken.
+  Accept: (1) ingen vare i grupperne har tekst over 45 tegn, (2) 400 px bredde uden vandret scroll, (3) designfil med valgt løsning.
+  Ikke-mål: ændre hvilke tilbud der vælges.
+- [x] [UX] [H] Indkøbsliste: tydelige rækker (slået sammen 2026-11-16 af kontrollanten, 8c2e4a7; alle fire accept målt af kontrollanten)
+  Krav: hver vare på indkøbslisten er en tydelig række med varenavn, mængde og pris, og kan afkrydses med ét tryk på telefon i butikken.
+  Hvorfor: listen er det, brugeren bruger i butikken; den skal kunne skimmes og afkrydses med én hånd.
+  Accept: (1) tryk-flade mindst 44 px pr. række, (2) afkrydsning huskes ved genindlæsning, (3) summer og linjer uændrede: regressionstest og før/efter-tal for alle 9 butikker, (4) 360 px uden vandret scroll.
+  Ikke-mål: ændre hvilke varer eller priser listen viser.
+
+- [ ] [TEST] [A] Hold genererede filer ude af commits
+  Krav: `scripts/_tjek_fund.json` (skrives af `tjek_opskrifter.py`) kommer i `.gitignore`.
+  Hvorfor: den kom med i en commit ved et uheld 2026-11-15.
+  Accept: (1) filen er ignoreret, (2) `git status` er ren efter en kørsel af `kontrol.py`.
+  Ikke-mål: røre andre filer.
+- [ ] [TEST] [A] Kontrollen opdager forældede og forældreløse opskriftssider (forslag fra kontrollanten)
+  Krav: `kontrol.py` sammenligner Recipe-JSON-LD's ingredienser og trin med `opskrifter.json` og fejler på mapper i `opskrift/` uden en opskrift.
+  Hvorfor: rød-hold 2026-11-15 viste, at en ændret opskrift uden ny kørsel af `byg_sider.py` og en forældreløs side begge giver BESTÅET.
+  Accept: (1) ændret ingrediens uden genbygning giver FEJLET, (2) forældreløs mappe giver FEJLET, (3) slug-funktionen findes ét sted (importeres fra `byg_sider.py`).
+  Ikke-mål: ændre siderne.
+- [ ] [TEST] [A] Bedre fejltekst når regression.js crasher (forslag fra kontrollanten)
+  Krav: `regression.py` viser selve fejlbeskeden (linjen med `FEJL:`) i stedet for stderr's sidste linje (`Node.js v…`).
+  Hvorfor: ved en ødelagt fixtur 2026-11-15 sagde fejlen kun "Node.js v22.23.4".
+  Accept: (1) en bevidst ødelagt fixtur giver en læsbar fejltekst, (2) kontrol.py er BESTÅET.
+  Ikke-mål: ændre facit.
+
+(udskudt lav prioritet 2026-11-22)
+- [ ] [SEO] [A] Tjek næringsdata i opskrifterne (SEO/vækst 2026-11-19; hypotese)
+  Krav: 5 opskriftssider angiver over 1000 kcal pr. portion (fx 1354 kcal for æbleflæsk). Udvikleren genberegner dem og retter beregningen eller teksten, så tallet er rimeligt og tydeligt mærket.
+  Hvorfor: forkerte tal i `Recipe`-markup og på siden skader tilliden; det er uafklaret, om tallene er forkerte.
+  Accept: (1) de 5 sider forklaret eller rettet med bevis (ingrediensliste, regnestykke), (2) kontrollen advarer ved over 1000 kcal pr. portion uden forklaring, (3) `kontrol.py` BESTÅET.
+  Ikke-mål: ændre priser.
+(udskudt lav prioritet 2026-11-22)
+- [ ] [DATA] [H] Næring pr. voksen i Fitness
+  Krav: kategorien Fitness regner næring pr. voksen i stedet for pr. gennemsnitsportion (børn spiser mindre).
+  Hvorfor: tallene skal passe til, hvad en voksen faktisk spiser.
+  Accept: (1) forklaret i teksten på siden, (2) regressionstest og før/efter-tal, (3) `naering.json` bygges med den nye regel.
+  Ikke-mål: ændre andre kategorier.
+
