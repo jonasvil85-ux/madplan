@@ -4,7 +4,8 @@
 
 HELBRED.md: GRØN (2026-11-22 06:51 UTC, begge domæner OK). BROWSER.md: GRØN (2026-11-22, 0 JS-fejl, intet vandret scroll).
 
-Sidst kontrolleret: 2026-11-22, kørsel 2 (GitHub Actions med Chromium, udløst af push på ai/2026-11-22-soeg-vaelg-selv). Main 39333fa BESTÅET (0 fejl, 6 advarsler) før; efter sammenlægningen 8ea3f25 (lineær) BESTÅET (0 fejl, 6 advarsler) inkl. søgetesten i Chromium, regression BESTÅET. Ingen tilbagerulning.
+Kørsel 3 (2026-11-22 ca. 09:15 UTC, sky): main 6ae3ab5 BESTÅET (0 fejl, 7 advarsler – sidefodens Chromium-test IKKE kørt, Playwright mangler i sessionen), regression bestået. HELBRED GRØN (07:03 UTC), BROWSER GRØN. Ingen nye eller ændrede grene – intet slået sammen, intet afvist, ingen tilbagerulning.
+Sidst kontrolleret før det: 2026-11-22, kørsel 2 (GitHub Actions med Chromium, udløst af push på ai/2026-11-22-soeg-vaelg-selv). Main 39333fa BESTÅET (0 fejl, 6 advarsler) før; efter sammenlægningen 8ea3f25 (lineær) BESTÅET (0 fejl, 6 advarsler) inkl. søgetesten i Chromium, regression BESTÅET. Ingen tilbagerulning.
 I dag: ai/2026-11-22-datafejl (H) SLÅET SAMMEN (kørsel 1, dagens 1. H); ai/2026-11-22-soeg-vaelg-selv (A) SLÅET SAMMEN (kørsel 2). Se ai/rapporter/2026-11-22-kontrol.md.
 Bemærk: søgetesten (soeg_browser.js) kræver node-Playwright; uden den giver kontrol.py kun en advarsel "IKKE KØRT" (sådan er det på GitHub-maskinen – kontrollanten installerede den midlertidigt).
 
