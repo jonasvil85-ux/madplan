@@ -197,6 +197,12 @@ if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sidefod_browser.py')):
     elif p.returncode: fejl.append('Browsertest af sidefoden fejlede:' + chr(10) + chr(10).join(p.stdout.strip().splitlines()[-12:]))
     else: ok.append('sidefod i Chromium bestået')
 
+if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'soeg_browser.js')):
+    p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'soeg_browser.js'), ROD], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
+    if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke her – browsertesten af søgning i Vælg selv er IKKE kørt')
+    elif p.returncode: fejl.append('Browsertest af søgning i Vælg selv fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[-12:]))
+    else: ok.append('søgning i Vælg selv i Chromium bestået')
+
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
 if len(advarsler) > 40: print(f'… og {len(advarsler) - 40} flere advarsler')
