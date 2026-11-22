@@ -16,20 +16,6 @@
       }
     },
     {
-      "som": "Andelår i fad med æbler, svesker og kartofler",
-      "tilbud": {
-        "Julius ferske andelår": [
-          "X17"
-        ],
-        "æbler": [
-          "X9"
-        ],
-        "kartofler": [
-          "X6"
-        ]
-      }
-    },
-    {
       "som": "Hjemmelavet kartoffel-broccoligratin",
       "tilbud": {
         "danske kartofler": [
@@ -40,23 +26,6 @@
         ],
         "revet ost": [
           "X70"
-        ]
-      }
-    },
-    {
-      "som": "Sprøde andelår med flødekartofler og rødkål",
-      "tilbud": {
-        "ferske andelår": [
-          "X17"
-        ],
-        "kartofler": [
-          "X6"
-        ],
-        "flødeost": [
-          "X22"
-        ],
-        "æbler": [
-          "X9"
         ]
       }
     },
@@ -2110,6 +2079,93 @@
         ]
       ],
       "auto": true
+    },
+    {
+      "navn": "Frikadeller med broccoli og kartofler",
+      "beskrivelse": "Danske frikadeller af hakket gris og okse, stegt på panden, med kogte kartofler og broccoli.",
+      "kategori": "svinekød",
+      "koekken": "dansk",
+      "tid_minutter": 45,
+      "spis_tidligt": true,
+      "fremgangsmaade": [
+        "Ælt det hakkede kød med revet løg, æg, hvedemel, mælk, 1 tsk salt og peber til en luftig farce. Lad den hvile 15 minutter i køleskabet.",
+        "Kog de skrællede kartofler i letsaltet vand i ca. 20 minutter.",
+        "Form farsen med en våd ske til frikadeller, og steg dem i smør eller olie ved middelvarme i 8-10 minutter, til de er gyldne og gennemstegte (kernetemperatur 75 °C).",
+        "Del broccolien i buketter, og kog dem i 3-4 minutter, til de er møre, men stadig grønne.",
+        "Server frikadellerne med kartofler, broccoli og evt. en klat sennep eller brun sovs."
+      ],
+      "niveau": "familie",
+      "ingredienser": [
+        [
+          "hakket kød 8-12%",
+          600,
+          "g",
+          0,
+          [
+            "X15"
+          ]
+        ],
+        [
+          "kartofler",
+          1000,
+          "g",
+          0,
+          [
+            "X6"
+          ]
+        ],
+        [
+          "broccoli",
+          1,
+          "stk",
+          0,
+          [
+            "X5"
+          ]
+        ],
+        [
+          "løg",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "æg",
+          1,
+          "stk",
+          1,
+          []
+        ],
+        [
+          "hvedemel",
+          3,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "mælk",
+          1,
+          "dl",
+          1,
+          []
+        ],
+        [
+          "smør til stegning",
+          1,
+          "spsk",
+          1,
+          []
+        ],
+        [
+          "salt og peber",
+          0,
+          "efter smag",
+          1,
+          []
+        ]
+      ]
     }
   ],
   "top": []
