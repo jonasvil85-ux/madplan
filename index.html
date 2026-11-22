@@ -490,6 +490,25 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .vare { cursor: pointer; border-radius: 8px; }
 .vare.valgt { background: rgba(232,116,59,.08); }
 .vare.valgt .navn { color: var(--text-1); }
+/* Søg i Vælg selv */
+.kun-skaerm { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ret-soeg { position: relative; max-width: 480px; margin: 0 0 12px; }
+.ret-soeg input { width: 100%; box-sizing: border-box; height: 48px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 0 48px 0 44px; color: var(--text-1); font: inherit; font-size: 16px; }
+.ret-soeg input:focus { outline: 2px solid var(--valgt, var(--accent)); outline-offset: 1px; border-color: var(--accent); }
+.ret-soeg input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.ret-soeg-ikon { position: absolute; left: 14px; top: 15px; width: 18px; height: 18px; color: var(--text-3); pointer-events: none; }
+.ret-soeg-ikon .ikon-svg { width: 18px; height: 18px; display: block; }
+.ret-soeg-x { position: absolute; right: 2px; top: 2px; width: 44px; height: 44px; border: 0; background: none; color: var(--text-2, var(--text-3)); cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
+.ret-soeg-x[hidden] { display: none; }
+.ret-soeg-x .ikon-svg { width: 16px; height: 16px; }
+.ret-soeg-status { font-size: 14px; color: var(--text-3); margin: 0 0 12px; }
+.ret-soeg-status:empty { display: none; }
+.uge-fold { margin: 0 0 16px; }
+.uge-fold > summary { min-height: 44px; display: flex; align-items: center; padding: 0 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-weight: 600; }
+.uge-fold[open] > summary { margin-bottom: 10px; }
+.soeg-tom { text-align: center; }
+.soeg-tom .knap { width: 100%; min-height: 44px; }
+@media (min-width: 700px) { .soeg-tom .knap { width: auto; } }
 .soegefelt { display: flex; gap: 8px; }
 .soegefelt input { flex: 1; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; color: var(--text-1); font: inherit; font-size: 16px; }
 .soegefelt input:focus { outline: none; border-color: var(--accent); }
@@ -2310,6 +2329,70 @@ function restMatch() {
 }
 const FRYS = ['Kød & fjerkræ', 'Fisk & skaldyr'];
 
+// ---------- Søg i "Vælg selv" (ren visning: state.valgte, state.plan og alle beregninger røres ikke; søgningen gemmes ikke) ----------
+let retSoeg = '', retUgeAaben = false;
+const soegNorm = s => String(s ?? '').toLocaleLowerCase('da').replace(/[éèêë]/g, 'e').replace(/[üúùû]/g, 'u').replace(/[áàâ]/g, 'a').replace(/[íìîï]/g, 'i').replace(/[óòô]/g, 'o').replace(/ç/g, 'c');
+const soegOrd = s => soegNorm(s).split(/[^a-zæøå0-9]+/).filter(Boolean);
+const SOEG_FLERTAL = { gulerødder: 'gulerod', kartofler: 'kartoffel', tomater: 'tomat', løg: 'løg', æbler: 'æble', bønner: 'bønne' };  // uregelmæssige flertal (kun en lille fast liste)
+// Et søgeord passer, hvis det begynder et ord; fra 4 tegn også inde i et sammensat ord ("laks" i "røgetlaksefilet"). Alle søgeord skal passe.
+const soegPasser = (ord, ordene) => ord.length >= 4 ? ordene.some(o => o.includes(ord)) : ordene.some(o => o.startsWith(ord));
+function soegRetter(retter, tekst) {
+  const sog = soegOrd(tekst);
+  if (!sog.length) return null;
+  const ordTil = new Map(retter.map(r => [r.id, soegOrd([r.navn, ...r.ingredienser.map(i => i.navn)].join(' '))]));
+  const find = ord => new Set(retter.filter(r => soegPasser(ord, ordTil.get(r.id))).map(r => r.id));
+  const sæt = sog.map(ord => {
+    const hit = find(ord);
+    if (hit.size) return hit;
+    const kandidater = [SOEG_FLERTAL[ord], ...['ne', 'er', 'e', 'r'].filter(e => ord.endsWith(e) && ord.length - e.length >= 4).map(e => ord.slice(0, -e.length))].filter(Boolean);  // flertal uden træffere: prøv uden endelsen
+    for (const k of kandidater) { const h = find(k); if (h.size) return h; }
+    return hit;
+  });
+  return new Set(retter.filter(r => sæt.every(h => h.has(r.id))).map(r => r.id));
+}
+function retSoegStatus(retter, ids) {
+  if (!ids) return '';
+  const q = esc(retSoeg.trim()), n = ids.size;
+  const skjult = state.valgte.filter(id => retter.some(r => r.id === id) && !ids.has(id)).length;
+  return `${n ? `${n} ${n === 1 ? 'ret passer' : 'retter passer'} til "${q}" – søgt i alle retter` : ''}`
+    + (skjult ? `<div>${skjult} ${skjult === 1 ? 'valgt ret passer' : 'valgte retter passer'} ikke til søgningen, men er stadig med i din madplan.</div>` : '');
+}
+function retIndhold(retter, restMap, antalRest, prPers, valgtKat) {
+  const ids = soegRetter(retter, retSoeg), soegt = !!ids;
+  const vk = soegt ? 'alle' : valgtKat;  // en søgning gælder alle retter og markerer ingen kategori
+  const synlige = retter.filter(r => soegt ? ids.has(r.id) : katIKat(r, vk, prPers) && (!state.kunRest || restMap[r.id])).sort(katSort(vk, prPers));
+  const uge = ugeplanValg(retter);
+  const ugeTal = (uge.match(/<span class="ugetal">([^<]*)<\/span>/) || [])[1] || '';
+  return `
+    ${katRaekke(retter, prPers, vk)}
+    ${antalRest && !soegt ? `<div class="filtre"><button class="chip rest-chip ${state.kunRest ? 'aktiv' : ''}" data-kunrest>${ikon('refresh')} Bruger min rest (${antalRest})</button></div>` : ''}
+    ${soegt ? `<details class="uge-fold" id="uge-fold" ${retUgeAaben ? 'open' : ''}><summary>Din uge · ${esc(ugeTal)}</summary>${uge}</details>` : uge}
+    ${vk === 'fitness' ? FITNESS_INFO : ''}
+    ${soegt && !synlige.length ? `<div class="panel soeg-tom"><h2>Ingen retter passer til "${esc(retSoeg.trim())}"</h2><p>Prøv et kortere ord, eller tjek stavningen.</p><button type="button" class="knap sekundaer" data-retsoeg-ryd>Vis alle retter</button></div>` : ''}
+    <div class="grid">${synlige.map(r => {
+      const tilbudsvarer = r.ingredienser.filter(i => butiksTilbud(i).length);
+      const restTil = restMap[r.id] || [];
+      const kp = kortPriser(r);
+      return `
+        <div class="ret ${vk === 'fitness' ? 'fit' : ''} ${state.valgte.includes(r.id) ? 'valgt' : ''} ${restTil.length ? 'bruger-rest' : ''}" data-ret="${r.id}">
+          <div class="bil">${r.billede ? `<img src="${esc(r.billede)}" alt="Illustration af ${esc(r.navn)}" loading="lazy" width="720" height="540"><span class="bil-maerke">Illustration</span>` : `<span class="bil-ikon">${ikon('utensils')}</span>`}${ingKnap(r.id)}</div>
+          ${restTil.length ? `<div class="restmaerke">${ikon('refresh')} Bruger din rest: ${restTil.map(x => `ca. ${esc(maengde(x.behov, x.enhed, true))} ${esc(x.navn)}`).join(', ')}</div>` : ''}
+          <h3>${esc(r.navn)}</h3>
+          ${vk === 'fitness' ? fitnessKortHtml(r, kp, tilbudsvarer) : retKortHtml(r, kp, tilbudsvarer)}
+        </div>`;
+    }).join('')}</div>`;
+}
+// Opdater kun søgeresultatet (feltet bevarer fokus og tastatur)
+function opdaterRetSoeg() {
+  const ind = document.getElementById('ret-indhold');
+  if (!ind || !data) return;
+  const retter = pool(aktivS()), restMap = restMatch(), antalRest = Object.keys(restMap).length;
+  const prPers = new Map(retter.map(r => { const kp = kortPriser(r); return [r.id, kp.indkoeb / kp.pers]; }));
+  const valgtKat = KATEGORIER_VALG.some(c => c.k === state.koekken && (!c.kunFlere || aktivS().length > 1)) ? state.koekken : 'alle';
+  ind.innerHTML = retIndhold(retter, restMap, antalRest, prPers, valgtKat);
+  const st = document.getElementById('ret-soeg-status'); if (st) st.innerHTML = retSoegStatus(retter, soegRetter(retter, retSoeg));
+  const x = document.getElementById('ret-soeg-x'); if (x) x.hidden = !retSoeg;
+}
 function renderRetter() {
   const retter = pool(aktivS());
   const restMap = restMatch();
@@ -2318,26 +2401,17 @@ function renderRetter() {
   const orden = Object.keys(NIVEAUER);
   const prPers = new Map(retter.map(r => { const kp = kortPriser(r); return [r.id, kp.indkoeb / kp.pers]; }));  // indkøbspris pr. person (til sortering)
   const valgtKat = KATEGORIER_VALG.some(c => c.k === state.koekken && (!c.kunFlere || aktivS().length > 1)) ? state.koekken : 'alle';  // kategorien (state.koekken gemmer valget)
-  const synlige = retter.filter(r => katIKat(r, valgtKat, prPers) && (!state.kunRest || restMap[r.id])).sort(katSort(valgtKat, prPers));
 
   vis(`
     ${aktivS().some(k => udloebet(data.butikker[k])) ? '<div class="panel fejl">En af aviserne er udløbet – priserne gælder måske ikke længere. Nye retter kommer snart.</div>' : ''}
-    ${katRaekke(retter, prPers, valgtKat)}
-    ${antalRest ? `<div class="filtre"><button class="chip rest-chip ${state.kunRest ? 'aktiv' : ''}" data-kunrest>${ikon('refresh')} Bruger min rest (${antalRest})</button></div>` : ''}
-    ${ugeplanValg(retter)}
-    ${valgtKat === 'fitness' ? FITNESS_INFO : ''}
-    <div class="grid">${synlige.map(r => {
-      const tilbudsvarer = r.ingredienser.filter(i => butiksTilbud(i).length);
-      const restTil = restMap[r.id] || [];
-      const kp = kortPriser(r);
-      return `
-        <div class="ret ${valgtKat === 'fitness' ? 'fit' : ''} ${state.valgte.includes(r.id) ? 'valgt' : ''} ${restTil.length ? 'bruger-rest' : ''}" data-ret="${r.id}">
-          <div class="bil">${r.billede ? `<img src="${esc(r.billede)}" alt="Illustration af ${esc(r.navn)}" loading="lazy" width="720" height="540"><span class="bil-maerke">Illustration</span>` : `<span class="bil-ikon">${ikon('utensils')}</span>`}${ingKnap(r.id)}</div>
-          ${restTil.length ? `<div class="restmaerke">${ikon('refresh')} Bruger din rest: ${restTil.map(x => `ca. ${esc(maengde(x.behov, x.enhed, true))} ${esc(x.navn)}`).join(', ')}</div>` : ''}
-          <h3>${esc(r.navn)}</h3>
-          ${valgtKat === 'fitness' ? fitnessKortHtml(r, kp, tilbudsvarer) : retKortHtml(r, kp, tilbudsvarer)}
-        </div>`;
-    }).join('')}</div>`);
+    ${retter.length ? `<div class="ret-soeg" role="search">
+      <label for="ret-soeg" class="kun-skaerm">Søg i retter</label>
+      <span class="ret-soeg-ikon">${ikon('search')}</span>
+      <input id="ret-soeg" type="search" role="searchbox" enterkeyhint="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Søg efter ret eller ingrediens, fx kylling" value="${esc(retSoeg)}">
+      <button type="button" id="ret-soeg-x" class="ret-soeg-x" data-retsoeg-ryd aria-label="Ryd søgning" ${retSoeg ? '' : 'hidden'}>${ikon('luk')}</button>
+    </div>
+    <div class="ret-soeg-status" id="ret-soeg-status" aria-live="polite">${retSoegStatus(retter, soegRetter(retter, retSoeg))}</div>` : ''}
+    <div id="ret-indhold">${retIndhold(retter, restMap, antalRest, prPers, valgtKat)}</div>`);
 
   bund(`<span>${state.valgte.length} ${state.valgte.length === 1 ? 'ret' : 'retter'} valgt</span>
         <button class="knap" data-gaa="liste" ${state.valgte.length ? '' : 'disabled'}>Lav indkøbsliste →</button>`);
@@ -2913,7 +2987,7 @@ document.addEventListener('click', e => {
   const i = e.target.closest('.info-i');
   document.querySelectorAll('.info-i.aaben').forEach(x => { if (x !== i) x.classList.remove('aaben'); });
   if (i) { e.preventDefault(); e.stopPropagation(); i.classList.toggle('aaben'); return; }  // på mobil: tryk åbner og lukker
-  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-sammvalg],[data-sammkombi],[data-sammalle],[data-sammigen],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-ekstra],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken],[data-udskriv]');
+  const t = e.target.closest('[data-ing],[data-intro],[data-intro-naeste],[data-intro-luk],[data-sorter],[data-seddelfane],[data-husstand-aabn],[data-butikvalg],[data-sammvalg],[data-sammkombi],[data-sammalle],[data-sammigen],[data-maxb],[data-aktivbutik],[data-husstand],[data-voksne],[data-boern],[data-sim-fjern],[data-sim-gendan],[data-sim-byt],[data-sim-nulstil],[data-sim-indkoeb],[data-sim-vaelg],[data-trin],[data-niveau],[data-filter],[data-ret],[data-gaa],[data-skift],[data-handlet],[data-kopier],[data-forfra],[data-sletvalg],[data-alle],[data-ekstra],[data-katalog],[data-fjern],[data-egen],[data-online-til],[data-online],[data-kunrest],[data-koekken],[data-retsoeg-ryd],[data-udskriv]');
   if (!t || t.disabled) return;
   const d = t.dataset;
   if ('ing' in d) { e.stopPropagation(); const pop = document.getElementById('ing-pop'); if (pop && pop.style.display === 'block' && ingKilde === t && !pop.dataset.fast) return ingSkjul(); return ingVis(t, false); }
@@ -2921,7 +2995,8 @@ document.addEventListener('click', e => {
   else if ('introNaeste' in d) { return introVis(introNr + 1); }
   else if ('introLuk' in d) { return introLuk(); }
   else if (d.husstandAabn !== undefined) { husstandAaben = !husstandAaben; return husstandLinje(); }
-  else if (d.koekken) state.koekken = d.koekken;
+  else if (d.koekken) { state.koekken = d.koekken; retSoeg = ''; }  // et tryk på en kategori rydder søgningen
+  else if ('retsoegRyd' in d) retSoeg = '';
   else if (d.simByt !== undefined) { simByt(simK(), +d.simByt); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simByt + 1})`); }
   else if (d.simNulstil) { delete simManuel[d.simNulstil]; delete simAfvist[d.simNulstil]; delete simFra[d.simNulstil]; return opdaterButik(); }
   else if (d.simFjern !== undefined) { (simFra[simK()] = simFra[simK()] || new Set()).add(+d.simFjern); return opdaterButik(`#sim-plads .kalender > .dag-kort:nth-child(${+d.simFjern + 1})`); }
@@ -2988,6 +3063,7 @@ document.addEventListener('click', e => {
   if (d.trin || d.gaa || 'simIndkoeb' in d || 'simVaelg' in d || 'handlet' in d) window.scrollTo(0, 0);
   else window.scrollTo(0, y);
   if ('egen' in d) document.getElementById('soeg')?.focus();
+  if ('retsoegRyd' in d) document.getElementById('ret-soeg')?.focus();
 });
 
 document.addEventListener('change', e => {
@@ -2996,11 +3072,17 @@ document.addEventListener('change', e => {
   if (t.dataset.koebt) { state.koebt[t.dataset.koebt] = t.checked; const y = window.scrollY; render(); window.scrollTo(0, y); }
 });
 
+document.addEventListener('toggle', e => { if (e.target.id === 'uge-fold') retUgeAaben = e.target.open; }, true);
 // Søgning i varekataloget: filtrer mens man skriver, Enter tilføjer egen vare
 document.addEventListener('input', e => {
+  if (e.target.id === 'ret-soeg') { retSoeg = e.target.value; opdaterRetSoeg(); }
   if (e.target.id === 'soeg') { state.soeg = e.target.value; filtrerKatalog(state.soeg); }
 });
 document.addEventListener('keydown', e => {
+  if (e.target.id === 'ret-soeg') {
+    if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); }
+    else if (e.key === 'Escape' && retSoeg) { retSoeg = ''; e.target.value = ''; opdaterRetSoeg(); }
+  }
   if (e.target.id === 'soeg' && e.key === 'Enter') {
     e.preventDefault();
     // Matcher søgningen præcis én katalogvare, tilføjes den; ellers tilføjes teksten som egen vare
