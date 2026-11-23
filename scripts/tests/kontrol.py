@@ -158,6 +158,12 @@ p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tjek_ops
 if p.returncode: fejl.append('tjek_opskrifter.py fandt rå-fejl:\n' + '\n'.join(p.stdout.strip().splitlines()[-12:]))
 else: ok.append('tjek_opskrifter.py bestået')
 
+# ---------- 7a. 20 %-reglen mod fejlkoblinger (scripts/tests/daekning.py) ----------
+if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'daekning.py')):
+    p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'daekning.py')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=120)
+    if p.returncode: fejl.append('Test af 20 %-reglen fejlede: ' + (p.stdout + p.stderr).strip()[:400])
+    else: ok.append('20 %-reglen bestået')
+
 # ---------- 7b. Budget i ugeforslaget (node, samme datakopi; se scripts/tests/budget.js) ----------
 if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'budget.js')):
     p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'budget.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)

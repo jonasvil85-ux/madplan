@@ -124,6 +124,23 @@ def antal_pakker(t, behov):
     return max(1, n)
 
 
+MIN_DAEKNING = 0.20  # tilbuddets pakke skal mindst dække 20 % af ingrediensens mængde, ellers er koblingen en fejl (B80/X17/P94)
+
+
+def daekning(t, maengde, enhed):
+    """Tilbuddets pakkestørrelse som andel af ingrediensens mængde (samme grundenhed), eller None hvis det ikke kan sammenlignes."""
+    try:
+        dele = [float(x) for x in str(t.get('maengde') or '').split('-')]
+        stoerrelse = sum(dele) / len(dele)
+    except ValueError:
+        return None
+    g1, k1 = OMREGN.get(t.get('enhed'), (None, None))
+    g2, k2 = OMREGN.get(enhed, (None, None))
+    if not stoerrelse or not g1 or g1 != g2 or not maengde:
+        return None
+    return stoerrelse * k1 * (t.get('stk') or 1) / (maengde * k2)
+
+
 def laes_kilder():
     kilder = {}
     for sti in sorted(glob.glob(os.path.join(ROD, 'scripts', 'retter', '*.json'))):
@@ -246,6 +263,10 @@ def main():
                     if not tid.startswith(b['prefix']) or tid not in alle:
                         fejl.append(f"{butik}: '{r['navn']}' bruger ugyldigt tilbuds-id {tid}")
                 d['tilbud'] = [t for t in d['tilbud'] if t.startswith(b['prefix']) and t in alle]
+                for t in d['tilbud'][:1]:  # det første tilbud er det, retten prissættes efter
+                    dk = daekning(alle[t], d['maengde'], d['enhed'])
+                    if dk is not None and dk < MIN_DAEKNING:
+                        fejl.append(f"{butik}: '{r['navn']}' kobler '{d['navn']}' ({d['maengde']} {d['enhed']}) til {t} ({alle[t]['navn'][:40]}, {alle[t].get('maengde')} {alle[t].get('enhed')}), som kun dækker {round(dk * 100)} % (under {round(MIN_DAEKNING * 100)} %)")
                 for t in d['tilbud']:
                     alt = [a.strip() for a in re.split(r'\s*,\s*| eller ', alle[t]['navn']) if a.strip()] or [alle[t]['navn']]
                     if all(FORARBEJDET.search(a) for a in alt):  # først når ALLE varer i tilbuddet er færdigvarer (et tilbud kan have flere varer; retten bruger én af dem)
