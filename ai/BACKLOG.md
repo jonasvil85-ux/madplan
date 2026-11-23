@@ -6,7 +6,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
-- [ ] [UX] [A] Søg i "Vælg selv": ental/flertal og småfejl (Ejer 2026-11-23; fra kontrollantens opfølgning 2026-11-22 kørsel 2)
+- [ ] [UX] [A] Søg i "Vælg selv": ental/flertal og småfejl (Ejer 2026-11-23; fra kontrollantens opfølgning 2026-11-22 kørsel 2) (gren ai/2026-11-23-ux AFVIST forsøg 1 2026-11-23: "rejer" finder ikke længere kutterrejer-retten, og "hvide" rammer "hvidløg" – se ai/rapporter/2026-11-23-kontrol.md, kørsel 2)
   Krav: søger man "kartoffel", finder man også retter med "kartofler" (og omvendt: "kartofler" finder "kartoffel"); der vises kun én "Din uge"-overskrift; søgetesten kan køres, hvor kun Python-Playwright findes (som de øvrige Chromium-tests).
   Hvorfor: i dag giver "kartoffel" 11 retter og "kartofler" 72 – brugeren tror, der ikke er flere. Brugerne skriver begge former.
   Accept: (1) "kartoffel" og "kartofler" giver samme antal retter; tilsvarende for mindst to andre par (fx "gulerod"/"gulerødder", "løg"/"løgene" må ikke give falske træffere som midt-i-ord "ris" i "tomatris"); (2) "ris" og "ost" matcher stadig ikke midt i ord; (3) kun én "Din uge"-overskrift i Chromium; (4) søgetesten kører og består i kontrol.py i GitHub-miljøet uden node-Playwright; (5) priser, madplan, indkøbsliste uændrede (regression og før/efter-tal for 9 butikker).
