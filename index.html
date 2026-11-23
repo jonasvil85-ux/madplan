@@ -506,6 +506,7 @@ button.link { background: none; border: 0; color: var(--text-3); text-decoration
 .uge-fold { margin: 0 0 16px; }
 .uge-fold > summary { min-height: 44px; display: flex; align-items: center; padding: 0 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-weight: 600; }
 .uge-fold[open] > summary { margin-bottom: 10px; }
+.uge-fold .ugeplan-valg > .panel-hoved { display: none; }  /* overskriften står allerede i summary */
 .soeg-tom { text-align: center; }
 .soeg-tom .knap { width: 100%; min-height: 44px; }
 @media (min-width: 700px) { .soeg-tom .knap { width: auto; } }
@@ -2333,22 +2334,22 @@ const FRYS = ['Kød & fjerkræ', 'Fisk & skaldyr'];
 let retSoeg = '', retUgeAaben = false;
 const soegNorm = s => String(s ?? '').toLocaleLowerCase('da').replace(/[éèêë]/g, 'e').replace(/[üúùû]/g, 'u').replace(/[áàâ]/g, 'a').replace(/[íìîï]/g, 'i').replace(/[óòô]/g, 'o').replace(/ç/g, 'c');
 const soegOrd = s => soegNorm(s).split(/[^a-zæøå0-9]+/).filter(Boolean);
-const SOEG_FLERTAL = { gulerødder: 'gulerod', kartofler: 'kartoffel', tomater: 'tomat', løg: 'løg', æbler: 'æble', bønner: 'bønne' };  // uregelmæssige flertal (kun en lille fast liste)
+// Ental og flertal: begge sider (søgeord og de ord, der søges i) føres til samme stamme, så "kartoffel" og "kartofler" er det samme.
+// Regel: fjern én endelse (-erne, -ene, -er, -en, -e, -r), når mindst 4 tegn bliver tilbage (3 ved -erne/-ene, så "løgene" bliver "løg"),
+// og ret derefter e-bortfald og omlyd i en kort, eksplicit liste. Ord under 4 tegn ("ris", "ost") røres ikke og matcher kun ordstart.
+const SOEG_STAMME = { kartofl: 'kartoffel', gulerødd: 'gulerod', mandl: 'mandel', nødd: 'nød', fingr: 'finger' };
+const SOEG_ENDELSER = [['erne', 3], ['ene', 3], ['er', 4], ['en', 4], ['e', 4], ['r', 4]];
+function soegStamme(o) {
+  for (const [e, min] of SOEG_ENDELSER) if (o.length - e.length >= min && o.endsWith(e)) { o = o.slice(0, -e.length); break; }
+  return SOEG_STAMME[o] || o;
+}
 // Et søgeord passer, hvis det begynder et ord; fra 4 tegn også inde i et sammensat ord ("laks" i "røgetlaksefilet"). Alle søgeord skal passe.
 const soegPasser = (ord, ordene) => ord.length >= 4 ? ordene.some(o => o.includes(ord)) : ordene.some(o => o.startsWith(ord));
 function soegRetter(retter, tekst) {
-  const sog = soegOrd(tekst);
+  const sog = soegOrd(tekst).map(soegStamme);
   if (!sog.length) return null;
-  const ordTil = new Map(retter.map(r => [r.id, soegOrd([r.navn, ...r.ingredienser.map(i => i.navn)].join(' '))]));
-  const find = ord => new Set(retter.filter(r => soegPasser(ord, ordTil.get(r.id))).map(r => r.id));
-  const sæt = sog.map(ord => {
-    const hit = find(ord);
-    if (hit.size) return hit;
-    const kandidater = [SOEG_FLERTAL[ord], ...['ne', 'er', 'e', 'r'].filter(e => ord.endsWith(e) && ord.length - e.length >= 4).map(e => ord.slice(0, -e.length))].filter(Boolean);  // flertal uden træffere: prøv uden endelsen
-    for (const k of kandidater) { const h = find(k); if (h.size) return h; }
-    return hit;
-  });
-  return new Set(retter.filter(r => sæt.every(h => h.has(r.id))).map(r => r.id));
+  const ordTil = new Map(retter.map(r => [r.id, soegOrd([r.navn, ...r.ingredienser.map(i => i.navn)].join(' ')).map(soegStamme)]));
+  return new Set(retter.filter(r => sog.every(ord => soegPasser(ord, ordTil.get(r.id)))).map(r => r.id));
 }
 function retSoegStatus(retter, ids) {
   if (!ids) return '';
