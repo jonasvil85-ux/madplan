@@ -1,22 +1,23 @@
-# Dagsrapport 2026-11-22
-**Siden i dag:** Sund med advarsler. Udgivet side grøn (Vagtpost 07:03 UTC, begge domæner, 569 retter), kontrol bestået med 0 fejl og 7 advarsler.
+# Dagsrapport 2026-11-23
+**Siden i dag:** Sund med advarsler. Udgivet side grøn (Vagtpost 07:13 UTC, begge domæner, 566 retter), kontrol bestået med 0 fejl og 4 advarsler.
 ## Ændret på siden (slået sammen)
-- Datafejl (9bd1683, klasse H, kontrollanten): 6 fejlkoblede dyre retter (andelår/hel and) fjernet, ny Frikadeller-ret hos Min Købmand, kontrollen fejler nu over 450 kr. Hjælper brugeren med en realistisk ugeplan. Bestået: kontrol.py, før/efter-tal for 9 butikker, tilbagerulning kan prøves.
-- Søg i Vælg selv (8ea3f25, klasse A, kontrollanten): søgefelt, der finder ret og ingrediens. Bestået: kontrol.py inkl. søgetest i Chromium, regression og budget uændrede.
-- Data: nye tilbudsaviser (rema, lidl uge 48 og tidligere netto, meny, bilka, kvickly, spar, minkøbmand) og billeder.
+- Én ændring: 20 %-regel mod fejlkoblinger i `byg_retter.py` (merge 2aa01e8, klasse H, kontrollanten). Tre fejlkoblede retter er fjernet (bilka, 365, rema), så en ret ikke prissættes ud fra en alt for lille vare. Brugeren mister tre retter. Bestået: kontrol, regressionstest, dækningstest, før/efter-tal for 9 butikker (priser og indkøbslister uændrede), 6 egne fejlforsøg og tilbagerulning kan prøves.
+- Billeder til nye retter (automatisk, 22/11 kl. 13:37 UTC).
 ## Afvist eller rullet tilbage
-- Intet i dag. Ingen tilbagerulning. Ældre grene (se STATUS.md) venter stadig uændret, bl.a. 2026-11-17-sidefod-tryk-flader og -browsertest-sky.
+- ai/2026-11-23-ux (søgning i "Vælg selv", klasse A, forsøg 1): afvist. "rejer" finder ikke længere "Røget laks og kutterrejer", og "hvide bønner" rammer retter med hvidløg.
+- Ingen tilbagerulning. Stadig afvist/parkeret fra før: sidefod-tryk-flader, browsertest-sky, fravalg-budget, mobil-tryk-flader (se `ai/STATUS.md`).
 ## Data
-- Retter: Kvickly 88, Bilka 81, Meny 73, Spar 71, Netto 60, Rema 57, 365discount 50, Lidl 49, Min Købmand 40 (i alt 569). Uden billede: Lidl 36, Rema 32, Min Købmand 1 (billedhandlingen mangler at køre). 313 billeder bruges ikke.
-- Feedback fra brugerne: ingen nye beskeder siden 2026-11-17 (FEEDBACK.md); ingen HASTER.
+- Retter: Kvickly 88, Bilka 80, Meny 73, Spar 71, Netto 60, Rema 56, Lidl 49, 365discount 49, minkøbmand 40 (i alt 566). Uden billede: 0. 313 billeder bruges ikke af nogen ret.
+- `retter.json` genereret 2026-11-23 06:36 UTC.
+- Fund fra kontrollanten: 6 rema-retter kobler "ris" til en riskiks-vare (kan vælges i "Vælg selv"). Ejeren har det til et DATA-krav.
+- Feedback fra brugerne: ingen ny feedback-rapport i dag (seneste i `ai/FEEDBACK.md`: 17/11, 2 testbeskeder). Ingen HASTER.
 ## Sundhed
-- Kontrol: RESULTAT: BESTÅET (0 fejl, 7 advarsler). Udgivet side: nået, matcher main (Vagtpost 07:03 UTC; main er siden kun ændret i rapporter). Browser-QA GRØN: 0 JS-fejl, intet vandret scroll, flow ok; 30 små tryk-flader på mobil, 31 på desktop.
-- Advarsler af betydning: 36+32+1 retter uden billede; 18 ingredienser uden `ty` hos hver af Rema og Lidl; sidefodens Chromium-test kunne ikke køres i min session (Playwright mangler).
-- Ikke tjekket: udseende i browser, kontrast, tastatur, iOS Safari.
+- Kontrol: RESULTAT: BESTÅET (0 fejl, 4 advarsler) på main e4413dc (kørt af mig). Udgivet side: nået, matcher main ifølge Vagtposten (på cda1365, før kontrollantens sidste rapport-commit). Browser-QA GRØN (0 JS-fejl, intet vandret scroll, flow ok).
+- Advarsler af betydning: 18 ingredienser uden `ty` hos hhv. Rema og Lidl; 313 ubrugte billeder; sidefodens Chromium-test kunne ikke køres i min session (Playwright mangler).
+- Ikke tjekket: udseende i browser (skærmbilleder ikke åbnet), kontrast, tastatur, iOS Safari.
 ## I morgen
-- Øverste krav i BACKLOG: "Ét kort: Hvor handler du?" og "Én regel for to butikker" genindsendes med rettet Chromium-runner (Frontend-udvikleren); opfølgning om datafejl (20 %-reglen) hos Backend. Rækkefølgen er Ejerens, ikke tjekket af mig.
+- Øverste krav: søgning i "Vælg selv" med ental/flertal (UX, A, frontend-udvikleren; forsøg 2 efter afvisning). Derefter måling af ugeforslagets pris ved flere retter (TEST) og genindsendelse af "Ét kort".
 ## Til prøve hos Jonas
-- Søg i Vælg selv: skriv en ret eller en vare (fx "kylling") i søgefeltet i "Vælg selv". Finder den det, du forventer? Er det tydeligt, hvor feltet er? Noget forvirrende?
-- Gode tilbud nederst på indkøbslisten (udgivet 21/11, fra Ejerens rapport): er grupperne lettere at kigge i og er "se resten" tydeligt?
+- Søgefeltet i "Vælg selv" (udgivet tidligere): skriv en ret eller ingrediens, fx "kylling" eller "kartofler". Er det intuitivt at finde og rydde? Finder det det, du forventer, også i ental/flertal (ental/flertal er kendt svagt: "kartoffel" 11 mod "kartofler" 72 retter)? Noget forvirrende?
 ## Til Jonas
-- Intet. (Sikkerhedspunkter H2, M4, M5, L2/L3 afventer stadig dig, jf. Ejerens rapport.)
+- Intet (Ejerens liste over sikkerhedspunkter, der afventer dig, ligger i `ai/rapporter/2026-11-23-ejer.md`).
