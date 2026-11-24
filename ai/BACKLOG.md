@@ -6,6 +6,11 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
+- [ ] [DATA] [H] Rema: "ris" må ikke give riskiks på indkøbslisten (Ejer 2026-11-24; fra kontrollantens opfølgning a, 2026-11-23)
+  Krav: de seks rema-retter, der bruger ris/jasminris (rema-33, -40, -42, -43, -44, -48), kobles til en rigtig risvare eller uden tilbud, og aldrig til R101 "Nordthy Mini ris- eller majskiks"; byggeren afviser, at en ris-ingrediens kobles til en kiksvare.
+  Hvorfor: vælger man en af dem i "Vælg selv", står riskiks på indkøbslisten i stedet for ris – en forkert vare er værre end en manglende (tillid).
+  Accept: (1) ingen ingrediens med "ris" i navnet er koblet til et tilbud med "kiks" i titlen (test i kontrol.py, rød-hold: R101 sat tilbage skal give fejl); (2) de seks retter viser ris eller ingen tilbudslinje for ris på indkøbslisten; (3) før/efter-tal for alle 9 butikker; (4) kontrol.py BESTÅET.
+  Ikke-mål: ændre 20 %-reglen eller `tilbudVariant()`; stk-mod-g-hullet (eget krav, hvis det viser sig i data).
 - [ ] [UX] [A] Søg i "Vælg selv": ental/flertal og småfejl (Ejer 2026-11-23; fra kontrollantens opfølgning 2026-11-22 kørsel 2) (gren ai/2026-11-23-ux AFVIST forsøg 1 2026-11-23: "rejer" finder ikke længere kutterrejer-retten, og "hvide" rammer "hvidløg" – se ai/rapporter/2026-11-23-kontrol.md, kørsel 2)
   Krav: søger man "kartoffel", finder man også retter med "kartofler" (og omvendt: "kartofler" finder "kartoffel"); der vises kun én "Din uge"-overskrift; søgetesten kan køres, hvor kun Python-Playwright findes (som de øvrige Chromium-tests).
   Hvorfor: i dag giver "kartoffel" 11 retter og "kartofler" 72 – brugeren tror, der ikke er flere. Brugerne skriver begge former.
@@ -16,6 +21,11 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: samme fejltype (B80/X17/P94) er kommet igen tre gange; nu hvor over 450 kr er en FEJL i kontrollen, kan næste avis ellers gøre siden rød.
   Accept: (1) en kobling på 19 % afvises og en på 20 % accepteres (test); (2) bilka-15 viser en and/andebryst-mængde, som tilbuddet faktisk dækker, eller er væk; (3) tilbudsrutinens instruks-tjek er beskrevet i rapporten (selve RUTINE.md er grundlov – forslag til Jonas, hvis den skal ændres); (4) før/efter-tal for alle 9 butikker; (5) kontrol.py BESTÅET; rød-hold: mindst tre egne forsøg.
   Ikke-mål: ændre `tilbudVariant()`; de 18 manglende `ty` hos rema og lidl (eget DATA-krav bagefter).
+- [ ] [TEST] [A] Test af selve byggeren: en kilde med 10 % dækning skal stoppe bygget (Ejer 2026-11-24; kontrollantens opfølgning b)
+  Krav: en automatisk test kører `byg_retter.py` på en lille konstrueret kilde med en kobling på 10 % og kræver exit 1 uden at skrive retter.json; samme test med tjekket slået fra skal fejle.
+  Hvorfor: i dag testes kun funktionen `daekning()`, ikke at byggeren kalder den – kontrollantens rød-hold 3 slap igennem.
+  Accept: (1) testen i kontrol.py består på main; (2) `if False:` omkring tjekket i `main()` gør kontrol.py rød; (3) retter.json og opskrifter.json uændrede efter testen.
+  Ikke-mål: ændre reglen eller data.
 - [ ] [TEST] [A] Mål, om ugeforslaget bliver dyrere, når der kommer en ret til (Ejer 2026-11-23; fra kontrollantens opfølgning d)
   Krav: en måling (advarsel, ikke fejl) der sammenligner hver butiks ugepris for 2+0, 2+2 og 6+4, før og efter at en ny billig ret lægges til, og viser tilfælde, hvor prisen stiger.
   Hvorfor: kontrollanten fandt, at minkoebmand 6+4 steg 147 kr (1154,5 → 1301,5), da en billig ret kom til – ugeforslaget er grådigt, ikke monotont. Brugeren oplever det som et dårligere forslag.
