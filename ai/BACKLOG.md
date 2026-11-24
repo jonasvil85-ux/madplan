@@ -6,7 +6,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
-- [ ] [DATA] [H] Rema: "ris" må ikke give riskiks på indkøbslisten (Ejer 2026-11-24; fra kontrollantens opfølgning a, 2026-11-23)
+- [x] [DATA] [H] Rema: "ris" må ikke give riskiks på indkøbslisten (Ejer 2026-11-24; fra kontrollantens opfølgning a, 2026-11-23) (SLÅET SAMMEN 2026-11-24 af kontrollanten: ai/2026-11-24-rema-ris, merge 2604467 – 12 retter, ikke 6. Opfølgning: risnudler/rispapir/risotto fanges ikke af forbudt-par-reglen; byggertesten bør også dække forbudt-par-tjekket; se ai/rapporter/2026-11-24-kontrol.md)
   Krav: de seks rema-retter, der bruger ris/jasminris (rema-33, -40, -42, -43, -44, -48), kobles til en rigtig risvare eller uden tilbud, og aldrig til R101 "Nordthy Mini ris- eller majskiks"; byggeren afviser, at en ris-ingrediens kobles til en kiksvare.
   Hvorfor: vælger man en af dem i "Vælg selv", står riskiks på indkøbslisten i stedet for ris – en forkert vare er værre end en manglende (tillid).
   Accept: (1) ingen ingrediens med "ris" i navnet er koblet til et tilbud med "kiks" i titlen (test i kontrol.py, rød-hold: R101 sat tilbage skal give fejl); (2) de seks retter viser ris eller ingen tilbudslinje for ris på indkøbslisten; (3) før/efter-tal for alle 9 butikker; (4) kontrol.py BESTÅET.
