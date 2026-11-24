@@ -46,6 +46,34 @@ tjek('365: hel and mod andebryst 250 g', afvist(til('250', 'g'), 2500, 'g'))
 tjek('rema: laksestykke 600 g mod fintskåret laks 115 g', afvist(til('115', 'g'), 600, 'g'))
 tjek('kvickly: laks 600 g mod laksefilet 600 g er fint', not afvist(til('600', 'g'), 600, 'g'))
 
+# 6. Forbudte par (ris -> kiks): hele ord/ordslutning, æøå-sikkert, ingen falske alarmer
+R101 = 'Nordthy Mini ris- eller majskiks'
+tjek('ris mod riskiks afvises', b.forbudt_par('ris', R101) == ('ris', 'kiks'))
+tjek('jasminris mod riskiks afvises', b.forbudt_par('jasminris', R101) is not None)
+tjek('basmatiris (gule ris) mod kiks afvises', b.forbudt_par('gule ris', R101) is not None)
+tjek('ris (gerne kogt dagen før) afvises', b.forbudt_par('ris (gerne kogt dagen før)', R101) is not None)
+tjek('RIS med stort afvises', b.forbudt_par('RIS', 'RISKIKS 100 g') is not None)
+tjek('basmatiris mod rigtig risvare accepteres', b.forbudt_par('basmatiris', 'Tilda basmatiris 1 kg') is None)
+tjek('grisekød rammes ikke', b.forbudt_par('grisekød', R101) is None)
+tjek('hakket gris rammes ikke', b.forbudt_par('hakket gris', 'Cheasy kiks') is None)
+tjek('frilandsgris rammes ikke', b.forbudt_par('frilandsgris', R101) is None)
+tjek('tomatris/risotto: risotto rammes ikke', b.forbudt_par('risottoris', R101) is not None and b.forbudt_par('risotto', R101) is None)
+tjek('riskiks mod riskiks accepteres (ingrediensen er selv kiks)', b.forbudt_par('riskiks', R101) is None)
+tjek('æøå i navne giver ikke crash', b.forbudt_par('ærter og løg', 'Grønne ærter åben æske') is None)
+tjek('tom ingrediens', b.forbudt_par('', R101) is None)
+# 7. Ingen ingrediens i den byggede retter.json er koblet til et forbudt par (tjekker de rigtige data)
+import json
+sti = os.path.join(ROD, 'retter.json')
+if os.path.exists(sti):
+    with open(sti, encoding='utf-8') as f:
+        rj = json.load(f)
+    for bk, bd in rj['butikker'].items():
+        for r in bd['retter']:
+            for i in r['ingredienser']:
+                for t in i['tilbud']:
+                    fp = b.forbudt_par(i['navn'], bd['tilbud'][t]['navn']) if t in bd['tilbud'] else None
+                    tjek(f"{bk}: '{r['navn']}' kobler '{i['navn']}' til {t} – forbudt par", fp is None)
+
 if fejl:
     print('DÆKNING: FEJLET – ' + '; '.join(fejl)); sys.exit(1)
 print('DÆKNING: BESTÅET (20 %-reglen, ' + str(antal[0]) + ' tjek)')

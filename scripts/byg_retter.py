@@ -141,6 +141,20 @@ def daekning(t, maengde, enhed):
     return stoerrelse * k1 * (t.get('stk') or 1) / (maengde * k2)
 
 
+# Forbudte par: (ingrediensord, ord der ikke må stå i tilbuddets titel). Fx "ris" må aldrig kobles til "Nordthy Mini ris- eller majskiks" (R101).
+# Ingrediensordet matches som helt ord eller ordslutning (basmatiris, jasminris), uden \b (æøå-sikkert); "gris" er ikke ris. Tilføj kun nye par, når en ny fejltype er fundet i data.
+FORBUDTE_PAR = {'ris': 'kiks'}
+
+
+def forbudt_par(ingrediens, titel):
+    """Returnerer (ingrediensord, titelord), hvis koblingen ingrediens -> tilbudstitel er et forbudt par, ellers None."""
+    ing, tit = ingrediens.lower(), titel.lower()
+    for ord_i, ord_t in FORBUDTE_PAR.items():
+        if re.search(r'(?<![a-zæøå])(?:[a-zæøå]*(?<!g))?' + re.escape(ord_i) + r'(?![a-zæøå])', ing) and ord_t in tit and ord_t not in ing:
+            return ord_i, ord_t
+    return None
+
+
 def laes_kilder():
     kilder = {}
     for sti in sorted(glob.glob(os.path.join(ROD, 'scripts', 'retter', '*.json'))):
@@ -263,6 +277,10 @@ def main():
                     if not tid.startswith(b['prefix']) or tid not in alle:
                         fejl.append(f"{butik}: '{r['navn']}' bruger ugyldigt tilbuds-id {tid}")
                 d['tilbud'] = [t for t in d['tilbud'] if t.startswith(b['prefix']) and t in alle]
+                for t in d['tilbud']:  # forbudte par (ris -> riskiks) gælder alle tilbud, også alternativerne
+                    fp = forbudt_par(d['navn'], alle[t]['navn'])
+                    if fp:
+                        fejl.append(f"{butik}: '{r['navn']}' kobler '{d['navn']}' til {t} ({alle[t]['navn'][:50]}) – forbudt par ('{fp[0]}' må ikke kobles til '{fp[1]}')")
                 for t in d['tilbud'][:1]:  # det første tilbud er det, retten prissættes efter
                     dk = daekning(alle[t], d['maengde'], d['enhed'])
                     if dk is not None and dk < MIN_DAEKNING:
