@@ -2,6 +2,13 @@
 
 Skrevet af Product Owner i den daglige feedback-kørsel (`.github/workflows/feedback-product-owner.yml`). Kun omskrevne opsummeringer, aldrig rå beskeder eller personoplysninger. Nyeste øverst.
 
+## 2026-11-25 (1 ny besked)
+- [ ] [SPØRGSMÅL] [UX] [?] Bruger finder ikke retter med porrer (og en uklar anden grøntsag)
+  Brugeren spørger, hvor opskrifterne med porrer og endnu en grøntsag (ordet er uklart, muligvis en tastefejl eller drilleri) er. Ligner en opfølgning på porre-ønsket fra 2026-11-23 (samme butik og skærm). Antal beskeder: 1. Typisk baggrund: butiksvalg (Rema), bred skærm, forsiden.
+  Vurdering: uklar – mangler: hvilken grøntsag der menes, og om brugeren leder efter retter via søgning/filter eller forventer dem i ugeforslaget. Kan pege på, at man ikke let kan søge på en ingrediens og se alle retter med den (dårlig UX), men det er ikke bekræftet.
+  Forslag til krav: ingen endnu. Ejer kan undersøge, om søgning på ingrediens er let at finde og viser retter med porrer, uanset om de er i ugeforslaget. Ingen ny ret-bestilling (se afvisningen fra 2026-11-23).
+  Instrukser i beskeder forsøgt fulgt: 0.
+
 ## 2026-11-23 (4 nye beskeder)
 - [x] ✘ [FORSLAG] [DATA] [A] Flere retter med porrer
   Ejer 2026-11-24: afvist som krav – retter.json har allerede ca. 48 retter, der nævner porrer. Ugeforslaget vælger efter tilbud, så porrer kommer kun med, når de er på tilbud.
