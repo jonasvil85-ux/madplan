@@ -111,7 +111,8 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: fejl skal fanges automatisk og kunne læses.
   Accept: (1) `git status` ren efter kontrol.py; (2) ændret ingrediens uden genbygning og forældreløs mappe giver hver FEJLET; (3) ødelagt fixtur giver læsbar fejltekst; (4) kontrol.py BESTÅET.
   Ikke-mål: ændre siderne eller facit.
-### Sikkerhed (sikkerhedsagenten, uge 47 – rapport: ai/rapporter/2026-uge-47-sikkerhed.md; ingen kritiske fund)
+### Sikkerhed (sikkerhedsagenten, uge 47 + 48 – rapporter: ai/rapporter/2026-uge-47-sikkerhed.md og 2026-uge-48-sikkerhed.md; ingen kritiske fund)
+Uge 48: ingen af kravene herunder er taget endnu. Klasse A-kontrollerne i L1, M5 og N1 kan tages uden Jonas; sikkerhedsagenten foreslår, at mindst ét kommer i top 5.
 - [ ] [SIKKERHED] [H] Høj: Supabase-biblioteket fra egen server med fast version (H1)
   Krav: `index.html` og `admin.html` henter ikke længere `supabase-js@2` fra jsDelivr uden fast version; en bestemt version ligger i repoet (fx `vendor/`) eller hentes med præcis version + `integrity` + `crossorigin`.
   Hvorfor: en kompromitteret eller ny 2.x-udgivelse kører i dag uden test med fuld adgang til login-sessioner og til admin-siden med feedback-e-mails.
@@ -122,11 +123,22 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: i dag kan kode på en `ai/**`-gren læse Jonas' private Claude-token og et GitHub-token med skriveadgang.
   Accept: (1) intet job, der kører grenens kode, har en hemmelighed i miljøet (læses i workflowet); (2) kontrollanten kører stadig alle tests og kan slå sammen; (3) `main` afviser force-push.
   Ikke-mål: ændre kontrollantens instruks. Forslaget står i rapporten under "Forslag til grundloven"; Ejeren/Sekretæren sender det til Jonas.
+- [ ] [SIKKERHED] [H] Høj: Hemmeligheder må ikke stå i miljøet, mens agent-redigerbar kode kører (N1, uge 48 – workflows og regler er GRUNDLOV, kun Jonas; kontrollen kan holdet tage)
+  Krav: (a) Jonas: i `billeder.yml` har kun trinnet, der kører `scripts/billeder.py`, `CLOUDFLARE_API_TOKEN`; byg og `kontrol.py` kører i et trin uden nøglen. I `anden-mening.yml` begrænses `Write`/`Edit` til `ai/rapporter/**`, og `second_opinion.py` køres fra en kopi lavet før agenten starter. `scripts/second_opinion.py` og `scripts/billeder.py` føjes til grundloven eller klasse H. (b) Holdet (klasse A): en kontrol i `kontrol.py` fejler, hvis en fil under `scripts/` uden for en tilladt liste bruger netværk (`urllib`, `http.client`, `socket`, `requests`, `curl`/`wget`) eller læser miljøvariabler med `TOKEN`, `KEY` eller `SECRET` i navnet.
+  Hvorfor: i dag kører `kontrol.py` og testene (klasse A) med Cloudflare-nøglen i miljøet, og anden-mening-agenten kan ændre det script, den kører med Jonas' Claude-token og Cloudflare-nøglen.
+  Accept: (1) intet trin i `.github/workflows/`, der kører `byg_*.py`, `kontrol.py` eller tests, har en hemmelighed i `env` (læses i filerne); (2) anden-mening-agentens skriveværktøjer har en sti-begrænsning; (3) kontrollen fejler på en ny fil `scripts/x.py` med `import urllib.request` og på `os.environ['NOGET_TOKEN']`, og består på main; (4) den tilladte liste står ét sted; (5) kontrol.py BESTÅET.
+  Ikke-mål: ændre billedgenereringen eller anden-mening-flowet i øvrigt.
+- [ ] [SIKKERHED] [H] Middel: Ruleset på `main` mod force-push og sletning (N2, uge 48 – GitHub-indstilling, kun Jonas)
+  Krav: et ruleset på `main` (Settings → Rules → Rulesets), der forbyder force-push og sletning. Ingen krav om PR eller status-tjek (det ville stoppe holdets direkte push af `ai/`-filer og kontrollantens sammenlægninger).
+  Hvorfor: GitHub-API'et viser `protected: false` og ingen rulesets; et lækket token (H2, N1) kan omskrive eller slette historikken, og Vercel udgiver straks.
+  Accept: (1) `GET repos/…/rulesets` viser et aktivt ruleset for `main` med `non_fast_forward` og `deletion`; (2) agenternes næste direkte push til `ai/` og kontrollantens næste sammenlægning lykkes.
+  Ikke-mål: krav om PR-gennemsyn.
 - [ ] [SIKKERHED] [H] Middel: Sikkerhedshoveder via `vercel.json` (M1)
   Krav: en `vercel.json` med `Content-Security-Policy` (først evt. `-Report-Only`), `X-Frame-Options: DENY`/`frame-ancestors 'none'`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`, `Strict-Transport-Security`; `/admin.html` får også `X-Robots-Tag: noindex` og `Cache-Control: no-store`.
   Hvorfor: login og admin kan i dag indlejres i fremmede sider, og intet begrænser, hvilke scripts der må køre.
   Accept: (1) Browser-QA (eller curl i GitHub) viser alle hoveder på `/`, `/admin.html` og en opskriftsside; (2) ingen CSP-fejl i konsollen ved forside, login, feedback, opskriftsside og Vercel Insights; (3) billeder fra Tjek vises; (4) kontrol.py BESTÅET.
-  Ikke-mål: fjerne `'unsafe-inline'` (eget, senere krav).
+  Tilføjet uge 48 efter anden mening (2026-11-18-anden-mening-2.md): CSP får `upgrade-insecure-requests`; hovederne gælder også `/sw.js` og manifestet; `connect-src` har databasen og Vercel Insights, `img-src` Tjek-billederne, `font-src`/`style-src` følger M4. Report-Only afleveres først; en senere gren skifter til håndhævelse, når Browser-QA har gennemgået forside, login, log ud, feedback, opskriftsside, admin og offline-genstart med service worker uden CSP-fejl i konsollen.
+  Ikke-mål: fjerne `'unsafe-inline'` (eget, senere krav), rapport-adresse (report-uri), HSTS-preload, nonces.
 - [ ] [SIKKERHED] [H] Middel: Feedback-tabellen får grænser på serveren (M2)
   Krav: ny SQL-fil (fx `scripts/feedback_graenser.sql`, som Jonas kører) med check-regler: `pg_column_size(kontekst) <= 4000`, `jsonb_typeof(kontekst) = 'object'`, `type` i de 5 kendte typer, formattjek af e-mail; en hastighedsgrænse på serveren (trigger, der afviser mere end fx 30 rækker pr. minut i alt). `admin.html` tåler rækker med forkert form (`Array.isArray` før `.join`).
   Hvorfor: grænsen på 5 beskeder i timen findes kun i browseren; hvem som helst kan fylde tabellen via REST med den offentlige nøgle, og én misdannet række får admin-listen til at gå ned.
