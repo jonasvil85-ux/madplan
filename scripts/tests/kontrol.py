@@ -164,6 +164,12 @@ if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'daekning.py')):
     if p.returncode: fejl.append('Test af 20 %-reglen fejlede: ' + (p.stdout + p.stderr).strip()[:400])
     else: ok.append('20 %-reglen bestået')
 
+# ---------- 7a2. Selve byggeren stopper ved fejlkobling (scripts/tests/byggertest.py) ----------
+if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'byggertest.py')):
+    p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'byggertest.py')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=180)
+    if p.returncode: fejl.append('Test af byggeren fejlede: ' + (p.stdout + p.stderr).strip()[:400])
+    else: ok.append('byggertest bestået')
+
 # ---------- 7b. Budget i ugeforslaget (node, samme datakopi; se scripts/tests/budget.js) ----------
 if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'budget.js')):
     p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'budget.js'), ROD, os.path.join(ROD, 'scripts', 'tests', 'fixtur')], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=300)
