@@ -22,7 +22,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: samme fejltype (B80/X17/P94) er kommet igen tre gange; nu hvor over 450 kr er en FEJL i kontrollen, kan næste avis ellers gøre siden rød.
   Accept: (1) en kobling på 19 % afvises og en på 20 % accepteres (test); (2) bilka-15 viser en and/andebryst-mængde, som tilbuddet faktisk dækker, eller er væk; (3) tilbudsrutinens instruks-tjek er beskrevet i rapporten (selve RUTINE.md er grundlov – forslag til Jonas, hvis den skal ændres); (4) før/efter-tal for alle 9 butikker; (5) kontrol.py BESTÅET; rød-hold: mindst tre egne forsøg.
   Ikke-mål: ændre `tilbudVariant()`; de 18 manglende `ty` hos rema og lidl (eget DATA-krav bagefter).
-- [ ] [TEST] [A] Test af selve byggeren: en kilde med 10 % dækning skal stoppe bygget (Ejer 2026-11-24; kontrollantens opfølgning b)
+- [x] [TEST] [A] Test af selve byggeren: en kilde med 10 % dækning skal stoppe bygget (Ejer 2026-11-24; kontrollantens opfølgning b) (SLÅET SAMMEN 2026-11-25 af kontrollanten: ai/2026-11-25-byggertest, 70dd54e (lineær). Opfølgning: byggertesten dækker ikke forbudt-par-tjekket ris → kiks; se ai/rapporter/2026-11-25-kontrol.md)
   Krav: en automatisk test kører `byg_retter.py` på en lille konstrueret kilde med en kobling på 10 % og kræver exit 1 uden at skrive retter.json; samme test med tjekket slået fra skal fejle.
   Hvorfor: i dag testes kun funktionen `daekning()`, ikke at byggeren kalder den – kontrollantens rød-hold 3 slap igennem.
   Accept: (1) testen i kontrol.py består på main; (2) `if False:` omkring tjekket i `main()` gør kontrol.py rød; (3) retter.json og opskrifter.json uændrede efter testen.
