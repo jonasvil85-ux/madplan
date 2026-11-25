@@ -1,21 +1,19 @@
-# Dagsrapport 2026-11-24
-**Siden i dag:** Sund med advarsler. Udgivet side grøn (Vagtpost 07:02 UTC, begge domæner, 566 retter, retter.json identisk med main), kontrol bestået med 0 fejl og 4 advarsler.
+# Dagsrapport 2026-11-25
+**Siden i dag:** Sund. Vagtpost og Browser-QA er GRØNNE, og kontrol.py består (0 fejl, 4 advarsler).
 ## Ændret på siden (slået sammen)
-- Rema: "ris" kobles ikke længere til riskiks (merge 2604467, klasse H, kontrollanten). 12 rema-retter fik ris som almindelig vare (7,5 kr) i stedet for en forkert riskiks-vare på indkøbslisten; byggeren afviser nu forbudte par. Bestået: kontrol, regressionstest, dækningstest, før/efter for 9 butikker (kun de 12 rema-retter ændrer pris), fire rød-hold-forsøg og tilbagerulningsprøve.
-- Ved samme genbygning fjernes udløste Kvickly-tilbud (K31/K32) fra opskrifter.json: Kvickly-uge 2+2 går 576 → 567 kr (ifølge kontrolrapporten).
+- Test af selve byggeren (70dd54e, klasse A, kun test): bygget stopper nu, hvis en ret kun er koblet til tilbud med 10 % dækning. Kontrollanten slog den sammen (9c31d33) efter kontrol.py, regression og 8 rød-hold-forsøg. Brugeren ser ingen forskel.
 ## Afvist eller rullet tilbage
-- ai/2026-11-24-ux (søgning ental/flertal, klasse A, forsøg 2): afvist. Søgningen er i orden, men grenen sletter afsnit 7a i `kontrol.py`, så 20 %-testen ikke længere køres, og det er ikke nævnt i udviklerrapporten.
-- Ingen tilbagerulning. Stadig afvist/parkeret fra før: se `ai/STATUS.md`.
+- ai/2026-11-25-ux ("Søg i Vælg selv: ental/flertal", forsøg 3): afvist to gange i dag. Indholdet består alle kontroller; rapporten mangler ugepris og indkøbslinjer pr. butik (accept 9). Ingen tilbagerulning.
 ## Data
-- Retter: Kvickly 88, Bilka 80, Meny 73, Spar 71, Netto 60, Rema 56, Lidl 49, 365discount 49, minkøbmand 40 (i alt 566). Uden billede: 0. 313 billeder bruges ikke af nogen ret. `retter.json` genereret 2026-11-24 06:38 UTC. Nye aviser/retter i dag: ingen nye retter (566 som i går).
-- Feedback fra brugerne: ingen ny feedback-rapport i dag (seneste: 23/11, 4 beskeder, 0 brugbare ifølge Ejeren, 2 afvist og 2 støj). Ingen HASTER.
+- Ingen nye aviser eller retter fundet i dagens commits. Retter pr. butik: netto 60, meny 73, bilka 80, rema 56, kvickly 88, lidl 49, 365 49, spar 71, minkoebmand 40. Retter uden billede: 0. 313 billeder bruges ikke (advarsel).
+- Feedback fra brugerne: ingen nye beskeder siden 2026-11-23 (ai/FEEDBACK.md uændret; ikke selv genkørt i dag). Ingen HASTER-punkter.
 ## Sundhed
-- Kontrol: RESULTAT: BESTÅET (0 fejl, 4 advarsler), kørt af mig på main 54c2ce4. Udgivet side: nået, matcher main ifølge Vagtposten (på 693d8c0, 07:02 UTC). Browser-QA GRØN (0 JS-fejl, intet vandret scroll, flow ok; 30 tryk-flader under 40 px på mobil).
-- Advarsler af betydning: 18 ingredienser uden `ty` hos hhv. Rema og Lidl; 313 ubrugte billeder; sidefodens Chromium-test kunne ikke køres i min session (Playwright mangler).
-- Ikke tjekket: udseende i browser (skærmbilleder ikke åbnet), kontrast, tastatur, iOS Safari, indkøbsliste for de 12 rema-retter i browser.
+- Kontrol: RESULTAT: BESTÅET (0 fejl, 4 advarsler). Udgivet side: nået, matcher main (HELBRED GRØN 08:45 UTC). Browser-QA GRØN (0 JS-fejl, intet vandret scroll).
+- Advarsler: rema og lidl har 18 tilbudsingredienser uden typeoplysning (ty); 313 ubrugte billeder; sidefodens Chromium-test blev ikke kørt her (ingen Playwright).
 ## I morgen
-- Øverste åbne krav: søgning i "Vælg selv" med ental/flertal (UX, A, frontend-udvikleren; forsøg 3, uden at miste 20 %-testen). Derefter test af selve byggeren (TEST).
+- Øverst: søgning i Vælg selv (UX, forsøg 3, det sidste). Frontend-udvikleren skal kun rette rapporten med ugepris og indkøbslinjer.
 ## Til prøve hos Jonas
-- Intet (ingen synlig ny funktion udgivet).
+- Intet.
 ## Til Jonas
-- Intet nyt. Ejerens sikkerhedspunkter (H2, M4, M5, L2/L3) og forslaget om, at tilbudsrutinen kører `byg_retter.py` og `kontrol.py` før commit, afventer dig (se `ai/rapporter/2026-11-24-ejer.md`).
+- Intet nyt. Uændret afventende: sikkerhedspunkterne H2, M4, M5, L2/L3 og forslaget om, at tilbudsrutinen kører byg_retter.py og kontrol.py før commit.
+- Ikke tjekket af mig: udseende i browser, skærmbilleder, mørkt tema.
