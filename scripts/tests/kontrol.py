@@ -203,11 +203,20 @@ if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'sidefod_browser.py')):
     elif p.returncode: fejl.append('Browsertest af sidefoden fejlede:' + chr(10) + chr(10).join(p.stdout.strip().splitlines()[-12:]))
     else: ok.append('sidefod i Chromium bestået')
 
+# Søgning i "Vælg selv" i Chromium: den fulde test (soeg_browser.js, node-Playwright) og kerne-testen (soeg_browser.py, Python-Playwright, som GitHub-miljøet har).
+soeg_koert, soeg_kandidater = False, []
+if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'soeg_browser.py')):
+    soeg_kandidater.append(('Python', [sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'soeg_browser.py'), ROD]))
 if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'soeg_browser.js')):
-    p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'soeg_browser.js'), ROD], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
-    if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke her – browsertesten af søgning i Vælg selv er IKKE kørt')
-    elif p.returncode: fejl.append('Browsertest af søgning i Vælg selv fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[-12:]))
-    else: ok.append('søgning i Vælg selv i Chromium bestået')
+    soeg_kandidater.append(('node', [shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'soeg_browser.js'), ROD]))
+for navn, kmd in soeg_kandidater:
+    p = subprocess.run(kmd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
+    if p.returncode == 3: continue
+    soeg_koert = True
+    if p.returncode: fejl.append(f'Browsertest af søgning i Vælg selv ({navn}) fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[-12:]))
+    else: ok.append(f'søgning i Vælg selv i Chromium bestået ({navn})')
+if soeg_kandidater and not soeg_koert:
+    advarsler.append('Playwright/Chromium findes ikke her (hverken Python eller node) – browsertesten af søgning i Vælg selv er IKKE kørt')
 
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
