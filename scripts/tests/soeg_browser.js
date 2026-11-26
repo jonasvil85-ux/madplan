@@ -55,6 +55,24 @@ const t = (ok, tekst) => { if (!ok) fejl.push(tekst); };
       t(par.osteForkert === 0, m + '"ost" (under 4 tegn) matcher midt i et ord');
       t(par.kyllinger >= par.kylling, m + 'flertal "kyllinger" finder færre end "kylling"');
       t(par.gulerodder >= par.gulerod, m + 'flertal "gulerødder" finder færre end "gulerod"');
+      // ental/flertal giver samme retter, og falske midt-i-ord-træffere udebliver (samme krav som soeg_browser.py)
+      const enFl = await side.evaluate(() => {
+        const R = pool(aktivS()), mængde = s => { const x = soegRetter(R, s); return x ? x.size : -1; };
+        const falsk = [{ id: 'a', navn: 'Tomatris', ingredienser: [{ navn: 'tomatris' }] }, { id: 'b', navn: 'Risotto', ingredienser: [{ navn: 'ris' }] }, { id: 'c', navn: 'Ostesovs', ingredienser: [{ navn: 'smeltet cheddar' }] }, { id: 'd', navn: 'Suppe', ingredienser: [{ navn: 'løgene' }, { navn: 'kartofler' }] }];
+        const ids = s => [...soegRetter(falsk, s)].join('');
+        return { par: [['kartoffel', 'kartofler'], ['gulerod', 'gulerødder'], ['tomat', 'tomater'], ['pølse', 'pølser'], ['løg', 'løgene']].map(([a, b]) => [a, b, mængde(a), mængde(b)]),
+          hvide: [...soegRetter([{ id: 'e', navn: 'Chili', ingredienser: [{ navn: 'hvidløg' }, { navn: 'sorte bønner' }] }], 'hvide bønner')].join(''),
+          tabt: [...new Set(R.flatMap(r => soegOrd([r.navn, ...r.ingredienser.map(i => i.navn)].join(' '))))].filter(o => soegRetter(R, o).size < R.filter(r => soegPasser(o, soegOrd([r.navn, ...r.ingredienser.map(i => i.navn)].join(' ')))).length).length,
+          rejer: soegRetter([{ id: 'g', navn: 'Røget laks og kutterrejer', ingredienser: [] }], 'rejer').size,
+          ris: ids('ris'), ost: ids('ost'), logene: ids('løg'), kartofler: ids('kartoffel'), kartoffel: ids('kartofler') };
+      });
+      enFl.par.forEach(([a, b, x, y]) => t(x > 0 && x === y, m + `"${a}" (${x}) og "${b}" (${y}) skal give samme antal retter`));
+      t(enFl.hvide === '', m + '"hvide bønner" rammer chili med hvidløg');
+      t(enFl.tabt === 0, m + enFl.tabt + ' søgeord giver færre træffere end den almindelige søgning');
+      t(enFl.rejer === 1, m + '"rejer" finder ikke "kutterrejer"');
+      t(enFl.ris === 'b', m + '"ris" skal kun finde ordet ris, ikke tomatris: ' + enFl.ris);
+      t(enFl.ost === 'c', m + '"ost" skal kun finde ordstart: ' + enFl.ost);
+      t(enFl.logene === 'd' && enFl.kartofler === 'd' && enFl.kartoffel === 'd', m + 'ental/flertal på prøveretter: ' + JSON.stringify(enFl));
       // skriv i feltet
       const valgtId = await side.evaluate(() => document.querySelector('#ret-indhold .grid .ret')?.dataset.ret);
       await side.click(`#ret-indhold .grid .ret[data-ret="${valgtId}"] h3`);  // vælg en ret
@@ -63,6 +81,8 @@ const t = (ok, tekst) => { if (!ok) fejl.push(tekst); };
       const efter = await side.evaluate(() => ({ kort: [...document.querySelectorAll('#ret-indhold .grid .ret')].map(e => e.querySelector('h3').textContent), status: document.getElementById('ret-soeg-status').textContent, x: !document.getElementById('ret-soeg-x').hidden, vandret: document.documentElement.scrollWidth > innerWidth, fokus: document.activeElement.id, foldet: !!document.getElementById('uge-fold'), aktivKat: document.querySelectorAll('.kat.aktiv').length }));
       t(efter.kort.length === par.kylling && efter.kort.length > 0, m + 'antal kort efter søgning: ' + efter.kort.length + ' mod ' + par.kylling);
       t(/retter? passer til "KYLLING"/.test(efter.status), m + 'resultatlinje: ' + efter.status);
+      const dinUge = await side.evaluate(() => [...document.querySelectorAll('#ret-indhold *')].filter(e => e.children.length === 0 && /^Din uge\b/.test(e.textContent.trim()) && e.getBoundingClientRect().height > 0).length);
+      t(dinUge === 1, m + 'der skal være én synlig "Din uge"-overskrift under søgning (foldet), ikke ' + dinUge);
       t(efter.x && efter.fokus === 'ret-soeg' && efter.foldet && !efter.vandret && efter.aktivKat === 0, m + 'tilstand under søgning: ' + JSON.stringify({ x: efter.x, fokus: efter.fokus, foldet: efter.foldet, vandret: efter.vandret, aktivKat: efter.aktivKat }));
       const kortTop = await side.evaluate(() => document.querySelector('#ret-indhold .grid .ret')?.getBoundingClientRect().top);
       t(kortTop < 500, m + 'første træffer ligger for langt nede: ' + kortTop);
