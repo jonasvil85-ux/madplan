@@ -1,6 +1,6 @@
 # Browser-QA af den udgivne side
 
-Sidst kørt: 2026-11-25 · https://madplan-blue.vercel.app/
+Sidst kørt: 2026-11-26 · https://madplan-blue.vercel.app/
 
 **Resultat: GRØN**
 
