@@ -28,7 +28,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
   Hvorfor: i dag testes kun funktionen `daekning()`, ikke at byggeren kalder den – kontrollantens rød-hold 3 slap igennem.
   Accept: (1) testen i kontrol.py består på main; (2) `if False:` omkring tjekket i `main()` gør kontrol.py rød; (3) retter.json og opskrifter.json uændrede efter testen.
   Ikke-mål: ændre reglen eller data.
-- [ ] [TEST] [A] Mål, om ugeforslaget bliver dyrere, når der kommer en ret til (Ejer 2026-11-23; fra kontrollantens opfølgning d)
+- [ ] [TEST] [A] Mål, om ugeforslaget bliver dyrere, når der kommer en ret til (Ejer 2026-11-23; fra kontrollantens opfølgning d) (UDVIKLET 2026-11-26 på gren ai/2026-11-26-monotoni, afventer kontrollanten; netto 2+0 +26,75 kr og 365 2+0 +2 kr fundet; se ai/rapporter/2026-11-26-backend.md)
   Krav: en måling (advarsel, ikke fejl) der sammenligner hver butiks ugepris for 2+0, 2+2 og 6+4, før og efter at en ny billig ret lægges til, og viser tilfælde, hvor prisen stiger.
   Hvorfor: kontrollanten fandt, at minkoebmand 6+4 steg 147 kr (1154,5 → 1301,5), da en billig ret kom til – ugeforslaget er grådigt, ikke monotont. Brugeren oplever det som et dårligere forslag.
   Accept: (1) scriptet kan køres med `python -I` og skriver en tabel for 9 butikker × 3 husstande; (2) en konstrueret billig ret, der får prisen til at stige, vises som advarsel; (3) ingen ændring i ugeforslagets algoritme; (4) kontrol.py BESTÅET.

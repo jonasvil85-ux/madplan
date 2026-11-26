@@ -176,6 +176,16 @@ if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests',
     if p.returncode: fejl.append('Test af budget fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[:12]))
     else: ok.append('budget bestået')
 
+# ---------- 7b2. Måling: bliver ugeforslaget dyrere, når en billig ret kommer til? (kun advarsel; scripts/tests/monotoni.py) ----------
+if os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'monotoni.py')):
+    p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'monotoni.py'), '--selvtest'], capture_output=True, text=True, encoding='utf-8', errors='replace')
+    if p.returncode: fejl.append('Målerens selvtest (monotoni.py) fejlede: ' + p.stdout.strip()[:300])
+    elif shutil.which('node'):
+        p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'monotoni.py'), '--stille'], capture_output=True, text=True, encoding='utf-8', errors='replace')
+        linje = (p.stdout.strip().splitlines() or ['MONOTONI: IKKE MÅLT'])[-1]
+        if 'INGEN STIGNING' in linje: ok.append('monotoni-måling uden stigning')
+        else: advarsler.append(linje + ' – se python -I scripts/tests/monotoni.py')
+
 # ---------- 8. Regressionstest af pris, indkøbsliste og ugeforslag (node, gemt datakopi, se scripts/tests/regression.py) ----------
 if shutil.which('node'):
     p = subprocess.run([sys.executable, '-I', os.path.join(ROD, 'scripts', 'tests', 'regression.py')], capture_output=True, text=True, encoding='utf-8', errors='replace')
