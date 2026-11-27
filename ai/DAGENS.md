@@ -1,21 +1,20 @@
-# Dagsrapport 2026-11-26
-**Siden i dag:** Sund. Vagtpost og Browser-QA er GRØNNE, og kontrol.py består (0 fejl, 5 advarsler).
+# Dagsrapport 2026-11-27
+**Siden i dag:** Advarsel: main er RØD (kontrol.py FEJLET, 4 fejl). Fire retter koster over 450 kr efter tilbudsrutinens uge 49-aviser. Den udgivne side er grøn og identisk med main, så de fire retter vises nu for brugerne.
 ## Ændret på siden (slået sammen)
-- Søgning i "Vælg selv": ental og flertal giver nu samme træffere (kartoffel/kartofler, gulerod/gulerødder m.fl.), og der vises kun én "Din uge"-overskrift (c63c07c, klasse A, forsøg 3). Kontrollanten slog den sammen efter kontrol.py, regression, søgetest i Chromium og eget rød-hold; priser og indkøbsliste er uændrede (før/efter for 9 butikker identisk).
-- Nye tilbudsaviser: 365 (uge 48), netto og lidl (fcf50e7, tilbudsrutinen).
+- Nye tilbudsaviser uge 49: meny, bilka, kvickly, spar, minkoebmand (dc0d0ec, tilbudsrutinen, 05:11 UTC). Ingen kontrollant-sammenlægninger de sidste 24 timer.
 ## Afvist eller rullet tilbage
-- ai/2026-11-26-monotoni ("Mål om ugeforslaget bliver dyrere", klasse A): afvist, forsøg 1 af 3. Målingen er upålidelig: de konstruerede retter genbruger samme id, så resultatet afhænger af rækkefølgen, og den "billige" ret er ikke billigere i ugeprisen. Det påståede fund (netto +26,75 kr) er derfor en målefejl, ikke en fejl på siden. Ingen tilbagerulning.
+- ai/2026-11-27-dyre-retter (klasse H, forsøg 1): afvist. Spar-andelårsretterne er stadig koblet til en andebryststeg (P29), så indkøbslisten viser forkert vare. Rettelse: fjern de to spar-retter.
+- ai/2026-11-27-nye-tilbud (klasse A, forsøg 1): afvist. Linjen "nye tilbud siden sidst" kommer med på udskriften af indkøbssedlen. Logikken er ellers solid.
+- ai/2026-11-26-monotoni: uændret efter afvisning (forsøg 1; målefejl). Ingen tilbagerulning, da fejlen kommer fra data.
 ## Data
-- Retter pr. butik: netto 60, meny 73, bilka 80, rema 56, kvickly 88, lidl 49, 365 50, spar 71, minkoebmand 40. Retter uden billede: 29, alle 365 (nye fra uge 48; kræver lokal billeder.py). 341 billeder bruges ikke (advarsel).
-- Feedback fra brugerne: ingen nye beskeder siden 2026-11-25 (ai/FEEDBACK.md; den ene besked fra 25/11 om porre vurderet uklar). Ingen HASTER-punkter.
+- Retter pr. butik: netto 60, meny 93, bilka 82, rema 56, kvickly 94, lidl 49, 365 50, spar 92, minkoebmand 77 (653 i alt). Retter uden billede: 3 (365). 336 billeder bruges ikke (advarsel).
+- Feedback fra brugerne: ingen nye beskeder siden 2026-11-25 (ai/FEEDBACK.md). Ingen HASTER-punkter.
 ## Sundhed
-- Kontrol: RESULTAT: BESTÅET (0 fejl, 5 advarsler), kørt af mig i dag. Udgivet side: nået, retter.json matcher main (HELBRED GRØN 06:57 UTC på a6c4d99; senere commits på main er rapporter, ikke tjekket af mig om de rører siden).
-- Browser-QA GRØN (0 JS-fejl, intet vandret scroll). Tryk-flader under 40 px: 30 (mobil) og 31 (desktop), ikke rettet endnu.
-- Advarsler: rema og lidl har 18 tilbudsingredienser uden typeoplysning (ty); 29 retter uden billede; sidefodens Chromium-test kunne ikke køres her (ingen Playwright).
+- Kontrol (kørt af mig): RESULTAT: FEJLET (4 fejl, 5 advarsler). Udgivet side: nået, retter.json matcher main (HELBRED GRØN 07:01 UTC; BROWSER GRØN, 0 JS-fejl, intet vandret scroll). Advarsler: rema og lidl har 18 tilbudsingredienser uden typeoplysning; 30 (mobil) / 31 (desktop) små tryk-flader; sidefodens Chromium-test kunne ikke køres her.
 ## I morgen
-- Øverst: rette målingen i ai/2026-11-26-monotoni (unikt id, reelt billigere ret). Tager Backend-udvikleren (forsøg 2).
+- Øverst: HASTER, ret de fire dyre retter (DATA, H): fjern de to spar-andelårsretter og ret bilka. Tager Backend-udvikleren (forsøg 2).
 ## Til prøve hos Jonas
-- Søgning i "Vælg selv": skriv fx "kartofler" og så "kartoffel" – giver begge ord de retter, du forventer? Er der kun én "Din uge"-overskrift? Virker det bedre end før? Er noget forvirrende? (Det er nu udgivet; porre-spørgsmålet fra en bruger kan også prøves: søg "porre".)
+- Intet nyt udgivet siden sidste rapport (søgning i "Vælg selv" fra i går kan stadig prøves).
 ## Til Jonas
-- Intet nyt. Uændret afventende: sikkerhedspunkterne og forslaget om, at tilbudsrutinen kører byg_retter.py og kontrol.py før commit (se tidligere rapporter).
-- Ikke tjekket af mig: udseende i browser, skærmbilleder, mørkt tema, om søgningen virker på den live side.
+- Ejerens afventende forslag til grundloven: tilbudsrutinen bør køre byg_retter.py og kontrol.py før commit; det ville have forhindret dagens røde main. Sikkerhedspunkterne H2, N1, N2, M4, M5, L2/L3 afventer også dig.
+- Ikke tjekket af mig: udseende i browser, skærmbilleder, mørkt tema, siden live.
