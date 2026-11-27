@@ -6,6 +6,11 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
+- [ ] [DATA] [H] HASTER: main er rød efter uge 49-aviserne – fire retter over 450 kr (Ejer 2026-11-27)
+  Krav: de fire retter, som de nye aviser (dc0d0ec, 2026-11-27) gør for dyre, fjernes eller laves billigere, så `python -I scripts/tests/kontrol.py` igen slutter med BESTÅET: bilka "Mørbrad af okse med flødesauce og ovnkartofler" (478,8 kr), bilka "Wraps med roastbeef, avocado og creme fraiche" (505,5 kr), spar "Andelår i fad med æbler, svesker og kartofler" (498,0 kr), spar "Sprøde andelår med flødekartofler og rødkål" (514,5 kr). Tjek samtidig, om priserne er rigtige (fx mængde mod pakke), og ret koblingen frem for blot at slette, hvis det er en fejlkobling.
+  Hvorfor: tillid – en aftensret til 4 til over 450 kr er enten en fejl eller urealistisk, og den ligger nu på den udgivne side. Samme mønster som 2026-11-20: hver ny avis kan gøre main rød, fordi tilbudsrutinen ikke kører kontrollen før commit (forslag ligger hos Jonas).
+  Accept: (1) kontrol.py BESTÅET på grenen; (2) ingen ret over 450 kr i nogen butik; (3) før/efter-tal for 9 butikker (ugepris 2+2, antal retter, antal indkøbslinjer) i rapporten; (4) mindst 40 retter pr. butik; (5) rørt kun retter/data for bilka og spar.
+  Ikke-mål: ændre 450 kr-grænsen eller byggerlogikken.
 - [x] [DATA] [H] Rema: "ris" må ikke give riskiks på indkøbslisten (Ejer 2026-11-24; fra kontrollantens opfølgning a, 2026-11-23) (SLÅET SAMMEN 2026-11-24 af kontrollanten: ai/2026-11-24-rema-ris, merge 2604467 – 12 retter, ikke 6. Opfølgning: risnudler/rispapir/risotto fanges ikke af forbudt-par-reglen; byggertesten bør også dække forbudt-par-tjekket; se ai/rapporter/2026-11-24-kontrol.md)
   Krav: de seks rema-retter, der bruger ris/jasminris (rema-33, -40, -42, -43, -44, -48), kobles til en rigtig risvare eller uden tilbud, og aldrig til R101 "Nordthy Mini ris- eller majskiks"; byggeren afviser, at en ris-ingrediens kobles til en kiksvare.
   Hvorfor: vælger man en af dem i "Vælg selv", står riskiks på indkøbslisten i stedet for ris – en forkert vare er værre end en manglende (tillid).
