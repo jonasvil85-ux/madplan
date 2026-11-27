@@ -196,9 +196,13 @@
   {
    "som": "Andelår i fad med æbler, svesker og kartofler",
    "tilbud": {
-    "Julius ferske andelår": [
-     "P29"
-    ],
+    "Julius ferske andelår": {
+     "maengde": 1,
+     "enhed": "pakke",
+     "tilbud": [
+      "P29"
+     ]
+    },
     "æbler": [
      "P39"
     ],
@@ -230,9 +234,13 @@
   {
    "som": "Sprøde andelår med flødekartofler og rødkål",
    "tilbud": {
-    "ferske andelår": [
-     "P29"
-    ],
+    "ferske andelår": {
+     "maengde": 1,
+     "enhed": "pakke",
+     "tilbud": [
+      "P29"
+     ]
+    },
     "kartofler": [
      "P36"
     ],

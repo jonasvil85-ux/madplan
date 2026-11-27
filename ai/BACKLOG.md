@@ -6,7 +6,7 @@ Ejeren vedligeholder listen. Format (se `agenter/ejer.md`): `- [ ] [UX|DATA|TEST
 (klistr feedback ind her)
 
 ## Åbne krav
-- [ ] [DATA] [H] HASTER: main er rød efter uge 49-aviserne – fire retter over 450 kr (Ejer 2026-11-27)
+- [ ] [DATA] [H] HASTER (gren ai/2026-11-27-dyre-retter klar til kontrol, se ai/rapporter/2026-11-27-backend.md): main er rød efter uge 49-aviserne – fire retter over 450 kr (Ejer 2026-11-27)
   Krav: de fire retter, som de nye aviser (dc0d0ec, 2026-11-27) gør for dyre, fjernes eller laves billigere, så `python -I scripts/tests/kontrol.py` igen slutter med BESTÅET: bilka "Mørbrad af okse med flødesauce og ovnkartofler" (478,8 kr), bilka "Wraps med roastbeef, avocado og creme fraiche" (505,5 kr), spar "Andelår i fad med æbler, svesker og kartofler" (498,0 kr), spar "Sprøde andelår med flødekartofler og rødkål" (514,5 kr). Tjek samtidig, om priserne er rigtige (fx mængde mod pakke), og ret koblingen frem for blot at slette, hvis det er en fejlkobling.
   Hvorfor: tillid – en aftensret til 4 til over 450 kr er enten en fejl eller urealistisk, og den ligger nu på den udgivne side. Samme mønster som 2026-11-20: hver ny avis kan gøre main rød, fordi tilbudsrutinen ikke kører kontrollen før commit (forslag ligger hos Jonas).
   Accept: (1) kontrol.py BESTÅET på grenen; (2) ingen ret over 450 kr i nogen butik; (3) før/efter-tal for 9 butikker (ugepris 2+2, antal retter, antal indkøbslinjer) i rapporten; (4) mindst 40 retter pr. butik; (5) rørt kun retter/data for bilka og spar.
