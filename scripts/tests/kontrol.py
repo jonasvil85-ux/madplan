@@ -224,6 +224,15 @@ for navn, kmd in soeg_kandidater:
 if soeg_kandidater and not soeg_koert:
     advarsler.append('Playwright/Chromium findes ikke her (hverken Python eller node) – browsertesten af søgning i Vælg selv er IKKE kørt')
 
+# "Nye tilbud siden sidst" i Chromium (nyt_browser.js, node-Playwright)
+if shutil.which('node') and os.path.exists(os.path.join(ROD, 'scripts', 'tests', 'nyt_browser.js')):
+    p = subprocess.run([shutil.which('node'), os.path.join(ROD, 'scripts', 'tests', 'nyt_browser.js'), ROD], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=600)
+    if p.returncode == 3: advarsler.append('Playwright/Chromium findes ikke i node her – browsertesten af "Nye tilbud siden sidst" er IKKE kørt')
+    elif p.returncode: fejl.append('Browsertest af "Nye tilbud siden sidst" fejlede:' + chr(10) + chr(10).join((p.stdout + p.stderr).strip().splitlines()[-12:]))
+    else: ok.append('nye tilbud siden sidst i Chromium bestået')
+else:
+    advarsler.append('node findes ikke her – browsertesten af "Nye tilbud siden sidst" er IKKE kørt')
+
 print('OK:      ' + '; '.join(ok))
 for a in advarsler[:40]: print('ADVARSEL:', a)
 if len(advarsler) > 40: print(f'… og {len(advarsler) - 40} flere advarsler')

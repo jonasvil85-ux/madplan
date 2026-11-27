@@ -826,6 +826,13 @@ html body #fb-fod a { color: var(--text-1); }
 .butikker .butikvalg:hover { border-color: var(--text-3); }
 .uge-besked { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
 .uge-besked button { border-color: var(--border); color: var(--text-2); }
+.nyt-linje { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius, 12px); padding: 10px 14px; margin-bottom: 12px; font-size: 14px; line-height: 1.4; color: var(--text-2); }
+.nyt-linje[hidden] { display: none; }
+.nyt-linje b { color: var(--text-1); }
+.nyt-linje .nyt-tekst { flex: 1 1 200px; }
+.nyt-linje button { min-height: 44px; min-width: 44px; background: transparent; border: 1px solid var(--border); color: var(--text-2); border-radius: 8px; padding: 6px 12px; cursor: pointer; font: inherit; }
+.nyt-linje button:focus-visible { outline: 2px solid var(--valgt); outline-offset: 2px; }
+.nyt-linje .nyt-luk { font-size: 20px; line-height: 1; padding: 0; width: 44px; }
 
 /* fitness-søjlen: kraftig protein-del, tyndere kulhydrat og fedt, små mellemrum, kun sekundærfarven i trin */
 .energi { height: 12px; gap: 3px; align-items: center; overflow: visible; background: transparent; border-radius: 0; }
@@ -979,6 +986,7 @@ html { scrollbar-gutter: stable; }
   </nav>
     <span class="nav-hoejre"><span id="sky-status" class="sky-status"></span><button class="slet-valg" data-sletvalg hidden title="Slet valg" aria-label="Slet valg"><svg class="ikon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 10v6"/><path d="M14 10v6"/></svg> Slet valg</button></span>
   </div>
+  <div id="nyt-siden-sidst" class="nyt-linje" role="status" hidden></div>
   <div id="uge-besked" class="uge-besked" hidden></div>
 
   <main id="indhold"><div class="status"><div class="spinner"></div>Henter ugens tilbudsaviser…</div></main>
@@ -1341,7 +1349,53 @@ function opdaterRamme() {  // faneknapper, avisperioder, "Slet valg" og besked o
   const gammel = foerste && (Date.now() - new Date(foerste).getTime()) > 6 * 864e5;
   besked.hidden = !gammel;
   if (gammel) besked.innerHTML = `<span>Din ugeplan er fra ${esc(new Date(foerste).toLocaleDateString('da-DK', { day: 'numeric', month: 'long' }))}. Ny uge – vil du slette valgene og starte forfra?</span><button data-sletvalg>Slet valg</button>`;
+  visNytLinje();
 }
+// "Nye tilbud siden sidst": antal retter hos de valgte butikker, der ikke stod i det, brugeren sidst har set. Kun navne gemmes lokalt (nøglen mj-set).
+const SET_GEM = 'mj-set';
+function setNu() { const n = {}; for (const [k, b] of Object.entries(data.butikker)) n[k] = (b.retter || []).map(r => r.navn); return { g: data.genereret, n }; }
+function nyeRetter() {
+  try {
+    if (!data?.butikker) return null;
+    let gemt = null;
+    try { gemt = JSON.parse(localStorage.getItem(SET_GEM)); } catch (e) { gemt = null; }
+    if (!gemt || !gemt.n || typeof gemt.n !== 'object') { localStorage.setItem(SET_GEM, JSON.stringify(setNu())); return null; }  // første besøg: baseline, ingen linje
+    const valgte = (state.butikker || []).filter(k => data.butikker[k]);
+    if (!valgte.length) return null;
+    let antal = 0;
+    for (const k of valgte) {
+      if (!Array.isArray(gemt.n[k])) continue;  // butik uden baseline tæller ikke
+      const sete = new Set(gemt.n[k]);
+      antal += (data.butikker[k].retter || []).filter(r => !sete.has(r.navn)).length;
+    }
+    if (antal === 0) { if (gemt.g !== data.genereret) localStorage.setItem(SET_GEM, JSON.stringify(setNu())); return null; }
+    if (antal < 3 || !(Date.parse(data.genereret) > Date.parse(gemt.g))) return null;
+    return { antal, valgte };
+  } catch (e) { return null; }
+}
+function visNytLinje() {
+  const el = document.getElementById('nyt-siden-sidst');
+  if (!el) return;
+  const besked = document.getElementById('uge-besked');
+  const nye = (besked && !besked.hidden) ? null : nyeRetter();  // uge-beskeden vinder; linjen venter
+  el.hidden = !nye;
+  if (!nye) return;
+  const tal = nye.antal > 99 ? '99+' : nye.antal;
+  const hvor = nye.valgte.length === 1 ? esc(data.butikker[nye.valgte[0]].navn) : 'dine butikker';
+  el.innerHTML = `<span class="nyt-tekst"><b>${tal} nye retter</b> hos ${hvor} siden sidst.</span><button type="button" data-nyt-se>Se ugens forslag</button><button type="button" class="nyt-luk" data-nyt-luk aria-label="Luk">×</button>`;
+}
+function lukNytLinje() {
+  try { localStorage.setItem(SET_GEM, JSON.stringify(setNu())); } catch (e) { /* blokeret lager: linjen skjules blot nu */ }
+  document.getElementById('nyt-siden-sidst').hidden = true;
+}
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-nyt-luk]')) lukNytLinje();
+  else if (e.target.closest('[data-nyt-se]')) {
+    const mål = document.getElementById('sim-plads');
+    if (mål) mål.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else { state.trin = 'plan'; render(); }
+  }
+});
 function render() {
   if ((state.trin === 'retter' && !state.butik) || (['liste', 'tilfoej', 'seddel'].includes(state.trin) && !state.butikker.length)) state.trin = 'butik';  // ingen butik valgt endnu (fx gammel gemt tilstand)
   opdaterRamme();
