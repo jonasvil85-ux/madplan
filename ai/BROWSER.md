@@ -1,6 +1,6 @@
 # Browser-QA af den udgivne side
 
-Sidst kørt: 2026-11-27 · https://madplan-blue.vercel.app/
+Sidst kørt: 2026-11-28 · https://madplan-blue.vercel.app/
 
 **Resultat: GRØN**
 
@@ -16,7 +16,7 @@ Skrevet af GitHub-handlingen "Browser-QA" (`scripts/tests/browser_tjek.py`) med 
 ### desk (1280 px)
 - Indlæsning (load-hændelsen): under 1 s · største indhold vist: under 1 s
 - Vandret scroll: nej · JavaScript-fejl: 0 · ødelagte billeder: 0 · billeder uden alt: 0
-- Små tryk-flader (under 40 px): 31 – fx 1 butik821 kr402 kr REMA 100; 365discount✓; Bilka✓; Byt Fredags ret; Byt Lørdags ret; Byt Mandags ret; Byt Onsdags ret; Byt Søndags ret
+- Små tryk-flader (under 40 px): 31 – fx 1 butik761 kr402 kr REMA 100; 365discount✓; Bilka✓; Byt Fredags ret; Byt Lørdags ret; Byt Mandags ret; Byt Onsdags ret; Byt Søndags ret
 - Flow: brug forslaget: ok, trin 2: ok, trin 3: ok, trin 4: ok, trin 5: ok
 - Trin set: butik, retter, liste, tilfoej, seddel
 
