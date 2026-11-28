@@ -47,6 +47,11 @@ const t = (ok, tekst) => { if (!ok) fejl.push(tekst); };
     t(/^5 nye retter hos .+ siden sidst\./m.test(tekst), 'forkert tekst/tal: ' + tekst);
     const m = await p.evaluate(() => ({ h: document.getElementById('nyt-siden-sidst').getBoundingClientRect().height, vs: document.documentElement.scrollWidth > innerWidth, knap: [...document.querySelectorAll('#nyt-siden-sidst button')].map(k => [k.offsetWidth, k.offsetHeight]) }));
     t(m.h <= 90, 'linjen er over 90 px høj: ' + m.h); t(!m.vs, 'vandret scroll'); t(m.knap.every(([w, h]) => w >= 44 && h >= 44), 'knapper under 44 px: ' + JSON.stringify(m.knap));
+    // (2b) udskrift: linjen er skjult på indkøbssedlen, men synlig på skærmen
+    t(await p.$eval('#nyt-siden-sidst', e => getComputedStyle(e).display) !== 'none', 'linjen er skjult på skærmen');
+    await p.emulateMedia({ media: 'print' });
+    t(await p.$eval('#nyt-siden-sidst', e => getComputedStyle(e).display) === 'none', 'linjen kommer med på udskriften');
+    await p.emulateMedia({ media: 'screen' });
     // (3) mindre end 3 nye: ingen linje
     await p.evaluate(() => { const g = JSON.parse(localStorage.getItem('mj-set')); const k = state.butikker[0]; g.n[k] = data.butikker[k].retter.map(r => r.navn).slice(2); localStorage.setItem('mj-set', JSON.stringify(g)); render(); });
     t(await skjult(p), 'linjen vises ved kun 2 nye retter');
